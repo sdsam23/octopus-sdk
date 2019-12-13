@@ -1,0 +1,21 @@
+export default {
+    'All podcasts' : "Tous les épisodes",
+    'Loading podcasts ...': 'Chargement des épisodes',
+    'Podcast':'Épisode',
+    'Duration': 'Durée : {duration}',
+    'Animated by : ': 'Animé par : ',
+    'Emission': 'Émission',
+    'Producted by : ': 'Produit par : ',
+    'Guests': 'Invités',
+    'Loading content ...': 'Chargement en cours ...',
+    "Podcast doesn't exist" : "L'épisode demandé n'existe pas",
+    'All emissions': 'Toutes les émissions',
+    'Loading emissions ...': 'Chargement des émissions en cours...',
+    'Emission name image': "Image de l'émission {name}",
+    'All participants': 'Tous les intervenants',
+    'Loading participants ...': 'Chargement des intervenants en cours...',
+    'Participant': 'Intervenant',
+    'Podcasts': 'Épisodes',
+    'Emissions': 'Émissions',
+    'Participants': 'Intervenants'
+};

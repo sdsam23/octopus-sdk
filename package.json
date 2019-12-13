@@ -1,0 +1,61 @@
+{
+  "name": "@saooti/octopus-sdk",
+  "version": "0.0.1",
+  "description": "Javascript SDK for using octopus",
+  "main": "index.js",
+  "private": false,
+  "files": ["dist"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saooti/octopus-sdk.git"
+  },
+  "author": "Saooti",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/saooti/octopus-sdk/issues"
+  },
+  "homepage": "https://github.com/saooti/octopus-sdk#readme",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@saooti/octopus-api": "0.0.6",
+    "core-js": "^3.4.3",
+    "humanize-duration": "^3.21.0",
+    "moment": "^2.24.0",
+    "sass": "^1.23.7",
+    "sass-loader": "^8.0.0",
+    "vue": "^2.6.10",
+    "vue-i18n": "^8.15.1",
+    "vue-router": "^3.1.3"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.1.0",
+    "@vue/cli-plugin-eslint": "^4.1.0",
+    "@vue/cli-service": "^4.1.0",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "vue-template-compiler": "^2.6.10"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {},
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}
