@@ -1,10 +1,9 @@
 {
   "name": "@saooti/octopus-sdk",
-  "version": "0.0.1",
+  "version": "0.0.14",
   "description": "Javascript SDK for using octopus",
-  "main": "index.js",
+  "main": "./dist/octopus.common.js",
   "private": false,
-  "files": ["dist"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/saooti/octopus-sdk.git"
@@ -18,13 +17,17 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "build_bundle": "vue-cli-service build --target lib --name octopus ./index.js"
   },
   "dependencies": {
     "@saooti/octopus-api": "0.0.6",
+    "bootstrap": "^4.4.1",
     "core-js": "^3.4.3",
     "humanize-duration": "^3.21.0",
+    "jquery": "^3.4.1",
     "moment": "^2.24.0",
+    "popper.js": "^1.16.0",
     "sass": "^1.23.7",
     "sass-loader": "^8.0.0",
     "vue": "^2.6.10",

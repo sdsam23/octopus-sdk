@@ -1,108 +1,110 @@
 <template>
   <div>
-    <div class="content-container" v-if="loaded && !error">
-      <h1>{{ $t('Podcast') }}</h1>
-      <div class="flex-container">
-        <div class="flex-column-container white-container">
-          <h2 class="text-uppercase">{{ this.podcast.title }}</h2>
-					<!-- <PodcastImage class="shadow-img" v-bind:podcast="podcast" hidePlay='false' /> -->
-					<div class="date-box">
-						<div class="date">{{ date }}</div>
-						<div>{{ $t('Duration', { duration: duration }) }}</div>
-					</div>
-					<div class="text-description">{{ this.podcast.description }}</div>
-					<div class="margin-container">
-						<div class="text-description comma">
-							{{ $t('Animated by : ') }}
-							<router-link
-									class="link-info"
-									v-bind:to="
-									'/participant/' + animator.participantId
-									"
-									v-for="animator in podcast.animators"
-									v-bind:key="animator.participantId"
-							>{{ getName(animator) }}</router-link>
-						</div>
-						<div class="text-description">
-							{{ $t('Emission') + ' : ' }}
-							<router-link
-									class="link-info"
-									v-bind:to="
-									'/emission/' + this.podcast.emission.emissionId
-									"
-							>{{ this.podcast.emission.name }}</router-link>
-						</div>
-						<div class="text-description comma" v-if="podcast.guests">
-							{{ $t('Guests') + ' : ' }}
-							<router-link
-									class="link-info"
-									v-bind:to="'/participant/' + guest.participantId"
-									v-for="guest in podcast.guests"
-									v-bind:key="guest.participantId"
-							>{{ getName(guest) }}</router-link>
-						</div>
-					</div>
+    <div class="page-box" v-if="loaded && !error">
+      <h1>{{ $t('Episode') }}</h1>
+      <div class="d-flex">
+        <div class="d-flex flex-column">
+          <div class="module-box">
+            <h2 class="text-uppercase">{{ this.podcast.title }}</h2>
+            <div class="mb-5 d-flex">
+              <PodcastImage class="shadow-element mr-3" v-bind:podcast="podcast" hidePlay='false' :playingPodcast='playingPodcast' />
+              <div>
+                <div class="date-box">
+                  <div class="date">{{ date }}</div>
+                  <div>{{ $t('Duration', { duration: duration }) }}</div>
+                </div>
+                <div class="description descriptionText">{{ this.podcast.description }}</div>
+                <div class="info-box">
+                  <div class="description comma">
+                    {{ $t('Animated by : ') }}
+                    <router-link
+                      class="link-info"
+                      v-bind:to="
+                        '/main/pub/participant/' + animator.participantId
+                      "
+                      v-for="animator in podcast.animators"
+                      v-bind:key="animator.participantId"
+                    >{{ getName(animator) }}</router-link>
+                  </div>
+                  <div class="description">
+                    {{ $t('Emission') + ' : ' }}
+                    <router-link
+                      class="link-info"
+                      v-bind:to="
+                        '/main/pub/emission/' + this.podcast.emission.emissionId
+                      "
+                    >{{ this.podcast.emission.name }}</router-link>
+                  </div>
+                  <div class="description">
+                    {{ $t('Producted by : ') }}
+                    <router-link
+                      class="link-info"
+                      v-bind:to="'/main/pub/productor/' + podcast.organisation.id"
+                    >{{ this.podcast.organisation.name }}</router-link>
+                  </div>
+                  <div class="description comma" v-if="podcast.guests">
+                    {{ $t('Guests') + ' : ' }}
+                    <router-link
+                      class="link-info"
+                      v-bind:to="'/main/pub/participant/' + guest.participantId"
+                      v-for="guest in podcast.guests"
+                      v-bind:key="guest.participantId"
+                    >{{ getName(guest) }}</router-link>
+                  </div>
+                  <div v-if="editRight">
+                    <div
+                      class="date"
+                      v-if="podcast.annotations && podcast.annotations.RSS"
+                    >{{ $t('From RSS') }}</div>
+                      <div class="alert-text" v-if="!podcast.availability.visibility">
+                        <img src="/img/caution.png" class="icon"/>
+                        {{ $t('Podcast is not visible for listeners') }}
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <EditBox :podcast="podcast" v-if="editRight"></EditBox> -->
+        </div>
+        <div class="column">
+          <SharePlayer
+            :podcast="podcast"
+            :emissionId="podcast.emission.emissionId"
+            class="flex-grow"
+            :exclusive="exclusive"
+            :organisationId='organisationId'
+            v-if="isSharePlayer"
+          ></SharePlayer>
+          <ShareButtons :podcastId="podcastId" class="flex-grow" v-if="isShareButtons"></ShareButtons>
         </div>
       </div>
+     <!--  <PodcastInlineList
+        :emissionId="this.podcast.emission.emissionId"
+        :href="'/main/pub/emission/' + this.podcast.emission.emissionId"
+        :title="$t('More episodes of this emission')"
+        :buttonText="$t('All podcast emission button')"
+      />
+      <PodcastInlineList
+        v-for="c in categories"
+        :key="c.id"
+        :iabId="c.id"
+        :href="'/main/pub/category/' + c.id"
+        :title="$t('More episodes of this category : ', { name: c.name })"
+        :buttonText="$t('All podcast button', { name: c.name })"
+      /> -->
     </div>
-    <div class="loading-box" v-show="!loaded">
+    <div class="loading-box text-center" v-show="!loaded">
       <p>{{ $t('Loading content ...') }}</p>
       <div class="loading loading-lg"></div>
     </div>
-    <div class="loading-box" v-if="error">
+    <div class="loading-box text-center" v-if="error">
       <h2>{{ $t("Podcast doesn't exist") }}</h2>
     </div>
   </div>
 </template>
 
-<style lang="scss">
-@import '../../sass/_variables.scss';
-.content-container {
-  padding: 3rem;
-  border-radius: 2rem 2rem 0 0;
-  background-color: $background;
-}
-.flex-container{
-  display: flex;
-}
-.flex-column-container {
-  display: flex;
-  flex-direction: column;
-}
-.white-container {
-  background-color: #fafafa;
-  padding: 2rem;
-  margin: 1rem 1rem 0 1rem;
-  border-radius: 1rem;
-  flex-grow: 1;
-}
-.text-uppercase{
-  text-transform: uppercase;
-}
-.date-box {
-  display: flex;
-  align-items: left;
-  flex-wrap: wrap;
-  font-size: 0.9rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-  color: grey;
-  .date {
-    margin-right: 5rem;
-  }
-}
-.text-description {
-  font-weight: 500;
-  font-size: 0.8rem;
-  .link-info {
-    font-weight: bold;
-    color: $primary-color;
-    cursor: pointer;
-  }
-}
-.margin-container {
-  margin: 1rem 0 1.5rem;
-}
+<style lang="scss" scoped>
 .comma {
   > a {
     text-transform: capitalize;
@@ -116,54 +118,34 @@
     }
   }
 }
-@media (max-width: 1200px) {
-  .content-container {
-    padding: 1rem;
-    .img-box {
-      float: none;
-      margin: 1rem auto;
-    }
-  }
-}
-/** PHONES*/
-@media (max-width: 960px) {
-  .white-container{
-    margin: 1rem;
-  }
-}
-
-@media (max-width: 400px) {
-  h1 {
-    margin-bottom: 0.5rem;
-  }
-  .white-container{
-    margin: 0;
-    padding: 0.3rem;
-  }
-  .pcontent-container {
-    padding: 0.3rem;
-  }
-}
 </style>
 
-
 <script>
-/* import PodcastImage from "@/components/display/podcasts/PodcastImage.vue"; */
-import octopusApi from '@saooti/octopus-api';
+// @ is an alias to /src
+/* import EditBox from "@/components/display/edit/EditBox.vue";*/
+import SharePlayer from "@/components/display/sharing/SharePlayer.vue";
+import ShareButtons from "@/components/display/sharing/ShareButtons.vue";
+/*import PodcastInlineList from "@/components/display/podcasts/PodcastInlineList.vue"; */
+import PodcastImage from "@/components/display/podcasts/PodcastImage.vue";
+import octopusApi from "@saooti/octopus-api";
+import parameters from "@/store/AppStore.js";
 const moment = require("moment");
 const humanizeDuration = require("humanize-duration");
 
 export default {
-  /* components: {
+  components: {
+    /* PodcastInlineList, */
     PodcastImage,
-  }, */
+    ShareButtons,
+    SharePlayer,
+    /*EditBox */
+  },
 
   mounted() {
-    this.podcastId = 538;
     this.getPodcastDetails(this.podcastId);
   },
 
-  props: ["podcastId"],
+  props: ["podcastId", "playingPodcast"],
 
   data() {
     return {
@@ -175,6 +157,55 @@ export default {
   },
 
   computed: {
+    isEditBox(){
+      return parameters.podcastPage.EditBox;
+    },
+    isShareButtons(){
+      return parameters.podcastPage.ShareButtons;
+    },
+    isSharePlayer(){
+      return parameters.podcastPage.SharePlayer;
+    },
+    allCategories(){
+      return parameters.generalParameters.allCategories;
+    },
+    organisationId(){
+      return parameters.generalParameters.organisationId;
+    },
+    authenticated(){
+      return parameters.generalParameters.authenticated;
+    },
+    emissionMainCategory() {
+      if (
+        this.podcast.emission.annotations &&
+        this.podcast.emission.annotations.mainIabId
+      ) {
+        return parseInt(this.podcast.emission.annotations.mainIabId, 10);
+      } else if (
+        this.podcast.emission.iabIds &&
+        this.podcast.emission.iabIds.length
+      ) {
+        return this.podcast.emission.iabIds[0];
+      } else {
+        return 0;
+      }
+    },
+
+    categories() {
+      if (typeof this.podcast !== "undefined") {
+        return this.allCategories
+          .filter(item => {
+            return this.podcast.emission.iabIds.indexOf(item.id) !== -1;
+          })
+          .sort((a, b) => {
+            if (a.id === this.emissionMainCategory) return -1;
+            if (b.id === this.emissionMainCategory) return 1;
+            return 0;
+          });
+      } else {
+        return "";
+      }
+    },
 
     date() {
       return moment(this.podcast.pubDate).format("D MMMM YYYY [à] HH[h]mm");
@@ -187,6 +218,18 @@ export default {
         round: true
       });
     },
+
+    editRight() {
+      if (this.authenticated) {
+        if (this.organisationId === this.podcast.organisation.id) {
+          return true;
+        }
+        if (parameters.generalParameters.isAdmin) {
+          return true;
+        }
+      }
+      return false;
+    }
   },
 
   watch: {
@@ -203,6 +246,21 @@ export default {
         .fetchPodcast(podcastId)
         .then(data => {
           this.podcast = data;
+          if (
+            this.podcast.emission.annotations &&
+            this.podcast.emission.annotations.exclusive
+          ) {
+            this.exclusive =
+              this.podcast.emission.annotations.exclusive == "true"
+                ? true
+                : false;
+            this.exclusive =
+              this.exclusive &&
+              this.organisationId !== this.podcast.organisation.id;
+          }
+          if(!this.podcast.availability.visibility && !this.editRight){
+            this.error= true;
+          }
           this.loaded = true;
         })
         .catch(() => {

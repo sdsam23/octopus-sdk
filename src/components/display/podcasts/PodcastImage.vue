@@ -1,0 +1,200 @@
+<template>
+  <div
+    class="img-box"
+    :style="{ 'background-image': 'url(\'' + podcast.imageUrl + '\')' }"
+    v-if="podcast"
+  >
+    <div class="play-button" v-on:click="play" v-if="hidePlay">
+      <div class="icon-container">
+        <div
+          class="saooti-play2-bounty text-primary"
+          v-show="!playingPodcast"
+        ></div>
+        <div class="bloc-paddle" v-show="playingPodcast">
+          <span class="paddle1 text-primary"></span>
+          <span class="paddle2 text-primary"></span>
+          <span class="paddle3 text-primary"></span>
+        </div>
+      </div>
+    </div>
+    <div class="icon icon-arrow-up" v-if="!isDescription && displayDescription && isMobile" @click="showDescription"></div>
+    <div class="icon icon-arrow-down" v-if="isDescription && displayDescription && isMobile" @click="showDescription"></div>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+@import '../../../sass/_variables.scss';
+.text-primary{
+  color: $octopus-primary-color;
+}
+.img-box {
+  height: 13rem;
+  width: 13rem;
+  position: relative;
+  border-radius: 0.5rem;
+  background-size: cover;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: flex-start;
+  padding: 0.5rem;
+  flex-shrink: 0;
+
+  .icon{
+    background: $octopus-primary-color;
+    border-radius: 50%;
+    width: 1rem;
+    height: 1rem;
+    right: 0;
+    bottom: 0;
+    margin: 5px;
+    position: absolute;
+    cursor: pointer;
+    z-index: 3;
+  }
+
+  .play-button {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    .icon-container {
+      background: #00000050;
+      border-radius: 50%;
+      height: 3rem;
+      width: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  
+      &:hover {
+        background: #00000030;;
+      }
+
+      > .saooti-play2-bounty {
+        font-size: 2em;
+        position: relative;
+        right: -0.2rem;
+      }
+      z-index: 2;
+
+      .bloc-paddle {
+        align-items: flex-end;
+        display: flex;
+        width: 2rem;
+        height: 2.6rem;
+        padding: 0.7rem;
+        justify-content: space-around;
+        align-content: flex-start;
+        border-radius: 50%;
+        background: transparent !important;
+
+        > span {
+          width: 0.1rem;
+          background: #fff;
+        }
+
+        .paddle1 {
+          animation-duration: 0.6s;
+          animation-name: slidein;
+          animation-iteration-count: infinite;
+          animation-direction: alternate;
+        }
+
+        .paddle2 {
+          animation-duration: 0.3s;
+          animation-name: slidein2;
+          animation-iteration-count: infinite;
+          animation-direction: alternate;
+        }
+
+        .paddle3 {
+          animation-duration: 0.5s;
+          animation-name: slidein3;
+          animation-iteration-count: infinite;
+          animation-direction: alternate;
+        }
+      }
+    }
+
+    @keyframes slidein {
+      0% {
+        height: 0;
+      }
+      100% {
+        height: 1rem;
+      }
+    }
+
+    @keyframes slidein2 {
+      0% {
+        height: 0.3rem;
+      }
+      100% {
+        height: 1.2rem;
+      }
+    }
+
+    @keyframes slidein3 {
+      0% {
+        height: 1.2rem;
+      }
+      100% {
+        height: 0;
+      }
+    }
+  }
+}
+</style>
+
+<script>
+
+export default {
+  name: 'PodcastImage',
+
+  props: ['podcast', 'hidePlay', 'displayDescription', 'arrowDirection', 'playingPodcast'],
+
+  computed: {
+    isMobile(){
+      return window.matchMedia( "(hover: none)" ).matches;
+    }
+  },
+
+  data() {
+    return {
+      isDescription : false,
+    };
+  },
+
+  methods: {
+    play() {
+      this.$store.commit('playerPlayPodcast', this.podcast);
+    },
+    showDescription(){
+      if(this.isDescription){
+        this.$emit('hideDescription');
+      }else {
+         this.$emit('showDescription');
+      }
+      this.isDescription = !this.isDescription;
+    }
+  },
+
+  watch:{
+    arrowDirection(newValue){
+      if(newValue === 'up'){
+        this.isDescription = true;
+        this.showDescription();
+      }else{
+        this.isDescription = false;
+        this.showDescription();
+      }
+    }
+  }
+};
+</script>
