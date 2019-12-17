@@ -98,6 +98,8 @@ a:hover{
   height: 13rem;
   width: 13rem;
   background-size: cover;
+  border-radius: 1rem;
+  margin: 0 1rem 1rem 0;
 }
 
 .background-icon{
@@ -124,6 +126,16 @@ a:hover{
   outline: transparent;
   width: 350px;
   margin-bottom: 1rem;
+}
+
+.filter-search-input{
+  flex-grow: 1;
+  height: 2rem;
+  margin: 1rem;
+  padding: 1.2rem;
+  border-radius: 2rem;
+  border-style: none;
+  background: white;
 }
 
 .comma {
@@ -181,6 +193,7 @@ a:hover{
     border-color: $octopus-primary-color;
     border-radius: 50px;
     height: auto;
+    border-bottom: 0 solid transparent;
     &:focus,
     &:hover {
       background:$octopus-third-color;

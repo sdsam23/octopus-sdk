@@ -11,7 +11,7 @@
     <PodcastList :first="first" :size="size" :organisationId='organisationId' :query='searchPattern' :monetization="monetization"/>
   </div>
 </template>
-<style lang="scss" scoped>
+<style lang="scss">
 </style>
 <script>
 // @ is an alias to /src

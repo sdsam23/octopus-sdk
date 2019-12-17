@@ -31,7 +31,7 @@
   </li>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .podcast-item-container {
   border-radius: 0.5rem;
   list-style: none;

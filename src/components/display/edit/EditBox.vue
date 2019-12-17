@@ -16,7 +16,7 @@
             <div class="saooti-delete font-weight-bold"></div>
         </button>
     </div>
-    <!-- <PodcastDeleter
+ <!--    <PodcastDeleter
       :podcast="podcastToDelete"
       :emission="emissionToDelete"
       v-if="!!podcastToDelete || !!emissionToDelete"
@@ -45,9 +45,9 @@
 /* import PodcastDeleter from "@/components/display/backoffice/PodcastDeleter.vue"; */
 
 export default {
-  /* components: {
-    PodcastDeleter
-  }, */
+  components: {
+    /* PodcastDeleter */
+  },
   props: ['podcast', 'emission', 'rssEmission'],
 
   data() {

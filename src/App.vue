@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <!-- <Podcast podcastId='473' :playingPodcast='false'/> -->
-    <Podcasts/>
+    <!-- <Podcasts/> -->
+    <Emission emissionId='110'/>
   </div>
 </template>
 <style lang="scss" src="@/assets/multiselect.scss"></style>
@@ -10,13 +11,16 @@
 </style>
 
 <script>
-import Podcasts from '@/components/pages/Podcasts.vue'
+/* import Podcasts from '@/components/pages/Podcasts.vue' */
 /* import Podcast from '@/components/pages/Podcast.vue' */
+import Emission from '@/components/pages/Emission.vue'
 
 export default {
   name: 'app',
   components: {
-    Podcasts
+    /* Podcasts, */
+    /* Podcast, */
+    Emission
   }
 }
 </script>

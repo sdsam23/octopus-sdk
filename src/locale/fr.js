@@ -231,6 +231,7 @@ export default {
     Embed: 'Intégrer',
     Share: 'Partager',
     'Copy code': 'Copier le code',
+    'Copy': 'Copier',
     'You can change your file': 'Changer le contenu téléversé',
     Change: 'Changer',
     'My uploaded podcasts': 'Mes épisodes',
@@ -369,6 +370,8 @@ export default {
     'Confirm participant deletion': "Confirmer la suppression de l'intervenant",
     'Confirm participant deletion text':
       "Êtes-vous sûr de vouloir supprimer l'intervenant {name} ?",
-    'Delete participant not possible because he is an animator': "La suppression de cet intervenant est interdite car il est le seul animateur d'un épisode."
+    'Delete participant not possible because he is an animator': "La suppression de cet intervenant est interdite car il est le seul animateur d'un épisode.",
+    'Distribute' : 'Distribuer',
+    'Rss feed:' : 'Flux RSS:'
   };
   
