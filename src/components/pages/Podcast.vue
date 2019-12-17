@@ -5,18 +5,17 @@
       <div class="d-flex">
         <div class="d-flex flex-column">
           <div class="module-box">
-            <h2 class="text-uppercase">{{ this.podcast.title }}</h2>
-            <div class="mb-5 d-flex">
+            <h2 class="text-uppercase font-weight-bold h3">{{ this.podcast.title }}</h2>
+            <div class="mb-5 d-flex h6">
               <PodcastImage class="shadow-element mr-3" v-bind:podcast="podcast" hidePlay='false' :playingPodcast='playingPodcast' />
               <div>
-                <div class="date-box">
-                  <div class="date">{{ date }}</div>
+                <div class="d-flex align-items-left flex-wrap text-secondary mb-3">
+                  <div class="mr-5">{{ date }}</div>
                   <div>{{ $t('Duration', { duration: duration }) }}</div>
                 </div>
-                <div class="description descriptionText">{{ this.podcast.description }}</div>
-                <div class="info-box">
-                  <div class="description comma">
-                    {{ $t('Animated by : ') }}
+                <div>{{ this.podcast.description }}</div>
+                <div class="mt-3 mb-3">
+                  <div class="comma">{{ $t('Animated by : ') }}
                     <router-link
                       class="link-info"
                       v-bind:to="
@@ -26,8 +25,7 @@
                       v-bind:key="animator.participantId"
                     >{{ getName(animator) }}</router-link>
                   </div>
-                  <div class="description">
-                    {{ $t('Emission') + ' : ' }}
+                  <div>{{ $t('Emission') + ' : ' }}
                     <router-link
                       class="link-info"
                       v-bind:to="
@@ -35,15 +33,13 @@
                       "
                     >{{ this.podcast.emission.name }}</router-link>
                   </div>
-                  <div class="description">
-                    {{ $t('Producted by : ') }}
+                  <div>{{ $t('Producted by : ') }}
                     <router-link
                       class="link-info"
                       v-bind:to="'/main/pub/productor/' + podcast.organisation.id"
                     >{{ this.podcast.organisation.name }}</router-link>
                   </div>
-                  <div class="description comma" v-if="podcast.guests">
-                    {{ $t('Guests') + ' : ' }}
+                  <div class="comma" v-if="podcast.guests">{{ $t('Guests') + ' : ' }}
                     <router-link
                       class="link-info"
                       v-bind:to="'/main/pub/participant/' + guest.participantId"
@@ -53,7 +49,7 @@
                   </div>
                   <div v-if="editRight">
                     <div
-                      class="date"
+                      class="mr-5"
                       v-if="podcast.annotations && podcast.annotations.RSS"
                     >{{ $t('From RSS') }}</div>
                       <div class="alert-text" v-if="!podcast.availability.visibility">
@@ -65,9 +61,9 @@
               </div>
             </div>
           </div>
-          <!-- <EditBox :podcast="podcast" v-if="editRight"></EditBox> -->
+          <EditBox :podcast="podcast" v-if="editRight && isEditBox"></EditBox>
         </div>
-        <div class="column">
+        <div class="d-flex flex-column">
           <SharePlayer
             :podcast="podcast"
             :emissionId="podcast.emission.emissionId"
@@ -79,7 +75,7 @@
           <ShareButtons :podcastId="podcastId" class="flex-grow" v-if="isShareButtons"></ShareButtons>
         </div>
       </div>
-     <!--  <PodcastInlineList
+      <PodcastInlineList
         :emissionId="this.podcast.emission.emissionId"
         :href="'/main/pub/emission/' + this.podcast.emission.emissionId"
         :title="$t('More episodes of this emission')"
@@ -92,40 +88,24 @@
         :href="'/main/pub/category/' + c.id"
         :title="$t('More episodes of this category : ', { name: c.name })"
         :buttonText="$t('All podcast button', { name: c.name })"
-      /> -->
+      />
     </div>
-    <div class="loading-box text-center" v-show="!loaded">
-      <p>{{ $t('Loading content ...') }}</p>
-      <div class="loading loading-lg"></div>
+    <div class="d-flex justify-content-center" v-if="!loaded">
+      <div class="spinner-border mr-3"></div>
+      <h3>{{ $t('Loading content ...') }}</h3>
     </div>
-    <div class="loading-box text-center" v-if="error">
-      <h2>{{ $t("Podcast doesn't exist") }}</h2>
+    <div class="text-center" v-if="error">
+      <h3>{{ $t("Podcast doesn't exist") }}</h3>
     </div>
   </div>
 </template>
 
-<style lang="scss" scoped>
-.comma {
-  > a {
-    text-transform: capitalize;
-    &:after {
-      content: ", ";
-    }
-    &:last-child {
-      &:after {
-        content: "";
-      }
-    }
-  }
-}
-</style>
-
 <script>
 // @ is an alias to /src
-/* import EditBox from "@/components/display/edit/EditBox.vue";*/
+import EditBox from "@/components/display/edit/EditBox.vue";
 import SharePlayer from "@/components/display/sharing/SharePlayer.vue";
 import ShareButtons from "@/components/display/sharing/ShareButtons.vue";
-/*import PodcastInlineList from "@/components/display/podcasts/PodcastInlineList.vue"; */
+import PodcastInlineList from "@/components/display/podcasts/PodcastInlineList.vue";
 import PodcastImage from "@/components/display/podcasts/PodcastImage.vue";
 import octopusApi from "@saooti/octopus-api";
 import parameters from "@/store/AppStore.js";
@@ -134,11 +114,11 @@ const humanizeDuration = require("humanize-duration");
 
 export default {
   components: {
-    /* PodcastInlineList, */
+    PodcastInlineList,
     PodcastImage,
     ShareButtons,
     SharePlayer,
-    /*EditBox */
+    EditBox
   },
 
   mounted() {

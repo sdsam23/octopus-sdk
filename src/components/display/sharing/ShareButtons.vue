@@ -1,18 +1,18 @@
 <template>
   <div>
-    <div class="bg-white">
+    <div class="module-box text-center-mobile">
       <h3>{{ $t('Share') }}</h3>
-      <div class="share-container">
-        <a target="_blank" :href="facebookURL" class="btn btn-round btn-facebook">
+      <div class="d-flex">
+        <a target="_blank" :href="facebookURL" class="btn btn-circle m-3 btn-facebook share-btn">
           <span class="saooti-facebook-bounty"></span>
         </a>
-        <a target="_blank" class="btn btn-round btn-twitter" :href="twitterURL">
+        <a target="_blank" class="btn btn-circle m-3 btn-twitter share-btn" :href="twitterURL">
           <span class="saooti-twitter-bounty"></span>
         </a>
-        <a target="_blank" class="btn btn-round btn-linkedin" :href="linkedinURL">
+        <a target="_blank" class="btn btn-circle m-3 btn-linkedin share-btn" :href="linkedinURL">
           <span class="saooti-linkedin1"></span>
         </a>
-        <a target="_blank" class="btn btn-round btn-rss" :href="rssUrl" v-if="rssUrl">
+        <a target="_blank" class="btn btn-circle m-3 btn-rss share-btn" :href="rssUrl" v-if="rssUrl">
           <span class="saooti-rss-bounty"></span>
         </a>
       </div>
@@ -20,73 +20,43 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
-@import '../../../sass/_variables.scss';
-.bg-white {
-  background-color: $octopus-secondary-background;
-  padding: 2rem;
-  margin: 1rem 1rem 4rem 1rem;
-  border-radius: 1rem;
-  flex-grow: 1;
-}
+<style lang="scss">
 
-.share-container {
-  display: flex;
-
-  .btn-round {
+  .share-btn {
     font-size: 1.5rem;
-    border-radius: 50%;
-    margin: 0.2rem;
-    width: 2.5rem;
-    height: 2.5rem;
-    padding-top: 0.5rem;
+    width: 3rem;
+    height: 3rem;
+    padding: 0.5rem;
   }
-  .btn {
-    border-radius: 3rem;
-    margin: 1rem;
-    background: #ddd;
+  .btn-rss {
+    background: #ddd !important;
     &:hover {
       border: 0;
-      background: #ccc;
+      background: #ccc !important;
     }
   }
   .btn-facebook {
-    background: #d8dfea;
-    color: #3b5998;
+    background: #d8dfea !important;
+    color: #3b5998 !important;
     &:hover {
-      background: #afbdd4;
+      background: #afbdd4 !important;
     }
   }
   .btn-twitter {
-    background: #d2ecfc;
-    color: #1da1f2;
+    background: #d2ecfc !important;
+    color: #1da1f2 !important;
     &:hover {
-      background: #bbe3fb;
+      background: #bbe3fb !important;
     }
   }
   .btn-linkedin {
-    background: #0077b550;
-    color: #0077b5;
+    background: #0077b550 !important;
+    color: #0077b5 !important;
     &:hover {
-      background: #00a0dc;
+      background: #00a0dc !important;
     }
   }
-}
 
-/** PHONES*/
-@media (max-width: 960px) {
-  .bg-white {
-    margin: 1rem 0 2rem 0;
-    padding: 1rem;
-  }
-  .share-container {
-    text-align: center;
-    flex-wrap: wrap;
-    .btn {
-      margin: 0.5rem;
-    }
-  }
-}
 </style>
 
 <script>

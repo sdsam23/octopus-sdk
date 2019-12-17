@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <Podcast podcastId='473' :playingPodcast='false'/>
+    <!-- <Podcast podcastId='473' :playingPodcast='false'/> -->
+    <Podcasts/>
   </div>
 </template>
 
@@ -9,12 +10,13 @@
 </style>
 
 <script>
-import Podcast from '@/components/pages/Podcast.vue'
+import Podcasts from '@/components/pages/Podcasts.vue'
+/* import Podcast from '@/components/pages/Podcast.vue' */
 
 export default {
   name: 'app',
   components: {
-    Podcast
+    Podcasts
   }
 }
 </script>

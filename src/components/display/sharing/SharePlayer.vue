@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="bg-white share-container">
+    <div class="module-box text-center-mobile">
       <h3>{{ $t('Embed') }}</h3>
-      <div class="frame-container" v-if="!exclusive && authenticated">
+      <div class="d-flex flex-column align-items-center" v-if="!exclusive && authenticated">
         <div v-if="noAd" class="sticker" :title="$t('You cannot insert advertising')">
           {{ $t('No advertising') }}
         </div>
@@ -13,24 +13,24 @@
           :width="iFrameWidth"
           :height="iFrameHeight"
         ></iframe>
-        <div class="flex-container-columns">
+        <div class="d-flex flex-column">
           <button class="btn" @click="onCopyCode">
             {{ $t('Copy code') }}
           </button>
-          <select v-model="iFrameModel" class="frame-select" v-if="this.podcast && this.podcast.podcastId">
+          <select v-model="iFrameModel" class="input-share-player m-3 p-2 input-no-outline" v-if="this.podcast && this.podcast.podcastId">
             <option value="default">Version par défaut</option>
             <option value="large">Version en longueur</option>
             <option value="emission">Version émission</option>
           </select>
         </div>
-        <div class="flex-container" v-if="iFrameModel === 'emission'">
+        <div class="d-flex" v-if="iFrameModel === 'emission'">
           <span>{{ $t('Show') }}</span>
           <input
             type="number"
             v-model="iFrameNumber"
             min="1"
             max="10"
-            class="frame-number"
+            class="input-share-player input-no-outline text-align-center"
           />
           <span>{{ $t('Last podcasts') }}</span>
         </div>
@@ -46,56 +46,18 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '../../../sass/_variables.scss';
-.flex-container {
-  display: flex;
-}
-.flex-container-columns {
-  display: flex;
-  flex-direction: column;
-}
-.bg-white {
-  background-color: $octopus-secondary-background;
-  padding: 2rem;
-  margin: 1rem 1rem 1rem 1rem;
-  border-radius: 1rem;
-  flex-grow: 1;
-}
-.frame-container {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  h3 {
-    margin: 0;
-  }
-  .flex-container {
-    align-items: center;
-    margin: 1rem 0;
-    span {
-      font-size: 0.8em;
-    }
-  }
-}
 
-.frame-select {
-  border-radius: 3rem;
-  margin: 1rem;
-  background: #ddd;
-  padding: 0.25rem 0.4rem;
-}
-.frame-number {
-  margin: 0 1rem;
-  text-align: center;
-  border-radius: 3rem;
-  width: 100px;
+.input-share-player{
   border: 1px solid #ddd;
+  border-radius: 50px;
+  font-size: 1rem;
+  input[type=number]{
+    margin: 0 1rem;
+    width: 100px;
+  }
 }
-.frame-select:focus,
-.frame-number:focus {
-  outline-width: 0;
-}
-
 .sticker{
   align-self:center;
   background:rgba($octopus-primary-color, 0.3);
@@ -111,20 +73,6 @@
     &:hover{
       box-shadow:2px 8px 4px -6px hsla(0,0%,0%,.3);
   } 
-}
-
-
-/** PHONES*/
-@media (max-width: 960px) {
-  .bg-white {
-    margin: 1rem 0 1rem 0;
-    }
-  .flex-container {
-    flex-wrap: wrap;
-  }
-  .share-container {
-    text-align: center;
-  }
 }
 </style>
 

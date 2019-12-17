@@ -6,7 +6,10 @@ import VueI18n from 'vue-i18n';
 import I18nResources from '@/locale/messages';
 import octopusApi from '@saooti/octopus-api';
 import router from '@/router/router';
+import moment from 'moment';
 
+
+moment.locale('fr');
 Vue.config.productionTip = false;
 
 //Gestion de l'i18n
