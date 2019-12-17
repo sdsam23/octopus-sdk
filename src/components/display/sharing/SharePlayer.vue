@@ -23,14 +23,14 @@
             <option value="emission">Version émission</option>
           </select>
         </div>
-        <div class="d-flex" v-if="iFrameModel === 'emission'">
+        <div class="d-flex align-items-center mt-3" v-if="iFrameModel === 'emission'">
           <span>{{ $t('Show') }}</span>
           <input
             type="number"
             v-model="iFrameNumber"
             min="1"
             max="10"
-            class="input-share-player input-no-outline text-align-center"
+            class="input-share-player input-no-outline text-align-center m-2"
           />
           <span>{{ $t('Last podcasts') }}</span>
         </div>

@@ -2,7 +2,8 @@
   <div id="app">
     <!-- <Podcast podcastId='473' :playingPodcast='false'/> -->
     <!-- <Podcasts/> -->
-    <Emission emissionId='110'/>
+    <!-- <Emission emissionId='110'/> -->
+    <Emissions/>
   </div>
 </template>
 <style lang="scss" src="@/assets/multiselect.scss"></style>
@@ -13,14 +14,16 @@
 <script>
 /* import Podcasts from '@/components/pages/Podcasts.vue' */
 /* import Podcast from '@/components/pages/Podcast.vue' */
-import Emission from '@/components/pages/Emission.vue'
+/* import Emission from '@/components/pages/Emission.vue' */
+import Emissions from '@/components/pages/Emissions.vue'
 
 export default {
   name: 'app',
   components: {
     /* Podcasts, */
     /* Podcast, */
-    Emission
+    /* Emission */
+    Emissions
   }
 }
 </script>
