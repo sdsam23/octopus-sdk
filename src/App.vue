@@ -4,7 +4,7 @@
     <Podcasts/>
   </div>
 </template>
-
+<style lang="scss" src="@/assets/multiselect.scss"></style>
 <style lang="scss">
 @import 'src/assets/general.scss';
 </style>

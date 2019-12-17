@@ -1,12 +1,13 @@
 <template>
   <div class="page-box">
     <h1>{{ $t('All podcasts') }}</h1>
-<!--     <ProductorSearch 
+    <ProductorSearch 
       :organisationId='organisationId' 
       :searchPattern='searchPattern'
       @updateOrganisationId='updateOrganisationId'
-      @updateSearchPattern='updateSearchPattern' />
-    <MonetizableFilter @updateMonetization='updateMonetization' :isEmission='false'/> -->
+      @updateSearchPattern='updateSearchPattern'
+      v-if="isProductorSearch" />
+    <MonetizableFilter @updateMonetization='updateMonetization' :isEmission='false' v-if="isMonetizableFilter"/>
     <PodcastList :first="first" :size="size" :organisationId='organisationId' :query='searchPattern' :monetization="monetization"/>
   </div>
 </template>
@@ -16,14 +17,14 @@
 // @ is an alias to /src
 import PodcastList from '@/components/display/podcasts/PodcastList.vue';
 import parameters from "@/store/AppStore.js";
-/* import ProductorSearch from '@/components/display/filter/ProductorSearch.vue';
-import MonetizableFilter from '@/components/display/filter/MonetizableFilter.vue'; */
+import ProductorSearch from '@/components/display/filter/ProductorSearch.vue';
+import MonetizableFilter from '@/components/display/filter/MonetizableFilter.vue';
 
 export default {
   components: {
     PodcastList,
-/*     ProductorSearch,
-    MonetizableFilter */
+    ProductorSearch,
+    MonetizableFilter
   },
 
   created() {
@@ -52,6 +53,15 @@ export default {
       organisationId: undefined,
       monetization: undefined
     };
+  },
+
+  computed:{
+    isProductorSearch(){
+      return parameters.podcastsPage.ProductorSearch;
+    },
+    isMonetizableFilter(){
+      return parameters.podcastsPage.MonetizableFilter;
+    },
   },
 
   methods:{

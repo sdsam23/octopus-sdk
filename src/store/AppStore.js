@@ -1,6 +1,6 @@
 export default {
   generalParameters : {
-    organisationId : undefined,
+    organisationId : 'ecbd98d9-79bd-4312-ad5e-fc7c1c4a191c',
     authenticated: true,
     isAdmin: true,
     ApiUri : 'https://api.staging.saooti.org/',
@@ -44,5 +44,13 @@ export default {
     SharePlayer : true,
     ShareButtons : true,
     MiniplayerUri : 'https://player.staging.saooti.org/'
+  },
+  podcastsPage : {
+    ProductorSearch : true,
+    MonetizableFilter : true,
+  },
+  organisation : {
+    imageUrl : '/img/emptypodcast.png',
+    name: 'Saooti'
   }
 };

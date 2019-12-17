@@ -113,6 +113,19 @@ a:hover{
   z-index: 3;
 }
 
+.basic-select{
+  background: white;
+  min-height: 40px;
+  text-align: left;
+  color: #35495e;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  border-style: none;
+  outline: transparent;
+  width: 350px;
+  margin-bottom: 1rem;
+}
+
 .comma {
   > a {
     text-transform: capitalize;
