@@ -29,15 +29,6 @@
 </template>
 
 <style lang="scss">
-
-.admin-button {
-  margin: 1em 1rem 0.5rem 0;
-  height: 3rem !important;
-  width: 3rem;
-  font-size: 1.5rem;
-  display: inline-flex;
-  align-items: center;
-}
 </style>
 
 <script>

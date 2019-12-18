@@ -1,5 +1,5 @@
 <template>
-  <div class="category-chooser-container" :style="{ width: width }">
+  <div class="w-100" :style="{ width: width }">
     <Multiselect
       v-model="category"
       id="ajax"
@@ -24,14 +24,14 @@
       @select="onEmissionSelected"
     >
       <template slot="singleLabel" slot-scope="props">
-        <div class="proposition">
+        <div class="multiselect-octopus-proposition">
           <span class="option__title">
             {{ props.option.name }}
           </span>
         </div>
       </template>
       <template slot="option" slot-scope="props">
-        <div class="proposition">
+        <div class="multiselect-octopus-proposition">
           <span class="option__title">{{ props.option.name }}</span>
         </div>
       </template>
@@ -39,37 +39,16 @@
       <span slot="noResult">
         {{ $t('No elements found. Consider changing the search query.') }}
       </span>
+      <span class="saooti-arrow_down octopus-arrow-down" slot="caret"></span>
     </Multiselect>
   </div>
 </template>
 
 <style lang="scss">
-.category-chooser-container {
-  width: 100%;
-
-  .proposition {
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    .option__title {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-  }
-  .multiselect__tags {
-    border-radius: 0.3rem;
-        padding: 12px 40px 2px 20px;
-  }
-  .multiselect__tag{
-    color: black;
-    background: #e6f3ed;
-  }
-}
 </style>
 <script>
 import Multiselect from 'vue-multiselect';
+import parameters from "@/store/AppStore.js";
 
 const getDefaultCategory = defaultName => {
   if(defaultName !== undefined){
@@ -95,7 +74,7 @@ export default {
 
   computed: {
     allCategories(){
-      return this.$store.state.categories;
+      return parameters.generalParameters.allCategories;
     }
   },
 

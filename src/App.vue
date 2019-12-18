@@ -3,7 +3,9 @@
     <!-- <Podcast podcastId='473' :playingPodcast='false'/> -->
     <!-- <Podcasts/> -->
     <!-- <Emission emissionId='110'/> -->
-    <Emissions/>
+    <!-- <Participant participantId='326' /> -->
+    <!-- <Emissions/> -->
+    <Participants />
   </div>
 </template>
 <style lang="scss" src="@/assets/multiselect.scss"></style>
@@ -15,15 +17,19 @@
 /* import Podcasts from '@/components/pages/Podcasts.vue' */
 /* import Podcast from '@/components/pages/Podcast.vue' */
 /* import Emission from '@/components/pages/Emission.vue' */
-import Emissions from '@/components/pages/Emissions.vue'
+/* import Emissions from '@/components/pages/Emissions.vue' */
+/* import Participant from '@/components/pages/Participant.vue' */
+import Participants from '@/components/pages/Participants.vue'
 
 export default {
   name: 'app',
   components: {
     /* Podcasts, */
     /* Podcast, */
-    /* Emission */
-    Emissions
+    /* Emission, */
+    /* Emissions, */
+    /* Participant */
+    Participants
   }
 }
 </script>

@@ -101,6 +101,15 @@ a:hover{
   border-radius: 2rem;
 }
 
+.img-box-circle {
+  height: 10rem;
+  width: 10rem;
+  position: relative;
+  border-radius: 50%;
+  background-size: cover;
+  box-shadow: 0 0.2rem 1rem rgba(48, 55, 66, 0.3);
+}
+
 .background-icon{
   background: $octopus-primary-color;
   border-radius: 50%;
@@ -135,6 +144,21 @@ a:hover{
   border-radius: 2rem;
   border-style: none;
   background: white;
+}
+
+.admin-button {
+  margin: 1em 1rem 0.5rem 0;
+  height: 3rem !important;
+  width: 3rem;
+  font-size: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+.icon-caution{
+  margin-right: 5px;
+  margin-bottom: 5px;
+  height: 15px;
 }
 
 .comma {
