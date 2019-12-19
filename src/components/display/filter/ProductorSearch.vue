@@ -1,6 +1,6 @@
 <template>
 	<div class="d-flex align-items-center">
-			<div class="filter-organisation-chooser">
+			<div class="filter-organisation-chooser" v-if="!isPodcastmaker">
 			<OrganisationChooser
 					:defaultanswer="$t('No organisation filter')"
 					@selected="onOrganisationSelected"
@@ -74,15 +74,6 @@
   margin-right: 10%;
   position: relative;
 }
-.filter-search-input{
-  flex-grow: 1;
-  height: 2rem;
-  margin: 1rem;
-  padding: 1.2rem;
-  border-radius: 2rem;
-  border-style: none;
-  background: white;
-}
 </style>
 <script>
 // @ is an alias to /src
@@ -111,6 +102,12 @@ export default {
       keepOrganisation: false,
       showBubble: false,
     };
+  },
+
+  computed:{
+    isPodcastmaker(){
+      return parameters.generalParameters.podcastmaker;
+    },
   },
 
   methods:{

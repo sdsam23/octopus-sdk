@@ -20,6 +20,7 @@
 // @ is an alias to /src
 import ParticipantList from '@/components/display/participant/ParticipantList.vue';
 import ProductorSearch from '@/components/display/filter/ProductorSearch.vue';
+import parameters from "@/store/AppStore.js";
 
 export default {
   components: {
@@ -40,8 +41,8 @@ export default {
     }
      if (this.$route.query.productor) {
       this.$data.organisationId = this.$route.query.productor;
-    } else if (this.$store.state.filter.organisationId) {
-      this.$data.organisationId = this.$store.state.filter.organisationId;
+    } else if (parameters.filter.organisationId) {
+      this.$data.organisationId = parameters.filter.organisationId;
     }
   },
 

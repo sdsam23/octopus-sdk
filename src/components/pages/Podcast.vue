@@ -33,7 +33,7 @@
                       "
                     >{{ this.podcast.emission.name }}</router-link>
                   </div>
-                  <div>{{ $t('Producted by : ') }}
+                  <div v-if="!isPodcastmaker">{{ $t('Producted by : ') }}
                     <router-link
                       class="link-info"
                       v-bind:to="'/main/pub/productor/' + podcast.organisation.id"
@@ -137,6 +137,9 @@ export default {
   },
 
   computed: {
+    isPodcastmaker(){
+      return parameters.generalParameters.podcastmaker;
+    },
     isEditBox(){
       return parameters.podcastPage.EditBox;
     },

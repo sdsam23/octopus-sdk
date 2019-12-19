@@ -122,7 +122,7 @@
 </style>
 
 <script>
-
+import parameters from "@/store/AppStore.js";
 export default {
   name: 'PodcastImage',
 
@@ -142,7 +142,7 @@ export default {
 
   methods: {
     play() {
-      this.$store.commit('playerPlayPodcast', this.podcast);
+      parameters.player.playerPlayPodcast = this.podcast;
     },
     showDescription(){
       if(this.isDescription){

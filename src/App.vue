@@ -1,36 +1,38 @@
 <template>
   <div id="app">
-    <!-- <Podcast podcastId='473' :playingPodcast='false'/> -->
-    <!-- <Podcasts/> -->
-    <!-- <Emission emissionId='110'/> -->
-    <!-- <Participant participantId='326' /> -->
-    <!-- <Emissions/> -->
-    <Participants />
+    <TopBar v-bind:displayMenu.sync="displayMenu" />
+    <LeftMenu v-bind:displayMenu.sync="displayMenu" />
+    <CategoryList />
+    <router-view />
+    <Footer />
   </div>
 </template>
 <style lang="scss" src="@/assets/multiselect.scss"></style>
 <style lang="scss">
 @import 'src/assets/general.scss';
+@import 'src/assets/form.scss';
 </style>
 
 <script>
-/* import Podcasts from '@/components/pages/Podcasts.vue' */
-/* import Podcast from '@/components/pages/Podcast.vue' */
-/* import Emission from '@/components/pages/Emission.vue' */
-/* import Emissions from '@/components/pages/Emissions.vue' */
-/* import Participant from '@/components/pages/Participant.vue' */
-import Participants from '@/components/pages/Participants.vue'
+import TopBar from '@/components/misc/TopBar.vue';
+import LeftMenu from '@/components/misc/LeftMenu.vue';
+import Footer from '@/components/misc/Footer.vue';
+import CategoryList from '@/components/display/categories/CategoryList.vue';
 
 export default {
   name: 'app',
   components: {
-    /* Podcasts, */
-    /* Podcast, */
-    /* Emission, */
-    /* Emissions, */
-    /* Participant */
-    Participants
-  }
+    TopBar,
+    LeftMenu,
+    CategoryList,
+    Footer
+  },
+
+  data() {
+    return {
+      displayMenu: false,
+    };
+  },
 }
 </script>
 

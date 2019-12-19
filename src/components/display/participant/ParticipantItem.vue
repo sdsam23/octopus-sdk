@@ -8,7 +8,7 @@
       <img src="/img/caution.png" class="icon-caution" v-if="!activeParticipant"/>{{ name }}</div>
       <div class="participant-description">{{ description }}</div>
     </router-link>
-    <router-link v-bind:to="'/main/pub/productor/' + participant.orga.id" class="text-dark participant-producer">
+    <router-link v-bind:to="'/main/pub/productor/' + participant.orga.id" class="text-dark participant-producer" v-if="!isPodcastmaker">
       <div class="participant-producer primary-color">© {{ participant.orga.name }}</div>
     </router-link>
   </li>
@@ -60,6 +60,10 @@ export default {
   },
 
   computed: {
+    isPodcastmaker(){
+      return parameters.generalParameters.podcastmaker;
+    },
+
     description() {
       let description;
       description = this.participant.description || '';

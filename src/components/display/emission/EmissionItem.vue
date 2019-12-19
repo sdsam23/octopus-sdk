@@ -9,7 +9,7 @@
         <div class="emission-description">{{ description }}</div>
       </router-link>
       <div class="flex-grow"></div>
-      <router-link v-bind:to="'/main/pub/productor/' + emission.orga.id" class="text-dark">
+      <router-link v-bind:to="'/main/pub/productor/' + emission.orga.id" class="text-dark" v-if="!isPodcastmaker">
         <div class="emission-producer primary-color">© {{ emission.orga.name }}</div>
       </router-link>
     </div>
@@ -74,6 +74,10 @@ export default {
   props: ['emission'],
 
   computed: {
+    isPodcastmaker(){
+      return parameters.generalParameters.podcastmaker;
+    },
+
     organisation() {
       return '' + this.emission.publisher.organisation.name;
     },

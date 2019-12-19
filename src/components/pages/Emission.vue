@@ -10,7 +10,7 @@
               <img 
                 :src="imageUrl" 
                 :alt="$t('Emission name image', { name: name })" 
-                class="img-box shadow-element flex-shrink" />
+                class="img-box shadow-element flex-shrink mr-3" />
               <div class="d-flex flex-column">
                 <div>{{ description }}</div>
               </div>

@@ -145,14 +145,14 @@ export default {
       }
     },
     initCategorySelected(val){
-      this.category = this.$store.state.categories.find((el)=>{
+      this.category = parameters.generalParameters.allCategories.find((el)=>{
         return el.id === val;
       });
     },
     initCategoryArray(val){
       this.category = [];
       val.forEach(element => {
-        let item = this.$store.state.categories.find((el)=>{
+        let item =  parameters.generalParameters.allCategories.find((el)=>{
           return el.id === element;
         })
         this.category.push(item);

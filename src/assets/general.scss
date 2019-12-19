@@ -27,6 +27,17 @@ h1,h2,h3,h4,h5,h6{
 .primary-bg{
   background: $octopus-primary-color;
 }
+.secondary-bg{
+  background: $octopus-background;
+}
+
+.border-primary{
+  border-color:$octopus-primary-color !important;
+  border-radius: 3rem;
+  border-radius: 3rem;
+  border-style: inset;
+  border-width: 1px;;
+}
 
 .page-box{
   background-color: $octopus-background;
@@ -66,6 +77,10 @@ a:hover{
   text-decoration: none;
 }
 
+a.linkHover:hover{
+  color: $octopus-primary-color !important;
+}
+
 .alert-text{
   color: $octopus-alert-text;
   .icon{
@@ -86,9 +101,22 @@ a:hover{
   }
 }
 
-.input-no-outline{
-  outline-width: 0;
+.hide-phone{
+  @media (max-width: 960px) {
+    display: none !important;
+  }
 }
+
+.show-phone{
+  display: none;
+  @media (max-width: 960px) {
+    display: block !important;
+  }
+}
+.hid{
+  visibility: hidden !important;
+}
+
 
 .d-contents{
   display: contents;
@@ -123,37 +151,6 @@ a:hover{
   z-index: 3;
 }
 
-.basic-select{
-  background: white;
-  min-height: 40px;
-  text-align: left;
-  color: #35495e;
-  padding: 0.5rem;
-  border-radius: 0.3rem;
-  border-style: none;
-  outline: transparent;
-  width: 350px;
-  margin-bottom: 1rem;
-}
-
-.filter-search-input{
-  flex-grow: 1;
-  height: 2rem;
-  margin: 1rem;
-  padding: 1.2rem;
-  border-radius: 2rem;
-  border-style: none;
-  background: white;
-}
-
-.admin-button {
-  margin: 1em 1rem 0.5rem 0;
-  height: 3rem !important;
-  width: 3rem;
-  font-size: 1.5rem;
-  display: inline-flex;
-  align-items: center;
-}
 
 .icon-caution{
   margin-right: 5px;
@@ -175,129 +172,6 @@ a:hover{
   }
 }
 
-// Buttons
-.btn {
-  background: $octopus-light-secondary-color ;
-  border: 0;
-  border-bottom: 2px solid transparent;
-  border-radius: 50px;
-  cursor: pointer;
-  text-align: center;
-  transition: background .2s, border .2s, box-shadow .2s, color .2s;
-  vertical-align: middle;
-  white-space: nowrap;
-  &:focus,
-  &:hover,
-  &:active {
-    background: rgba($octopus-primary-color, 0.3) ;
-    border-bottom: 2px solid $octopus-primary-color;
-    outline: none !important;
-    box-shadow: none;
-    text-decoration: none;
-  }
-  &[disabled],
-  &:disabled,
-  &.disabled {
-    cursor: default;
-    opacity: .5;
-    pointer-events: none;
-  }
 
-  // Button Primary
-  &.btn-primary {
-    background: $octopus-third-color;
-    background: -moz-linear-gradient(-45deg, $octopus-third-color 0%, $octopus-primary-color 100%);
-    background: -webkit-gradient(left top, right bottom, color-stop(0%, $octopus-third-color), color-stop(100%, $octopus-primary-color));
-    background: -webkit-linear-gradient(-45deg, $octopus-third-color 0%, $octopus-primary-color 100%);
-    background: -o-linear-gradient(-45deg, $octopus-third-color 0%, $octopus-primary-color 100%);
-    background: -ms-linear-gradient(-45deg, $octopus-third-color 0%, $octopus-primary-color 100%);
-    background: linear-gradient(135deg, $octopus-third-color 0%, $octopus-primary-color 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d6d91f', endColorstr='#50b685', GradientType=1 );
-    border-color: $octopus-primary-color;
-    border-radius: 50px;
-    height: auto;
-    border-bottom: 0 solid transparent;
-    &:focus,
-    &:hover {
-      background:$octopus-third-color;
-      background: -moz-linear-gradient(-45deg, $octopus-third-color 0%, $octopus-primary-color 100%);
-      background: -webkit-gradient(left top, right bottom, color-stop(0%, $octopus-third-color), color-stop(100%, $octopus-primary-color));
-      background: -webkit-linear-gradient(-45deg, $octopus-third-color 0%, $octopus-primary-color 100%);
-      background: -o-linear-gradient(-45deg, $octopus-third-color 0%, $octopus-primary-color 100%);
-      background: -ms-linear-gradient(-45deg, $octopus-third-color 0%, $octopus-primary-color 100%);
-      background: linear-gradient(135deg, $octopus-third-color 0%, $octopus-primary-color 100%);
-      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d6d91f', endColorstr='#4fcf91', GradientType=1 );
-      border: 0;
-    }
-    &:active,
-    &.active {
-      background: darken($octopus-primary-color, 4%);
-      border-color: darken($octopus-primary-color, 7%);
-    }
-  }
-//Button disable halo after click
-  .no-effect{
-  &:focus,
-    &:hover {
-      border-bottom: 0 !important;
-      outline: 0;
-      box-shadow: 0 0 0 0 transparent !important;
-    }
-  }
-  &.btn-underline{
-    background: none;
-    padding: 0;
-    margin: 0 2rem 1rem 0;
-    border-radius: 0;
-  }
 
-  &.btn-arrow {
-    border-radius: 50px;
-    margin: 0.2rem;
-    width: 1.8rem;
-    height: 1.8rem;
-    background: $octopus-secondary-color;
-    padding: 0;
-    &:hover {
-      border: 0;
-      background: $octopus-secondary-color;
-    }
-  }
-
-  &.btn-link {
-    background: $octopus-secondary-color;
-    color: $octopus-primary-color;
-    font-weight: bold;
-    margin: 2rem;
-    width: fit-content;
-    align-self: center;
-    &:focus,
-    &:hover,
-    &:active,
-    &.active {
-      background: darken($octopus-secondary-color, 5%);
-      color: $octopus-primary-color;
-      border-bottom: 0;
-    }
-  }
-
-  &.btn-more{
-    background: $octopus-primary-color;
-    color: $octopus-background;
-    width: 1.5rem;
-    height: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50px;
-    margin: 1rem;
-  }
-
-}
-
-.hide-phone{
-  @media (max-width: 960px) {
-    display: none !important;
-  }
-}
 

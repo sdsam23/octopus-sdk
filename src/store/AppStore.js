@@ -33,11 +33,16 @@ export default {
       {id: 441, name: "Immobilier", podcastCount: 0},
       {id: 473, name: "Shopping", podcastCount: 0},
       {id: 483, name: "Sports", podcastCount: 0},
-      {id: 680, name: "Jeux vidéos", podcastCount: 0}, ],
-      isIE11: false,
+      {id: 680, name: "Jeux vidéos", podcastCount: 0}, 
+    ],
+    isIE11: false,
+    podcastmaker: false,
   },
   filter : {
     organisationId : undefined,
+  },
+  player:{
+    playerPlayPodcast: undefined,
   },
   podcastPage : {
     EditBox : true,
@@ -51,6 +56,7 @@ export default {
   },
   organisation : {
     imageUrl : '/img/emptypodcast.png',
-    name: 'Saooti'
+    name: 'Saooti',
+    userName: 'Moi'
   }
 };

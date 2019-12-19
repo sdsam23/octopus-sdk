@@ -14,7 +14,7 @@
         <div class="mr-3">{{ date }}</div>
         <div><span class="saooti-clock3"></span>{{ duration }}</div>
       </div>
-      <!-- <AnimatorsItem v-bind:animators="podcast.animators" /> -->
+      <AnimatorsItem v-bind:animators="podcast.animators" />
       <router-link
         v-bind:to="'/main/pub/podcast/' + podcast.podcastId"
         class="text-dark d-flex flex-column flex-grow"
@@ -22,6 +22,7 @@
         <div class="title-podcast-item">{{ title }}</div>
       </router-link>
       <router-link
+        v-if="!isPodcastmaker"
         v-bind:to="'/main/pub/productor/' + podcast.organisation.id"
         class="text-dark producer-podcast-item"
       >
@@ -77,7 +78,7 @@
 </style>
 
 <script>
-/* import AnimatorsItem from '@/components/display/podcasts/AnimatorsItem.vue'; */
+import AnimatorsItem from '@/components/display/podcasts/AnimatorsItem.vue';
 import PodcastImage from '@/components/display/podcasts/PodcastImage.vue';
 import parameters from "@/store/AppStore.js";
 const moment = require('moment');
@@ -89,7 +90,7 @@ export default {
   props: ['podcast'],
 
   components: {
-/*     AnimatorsItem, */
+    AnimatorsItem,
     PodcastImage,
   },
   
@@ -101,6 +102,9 @@ export default {
   },
 
   computed: {
+    isPodcastmaker(){
+      return parameters.generalParameters.podcastmaker;
+    },
     date() {
       return moment(this.podcast.pubDate).format('D/MM/YYYY [à] HH[h]mm');
     },
