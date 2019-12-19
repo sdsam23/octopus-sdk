@@ -151,7 +151,7 @@
 </style>
 
 <script>
-import { mapState } from 'vuex';
+import parameters from "@/store/AppStore.js";
 import DurationHelper from '@/helper/duration';
 
 export default {
@@ -163,79 +163,75 @@ export default {
     };
   },
 
+  props:['status', 'podcast', 'volume', 'total', 'elapsed'],
+
   computed: {
-    ...mapState({
-      display: state => state.player.status != 'STOPPED',
-      playerHeight(state) {
-        if (state.player.status == 'STOPPED' || this.forceHide) {
-          return 0;
-        } else {
-          return '5rem';
-        }
-      },
-      status: state => state.player.status,
-      podcast: state => state.player.podcast,
-      volume: state => state.player.volume,
+    display(){
+      return this.status != 'STOPPED';
+    },
+    playerHeight() {
+      if (this.status == 'STOPPED' || this.forceHide) {
+        return 0;
+      } else {
+        return '5rem';
+      }
+    },
+    podcastImage(){
+      if (this.podcast) {
+        return this.podcast.imageUrl;
+      } else {
+        return '';
+      }
+    },
+    podcastTitle(){
+      if (this.podcast) {
+        return this.podcast.title;
+      } else {
+        return '';
+      }
+    },
 
-      podcastImage: state => {
-        if (state.player.podcast) {
-          return state.player.podcast.imageUrl;
-        } else {
-          return '';
-        }
-      },
+    podcastAudioURL(){
+      if (this.podcast) {
+        let urlParameters = '?origin=octopus';
+        urlParameters +=
+          parameters.generalParameters.authenticated && parameters.generalParameters.organisationId
+            ? '&distributorId=' + parameters.generalParameters.organisationId
+            : '';
+        return this.podcast.audioUrl + urlParameters;
+      } else {
+        return '';
+      }
+    },
 
-      podcastTitle: state => {
-        if (state.player.podcast) {
-          return state.player.podcast.title;
-        } else {
-          return '';
-        }
-      },
+    podcastShareUrl(){
+      if (this.podcast) {
+        return "/main/pub/podcast/"+this.podcast.podcastId;
+      } else {
+        return '';
+      }
+    },
+    playedTime(){
+      if (this.elapsed > 0 && this.total > 0) {
+        return DurationHelper.formatDuration(
+          Math.round(this.elapsed * this.total)
+        );
+      } else {
+        return "--':--'";
+      }
+    },
 
-      podcastAudioURL: state => {
-        if (state.player.podcast) {
-          let parameters = '?origin=octopus';
-          parameters +=
-            state.authentication && state.authentication.organisationId
-              ? '&distributorId=' + state.authentication.organisationId
-              : '';
-          return state.player.podcast.audioUrl + parameters;
-        } else {
-          return '';
-        }
-      },
+    percentProgress(){
+      return this.elapsed * 100;
+    },
 
-      podcastShareUrl: state => {
-        if (state.player.podcast) {
-          return "/main/pub/podcast/"+state.player.podcast.podcastId;
-        } else {
-          return '';
-        }
-      },
-
-      playedTime: state => {
-        if (state.player.elapsed > 0 && state.player.total > 0) {
-          return DurationHelper.formatDuration(
-            Math.round(state.player.elapsed * state.player.total)
-          );
-        } else {
-          return "--':--'";
-        }
-      },
-
-      percentProgress: state => {
-        return state.player.elapsed * 100;
-      },
-
-      totalTime: state => {
-        if (state.player.elapsed > 0 && state.player.total > 0) {
-          return DurationHelper.formatDuration(Math.round(state.player.total));
-        } else {
-          return "--':--'";
-        }
-      },
-    }),
+    totalTime(){
+      if (this.elapsed > 0 && this.total > 0) {
+        return DurationHelper.formatDuration(Math.round(this.total));
+      } else {
+        return "--':--'";
+      }
+    },
   },
 
   methods: {
@@ -255,7 +251,7 @@ export default {
       const x = event.clientX - rect.left; //x position within the element.
 
       const percentPosition = x / barWidth;
-      const seekTime = this.$store.state.player.total * percentPosition;
+      const seekTime = this.total * percentPosition;
 
       audioPlayer.currentTime = seekTime;
     },

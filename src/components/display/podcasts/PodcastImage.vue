@@ -17,8 +17,8 @@
         </div>
       </div>
     </div>
-    <div class="background-icon icon-arrow-up" v-if="!isDescription && displayDescription && isMobile" @click="showDescription"></div>
-    <div class="background-icon icon-arrow-down" v-if="isDescription && displayDescription && isMobile" @click="showDescription"></div>
+    <div class="background-icon saooti-arrow-up2" v-if="!isDescription && displayDescription && isMobile" @click="showDescription"></div>
+    <div class="background-icon saooti-arrow-down2" v-if="isDescription && displayDescription && isMobile" @click="showDescription"></div>
   </div>
 </template>
 
@@ -33,6 +33,8 @@
   left: 0;
   right: 0;
   bottom: 0;
+  cursor: pointer;
+
   .icon-container {
     background: #00000050;
     border-radius: 50%;
@@ -142,7 +144,7 @@ export default {
 
   methods: {
     play() {
-      parameters.player.playerPlayPodcast = this.podcast;
+      this.$emit('playPodcast', this.podcast);
     },
     showDescription(){
       if(this.isDescription){

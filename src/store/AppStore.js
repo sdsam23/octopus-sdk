@@ -36,13 +36,10 @@ export default {
       {id: 680, name: "Jeux vidéos", podcastCount: 0}, 
     ],
     isIE11: false,
-    podcastmaker: false,
+    podcastmaker: true,
   },
   filter : {
     organisationId : undefined,
-  },
-  player:{
-    playerPlayPodcast: undefined,
   },
   podcastPage : {
     EditBox : true,

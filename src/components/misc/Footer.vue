@@ -10,7 +10,7 @@
             <router-link class="text-dark linkHover" to="/main/pub/participants">{{$t('Speakers')}}</router-link>
           </div>
         </div>
-        <div class="d-flex flex-grow align-items-center flex-column">
+        <div class="d-flex flex-grow align-items-center flex-column" v-if="!isPodcastmaker">
           <div class="d-flex flex-column">
             <div class="text-dark">&copy; Saooti 2019</div>
             <router-link class="text-dark linkHover" to="/main/pub/contact">{{$t('Contact')}}</router-link>
@@ -39,13 +39,13 @@
 </style>
 
 <script>
-/* import Player from '@/components/misc/Player.vue'; */
+import Player from '@/components/misc/Player.vue';
 import parameters from "@/store/AppStore.js";
 
 export default {
   name: 'Footer',
   components: {
-    /* Player, */
+    Player,
   },
 
   computed:{

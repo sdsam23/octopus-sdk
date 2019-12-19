@@ -3,11 +3,11 @@
     <div class="page-box" v-if="loaded && !error">
       <h1>{{ $t('Episode') }}</h1>
       <div class="d-flex">
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column flex-grow">
           <div class="module-box">
             <h2 class="text-uppercase font-weight-bold h3">{{ this.podcast.title }}</h2>
             <div class="mb-5 d-flex h6">
-              <PodcastImage class="shadow-element mr-3" v-bind:podcast="podcast" hidePlay='false' :playingPodcast='playingPodcast' />
+              <PodcastImage class="shadow-element mr-3" v-bind:podcast="podcast" hidePlay='false' :playingPodcast='playingPodcast' @playPodcast='playPodcast' />
               <div>
                 <div class="d-flex align-items-left flex-wrap text-secondary mb-3">
                   <div class="mr-5">{{ date }}</div>
@@ -255,6 +255,9 @@ export default {
       const first = person.firstName || "";
       const last = person.lastName || "";
       return (first + " " + last).trim();
+    },
+    playPodcast(podcast){
+      this.$emit('playPodcast', podcast);
     }
   }
 };

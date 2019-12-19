@@ -1,21 +1,19 @@
 <template>
-  <div>
-    <div class="module-box text-center-mobile">
-      <h3>{{ $t('Share') }}</h3>
-      <div class="d-flex">
-        <a target="_blank" :href="facebookURL" class="btn btn-circle m-3 btn-facebook share-btn">
-          <span class="saooti-facebook-bounty"></span>
-        </a>
-        <a target="_blank" class="btn btn-circle m-3 btn-twitter share-btn" :href="twitterURL">
-          <span class="saooti-twitter-bounty"></span>
-        </a>
-        <a target="_blank" class="btn btn-circle m-3 btn-linkedin share-btn" :href="linkedinURL">
-          <span class="saooti-linkedin1"></span>
-        </a>
-        <a target="_blank" class="btn btn-circle m-3 btn-rss share-btn" :href="rssUrl" v-if="rssUrl">
-          <span class="saooti-rss-bounty"></span>
-        </a>
-      </div>
+  <div class="module-box text-center-mobile">
+    <h3>{{ $t('Share') }}</h3>
+    <div class="d-flex">
+      <a target="_blank" :href="facebookURL" class="btn btn-circle m-3 btn-facebook share-btn">
+        <span class="saooti-facebook-bounty"></span>
+      </a>
+      <a target="_blank" class="btn btn-circle m-3 btn-twitter share-btn" :href="twitterURL">
+        <span class="saooti-twitter-bounty"></span>
+      </a>
+      <a target="_blank" class="btn btn-circle m-3 btn-linkedin share-btn" :href="linkedinURL">
+        <span class="saooti-linkedin1"></span>
+      </a>
+      <a target="_blank" class="btn btn-circle m-3 btn-rss share-btn" :href="rssUrl" v-if="rssUrl">
+        <span class="saooti-rss-bounty"></span>
+      </a>
     </div>
   </div>
 </template>

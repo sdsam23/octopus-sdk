@@ -19,7 +19,7 @@
         <router-link to="/main/priv/upload" v-if="authenticated" class="mr-3">
           <button class="btn btn-primary h6">{{ $t('Upload new podcast') }}</button>
         </router-link>
-        <div class="d-flex">
+        <div class="d-flex justify-content-end">
           <div class="dropdown" v-if="!isPodcastmaker">
             <a  href="#" id="dropdownMenuLink" data-toggle="dropdown"  aria-expanded="false">
               <div class="btn admin-button m-1">
@@ -121,6 +121,7 @@
         flex-grow: 1;
         text-align: center;
         display: flex;
+        width: 100px;
         img {
           max-width: 100px;
         }

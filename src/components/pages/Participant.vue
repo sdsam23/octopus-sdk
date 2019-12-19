@@ -8,7 +8,7 @@
         <div class="h6">{{ description }}</div>
         <div class="d-flex">
            <div class="module-box" v-if="editRight">
-            <h3>{{$t('Suppress')}}</h3>
+            <h3 class="text-center-mobile">{{$t('Suppress')}}</h3>
             <button class="btn btn-primary admin-button  d-inline-flex align-items-center" @click="onDeleteParticipant()">
               <div class="saooti-delete font-weight-bold"></div>
           </button>

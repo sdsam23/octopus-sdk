@@ -57,6 +57,14 @@
       color: #ff4d53;
     }
   }
+  @media (max-width: 960px) {
+    flex-wrap: wrap;
+  }
+  @media (max-width: 500px) {
+    .primary-color{
+      display: none;
+    }
+  }
 }
 </style>
 <script>

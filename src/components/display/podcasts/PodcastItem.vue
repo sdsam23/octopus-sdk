@@ -43,7 +43,7 @@
   flex-direction: column;
   text-align: left;
   background: #fff;
-  margin-right: 1rem;
+  margin: 1rem;
   flex-shrink: 0;
 
   .title-podcast-item {

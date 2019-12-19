@@ -85,6 +85,7 @@
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
     padding: 2rem 0px;
+    width: 100%;
   }
 }
 </style>

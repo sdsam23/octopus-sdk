@@ -6,19 +6,17 @@
         <div class="d-flex flex-column flex-grow">
           <div class="module-box">
             <h2>{{ name }}</h2>
-            <div class="mb-5 d-flex h6">
+            <div class="mb-5 h6">
               <img 
                 :src="imageUrl" 
                 :alt="$t('Emission name image', { name: name })" 
-                class="img-box shadow-element flex-shrink mr-3" />
-              <div class="d-flex flex-column">
-                <div>{{ description }}</div>
-              </div>
+                class="img-box shadow-element float-left mr-3 mb-3" />
+                {{description}}
             </div>
           </div>
           <EditBox :emission='emission' :rssEmission='rssEmission' v-if="editRight"></EditBox>
         </div>
-        <div>
+        <div class="d-flex flex-column">
           <SharePlayer :emissionId="emissionId" :exclusive="exclusive" :organisationId='organisationId'></SharePlayer>
           <ShareButtons :emissionId="emissionId"></ShareButtons>
         </div>
