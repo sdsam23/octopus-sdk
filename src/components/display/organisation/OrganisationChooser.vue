@@ -83,7 +83,7 @@ import parameters from "../../../store/AppStore.js";
 
 const ELEMENTS_COUNT = 200;
 const DEFAULT_ORGANISATION_ID = 0;
-const DEFAULT_ORGANISATION_IMAGE = '/img/emptypodcast.png';
+const DEFAULT_ORGANISATION_IMAGE = '../../../../public/img/emptypodcast.png';
 
 const getDefaultOrganistion = defaultName => {
   return {

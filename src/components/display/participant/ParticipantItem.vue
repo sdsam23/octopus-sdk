@@ -5,7 +5,7 @@
     </router-link>
     <router-link v-bind:to="'/main/pub/participant/' + participant.participantId" class="text-dark mt-3">
       <div class="participant-name">
-      <img src="/img/caution.png" class="icon-caution" v-if="!activeParticipant"/>{{ name }}</div>
+      <img src="../../../../public/img/caution.png" class="icon-caution" v-if="!activeParticipant"/>{{ name }}</div>
       <div class="participant-description">{{ description }}</div>
     </router-link>
     <router-link v-bind:to="'/main/pub/productor/' + participant.orga.id" class="text-dark participant-producer" v-if="!isPodcastmaker">

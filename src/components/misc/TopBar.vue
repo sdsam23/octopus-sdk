@@ -6,7 +6,7 @@
       </div>
       <router-link to="/main/pub/home">
         <div class="top-bar-logo m-3">
-          <img src="/img/logo_octopus_final.svg" :alt="$t('Logo of main page')" />
+          <img src="../../../public/img/logo_octopus_final.svg" :alt="$t('Logo of main page')" />
         </div>
       </router-link>
       <div class="d-flex align-items-center justify-content-center flex-grow">

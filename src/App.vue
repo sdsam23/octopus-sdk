@@ -7,10 +7,8 @@
     <Footer />
   </div>
 </template>
-<style lang="scss" src="@/assets/multiselect.scss"></style>
+<style lang="scss" src="@/assets/octopus-library.scss"></style>
 <style lang="scss">
-@import 'src/assets/general.scss';
-@import 'src/assets/form.scss';
 </style>
 
 <script>

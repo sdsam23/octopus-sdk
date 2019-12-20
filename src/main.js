@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Vue from 'vue'
 import App from './App.vue'
 import VueI18n from 'vue-i18n';
-import I18nResources from '@/locale/messages';
+import I18nResources from './locale/messages';
 import octopusApi from '@saooti/octopus-api';
 import router from '@/router/router';
 import moment from 'moment';

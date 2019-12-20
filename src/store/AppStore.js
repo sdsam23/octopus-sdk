@@ -52,7 +52,7 @@ export default {
     MonetizableFilter : true,
   },
   organisation : {
-    imageUrl : '/img/emptypodcast.png',
+    imageUrl : '../../../../public/img/emptypodcast.png',
     name: 'Saooti',
     userName: 'Moi'
   }
