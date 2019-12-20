@@ -23,7 +23,7 @@
 import EmissionList from '../display/emission/EmissionList.vue';
 import ProductorSearch from '../display/filter/ProductorSearch.vue';
 import MonetizableFilter from '../display/filter/MonetizableFilter.vue';
-import parameters from "../../store/AppStore.js";
+import {state} from "../../store/AppStore.js";
 
 export default {
   components: {
@@ -45,8 +45,8 @@ export default {
     }
      if (this.$route.query.productor) {
       this.$data.organisationId = this.$route.query.productor;
-    } else if (parameters.filter.organisationId) {
-      this.$data.organisationId = parameters.filter.organisationId;
+    } else if (state.filter.organisationId) {
+      this.$data.organisationId = state.filter.organisationId;
     }
   },
 

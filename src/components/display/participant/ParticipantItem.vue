@@ -43,7 +43,7 @@
 
 <script>
 import octopusApi from "@saooti/octopus-api";
-import parameters from "../../../store/AppStore.js";
+import {state} from "../../../store/AppStore.js";
 export default {
   name: 'ParticpantItem',
 
@@ -61,13 +61,13 @@ export default {
 
   computed: {
     isPodcastmaker(){
-      return parameters.generalParameters.podcastmaker;
+      return state.generalParameters.podcastmaker;
     },
 
     description() {
       let description;
       description = this.participant.description || '';
-      if (parameters.generalParameters.isIE11) {
+      if (state.generalParameters.isIE11) {
         return description.substring(0, 50) + '...';
       } else {
         return description;
@@ -80,7 +80,7 @@ export default {
         ' ' +
         (this.participant.lastName || '')
       ).trim();
-      if (parameters.generalParameters.isIE11) {
+      if (state.generalParameters.isIE11) {
         return fullName.substring(0, 50) + '...';
       } else {
         return fullName;

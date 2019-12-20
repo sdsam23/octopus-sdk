@@ -151,7 +151,7 @@
 </style>
 
 <script>
-import parameters from "../../store/AppStore.js";
+import {state} from "../../store/AppStore.js";
 import DurationHelper from '../../helper/duration';
 
 export default {
@@ -195,8 +195,8 @@ export default {
       if (this.podcast) {
         let urlParameters = '?origin=octopus';
         urlParameters +=
-          parameters.generalParameters.authenticated && parameters.generalParameters.organisationId
-            ? '&distributorId=' + parameters.generalParameters.organisationId
+          state.generalParameters.authenticated && state.generalParameters.organisationId
+            ? '&distributorId=' + state.generalParameters.organisationId
             : '';
         return this.podcast.audioUrl + urlParameters;
       } else {

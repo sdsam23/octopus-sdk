@@ -132,7 +132,7 @@
 </style>
 
 <script>
-import parameters from "../../store/AppStore.js";
+import {state} from "../../store/AppStore.js";
 
 export default {
   name: "TopBar",
@@ -156,13 +156,13 @@ export default {
 
   computed: {
     isPodcastmaker(){
-      return parameters.generalParameters.podcastmaker;
+      return state.generalParameters.podcastmaker;
     },
     authenticated(){
-      return parameters.generalParameters.authenticated;
+      return state.generalParameters.authenticated;
     },
     name(){
-      return parameters.organisation.userName;
+      return state.organisation.userName;
     },
   },
 

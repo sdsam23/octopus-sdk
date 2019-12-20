@@ -15,7 +15,7 @@
 
 <script>
 import PodcastInlineList from '../display/podcasts/PodcastInlineList.vue';
-import parameters from "../../store/AppStore.js";
+import {state} from "../../store/AppStore.js";
 
 export default {
   name: 'home',
@@ -26,7 +26,7 @@ export default {
 
   computed: {
     categories(){
-      return parameters.generalParameters.allCategories.filter(c => {
+      return state.generalParameters.allCategories.filter(c => {
           return c.podcastCount;
         });
     },

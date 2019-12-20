@@ -78,7 +78,7 @@
 <script>
 // @ is an alias to /src
 import OrganisationChooser from '../organisation/OrganisationChooser.vue';
-import parameters from "../../../store/AppStore.js";
+import {state} from "../../../store/AppStore.js";
 
 export default {
   components: {
@@ -89,7 +89,7 @@ export default {
 
   created() {
     if (this.organisationId) {
-      parameters.filter.organisationId = this.organisationId;
+      state.filter.organisationId = this.organisationId;
       this.keepOrganisation = true;
       if(!this.$route.query.productor){
         this.$router.replace({query: {productor: this.organisationId}});
@@ -106,14 +106,14 @@ export default {
 
   computed:{
     isPodcastmaker(){
-      return parameters.generalParameters.podcastmaker;
+      return state.generalParameters.podcastmaker;
     },
   },
 
   methods:{
     onOrganisationSelected(organisation) {
       this.$router.push({query: {productor: undefined}});
-      parameters.filter.organisationId = this.organisationId;
+      state.filter.organisationId = this.organisationId;
       this.keepOrganisation = false;
       if (organisation && organisation.id) {
         this.showBubble=true;
@@ -128,10 +128,10 @@ export default {
     onKeepOrganisation(){
       if(!this.keepOrganisation){
         this.$router.push({query: {productor: this.organisationId}});
-        parameters.filter.organisationId = this.organisationId;
+        state.filter.organisationId = this.organisationId;
       }else {
         this.$router.push({query: {productor: undefined}});
-        parameters.filter.organisationId = this.organisationId;
+        state.filter.organisationId = this.organisationId;
       }
     }
   }

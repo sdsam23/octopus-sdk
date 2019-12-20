@@ -67,7 +67,7 @@
 </style>
 
 <script>
-import parameters from "../../../store/AppStore.js";
+import {state} from "../../../store/AppStore.js";
 export default {
   name: 'EmissionItem',
 
@@ -75,7 +75,7 @@ export default {
 
   computed: {
     isPodcastmaker(){
-      return parameters.generalParameters.podcastmaker;
+      return state.generalParameters.podcastmaker;
     },
 
     organisation() {
@@ -85,7 +85,7 @@ export default {
     description() {
       let description;
       description = this.emission.description || '';
-      if (parameters.generalParameters.isIE11) {
+      if (state.generalParameters.isIE11) {
         return description.substring(0, 50) + '...';
       } else {
         return description;
@@ -93,7 +93,7 @@ export default {
     },
 
     name() {
-      if (parameters.generalParameters.isIE11) {
+      if (state.generalParameters.isIE11) {
         return this.emission.name.substring(0, 50) + '...';
       } else {
         return this.emission.name;

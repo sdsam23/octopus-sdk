@@ -108,7 +108,7 @@ import ShareButtons from "../display/sharing/ShareButtons.vue";
 import PodcastInlineList from "../display/podcasts/PodcastInlineList.vue";
 import PodcastImage from "../display/podcasts/PodcastImage.vue";
 import octopusApi from "@saooti/octopus-api";
-import parameters from "../../store/AppStore.js";
+import {state} from "../../store/AppStore.js";
 const moment = require("moment");
 const humanizeDuration = require("humanize-duration");
 
@@ -138,25 +138,25 @@ export default {
 
   computed: {
     isPodcastmaker(){
-      return parameters.generalParameters.podcastmaker;
+      return state.generalParameters.podcastmaker;
     },
     isEditBox(){
-      return parameters.podcastPage.EditBox;
+      return state.podcastPage.EditBox;
     },
     isShareButtons(){
-      return parameters.podcastPage.ShareButtons;
+      return state.podcastPage.ShareButtons;
     },
     isSharePlayer(){
-      return parameters.podcastPage.SharePlayer;
+      return state.podcastPage.SharePlayer;
     },
     allCategories(){
-      return parameters.generalParameters.allCategories;
+      return state.generalParameters.allCategories;
     },
     organisationId(){
-      return parameters.generalParameters.organisationId;
+      return state.generalParameters.organisationId;
     },
     authenticated(){
-      return parameters.generalParameters.authenticated;
+      return state.generalParameters.authenticated;
     },
     emissionMainCategory() {
       if (
@@ -207,7 +207,7 @@ export default {
         if (this.organisationId === this.podcast.organisation.id) {
           return true;
         }
-        if (parameters.generalParameters.isAdmin) {
+        if (state.generalParameters.isAdmin) {
           return true;
         }
       }

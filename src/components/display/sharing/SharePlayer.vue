@@ -78,7 +78,7 @@
 
 <script>
 import Snackbar from '../../misc/Snackbar.vue';
-import parameters from "../../../store/AppStore.js";
+import {state} from "../../../store/AppStore.js";
 
 export default {
   props: ['podcast', 'emissionId', "organisationId", 'exclusive'],
@@ -103,18 +103,18 @@ export default {
       
     },
     authenticated(){
-      return parameters.generalParameters.authenticated;
+      return state.generalParameters.authenticated;
     },
 
     iFrameSrc() {
       if (this.iFrameModel === 'emission') {
         if (this.podcast && this.podcast.podcastId) {
-          return `${parameters.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.emissionId}/${this.iFrameNumberPriv}/${this.podcast.podcastId}`;
+          return `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.emissionId}/${this.iFrameNumberPriv}/${this.podcast.podcastId}`;
         } else {
-          return `${parameters.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.emissionId}/${this.iFrameNumberPriv}`;
+          return `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.emissionId}/${this.iFrameNumberPriv}`;
         }
       } else {
-        return `${parameters.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.podcast.podcastId}`;
+        return `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.podcast.podcastId}`;
       }
     },
 

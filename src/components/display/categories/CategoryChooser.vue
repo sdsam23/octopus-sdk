@@ -48,7 +48,7 @@
 </style>
 <script>
 import Multiselect from 'vue-multiselect';
-import parameters from "../../../store/AppStore.js";
+import {state} from "../../../store/AppStore.js";
 
 const getDefaultCategory = defaultName => {
   if(defaultName !== undefined){
@@ -74,7 +74,7 @@ export default {
 
   computed: {
     allCategories(){
-      return parameters.generalParameters.allCategories;
+      return state.generalParameters.allCategories;
     }
   },
 
@@ -145,14 +145,14 @@ export default {
       }
     },
     initCategorySelected(val){
-      this.category = parameters.generalParameters.allCategories.find((el)=>{
+      this.category = state.generalParameters.allCategories.find((el)=>{
         return el.id === val;
       });
     },
     initCategoryArray(val){
       this.category = [];
       val.forEach(element => {
-        let item =  parameters.generalParameters.allCategories.find((el)=>{
+        let item =  state.generalParameters.allCategories.find((el)=>{
           return el.id === element;
         })
         this.category.push(item);

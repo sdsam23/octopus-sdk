@@ -79,7 +79,7 @@
 <script>
 import Multiselect from 'vue-multiselect';
 import octopusApi from "@saooti/octopus-api";
-import parameters from "../../../store/AppStore.js";
+import {state} from "../../../store/AppStore.js";
 
 const ELEMENTS_COUNT = 200;
 const DEFAULT_ORGANISATION_ID = 0;
@@ -99,7 +99,7 @@ export default {
   },
 
   created() {
-    if(this.authenticated && parameters.organisation.imageUrl === undefined){
+    if(this.authenticated && state.organisation.imageUrl === undefined){
       octopusApi.fetchOrganisation(this.organisationId)
       .then(data => {
           this.myImage = data.imageUrl;
@@ -125,7 +125,7 @@ export default {
       remainingElements: 0,
       isLoading: false,
       init: false,
-      myImage: parameters.organisation.imageUrl
+      myImage: state.organisation.imageUrl
     };
     if (this.defaultanswer) {
       _return['organisation'] = getDefaultOrganistion(this.defaultanswer);
@@ -135,17 +135,17 @@ export default {
 
   computed:{
     organisationId(){
-      return parameters.generalParameters.organisationId;
+      return state.generalParameters.organisationId;
     },
     authenticated(){
-      return parameters.generalParameters.authenticated;
+      return state.generalParameters.authenticated;
     },
     myOrganisation(){
       if(this.authenticated){
         return {
           id: this.organisationId,
           imageUrl: this.myImage,
-          name: this.$t('Edit my organisation') + ' (' + parameters.organisation.name +')',
+          name: this.$t('Edit my organisation') + ' (' + state.organisation.name +')',
         };
       }else {
         return undefined;

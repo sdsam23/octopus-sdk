@@ -48,7 +48,7 @@ import ShareButtons from "../display/sharing/ShareButtons.vue";
 import octopusApi from "@saooti/octopus-api";
 import PodcastFilterList from '../display/podcasts/PodcastFilterList.vue';
 /* import PodcastDeleter from "@/components/display/backoffice/PodcastDeleter.vue"; */
-import parameters from "../../store/AppStore.js";
+import {state} from "../../store/AppStore.js";
 
 export default {
   components: {
@@ -74,16 +74,16 @@ export default {
 
   computed: {
     organisationId(){
-      return parameters.generalParameters.organisationId;
+      return state.generalParameters.organisationId;
     },
     authenticated(){
-      return parameters.generalParameters.authenticated;
+      return state.generalParameters.authenticated;
     },
 
     description() {
       let description;
       description = this.participant.description || '';
-      if (parameters.generalParameters.isIE11) {
+      if (state.generalParameters.isIE11) {
         return description.substring(0, 50) + '...';
       } else {
         return description;
@@ -96,7 +96,7 @@ export default {
         ' ' +
         (this.participant.lastName || '')
       ).trim();
-      if (parameters.generalParameters.isIE11) {
+      if (state.generalParameters.isIE11) {
         return fullName.substring(0, 50) + '...';
       } else {
         return fullName;
@@ -107,7 +107,7 @@ export default {
         if (this.organisationId === this.participant.orga.id) {
           return true;
         }
-        if (parameters.generalParameters.isAdmin) {
+        if (state.generalParameters.isAdmin) {
           return true;
         }
       }

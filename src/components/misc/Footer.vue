@@ -40,7 +40,7 @@
 
 <script>
 /* import Player from '@/components/misc/Player.vue'; */
-import parameters from "../../store/AppStore.js";
+import {state} from "../../store/AppStore.js";
 
 export default {
   name: 'Footer',
@@ -50,7 +50,7 @@ export default {
 
   computed:{
     isPodcastmaker(){
-      return parameters.generalParameters.podcastmaker;
+      return state.generalParameters.podcastmaker;
     },
   },
 

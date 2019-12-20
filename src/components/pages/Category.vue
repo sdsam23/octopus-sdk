@@ -11,7 +11,7 @@
 <script>
 // @ is an alias to /src
 import PodcastList from '../display/podcasts/PodcastList.vue';
-import parameters from "../../store/AppStore.js";
+import {state} from "../../store/AppStore.js";
 
 export default {
   components: {
@@ -32,7 +32,7 @@ export default {
 
   computed: {
     categories(){
-      return parameters.generalParameters.allCategories;
+      return state.generalParameters.allCategories;
     }
   },
 

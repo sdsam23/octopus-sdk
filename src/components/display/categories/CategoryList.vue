@@ -55,7 +55,7 @@
 }
 </style>
 <script>
-import parameters from "../../../store/AppStore.js";
+import {state} from "../../../store/AppStore.js";
 
 export default {
   name: 'CategoryList',
@@ -73,7 +73,7 @@ export default {
 
   computed: {
     categories(){
-      return parameters.generalParameters.allCategories.filter(c => {
+      return state.generalParameters.allCategories.filter(c => {
           return c.podcastCount;
         });
     }

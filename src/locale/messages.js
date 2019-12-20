@@ -1,5 +1,5 @@
-import fr from '@/locale/fr';
-import en from '@/locale/en';
+import fr from './fr';
+import en from './en';
 
 export default {
   fr: fr,

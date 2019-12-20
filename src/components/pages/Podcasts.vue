@@ -16,7 +16,7 @@
 <script>
 // @ is an alias to /src
 import PodcastList from '../display/podcasts/PodcastList.vue';
-import parameters from "../../store/AppStore.js";
+import {state} from "../../store/AppStore.js";
 import ProductorSearch from '../display/filter/ProductorSearch.vue';
 import MonetizableFilter from '../display/filter/MonetizableFilter.vue';
 
@@ -40,8 +40,8 @@ export default {
     }
     if (this.$route.query.productor) {
       this.$data.organisationId = this.$route.query.productor;
-    } else if (parameters.filter.organisationId) {
-      this.$data.organisationId = parameters.filter.organisationId;
+    } else if (state.filter.organisationId) {
+      this.$data.organisationId = state.filter.organisationId;
     }
   },
 
@@ -57,10 +57,10 @@ export default {
 
   computed:{
     isProductorSearch(){
-      return parameters.podcastsPage.ProductorSearch;
+      return state.podcastsPage.ProductorSearch;
     },
     isMonetizableFilter(){
-      return parameters.podcastsPage.MonetizableFilter;
+      return state.podcastsPage.MonetizableFilter;
     },
   },
 

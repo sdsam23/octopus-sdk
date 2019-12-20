@@ -58,7 +58,7 @@
 </style>
 
 <script>
-import parameters from "../../../store/AppStore.js";
+import {state} from "../../../store/AppStore.js";
 export default {
   props: [
     "podcastId",
@@ -80,13 +80,13 @@ export default {
   computed: {
     rssUrl() {
       if (this.emissionId) {
-        return parameters.generalParameters.ApiUri + "rss/emission/" + this.emissionId;
+        return state.generalParameters.ApiUri + "rss/emission/" + this.emissionId;
       }
       if (this.organisationId) {
-        return parameters.generalParameters.ApiUri + "rss/productor/" + this.organisationId;
+        return state.generalParameters.ApiUri + "rss/productor/" + this.organisationId;
       }
       if (this.participantId) {
-        return parameters.generalParameters.ApiUri + "rss/participant/" + this.participantId;
+        return state.generalParameters.ApiUri + "rss/participant/" + this.participantId;
       }
       return null;
     },

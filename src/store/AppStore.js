@@ -1,59 +1,64 @@
-export default {
+import octopusApi from '@saooti/octopus-api';
+
+var state = {
   generalParameters : {
-    organisationId : 'ecbd98d9-79bd-4312-ad5e-fc7c1c4a191c',
-    authenticated: true,
-    isAdmin: true,
-    ApiUri : 'https://api.staging.saooti.org/',
-    allCategories:[
-      {id: 379, name: "Politique & Informations", podcastCount: 27},
-      {id: 150, name: "Culture & Loisirs", podcastCount: 21},
-      {id: 286, name: "Santé", podcastCount: 17},
-      {id: 453, name: "Religion & Spiritualité", podcastCount: 13},
-      {id: 52, name: "Business & Finance", podcastCount: 11},
-      {id: 186, name: "Famille & Relations", podcastCount: 11},
-      {id: 422, name: "Animaux", podcastCount: 11},
-      {id: 201, name: "Arts", podcastCount: 10},
-      {id: 324, name: "Cinéma", podcastCount: 10},
-      {id: 653, name: "Voyages", podcastCount: 10},
-      {id: 123, name: "Carrières", podcastCount: 7},
-      {id: 338, name: "Musique & Audio", podcastCount: 6},
-      {id: 552, name: "Mode & Style", podcastCount: 3},
-      {id: 640, name: "Télévision", podcastCount: 3},
-      {id: 432, name: "Pop Culture", podcastCount: 2},
-      {id: 464, name: "Sciences", podcastCount: 2},
-      {id: 596, name: "Technologies & Informatique", podcastCount: 2},
-      {id: 1, name: "Automobile", podcastCount: 0},
-      {id: 42, name: "Littérature & Livres", podcastCount: 0},
-      {id: 132, name: "Éducation", podcastCount: 0},
-      {id: 210, name: "Alimentation", podcastCount: 0},
-      {id: 223, name: "Bien-être", podcastCount: 0},
-      {id: 239, name: "Hobbies & Passions", podcastCount: 0},
-      {id: 274, name: "Maison & Jardin", podcastCount: 0},
-      {id: 391, name: "Finance personnelle", podcastCount: 0},
-      {id: 441, name: "Immobilier", podcastCount: 0},
-      {id: 473, name: "Shopping", podcastCount: 0},
-      {id: 483, name: "Sports", podcastCount: 0},
-      {id: 680, name: "Jeux vidéos", podcastCount: 0}, 
-    ],
-    isIE11: false,
-    podcastmaker: true,
   },
   filter : {
     organisationId : undefined,
   },
   podcastPage : {
-    EditBox : true,
-    SharePlayer : true,
-    ShareButtons : true,
-    MiniplayerUri : 'https://player.staging.saooti.org/'
   },
   podcastsPage : {
-    ProductorSearch : true,
-    MonetizableFilter : true,
   },
   organisation : {
-    imageUrl : '../../../../public/img/emptypodcast.png',
-    name: 'Saooti',
-    userName: 'Moi'
+  },
+  octopusApi : {
+
   }
 };
+
+var initialize = function initialize(initObject){
+	if(initObject.generalParameters){
+    let param = initObject.generalParameters;
+    state.generalParameters.organisationId = param.organisationId ? param.organisationId : 'ecbd98d9-79bd-4312-ad5e-fc7c1c4a191c';
+    state.generalParameters.authenticated = param.authenticated ? param.authenticated : true;
+    state.generalParameters.isAdmin = param.isAdmin ? param.isAdmin : true;
+    state.generalParameters.ApiUri = param.ApiUri ? param.ApiUri : 'https://api.staging.saooti.org/';
+    state.generalParameters.allCategories = param.allCategories ? param.allCategories : [];
+    state.generalParameters.isIE11 = param.isIE11 ? param.isIE11 : false;
+    state.generalParameters.podcastmaker = param.podcastmaker ? param.podcastmaker : false;
+  }
+  if(initObject.podcastPage){
+    let param = initObject.podcastPage;
+    state.podcastPage.EditBox = param.EditBox ? param.EditBox : true;
+    state.podcastPage.SharePlayer = param.SharePlayer ? param.SharePlayer : true;
+    state.podcastPage.ShareButtons = param.ShareButtons ? param.ShareButtons : true;
+    state.podcastPage.ShareDistribution = param.ShareDistribution ? param.ShareDistribution : true;
+    state.podcastPage.MiniplayerUri = param.MiniplayerUri ? param.MiniplayerUri : 'https://player.staging.saooti.org/';
+  }
+  if(initObject.podcastsPage){
+    let param = initObject.podcastPage;
+    state.podcastsPage.ProductorSearch = param.ProductorSearch ? param.ProductorSearch : true;
+    state.podcastsPage.MonetizableFilter = param.MonetizableFilter ? param.MonetizableFilter : false;
+  }
+  if(initObject.organisation){
+    let param = initObject.organisation;
+    state.organisation.imageUrl = param.imageUrl ? param.imageUrl : '/img/emptypodcast.png';
+    state.organisation.name = param.name ? param.name : 'Saooti';
+    state.organisation.userName = param.userName ? param.userName : '';
+  }
+  if(initObject.octopusApi){
+    let param = initObject.octopusApi;
+    state.octopusApi.url = param.url ? param.url : "http://api.staging.saooti.org/";
+    state.octopusApi.organisationId = param.organisationId ? param.organisationId : undefined;
+    let error = octopusApi.initialize(state.octopusApi)
+    if(error){
+      //Handle error
+    }
+  }
+};
+
+export {
+	initialize,
+	state
+}

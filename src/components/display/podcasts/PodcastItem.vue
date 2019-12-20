@@ -80,7 +80,7 @@
 <script>
 import AnimatorsItem from './AnimatorsItem.vue';
 import PodcastImage from './PodcastImage.vue';
-import parameters from "../../../store/AppStore.js";
+import {state} from "../../../store/AppStore.js";
 const moment = require('moment');
 const humanizeDuration = require('humanize-duration');
 
@@ -103,14 +103,14 @@ export default {
 
   computed: {
     isPodcastmaker(){
-      return parameters.generalParameters.podcastmaker;
+      return state.generalParameters.podcastmaker;
     },
     date() {
       return moment(this.podcast.pubDate).format('D/MM/YYYY [à] HH[h]mm');
     },
     category() {
       const catIds = this.podcast.emission.iabIds;
-      return parameters.generalParameters.allCategories
+      return state.generalParameters.allCategories
         .filter(c => {
           return catIds.includes(c.id);
         })
@@ -133,7 +133,7 @@ export default {
     },
 
     title() {
-      if (parameters.generalParameters.isIE11) {
+      if (state.generalParameters.isIE11) {
         return this.podcast.title.substring(0, 50) + '...';
       } else {
         return this.podcast.title;

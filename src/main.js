@@ -4,9 +4,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueI18n from 'vue-i18n';
 import I18nResources from './locale/messages';
-import octopusApi from '@saooti/octopus-api';
 import router from '@/router/router';
 import moment from 'moment';
+let store = require('./store/AppStore');
 
 
 moment.locale('fr');
@@ -19,12 +19,14 @@ const i18n = new VueI18n({
   messages: I18nResources,
 });
 
-let error = octopusApi.initialize({
-  url: 'http://api.staging.saooti.org/',
-})
-if(error){
-  //Handle error
-}
+// Initialisation store
+store.initialize({
+  generalParameters : {},
+  podcastPage : {},
+  podcastsPage : {},
+  organisation : {},
+  octopusApi : {},
+});
 
 new Vue({
   i18n,

@@ -15,9 +15,9 @@ import LeftMenu from "./src/components/misc/LeftMenu.vue";
 import Snackbar from "./src/components/misc/Snackbar.vue"; */
 import TopBar from "./src/components/misc/TopBar.vue";
 //Display
-/* import CategoryChooser from "./src/components/display/categories/CategoryChooser.vue";
+/* import CategoryChooser from "./src/components/display/categories/CategoryChooser.vue";*/
 import CategoryList from "./src/components/display/categories/CategoryList.vue";
-import EditBox from "./src/components/display/edit/EditBox.vue";
+/*import EditBox from "./src/components/display/edit/EditBox.vue";
 import EmissionItem from "./src/components/display/emission/EmissionItem.vue";
 import EmissionList from "./src/components/display/emission/EmissionList.vue";
 import MonetizableFilter from "./src/components/display/filter/MonetizableFilter.vue";
@@ -50,9 +50,9 @@ const components = {
     /* Player,
     Snackbar, */
     TopBar,
-    /* CategoryChooser,
+    /* CategoryChooser,*/
     CategoryList,
-    EditBox,
+    /*EditBox,
     EmissionItem,
     EmissionList,
     MonetizableFilter,
@@ -88,9 +88,9 @@ export {
     /* Player,
     Snackbar, */
     TopBar,
-    /* CategoryChooser,
+    /* CategoryChooser,*/
     CategoryList,
-    EditBox,
+    /*EditBox,
     EmissionItem,
     EmissionList,
     MonetizableFilter,
