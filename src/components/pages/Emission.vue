@@ -14,15 +14,15 @@
                 {{description}}
             </div>
           </div>
-          <EditBox :emission='emission' :rssEmission='rssEmission' v-if="editRight"></EditBox>
+          <EditBox :emission='emission' :rssEmission='rssEmission' v-if="editRight && isEditBox"></EditBox>
         </div>
         <div class="d-flex flex-column">
-          <SharePlayer :emissionId="emissionId" :exclusive="exclusive" :organisationId='organisationId'></SharePlayer>
-          <ShareButtons :emissionId="emissionId"></ShareButtons>
+          <SharePlayer :emissionId="emissionId" :exclusive="exclusive" :organisationId='organisationId' v-if="isSharePlayer"></SharePlayer>
+          <ShareButtons :emissionId="emissionId" v-if="isShareButtons"></ShareButtons>
         </div>
       </div>
       <div v-if="editRight">
-        <ShareDistribution :emissionId="emissionId"></ShareDistribution>
+        <ShareDistribution :emissionId="emissionId" v-if="isShareDistribution"></ShareDistribution>
       </div>
       <PodcastFilterList :emissionId="emissionId" :categoryFilter="false" />
     </div>
@@ -79,6 +79,19 @@ export default {
     },
     authenticated(){
       return state.generalParameters.authenticated;
+    },
+
+     isEditBox(){
+      return state.podcastPage.EditBox;
+    },
+    isShareButtons(){
+      return state.podcastPage.ShareButtons;
+    },
+    isSharePlayer(){
+      return state.podcastPage.SharePlayer;
+    },
+    isShareDistribution(){
+      return state.podcastPage.ShareDistribution;
     },
 
     name() {

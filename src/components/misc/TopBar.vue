@@ -6,7 +6,7 @@
       </div>
       <router-link to="/main/pub/home">
         <div class="top-bar-logo m-3">
-          <img src="../../../public/img/logo_octopus_final.svg" :alt="$t('Logo of main page')" />
+          <img src="/img/logo_octopus_final.svg" :alt="$t('Logo of main page')" />
         </div>
       </router-link>
       <div class="d-flex align-items-center justify-content-center flex-grow">
@@ -16,7 +16,7 @@
         <router-link class="linkHover p-3 text-dark font-weight-bold h6" to="/main/pub/participants">{{ $t('Speakers') }}</router-link>
       </div>
       <div class="d-flex align-items-center justify-content-end">
-        <router-link to="/main/priv/upload" v-if="authenticated" class="mr-3">
+        <router-link to="/main/priv/upload" v-if="authenticated && !isPodcastmaker" class="mr-3">
           <button class="btn btn-primary h6">{{ $t('Upload new podcast') }}</button>
         </router-link>
         <div class="d-flex justify-content-end">

@@ -7,13 +7,13 @@
         <h2 class="text-capitalize">{{ name }}</h2>
         <div class="h6">{{ description }}</div>
         <div class="d-flex">
-           <div class="module-box" v-if="editRight">
+           <div class="module-box" v-if="editRight && isEditBox">
             <h3 class="text-center-mobile">{{$t('Suppress')}}</h3>
             <button class="btn btn-primary admin-button  d-inline-flex align-items-center" @click="onDeleteParticipant()">
               <div class="saooti-delete font-weight-bold"></div>
           </button>
           </div>
-          <ShareButtons :participantId="participantId"></ShareButtons>
+          <ShareButtons :participantId="participantId" v-if="isShareButtons"></ShareButtons>
         </div>
       </div>
       <PodcastFilterList
@@ -78,6 +78,12 @@ export default {
     },
     authenticated(){
       return state.generalParameters.authenticated;
+    },
+     isEditBox(){
+      return state.podcastPage.EditBox;
+    },
+    isShareButtons(){
+      return state.podcastPage.ShareButtons;
     },
 
     description() {
