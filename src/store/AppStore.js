@@ -20,37 +20,37 @@ var state = {
 var initialize = function initialize(initObject){
 	if(initObject.generalParameters){
     let param = initObject.generalParameters;
-    state.generalParameters.organisationId = param.organisationId ? param.organisationId : 'ecbd98d9-79bd-4312-ad5e-fc7c1c4a191c';
-    state.generalParameters.authenticated = param.authenticated ? param.authenticated : true;
-    state.generalParameters.isAdmin = param.isAdmin ? param.isAdmin : true;
-    state.generalParameters.ApiUri = param.ApiUri ? param.ApiUri : 'https://api.staging.saooti.org/';
-    state.generalParameters.allCategories = param.allCategories ? param.allCategories : [];
-    state.generalParameters.isIE11 = param.isIE11 ? param.isIE11 : false;
-    state.generalParameters.podcastmaker = param.podcastmaker ? param.podcastmaker : false;
+    state.generalParameters.organisationId = (typeof param.organisationId !== "undefined") ? param.organisationId : 'ecbd98d9-79bd-4312-ad5e-fc7c1c4a191c';
+    state.generalParameters.authenticated = (typeof param.authenticated !== "undefined") ? param.authenticated : true;
+    state.generalParameters.isAdmin =(typeof param.isAdmin !== "undefined") ? param.isAdmin : true;
+    state.generalParameters.ApiUri = (typeof param.ApiUri !== "undefined") ? param.ApiUri : 'https://api.staging.saooti.org/';
+    state.generalParameters.allCategories = (typeof param.allCategories !== "undefined") ? param.allCategories : [];
+    state.generalParameters.isIE11 = (typeof param.isIE11 !== "undefined") ? param.isIE11 : false;
+    state.generalParameters.podcastmaker =(typeof param.podcastmaker !== "undefined") ? param.podcastmaker : false;
   }
   if(initObject.podcastPage){
     let param = initObject.podcastPage;
-    state.podcastPage.EditBox = param.EditBox ? param.EditBox : true;
-    state.podcastPage.SharePlayer = param.SharePlayer ? param.SharePlayer : true;
-    state.podcastPage.ShareButtons = param.ShareButtons ? param.ShareButtons : true;
-    state.podcastPage.ShareDistribution = param.ShareDistribution ? param.ShareDistribution : true;
-    state.podcastPage.MiniplayerUri = param.MiniplayerUri ? param.MiniplayerUri : 'https://player.staging.saooti.org/';
+    state.podcastPage.EditBox = (typeof param.EditBox !== "undefined") ? param.EditBox : true;
+    state.podcastPage.SharePlayer = (typeof param.SharePlayer !== "undefined") ? param.SharePlayer : true;
+    state.podcastPage.ShareButtons = (typeof param.ShareButtons !== "undefined") ? param.ShareButtons : true;
+    state.podcastPage.ShareDistribution = (typeof param.ShareDistribution !== "undefined")? param.ShareDistribution : true;
+    state.podcastPage.MiniplayerUri = (typeof param.MiniplayerUri !== "undefined") ? param.MiniplayerUri : 'https://player.staging.saooti.org/';
   }
   if(initObject.podcastsPage){
-    let param = initObject.podcastPage;
-    state.podcastsPage.ProductorSearch = param.ProductorSearch ? param.ProductorSearch : true;
-    state.podcastsPage.MonetizableFilter = param.MonetizableFilter ? param.MonetizableFilter : false;
+    let param = initObject.podcastsPage;
+    state.podcastsPage.ProductorSearch = (typeof param.ProductorSearch !== "undefined") ? param.ProductorSearch : true;
+    state.podcastsPage.MonetizableFilter = (typeof param.MonetizableFilter !== "undefined") ? param.MonetizableFilter : false;
   }
   if(initObject.organisation){
     let param = initObject.organisation;
-    state.organisation.imageUrl = param.imageUrl ? param.imageUrl : '/img/emptypodcast.png';
-    state.organisation.name = param.name ? param.name : 'Saooti';
-    state.organisation.userName = param.userName ? param.userName : '';
+    state.organisation.imageUrl = (typeof param.imageUrl !== "undefined") ? param.imageUrl : '/img/emptypodcast.png';
+    state.organisation.name = (typeof param.name !== "undefined") ? param.name : 'Saooti';
+    state.organisation.userName = (typeof param.userName !== "undefined") ? param.userName : '';
   }
   if(initObject.octopusApi){
     let param = initObject.octopusApi;
-    state.octopusApi.url = param.url ? param.url : "http://api.staging.saooti.org/";
-    state.octopusApi.organisationId = param.organisationId ? param.organisationId : undefined;
+    state.octopusApi.url = (typeof param.url !== "undefined") ? param.url : "http://api.staging.saooti.org/";
+    state.octopusApi.organisationId = (typeof param.organisationId !== "undefined") ? param.organisationId : undefined;
     let error = octopusApi.initialize(state.octopusApi)
     if(error){
       //Handle error
