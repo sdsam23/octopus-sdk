@@ -26,10 +26,11 @@ store.initialize({
   podcastsPage : {},
   organisation : {},
   octopusApi : {},
+}).then(()=>{
+  new Vue({
+    i18n,
+    router,
+    render: h => h(App),
+  }).$mount('#app')
 });
 
-new Vue({
-  i18n,
-  router,
-  render: h => h(App),
-}).$mount('#app')
