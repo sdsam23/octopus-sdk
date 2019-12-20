@@ -49,7 +49,7 @@
 
 <script>
 import octopusApi from "@saooti/octopus-api";
-import ParticipantItem from '@/components/display/participant/ParticipantItem.vue';
+import ParticipantItem from './ParticipantItem.vue';
 
 export default {
   name: 'ParticipantList',

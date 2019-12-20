@@ -49,7 +49,7 @@
 
 <script>
 import octopusApi from "@saooti/octopus-api";
-import EmissionItem from '@/components/display/emission/EmissionItem.vue';
+import EmissionItem from './EmissionItem.vue';
 
 export default {
   name: 'EmissionList',

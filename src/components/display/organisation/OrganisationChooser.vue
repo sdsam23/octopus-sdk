@@ -79,7 +79,7 @@
 <script>
 import Multiselect from 'vue-multiselect';
 import octopusApi from "@saooti/octopus-api";
-import parameters from "@/store/AppStore.js";
+import parameters from "../../../store/AppStore.js";
 
 const ELEMENTS_COUNT = 200;
 const DEFAULT_ORGANISATION_ID = 0;

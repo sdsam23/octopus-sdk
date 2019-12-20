@@ -44,11 +44,11 @@
 
 <script>
 // @ is an alias to /src
-import ShareButtons from "@/components/display/sharing/ShareButtons.vue";
+import ShareButtons from "../display/sharing/ShareButtons.vue";
 import octopusApi from "@saooti/octopus-api";
-import PodcastFilterList from '@/components/display/podcasts/PodcastFilterList.vue';
+import PodcastFilterList from '../display/podcasts/PodcastFilterList.vue';
 /* import PodcastDeleter from "@/components/display/backoffice/PodcastDeleter.vue"; */
-import parameters from "@/store/AppStore.js";
+import parameters from "../../store/AppStore.js";
 
 export default {
   components: {

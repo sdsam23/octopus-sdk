@@ -20,10 +20,10 @@
 </style>
 <script>
 // @ is an alias to /src
-import EmissionList from '@/components/display/emission/EmissionList.vue';
-import ProductorSearch from '@/components/display/filter/ProductorSearch.vue';
-import MonetizableFilter from '@/components/display/filter/MonetizableFilter.vue';
-import parameters from "@/store/AppStore.js";
+import EmissionList from '../display/emission/EmissionList.vue';
+import ProductorSearch from '../display/filter/ProductorSearch.vue';
+import MonetizableFilter from '../display/filter/MonetizableFilter.vue';
+import parameters from "../../store/AppStore.js";
 
 export default {
   components: {

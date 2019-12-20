@@ -39,13 +39,13 @@
 </style>
 <script>
 // @ is an alias to /src
-import EditBox from "@/components/display/edit/EditBox.vue";
-import SharePlayer from '@/components/display/sharing/SharePlayer.vue';
-import ShareButtons from "@/components/display/sharing/ShareButtons.vue";
-import ShareDistribution from '@/components/display/sharing/ShareDistribution.vue';
-import PodcastFilterList from '@/components/display/podcasts/PodcastFilterList.vue';
+import EditBox from "../display/edit/EditBox.vue";
+import SharePlayer from '../display/sharing/SharePlayer.vue';
+import ShareButtons from "../display/sharing/ShareButtons.vue";
+import ShareDistribution from '../display/sharing/ShareDistribution.vue';
+import PodcastFilterList from '../display/podcasts/PodcastFilterList.vue';
 import octopusApi from "@saooti/octopus-api";
-import parameters from "@/store/AppStore.js";
+import parameters from "../../store/AppStore.js";
 
 export default {
   components: {

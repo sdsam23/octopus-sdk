@@ -10,8 +10,8 @@
 
 <script>
 // @ is an alias to /src
-import PodcastList from '@/components/display/podcasts/PodcastList.vue';
-import parameters from "@/store/AppStore.js";
+import PodcastList from '../display/podcasts/PodcastList.vue';
+import parameters from "../../store/AppStore.js";
 
 export default {
   components: {

@@ -92,8 +92,8 @@
 
 <script>
 import octopusApi from "@saooti/octopus-api";
-import domHelper from "@/helper/dom";
-import PodcastItem from "@/components/display/podcasts/PodcastItem.vue";
+import domHelper from "../../../helper/dom";
+import PodcastItem from "./PodcastItem.vue";
 
 const PHONE_WIDTH = 960;
 

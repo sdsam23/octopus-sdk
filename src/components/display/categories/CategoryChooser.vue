@@ -48,7 +48,7 @@
 </style>
 <script>
 import Multiselect from 'vue-multiselect';
-import parameters from "@/store/AppStore.js";
+import parameters from "../../../store/AppStore.js";
 
 const getDefaultCategory = defaultName => {
   if(defaultName !== undefined){

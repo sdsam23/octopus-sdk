@@ -37,8 +37,8 @@
 
 <script>
 // @ is an alias to /src
-import CategoryChooser from '@/components/display/categories/CategoryChooser.vue';
-import PodcastList from '@/components/display/podcasts/PodcastList.vue';
+import CategoryChooser from '../categories/CategoryChooser.vue';
+import PodcastList from './PodcastList.vue';
 
 export default {
   components: {

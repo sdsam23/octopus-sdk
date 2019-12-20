@@ -102,13 +102,13 @@
 
 <script>
 // @ is an alias to /src
-import EditBox from "@/components/display/edit/EditBox.vue";
-import SharePlayer from "@/components/display/sharing/SharePlayer.vue";
-import ShareButtons from "@/components/display/sharing/ShareButtons.vue";
-import PodcastInlineList from "@/components/display/podcasts/PodcastInlineList.vue";
-import PodcastImage from "@/components/display/podcasts/PodcastImage.vue";
+import EditBox from "../display/edit/EditBox.vue";
+import SharePlayer from "../display/sharing/SharePlayer.vue";
+import ShareButtons from "../display/sharing/ShareButtons.vue";
+import PodcastInlineList from "../display/podcasts/PodcastInlineList.vue";
+import PodcastImage from "../display/podcasts/PodcastImage.vue";
 import octopusApi from "@saooti/octopus-api";
-import parameters from "@/store/AppStore.js";
+import parameters from "../../store/AppStore.js";
 const moment = require("moment");
 const humanizeDuration = require("humanize-duration");
 

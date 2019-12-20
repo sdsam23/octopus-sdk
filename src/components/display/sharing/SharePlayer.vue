@@ -77,8 +77,8 @@
 </style>
 
 <script>
-import Snackbar from '@/components/misc/Snackbar.vue';
-import parameters from "@/store/AppStore.js";
+import Snackbar from '../../misc/Snackbar.vue';
+import parameters from "../../../store/AppStore.js";
 
 export default {
   props: ['podcast', 'emissionId', "organisationId", 'exclusive'],

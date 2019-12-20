@@ -43,7 +43,7 @@
 
 <script>
 import octopusApi from "@saooti/octopus-api";
-import parameters from "@/store/AppStore.js";
+import parameters from "../../../store/AppStore.js";
 export default {
   name: 'ParticpantItem',
 

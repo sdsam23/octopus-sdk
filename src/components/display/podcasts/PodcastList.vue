@@ -51,7 +51,7 @@
 
 <script>
 import octopusApi from "@saooti/octopus-api";
-import PodcastItem from '@/components/display/podcasts/PodcastItem.vue';
+import PodcastItem from './PodcastItem.vue';
 
 export default {
   name: 'PodcastList',

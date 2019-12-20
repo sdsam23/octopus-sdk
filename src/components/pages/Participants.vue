@@ -18,9 +18,9 @@
 </style>
 <script>
 // @ is an alias to /src
-import ParticipantList from '@/components/display/participant/ParticipantList.vue';
-import ProductorSearch from '@/components/display/filter/ProductorSearch.vue';
-import parameters from "@/store/AppStore.js";
+import ParticipantList from '../display/participant/ParticipantList.vue';
+import ProductorSearch from '../display/filter/ProductorSearch.vue';
+import parameters from "../../store/AppStore.js";
 
 export default {
   components: {

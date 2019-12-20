@@ -78,9 +78,9 @@
 </style>
 
 <script>
-import AnimatorsItem from '@/components/display/podcasts/AnimatorsItem.vue';
-import PodcastImage from '@/components/display/podcasts/PodcastImage.vue';
-import parameters from "@/store/AppStore.js";
+import AnimatorsItem from './AnimatorsItem.vue';
+import PodcastImage from './PodcastImage.vue';
+import parameters from "../../../store/AppStore.js";
 const moment = require('moment');
 const humanizeDuration = require('humanize-duration');
 

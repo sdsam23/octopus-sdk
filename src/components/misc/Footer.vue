@@ -39,13 +39,13 @@
 </style>
 
 <script>
-import Player from '@/components/misc/Player.vue';
-import parameters from "@/store/AppStore.js";
+/* import Player from '@/components/misc/Player.vue'; */
+import parameters from "../../store/AppStore.js";
 
 export default {
   name: 'Footer',
   components: {
-    Player,
+    /* Player, */
   },
 
   computed:{

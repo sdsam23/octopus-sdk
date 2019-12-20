@@ -151,8 +151,8 @@
 </style>
 
 <script>
-import parameters from "@/store/AppStore.js";
-import DurationHelper from '@/helper/duration';
+import parameters from "../../store/AppStore.js";
+import DurationHelper from '../../helper/duration';
 
 export default {
   name: 'Player',

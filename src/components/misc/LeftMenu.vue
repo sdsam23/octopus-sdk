@@ -85,7 +85,7 @@
 }
 </style>
 <script>
-import parameters from "@/store/AppStore.js";
+import parameters from "../../store/AppStore.js";
 
 export default {
   name: 'LeftMenu',

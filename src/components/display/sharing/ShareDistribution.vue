@@ -69,7 +69,7 @@
 </style>
 <script>
 import octopusApi from "@saooti/octopus-api";
-import Snackbar from '@/components/misc/Snackbar.vue';
+import Snackbar from '../../misc/Snackbar.vue';
 
 export default {
 
