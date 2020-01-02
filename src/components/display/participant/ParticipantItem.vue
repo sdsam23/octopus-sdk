@@ -86,6 +86,26 @@ export default {
         return fullName;
       }
     },
+
+    organisationId(){
+      return state.generalParameters.organisationId;
+    },
+
+    authenticated(){
+      return state.generalParameters.authenticated;
+    },
+
+    editRight() {
+      if (this.authenticated) {
+        if (this.organisationId === this.emission.orga.id) {
+          return true;
+        }
+        if (state.generalParameters.isAdmin) {
+          return true;
+        }
+      }
+      return false;
+    }
   },
   methods:{
     hasPodcast(){
@@ -94,7 +114,7 @@ export default {
           participantId: this.participant.participantId,
         })
         .then((data) => {
-          if(data.count === 0){
+          if(data.count === 0 && this.editRight){
             this.activeParticipant = false;
           }
         });

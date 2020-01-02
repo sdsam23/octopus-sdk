@@ -4,6 +4,7 @@
       <h1>{{ $t('Emission') }}</h1>
       <div class="d-flex">
         <div class="d-flex flex-column flex-grow">
+          <EditBox :emission='emission' :rssEmission='rssEmission' v-if="editRight && isEditBox"></EditBox>
           <div class="module-box">
             <h2>{{ name }}</h2>
             <div class="mb-5 h6">
@@ -14,7 +15,6 @@
                 {{description}}
             </div>
           </div>
-          <EditBox :emission='emission' :rssEmission='rssEmission' v-if="editRight && isEditBox"></EditBox>
         </div>
         <div class="d-flex flex-column">
           <SharePlayer :emissionId="emissionId" :exclusive="exclusive" :organisationId='organisationId' v-if="isSharePlayer"></SharePlayer>

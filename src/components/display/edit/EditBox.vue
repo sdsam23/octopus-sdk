@@ -12,6 +12,9 @@
             <div class="saooti-edit font-weight-bold"></div>
           </button>
         </router-link>
+        <button class="btn btn-primary admin-button" v-if="participant" @click="onParticipantPopup">
+          <div class="saooti-edit font-weight-bold"></div>
+        </button>
         <button class="btn btn-primary admin-button" @click="onDelete()">
             <div class="saooti-delete font-weight-bold"></div>
         </button>
@@ -19,11 +22,19 @@
  <!--    <PodcastDeleter
       :podcast="podcastToDelete"
       :emission="emissionToDelete"
-      v-if="!!podcastToDelete || !!emissionToDelete"
+      :participant="participantToDelete"
+      v-if="!!podcastToDelete || !!emissionToDelete || !!participantToDelete"
       :rss="rssEmission"
       @rss="closeModal"
       @cancel="cleanItemToDelete"
       @done="removeDeleted"
+    /> -->
+ <!--    <ParticipantPopup
+      v-if="editParticipant"
+      :participant="participant"
+      title="Test"
+      @validate="onParticipantPopupValid"
+      @cancel="onParticipantPopup"
     /> -->
   </div>
 </template>
@@ -39,12 +50,14 @@ export default {
   components: {
     /* PodcastDeleter */
   },
-  props: ['podcast', 'emission', 'rssEmission'],
+  props: ['podcast', 'emission', 'participant', 'rssEmission'],
 
   data() {
     return {
       podcastToDelete: undefined,
       emissionToDelete: undefined,
+      participantToDelete: undefined,
+      editParticipant: false,
     };
   },
 
@@ -53,15 +66,18 @@ export default {
 
   methods: {
     onDelete() {
-      if(this.podcast){
+     if(this.podcast){
         this.podcastToDelete = this.podcast;
-      } else{
+      } else if(this.emission){
         this.emissionToDelete = this.emission;
+      } else{
+        this.participantToDelete = this.participant;
       }
     },
     cleanItemToDelete() {
       this.podcastToDelete = undefined;
       this.emissionToDelete = undefined;
+      this.participantToDelete = undefined;
     },
     removeDeleted() {
       if(window.history.length > 1){
@@ -73,7 +89,16 @@ export default {
     closeModal() {
       this.rssEmission = false;
       this.emissionToDelete = undefined;
-    }
+    },
+    /* onParticipantPopupValid(kind, participant) {
+      participantApi.updateParticipant(this.$store, participant).then(()=>{
+         this.onParticipantPopup();
+         this.$emit('participantUpdate');
+      });
+    },
+    onParticipantPopup() {
+      this.editParticipant = !this.editParticipant;
+    }, */
   },
 };
 </script>

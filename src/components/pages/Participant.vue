@@ -7,12 +7,7 @@
         <h2 class="text-capitalize">{{ name }}</h2>
         <div class="h6">{{ description }}</div>
         <div class="d-flex">
-           <div class="module-box" v-if="editRight && isEditBox">
-            <h3 class="text-center-mobile">{{$t('Suppress')}}</h3>
-            <button class="btn btn-primary admin-button  d-inline-flex align-items-center" @click="onDeleteParticipant()">
-              <div class="saooti-delete font-weight-bold"></div>
-          </button>
-          </div>
+          <EditBox :participant='participant' v-if="editRight && isEditBox" @participantUpdate="getParticipantDetails"></EditBox>
           <ShareButtons :participantId="participantId" v-if="isShareButtons"></ShareButtons>
         </div>
       </div>
@@ -29,12 +24,6 @@
     <div class="text-center" v-if="error">
       <h3>{{ $t("Animator doesn't exist") }}</h3>
     </div>
-    <!-- <PodcastDeleter
-      :participant="participantToDelete"
-      v-if="!!participantToDelete"
-      @cancel="cleanParticipantToDelete"
-      @done="removeDeletedParticipant"
-    /> -->
   </div>
 </template>
 
@@ -44,21 +33,21 @@
 
 <script>
 // @ is an alias to /src
+import EditBox from "../display/edit/EditBox.vue";
 import ShareButtons from "../display/sharing/ShareButtons.vue";
 import octopusApi from "@saooti/octopus-api";
 import PodcastFilterList from '../display/podcasts/PodcastFilterList.vue';
-/* import PodcastDeleter from "@/components/display/backoffice/PodcastDeleter.vue"; */
 import {state} from "../../store/AppStore.js";
 
 export default {
   components: {
     ShareButtons,
     PodcastFilterList,
-    /* PodcastDeleter */
+    EditBox
   },
 
   mounted() {
-    this.getParticipantDetails(this.participantId);
+    this.getParticipantDetails();
   },
 
   props: ['participantId'],
@@ -67,7 +56,6 @@ export default {
     return {
       loaded: false,
       participant: undefined,
-      participantToDelete: undefined,
       error: false,
     };
   },
@@ -79,7 +67,7 @@ export default {
     authenticated(){
       return state.generalParameters.authenticated;
     },
-     isEditBox(){
+    isEditBox(){
       return state.podcastPage.EditBox;
     },
     isShareButtons(){
@@ -122,8 +110,8 @@ export default {
   },
 
   methods: {
-    getParticipantDetails(participantId) {
-      octopusApi.fetchParticipant(participantId).then(data => {
+    getParticipantDetails() {
+      octopusApi.fetchParticipant(this.participantId).then(data => {
         this.participant = data;
         this.loaded = true;
       })
@@ -132,19 +120,6 @@ export default {
         this.loaded = true;
       });
     },
-    onDeleteParticipant() {
-      this.participantToDelete = this.participant;
-    },
-    cleanParticipantToDelete() {
-      this.participantToDelete = undefined;
-    },
-    removeDeletedParticipant() {
-      if(window.history.length > 1){
-        this.$router.go(-1);
-      } else{
-        this.$router.push('/main/pub/participants');
-      }
-    }
   },
 };
 </script>

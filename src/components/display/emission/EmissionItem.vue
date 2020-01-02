@@ -5,7 +5,8 @@
     </router-link>
     <div class="emission-item-text">
       <router-link v-bind:to="'/main/pub/emission/' + emission.emissionId" class="text-dark">
-        <div class="emission-name">{{ name }}</div>
+        <div class="emission-name">
+        <img class="icon-caution" src="/img/caution.png" v-if="!activeEmission && !isPodcastmaker"/>{{ name }}</div>
         <div class="emission-description">{{ description }}</div>
       </router-link>
       <div class="flex-grow"></div>
@@ -68,10 +69,21 @@
 
 <script>
 import {state} from "../../../store/AppStore.js";
+import octopusApi from "@saooti/octopus-api";
 export default {
   name: 'EmissionItem',
 
   props: ['emission'],
+
+  created(){
+    this.hasPodcast();
+  },
+
+  data() {
+    return {
+      activeEmission: true,
+    };
+  },
 
   computed: {
     isPodcastmaker(){
@@ -99,6 +111,40 @@ export default {
         return this.emission.name;
       }
     },
+
+    organisationId(){
+      return state.generalParameters.organisationId;
+    },
+
+    authenticated(){
+      return state.generalParameters.authenticated;
+    },
+
+    editRight() {
+      if (this.authenticated) {
+        if (this.organisationId === this.emission.orga.id) {
+          return true;
+        }
+        if (state.generalParameters.isAdmin) {
+          return true;
+        }
+      }
+      return false;
+    }
+  },
+
+   methods:{
+    hasPodcast(){
+      octopusApi
+        .fetchPodcasts(this.$store, {
+          emissionId: this.emission.emissionId,
+        })
+        .then((data) => {
+          if(data.count === 0 && this.editRight){
+            this.activeEmission = false;
+          }
+        });
+    }
   },
 };
 </script>

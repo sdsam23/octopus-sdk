@@ -4,6 +4,7 @@
       <h1>{{ $t('Episode') }}</h1>
       <div class="d-flex">
         <div class="d-flex flex-column flex-grow">
+          <EditBox :podcast="podcast" v-if="editRight && isEditBox"></EditBox>
           <div class="module-box">
             <h2 class="text-uppercase font-weight-bold h3">{{ this.podcast.title }}</h2>
             <div class="mb-5 d-flex h6">
@@ -61,7 +62,6 @@
               </div>
             </div>
           </div>
-          <EditBox :podcast="podcast" v-if="editRight && isEditBox"></EditBox>
         </div>
         <div class="d-flex flex-column">
           <SharePlayer
