@@ -27,9 +27,9 @@ import ParticipantItem from "./src/components/display/participant/ParticipantIte
 import ParticipantList from "./src/components/display/participant/ParticipantList.vue";
 import AnimatorsItem from "./src/components/display/podcasts/AnimatorsItem.vue";
 import PodcastFilterList from "./src/components/display/podcasts/PodcastFilterList.vue";
-import PodcastImage from "./src/components/display/podcasts/PodcastImage.vue";
+import PodcastImage from "./src/components/display/podcasts/PodcastImage.vue";*/
 import PodcastInlineList from "./src/components/display/podcasts/PodcastInlineList.vue";
-import PodcastItem from "./src/components/display/podcasts/PodcastItem.vue";
+/*import PodcastItem from "./src/components/display/podcasts/PodcastItem.vue";
 import PodcastList from "./src/components/display/podcasts/PodcastList.vue";
 import ShareButtons from "./src/components/display/sharing/ShareButtons.vue";
 import ShareDistribution from "./src/components/display/sharing/ShareDistribution.vue";
@@ -62,9 +62,9 @@ const components = {
     ParticipantList,
     AnimatorsItem,
     PodcastFilterList,
-    PodcastImage,
+    PodcastImage,*/
     PodcastInlineList,
-    PodcastItem,
+    /*PodcastItem,
     PodcastList,
     ShareButtons,
     ShareDistribution,
@@ -100,9 +100,9 @@ export {
     ParticipantList,
     AnimatorsItem,
     PodcastFilterList,
-    PodcastImage,
+    PodcastImage,*/
     PodcastInlineList,
-    PodcastItem,
+    /*PodcastItem,
     PodcastList,
     ShareButtons,
     ShareDistribution,
