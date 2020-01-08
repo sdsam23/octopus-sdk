@@ -1,5 +1,5 @@
 <template>
-  <li class="podcast-item-container shadow-element">
+  <li class="podcast-item-container" :class="[podcastShadow? 'shadow-element':'', podcastBorderBottom? 'border-bottom':'']">
     <PodcastImage 
       v-bind:podcast="podcast" 
       :hidePlay='!hover || !description' 
@@ -104,6 +104,12 @@ export default {
   computed: {
     isPodcastmaker(){
       return state.generalParameters.podcastmaker;
+    },
+    podcastShadow(){
+      return state.podcastsPage.podcastShadow;
+    },
+    podcastBorderBottom(){
+      return state.podcastsPage.podcastBorderBottom;
     },
     date() {
       return moment(this.podcast.pubDate).format('D/MM/YYYY [à] HH[h]mm');

@@ -2,7 +2,7 @@
   <div class="d-flex flex-column p-3">
     <h2>{{ title }}</h2>
     <div class="d-flex justify-content-between">
-      <div class="d-flex">
+      <div class="d-flex" v-if="requirePopularSort === undefined">
         <button
           class="btn btn-underline"
           @click="sortPopular()"
@@ -14,7 +14,7 @@
           :class="{ active: !popularSort }"
         >{{ $t('Last added') }}</button>
       </div>
-      <div class="hide-phone">
+      <div class="hide-phone" v-if="!isArrow">
         <button class="btn btn-arrow" @click="displayPrevious()" :class="{ disabled: !previousAvailable }">
           <div class="saooti-arrow-left2"></div>
         </button>
@@ -30,7 +30,7 @@
     <transition-group :name="transitionName" class="podcast-list-inline" tag="ul" v-show="loaded">
       <PodcastItem class="flex-shrink" v-bind:podcast="p" v-for="p in podcasts" v-bind:key="p.podcastId" />
     </transition-group>
-    <a class="btn btn-link" v-bind:href="href">{{buttonText}}</a>
+    <a class="btn btn-link" :class="buttonPlus? 'btn-linkPlus': ''" v-bind:href="href">{{buttonText}}<div class="saooti-plus" v-if="buttonPlus"></div></a>
   </div>
 </template>
 
@@ -106,7 +106,10 @@ export default {
     "iabId",
     "title",
     "href",
-    "buttonText"
+    "buttonText",
+    "requirePopularSort",
+    "isArrow",
+    "buttonPlus"
   ],
 
   components: {
@@ -114,6 +117,12 @@ export default {
   },
 
   created() {
+    if(this.requirePopularSort !== undefined){
+      this.popularSort = this.requirePopularSort
+    }
+    if(this.isArrow !== undefined){
+      this.isArrow = true;
+    }
     window.addEventListener("resize", this.handleResize);
   },
 
