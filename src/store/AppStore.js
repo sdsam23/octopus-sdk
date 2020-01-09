@@ -10,6 +10,8 @@ var state = {
   },
   podcastsPage : {
   },
+  emissionsPage: {
+  },
   organisation : {
   },
   octopusApi : {
@@ -27,7 +29,7 @@ var initialize = function initialize(initObject){
       state.generalParameters.ApiUri = (typeof param.ApiUri !== "undefined") ? param.ApiUri : 'https://api.staging.saooti.org/';
       state.generalParameters.isIE11 = (typeof param.isIE11 !== "undefined") ? param.isIE11 : false;
       state.generalParameters.podcastmaker =(typeof param.podcastmaker !== "undefined") ? param.podcastmaker : true;
-      state.generalParameters.buttonPlus =(typeof param.buttonPlus !== "undefined") ? param.buttonPlus : false;
+      state.generalParameters.buttonPlus =(typeof param.buttonPlus !== "undefined") ? param.buttonPlus : true;
     }
     if(initObject.podcastPage){
       let param = initObject.podcastPage;
@@ -37,6 +39,7 @@ var initialize = function initialize(initObject){
       state.podcastPage.ShareDistribution = (typeof param.ShareDistribution !== "undefined")? param.ShareDistribution : false;
       state.podcastPage.MiniplayerUri = (typeof param.MiniplayerUri !== "undefined") ? param.MiniplayerUri : 'https://player.staging.saooti.org/';
       state.podcastPage.ouestFranceStyle = (typeof param.ouestFranceStyle !== "undefined") ? param.ouestFranceStyle : true;
+      state.podcastPage.tagList= (typeof param.tagList !== "undefined") ? param.tagList : true;
     }
     if(initObject.podcastsPage){
       let param = initObject.podcastsPage;
@@ -45,6 +48,11 @@ var initialize = function initialize(initObject){
       state.podcastsPage.podcastShadow = (typeof param.podcastShadow !== "undefined") ? param.podcastShadow : true;
       state.podcastsPage.podcastBorderBottom = (typeof param.podcastBorderBottom !== "undefined") ? param.podcastBorderBottom : false;
       state.podcastsPage.titlePage = (typeof param.titlePage !== "undefined") ? param.titlePage : undefined;
+    }
+    if(initObject.emissionsPage){
+      let param = initObject.emissionsPage;
+      state.emissionsPage.smallItems = (typeof param.smallItems !== "undefined") ? param.smallItems : true;
+      state.emissionsPage.lightItems = (typeof param.lightItems !== "undefined") ? param.lightItems : true;
     }
     if(initObject.organisation){
       let param = initObject.organisation;

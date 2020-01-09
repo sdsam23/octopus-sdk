@@ -4,7 +4,7 @@
       <div class="spinner-border mr-3"></div>
       <h3>{{ $t('Loading emissions ...') }}</h3>
     </div>
-    <ul class="emission-list" v-show="loaded">
+    <ul class="emission-list" :class="smallItems? 'threeEmissions': 'twoEmissions'" v-show="loaded">
       <EmissionItem
         v-bind:emission="e"
         v-for="e in emissions"
@@ -12,11 +12,13 @@
       />
     </ul>
     <a
-      class="btn btn-more"
+      class="btn"
       v-bind:href="'/main/pub/emissions?first=' + dfirst + '&size=' + dsize"
+      :class="buttonPlus? 'btn-linkPlus': 'btn-more'"
       @click="displayMore"
       v-show="!allFetched && loaded"
     >
+      <template v-if="buttonPlus">{{$t('See more')}}</template>
       <div class="saooti-plus"></div>
     </a>
   </div>
@@ -34,9 +36,15 @@
   /* end */
 
   display: grid; /* 1 */
-  grid-template-columns: repeat(auto-fill, 49%); /* 2 */
   grid-gap: 1rem; /* 3 */
   justify-content: space-between; /* 4 */
+}
+.twoEmissions{
+  grid-template-columns: repeat(auto-fill, 49%); /* 2 */
+}
+
+.threeEmissions{
+  grid-template-columns: repeat(auto-fill, 32%); /* 2 */
 }
 
 /** PHONES*/
@@ -50,6 +58,7 @@
 <script>
 import octopusApi from "@saooti/octopus-api";
 import EmissionItem from './EmissionItem.vue';
+import {state} from "../../../store/AppStore.js";
 
 export default {
   name: 'EmissionList',
@@ -60,7 +69,7 @@ export default {
     EmissionItem,
   },
 
-  created() {
+  mounted() {
     this.fetchContent(true);
   },
 
@@ -79,6 +88,12 @@ export default {
     allFetched() {
       return this.dfirst >= this.totalCount;
     },
+    buttonPlus(){
+      return state.generalParameters.buttonPlus;
+    },
+    smallItems(){
+      return state.emissionsPage.smallItems;
+    }
   },
 
   methods: {

@@ -96,6 +96,11 @@ a.linkHover:hover{
   color: $octopus-primary-color !important;
 }
 
+.descriptionText{
+  white-space: pre-wrap; 
+  word-wrap: break-word;
+}
+
 .alert-text{
   color: $octopus-alert-text;
   .icon{
@@ -143,6 +148,12 @@ a.linkHover:hover{
   background-size: cover;
   border-radius: 2rem;
 }
+.img-box-light {
+  height: 100px;
+  width: 100px;
+  background-size: cover;
+  margin-right: 10px;
+}
 
 .img-box-circle {
   height: 10rem;
@@ -187,6 +198,11 @@ a.linkHover:hover{
     }
   }
 }
+
+.noList{
+  list-style: none;
+}
+
 
 @media (max-width: 960px) {
   .d-flex{

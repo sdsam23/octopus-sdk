@@ -24,7 +24,7 @@
                   <div class="mr-5" v-if="!isOuestFrance">{{ date }}</div>
                   <div><span class="saooti-clock3" v-if="isOuestFrance"></span>{{ $t('Duration', { duration: duration }) }}</div>
                 </div>
-                <div>{{ this.podcast.description }}</div>
+                <div class="descriptionText">{{ this.podcast.description }}</div>
                 <div class="mt-3 mb-3">
                   <div class="comma">{{ $t('Animated by : ') }}
                     <router-link
@@ -71,6 +71,7 @@
                 </div>
               </div>
             </div>
+            <TagList v-if="isTagList" :tagList='podcast.tags'/>
           </div>
         </div>
         <div class="d-flex flex-column">
@@ -119,6 +120,7 @@ import SharePlayer from "../display/sharing/SharePlayer.vue";
 import ShareButtons from "../display/sharing/ShareButtons.vue";
 import PodcastInlineList from "../display/podcasts/PodcastInlineList.vue";
 import PodcastImage from "../display/podcasts/PodcastImage.vue";
+import TagList from "../display/podcasts/TagList.vue";
 import octopusApi from "@saooti/octopus-api";
 import {state} from "../../store/AppStore.js";
 const moment = require("moment");
@@ -130,7 +132,8 @@ export default {
     PodcastImage,
     ShareButtons,
     SharePlayer,
-    EditBox
+    EditBox,
+    TagList
   },
 
   mounted() {
@@ -172,6 +175,9 @@ export default {
     },
     isOuestFrance(){
       return state.podcastPage.ouestFranceStyle;
+    },
+    isTagList(){
+      return state.podcastPage.tagList;
     },
     emissionMainCategory() {
       if (

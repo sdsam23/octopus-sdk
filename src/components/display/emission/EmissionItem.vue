@@ -1,13 +1,17 @@
 <template>
-  <li class="emission-item-container shadow-element">
+  <li class="mt-3" :class="lightItems? 'noList emission-light-max-size':'emission-item-container shadow-element'">
     <router-link v-bind:to="'/main/pub/emission/' + emission.emissionId" class="text-dark">
-      <div class="img-box" :style="{ 'background-image': 'url(\'' + emission.imageUrl + '\')' }"></div>
+      <div class="img-box" :style="{ 'background-image': 'url(\'' + emission.imageUrl + '\')' }" v-if="!lightItems"></div>
+      <div class="d-flex" v-else>
+        <div class="img-box-light flex-shrink" :style="{ 'background-image': 'url(\'' + emission.imageUrl + '\')' }"></div>
+        <div class="emission-light-title">{{ name }}</div>
+      </div>
     </router-link>
-    <div class="emission-item-text">
+    <div class="emission-item-text" :class="lightItems?'p-0':''">
       <router-link v-bind:to="'/main/pub/emission/' + emission.emissionId" class="text-dark">
-        <div class="emission-name">
+        <div class="emission-name" v-if="!lightItems">
         <img class="icon-caution" src="/img/caution.png" v-if="!activeEmission && !isPodcastmaker"/>{{ name }}</div>
-        <div class="emission-description">{{ description }}</div>
+        <div class="emission-description" :class="lightItems?'emission-small-description':''">{{ description }}</div>
       </router-link>
       <div class="flex-grow"></div>
       <router-link v-bind:to="'/main/pub/productor/' + emission.orga.id" class="text-dark" v-if="!isPodcastmaker">
@@ -26,6 +30,21 @@
   width: 100%;
   margin: 1rem 0;
 }
+.emission-light-max-size{
+  width: 300px;
+  border-bottom: 1px solid #ddd;
+}
+.emission-light-title{
+  color: #333 !important;
+  align-self: flex-end;
+  text-transform: none;
+  font-size: 1.5em;
+  font-weight: normal;
+  white-space: nowrap;
+  overflow: hidden; 
+  text-overflow: ellipsis;
+}
+
 .emission-item-text{
   padding: 1rem;
   display: flex;
@@ -48,6 +67,10 @@
     -webkit-line-clamp: 7;
     -webkit-box-orient: vertical;
     white-space: pre-wrap;
+  }
+  .emission-small-description{
+    -webkit-line-clamp: 2;
+    border-top: 1px solid #ddd;
   }
 
   .emission-producer{
@@ -92,6 +115,10 @@ export default {
 
     organisation() {
       return '' + this.emission.publisher.organisation.name;
+    },
+
+    lightItems(){
+      return state.emissionsPage.lightItems;
     },
 
     description() {

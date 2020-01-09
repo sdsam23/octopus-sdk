@@ -24,6 +24,7 @@ store.initialize({
   generalParameters : {},
   podcastPage : {},
   podcastsPage : {},
+  emissionsPage : {},
   organisation : {},
   octopusApi : {},
 }).then(()=>{

@@ -43,6 +43,9 @@ export default {
   },
 
   mounted() {
+    if (this.$route.params.query) {
+      this.$data.rawQuery = this.$route.params.query;
+    }
     this.$refs.search.focus();
   },
 
