@@ -1,6 +1,7 @@
 <template>
   <div class="page-box">
-    <h1>{{ $t('All podcasts') }}</h1>
+    <h1 v-if="titlePage === undefined">{{ $t('All podcasts') }}</h1>
+    <h1 v-else>{{ titlePage }}</h1>
     <ProductorSearch 
       :organisationId='organisationId' 
       :searchPattern='searchPattern'
@@ -61,6 +62,9 @@ export default {
     },
     isMonetizableFilter(){
       return state.podcastsPage.MonetizableFilter;
+    },
+    titlePage(){
+      return state.podcastsPage.titlePage;
     },
   },
 

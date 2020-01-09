@@ -372,6 +372,7 @@ export default {
       "Êtes-vous sûr de vouloir supprimer l'intervenant {name} ?",
     'Delete participant not possible because he is an animator': "La suppression de cet intervenant est interdite car il est le seul animateur d'un épisode.",
     'Distribute' : 'Distribuer',
-    'Rss feed:' : 'Flux RSS:'
+    'Rss feed:' : 'Flux RSS:',
+    'See more': 'Voir plus'
   };
   

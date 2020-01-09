@@ -12,11 +12,13 @@
       />
     </ul>
     <a
-      class="btn btn-more"
+      class="btn"
       v-bind:href="'/main/pub/podcasts?first=' + dfirst + '&size=' + dsize"
+      :class="buttonPlus? 'btn-linkPlus': 'btn-more'"
       @click="displayMore"
       v-show="!allFetched && loaded"
     >
+      <template v-if="buttonPlus">{{$t('See more')}}</template>
       <div class="saooti-plus"></div>
     </a>
   </div>
@@ -52,6 +54,7 @@
 <script>
 import octopusApi from "@saooti/octopus-api";
 import PodcastItem from './PodcastItem.vue';
+import {state} from "../../../store/AppStore.js";
 
 export default {
   name: 'PodcastList',
@@ -90,6 +93,9 @@ export default {
     allFetched() {
       return this.dfirst >= this.totalCount;
     },
+    buttonPlus(){
+      return state.generalParameters.buttonPlus;
+    }
   },
 
   methods: {

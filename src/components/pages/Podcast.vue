@@ -1,18 +1,28 @@
 <template>
   <div>
     <div class="page-box" v-if="loaded && !error">
-      <h1>{{ $t('Episode') }}</h1>
+      <h1 v-if="!isOuestFrance">{{ $t('Episode') }}</h1>
       <div class="d-flex">
         <div class="d-flex flex-column flex-grow">
           <EditBox :podcast="podcast" v-if="editRight && isEditBox"></EditBox>
           <div class="module-box">
-            <h2 class="text-uppercase font-weight-bold h3">{{ this.podcast.title }}</h2>
+            <h2 class="text-uppercase font-weight-bold h3" v-if="!isOuestFrance">{{ this.podcast.title }}</h2>
+            <router-link v-bind:to="'/main/pub/emission/' + this.podcast.emission.emissionId" v-else>
+              <h1>{{ this.podcast.emission.name }}</h1>
+            </router-link>
             <div class="mb-5 d-flex h6">
-              <PodcastImage class="shadow-element mr-3" v-bind:podcast="podcast" hidePlay='false' :playingPodcast='playingPodcast' @playPodcast='playPodcast' />
+              <PodcastImage
+                :class="isOuestFrance? '':'shadow-element'"
+                class="mr-3" 
+                v-bind:podcast="podcast" 
+                hidePlay='false'
+                :playingPodcast='playingPodcast' 
+                @playPodcast='playPodcast' />
               <div>
+                <h3 v-if="isOuestFrance">{{ this.podcast.title }}</h3>
                 <div class="d-flex align-items-left flex-wrap text-secondary mb-3">
-                  <div class="mr-5">{{ date }}</div>
-                  <div>{{ $t('Duration', { duration: duration }) }}</div>
+                  <div class="mr-5" v-if="!isOuestFrance">{{ date }}</div>
+                  <div><span class="saooti-clock3" v-if="isOuestFrance"></span>{{ $t('Duration', { duration: duration }) }}</div>
                 </div>
                 <div>{{ this.podcast.description }}</div>
                 <div class="mt-3 mb-3">
@@ -26,7 +36,7 @@
                       v-bind:key="animator.participantId"
                     >{{ getName(animator) }}</router-link>
                   </div>
-                  <div>{{ $t('Emission') + ' : ' }}
+                  <div v-if="!isOuestFrance">{{ $t('Emission') + ' : ' }}
                     <router-link
                       class="link-info"
                       v-bind:to="
@@ -75,20 +85,22 @@
           <ShareButtons :podcastId="podcastId" class="flex-grow" v-if="isShareButtons"></ShareButtons>
         </div>
       </div>
-      <PodcastInlineList
-        :emissionId="this.podcast.emission.emissionId"
-        :href="'/main/pub/emission/' + this.podcast.emission.emissionId"
-        :title="$t('More episodes of this emission')"
-        :buttonText="$t('All podcast emission button')"
-      />
-      <PodcastInlineList
-        v-for="c in categories"
-        :key="c.id"
-        :iabId="c.id"
-        :href="'/main/pub/category/' + c.id"
-        :title="$t('More episodes of this category : ', { name: c.name })"
-        :buttonText="$t('All podcast button', { name: c.name })"
-      />
+      <template v-if="!isOuestFrance">
+        <PodcastInlineList
+          :emissionId="this.podcast.emission.emissionId"
+          :href="'/main/pub/emission/' + this.podcast.emission.emissionId"
+          :title="$t('More episodes of this emission')"
+          :buttonText="$t('All podcast emission button')"
+        />
+        <PodcastInlineList
+          v-for="c in categories"
+          :key="c.id"
+          :iabId="c.id"
+          :href="'/main/pub/category/' + c.id"
+          :title="$t('More episodes of this category : ', { name: c.name })"
+          :buttonText="$t('All podcast button', { name: c.name })"
+        />
+      </template>
     </div>
     <div class="d-flex justify-content-center" v-if="!loaded">
       <div class="spinner-border mr-3"></div>
@@ -157,6 +169,9 @@ export default {
     },
     authenticated(){
       return state.generalParameters.authenticated;
+    },
+    isOuestFrance(){
+      return state.podcastPage.ouestFranceStyle;
     },
     emissionMainCategory() {
       if (
