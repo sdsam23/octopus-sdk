@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-box" v-if="loaded && !error">
-      <h1>{{ $t('Animator') }}</h1>
+      <h1 v-if="!lightStyle">{{ $t('Animator') }}</h1>
       <div class="d-flex w-100 flex-column align-items-center justify-content-center">
         <div class="img-box-circle mb-3" :style="{'background-image': 'url(\'' + participant.imageUrl + '\')', }"></div>
         <h2 class="text-capitalize">{{ name }}</h2>
@@ -15,7 +15,9 @@
         :participantId="participantId"
         :name="name"
         :categoryFilter="true"
+        v-if="!lightStyle"
       />
+      <PodcastList :first="0" :size="15" :participantId="participantId" v-else/>
     </div>
     <div class="d-flex justify-content-center" v-if="!loaded">
       <div class="spinner-border mr-3"></div>
@@ -37,13 +39,15 @@ import EditBox from "../display/edit/EditBox.vue";
 import ShareButtons from "../display/sharing/ShareButtons.vue";
 import octopusApi from "@saooti/octopus-api";
 import PodcastFilterList from '../display/podcasts/PodcastFilterList.vue';
+import PodcastList from '../display/podcasts/PodcastList.vue';
 import {state} from "../../store/AppStore.js";
 
 export default {
   components: {
     ShareButtons,
     PodcastFilterList,
-    EditBox
+    EditBox,
+    PodcastList
   },
 
   mounted() {
@@ -73,7 +77,9 @@ export default {
     isShareButtons(){
       return state.podcastPage.ShareButtons;
     },
-
+    lightStyle(){
+      return state.intervenantPage.lightStyle;
+    },
     description() {
       let description;
       description = this.participant.description || '';

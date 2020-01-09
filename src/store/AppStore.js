@@ -14,6 +14,9 @@ var state = {
   },
   emissionPage: {
   },
+  intervenantPage: {
+
+  },
   organisation : {
   },
   octopusApi : {
@@ -60,6 +63,10 @@ var initialize = function initialize(initObject){
     if(initObject.emissionPage){
       let param = initObject.emissionPage;
       state.emissionPage.ouestFranceStyle = (typeof param.ouestFranceStyle !== "undefined") ? param.ouestFranceStyle : true;
+    }
+    if(initObject.intervenantPage){
+      let param = initObject.intervenantPage;
+      state.intervenantPage.lightStyle = (typeof param.lightStyle !== "undefined") ? param.lightStyle : true;
     }
     if(initObject.organisation){
       let param = initObject.organisation;

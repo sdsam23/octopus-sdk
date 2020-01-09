@@ -26,7 +26,7 @@
         <ShareDistribution :emissionId="emissionId" v-if="isShareDistribution"></ShareDistribution>
       </div>
       <PodcastFilterList :emissionId="emissionId" :categoryFilter="false" v-if="!isOuestFrance" />
-      <PodcastList :emissionId="emissionId" v-else/>
+      <PodcastList :first="0" :size="15" :emissionId="emissionId" v-else/>
     </div>
     <div class="d-flex justify-content-center" v-if="!loaded">
       <div class="spinner-border mr-3"></div>
