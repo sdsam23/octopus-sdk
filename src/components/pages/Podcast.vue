@@ -58,7 +58,7 @@
                       v-bind:key="guest.participantId"
                     >{{ getName(guest) }}</router-link>
                   </div>
-                  <div v-if="editRight">
+                  <div v-if="editRight && !isPodcastmaker">
                     <div
                       class="mr-5"
                       v-if="podcast.annotations && podcast.annotations.RSS"

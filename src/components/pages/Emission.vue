@@ -6,14 +6,14 @@
         <div class="d-flex flex-column flex-grow">
           <EditBox :emission='emission' :rssEmission='rssEmission' v-if="editRight && isEditBox"></EditBox>
           <div class="module-box">
-            <h2>{{ name }}</h2>
+            <h2 v-if="!isOuestFrance">{{ name }}</h2>
+            <h1 v-else>{{ name }}</h1>
             <div class="mb-5 h6 descriptionText">
               <img 
                 :src="imageUrl" 
                 :alt="$t('Emission name image', { name: name })" 
                 class="img-box shadow-element float-left mr-3 mb-3"
-                v-if="!isOuestFrance" />
-                {{description}}
+                v-if="!isOuestFrance" />{{description}}
             </div>
           </div>
         </div>
