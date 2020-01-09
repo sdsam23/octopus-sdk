@@ -12,6 +12,8 @@ var state = {
   },
   emissionsPage: {
   },
+  emissionPage: {
+  },
   organisation : {
   },
   octopusApi : {
@@ -53,6 +55,11 @@ var initialize = function initialize(initObject){
       let param = initObject.emissionsPage;
       state.emissionsPage.smallItems = (typeof param.smallItems !== "undefined") ? param.smallItems : true;
       state.emissionsPage.lightItems = (typeof param.lightItems !== "undefined") ? param.lightItems : true;
+      state.emissionsPage.titlePage = (typeof param.titlePage !== "undefined") ? param.titlePage : undefined;
+    }
+    if(initObject.emissionPage){
+      let param = initObject.emissionPage;
+      state.emissionPage.ouestFranceStyle = (typeof param.ouestFranceStyle !== "undefined") ? param.ouestFranceStyle : true;
     }
     if(initObject.organisation){
       let param = initObject.organisation;

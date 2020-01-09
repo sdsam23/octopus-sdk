@@ -1,17 +1,18 @@
 <template>
   <div>
     <div class="page-box" v-if="loaded && !error">
-      <h1>{{ $t('Emission') }}</h1>
+      <h1 v-if="!isOuestFrance">{{ $t('Emission') }}</h1>
       <div class="d-flex">
         <div class="d-flex flex-column flex-grow">
           <EditBox :emission='emission' :rssEmission='rssEmission' v-if="editRight && isEditBox"></EditBox>
           <div class="module-box">
             <h2>{{ name }}</h2>
-            <div class="mb-5 h6">
+            <div class="mb-5 h6 descriptionText">
               <img 
                 :src="imageUrl" 
                 :alt="$t('Emission name image', { name: name })" 
-                class="img-box shadow-element float-left mr-3 mb-3" />
+                class="img-box shadow-element float-left mr-3 mb-3"
+                v-if="!isOuestFrance" />
                 {{description}}
             </div>
           </div>
@@ -24,7 +25,8 @@
       <div v-if="editRight">
         <ShareDistribution :emissionId="emissionId" v-if="isShareDistribution"></ShareDistribution>
       </div>
-      <PodcastFilterList :emissionId="emissionId" :categoryFilter="false" />
+      <PodcastFilterList :emissionId="emissionId" :categoryFilter="false" v-if="!isOuestFrance" />
+      <PodcastList :emissionId="emissionId" v-else/>
     </div>
     <div class="d-flex justify-content-center" v-if="!loaded">
       <div class="spinner-border mr-3"></div>
@@ -44,6 +46,7 @@ import SharePlayer from '../display/sharing/SharePlayer.vue';
 import ShareButtons from "../display/sharing/ShareButtons.vue";
 import ShareDistribution from '../display/sharing/ShareDistribution.vue';
 import PodcastFilterList from '../display/podcasts/PodcastFilterList.vue';
+import PodcastList from '../display/podcasts/PodcastList.vue';
 import octopusApi from "@saooti/octopus-api";
 import {state} from "../../store/AppStore.js";
 
@@ -53,7 +56,8 @@ export default {
     SharePlayer,
     ShareButtons,
     ShareDistribution,
-    EditBox
+    EditBox,
+    PodcastList
   },
 
   mounted() {
@@ -92,6 +96,9 @@ export default {
     },
     isShareDistribution(){
       return state.podcastPage.ShareDistribution;
+    },
+    isOuestFrance(){
+      return state.podcastPage.ouestFranceStyle;
     },
 
     name() {

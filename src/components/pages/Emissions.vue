@@ -1,12 +1,14 @@
 <template>
   <div class="page-box">
-    <h1>{{ $t('All emissions') }}</h1>
+    <h1 v-if="titlePage === undefined">{{ $t('All emissions') }}</h1>
+    <h1 v-else>{{ titlePage }}</h1>
     <ProductorSearch 
       :organisationId='organisationId' 
       :searchPattern='searchPattern'
       @updateOrganisationId='updateOrganisationId'
-      @updateSearchPattern='updateSearchPattern' />
-    <MonetizableFilter @updateMonetization='updateMonetization' :isEmission='true'/>
+      @updateSearchPattern='updateSearchPattern'
+      v-if="isProductorSearch"/>
+    <MonetizableFilter @updateMonetization='updateMonetization' :isEmission='true' v-if="isMonetizableFilter"/>
     <EmissionList
       :first="first"
       :size="size"
@@ -58,6 +60,18 @@ export default {
       organisationId: undefined,
       monetization: undefined
     };
+  },
+
+  computed:{
+    isProductorSearch(){
+      return state.podcastsPage.ProductorSearch;
+    },
+    isMonetizableFilter(){
+      return state.podcastsPage.MonetizableFilter;
+    },
+    titlePage(){
+      return state.emissionsPage.titlePage;
+    },
   },
 
   methods:{
