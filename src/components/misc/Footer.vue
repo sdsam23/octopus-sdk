@@ -22,7 +22,7 @@
     <Player @hide="showBlackBorder"/>
   </div>
 </template>
-<style lang="scss" scoped>
+<style lang="scss">
 
 .border {
   border-radius: 0 0 2rem 2rem;

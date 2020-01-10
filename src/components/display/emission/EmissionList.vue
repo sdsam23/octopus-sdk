@@ -24,7 +24,7 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .emission-list {
   align-self: stretch;
   flex-grow: 1;

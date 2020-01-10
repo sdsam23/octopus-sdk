@@ -73,7 +73,7 @@
     </div>
   </div>
 </template>
-<style lang="scss" scoped>
+<style lang="scss">
 @import '../../sass/_variables.scss';
 
 .player-container {
@@ -128,7 +128,7 @@
 <script>
 import { mapState } from 'vuex';
 import {state} from "../../store/paramStore.js";
-import DurationHelper from '@/helper/duration';
+import DurationHelper from '../../helper/duration';
 const moment = require('moment');
 
 export default {

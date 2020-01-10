@@ -21,7 +21,7 @@
   </li>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .emission-item-container {
   list-style: none;
   background: #fff;
