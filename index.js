@@ -11,8 +11,8 @@ import Category from "./src/components/pages/Category.vue";
 //Misc
 import Footer from "./src/components/misc/Footer.vue";
 import LeftMenu from "./src/components/misc/LeftMenu.vue";
-/* import Player from "./src/components/misc/Player.vue";
-import Snackbar from "./src/components/misc/Snackbar.vue"; */
+import Player from "./src/components/misc/Player.vue";
+/* import Snackbar from "./src/components/misc/Snackbar.vue"; */
 import TopBar from "./src/components/misc/TopBar.vue";
 //Display
 /* import CategoryChooser from "./src/components/display/categories/CategoryChooser.vue";*/
@@ -47,8 +47,8 @@ const components = {
     Category,
     Footer,
     LeftMenu,
-    /* Player,
-    Snackbar, */
+    Player,
+    /* Snackbar, */
     TopBar,
     /* CategoryChooser,*/
     CategoryList,
@@ -85,8 +85,8 @@ export {
     Category,
     Footer,
     LeftMenu,
-    /* Player,
-    Snackbar, */
+     Player,
+    /*Snackbar, */
     TopBar,
     /* CategoryChooser,*/
     CategoryList,
