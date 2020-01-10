@@ -25,7 +25,7 @@
 import EmissionList from '../display/emission/EmissionList.vue';
 import ProductorSearch from '../display/filter/ProductorSearch.vue';
 import MonetizableFilter from '../display/filter/MonetizableFilter.vue';
-import {state} from "../../store/AppStore.js";
+import {state} from "../../store/paramStore.js";
 
 export default {
   components: {

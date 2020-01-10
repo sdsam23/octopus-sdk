@@ -1,6 +1,6 @@
 {
   "name": "@saooti/octopus-sdk",
-  "version": "0.0.29",
+  "version": "0.0.30",
   "description": "Javascript SDK for using octopus",
   "main": "./dist/octopus.common.js",
   "private": false,
@@ -33,7 +33,8 @@
     "vue": "^2.6.10",
     "vue-i18n": "^8.15.1",
     "vue-multiselect": "^2.1.6",
-    "vue-router": "^3.1.3"
+    "vue-router": "^3.1.3",
+    "vuex": "^3.1.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.1.0",

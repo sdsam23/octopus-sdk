@@ -58,7 +58,7 @@
 <script>
 import octopusApi from "@saooti/octopus-api";
 import EmissionItem from './EmissionItem.vue';
-import {state} from "../../../store/AppStore.js";
+import {state} from "../../../store/paramStore.js";
 
 export default {
   name: 'EmissionList',

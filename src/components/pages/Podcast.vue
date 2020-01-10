@@ -122,7 +122,7 @@ import PodcastInlineList from "../display/podcasts/PodcastInlineList.vue";
 import PodcastImage from "../display/podcasts/PodcastImage.vue";
 import TagList from "../display/podcasts/TagList.vue";
 import octopusApi from "@saooti/octopus-api";
-import {state} from "../../store/AppStore.js";
+import {state} from "../../store/paramStore.js";
 const moment = require("moment");
 const humanizeDuration = require("humanize-duration");
 

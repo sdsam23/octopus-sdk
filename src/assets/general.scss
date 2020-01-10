@@ -202,7 +202,9 @@ a.linkHover:hover{
 .noList{
   list-style: none;
 }
-
+.c-hand{
+  cursor: pointer;
+}
 
 @media (max-width: 960px) {
   .d-flex{

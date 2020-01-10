@@ -48,7 +48,7 @@ import ShareDistribution from '../display/sharing/ShareDistribution.vue';
 import PodcastFilterList from '../display/podcasts/PodcastFilterList.vue';
 import PodcastList from '../display/podcasts/PodcastList.vue';
 import octopusApi from "@saooti/octopus-api";
-import {state} from "../../store/AppStore.js";
+import {state} from "../../store/paramStore.js";
 
 export default {
   components: {

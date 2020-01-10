@@ -6,7 +6,8 @@ import VueI18n from 'vue-i18n';
 import I18nResources from './locale/messages';
 import router from '@/router/router';
 import moment from 'moment';
-let store = require('./store/AppStore');
+import store from '@/store/AppStore';
+let paramStore = require('./store/paramStore');
 
 
 moment.locale('fr');
@@ -20,7 +21,7 @@ const i18n = new VueI18n({
 });
 
 // Initialisation store
-store.initialize({
+paramStore.initialize({
   generalParameters : {},
   podcastPage : {},
   podcastsPage : {},
@@ -28,11 +29,13 @@ store.initialize({
   emissionPage: {},
   intervenantPage: {},
   searchPage: {},
+  player:{},
   organisation : {},
   octopusApi : {},
 }).then(()=>{
   new Vue({
     i18n,
+    store,
     router,
     render: h => h(App),
   }).$mount('#app')

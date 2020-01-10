@@ -22,7 +22,10 @@ const routes = [
   Liens publics
   --------------------------------------------------------------------------*/
   { path: '/main/pub/home', component: Home },
-  { path: '/main/pub/search/:query?',name:'search', component: SearchPage},
+  { path: '/main/pub/search/:query?',name:'search', component: SearchPage,
+    props: route => ({
+      query: route.params.query,
+    }) },
   { path: '/main/pub/podcasts/:productor?', component: PodcastsPage,
     props: route => ({
       productor: route.params.productor,

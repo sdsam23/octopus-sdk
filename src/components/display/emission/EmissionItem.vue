@@ -91,7 +91,7 @@
 </style>
 
 <script>
-import {state} from "../../../store/AppStore.js";
+import {state} from "../../../store/paramStore.js";
 import octopusApi from "@saooti/octopus-api";
 export default {
   name: 'EmissionItem',

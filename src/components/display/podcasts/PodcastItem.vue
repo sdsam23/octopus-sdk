@@ -80,7 +80,7 @@
 <script>
 import AnimatorsItem from './AnimatorsItem.vue';
 import PodcastImage from './PodcastImage.vue';
-import {state} from "../../../store/AppStore.js";
+import {state} from "../../../store/paramStore.js";
 const moment = require('moment');
 const humanizeDuration = require('humanize-duration');
 

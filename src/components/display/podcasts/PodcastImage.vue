@@ -124,13 +124,21 @@
 </style>
 
 <script>
-/* import {state} from "../../../store/AppStore.js"; */
+import { mapState } from 'vuex';
 export default {
   name: 'PodcastImage',
 
-  props: ['podcast', 'hidePlay', 'displayDescription', 'arrowDirection', 'playingPodcast'],
+  props: ['podcast', 'hidePlay', 'displayDescription', 'arrowDirection'],
 
   computed: {
+    ...mapState({
+      playingPodcast(state) {
+        return (
+          state.player.podcast &&
+          state.player.podcast.podcastId == this.podcast.podcastId
+        );
+      },
+    }),
     isMobile(){
       return window.matchMedia( "(hover: none)" ).matches;
     }
@@ -144,7 +152,7 @@ export default {
 
   methods: {
     play() {
-      this.$emit('playPodcast', this.podcast);
+      this.$store.commit('playerPlayPodcast', this.podcast);
     },
     showDescription(){
       if(this.isDescription){

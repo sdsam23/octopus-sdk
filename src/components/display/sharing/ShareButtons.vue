@@ -58,7 +58,7 @@
 </style>
 
 <script>
-import {state} from "../../../store/AppStore.js";
+import {state} from "../../../store/paramStore.js";
 export default {
   props: [
     "podcastId",

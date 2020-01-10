@@ -78,7 +78,7 @@
 <script>
 // @ is an alias to /src
 import OrganisationChooser from '../organisation/OrganisationChooser.vue';
-import {state} from "../../../store/AppStore.js";
+import {state} from "../../../store/paramStore.js";
 
 export default {
   components: {

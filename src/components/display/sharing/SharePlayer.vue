@@ -78,7 +78,7 @@
 
 <script>
 import Snackbar from '../../misc/Snackbar.vue';
-import {state} from "../../../store/AppStore.js";
+import {state} from "../../../store/paramStore.js";
 
 export default {
   props: ['podcast', 'emissionId', "organisationId", 'exclusive'],

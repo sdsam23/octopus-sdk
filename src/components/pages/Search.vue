@@ -36,7 +36,7 @@
 
 <script>
 // @ is an alias to /src
-import {state} from "../../store/AppStore.js";
+import {state} from "../../store/paramStore.js";
 import PodcastList from '../display/podcasts/PodcastList.vue';
 
 export default {
@@ -45,10 +45,13 @@ export default {
   },
 
   mounted() {
-    if (this.$route.params.query) {
-      this.$data.rawQuery = this.$route.params.query;
+    if (this.$route.query.query) {
+      this.$data.rawQuery = this.$route.query.query;
     }
-    this.$refs.search.focus();
+    if(this.$refs.search){
+      this.$refs.search.focus();
+    }
+    
   },
 
   data() {
@@ -69,5 +72,15 @@ export default {
       return state.searchPage.hideBar;
     },
   },
+
+  watch:{
+    '$route.query.query': {
+        handler(search){ 
+          this.rawQuery = search;
+        },
+        deep: true,
+        immediate: true
+      }
+  }
 };
 </script>

@@ -40,7 +40,7 @@ import ShareButtons from "../display/sharing/ShareButtons.vue";
 import octopusApi from "@saooti/octopus-api";
 import PodcastFilterList from '../display/podcasts/PodcastFilterList.vue';
 import PodcastList from '../display/podcasts/PodcastList.vue';
-import {state} from "../../store/AppStore.js";
+import {state} from "../../store/paramStore.js";
 
 export default {
   components: {

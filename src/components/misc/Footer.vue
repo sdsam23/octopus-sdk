@@ -19,7 +19,7 @@
           </div>
         </div>
     </div>
-    <!-- <Player @hide="showBlackBorder"/> -->
+    <Player @hide="showBlackBorder"/>
   </div>
 </template>
 <style lang="scss" scoped>
@@ -39,18 +39,21 @@
 </style>
 
 <script>
-/* import Player from '@/components/misc/Player.vue'; */
-import {state} from "../../store/AppStore.js";
+import Player from './Player.vue';
+import {state} from "../../store/paramStore.js";
 
 export default {
   name: 'Footer',
   components: {
-    /* Player, */
+    Player,
   },
 
   computed:{
     isPodcastmaker(){
       return state.generalParameters.podcastmaker;
+    },
+    isBarTop(){
+      return state.player.barTop;
     },
   },
 
@@ -58,7 +61,7 @@ export default {
     showBlackBorder(hide){
       if(hide){
         document.getElementById('footer').classList.remove('border');
-      } else {
+      } else if(!this.isBarTop){
         document.getElementById('footer').className += ' border';
       }
     }

@@ -15,7 +15,7 @@
 
 <script>
 import PodcastInlineList from '../display/podcasts/PodcastInlineList.vue';
-import {state} from "../../store/AppStore.js";
+import {state} from "../../store/paramStore.js";
 
 export default {
   name: 'home',

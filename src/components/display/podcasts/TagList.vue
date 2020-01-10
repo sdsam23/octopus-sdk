@@ -2,7 +2,7 @@
     <div v-if="tagList !== undefined">
       <ul class='d-flex flex-wrap'>
         <li class='tagListElement' v-for="tag in tagList" :key="tag">
-          <router-link :to="{ name: 'search', params: {query: tag }}" class='tagListLink'>{{tag}}</router-link>
+          <router-link :to="{ name: 'search', query: {query: tag }}" class='tagListLink'>{{tag}}</router-link>
         </li>
       </ul>
     </div>

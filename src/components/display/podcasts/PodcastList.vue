@@ -54,7 +54,7 @@
 <script>
 import octopusApi from "@saooti/octopus-api";
 import PodcastItem from './PodcastItem.vue';
-import {state} from "../../../store/AppStore.js";
+import {state} from "../../../store/paramStore.js";
 
 export default {
   name: 'PodcastList',

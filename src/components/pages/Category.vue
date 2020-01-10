@@ -11,7 +11,7 @@
 <script>
 // @ is an alias to /src
 import PodcastList from '../display/podcasts/PodcastList.vue';
-import {state} from "../../store/AppStore.js";
+import {state} from "../../store/paramStore.js";
 
 export default {
   components: {

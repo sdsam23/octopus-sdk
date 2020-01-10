@@ -1,10 +1,22 @@
 <template>
-  <div class="placeholder bg-dark" v-bind:style="{ height: playerHeight }">
+  <div class="w-100 transition-height bg-dark" v-bind:style="{ height: playerHeight }">
     <div
-      class="container bg-dark"
+      class="player-container"
       v-bind:style="{ height: playerHeight }"
       @transitionend="onHidden"
     >
+       <div class="progress secondary-bg c-hand" @mouseup="seekTo" v-if="isBarTop">
+          <div 
+          class="progress-bar primary-bg" 
+          role="progressbar" 
+          aria-valuenow="0" 
+          aria-valuemin="0" 
+          aria-valuemax="100" 
+          :style="'width: '+ percentProgress + '%'"
+          ></div>
+          <div class="player-progress-border"></div>
+        </div>
+      <div class="d-flex align-items-center justify-center flex-grow pr-5 pl-5">
       <audio
         id="audio-player"
         v-bind:src="podcastAudioURL"
@@ -19,12 +31,13 @@
       <img
         v-bind:src="podcastImage"
         :alt="$t('Podcast image')"
-        class="podcast-image"
+        class="player-image"
+        v-if="isImage"
       />
       <div
-        class="play-button-box c-hand"
+        class="play-button-box"
         v-bind:class="{
-          'bg-primary': status != 'LOADING',
+          'primary-bg': status != 'LOADING',
           'text-light': status != 'LOADING',
         }"
         @click="switchPausePlay"
@@ -39,54 +52,44 @@
           }"
         ></div>
       </div>
-      <div class="desc-box">
-        <div class="box">
-          <div class="title">{{ podcastTitle }}</div>
-          <div class="elapsed-box">{{ playedTime }} / {{ totalTime }}</div>
+      <div class="flex-grow d-flex flex-column text-light">
+        <div class="d-flex">
+          <div v-if="isEmissionName">{{ emissionName + ' - '  }}</div>
+          <div class="flex-grow">{{ podcastTitle }}</div>
+          <div v-if="!isBarTop">{{ playedTime }} / {{ totalTime }}</div>
         </div>
-        <div class="progress-box c-hand" @mouseup="seekTo">
-          <div class="bar bar-slider">
-            <div
-              class="bar-item"
-              role="progressbar"
-              v-bind:style="{ width: percentProgress + '%' }"
-            >
-              <button class="bar-slider-btn btn" role="slider"></button>
-            </div>
-          </div>
+        <div class="progress c-hand" @mouseup="seekTo" style="height: 3px;" v-if="!isBarTop">
+          <div class="progress-bar primary-bg" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" :style="'width: '+ percentProgress + '%'"></div>
         </div>
       </div>
-      <router-link
-        :to=podcastShareUrl
-        class="text-light"
-      >
-        <div class="icon-box" :title="$t('Go to episode page')">
-          <div class="icon icon-share c-hand"></div>
-        </div>
+      <router-link :to=podcastShareUrl class="text-light">
+        <div class="saooti-export-bounty c-hand m-2" ></div>
       </router-link>
+      <div class="d-flex text-light align-items-center" v-if="isClock">
+        <div class="saooti-clock-stud m-2" ></div>
+        <div>{{actualTime}}</div>
+      </div>
+    </div>
     </div>
   </div>
 </template>
 <style lang="scss" scoped>
-.placeholder {
-  width: 100%;
-  transition: height 1s;
-}
+@import '../../sass/_variables.scss';
 
-.container {
+.player-container {
   position: fixed;
   overflow: hidden;
   z-index: 10;
   width: 100%;
   bottom: 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 10%;
+  flex-direction: column;
   transition: height 1s;
-      background: #282828 !important;
+  background: #282828 !important;
+  max-width: 100%;
+  font-size: 1rem;
 
-  .podcast-image {
+  .player-image {
     border-radius: 0.2rem;
     height: 2.4rem;
     width: 2.4rem;
@@ -102,57 +105,31 @@
     border-radius: 50%;
     font-size: 1.2rem;
     flex-shrink: 0;
+    cursor: pointer;
   }
-
-  .desc-box {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-
-    .box {
-      display: flex;
-
-      .title {
-        flex-grow: 1;
-      }
-    }
+  .player-progress-border{
+    height: 10px;
+    width: 3px;
+    background: black;
   }
-
-  .icon-box {
-    > .icon {
-      margin: 0.5rem;
-      font-size: 1rem;
-    }
+  .progress{
+    align-items: flex-end;
+    height: 10px;
+  }
+  .progress-bar{
+    height: 3px;
   }
 }
-
 /** PHONES*/
 @media (max-width: 960px) {
-  .container {
-    max-height: 3rem;
-    padding: 0 0.6rem;
-
-    .desc-box {
-      .box {
-        flex-wrap: wrap;
-
-        .title {
-          width: 5rem;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          margin-right: 5px;
-          font-size: 0.58rem;
-        }
-      }
-    }
-  }
 }
 </style>
 
 <script>
-import {state} from "../../store/AppStore.js";
-import DurationHelper from '../../helper/duration';
+import { mapState } from 'vuex';
+import {state} from "../../store/paramStore.js";
+import DurationHelper from '@/helper/duration';
+const moment = require('moment');
 
 export default {
   name: 'Player',
@@ -160,78 +137,111 @@ export default {
   data() {
     return {
       forceHide: false,
+      actualTime: '',
     };
   },
-
-  props:['status', 'podcast', 'volume', 'total', 'elapsed'],
+  mounted(){
+    moment.locale('fr');
+    if(this.isClock){
+      setInterval(() => {
+        this.actualTime = moment(new Date()).format("HH:mm:ss");
+      }, 1000)
+    }
+  },
 
   computed: {
-    display(){
-      return this.status != 'STOPPED';
+    isImage(){
+      return state.player.image;
     },
-    playerHeight() {
-      if (this.status == 'STOPPED' || this.forceHide) {
-        return 0;
-      } else {
-        return '5rem';
-      }
+    isEmissionName(){
+      return state.player.emissionName;
     },
-    podcastImage(){
-      if (this.podcast) {
-        return this.podcast.imageUrl;
-      } else {
-        return '';
-      }
+    isClock(){
+      return state.player.clock;
     },
-    podcastTitle(){
-      if (this.podcast) {
-        return this.podcast.title;
-      } else {
-        return '';
-      }
+    isBarTop(){
+      return state.player.barTop;
     },
+    ...mapState({
+      display: state => state.player.status != 'STOPPED',
+      playerHeight(state) {
+        if (state.player.status == 'STOPPED' || this.forceHide) {
+          return 0;
+        } else {
+          return '5rem';
+        }
+      },
+      status: state => state.player.status,
+      podcast: state => state.player.podcast,
+      volume: state => state.player.volume,
 
-    podcastAudioURL(){
-      if (this.podcast) {
-        let urlParameters = '?origin=octopus';
-        urlParameters +=
-          state.generalParameters.authenticated && state.generalParameters.organisationId
-            ? '&distributorId=' + state.generalParameters.organisationId
-            : '';
-        return this.podcast.audioUrl + urlParameters;
-      } else {
-        return '';
-      }
-    },
+      podcastImage: state => {
+        if (state.player.podcast) {
+          return state.player.podcast.imageUrl;
+        } else {
+          return '';
+        }
+      },
 
-    podcastShareUrl(){
-      if (this.podcast) {
-        return "/main/pub/podcast/"+this.podcast.podcastId;
-      } else {
-        return '';
-      }
-    },
-    playedTime(){
-      if (this.elapsed > 0 && this.total > 0) {
-        return DurationHelper.formatDuration(
-          Math.round(this.elapsed * this.total)
-        );
-      } else {
-        return "--':--'";
-      }
-    },
+      podcastTitle: state => {
+        if (state.player.podcast) {
+          return state.player.podcast.title;
+        } else {
+          return '';
+        }
+      },
 
-    percentProgress(){
-      return this.elapsed * 100;
-    },
+      emissionName: state => {
+        if (state.player.podcast) {
+          return state.player.podcast.emission.name;
+        } else {
+          return '';
+        }
+      },
 
-    totalTime(){
-      if (this.elapsed > 0 && this.total > 0) {
-        return DurationHelper.formatDuration(Math.round(this.total));
-      } else {
-        return "--':--'";
-      }
-    },
+      podcastAudioURL: state => {
+        if (state.player.podcast) {
+          let parameters = '?origin=octopus';
+          parameters +=
+            state.authentication && state.authentication.organisationId
+              ? '&distributorId=' + state.authentication.organisationId
+              : '';
+          return state.player.podcast.audioUrl + parameters;
+        } else {
+          return '';
+        }
+      },
+
+      podcastShareUrl: state => {
+        if (state.player.podcast) {
+          return "/main/pub/podcast/"+state.player.podcast.podcastId;
+        } else {
+          return '';
+        }
+      },
+
+      playedTime: state => {
+        if (state.player.elapsed > 0 && state.player.total > 0) {
+          return DurationHelper.formatDuration(
+            Math.round(state.player.elapsed * state.player.total)
+          );
+        } else {
+          return "--':--'";
+        }
+      },
+
+      percentProgress: state => {
+        return state.player.elapsed * 100;
+      },
+
+      totalTime: state => {
+        if (state.player.elapsed > 0 && state.player.total > 0) {
+          return DurationHelper.formatDuration(Math.round(state.player.total));
+        } else {
+          return "--':--'";
+        }
+      },
+    }),
   },
 
   methods: {
@@ -251,7 +261,7 @@ export default {
       const x = event.clientX - rect.left; //x position within the element.
 
       const percentPosition = x / barWidth;
-      const seekTime = this.total * percentPosition;
+      const seekTime = this.$store.state.player.total * percentPosition;
 
       audioPlayer.currentTime = seekTime;
     },
@@ -287,5 +297,5 @@ export default {
       this.$emit('hide', newVal=== 0? true : false);
     }
   }
-};
+}; 
 </script>
