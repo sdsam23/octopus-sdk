@@ -1,7 +1,8 @@
 <template>
   <div class="page-box">
-    <h1>{{ $t('Podcast search') }}</h1>
-    <div class="position-relative">
+    <h1 v-if="!hideBar">{{ $t('Podcast search') }}</h1>
+    <h1 v-else>{{$t('Search results', {query: this.rawQuery})}}</h1>
+    <div class="position-relative" v-if="!hideBar">
       <input
         type="search"
         ref="search"
@@ -35,6 +36,7 @@
 
 <script>
 // @ is an alias to /src
+import {state} from "../../store/AppStore.js";
 import PodcastList from '../display/podcasts/PodcastList.vue';
 
 export default {
@@ -62,6 +64,9 @@ export default {
       } else {
         return '';
       }
+    },
+    hideBar(){
+      return state.searchPage.hideBar;
     },
   },
 };

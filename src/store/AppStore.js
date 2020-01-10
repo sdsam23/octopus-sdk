@@ -15,7 +15,8 @@ var state = {
   emissionPage: {
   },
   intervenantPage: {
-
+  },
+  searchPage: {
   },
   organisation : {
   },
@@ -67,6 +68,10 @@ var initialize = function initialize(initObject){
     if(initObject.intervenantPage){
       let param = initObject.intervenantPage;
       state.intervenantPage.lightStyle = (typeof param.lightStyle !== "undefined") ? param.lightStyle : true;
+    }
+    if(initObject.searchPage){
+      let param = initObject.searchPage;
+      state.searchPage.hideBar = (typeof param.hideBar !== "undefined") ? param.hideBar : true;
     }
     if(initObject.organisation){
       let param = initObject.organisation;

@@ -100,32 +100,37 @@ export default {
 
   methods: {
     fetchContent(reset) {
-      var self = this;
       if (reset) {
-        self.$data.podcasts = [];
-        self.$data.dfirst = 0;
-        self.$data.loading = true;
-        self.$data.loaded = false;
+        this.podcasts = [];
+        this.dfirst = 0;
+        this.loading = true;
+        this.loaded = false;
       }
       octopusApi
         .fetchPodcasts({
-          first: self.dfirst,
-          size: self.dsize,
-          organisationId: self.organisationId,
-          emissionId: self.emissionId,
-          iabId: self.iabId,
-          participantId: self.participantId,
-          query: self.query,
-          monetisable: self.monetization,
+          first: this.dfirst,
+          size: this.dsize,
+          organisationId: this.organisationId,
+          emissionId: this.emissionId,
+          iabId: this.iabId,
+          participantId: this.participantId,
+          query: this.query,
+          monetisable: this.monetization,
         })
-        .then(function(data) {
-          self.$data.loading = false;
-          self.$data.loaded = true;
-          self.$data.podcasts = self.$data.podcasts.concat(data.result).filter((p)=>{
+        .then((data)=> {
+          if (reset) {
+            this.podcasts = [];
+            this.dfirst = 0;
+            this.loading = true;
+            this.loaded = false;
+          }
+          this.loading = false;
+          this.loaded = true;
+          this.podcasts = this.podcasts.concat(data.result).filter((p)=>{
             return p!== null;
           });
-          self.$data.dfirst += self.$data.dsize;
-          self.$data.totalCount = data.count;
+          this.dfirst += this.dsize;
+          this.totalCount = data.count;
         });
     },
 

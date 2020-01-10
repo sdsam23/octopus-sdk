@@ -27,6 +27,7 @@ store.initialize({
   emissionsPage : {},
   emissionPage: {},
   intervenantPage: {},
+  searchPage: {},
   organisation : {},
   octopusApi : {},
 }).then(()=>{
