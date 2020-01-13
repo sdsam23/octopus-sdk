@@ -15,6 +15,11 @@
                 class="img-box shadow-element float-left mr-3 mb-3"
                 v-if="!isOuestFrance" />{{description}}
             </div>
+            <div class="d-flex justify-content-center" v-if="isRssButton">
+              <a class="btn btn-bigRound" :title="$t('Subscribe to this emission')" :href="rssUrl" target="_blank">
+                <div class="saooti-rss-bounty"></div>
+              </a>
+            </div>
           </div>
         </div>
         <div class="d-flex flex-column">
@@ -85,7 +90,7 @@ export default {
       return state.generalParameters.authenticated;
     },
 
-     isEditBox(){
+    isEditBox(){
       return state.podcastPage.EditBox;
     },
     isShareButtons(){
@@ -98,9 +103,14 @@ export default {
       return state.podcastPage.ShareDistribution;
     },
     isOuestFrance(){
-      return state.podcastPage.ouestFranceStyle;
+      return state.emissionPage.ouestFranceStyle;
     },
-
+    isRssButton(){
+      return state.emissionPage.rssButton;
+    },
+    rssUrl(){
+      return state.generalParameters.ApiUri + 'rss/emission/' + this.emissionId;
+    },
     name() {
       return this.emission ? this.emission.name : "";
     },

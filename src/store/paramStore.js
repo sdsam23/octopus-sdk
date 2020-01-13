@@ -48,6 +48,7 @@ var initialize = function initialize(initObject){
       state.podcastPage.MiniplayerUri = (typeof param.MiniplayerUri !== "undefined") ? param.MiniplayerUri : 'https://player.staging.saooti.org/';
       state.podcastPage.ouestFranceStyle = (typeof param.ouestFranceStyle !== "undefined") ? param.ouestFranceStyle : true;
       state.podcastPage.tagList= (typeof param.tagList !== "undefined") ? param.tagList : true;
+      state.podcastPage.downloadButton= (typeof param.downloadButton !== "undefined") ? param.downloadButton : true;
     }
     if(initObject.podcastsPage){
       let param = initObject.podcastsPage;
@@ -56,6 +57,7 @@ var initialize = function initialize(initObject){
       state.podcastsPage.podcastShadow = (typeof param.podcastShadow !== "undefined") ? param.podcastShadow : true;
       state.podcastsPage.podcastBorderBottom = (typeof param.podcastBorderBottom !== "undefined") ? param.podcastBorderBottom : false;
       state.podcastsPage.titlePage = (typeof param.titlePage !== "undefined") ? param.titlePage : undefined;
+      state.podcastsPage.emissionChooser = (typeof param.emissionChooser !== "undefined") ? param.emissionChooser : false;
     }
     if(initObject.emissionsPage){
       let param = initObject.emissionsPage;
@@ -66,10 +68,12 @@ var initialize = function initialize(initObject){
     if(initObject.emissionPage){
       let param = initObject.emissionPage;
       state.emissionPage.ouestFranceStyle = (typeof param.ouestFranceStyle !== "undefined") ? param.ouestFranceStyle : true;
+      state.emissionPage.rssButton = (typeof param.rssButton !== "undefined") ? param.rssButton : false;
     }
     if(initObject.intervenantPage){
       let param = initObject.intervenantPage;
       state.intervenantPage.lightStyle = (typeof param.lightStyle !== "undefined") ? param.lightStyle : true;
+      state.intervenantPage.rssButton = (typeof param.rssButton !== "undefined") ? param.rssButton : true;
     }
     if(initObject.searchPage){
       let param = initObject.searchPage;

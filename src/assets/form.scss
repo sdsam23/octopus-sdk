@@ -178,5 +178,17 @@
       border-radius: 50px;
       margin: 1rem;
     }
+
+    &.btn-bigRound{
+      border: 1px #aaa solid;
+      background: none;
+      font-size: 3rem !important;
+      color: #666;
+      border-radius: 50%;
+      padding: 1rem;
+      margin-right: 1rem;
+      width: 5rem;
+      height: 5rem;
+    }
   
   }

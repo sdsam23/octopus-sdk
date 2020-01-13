@@ -6,6 +6,11 @@
         <div class="img-box-circle mb-3" :style="{'background-image': 'url(\'' + participant.imageUrl + '\')', }"></div>
         <h2 class="text-capitalize">{{ name }}</h2>
         <div class="h6">{{ description }}</div>
+        <div class="d-flex justify-content-center" v-if="isRssButton">
+          <a class="btn btn-bigRound" :title="$t('Subscribe to this participant')" :href="rssUrl" target="_blank">
+            <div class="saooti-rss-bounty"></div>
+          </a>
+        </div>
         <div class="d-flex">
           <EditBox :participant='participant' v-if="editRight && isEditBox" @participantUpdate="getParticipantDetails"></EditBox>
           <ShareButtons :participantId="participantId" v-if="isShareButtons"></ShareButtons>
@@ -79,6 +84,12 @@ export default {
     },
     lightStyle(){
       return state.intervenantPage.lightStyle;
+    },
+    isRssButton(){
+      return state.intervenantPage.rssButton;
+    },
+    rssUrl(){
+      return state.generalParameters.ApiUri + 'rss/participant/' + this.participantId;
     },
     description() {
       let description;

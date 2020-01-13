@@ -1,6 +1,6 @@
 {
   "name": "@saooti/octopus-sdk",
-  "version": "0.0.31",
+  "version": "0.0.33",
   "description": "Javascript SDK for using octopus",
   "main": "./dist/octopus.common.js",
   "private": false,
@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@saooti/octopus-api": "0.0.6",
+    "axios": "^0.19.1",
     "bootstrap": "^4.4.1",
     "core-js": "^3.4.3",
     "humanize-duration": "^3.21.0",

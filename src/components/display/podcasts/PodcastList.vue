@@ -131,6 +131,9 @@ export default {
           });
           this.dfirst += this.dsize;
           this.totalCount = data.count;
+          if(this.podcasts.length === 0){
+            this.$emit('emptyList');
+          }
         });
     },
 

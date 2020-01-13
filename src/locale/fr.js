@@ -374,6 +374,10 @@ export default {
     'Distribute' : 'Distribuer',
     'Rss feed:' : 'Flux RSS:',
     'See more': 'Voir plus',
-    'Search results' : 'Résultat de la recherche "{query}"'
+    'Search results' : 'Résultat de la recherche "{query}"',
+    'Search - no results': 'Aucun résultat pour la recherche "{query}"',
+    'Downloading': 'Téléchargement',
+    'Subscribe to this emission': "S'abonner à cette émission",
+    'Subscribe to this participant': "S'abonner à cet intervenant"
   };
   

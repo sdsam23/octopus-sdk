@@ -1,7 +1,8 @@
 <template>
   <div class="page-box">
     <h1 v-if="!hideBar">{{ $t('Podcast search') }}</h1>
-    <h1 v-else>{{$t('Search results', {query: this.rawQuery})}}</h1>
+    <h1 v-else-if="!noResult">{{$t('Search results', {query: this.rawQuery})}}</h1>
+    <h1 v-else>{{$t('Search - no results', {query: this.rawQuery})}}</h1>
     <div class="position-relative" v-if="!hideBar">
       <input
         type="search"
@@ -9,11 +10,12 @@
         v-model="rawQuery"
         class="search-input border-primary m-3 w-100 p-2 input-no-outline"
         :placeholder="$t('Please type at least three characters')"
+        @change="onSearchBegin"
         autofocus
       />
       <div class="saooti-search-bounty search-icon-container"></div>
     </div>
-    <PodcastList :query="query" :first="0" :size="20" v-if="!!query" />
+    <PodcastList :query="query" :first="0" :size="20" @emptyList='onListEmpty' v-if="!!query" />
   </div>
 </template>
 
@@ -57,12 +59,13 @@ export default {
   data() {
     return {
       rawQuery: '',
+      noResult: false,
     };
   },
 
   computed: {
     query() {
-      if (this.rawQuery.length >= 3) {
+      if (this.rawQuery && this.rawQuery.length >= 3) {
         return this.rawQuery;
       } else {
         return '';
@@ -71,6 +74,19 @@ export default {
     hideBar(){
       return state.searchPage.hideBar;
     },
+  },
+
+  methods:{
+    onListEmpty(){
+      if(this.hideBar){
+        this.noResult=true;
+      }
+    }, 
+    onSearchBegin(){
+      if(this.hideBar){
+        this.noResult=false;
+      }
+    }
   },
 
   watch:{

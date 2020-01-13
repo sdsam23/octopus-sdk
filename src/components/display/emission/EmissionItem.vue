@@ -163,7 +163,7 @@ export default {
    methods:{
     hasPodcast(){
       octopusApi
-        .fetchPodcasts(this.$store, {
+        .fetchPodcasts({
           emissionId: this.emission.emissionId,
         })
         .then((data) => {

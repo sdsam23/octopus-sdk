@@ -9,7 +9,8 @@
       @updateSearchPattern='updateSearchPattern'
       v-if="isProductorSearch" />
     <MonetizableFilter @updateMonetization='updateMonetization' :isEmission='false' v-if="isMonetizableFilter"/>
-    <PodcastList :first="first" :size="size" :organisationId='organisationId' :query='searchPattern' :monetization="monetization"/>
+    <EmissionChooser @selected='emissionSelected' v-if="isEmissionChooser"/>
+    <PodcastList :first="first" :size="size" :organisationId='organisationId' :query='searchPattern' :monetization="monetization" :emissionId='emissionId'/>
   </div>
 </template>
 <style lang="scss">
@@ -20,12 +21,14 @@ import PodcastList from '../display/podcasts/PodcastList.vue';
 import {state} from "../../store/paramStore.js";
 import ProductorSearch from '../display/filter/ProductorSearch.vue';
 import MonetizableFilter from '../display/filter/MonetizableFilter.vue';
+import EmissionChooser from '../display/emission/EmissionChooser.vue';
 
 export default {
   components: {
     PodcastList,
     ProductorSearch,
-    MonetizableFilter
+    MonetizableFilter,
+    EmissionChooser
   },
 
   created() {
@@ -52,7 +55,8 @@ export default {
       size: undefined,
       searchPattern: '',
       organisationId: undefined,
-      monetization: undefined
+      monetization: undefined,
+      emissionId: undefined,
     };
   },
 
@@ -66,6 +70,9 @@ export default {
     titlePage(){
       return state.podcastsPage.titlePage;
     },
+    isEmissionChooser(){
+      return state.podcastsPage.emissionChooser;
+    },
   },
 
   methods:{
@@ -77,6 +84,13 @@ export default {
     },
     updateMonetization(value){
       this.monetization = value;
+    },
+    emissionSelected(emission){
+      if (emission && emission.emissionId) {
+        this.emissionId = emission.emissionId;
+      } else {
+        this.emissionId = undefined;
+      }
     }
   }
 };
