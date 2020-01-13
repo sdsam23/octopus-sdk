@@ -54,7 +54,6 @@
       </div>
       <div class="flex-grow d-flex flex-column text-light">
         <div class="d-flex">
-          <div v-if="isEmissionName">{{ emissionName + ' - '  }}</div>
           <div class="flex-grow">{{ podcastTitle }}</div>
           <div v-if="!isBarTop">{{ playedTime }} / {{ totalTime }}</div>
         </div>
@@ -185,7 +184,11 @@ export default {
 
       podcastTitle: state => {
         if (state.player.podcast) {
-          return state.player.podcast.title;
+          if(this.isEmissionName){
+            return this.emissionName + ' - ' + state.player.podcast.title;
+          }else{
+            return state.player.podcast.title;
+          }
         } else {
           return '';
         }
