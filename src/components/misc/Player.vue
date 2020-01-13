@@ -54,8 +54,8 @@
       </div>
       <div class="flex-grow d-flex flex-column text-light">
         <div class="d-flex">
-          <div class="flex-grow">{{ podcastTitle }}</div>
-          <div v-if="!isBarTop">{{ playedTime }} / {{ totalTime }}</div>
+          <div class="flex-grow player-title">{{ podcastTitle }}</div>
+          <div v-if="!isBarTop" class="hide-phone">{{ playedTime }} / {{ totalTime }}</div>
         </div>
         <div class="progress c-hand" @mouseup="seekTo" style="height: 3px;" v-if="!isBarTop">
           <div class="progress-bar primary-bg" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" :style="'width: '+ percentProgress + '%'"></div>
@@ -121,6 +121,18 @@
 }
 /** PHONES*/
 @media (max-width: 960px) {
+  .player-container{
+    .d-flex{
+      @media (max-width: 960px) {
+        flex-wrap: nowrap;
+      }
+    }
+    .player-title{
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
 }
 </style>
 
@@ -182,26 +194,6 @@ export default {
         }
       },
 
-      podcastTitle: state => {
-        if (state.player.podcast) {
-          if(this.isEmissionName){
-            return this.emissionName + ' - ' + state.player.podcast.title;
-          }else{
-            return state.player.podcast.title;
-          }
-        } else {
-          return '';
-        }
-      },
-
-      emissionName: state => {
-        if (state.player.podcast) {
-          return state.player.podcast.emission.name;
-        } else {
-          return '';
-        }
-      },
-
       podcastAudioURL: state => {
         if (state.player.podcast) {
           let parameters = '?origin=octopus';
@@ -245,6 +237,26 @@ export default {
         }
       },
     }),
+
+    podcastTitle(){
+      if (this.podcast) {
+        if(this.isEmissionName){
+          return this.emissionName + ' - ' + this.podcast.title;
+        }else{
+          return this.podcast.title;
+        }
+      } else {
+        return '';
+      }
+    },
+
+    emissionName(){
+      if (this.podcast) {
+        return this.podcast.emission.name;
+      } else {
+        return '';
+      }
+    },
   },
 
   methods: {
