@@ -9,7 +9,7 @@
       @updateSearchPattern='updateSearchPattern'
       v-if="isProductorSearch" />
     <MonetizableFilter @updateMonetization='updateMonetization' :isEmission='false' v-if="isMonetizableFilter"/>
-    <EmissionChooser @selected='emissionSelected' v-if="isEmissionChooser"/>
+    <EmissionChooser @selected='emissionSelected' v-if="isEmissionChooser" :defaultanswer="$t('No emission filter')"/>
     <PodcastList :first="first" :size="size" :organisationId='organisationId' :query='searchPattern' :monetization="monetization" :emissionId='emissionId'/>
   </div>
 </template>
