@@ -46,7 +46,7 @@
 </style>
 <script>
 // @ is an alias to /src
-import EditBox from "../display/edit/EditBox.vue";
+import EditBox from "@/components/display/edit/EditBox.vue";
 import SharePlayer from '../display/sharing/SharePlayer.vue';
 import ShareButtons from "../display/sharing/ShareButtons.vue";
 import ShareDistribution from '../display/sharing/ShareDistribution.vue';

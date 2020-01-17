@@ -41,14 +41,14 @@ var initialize = function initialize(initObject){
     }
     if(initObject.podcastPage){
       let param = initObject.podcastPage;
-      state.podcastPage.EditBox = (typeof param.EditBox !== "undefined") ? param.EditBox : false;
-      state.podcastPage.SharePlayer = (typeof param.SharePlayer !== "undefined") ? param.SharePlayer : false;
-      state.podcastPage.ShareButtons = (typeof param.ShareButtons !== "undefined") ? param.ShareButtons : false;
-      state.podcastPage.ShareDistribution = (typeof param.ShareDistribution !== "undefined")? param.ShareDistribution : false;
+      state.podcastPage.EditBox = (typeof param.EditBox !== "undefined") ? param.EditBox : true;
+      state.podcastPage.SharePlayer = (typeof param.SharePlayer !== "undefined") ? param.SharePlayer : true;
+      state.podcastPage.ShareButtons = (typeof param.ShareButtons !== "undefined") ? param.ShareButtons : true;
+      state.podcastPage.ShareDistribution = (typeof param.ShareDistribution !== "undefined")? param.ShareDistribution : true;
       state.podcastPage.MiniplayerUri = (typeof param.MiniplayerUri !== "undefined") ? param.MiniplayerUri : 'https://player.staging.saooti.org/';
-      state.podcastPage.ouestFranceStyle = (typeof param.ouestFranceStyle !== "undefined") ? param.ouestFranceStyle : true;
-      state.podcastPage.tagList= (typeof param.tagList !== "undefined") ? param.tagList : true;
-      state.podcastPage.downloadButton= (typeof param.downloadButton !== "undefined") ? param.downloadButton : true;
+      state.podcastPage.ouestFranceStyle = (typeof param.ouestFranceStyle !== "undefined") ? param.ouestFranceStyle : false;
+      state.podcastPage.tagList= (typeof param.tagList !== "undefined") ? param.tagList : false;
+      state.podcastPage.downloadButton= (typeof param.downloadButton !== "undefined") ? param.downloadButton : false;
     }
     if(initObject.podcastsPage){
       let param = initObject.podcastsPage;

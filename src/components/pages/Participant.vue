@@ -40,7 +40,7 @@
 
 <script>
 // @ is an alias to /src
-import EditBox from "../display/edit/EditBox.vue";
+import EditBox from "@/components/display/edit/EditBox.vue";
 import ShareButtons from "../display/sharing/ShareButtons.vue";
 import octopusApi from "@saooti/octopus-api";
 import PodcastFilterList from '../display/podcasts/PodcastFilterList.vue';

@@ -214,9 +214,8 @@ export default {
         if (width <= PHONE_WIDTH - 255) {
           this.size = 10;
         } else {
-          const one = domHelper.convertRemToPixels(1);
-          const fourteen = domHelper.convertRemToPixels(14);
-          this.size = Math.floor((width + one) / fourteen);
+          const sixteen = domHelper.convertRemToPixels(16);
+          this.size = Math.floor(width / sixteen);
         }
       }
     },
