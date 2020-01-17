@@ -6,12 +6,12 @@
         <button
           class="btn btn-underline"
           @click="sortPopular()"
-          :class="{ active: popularSort }"
+          :class="{ 'active': popularSort }"
         >{{ $t('Most popular') }}</button>
         <button
           class="btn btn-underline"
           @click="sortChrono()"
-          :class="{ active: !popularSort }"
+          :class="{ 'active': !popularSort }"
         >{{ $t('Last added') }}</button>
       </div>
       <div class="hide-phone" v-if="!isArrow">

@@ -36,7 +36,7 @@ var initialize = function initialize(initObject){
       state.generalParameters.isAdmin =(typeof param.isAdmin !== "undefined") ? param.isAdmin : false;
       state.generalParameters.ApiUri = (typeof param.ApiUri !== "undefined") ? param.ApiUri : 'https://api.staging.saooti.org/';
       state.generalParameters.isIE11 = (typeof param.isIE11 !== "undefined") ? param.isIE11 : false;
-      state.generalParameters.podcastmaker =(typeof param.podcastmaker !== "undefined") ? param.podcastmaker : true;
+      state.generalParameters.podcastmaker =(typeof param.podcastmaker !== "undefined") ? param.podcastmaker : false;
       state.generalParameters.buttonPlus =(typeof param.buttonPlus !== "undefined") ? param.buttonPlus : true;
     }
     if(initObject.podcastPage){
@@ -95,7 +95,9 @@ var initialize = function initialize(initObject){
     if(initObject.octopusApi){
       let param = initObject.octopusApi;
       state.octopusApi.url = (typeof param.url !== "undefined") ? param.url : "http://api.staging.saooti.org/";
-      state.octopusApi.organisationId = (typeof param.organisationId !== "undefined") ? param.organisationId : undefined;
+      if(state.generalParameters.podcastmaker){
+        state.octopusApi.organisationId = (typeof param.organisationId !== "undefined") ? param.organisationId : undefined;
+      }
       let error = octopusApi.initialize(state.octopusApi);
       if(error){
         reject();

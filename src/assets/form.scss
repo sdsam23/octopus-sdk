@@ -46,9 +46,13 @@
     transition: background .2s, border .2s, box-shadow .2s, color .2s;
     vertical-align: middle;
     white-space: nowrap;
+    @media (max-width: 500px){
+      white-space: unset;
+    }
     &:focus,
     &:hover,
-    &:active {
+    &:active,
+    &.active {
       background: rgba($octopus-primary-color, 0.3) ;
       border-bottom: 2px solid $octopus-primary-color;
       outline: none !important;

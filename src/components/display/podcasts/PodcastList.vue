@@ -4,7 +4,7 @@
       <div class="spinner-border mr-3"></div>
       <h3>{{ $t('Loading podcasts ...') }}</h3>
     </div>
-    <div v-if="loaded && !podcasts.length && search">
+    <div v-if="loaded && !podcasts.length">
       <p>{{ $t('No podcast match your query') }}</p>
     </div>
     <ul class="podcast-list" v-show="loaded">
@@ -71,7 +71,6 @@ export default {
     'participantId',
     'query',
     'monetization',
-    'search'
   ],
 
   components: {

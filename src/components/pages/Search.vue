@@ -15,7 +15,7 @@
       />
       <div class="saooti-search-bounty search-icon-container"></div>
     </div>
-    <PodcastList :query="query" :first="0" :size="20" :search='!hideBar' @emptyList='onListEmpty' v-if="!!query" />
+    <PodcastList :query="query" :first="0" :size="20" @emptyList='onListEmpty' v-if="!!query" />
   </div>
 </template>
 
