@@ -15,24 +15,25 @@ import Player from "./src/components/misc/Player.vue";
 /* import Snackbar from "./src/components/misc/Snackbar.vue"; */
 import TopBar from "./src/components/misc/TopBar.vue";
 //Display
-/* import CategoryChooser from "./src/components/display/categories/CategoryChooser.vue";*/
+import CategoryChooser from "./src/components/display/categories/CategoryChooser.vue";
 import CategoryList from "./src/components/display/categories/CategoryList.vue";
-/*import EditBox from "./src/components/display/edit/EditBox.vue";
+/*import EditBox from "./src/components/display/edit/EditBox.vue"; */
+import EmissionChooser from "./src/components/display/emission/EmissionChooser.vue";
 import EmissionItem from "./src/components/display/emission/EmissionItem.vue";
-import EmissionList from "./src/components/display/emission/EmissionList.vue";
+/*import EmissionList from "./src/components/display/emission/EmissionList.vue";
 import MonetizableFilter from "./src/components/display/filter/MonetizableFilter.vue";
-import ProductorSearch from "./src/components/display/filter/ProductorSearch.vue";
+import ProductorSearch from "./src/components/display/filter/ProductorSearch.vue";*/
 import OrganisationChooser from "./src/components/display/organisation/OrganisationChooser.vue";
-import ParticipantItem from "./src/components/display/participant/ParticipantItem.vue";
+/*import ParticipantItem from "./src/components/display/participant/ParticipantItem.vue";
 import ParticipantList from "./src/components/display/participant/ParticipantList.vue";
-import AnimatorsItem from "./src/components/display/podcasts/AnimatorsItem.vue";
+import AnimatorsItem from "./src/components/display/podcasts/AnimatorsItem.vue";*/
 import PodcastFilterList from "./src/components/display/podcasts/PodcastFilterList.vue";
-import PodcastImage from "./src/components/display/podcasts/PodcastImage.vue";*/
+/*import PodcastImage from "./src/components/display/podcasts/PodcastImage.vue";*/
 import PodcastInlineList from "./src/components/display/podcasts/PodcastInlineList.vue";
 /*import PodcastItem from "./src/components/display/podcasts/PodcastItem.vue";
-import PodcastList from "./src/components/display/podcasts/PodcastList.vue";
+import PodcastList from "./src/components/display/podcasts/PodcastList.vue";*/
 import ShareButtons from "./src/components/display/sharing/ShareButtons.vue";
-import ShareDistribution from "./src/components/display/sharing/ShareDistribution.vue";
+/*import ShareDistribution from "./src/components/display/sharing/ShareDistribution.vue";
 import SharePlayer from "./src/components/display/sharing/SharePlayer.vue"; */
 
 const components = {
@@ -48,27 +49,15 @@ const components = {
     Footer,
     LeftMenu,
     Player,
-    /* Snackbar, */
     TopBar,
-    /* CategoryChooser,*/
+    CategoryChooser,
     CategoryList,
-    /*EditBox,
-    EmissionItem,
-    EmissionList,
-    MonetizableFilter,
-    ProductorSearch,
-    OrganisationChooser,
-    ParticipantItem,
-    ParticipantList,
-    AnimatorsItem,
-    PodcastFilterList,
-    PodcastImage,*/
     PodcastInlineList,
-    /*PodcastItem,
-    PodcastList,
+    EmissionChooser,
+    EmissionItem,
+    OrganisationChooser,
+    PodcastFilterList,
     ShareButtons,
-    ShareDistribution,
-    SharePlayer */
 }
 
 export default components;
@@ -85,26 +74,14 @@ export {
     Category,
     Footer,
     LeftMenu,
-     Player,
-    /*Snackbar, */
+    Player,
     TopBar,
-    /* CategoryChooser,*/
+    CategoryChooser,
     CategoryList,
-    /*EditBox,
-    EmissionItem,
-    EmissionList,
-    MonetizableFilter,
-    ProductorSearch,
-    OrganisationChooser,
-    ParticipantItem,
-    ParticipantList,
-    AnimatorsItem,
-    PodcastFilterList,
-    PodcastImage,*/
     PodcastInlineList,
-    /*PodcastItem,
-    PodcastList,
+    EmissionChooser,
+    EmissionItem,
+    OrganisationChooser,
+    PodcastFilterList,
     ShareButtons,
-    ShareDistribution,
-    SharePlayer */
 };
