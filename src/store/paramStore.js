@@ -77,7 +77,7 @@ var initialize = function initialize(initObject){
     }
     if(initObject.searchPage){
       let param = initObject.searchPage;
-      state.searchPage.hideBar = (typeof param.hideBar !== "undefined") ? param.hideBar : true;
+      state.searchPage.hideBar = (typeof param.hideBar !== "undefined") ? param.hideBar : false;
     }
     if(initObject.player){
       let param = initObject.player;
