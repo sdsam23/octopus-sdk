@@ -1,11 +1,11 @@
 <template>
   <div class="top-bar-container position-sticky" v-bind:class="{ 'shadow-element': scrolled }">
     <div class="top-bar">
-      <div class="hamburger-menu" v-on:click="onDisplayMenu">
+      <div class="hamburger-menu" v-on:click="onDisplayMenu(false)">
         <div class="saooti-burger-menu h3"></div>
       </div>
       <router-link to="/main/pub/home">
-        <div class="top-bar-logo m-3">
+        <div class="top-bar-logo m-3" v-on:click="onDisplayMenu(true)">
           <img src="/img/logo_octopus_final.svg" :alt="$t('Logo of main page')" />
         </div>
       </router-link>
@@ -188,8 +188,12 @@ export default {
       }
     },
 
-    onDisplayMenu() {
-      this.$emit('update:displayMenu', !this.displayMenu);
+    onDisplayMenu(param) {
+      if(param === true){
+        this.$emit('update:displayMenu', false);
+      } else{
+        this.$emit('update:displayMenu', !this.displayMenu);
+      }
     },
 
     displayMenuPhone(hidden) {
