@@ -97,7 +97,7 @@ export default {
 
     editRight() {
       if (this.authenticated) {
-        if (this.organisationId === this.emission.orga.id) {
+        if (this.organisationId === this.participant.orga.id) {
           return true;
         }
         if (state.generalParameters.isAdmin) {

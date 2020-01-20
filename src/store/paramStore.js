@@ -67,8 +67,8 @@ var initialize = function initialize(initObject){
     }
     if(initObject.emissionPage){
       let param = initObject.emissionPage;
-      state.emissionPage.ouestFranceStyle = (typeof param.ouestFranceStyle !== "undefined") ? param.ouestFranceStyle : true;
-      state.emissionPage.rssButton = (typeof param.rssButton !== "undefined") ? param.rssButton : false;
+      state.emissionPage.ouestFranceStyle = (typeof param.ouestFranceStyle !== "undefined") ? param.ouestFranceStyle : false;
+      state.emissionPage.rssButton = (typeof param.rssButton !== "undefined") ? param.rssButton : true;
     }
     if(initObject.intervenantPage){
       let param = initObject.intervenantPage;

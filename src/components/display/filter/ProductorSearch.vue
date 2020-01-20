@@ -6,9 +6,10 @@
 					@selected="onOrganisationSelected"
 					:value='organisationId'
 			/>
-			<label class="m-3" v-if="!!organisationId">
-					<input type="checkbox" v-model="keepOrganisation" @click="onKeepOrganisation"/>
-			</label>
+      <div class="checkbox-saooti m-3" v-if="!!organisationId">  
+        <input type="checkbox" class="custom-control-input" id="orgaCheck" v-model="keepOrganisation" @click="onKeepOrganisation">  
+        <label class="custom-control-label" for="orgaCheck"></label>  
+    </div>
 			<div class="filter-speech-bubble" v-if="showBubble">{{$t('check this box if you want to keep this filter for the rest of your visit')}}</div>
 			</div>
 			<div class="d-flex align-items-center flex-grow">

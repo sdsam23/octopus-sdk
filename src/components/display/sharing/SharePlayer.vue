@@ -30,7 +30,7 @@
             v-model="iFrameNumber"
             min="1"
             max="10"
-            class="input-share-player input-no-outline text-align-center m-2"
+            class="input-share-player input-no-outline text-center m-2"
           />
           <span>{{ $t('Last podcasts') }}</span>
         </div>
