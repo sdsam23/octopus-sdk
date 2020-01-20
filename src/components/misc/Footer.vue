@@ -24,7 +24,7 @@
 </template>
 <style lang="scss">
 
-.border {
+.border-round {
   border-radius: 0 0 2rem 2rem;
 }
 /** PHONES*/
@@ -60,9 +60,9 @@ export default {
   methods: {
     showBlackBorder(hide){
       if(hide){
-        document.getElementById('footer').classList.remove('border');
+        document.getElementById('footer').classList.remove('border-round');
       } else if(!this.isBarTop){
-        document.getElementById('footer').className += ' border';
+        document.getElementById('footer').className += ' border-round';
       }
     }
   }
