@@ -1,34 +1,11 @@
 // stylelint-disable selector-no-qualifying-type
 
-//
-// Base styles
-//
-
-.btn {
-  display: inline-block;
-  font-family: $btn-font-family;
-  font-weight: $btn-font-weight;
-  color: $body-color;
-  text-align: center;
-  white-space: $btn-white-space;
-  vertical-align: middle;
-  cursor: if($enable-pointer-cursor-for-buttons, pointer, null);
-  user-select: none;
-  background-color: transparent;
-  border: $btn-border-width solid transparent;
-  @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-line-height, $btn-border-radius);
-  @include transition($btn-transition);
-
-  // Disabled comes first so active can properly restyle
-  &.disabled,
-  &:disabled {
-    opacity: $btn-disabled-opacity;
-    @include box-shadow(none);
-  }
-}
-
 // Buttons
 .btn {
+  display: inline-block;
+  @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-line-height, $btn-border-radius);
+  @include transition($btn-transition);
+  
   background: $octopus-light-secondary-color ;
   border: 0;
   border-bottom: 2px solid transparent;
@@ -39,7 +16,7 @@
   transition: background .2s, border .2s, box-shadow .2s, color .2s;
   vertical-align: middle;
   white-space: nowrap;
-  color: white;
+  color: black;
   @media (max-width: 500px){
     white-space: unset;
   }
@@ -75,6 +52,7 @@
     border-radius: 50px;
     height: auto;
     border-bottom: 0 solid transparent;
+    color: white !important;
     &:focus,
     &:hover {
       background:$octopus-third-color;
@@ -261,35 +239,6 @@ fieldset:disabled a.btn {
 }
 
 
-//
-// Link buttons
-//
-
-// Make a button look and behave like a link
-.btn-link {
-  font-weight: $font-weight-normal;
-  color: $link-color;
-  text-decoration: $link-decoration;
-
-  @include hover() {
-    color: $link-hover-color;
-    text-decoration: $link-hover-decoration;
-  }
-
-  &:focus,
-  &.focus {
-    text-decoration: $link-hover-decoration;
-    box-shadow: none;
-  }
-
-  &:disabled,
-  &.disabled {
-    color: $btn-link-disabled-color;
-    pointer-events: none;
-  }
-
-  // No need for an active state here
-}
 
 
 //
