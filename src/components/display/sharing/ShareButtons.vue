@@ -19,42 +19,6 @@
 </template>
 
 <style lang="scss">
-
-  .share-btn {
-    font-size: 1.5rem;
-    width: 3rem;
-    height: 3rem;
-    padding: 0.5rem;
-  }
-  .btn-rss {
-    background: #ddd !important;
-    &:hover {
-      border: 0;
-      background: #ccc !important;
-    }
-  }
-  .btn-facebook {
-    background: #d8dfea !important;
-    color: #3b5998 !important;
-    &:hover {
-      background: #afbdd4 !important;
-    }
-  }
-  .btn-twitter {
-    background: #d2ecfc !important;
-    color: #1da1f2 !important;
-    &:hover {
-      background: #bbe3fb !important;
-    }
-  }
-  .btn-linkedin {
-    background: #0077b550 !important;
-    color: #0077b5 !important;
-    &:hover {
-      background: #00a0dc !important;
-    }
-  }
-
 </style>
 
 <script>
