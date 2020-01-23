@@ -10,14 +10,14 @@
         </div>
       </router-link>
       <div class="d-flex align-items-center justify-content-center flex-grow">
-        <router-link class="linkHover p-3 text-dark font-weight-bold h6" to="/main/pub/podcasts">{{ $t('Podcasts') }}</router-link>
-        <router-link class="linkHover p-3 text-dark font-weight-bold h6" to="/main/pub/emissions">{{ $t('Emissions') }}</router-link>
-        <router-link class="linkHover p-3 text-dark font-weight-bold h6" to="/main/pub/productors" v-if="!isPodcastmaker">{{ $t('Productors') }}</router-link>
-        <router-link class="linkHover p-3 text-dark font-weight-bold h6" to="/main/pub/participants">{{ $t('Speakers') }}</router-link>
+        <router-link class="linkHover p-3 text-dark font-weight-bold" to="/main/pub/podcasts">{{ $t('Podcasts') }}</router-link>
+        <router-link class="linkHover p-3 text-dark font-weight-bold" to="/main/pub/emissions">{{ $t('Emissions') }}</router-link>
+        <router-link class="linkHover p-3 text-dark font-weight-bold" to="/main/pub/productors" v-if="!isPodcastmaker">{{ $t('Productors') }}</router-link>
+        <router-link class="linkHover p-3 text-dark font-weight-bold" to="/main/pub/participants">{{ $t('Speakers') }}</router-link>
       </div>
       <div class="d-flex align-items-center justify-content-end">
         <router-link to="/main/priv/upload" v-if="authenticated && !isPodcastmaker" class="mr-3">
-          <button class="btn btn-primary h6">{{ $t('Upload new podcast') }}</button>
+          <button class="btn btn-primary">{{ $t('Upload new podcast') }}</button>
         </router-link>
         <div class="d-flex justify-content-end">
           <div class="dropdown" v-if="!isPodcastmaker">

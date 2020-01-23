@@ -61,14 +61,14 @@ var initialize = function initialize(initObject){
     }
     if(initObject.emissionsPage){
       let param = initObject.emissionsPage;
-      state.emissionsPage.smallItems = (typeof param.smallItems !== "undefined") ? param.smallItems : true;
-      state.emissionsPage.lightItems = (typeof param.lightItems !== "undefined") ? param.lightItems : true;
+      state.emissionsPage.smallItems = (typeof param.smallItems !== "undefined") ? param.smallItems : false;
+      state.emissionsPage.lightItems = (typeof param.lightItems !== "undefined") ? param.lightItems : false;
       state.emissionsPage.titlePage = (typeof param.titlePage !== "undefined") ? param.titlePage : undefined;
     }
     if(initObject.emissionPage){
       let param = initObject.emissionPage;
       state.emissionPage.ouestFranceStyle = (typeof param.ouestFranceStyle !== "undefined") ? param.ouestFranceStyle : false;
-      state.emissionPage.rssButton = (typeof param.rssButton !== "undefined") ? param.rssButton : true;
+      state.emissionPage.rssButton = (typeof param.rssButton !== "undefined") ? param.rssButton : false;
     }
     if(initObject.intervenantPage){
       let param = initObject.intervenantPage;

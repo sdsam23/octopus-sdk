@@ -1,5 +1,5 @@
 <template>
-  <li class="podcast-item-container" :class="[podcastShadow? 'shadow-element':'', podcastBorderBottom? 'border-bottom':'']">
+  <li class="podcast-item-container m-0" :class="[podcastShadow? 'shadow-element':'', podcastBorderBottom? 'border-bottom':'']">
     <PodcastImage 
       v-bind:podcast="podcast" 
       :hidePlay='!hover || !description' 
@@ -10,9 +10,9 @@
     />
     <div class='description-podcast-item' v-if="hover && description">{{description}}</div>
     <div class='d-contents' @mouseenter="showDescription" @mouseleave="hideDescription">
-      <div class="d-flex align-items-left flex-wrap text-secondary mb-3">
-        <div class="mr-3">{{ date }}</div>
-        <div><span class="saooti-clock3"></span>{{ duration }}</div>
+      <div class="d-flex justify-content-between flex-wrap text-secondary mb-3">
+        <div class="mr-3 small-Text">{{ date }}</div>
+        <div class="small-Text"><span class="saooti-clock3"></span>{{ duration }}</div>
       </div>
       <AnimatorsItem v-bind:animators="podcast.animators" />
       <router-link

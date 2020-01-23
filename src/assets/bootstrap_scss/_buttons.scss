@@ -1,0 +1,329 @@
+// stylelint-disable selector-no-qualifying-type
+
+//
+// Base styles
+//
+
+.btn {
+  display: inline-block;
+  font-family: $btn-font-family;
+  font-weight: $btn-font-weight;
+  color: $body-color;
+  text-align: center;
+  white-space: $btn-white-space;
+  vertical-align: middle;
+  cursor: if($enable-pointer-cursor-for-buttons, pointer, null);
+  user-select: none;
+  background-color: transparent;
+  border: $btn-border-width solid transparent;
+  @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-line-height, $btn-border-radius);
+  @include transition($btn-transition);
+
+  @include hover() {
+    color: $body-color;
+    text-decoration: none;
+  }
+
+  &:focus,
+  &.focus {
+    outline: 0;
+    box-shadow: $btn-focus-box-shadow;
+  }
+
+  // Disabled comes first so active can properly restyle
+  &.disabled,
+  &:disabled {
+    opacity: $btn-disabled-opacity;
+    @include box-shadow(none);
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active {
+    @include box-shadow($btn-active-box-shadow);
+
+    &:focus {
+      @include box-shadow($btn-focus-box-shadow, $btn-active-box-shadow);
+    }
+  }
+}
+
+// Buttons
+.btn {
+  background: $octopus-light-secondary-color ;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  text-align: center;
+  transition: background .2s, border .2s, box-shadow .2s, color .2s;
+  vertical-align: middle;
+  white-space: nowrap;
+  @media (max-width: 500px){
+    white-space: unset;
+  }
+  &:focus,
+  &:hover,
+  &:active,
+  &.active {
+    background: rgba($octopus-primary-color, 0.3) ;
+    border-bottom: 2px solid $octopus-primary-color;
+    outline: none !important;
+    box-shadow: none;
+    text-decoration: none;
+  }
+  &[disabled],
+  &:disabled,
+  &.disabled {
+    cursor: default;
+    opacity: .5;
+    pointer-events: none;
+  }
+
+  // Button Primary
+  &.btn-primary {
+    background: $octopus-third-color;
+    background: -moz-linear-gradient(-45deg, $octopus-third-color 0%, $octopus-primary-color 100%);
+    background: -webkit-gradient(left top, right bottom, color-stop(0%, $octopus-third-color), color-stop(100%, $octopus-primary-color));
+    background: -webkit-linear-gradient(-45deg, $octopus-third-color 0%, $octopus-primary-color 100%);
+    background: -o-linear-gradient(-45deg, $octopus-third-color 0%, $octopus-primary-color 100%);
+    background: -ms-linear-gradient(-45deg, $octopus-third-color 0%, $octopus-primary-color 100%);
+    background: linear-gradient(135deg, $octopus-third-color 0%, $octopus-primary-color 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d6d91f', endColorstr='#50b685', GradientType=1 );
+    border-color: $octopus-primary-color;
+    border-radius: 50px;
+    height: auto;
+    border-bottom: 0 solid transparent;
+    &:focus,
+    &:hover {
+      background:$octopus-third-color;
+      background: -moz-linear-gradient(-45deg, $octopus-third-color 0%, $octopus-primary-color 100%);
+      background: -webkit-gradient(left top, right bottom, color-stop(0%, $octopus-third-color), color-stop(100%, $octopus-primary-color));
+      background: -webkit-linear-gradient(-45deg, $octopus-third-color 0%, $octopus-primary-color 100%);
+      background: -o-linear-gradient(-45deg, $octopus-third-color 0%, $octopus-primary-color 100%);
+      background: -ms-linear-gradient(-45deg, $octopus-third-color 0%, $octopus-primary-color 100%);
+      background: linear-gradient(135deg, $octopus-third-color 0%, $octopus-primary-color 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d6d91f', endColorstr='#4fcf91', GradientType=1 );
+      border: 0;
+    }
+    &:active,
+    &.active {
+      background: darken($octopus-primary-color, 4%);
+      border-color: darken($octopus-primary-color, 7%);
+    }
+  }
+  &.btn-auth{
+    &:focus,
+    &:hover {
+      background:$octopus-third-color;
+      background: -moz-linear-gradient(-45deg, $octopus-third-color 0%, $octopus-primary-color 100%);
+      background: -webkit-gradient(left top, right bottom, color-stop(0%, $octopus-third-color), color-stop(100%, $octopus-primary-color));
+      background: -webkit-linear-gradient(-45deg, $octopus-third-color 0%, $octopus-primary-color 100%);
+      background: -o-linear-gradient(-45deg, $octopus-third-color 0%, $octopus-primary-color 100%);
+      background: -ms-linear-gradient(-45deg, $octopus-third-color 0%, $octopus-primary-color 100%);
+      background: linear-gradient(135deg, $octopus-third-color 0%, $octopus-primary-color 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d6d91f', endColorstr='#4fcf91', GradientType=1 );
+      border: 0;
+    }
+    &:active,
+    &.active {
+      background: darken($octopus-primary-color, 4%);
+      border-color: darken($octopus-primary-color, 7%);
+    }
+  }
+//Button disable halo after click
+  .no-effect{
+  &:focus,
+    &:hover {
+      border-bottom: 0 !important;
+      outline: 0;
+      box-shadow: 0 0 0 0 transparent !important;
+    }
+  }
+  &.btn-underline{
+    background: none;
+    padding: 0;
+    margin: 0 2rem 1rem 0;
+    border-radius: 0;
+  }
+
+  &.btn-arrow {
+    border-radius: 50px;
+    margin: 0.2rem;
+    width: 1.8rem;
+    height: 1.8rem;
+    background: $octopus-secondary-color;
+    padding: 0;
+    &:hover {
+      border: 0;
+      background: $octopus-secondary-color;
+    }
+  }
+
+  &.btn-link {
+    background: $octopus-secondary-color;
+    color: $octopus-primary-color;
+    font-weight: bold;
+    margin: 2rem;
+    width: fit-content;
+    align-self: center;
+    &:focus,
+    &:hover,
+    &:active,
+    &.active {
+      background: darken($octopus-secondary-color, 5%);
+      color: $octopus-primary-color;
+      border-bottom: 2px solid transparent;
+    }
+    @media (max-width: 500px){
+      margin: 0.3rem;
+    }
+  }
+
+  &.btn-linkPlus {
+    padding: 8px 16px;
+    font-size: 1.4rem;
+    border-radius: 50px;
+    background-color: #fff;
+    color: #000;
+    box-shadow: none;
+    border: 1px solid #000;
+    display: flex;
+    .saooti-plus{
+      line-height: 1.5 !important;
+      margin-left: 5px; 
+    }
+    &:focus,
+    &:hover,
+    &:active,
+    &.active {
+      background: $octopus-primary-color;
+      color: white;
+      border: 1px solid $octopus-primary-color;
+    }
+  }
+
+  &.btn-more{
+    background: $octopus-primary-color;
+    color: $octopus-background;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    margin: 1rem;
+  }
+
+  &.btn-bigRound{
+    border: 1px #aaa solid;
+    background: none;
+    font-size: 3rem !important;
+    color: #666;
+    border-radius: 50%;
+    padding: 1rem;
+    margin-right: 1rem;
+    width: 5rem;
+    height: 5rem;
+  }
+
+  &.admin-button {
+    padding: 0.3rem;
+    height: 1.8rem;
+    width: 1.8rem;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+// Future-proof disabling of clicks on `<a>` elements
+a.btn.disabled,
+fieldset:disabled a.btn {
+  pointer-events: none;
+}
+
+
+//
+// Alternate buttons
+//
+
+@each $color, $value in $theme-colors {
+  .btn-#{$color} {
+    @include button-variant($value, $value);
+  }
+}
+
+@each $color, $value in $theme-colors {
+  .btn-outline-#{$color} {
+    @include button-outline-variant($value);
+  }
+}
+
+
+//
+// Link buttons
+//
+
+// Make a button look and behave like a link
+.btn-link {
+  font-weight: $font-weight-normal;
+  color: $link-color;
+  text-decoration: $link-decoration;
+
+  @include hover() {
+    color: $link-hover-color;
+    text-decoration: $link-hover-decoration;
+  }
+
+  &:focus,
+  &.focus {
+    text-decoration: $link-hover-decoration;
+    box-shadow: none;
+  }
+
+  &:disabled,
+  &.disabled {
+    color: $btn-link-disabled-color;
+    pointer-events: none;
+  }
+
+  // No need for an active state here
+}
+
+
+//
+// Button Sizes
+//
+
+.btn-lg {
+  @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg, $btn-line-height-lg, $btn-border-radius-lg);
+}
+
+.btn-sm {
+  @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $btn-font-size-sm, $btn-line-height-sm, $btn-border-radius-sm);
+}
+
+
+//
+// Block button
+//
+
+.btn-block {
+  display: block;
+  width: 100%;
+
+  // Vertically space out multiple block buttons
+  + .btn-block {
+    margin-top: $btn-block-spacing-y;
+  }
+}
+
+// Specificity overrides
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  &.btn-block {
+    width: 100%;
+  }
+}

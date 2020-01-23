@@ -52,7 +52,6 @@
 .input-share-player{
   border: 1px solid #ddd;
   border-radius: 50px;
-  font-size: 1rem;
   input[type=number]{
     margin: 0 1rem;
     width: 100px;
@@ -64,7 +63,6 @@
   padding:0.5rem;
   transition:all .5s ease;
   color:#41403E;
-  font-size:0.8rem;
   letter-spacing:1px;
   outline:none;
   box-shadow: 10px 10px 34px -15px hsla(0,0%,0%,.4);

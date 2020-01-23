@@ -6,11 +6,11 @@
         <div class="d-flex flex-column flex-grow">
           <EditBox :podcast="podcast" v-if="editRight && isEditBox"></EditBox>
           <div class="module-box">
-            <h2 class="text-uppercase font-weight-bold h3" v-if="!isOuestFrance">{{ this.podcast.title }}</h2>
+            <h2 class="text-uppercase font-weight-bold" v-if="!isOuestFrance">{{ this.podcast.title }}</h2>
             <router-link v-bind:to="'/main/pub/emission/' + this.podcast.emission.emissionId" v-else>
               <h1>{{ this.podcast.emission.name }}</h1>
             </router-link>
-            <div class="mb-5 d-flex h6">
+            <div class="mb-5 d-flex">
               <PodcastImage
                 :class="isOuestFrance? '':'shadow-element'"
                 class="mr-3" 
