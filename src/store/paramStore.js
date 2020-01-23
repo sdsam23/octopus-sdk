@@ -72,8 +72,8 @@ var initialize = function initialize(initObject){
     }
     if(initObject.intervenantPage){
       let param = initObject.intervenantPage;
-      state.intervenantPage.lightStyle = (typeof param.lightStyle !== "undefined") ? param.lightStyle : true;
-      state.intervenantPage.rssButton = (typeof param.rssButton !== "undefined") ? param.rssButton : true;
+      state.intervenantPage.lightStyle = (typeof param.lightStyle !== "undefined") ? param.lightStyle : false;
+      state.intervenantPage.rssButton = (typeof param.rssButton !== "undefined") ? param.rssButton : false;
     }
     if(initObject.searchPage){
       let param = initObject.searchPage;

@@ -9,7 +9,7 @@
           @selected="onCategorySelected"
         />
       </div>
-      <div class="d-flex position-relative flex-grow">
+      <div class="d-flex position-relative small-flex-grow">
         <input :placeholder="$t('Search')" v-model="searchPattern" class="filter-search-input input-no-outline flex-grow" />
         <div class="saooti-search-bounty filter-list-search-icon search-icon-container"></div>
       </div>
@@ -30,6 +30,9 @@
 .filter-list-search-icon {
   right: 1.6rem !important;
   font-weight: bold;
+}
+.small-flex-grow{
+  flex-grow: 0.3;
 }
 </style>
 
