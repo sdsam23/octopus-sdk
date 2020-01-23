@@ -10,7 +10,7 @@
     <div class="emission-item-text" :class="lightItems?'p-0':''">
       <router-link v-bind:to="'/main/pub/emission/' + emission.emissionId" class="text-dark">
         <div class="emission-name" v-if="!lightItems">
-        <img class="icon-caution" src="/img/caution.png" v-if="!activeEmission && !isPodcastmaker"/>{{ name }}</div>
+        <img class="icon-caution" src="/img/caution.png" v-if="!activeEmission && !isPodcastmaker" :title="$t('Emission have not podcasts')"/>{{ name }}</div>
         <div class="emission-description" :class="lightItems?'emission-small-description':''">{{ description }}</div>
       </router-link>
       <div class="flex-grow"></div>

@@ -378,6 +378,8 @@ export default {
     'Search - no results': 'Aucun résultat pour la recherche "{query}"',
     'Downloading': 'Téléchargement',
     'Subscribe to this emission': "S'abonner à cette émission",
-    'Subscribe to this participant': "S'abonner à cet intervenant"
+    'Subscribe to this participant': "S'abonner à cet intervenant",
+    'Emission have not podcasts': "Cette émission n'a pas d'épisodes",
+    'Participant have not podcasts':"Cet intervenant ne participe à aucun épisode"
   };
   
