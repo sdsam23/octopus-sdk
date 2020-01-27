@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column p-3">
+  <div class="d-flex flex-column p-3 list-episode">
     <h2>{{ title }}</h2>
     <div class="d-flex justify-content-between">
       <div class="d-flex" v-if="requirePopularSort === undefined">
@@ -35,6 +35,13 @@
 </template>
 
 <style lang="scss">
+
+.list-episode {
+  padding: 2rem 1rem 1rem !important;
+  h2 {
+    margin-bottom: 1rem;
+  }
+}
 
   .podcast-list-inline {
     align-self: stretch;

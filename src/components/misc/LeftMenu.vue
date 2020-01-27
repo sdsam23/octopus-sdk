@@ -53,6 +53,7 @@
   .routes-container {
     display: flex;
     flex-direction: column;
+        font-size: 0.9rem;
   }
 }
 /** PHONES*/
