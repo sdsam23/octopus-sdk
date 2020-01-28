@@ -1,7 +1,10 @@
 <template>
   <div class="page-box">
-    <h1 v-if="titlePage === undefined">{{ $t('All podcasts') }}</h1>
-    <h1 v-else>{{ titlePage }}</h1>
+    <div class="d-flex">
+      <h1 v-if="titlePage === undefined" class="flex-shrink">{{ $t('All podcasts') }}</h1>
+      <h1 v-else class="flex-shrink">{{ titlePage }}</h1>
+      <EmissionChooser @selected='emissionSelected' v-if="isEmissionChooser" :defaultanswer="$t('No emission filter')" class="ml-3"/>
+    </div>
     <ProductorSearch 
       :organisationId='organisationId' 
       :searchPattern='searchPattern'
@@ -9,7 +12,6 @@
       @updateSearchPattern='updateSearchPattern'
       v-if="isProductorSearch" />
     <MonetizableFilter @updateMonetization='updateMonetization' :isEmission='false' v-if="isMonetizableFilter"/>
-    <EmissionChooser @selected='emissionSelected' v-if="isEmissionChooser" :defaultanswer="$t('No emission filter')"/>
     <PodcastList :first="first" :size="size" :organisationId='organisationId' :query='searchPattern' :monetization="monetization" :emissionId='emissionId'/>
   </div>
 </template>
