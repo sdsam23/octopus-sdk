@@ -45,6 +45,9 @@
   background: #fff;
   margin: 1rem;
   flex-shrink: 0;
+   .text-secondary {
+    margin: 0.5rem !important;
+}
 
   .title-podcast-item {
     font-weight: 700;

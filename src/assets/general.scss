@@ -26,6 +26,11 @@ h2{
 
 .small-Text{
   font-size: 0.6rem;
+  display: flex;
+    align-items: center;
+    .saooti-clock3 {
+      margin-right: 0.2rem;
+    }
 }
 
 h1,h2,h3,h4,h5,h6{
