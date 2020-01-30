@@ -1,8 +1,8 @@
 <template>
-  <div class="p-3">
+  <div class="p-3 list-episodes">
     <h2 v-if="name">{{ $t('All podcast button', { name: name }) }}</h2>
     <h2 v-else>{{ $t('All podcast emission button') }}</h2>
-    <div class="d-flex align-items-center mt-5 flex-wrap">
+    <div class="d-flex align-items-center flex-wrap">
       <div class="d-flex align-items-center flex-grow" v-if="categoryFilter">
         <CategoryChooser
           :defaultanswer="$t('No category filter')"
@@ -27,6 +27,13 @@
 </template>
 
 <style lang="scss">
+
+.list-episodes {
+  padding: 2rem 1rem 1rem !important;
+  h2 {
+    margin-bottom: 0.5rem;
+  }
+}
 .filter-list-search-icon {
   right: 1.6rem !important;
   font-weight: bold;

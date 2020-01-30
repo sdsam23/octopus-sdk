@@ -13,7 +13,7 @@
 			<div class="filter-speech-bubble" v-if="showBubble">{{$t('check this box if you want to keep this filter for the rest of your visit')}}</div>
 			</div>
 			<div class="d-flex align-items-center flex-grow">
-			<div>{{ $t('Filter by keyword : ') }}</div>
+			
 			<input
         class='filter-search-input input-no-outline'
 				:placeholder="$t('Look for podcast name')"
