@@ -168,7 +168,7 @@ export default {
 
   methods: {
     handleScroll() {
-      if (window.scrollY - this.oldScrollY > 0 && window.scrollY > 1) {
+      if (window.scrollY - this.oldScrollY > 0 && window.scrollY > 1 && document.body.offsetHeight - window.innerHeight > 40) {
         this.scrolled = true;
         this.minScroll = 0;
       } else if (
