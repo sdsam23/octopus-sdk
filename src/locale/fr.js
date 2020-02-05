@@ -380,6 +380,11 @@ export default {
     'Subscribe to this emission': "S'abonner à cette émission",
     'Subscribe to this participant': "S'abonner à cet intervenant",
     'Emission have not podcasts': "Cette émission n'a pas d'épisodes",
-    'Participant have not podcasts':"Cet intervenant ne participe à aucun épisode"
+    'Participant have not podcasts':"Cet intervenant ne participe à aucun épisode",
+    'Default version':'Version par défaut',
+    'Large version':'Version en longueur',
+    'Emission version':'Version émission',
+    'Large emission version':'Version large émission',
+    'Large suggestion version':'Version large suggestion',
   };
   

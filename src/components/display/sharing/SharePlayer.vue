@@ -17,13 +17,15 @@
           <button class="btn" @click="onCopyCode">
             {{ $t('Copy code') }}
           </button>
-          <select v-model="iFrameModel" class="input-share-player m-3 p-2 input-no-outline" v-if="this.podcast && this.podcast.podcastId">
-            <option value="default">Version par défaut</option>
-            <option value="large">Version en longueur</option>
-            <option value="emission">Version émission</option>
+          <select v-model="iFrameModel" class="frame-select">
+            <option value="default">{{$t('Default version')}}</option>
+            <option value="large">{{$t('Large version')}}</option>
+            <option value="emission" v-if="podcast && podcast.podcastId">{{$t('Emission version')}}</option>
+            <option value="largeEmission" v-if="podcast && podcast.podcastId">{{$t('Large emission version')}}</option>
+            <option value="largeSuggestion" v-if="podcast && podcast.podcastId">{{$t('Large suggestion version')}}</option>
           </select>
         </div>
-        <div class="d-flex align-items-center mt-3" v-if="iFrameModel === 'emission'">
+        <div class="d-flex align-items-center mt-3" v-if="!podcast || iFrameModel === 'emission' || iFrameModel === 'largeEmission' || iFrameModel === 'largeSuggestion'">
           <span>{{ $t('Show') }}</span>
           <input
             type="number"
@@ -87,7 +89,7 @@ export default {
 
   data() {
     return {
-      iFrameModel: this.podcast ? 'default' : 'emission',
+      iFrameModel:'default',
       iFrameNumberPriv: '1',
     };
   },
@@ -105,14 +107,20 @@ export default {
     },
 
     iFrameSrc() {
-      if (this.iFrameModel === 'emission') {
-        if (this.podcast && this.podcast.podcastId) {
-          return `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.emissionId}/${this.iFrameNumberPriv}/${this.podcast.podcastId}`;
-        } else {
-          return `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.emissionId}/${this.iFrameNumberPriv}`;
+      if(!this.podcast){
+        if(this.iFrameModel === 'default'){
+          return `${state.podcastPage.MiniplayerUri}miniplayer/emission/${this.emissionId}/${this.iFrameNumberPriv}`;
+        } else{
+          return `${state.podcastPage.MiniplayerUri}miniplayer/emissionLarge/${this.emissionId}/${this.iFrameNumberPriv}`;
         }
-      } else {
-        return `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.podcast.podcastId}`;
+      }else {
+        if (this.iFrameModel === 'emission' || this.iFrameModel === 'largeEmission') {
+            return `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.emissionId}/${this.iFrameNumberPriv}/${this.podcast.podcastId}`;
+        } else if(this.iFrameModel === 'largeSuggestion'){
+            return `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.podcast.podcastId}/${this.iFrameNumberPriv}`;
+        }else {
+          return `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.podcast.podcastId}`;
+        }
       }
     },
 
@@ -131,7 +139,13 @@ export default {
     iFrameWidth() {
       switch (this.iFrameModel) {
         case 'large':
-          return '730px';
+        case 'largeEmission':
+        case 'largeSuggestion':
+          if(this.podcast){
+            return '730px';
+          } else{
+            return '550px';
+          }
         default:
           return '355px';
       }
@@ -140,11 +154,23 @@ export default {
     iFrameHeight() {
       switch (this.iFrameModel) {
         case 'large':
-          return '165px';
+          if(this.podcast){
+            return '165px';
+          } else{
+            return '450px';
+          }
+        case 'largeEmission':
+        case 'largeSuggestion':
+          return '490px';
         case 'emission':
           return '530px';
         default:
-          return '494px';
+          if(this.podcast){
+            return '494px';
+          } else{
+            return '530px';
+          }
+
       }
     },
   },
