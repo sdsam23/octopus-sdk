@@ -20,16 +20,19 @@
   @media (max-width: 500px){
     white-space: unset;
   }
-  &:focus,
   &:hover,
+  &:focus,
   &:active,
   &.active {
-    background: rgba($octopus-primary-color, 0.3) ;
-    border-bottom: 2px solid $octopus-primary-color;
     outline: none !important;
     box-shadow: none;
     text-decoration: none;
   }
+  &:hover{
+    background: rgba($octopus-primary-color, 0.3) ;
+    border-bottom: 2px solid $octopus-primary-color;
+  }
+
   &[disabled],
   &:disabled,
   &.disabled {
