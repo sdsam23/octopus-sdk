@@ -1,5 +1,5 @@
-import 'bootstrap'; 
 import Vue from 'vue'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import App from './App.vue'
 import VueI18n from 'vue-i18n';
 import I18nResources from './locale/messages';
@@ -10,6 +10,8 @@ let paramStore = require('./store/paramStore');
 
 
 moment.locale('fr');
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
 Vue.config.productionTip = false;
 
 //Gestion de l'i18n
