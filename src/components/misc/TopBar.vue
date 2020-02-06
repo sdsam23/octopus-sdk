@@ -20,29 +20,23 @@
           <button class="btn btn-primary">{{ $t('Upload new podcast') }}</button>
         </router-link>
         <div class="d-flex justify-content-end">
-          <div class="dropdown" v-if="!isPodcastmaker">
-            <a  href="#" id="dropdownMenuLink" data-toggle="dropdown"  aria-expanded="false">
-              <div class="btn admin-button m-1">
-                <i class="saooti-user text-dark"></i>
-              </div>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right mt-4" aria-labelledby="dropdownMenuLink">
-              <!-- Lien non authentifié-->
-              <template v-if="!authenticated">
-                <a href="/sso/login" class="dropdown-item">{{ $t('Login') }}</a>
-                <router-link to="/main/pub/create" class="dropdown-item">{{$t('Create an account')}}</router-link>
-              </template>
-              <!-- Lien authentifié-->
-              <template @click="displayMenuPhone(true)" v-else>
-                <router-link to="/main/priv/backoffice" class="dropdown-item">{{$t('My space')}}</router-link>
-                <router-link to="/main/priv/edit/profile" class="dropdown-item">{{ $t('Edit my profile') }}</router-link>
-                <router-link to="/main/priv/edit/organisation" class="dropdown-item">{{$t('Edit my organisation')}}</router-link>
-                <!-- Lien pour mobile-->
-                <router-link to="/main/priv/upload" class="dropdown-item show-phone">{{$t('Upload new podcast')}}</router-link>
-                <a href="/sso/logout" class="dropdown-item">{{ $t('Logout') }}</a>
-              </template>
-            </div>
-          </div>
+          <b-dropdown v-if="!isPodcastmaker" right toggle-class="text-decoration-none  m-1 admin-button btn-rounded-icon" no-caret>
+            <template v-slot:button-content>
+              <i class="saooti-user text-dark"></i><span class="sr-only">Profile</span>
+            </template>
+            <template v-if="!authenticated">
+              <b-dropdown-item href="/sso/login">{{ $t('Login') }}</b-dropdown-item>
+              <b-dropdown-item to="/main/pub/create">{{$t('Create an account')}}</b-dropdown-item>
+            </template>
+            <template @click="displayMenuPhone(true)" v-else>
+              <b-dropdown-item to="/main/priv/backoffice">{{$t('My space')}}</b-dropdown-item>
+              <b-dropdown-item to="/main/priv/edit/profile">{{ $t('Edit my profile') }}</b-dropdown-item>
+              <b-dropdown-item to="/main/priv/edit/organisation">{{$t('Edit my organisation')}}</b-dropdown-item>
+              <!-- Lien pour mobile-->
+              <b-dropdown-item to="/main/priv/upload" class="show-phone">{{$t('Upload new podcast')}}</b-dropdown-item>
+              <b-dropdown-item href="/sso/logout">{{ $t('Logout') }}</b-dropdown-item>
+            </template>
+          </b-dropdown>
           <router-link to="/main/pub/search">
             <div class="btn admin-button m-1">
               <i class="saooti-search text-dark"></i>

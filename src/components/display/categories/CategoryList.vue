@@ -10,21 +10,18 @@
         >{{ category.name }}</router-link
       >
     </div>
-    <div class="dropdown" v-show="hidenCategories.length">
-        <a href="#" data-toggle="dropdown"  aria-expanded="false">
-          <div class="category-item text-dark secondary-bg">
-            <div class="saooti-plus"></div>
-          </div>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right mr-3">
-          <router-link 
-            :to="'/main/pub/category/' + category.id" 
+    <b-dropdown v-show="hidenCategories.length" right toggle-class="text-decoration-none text-dark category-item" no-caret>
+      <template v-slot:button-content>
+          <i class="saooti-plus"></i>
+      </template>
+      <template>
+        <b-dropdown-item :to="'/main/pub/category/' + category.id" 
             v-for="category in hidenCategories" 
             v-bind:key="category.id" 
-            class="dropdown-item"
-          >{{ category.name }}</router-link>
-        </div>
-      </div>
+            class="mr-3"
+          >{{ category.name }}</b-dropdown-item>
+      </template>
+    </b-dropdown>
   </div>
 </template>
 
