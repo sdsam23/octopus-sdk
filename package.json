@@ -1,6 +1,6 @@
 {
   "name": "@saooti/octopus-sdk",
-  "version": "0.0.50",
+  "version": "0.1.1",
   "description": "Javascript SDK for using octopus",
   "main": "./dist/octopus.common.js",
   "private": false,
@@ -22,29 +22,29 @@
   },
   "dependencies": {
     "@saooti/octopus-api": "0.0.6",
-    "axios": "^0.19.1",
+    "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.4.0",
-    "core-js": "^3.4.3",
+    "core-js": "^3.6.4",
     "humanize-duration": "^3.21.0",
     "moment": "^2.24.0",
     "portal-vue": "^2.1.7",
-    "sass": "^1.23.7",
-    "sass-loader": "^8.0.0",
+    "sass": "^1.25.0",
+    "sass-loader": "^8.0.2",
     "vue": "^2.6.11",
-    "vue-i18n": "^8.15.1",
+    "vue-i18n": "^8.15.3",
     "vue-multiselect": "^2.1.6",
-    "vue-router": "^3.1.3",
+    "vue-router": "^3.1.5",
     "vuex": "^3.1.2"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.1.0",
-    "@vue/cli-plugin-eslint": "^4.1.0",
-    "@vue/cli-service": "^4.1.0",
+    "@vue/cli-plugin-babel": "^4.2.0",
+    "@vue/cli-plugin-eslint": "^4.2.0",
+    "@vue/cli-service": "^4.2.0",
     "babel-eslint": "^10.0.3",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
     "root": true,

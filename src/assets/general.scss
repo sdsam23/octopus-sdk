@@ -232,6 +232,29 @@ a.linkHover:hover{
   cursor: pointer;
 }
 
+.description-fade{
+	position: relative;
+  height: 3rem;
+  font-weight: 500;
+  white-space: pre-wrap;
+  font-size: 0.6rem;
+  margin: 1em 0 0.5em;
+  overflow: hidden;
+  text-align: start;
+}
+.description-fade:after {
+	content: "";
+  text-align: right;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 70%;
+  height: 1rem;
+  background: linear-gradient(to right, transparent, $octopus-background 50%);
+}
+
+
+
 @media (max-width: 960px) {
   .d-flex{
     flex-wrap: wrap;
