@@ -56,7 +56,7 @@
 		border-radius: 50px;
 	}
 	.option__title {
-		padding-left: 1rem;
+		padding-left: 0;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
@@ -78,8 +78,8 @@
 	font-size: 1.2rem;
 	cursor: pointer;
 	position: absolute;
-	right: 1px;
-	top: 6px;
+	right: 10px;
+	top: 14px;
 	margin: 0;
 	background-color: #ccc;
 	border-radius: 50%;
@@ -166,6 +166,7 @@ fieldset[disabled] .multiselect {
     text-align: left;
     color: #35495e;
     top: 2px;
+    width: 75%;
 }
 
 .multiselect * {

@@ -13,6 +13,7 @@
 </template>
 
 <style lang="scss">
+
 .podcast-item-animator {
   display: flex;
   align-items: flex-start;
