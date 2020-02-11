@@ -1,9 +1,9 @@
 <template>
   <div class="page-box">
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-between">
       <h1 v-if="titlePage === undefined" class="flex-shrink">{{ $t('All podcasts') }}</h1>
       <h1 v-else class="flex-shrink">{{ titlePage }}</h1>
-      <EmissionChooser @selected='emissionSelected' v-if="isEmissionChooser" :defaultanswer="$t('No emission filter')" class="ml-3"/>
+      <EmissionChooser @selected='emissionSelected' v-if="isEmissionChooser" :defaultanswer="$t('No emission filter')" width='auto' class="ml-3"/>
     </div>
     <ProductorSearch 
       :organisationId='organisationId' 
