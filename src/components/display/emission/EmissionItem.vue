@@ -67,6 +67,8 @@
     -webkit-line-clamp: 7;
     -webkit-box-orient: vertical;
     white-space: pre-wrap;
+    font-size: 0.8em;
+    margin: 0.5em 0 0;
   }
   .emission-small-description{
     -webkit-line-clamp: 2;
@@ -78,8 +80,14 @@
     font-size: 0.6rem;
   }
 }
+
+button.btn.btn-primary.share-btn.m-3 {
+    font-size: 1rem;
+    width: 2.5rem;
+    height: 2.5rem !important;
+}
 /** PHONES*/
-@media (max-width: 960px) {
+@media (max-width: 680px) {
   .emission-item-container {
     flex-wrap: wrap;
     width: auto;

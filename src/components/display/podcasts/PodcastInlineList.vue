@@ -37,24 +37,25 @@
 <style lang="scss">
 
 .list-episode {
-  padding: 2rem 1rem 1rem !important;
+  padding: 2rem 0rem 1rem !important;
   h2 {
     margin-bottom: 1rem;
   }
 }
 
   .podcast-list-inline {
-    align-self: stretch;
-    flex-grow: 1;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    display: grid	;
-    grid-auto-flow: column;
-    grid-gap: 1rem;
-    grid-row: 1;
+  align-self: stretch;
+  flex-grow: 1;
+  margin: 0;
+  padding: 0;
+  /*For ie11 */
+  display: flex;
+  flex-wrap: wrap;
+  /* end */
+  display: grid; /* 1 */
+  grid-template-columns: repeat(auto-fill, 13rem); /* 2 */
+  grid-gap: 1rem; /* 3 */
+  justify-content: space-between; /* 4 */
   }
   .out-left-enter-active,
   .out-left-leave-active,

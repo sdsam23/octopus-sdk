@@ -14,7 +14,7 @@
           :height="iFrameHeight"
         ></iframe>
         <div class="d-flex flex-column">
-          <button class="btn" @click="onCopyCode">
+          <button class="btn btn-copy" @click="onCopyCode">
             {{ $t('Copy code') }}
           </button>
           <select v-model="iFrameModel" class="frame-select">
@@ -58,6 +58,9 @@
     margin: 0 1rem;
     width: 100px;
   }
+}
+.btn-copy {
+  margin: 0 0 1em 0;
 }
 .sticker{
   align-self:center;

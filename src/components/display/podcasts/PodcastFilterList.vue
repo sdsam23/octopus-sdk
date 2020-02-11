@@ -29,7 +29,7 @@
 <style lang="scss">
 
 .list-episodes {
-  padding: 2rem 1rem 1rem !important;
+  padding: 2rem 0rem 1rem !important;
   h2 {
     margin-bottom: 0.5rem;
   }
