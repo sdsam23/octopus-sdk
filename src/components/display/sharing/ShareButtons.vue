@@ -1,18 +1,25 @@
 <template>
   <div class="module-box text-center-mobile">
-    <h3>{{ $t('Share') }}</h3>
-    <div class="d-flex">
-      <a target="_blank" :href="facebookURL" class="btn btn-circle m-3 btn-facebook share-btn">
-        <span class="saooti-facebook-bounty"></span>
+    <h3 v-if="!bigRound">{{ $t('Share') }}</h3>
+    <div class="d-flex" :class="bigRound && !audioUrl?'justify-content-center':''">
+      <a class="btn btn-bigRound" :title="$t('Downloading')" :href="audioUrl"  target="_blank" download  v-if="audioUrl">
+        <div class="saooti-download-bounty"></div>
       </a>
-      <a target="_blank" class="btn btn-circle m-3 btn-twitter share-btn" :href="twitterURL">
-        <span class="saooti-twitter-bounty"></span>
+      <a target="_blank" :href="facebookURL" :class="bigRound?'btn btn-bigRound':'btn btn-circle m-3 btn-facebook share-btn'">
+        <span class="saooti-facebook-bounty" v-if="!bigRound"></span>
+        <div class="saooti-facebook-bounty" v-else></div>
       </a>
-      <a target="_blank" class="btn btn-circle m-3 btn-linkedin share-btn" :href="linkedinURL">
-        <span class="saooti-linkedin1"></span>
+      <a target="_blank" :class="bigRound?'btn btn-bigRound':'btn btn-circle m-3 btn-twitter share-btn'" :href="twitterURL">
+        <span class="saooti-twitter-bounty" v-if="!bigRound"></span>
+        <div class="saooti-twitter-bounty" v-else></div>
       </a>
-      <a target="_blank" class="btn btn-circle m-3 btn-rss share-btn" :href="rssUrl" v-if="rssUrl">
-        <span class="saooti-rss-bounty"></span>
+      <a target="_blank" :class="bigRound?'btn btn-bigRound':'btn btn-circle m-3 btn-linkedin share-btn'" :href="linkedinURL">
+        <span class="saooti-linkedin1" v-if="!bigRound"></span>
+        <div class="saooti-linkedin1" v-else></div>
+      </a>
+      <a target="_blank" :class="bigRound?'btn btn-bigRound':'btn btn-circle m-3 btn-rss share-btn'" :href="rssUrl" :title="$t('Subscribe to this emission')" v-if="rssUrl">
+        <span class="saooti-rss-bounty" v-if="!bigRound"></span>
+        <div class="saooti-rss-bounty" v-else></div>
       </a>
     </div>
   </div>
@@ -28,7 +35,9 @@ export default {
     "podcastId",
     "emissionId",
     "participantId",
-    "organisationId"
+    "organisationId",
+    'bigRound',
+    'audioUrl'
   ],
 
   data() {

@@ -17,7 +17,7 @@
     <a
       class="btn"
       v-bind:href="'/main/pub/podcasts?first=' + dfirst + '&size=' + dsize"
-      :class="buttonPlus? 'btn-linkPlus': 'btn-more'"
+      :class="buttonPlus? 'btn-linkPlus mt-3': 'btn-more'"
       @click="displayMore"
       v-show="!allFetched && loaded"
     >
@@ -62,16 +62,17 @@ import {state} from "../../../store/paramStore.js";
 export default {
   name: 'PodcastList',
 
-  props: [
-    'first',
-    'size',
-    'organisationId',
-    'emissionId',
-    'iabId',
-    'participantId',
-    'query',
-    'monetization',
-  ],
+  props:  {
+    first: { default: 0 },
+    size: { default: 5 },
+    organisationId: { default: undefined },
+    emissionId: { default: undefined },
+    iabId: { default: undefined },
+    participantId: { default: undefined },
+    query: { default: undefined },
+    monetization: { default: undefined },
+    popularSort: { default: false },
+  },
 
   components: {
     PodcastItem,
@@ -119,6 +120,7 @@ export default {
           participantId: this.participantId,
           query: this.query,
           monetisable: this.monetization,
+          sort: this.popularSort ? "POPULARITY" : "DATE"
         })
         .then((data)=> {
           if (reset) {

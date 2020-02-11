@@ -68,11 +68,7 @@
                         {{ $t('Podcast is not visible for listeners') }}
                       </div>
                   </div>
-                  <div class="d-flex mt-4" v-if="isDownloadButton">
-                    <a class="btn btn-bigRound" :title="$t('Downloading')" :href="podcast.audioUrl" target="_blank">
-                      <div class="saooti-download-bounty"></div>
-                    </a>
-                  </div>
+                  <ShareButtons :podcastId="podcastId" :bigRound='true' :audioUrl="podcast.audioUrl" v-if="isDownloadButton"></ShareButtons>
                 </div>
               </div>
             </div>
