@@ -1,7 +1,7 @@
 <template>
   <div class="module-box text-center-mobile">
     <h3>{{ $t('Share') }}</h3>
-    <div class="d-flex d-flex-wrap">
+    <div class="d-flex flex-wrap justify-content-center">
       <a target="_blank" :href="facebookURL" class="btn btn-circle m-3 btn-facebook share-btn">
         <span class="saooti-facebook-bounty"></span>
       </a>
@@ -44,10 +44,7 @@
 </template>
 
 <style lang="scss">
-.d-flex-wrap{
-    flex-wrap:wrap;
-    justify-content:center;
-}
+
 </style>
 
 <script>
