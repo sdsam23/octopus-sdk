@@ -141,11 +141,7 @@ export default {
         case 'large':
         case 'largeEmission':
         case 'largeSuggestion':
-          if(this.podcast){
-            return '730px';
-          } else{
-            return '550px';
-          }
+          return '500px';
         default:
           return '355px';
       }
