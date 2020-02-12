@@ -11,6 +11,8 @@
               <h1>{{ this.podcast.emission.name }}</h1>
             </router-link>
             <div class="mb-5 d-flex">
+              
+              <div>
               <PodcastImage
                 :class="isOuestFrance? '':'shadow-element'"
                 class="mr-3" 
@@ -18,7 +20,6 @@
                 hidePlay='false'
                 :playingPodcast='playingPodcast' 
                 @playPodcast='playPodcast' />
-              <div>
                 <h3 v-if="isOuestFrance">{{ this.podcast.title }}</h3>
                 <div class="d-flex align-items-left flex-wrap text-secondary mb-3">
                   <div class="mr-5" v-if="!isOuestFrance">{{ date }}</div>
