@@ -198,6 +198,7 @@ export default {
       podcastAudioURL: state => {
         if (state.player.podcast) {
           let parameters = '?origin=octopus';
+          parameters += "&cookieName=player_"+state.player.podcast.podcastId
           parameters +=
             state.authentication && state.authentication.organisationId
               ? '&distributorId=' + state.authentication.organisationId
