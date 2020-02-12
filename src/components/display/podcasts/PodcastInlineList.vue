@@ -25,7 +25,7 @@
     </div>
     <div class="d-flex justify-content-center" v-if="loading">
       <div class="spinner-border mr-3"></div>
-      <h3>{{ $t('Loading podcasts ...') }}</h3>
+      <h3 class="loading-title">{{ $t('Loading podcasts ...') }}</h3>
     </div>
     <transition-group :name="transitionName" class="podcast-list-inline" tag="ul" v-show="loaded">
       <PodcastItem class="flex-shrink" v-bind:podcast="p" v-for="p in podcasts" v-bind:key="p.podcastId" />

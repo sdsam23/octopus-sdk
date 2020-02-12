@@ -110,7 +110,7 @@
     </div>
     <div class="d-flex justify-content-center" v-if="!loaded">
       <div class="spinner-border mr-3"></div>
-      <h3>{{ $t('Loading content ...') }}</h3>
+      <h3 class="loading-title">{{ $t('Loading content ...') }}</h3>
     </div>
     <div class="text-center" v-if="error">
       <h3>{{ $t("Podcast doesn't exist") }}</h3>

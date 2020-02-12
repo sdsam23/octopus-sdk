@@ -85,6 +85,7 @@ button.btn.btn-primary.share-btn.m-3 {
     font-size: 1rem;
     width: 2.5rem;
     height: 2.5rem !important;
+        margin: 0 1rem 0 0 !important;
 }
 /** PHONES*/
 @media (max-width: 680px) {

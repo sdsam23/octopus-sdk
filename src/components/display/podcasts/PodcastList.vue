@@ -2,7 +2,7 @@
   <div class="d-flex flex-column align-items-center">
     <div class="d-flex justify-content-center" v-if="loading">
       <div class="spinner-border mr-3"></div>
-      <h3>{{ $t('Loading podcasts ...') }}</h3>
+      <h3 class="loading-title">{{ $t('Loading podcasts ...') }}</h3>
     </div>
     <div v-if="loaded && !podcasts.length">
       <p>{{ $t('No podcast match your query') }}</p>

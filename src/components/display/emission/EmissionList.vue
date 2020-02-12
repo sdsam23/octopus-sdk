@@ -2,7 +2,7 @@
   <div class="d-flex flex-column align-items-center">
     <div class="d-flex justify-content-center" v-if="loading">
       <div class="spinner-border mr-3"></div>
-      <h3>{{ $t('Loading emissions ...') }}</h3>
+      <h3 class="loading-title">{{ $t('Loading emissions ...') }}</h3>
     </div>
     <ul class="emission-list" :class="smallItems? 'threeEmissions': 'twoEmissions'" v-show="loaded">
       <EmissionItem
@@ -25,6 +25,9 @@
 </template>
 
 <style lang="scss">
+.loading-title {
+  margin: 0.4rem 0 0;
+}
 .emission-list {
   align-self: stretch;
   flex-grow: 1;
