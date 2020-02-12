@@ -152,7 +152,9 @@ a.linkHover:hover{
     text-align: center;
   }
 }
-
+.box-share {
+  flex-grow: inherit;
+}
 .hide-phone{
   @media (max-width: 960px) {
     display: none !important;
