@@ -1,6 +1,6 @@
 <template>
   <div
-    class="img-box d-flex flex-column justify-content-start align-items-start position-relative justify rounded-lg flex-shrink"
+    class="img-box d-flex flex-column justify-content-start align-items-start position-relative justify rounded-lg flex-shrink float-left"
     :style="{ 'background-image': 'url(\'' + podcast.imageUrl + '\')' }"
     v-if="podcast"
   >

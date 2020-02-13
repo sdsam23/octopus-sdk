@@ -77,6 +77,9 @@ h1,h2,h3,h4,h5,h6{
   background-color: $octopus-background;
   padding: 2rem 5rem;
   border-radius: 2rem 2rem 0 0;
+  @media (max-width: 1400px) {
+    padding: 2rem;
+  }
   @media (max-width: 1200px) {
     padding: 1rem;
   }
@@ -87,8 +90,8 @@ h1,h2,h3,h4,h5,h6{
 
 .module-box{
   background-color: $octopus-secondary-background;
-  padding: 2rem;
-  margin: 1rem 1rem 0 1rem;
+  padding: 1.5rem;
+  margin: 1rem 0.5rem 0 0.5rem;
   border-radius: 1rem;
   flex-grow: 1;
   @media (max-width: 500px){
@@ -125,6 +128,8 @@ a.linkHover:hover{
 .descriptionText{
   white-space: pre-wrap; 
   word-wrap: break-word;
+  text-align: justify;
+  font-size: 0.7rem;
 }
 
 .alert-text{

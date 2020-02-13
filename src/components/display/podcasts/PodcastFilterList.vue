@@ -3,7 +3,7 @@
     <h2 v-if="name">{{ $t('All podcast button', { name: name }) }}</h2>
     <h2 v-else>{{ $t('All podcast emission button') }}</h2>
     <div class="d-flex align-items-center flex-wrap">
-      <div class="d-flex align-items-center flex-grow" v-if="categoryFilter">
+      <div class="d-flex align-items-center flex-grow categories-filter" v-if="categoryFilter">
         <CategoryChooser
           :defaultanswer="$t('No category filter')"
           @selected="onCategorySelected"
@@ -28,8 +28,14 @@
 
 <style lang="scss">
 
+.categories-filter {
+  .multiselect {
+    width: 75%;
+  }
+}
+
 .list-episodes {
-  padding: 2rem 1rem 1rem !important;
+  padding: 2rem 0rem 1rem !important;
   h2 {
     margin-bottom: 0.5rem;
   }

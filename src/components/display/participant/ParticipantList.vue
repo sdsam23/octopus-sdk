@@ -2,7 +2,7 @@
   <div class="d-flex flex-column align-items-center">
     <div class="d-flex justify-content-center" v-if="loading">
       <div class="spinner-border mr-3"></div>
-      <h3>{{ $t('Loading participants ...') }}</h3>
+      <h3 class="mt-2">{{ $t('Loading participants ...') }}</h3>
     </div>
     <ul class="participant-list" v-show="loaded">
       <ParticipantItem
