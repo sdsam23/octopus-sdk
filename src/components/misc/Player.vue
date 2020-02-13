@@ -141,6 +141,7 @@
 import { mapState } from 'vuex';
 import {state} from "../../store/paramStore.js";
 import DurationHelper from '../../helper/duration';
+import octopusApi from "@saooti/octopus-api";
 const moment = require('moment');
 
 export default {
@@ -150,6 +151,10 @@ export default {
     return {
       forceHide: false,
       actualTime: '',
+      listenTime: 0,
+      notListenTime: 0,
+      lastSend:0,
+      downloadId: undefined,
     };
   },
   mounted(){
@@ -159,6 +164,7 @@ export default {
         this.actualTime = moment(new Date()).format("HH:mm:ss");
       }, 1000)
     }
+    window.addEventListener('beforeunload', this.endListeningProgress);
   },
 
   computed: {
@@ -280,10 +286,12 @@ export default {
       const percentPosition = x / barWidth;
       const seekTime = this.$store.state.player.total * percentPosition;
 
+      this.notListenTime = seekTime - this.listenTime;
       audioPlayer.currentTime = seekTime;
     },
 
     onTimeUpdate(event) {
+      this.listenTime = event.currentTarget.currentTime - this.notListenTime;
       const duration = event.currentTarget.duration;
       const currentTime = event.currentTarget.currentTime;
       if (duration && currentTime) {
@@ -299,6 +307,7 @@ export default {
     },
 
     onFinished() {
+      this.endListeningProgress();
       this.$data.forceHide = true;
     },
 
@@ -308,10 +317,39 @@ export default {
         this.$data.forceHide = false;
       }
     },
+
+    startListeningProgress(){
+      if(this.downloadId){
+        this.endListeningProgress();
+      }
+      ///Localhost/////////
+      /* let persoCookie = "XSRF-TOKEN=559b9adc-7ecb-4697-8488-8988b38c5324; player_6547=11764; player_9432=11765"; */
+      //////
+      let cookiestring = RegExp("player_"+ this.$store.state.player.podcast.podcastId +"=[^;]+").exec(document.cookie);
+      this.downloadId = decodeURIComponent(cookiestring ? cookiestring.toString().replace(/^[^=]+./,"") : "");
+    },
+
+    endListeningProgress(){
+      if(this.downloadId){
+        octopusApi.updatePlayerTime(this.downloadId, Math.round(this.listenTime));
+        this.downloadId = undefined;
+      }
+    }
   },
   watch: {
     playerHeight(newVal){
       this.$emit('hide', newVal=== 0? true : false);
+    },
+    podcastAudioURL(newVal){
+      if(newVal !== ""){
+        this.startListeningProgress();
+      }
+    },
+    listenTime(newVal){
+      if(newVal - this.lastSend >= 10){
+        this.lastSend = newVal;
+        octopusApi.updatePlayerTime(this.downloadId, Math.round(newVal));
+      }
     }
   }
 }; 
