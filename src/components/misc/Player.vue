@@ -346,7 +346,7 @@ export default {
       }
     },
     listenTime(newVal){
-      if(newVal - this.lastSend >= 10){
+      if(newVal - this.lastSend >= 10 && this.downloadId){
         this.lastSend = newVal;
         octopusApi.updatePlayerTime(this.downloadId, Math.round(newVal));
       }
