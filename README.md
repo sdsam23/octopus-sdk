@@ -28,3 +28,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.12.1 Merge modification de style fabien
  * 0.12.2 Modification du responsive
  * 0.12.4 Modification du responsive
+ * 0.12.5 Changement des icones play et pause
