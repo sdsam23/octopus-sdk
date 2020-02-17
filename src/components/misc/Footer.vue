@@ -1,6 +1,6 @@
 <template>
   <div class="bg-dark">
-    <div id="footer" class="d-flex p-3 secondary-bg border-top">
+    <div id="footer" class="d-flex p-3 secondary-bg border-top footer-display-phone">
         <div class="d-flex flex-grow align-items-center flex-column">
           <div class="d-flex flex-column">
             <router-link class="text-dark linkHover" to="/main/pub/home">{{ $t('Home') }}</router-link>
@@ -10,6 +10,7 @@
             <router-link class="text-dark linkHover" to="/main/pub/participants">{{$t('Speakers')}}</router-link>
           </div>
         </div>
+        <hr class="divided-line show-phone" />
         <div class="d-flex flex-grow align-items-center flex-column" v-if="!isPodcastmaker">
           <div class="d-flex flex-column">
             <div class="text-dark">&copy; Saooti 2019</div>
@@ -35,6 +36,12 @@
 }
 /** PHONES*/
 @media (max-width: 960px) {
+  .footer-display-phone{
+    flex-direction: column;
+    .align-items-center{
+      align-items: flex-start !important;
+    }
+  }
   .container {
     font-size: 0.6rem;
     .pages {

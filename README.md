@@ -26,3 +26,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ## Release note
 
  * 0.12.1 Merge modification de style fabien
+ * 0.12.2 Modification du responsive

@@ -69,6 +69,10 @@
     .hamburger-menu {
       display: none;
       margin: 0 1rem;
+      .saooti-burger-menu {
+      font-size: 1.5rem;
+      font-weight: bold;
+      }
       cursor: pointer;
     }
   }
@@ -82,11 +86,6 @@
 
       .hamburger-menu {
         display: block;
-        .saooti-burger-menu {
-          font-size: 2.2em;
-          font-weight: bold;
-          margin: 0;
-        }
       }
       .top-bar-logo {
         flex-grow: 1;

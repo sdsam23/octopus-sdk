@@ -74,6 +74,9 @@
   flex-grow: 1;
   margin-right: 10%;
   position: relative;
+  @media (max-width: 500px) {
+    margin-right: 0;
+  }
 }
 </style>
 <script>

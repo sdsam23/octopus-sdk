@@ -39,7 +39,7 @@
   justify-content: space-between; /* 4 */
 }
 /** PHONES*/
-@media (max-width: 960px) {
+@media (max-width: 655px) {
   .participant-list {
     align-self: auto;
     grid-gap: 0;
