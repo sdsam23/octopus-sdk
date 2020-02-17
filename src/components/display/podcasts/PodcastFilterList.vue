@@ -31,9 +31,11 @@
 .categories-filter {
   .multiselect {
     width: 75%;
+    @media (max-width: 600px) {
+      width: 100%;
+    }
   }
 }
-
 .list-episodes {
   padding: 2rem 0rem 1rem !important;
   h2 {

@@ -91,7 +91,7 @@
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
-    margin-bottom: 1rem;
+    padding-bottom:1rem;
     width: 100%;
     .item-phone-margin{
       margin: 0 0.5rem !important

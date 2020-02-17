@@ -137,14 +137,7 @@ export default {
     },
 
     iFrameWidth() {
-      switch (this.iFrameModel) {
-        case 'large':
-        case 'largeEmission':
-        case 'largeSuggestion':
-          return '500px';
-        default:
-          return '355px';
-      }
+      return '100%';
     },
 
     iFrameHeight() {

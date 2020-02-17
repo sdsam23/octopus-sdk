@@ -3,7 +3,7 @@
     <div class="page-box" v-if="loaded && !error">
       <h1 v-if="!isOuestFrance">{{ $t('Episode') }}</h1>
       <div class="d-flex">
-        <div class="d-flex flex-column flex-grow">
+        <div class="d-flex flex-column flex-super-grow">
           <EditBox :podcast="podcast" v-if="editRight && isEditBox"></EditBox>
           <div class="module-box">
             <h2 class="text-uppercase font-weight-bold title-page-podcast" v-if="!isOuestFrance">{{ this.podcast.title }}</h2>
@@ -11,7 +11,6 @@
               <h1>{{ this.podcast.emission.name }}</h1>
             </router-link>
             <div class="mb-5 d-flex">
-            
               <div>
               <PodcastImage
                 :class="isOuestFrance? '':'shadow-element'"
@@ -21,7 +20,7 @@
                 :playingPodcast='playingPodcast' 
                 @playPodcast='playPodcast' />
                 <h3 v-if="isOuestFrance">{{ this.podcast.title }}</h3>
-                <div class="d-flex align-items-left flex-wrap text-secondary mb-3">
+                <div class="date-text-zone">
                   <div class="mr-5" v-if="!isOuestFrance">{{ date }}</div>
                   <div><span class="saooti-clock3" v-if="isOuestFrance"></span>{{ $t('Duration', { duration: duration }) }}</div>
                 </div>
@@ -76,7 +75,7 @@
             <TagList v-if="isTagList" :tagList='podcast.tags'/>
           </div>
         </div>
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column flex-grow">
           <SharePlayer
             :podcast="podcast"
             :emissionId="podcast.emission.emissionId"
@@ -117,6 +116,16 @@
 <style lang="scss">
 .title-page-podcast {
   font-size: 0.9rem;
+}
+
+.date-text-zone{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  margin-bottom:1rem;
+  @media (max-width: 600px) {
+    display: initial;
+  }
 }
 </style>
 <script>
