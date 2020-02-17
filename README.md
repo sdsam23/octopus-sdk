@@ -26,4 +26,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## Release note
 
- * 13.0.6 #8375 Mise en place du cookie pour la gestion de la progression du player
+
+ * 0.12.1 Merge modification de style fabien
+ * 0.13.6 #8375 Mise en place du cookie pour la gestion de la progression du player

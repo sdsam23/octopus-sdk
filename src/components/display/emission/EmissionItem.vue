@@ -67,6 +67,8 @@
     -webkit-line-clamp: 7;
     -webkit-box-orient: vertical;
     white-space: pre-wrap;
+    font-size: 0.8em;
+    margin-top: 0.5em;
   }
   .emission-small-description{
     -webkit-line-clamp: 2;
@@ -79,7 +81,7 @@
   }
 }
 /** PHONES*/
-@media (max-width: 960px) {
+@media (max-width: 680px) {
   .emission-item-container {
     flex-wrap: wrap;
     width: auto;

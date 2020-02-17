@@ -6,11 +6,13 @@
         <div class="d-flex flex-column flex-grow">
           <EditBox :podcast="podcast" v-if="editRight && isEditBox"></EditBox>
           <div class="module-box">
-            <h2 class="text-uppercase font-weight-bold" v-if="!isOuestFrance">{{ this.podcast.title }}</h2>
+            <h2 class="text-uppercase font-weight-bold title-page-podcast" v-if="!isOuestFrance">{{ this.podcast.title }}</h2>
             <router-link v-bind:to="'/main/pub/emission/' + this.podcast.emission.emissionId" v-else>
               <h1>{{ this.podcast.emission.name }}</h1>
             </router-link>
             <div class="mb-5 d-flex">
+            
+              <div>
               <PodcastImage
                 :class="isOuestFrance? '':'shadow-element'"
                 class="mr-3" 
@@ -18,7 +20,6 @@
                 hidePlay='false'
                 :playingPodcast='playingPodcast' 
                 @playPodcast='playPodcast' />
-              <div>
                 <h3 v-if="isOuestFrance">{{ this.podcast.title }}</h3>
                 <div class="d-flex align-items-left flex-wrap text-secondary mb-3">
                   <div class="mr-5" v-if="!isOuestFrance">{{ date }}</div>
@@ -79,12 +80,12 @@
           <SharePlayer
             :podcast="podcast"
             :emissionId="podcast.emission.emissionId"
-            class="flex-grow"
+            
             :exclusive="exclusive"
             :organisationId='organisationId'
             v-if="isSharePlayer"
           ></SharePlayer>
-          <ShareButtons :podcastId="podcastId" class="flex-grow" v-if="isShareButtons"></ShareButtons>
+          <ShareButtons :podcastId="podcastId" v-if="isShareButtons"></ShareButtons>
         </div>
       </div>
       <template v-if="!isOuestFrance">
@@ -106,14 +107,18 @@
     </div>
     <div class="d-flex justify-content-center" v-if="!loaded">
       <div class="spinner-border mr-3"></div>
-      <h3>{{ $t('Loading content ...') }}</h3>
+      <h3 class="mt-2">{{ $t('Loading content ...') }}</h3>
     </div>
     <div class="text-center" v-if="error">
       <h3>{{ $t("Podcast doesn't exist") }}</h3>
     </div>
   </div>
 </template>
-
+<style lang="scss">
+.title-page-podcast {
+  font-size: 0.9rem;
+}
+</style>
 <script>
 // @ is an alias to /src
 import EditBox from "@/components/display/edit/EditBox.vue";

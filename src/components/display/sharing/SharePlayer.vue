@@ -14,7 +14,7 @@
           :height="iFrameHeight"
         ></iframe>
         <div class="d-flex flex-column">
-          <button class="btn" @click="onCopyCode">
+          <button class="btn mb-3" @click="onCopyCode">
             {{ $t('Copy code') }}
           </button>
           <select v-model="iFrameModel" class="frame-select">

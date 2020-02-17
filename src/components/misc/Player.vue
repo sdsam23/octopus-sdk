@@ -116,7 +116,11 @@
     height: 10px;
   }
   .progress-bar{
-    height: 3px;
+    height: 4px;
+  }
+  .player-title, .hide-phone {
+    font-size: 0.8rem;
+    margin: 0 0 5px 0;
   }
 }
 /** PHONES*/

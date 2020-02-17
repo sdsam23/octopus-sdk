@@ -16,15 +16,12 @@
 
 .light-multiselect{
 	.multiselect__tags {
-    border-radius: 0.3rem;
-    padding: 10px 40px 5px 12px;
-    background: transparent;
-		border-color: $octopus-background;
-		@media (max-width: 960px) {
-			padding: 10px 40px 5px 0;
-			margin: 1rem 0 0;
-		}
-	}
+        border-radius: 0.3rem;
+        padding: 10px 40px 5px 0;
+        background: transparent;
+        border-color: $octopus-background;
+       
+    }
 	
 
   .multiselect__input,
@@ -56,10 +53,11 @@
 	.option__image {
 		height: 32px;
 		width: 32px;
-		border-radius: 50px;
+        border-radius: 50px;
+        margin: 0 0.5rem 0 0;
 	}
 	.option__title {
-		padding-left: 1rem;
+		padding-left: 0;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
@@ -81,8 +79,8 @@
 	font-size: 1.2rem;
 	cursor: pointer;
 	position: absolute;
-	right: 1px;
-	top: 6px;
+	right: 10px;
+	top: 14px;
 	margin: 0;
 	background-color: #ccc;
 	border-radius: 50%;
@@ -168,6 +166,24 @@ fieldset[disabled] .multiselect {
     min-height: 40px;
     text-align: left;
     color: #35495e;
+    top: 2px;
+}
+
+.multiselect.light-multiselect {
+    .multiselect__tags {
+        padding: 0 40px 0 0;
+        min-height: auto;
+    }
+    .multiselect__single {
+        margin-bottom: 0;
+    }
+    .octopus-arrow-down-2 {
+        top: 3px;
+    }
+    display: flex;
+    align-items: center;
+    min-height: auto;
+    top: 0;
 }
 
 .multiselect * {
@@ -250,6 +266,10 @@ fieldset[disabled] .multiselect {
     border: 2px solid #eee;
     background: #fff;
     font-size: 14px;
+    @media (max-width: 960px) {
+        padding: 10px 40px 5px 0;
+        margin: 0;
+    }
 }
 
 .multiselect__tag {
