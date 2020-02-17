@@ -137,18 +137,7 @@ export default {
     },
 
     iFrameWidth() {
-      switch (this.iFrameModel) {
-        case 'large':
-        case 'largeEmission':
-        case 'largeSuggestion':
-          if(this.podcast){
-            return '730px';
-          } else{
-            return '550px';
-          }
-        default:
-          return '355px';
-      }
+      return '100%';
     },
 
     iFrameHeight() {
