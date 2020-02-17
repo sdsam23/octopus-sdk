@@ -80,9 +80,6 @@ h1,h2,h3,h4,h5,h6{
   @media (max-width: 1200px) {
     padding: 1rem;
   }
-  @media (max-width: 400px) {
-    padding: 0;
-  }
 }
 
 .module-box{
@@ -136,6 +133,9 @@ a.linkHover:hover{
 }
 .flex-grow{
   flex-grow: 1;
+}
+.flex-super-grow{
+  flex-grow: 2;
 }
 .flex-shrink{
   flex-shrink: 0;
@@ -260,9 +260,14 @@ a.linkHover:hover{
     background: linear-gradient(to right, transparent, $octopus-background 50%);
   }
 }
+@media (max-width: 655px) {
+  .description-fade-hid{
+    display: none;
+  }
+}
 
 @media (max-width: 960px) {
-  .d-flex{
+  .d-flex:not(.flex-column){
     flex-wrap: wrap;
     flex-grow: 1;
     &.img-box{

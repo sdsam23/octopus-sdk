@@ -28,7 +28,7 @@
       <h3>{{ $t('Loading podcasts ...') }}</h3>
     </div>
     <transition-group :name="transitionName" class="podcast-list-inline" tag="ul" v-show="loaded">
-      <PodcastItem class="flex-shrink" v-bind:podcast="p" v-for="p in podcasts" v-bind:key="p.podcastId" />
+      <PodcastItem class="flex-shrink item-phone-margin" v-bind:podcast="p" v-for="p in podcasts" v-bind:key="p.podcastId" />
     </transition-group>
     <a class="btn btn-link" :class="buttonPlus? 'btn-linkPlus': ''" v-bind:href="href">{{buttonText}}<div class="saooti-plus" v-if="buttonPlus"></div></a>
   </div>
@@ -91,8 +91,11 @@
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
-    padding: 2rem 0px;
+    margin-bottom: 1rem;
     width: 100%;
+    .item-phone-margin{
+      margin: 0 0.5rem !important
+    }
   }
 }
 </style>
