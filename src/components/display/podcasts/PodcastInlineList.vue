@@ -55,6 +55,7 @@
     grid-auto-flow: column;
     grid-gap: 1rem;
     grid-row: 1;
+    grid-template-columns: repeat(auto-fill,13rem);
   }
   .out-left-enter-active,
   .out-left-leave-active,
