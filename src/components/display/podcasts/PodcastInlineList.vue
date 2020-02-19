@@ -220,11 +220,11 @@ export default {
 
     handleResize() {
       if (this.$el) {
-        const width = this.$el.offsetWidth;
-        if (width <= PHONE_WIDTH - 255) {
+        if (window.innerWidth <= PHONE_WIDTH) {
           this.size = 10;
         } else {
-          const sixteen = domHelper.convertRemToPixels(16);
+          const width = this.$el.offsetWidth;
+          const sixteen = domHelper.convertRemToPixels(13.7);
           this.size = Math.floor(width / sixteen);
         }
       }
