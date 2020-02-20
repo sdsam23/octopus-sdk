@@ -46,8 +46,8 @@
           class="text-light"
           v-bind:class="{
             saooti: status == 'PLAYING' || status == 'PAUSED',
-            'saooti-play3': status == 'PAUSED',
-            'saooti-pause22': status == 'PLAYING',
+            'saooti-play2-bounty': status == 'PAUSED',
+            'saooti-pause-bounty': status == 'PLAYING',
             loading: status == 'LOADING',
           }"
         ></div>
