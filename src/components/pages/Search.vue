@@ -3,7 +3,7 @@
     <h1 v-if="!hideBar">{{ $t('Podcast search') }}</h1>
     <h1 v-else-if="!noResult">{{$t('Search results', {query: this.rawQuery})}}</h1>
     <h1 v-else>{{$t('Search - no results', {query: this.rawQuery})}}</h1>
-    <div class="position-relative" v-if="!hideBar">
+    <div class="position-relative champs-searchPage" v-if="!hideBar">
       <input
         type="search"
         ref="search"
@@ -27,6 +27,16 @@
     right: 0;
     display: flex;
     align-items: center;
+  }
+  .champs-searchPage {
+width: 75%;
+margin: 0 auto;
+input {
+  margin: 1rem 0 !important;
+}  
+    .search-icon-container {
+      margin: 0 1em 0 0;
+    }
   }
 /** PHONES*/
 @media (max-width: 960px) {
