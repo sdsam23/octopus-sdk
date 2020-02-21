@@ -174,10 +174,10 @@ export default {
         document.body.appendChild(textArea);
         textArea.focus();
         textArea.select();
-            var successful = document.execCommand('copy');
-            if(successful){
-              this.$refs.snackbar.open(this.$t('Link in clipboard'));
-            }
+        var successful = document.execCommand('copy');
+        if(successful){
+          this.$refs.snackbar.open(this.$t('Link in clipboard'));
+        }
         document.body.removeChild(textArea)            
       } else{
         await navigator.clipboard.writeText(iFrame);
