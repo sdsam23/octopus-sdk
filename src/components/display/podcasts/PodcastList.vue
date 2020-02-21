@@ -71,6 +71,7 @@ export default {
     'participantId',
     'query',
     'monetization',
+    'reload'
   ],
 
   components: {
@@ -177,6 +178,11 @@ export default {
         this.fetchContent(true);
       },
     },
+    reload: {
+      handler() {
+        this.fetchContent(true);
+      },
+    }
   },
 };
 </script>
