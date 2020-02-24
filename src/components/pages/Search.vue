@@ -39,12 +39,6 @@
       margin: 0 1em 0 0;
     }
   }
-/** PHONES*/
-@media (max-width: 960px) {
-  .search-icon-container {
-    right: 1rem;
-  }
-}
 </style>
 
 <script>
