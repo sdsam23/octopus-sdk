@@ -146,6 +146,7 @@ export default {
         .fetchEmission(emissionId)
         .then(data => {
           this.emission = data;
+          this.$emit('emissionTitle', this.name);
           this.loaded = true;
           if (this.emission.annotations) {
             if (this.emission.annotations.RSS) {

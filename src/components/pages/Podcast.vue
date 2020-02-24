@@ -268,6 +268,7 @@ export default {
         .fetchPodcast(podcastId)
         .then(data => {
           this.podcast = data;
+          this.$emit('podcastTitle', this.podcast.title);
           if (
             this.podcast.emission.annotations &&
             this.podcast.emission.annotations.exclusive

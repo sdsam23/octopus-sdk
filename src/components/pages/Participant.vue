@@ -132,6 +132,7 @@ export default {
     getParticipantDetails() {
       octopusApi.fetchParticipant(this.participantId).then(data => {
         this.participant = data;
+        this.$emit('participantTitle', this.name);
         this.loaded = true;
       })
       .catch(() =>{
