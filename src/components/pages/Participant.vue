@@ -20,9 +20,10 @@
         :participantId="participantId"
         :name="name"
         :categoryFilter="true"
+        :reload="reload"
         v-if="!lightStyle"
       />
-      <PodcastList :first="0" :size="15" :participantId="participantId" v-else/>
+      <PodcastList :first="0" :size="15" :participantId="participantId" :reload="reload" v-else/>
     </div>
     <div class="d-flex justify-content-center" v-if="!loaded">
       <div class="spinner-border mr-3"></div>
@@ -66,6 +67,7 @@ export default {
       loaded: false,
       participant: undefined,
       error: false,
+      reload: false,
     };
   },
 
@@ -130,6 +132,7 @@ export default {
     getParticipantDetails() {
       octopusApi.fetchParticipant(this.participantId).then(data => {
         this.participant = data;
+        this.$emit('participantTitle', this.name);
         this.loaded = true;
       })
       .catch(() =>{
@@ -138,5 +141,10 @@ export default {
       });
     },
   },
+  watch:{
+    participant(){
+      this.reload = !this.reload;
+    }
+  }
 };
 </script>

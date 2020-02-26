@@ -22,6 +22,7 @@
         :participantId="participantId"
         :emissionId="emissionId"
         :organisationId="productorId"
+        :reload="reloadList"
       />
   </div>
 </template>
@@ -81,6 +82,7 @@ export default {
     'emissionId',
     'categoryFilter',
     'productorId',
+    'reload'
   ],
 
   data() {
@@ -89,6 +91,7 @@ export default {
       size: undefined,
       searchPattern: '',
       iabId: undefined,
+      reloadList: false,
     };
   },
 
@@ -111,5 +114,11 @@ export default {
       }
     },
   },
+
+  watch:{
+    reload(){
+      this.reloadList = !this.reloadList;
+    }
+  }
 };
 </script>

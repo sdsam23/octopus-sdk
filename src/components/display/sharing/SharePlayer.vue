@@ -167,8 +167,22 @@ export default {
   methods: {
     async onCopyCode() {
       const iFrame = `<iframe src="${this.iFrameSrc}" width="${this.iFrameWidth}" height="${this.iFrameHeight}" scrolling="no" frameborder="0"></iframe>`;
-      await navigator.clipboard.writeText(iFrame);
-      this.$refs.snackbar.open(this.$t('Link in clipboard'));
+      if (typeof(navigator.clipboard)=='undefined') {
+        let textArea = document.createElement("textarea");
+        textArea.value = iFrame;
+        textArea.style.position="fixed";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        var successful = document.execCommand('copy');
+        if(successful){
+          this.$refs.snackbar.open(this.$t('Link in clipboard'));
+        }
+        document.body.removeChild(textArea)            
+      } else{
+        await navigator.clipboard.writeText(iFrame);
+        this.$refs.snackbar.open(this.$t('Link in clipboard'));
+      }
     },
   },
 };

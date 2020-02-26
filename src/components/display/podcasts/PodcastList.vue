@@ -72,6 +72,7 @@ export default {
     query: { default: undefined },
     monetization: { default: undefined },
     popularSort: { default: false },
+    reload : {default: false}
   },
 
   components: {
@@ -179,6 +180,11 @@ export default {
         this.fetchContent(true);
       },
     },
+    reload: {
+      handler() {
+        this.fetchContent(true);
+      },
+    }
   },
 };
 </script>

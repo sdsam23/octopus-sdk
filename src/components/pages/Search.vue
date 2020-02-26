@@ -5,7 +5,7 @@
     <h1 v-else>{{$t('Search - no results', {query: this.rawQuery})}}</h1>
     <div class="position-relative champs-searchPage w-75" v-if="!hideBar">
       <input
-        type="search"
+        type="text"
         ref="search"
         v-model="rawQuery"
         class="search-input border-primary w-100 p-2 input-no-outline"
@@ -13,7 +13,8 @@
         @change="onSearchBegin"
         autofocus
       />
-      <div class="saooti-search-bounty search-icon-container"></div>
+      <div class="saooti-search-bounty search-icon-container" v-if="!rawQuery"></div>
+      <div class="saooti-cross search-icon-container c-hand" @click="rawQuery =''" v-else></div>
     </div>
     <PodcastList :query="query" :first="0" :size="20" @emptyList='onListEmpty' v-if="!!query" />
   </div>
@@ -32,17 +33,12 @@
     margin: 0 auto;
     input {
       margin: 1rem 0 !important;
+      padding-right: 40px!important;
     }  
     .search-icon-container {
       margin: 0 1em 0 0;
     }
   }
-/** PHONES*/
-@media (max-width: 960px) {
-  .search-icon-container {
-    right: 1rem;
-  }
-}
 </style>
 
 <script>
