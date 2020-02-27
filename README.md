@@ -36,3 +36,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.12.10 Rafraichissement du titre de l'onglet pour un épisode/ une émission/ un intervenant
  * 0.12.11 Problème graphique fenêtre recherche
  * 0.12.12 Adaptation de la taille des iframes
+ * 0.12.13 Changement de couleur multiselect tag
