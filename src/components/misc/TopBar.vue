@@ -19,7 +19,7 @@
         <router-link to="/main/priv/upload" v-if="authenticated && !isPodcastmaker" class="mr-3">
           <button class="btn btn-primary">{{ $t('Upload new podcast') }}</button>
         </router-link>
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-end right-menu">
           <b-dropdown v-if="!isPodcastmaker" right toggle-class="text-decoration-none  m-1 admin-button btn-rounded-icon" no-caret>
             <template v-slot:button-content>
               <i class="saooti-user text-dark"></i><span class="sr-only">Profile</span>
@@ -61,6 +61,9 @@
     justify-content: center;
     align-items: center;
     height: 5rem;
+    .right-menu {
+      margin-right: 1rem;
+    }
 
     .top-bar-logo{
       width: 200px;
