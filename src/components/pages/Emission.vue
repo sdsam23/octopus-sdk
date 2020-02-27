@@ -15,12 +15,12 @@
                 class="img-box shadow-element float-left mr-3 mb-3"
                 v-if="!isOuestFrance" />{{description}}
             </div>
-            <ShareButtons :emissionId="emissionId" :bigRound='true' v-if="isRssButton"></ShareButtons>
+            <ShareButtons :emission="emission" :bigRound='true' v-if="isRssButton"></ShareButtons>
           </div>
         </div>
         <div class="d-flex flex-column">
           <SharePlayer :emissionId="emissionId" :exclusive="exclusive" :organisationId='organisationId' v-if="isSharePlayer"></SharePlayer>
-          <ShareButtons :emissionId="emissionId" v-if="isShareButtons"></ShareButtons>
+          <ShareButtons :emission="emission" v-if="isShareButtons"></ShareButtons>
         </div>
       </div>
       <div v-if="editRight">
