@@ -144,18 +144,18 @@ export default {
       switch (this.iFrameModel) {
         case 'large':
           if(this.podcast){
-            return '165px';
+            return '110px';
           } else{
             return '450px';
           }
         case 'largeEmission':
         case 'largeSuggestion':
-          return '490px';
+          return '435px';
         case 'emission':
           return '530px';
         default:
           if(this.podcast){
-            return '494px';
+            return '520px';
           } else{
             return '530px';
           }
