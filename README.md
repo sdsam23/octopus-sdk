@@ -39,3 +39,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.12.13 Changement de couleur multiselect tag
  * 0.12.14 Mise à jour de octopus-api
  * 0.12.15 Si podcastmaker, tri des catégories
+ * 0.12.16 Style change for podcastmaker

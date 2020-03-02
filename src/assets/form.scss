@@ -24,3 +24,7 @@
     border-style: none;
     background: white;
 }
+
+.btn-underline.active{
+	border-bottom: $primaryColor 2px solid;
+}
