@@ -37,3 +37,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.12.11 Problème graphique fenêtre recherche
  * 0.12.12 Adaptation de la taille des iframes
  * 0.12.13 Changement de couleur multiselect tag
+ * 0.12.14 Mise à jour de octopus-api
+ * 0.12.15 Si podcastmaker, tri des catégories
