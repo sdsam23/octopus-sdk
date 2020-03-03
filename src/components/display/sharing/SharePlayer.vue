@@ -14,8 +14,8 @@
           :height="iFrameHeight"
         ></iframe>
         <div class="d-flex flex-column">
-          <button class="btn mb-3" @click="onCopyCode">
-            {{ $t('Copy code') }}
+          <button class="btn mb-3" @click="isShareModal = true;">
+            {{ $t('Share') }}
           </button>
           <select v-model="iFrameModel" class="frame-select">
             <option value="default">{{$t('Default version')}}</option>
@@ -44,7 +44,13 @@
         {{ $t('Only authenticated members can share the content') }}
       </div>
     </div>
-    <Snackbar ref="snackbar" position="bottom-left"></Snackbar>
+    <ShareModal 
+      v-if="isShareModal" 
+      @close='isShareModal=false;'
+      :embedLink='iFrame'
+      :embedlyLink='iFrameSrc'
+      :directLink='podcast.audioUrl'
+    ></ShareModal>
   </div>
 </template>
 
@@ -77,20 +83,21 @@
 </style>
 
 <script>
-import Snackbar from '../../misc/Snackbar.vue';
+import ShareModal from '../../misc/modal/ShareModal.vue';
 import {state} from "../../../store/paramStore.js";
 
 export default {
   props: ['podcast', 'emissionId', "organisationId", 'exclusive'],
 
   components:{
-    Snackbar
+    ShareModal
   },
 
   data() {
     return {
       iFrameModel:'default',
       iFrameNumberPriv: '1',
+      isShareModal: false,
     };
   },
   computed: {
@@ -162,28 +169,13 @@ export default {
 
       }
     },
+
+    iFrame(){
+      return `<iframe src="${this.iFrameSrc}" width="${this.iFrameWidth}" height="${this.iFrameHeight}" scrolling="no" frameborder="0"></iframe>`;
+    }
   },
 
   methods: {
-    async onCopyCode() {
-      const iFrame = `<iframe src="${this.iFrameSrc}" width="${this.iFrameWidth}" height="${this.iFrameHeight}" scrolling="no" frameborder="0"></iframe>`;
-      if (typeof(navigator.clipboard)=='undefined') {
-        let textArea = document.createElement("textarea");
-        textArea.value = iFrame;
-        textArea.style.position="fixed";
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        var successful = document.execCommand('copy');
-        if(successful){
-          this.$refs.snackbar.open(this.$t('Link in clipboard'));
-        }
-        document.body.removeChild(textArea)            
-      } else{
-        await navigator.clipboard.writeText(iFrame);
-        this.$refs.snackbar.open(this.$t('Link in clipboard'));
-      }
-    },
   },
 };
 </script>
