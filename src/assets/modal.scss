@@ -23,6 +23,15 @@
 	padding: 0 .8rem;
 	width: 100%;
 	background: white;
+	@media (max-width: 500px){
+		width: 95%;
+		overflow-x: auto;
+	}
+}
+.modal-body{
+	@media (max-width: 500px){
+		padding: 0;
+	}
 }
 .modal-content{
 	border: 0;
