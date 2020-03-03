@@ -9,7 +9,7 @@
           <img src="/img/logo_octopus_final.svg" :alt="$t('Logo of main page')" />
         </div>
       </router-link>
-      <div class="d-flex align-items-center justify-content-center flex-grow">
+      <div class="d-flex align-items-center justify-content-center flex-grow main-menu">
         <router-link class="linkHover p-3 text-dark font-weight-bold" to="/main/pub/podcasts">{{ $t('Podcasts') }}</router-link>
         <router-link class="linkHover p-3 text-dark font-weight-bold" to="/main/pub/emissions">{{ $t('Emissions') }}</router-link>
         <router-link class="linkHover p-3 text-dark font-weight-bold" to="/main/pub/productors" v-if="!isPodcastmaker">{{ $t('Productors') }}</router-link>
