@@ -164,7 +164,7 @@ export default {
 
   methods: {
     externaliseLinks(link){
-      if(!link.startsWith('http') && !link.startsWith('//')){
+      if(link && !link.startsWith('http') && !link.startsWith('//')){
         return '//' + link;
       }
       return link;

@@ -26,7 +26,7 @@
             </template>
             <template v-if="!authenticated">
               <b-dropdown-item href="/sso/login">{{ $t('Login') }}</b-dropdown-item>
-              <b-dropdown-item to="/main/pub/create">{{$t('Create an account')}}</b-dropdown-item>
+              <b-dropdown-item to="/main/pub/create" v-if="!isPodcastmaker">{{$t('Create an account')}}</b-dropdown-item>
             </template>
             <template @click="displayMenuPhone(true)" v-else>
               <b-dropdown-item to="/main/priv/backoffice">{{$t('My space')}}</b-dropdown-item>

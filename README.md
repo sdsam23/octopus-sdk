@@ -50,3 +50,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.13.9 Merge de staging
  * 0.13.10 Merge de dev dans staging
  * 0.13.11 Mise en place du podcastmaker de l'indépendant
+ * 0.13.12 Petites modifications
