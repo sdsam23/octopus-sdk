@@ -48,3 +48,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
  * 0.13.6 #8375 Mise en place du cookie pour la gestion de la progression du player
  * 0.13.9 Merge de staging
+
+ * 0.14.0 Nouveau sprint
