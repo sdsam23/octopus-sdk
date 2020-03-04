@@ -1,6 +1,6 @@
 <template>
   <div class="page-box">
-    <div class="d-flex justify-content-between">
+    <div class="d-flex" :class="isEmissionChooser?'justify-content-between':'justify-content-center'">
       <h1 v-if="titlePage === undefined" class="flex-shrink">{{ $t('All podcasts') }}</h1>
       <h1 v-else class="flex-shrink">{{ titlePage }}</h1>
       <EmissionChooser @selected='emissionSelected' v-if="isEmissionChooser" :defaultanswer="$t('No emission filter')" width='auto' class="ml-3"/>

@@ -36,6 +36,15 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.12.9 Cherry Pick "Podcast OS 'Mur des Podcasts' "
  * 0.12.10 Rafraichissement du titre de l'onglet pour un épisode/ une émission/ un intervenant
  * 0.12.11 Problème graphique fenêtre recherche
+ * 0.12.12 Adaptation de la taille des iframes
+ * 0.12.13 Changement de couleur multiselect tag
+ * 0.12.14 Mise à jour de octopus-api
+ * 0.12.15 Si podcastmaker, tri des catégories
+ * 0.12.16 Style change for podcastmaker
+ * 0.12.17 Erreur de couleur
+ * 0.12.18 Partage des miniplayers
+ * 0.12.19 Responsive partage des miniplayers
+ * 0.12.20 Erreur partage des miniplayers
 
  * 0.13.6 #8375 Mise en place du cookie pour la gestion de la progression du player
  * 0.13.9 Merge de staging

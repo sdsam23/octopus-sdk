@@ -16,7 +16,7 @@
 			
 			<input
         class='filter-search-input input-no-outline'
-				:placeholder="$t('Look for podcast name')"
+				:placeholder="searchText"
 				:value="searchPattern"
         v-on:input="(event)=> this.$emit('updateSearchPattern', event.target.value)"
 			/>
@@ -88,8 +88,12 @@ export default {
   components: {
     OrganisationChooser
 	},
-	
-	props: ['organisationId', 'searchPattern'],
+  
+  props:  {
+    organisationId: { default: undefined },
+    searchPattern: { default: "" },
+    type: { default: 'podcast' },
+  },
 
   created() {
     if (this.organisationId) {
@@ -112,6 +116,15 @@ export default {
     isPodcastmaker(){
       return state.generalParameters.podcastmaker;
     },
+    searchText(){
+      if(this.type === "emission"){
+        return this.$t('Look for emission name');
+      }else if(this.type === "participant"){
+        return this.$t('Look for participant name');
+      } else{
+        return this.$t('Look for podcast name');
+      }
+    }
   },
 
   methods:{

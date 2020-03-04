@@ -24,3 +24,7 @@
     border-style: none;
     background: white;
 }
+
+.btn-underline.active{
+	border-bottom: $octopus-primary-color 2px solid;
+}
