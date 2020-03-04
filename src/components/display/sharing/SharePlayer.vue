@@ -49,7 +49,7 @@
       @close='isShareModal=false;'
       :embedLink='iFrame'
       :embedlyLink='iFrameSrc'
-      :directLink='podcast.audioUrl'
+      :directLink='podcast'
     ></ShareModal>
   </div>
 </template>

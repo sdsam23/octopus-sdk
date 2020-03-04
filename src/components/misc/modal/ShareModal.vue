@@ -20,9 +20,9 @@
                   <p>{{embedlyLink}}</p>
                   <div class='saooti-copy' @click="onCopyCode(embedlyLink)"></div>
                 </b-tab>
-                <b-tab :title="$t('Direct link')" class="tab-pane">
-                  <p>{{directLink}}</p>
-                  <div class='saooti-copy' @click="onCopyCode(directLink)"></div>
+                <b-tab :title="$t('Direct link')" class="tab-pane" v-if="directLink">
+                  <p>{{directLink.audioUrl}}</p>
+                  <div class='saooti-copy' @click="onCopyCode(directLink.audioUrl)"></div>
                 </b-tab>
               </b-tabs>
             </div>

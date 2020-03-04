@@ -43,3 +43,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.12.17 Erreur de couleur
  * 0.12.18 Partage des miniplayers
  * 0.12.19 Responsive partage des miniplayers
+ * 0.12.20 Erreur partage des miniplayers
