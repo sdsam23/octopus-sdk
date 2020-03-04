@@ -19,6 +19,11 @@
             <router-link class="linkHover" to="/main/pub/libraries">{{$t('Used libraries')}}</router-link>
           </div>
         </div>
+        <div class="d-flex flex-grow align-items-center flex-column" v-if="isPodcastmaker && isContactLink">
+          <div class="d-flex flex-column">
+            <a class="linkHover" id="footer-contact" :href='isContactLink' target="_blank">{{$t('Contact')}}</a>
+          </div>
+        </div>
     </div>
     <Player @hide="showBlackBorder"/>
   </div>
@@ -67,6 +72,9 @@ export default {
     },
     isBarTop(){
       return state.player.barTop;
+    },
+    isContactLink(){
+      return state.footer.contactLink;
     },
   },
 

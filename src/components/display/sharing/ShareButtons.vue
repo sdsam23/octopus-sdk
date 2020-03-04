@@ -64,7 +64,7 @@
 
 <script>
 import {state} from "../../../store/paramStore.js";
-import ClipboardModal from '@/components/misc/modal/ClipboardModal.vue'
+import ClipboardModal from '../../misc/modal/ClipboardModal.vue'
 export default {
   props: [
     "podcastId",

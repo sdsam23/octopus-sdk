@@ -20,7 +20,7 @@
           <button class="btn btn-primary">{{ $t('Upload new podcast') }}</button>
         </router-link>
         <div class="d-flex justify-content-end">
-          <b-dropdown v-if="!isPodcastmaker" right toggle-class="text-decoration-none  m-1 admin-button btn-rounded-icon" no-caret>
+          <b-dropdown right toggle-class="text-decoration-none  m-1 admin-button btn-rounded-icon" no-caret>
             <template v-slot:button-content>
               <i class="saooti-user text-dark"></i><span class="sr-only">Profile</span>
             </template>
@@ -30,10 +30,10 @@
             </template>
             <template @click="displayMenuPhone(true)" v-else>
               <b-dropdown-item to="/main/priv/backoffice">{{$t('My space')}}</b-dropdown-item>
-              <b-dropdown-item to="/main/priv/edit/profile">{{ $t('Edit my profile') }}</b-dropdown-item>
-              <b-dropdown-item to="/main/priv/edit/organisation">{{$t('Edit my organisation')}}</b-dropdown-item>
+              <b-dropdown-item to="/main/priv/edit/profile" v-if="!isPodcastmaker">{{ $t('Edit my profile') }}</b-dropdown-item>
+              <b-dropdown-item to="/main/priv/edit/organisation" v-if="!isPodcastmaker">{{$t('Edit my organisation')}}</b-dropdown-item>
               <!-- Lien pour mobile-->
-              <b-dropdown-item to="/main/priv/upload" class="show-phone">{{$t('Upload new podcast')}}</b-dropdown-item>
+              <b-dropdown-item to="/main/priv/upload" class="show-phone" v-if="!isPodcastmaker">{{$t('Upload new podcast')}}</b-dropdown-item>
               <b-dropdown-item href="/sso/logout">{{ $t('Logout') }}</b-dropdown-item>
             </template>
           </b-dropdown>
@@ -157,7 +157,7 @@ export default {
       return state.generalParameters.podcastmaker;
     },
     authenticated(){
-      return state.generalParameters.authenticated;
+      return this.$store.state.authentication.isAuthenticated;
     },
     name(){
       return state.organisation.userName;
