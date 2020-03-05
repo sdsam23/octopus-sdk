@@ -53,3 +53,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.13.12 Petites modifications
  * 0.13.13 Problème sur la gestion de la publicité (8542)
  * 0.13.14 Alignement flèche de PodcastInlineList
+ * 0.13.15 Problème transparence safari
