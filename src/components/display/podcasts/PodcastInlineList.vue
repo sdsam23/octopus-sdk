@@ -14,6 +14,7 @@
           :class="{ 'active': !popularSort }"
         >{{ $t('Last added') }}</button>
       </div>
+      <div v-else></div>
       <div class="hide-phone" v-if="!isArrow">
         <button class="btn btn-arrow" @click="displayPrevious()" :class="{ disabled: !previousAvailable }">
           <div class="saooti-arrow-left2"></div>
@@ -128,7 +129,7 @@ export default {
 
   created() {
     if(this.requirePopularSort !== undefined){
-      this.popularSort = this.requirePopularSort
+      this.popularSort = this.requirePopularSort;
     }
     if(this.isArrow !== undefined){
       this.isArrow = true;
