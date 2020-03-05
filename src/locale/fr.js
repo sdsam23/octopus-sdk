@@ -386,8 +386,8 @@ export default {
     'Emission version':'Version émission',
     'Large emission version':'Version large émission',
     'Large suggestion version':'Version large suggestion',
-    'Embed link':'Lien intégré',
-    'Embedly link':'Lien a intégrer',
-    'Direct link': 'Lien direct',
+    'Embed link':'Player intégré',
+    'Embedly link':'Lien player',
+    'Direct link': 'Lien audio',
   };
   
