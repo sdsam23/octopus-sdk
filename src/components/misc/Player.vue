@@ -28,12 +28,14 @@
         @playing="onPlay"
         @durationChange="onTimeUpdate"
       />
-      <img
-        v-bind:src="podcastImage"
-        :alt="$t('Podcast image')"
-        class="player-image"
-        v-if="isImage"
-      />
+      <router-link :to=podcastShareUrl v-if="isImage">
+        <img
+          v-bind:src="podcastImage"
+          :alt="$t('Podcast image')"
+          class="player-image c-hand"
+        />
+      </router-link>
+      
       <div
         class="play-button-box"
         v-bind:class="{
