@@ -5,7 +5,7 @@
       v-bind:style="{ height: playerHeight }"
       @transitionend="onHidden"
     >
-       <div class="progress secondary-bg c-hand" @mouseup="seekTo" v-if="isBarTop">
+      <div class="progress secondary-bg c-hand" @mouseup="seekTo" v-if="isBarTop">
           <div 
           class="progress-bar primary-bg" 
           role="progressbar" 
@@ -22,8 +22,6 @@
         v-bind:src="podcastAudioURL"
         autoplay
         @timeupdate="onTimeUpdate"
-        @play="onPlay"
-        @pause="onPause"
         @ended="onFinished"
         @playing="onPlay"
         @durationChange="onTimeUpdate"
@@ -77,6 +75,18 @@
 <style lang="scss">
 @import '../../sass/_variables.scss';
 
+.play-button-box {
+    height: 2.5rem;
+    width: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0.5rem;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    cursor: pointer;
+}
 .player-container {
   position: fixed;
   overflow: hidden;
@@ -94,19 +104,6 @@
     border-radius: 0.2rem;
     height: 2.4rem;
     width: 2.4rem;
-  }
-
-  .play-button-box {
-    height: 2.5rem;
-    width: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 0.5rem;
-    border-radius: 50%;
-    font-size: 1.2rem;
-    flex-shrink: 0;
-    cursor: pointer;
   }
   .player-progress-border{
     height: 10px;
@@ -171,6 +168,14 @@ export default {
       }, 1000)
     }
     window.addEventListener('beforeunload', this.endListeningProgress);
+    this.$store.watch((state) => state.player.status, (newValue) => {
+      const audioPlayer = document.querySelector('#audio-player');
+      if(newValue === 'PAUSED'){
+        audioPlayer.pause();
+      } else{
+        audioPlayer.play();
+      }
+    })
   },
 
   computed: {
@@ -277,9 +282,9 @@ export default {
     switchPausePlay() {
       const audioPlayer = document.querySelector('#audio-player');
       if (audioPlayer.paused) {
-        audioPlayer.play();
+        this.onPlay();
       } else {
-        audioPlayer.pause();
+        this.onPause();
       }
     },
 
@@ -356,7 +361,7 @@ export default {
         this.lastSend = newVal;
         octopusApi.updatePlayerTime(this.downloadId, Math.round(newVal));
       }
-    }
+    },
   }
 }; 
 </script>
