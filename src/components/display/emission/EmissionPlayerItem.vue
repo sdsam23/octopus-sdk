@@ -4,14 +4,14 @@
       <div class="img-box no-border-round" :style="{ 'background-image': 'url(\'' + emission.imageUrl + '\')' }"></div>
       <div class="d-flex flex-column p-1">
           <div class="font-weight-bold text-uppercase text-ellipsis">{{emission.name}}</div>
-          <div class="text-ellipsis">{{emission.description}}</div>
+          <div class="text-ellipsis" v-html="emission.description">{{emission.description}}</div>
       </div>
     </router-link>
     <div class="border-top border-secondary p-1 secondary-bg d-flex" v-for="p in podcasts" :key="p.podcastId">
         <div class="d-flex justify-content-between flex-grow">
             <router-link v-bind:to="'/main/pub/podcast/' + p.podcastId" class="d-flex flex-column define-width text-dark">
             <div class="font-weight-bold text-ellipsis">{{p.title}}</div>
-            <div class="two-line-clamp">{{p.description}}</div>
+            <div class="two-line-clamp" v-html="p.description">{{p.description}}</div>
             </router-link>
             <div class="play-button-box bg-secondary" @click="play(p)" v-if="$store.state.player.podcast !== p ||($store.state.player.podcast === p && $store.state.player.status === 'PAUSED')">
                 <div class="text-light saooti-play2-bounty"></div>

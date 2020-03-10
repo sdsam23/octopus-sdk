@@ -5,7 +5,7 @@
       <div class="d-flex w-100 flex-column align-items-center justify-content-center">
         <div class="img-box-circle mb-3" :style="{'background-image': 'url(\'' + participant.imageUrl + '\')', }"></div>
         <h2 class="text-capitalize">{{ name }}</h2>
-        <div class="h6">{{ description }}</div>
+        <div class="h6" v-html="description">{{ description }}</div>
         <div class="d-flex justify-content-center" v-if="isRssButton">
           <a class="btn btn-bigRound" :title="$t('Subscribe to this participant')" :href="rssUrl" target="_blank">
             <div class="saooti-rss-bounty"></div>

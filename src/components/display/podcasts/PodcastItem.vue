@@ -8,7 +8,7 @@
       @hideDescription="hideDescription"
       @showDescription="showDescription"
     />
-    <div class='description-podcast-item' v-if="hover && description">{{description}}</div>
+    <div class='description-podcast-item' v-if="hover && description" v-html="description">{{description}}</div>
     <div class='d-contents' @mouseenter="showDescription" @mouseleave="hideDescription">
       <div class="d-flex justify-content-between flex-wrap text-secondary mb-3">
         <div class="mr-3 small-Text">{{ date }}</div>
