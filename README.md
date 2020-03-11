@@ -57,3 +57,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.13.16 Renvoi vers la page d'épisode si on clique dans l'image du player (8557)
  * 0.13.17 Mise en place de la liste d'émission inline (l'indépendant)
  * 0.13.18 Prise en compte des balises html dans les descriptions
+ * 0.13.19 Améliorations demandées par fabien

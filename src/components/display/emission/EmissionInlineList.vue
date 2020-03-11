@@ -17,7 +17,7 @@
     <transition-group :name="transitionName" class="podcast-list-inline" tag="ul" v-show="loaded">
       <EmissionPlayerItem class="flex-shrink item-phone-margin" :emission='e'  v-for="e in emissions" v-bind:key="e.emissionId" />
     </transition-group>
-    <a class="btn btn-link" v-bind:href="href">{{buttonText}}</a>
+    <router-link v-bind:to="href" class="btn btn-link">{{buttonText}}</router-link>
   </div>
 </template>
 

@@ -67,6 +67,7 @@ var initialize = function initialize(initObject){
       state.emissionsPage.smallItems = (typeof param.smallItems !== "undefined") ? param.smallItems : false;
       state.emissionsPage.lightItems = (typeof param.lightItems !== "undefined") ? param.lightItems : false;
       state.emissionsPage.titlePage = (typeof param.titlePage !== "undefined") ? param.titlePage : undefined;
+      state.emissionsPage.itemPlayer = (typeof param.itemPlayer !== "undefined") ? param.itemPlayer : false;
     }
     if(initObject.emissionPage){
       let param = initObject.emissionPage;

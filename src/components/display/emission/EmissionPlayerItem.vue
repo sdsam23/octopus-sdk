@@ -2,12 +2,12 @@
   <li class="emission-player-container shadow-element">
     <router-link v-bind:to="'/main/pub/emission/' + emission.emissionId" class="d-flex flex-column text-dark">
       <div class="img-box no-border-round" :style="{ 'background-image': 'url(\'' + emission.imageUrl + '\')' }"></div>
-      <div class="d-flex flex-column p-1">
+      <div class="d-flex flex-column p-2">
           <div class="font-weight-bold text-uppercase text-ellipsis">{{emission.name}}</div>
           <div class="text-ellipsis" v-html="emission.description">{{emission.description}}</div>
       </div>
     </router-link>
-    <div class="border-top border-secondary p-1 secondary-bg d-flex" v-for="p in podcasts" :key="p.podcastId">
+    <div class="border-top emission-item-border-color p-2 secondary-bg d-flex" v-for="p in podcasts" :key="p.podcastId">
         <div class="d-flex justify-content-between flex-grow">
             <router-link v-bind:to="'/main/pub/podcast/' + p.podcastId" class="d-flex flex-column define-width text-dark">
             <div class="font-weight-bold text-ellipsis">{{p.title}}</div>
@@ -39,11 +39,17 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin: 1rem 0;
   max-width: 13rem;
   height: min-content;
+  border-radius: 0.8rem;
+  overflow: hidden;
   .define-width{
     width: 9rem;
+  }
+  @media (max-width: 960px){
+    .d-flex:not(.flex-column){
+      flex-wrap: nowrap;
+    }
   }
 }
 .two-line-clamp{
@@ -56,6 +62,9 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.emission-item-border-color{
+  border-color: #ddd;
 }
 </style>
 

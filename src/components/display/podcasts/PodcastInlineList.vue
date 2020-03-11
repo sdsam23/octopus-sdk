@@ -31,7 +31,7 @@
     <transition-group :name="transitionName" class="podcast-list-inline" tag="ul" v-show="loaded">
       <PodcastItem class="flex-shrink item-phone-margin" v-bind:podcast="p" v-for="p in podcasts" v-bind:key="p.podcastId" />
     </transition-group>
-    <a class="btn btn-link" :class="buttonPlus? 'btn-linkPlus': ''" v-bind:href="href">{{buttonText}}<div class="saooti-plus" v-if="buttonPlus"></div></a>
+    <router-link class="btn btn-link" :class="buttonPlus? 'btn-linkPlus': ''" v-bind:to="href">{{buttonText}}<div class="saooti-plus" v-if="buttonPlus"></div></router-link>
   </div>
 </template>
 
