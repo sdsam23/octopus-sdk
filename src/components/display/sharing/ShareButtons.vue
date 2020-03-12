@@ -64,7 +64,7 @@
 
 <script>
 import {state} from "../../../store/paramStore.js";
-import ClipboardModal from '@/components/misc/modal/ClipboardModal.vue'
+import ClipboardModal from '../../misc/modal/ClipboardModal.vue'
 export default {
   props: [
     "podcastId",
@@ -164,7 +164,7 @@ export default {
 
   methods: {
     externaliseLinks(link){
-      if(!link.startsWith('http') && !link.startsWith('//')){
+      if(link && !link.startsWith('http') && !link.startsWith('//')){
         return '//' + link;
       }
       return link;

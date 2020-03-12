@@ -13,7 +13,7 @@
                 :src="imageUrl" 
                 :alt="$t('Emission name image', { name: name })" 
                 class="img-box shadow-element float-left mr-3 mb-3"
-                v-if="!isOuestFrance" />{{description}}
+                v-if="!isOuestFrance" v-html="description"/>{{description}}
             </div>
             <ShareButtons :emission="emission" :bigRound='true' v-if="isRssButton"></ShareButtons>
           </div>

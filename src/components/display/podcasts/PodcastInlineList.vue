@@ -14,6 +14,7 @@
           :class="{ 'active': !popularSort }"
         >{{ $t('Last added') }}</button>
       </div>
+      <div v-else></div>
       <div class="hide-phone" v-if="!isArrow">
         <button class="btn btn-arrow" @click="displayPrevious()" :class="{ disabled: !previousAvailable }">
           <div class="saooti-arrow-left2"></div>
@@ -30,7 +31,7 @@
     <transition-group :name="transitionName" class="podcast-list-inline" tag="ul" v-show="loaded">
       <PodcastItem class="flex-shrink item-phone-margin" v-bind:podcast="p" v-for="p in podcasts" v-bind:key="p.podcastId" />
     </transition-group>
-    <a class="btn btn-link" :class="buttonPlus? 'btn-linkPlus': ''" v-bind:href="href">{{buttonText}}<div class="saooti-plus" v-if="buttonPlus"></div></a>
+    <router-link class="btn btn-link" :class="buttonPlus? 'btn-linkPlus': ''" v-bind:to="href">{{buttonText}}<div class="saooti-plus" v-if="buttonPlus"></div></router-link>
   </div>
 </template>
 
@@ -128,7 +129,7 @@ export default {
 
   created() {
     if(this.requirePopularSort !== undefined){
-      this.popularSort = this.requirePopularSort
+      this.popularSort = this.requirePopularSort;
     }
     if(this.isArrow !== undefined){
       this.isArrow = true;

@@ -24,7 +24,7 @@
                   <div class="mr-5" v-if="!isOuestFrance">{{ date }}</div>
                   <div><span class="saooti-clock3" v-if="isOuestFrance"></span>{{ $t('Duration', { duration: duration }) }}</div>
                 </div>
-                <div class="descriptionText">{{ this.podcast.description }}</div>
+                <div class="descriptionText" v-html="this.podcast.description">{{ this.podcast.description }}</div>
                 <div class="mt-3 mb-3">
                   <div class="comma">{{ $t('Animated by : ') }}
                     <router-link
