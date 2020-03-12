@@ -153,11 +153,25 @@ export default {
           if(this.podcast){
             return '110px';
           } else{
-            return '450px';
+            switch(this.iFrameNumberPriv){
+              case "1": return '185px';
+              case "2": return '240px';
+              case "3": return '290px';
+              case "4": return '345px';
+              case "5": return '390px';
+              default: return '435px';
+            }
           }
         case 'largeEmission':
         case 'largeSuggestion':
-          return '435px';
+          switch(this.iFrameNumberPriv){
+            case "1": return '185px';
+            case "2": return '240px';
+            case "3": return '290px';
+            case "4": return '345px';
+            case "5": return '390px';
+            default: return '435px';
+          }
         case 'emission':
           return '530px';
         default:
