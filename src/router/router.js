@@ -79,7 +79,7 @@ const routes = [
     props: route => ({
       first: parseInt(route.query.first, 10) || 0,
       size: parseInt(route.query.size, 10) || 12,
-      rubriqueId: parseInt(route.params.iabId, 10),
+      rubriqueId: parseInt(route.params.rubriqueId, 10),
     }),
   },
 ];

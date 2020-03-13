@@ -37,9 +37,7 @@ export default {
   methods: {
     extractTitle() {
         octopusApi.fetchRubric(this.rubriqueId).then((data)=>{
-            debugger;
-            console.log(data);
-            this.title = ""
+            this.title = data.name;
         });
     },
   },
