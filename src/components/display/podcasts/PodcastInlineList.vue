@@ -120,7 +120,8 @@ export default {
     "buttonText",
     "requirePopularSort",
     "isArrow",
-    "buttonPlus"
+    "buttonPlus",
+    "rubriqueId",
   ],
 
   components: {
@@ -184,6 +185,7 @@ export default {
           organisationId: this.organisationId,
           emissionId: this.emissionId,
           iabId: this.iabId,
+          rubriqueId: this.rubriqueId,
           sort: this.popularSort ? "POPULARITY" : "DATE"
         })
         .then(data => {

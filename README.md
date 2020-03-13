@@ -62,3 +62,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
  * 0.14.0 Nouveau sprint
  * 0.14.1 Merge de staging
+ * 0.14.2 List inline paramètre de tri par rubrique
