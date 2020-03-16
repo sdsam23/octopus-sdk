@@ -389,5 +389,8 @@ export default {
     'Embed link':'Player intégré',
     'Embedly link':'Lien player',
     'Direct link': 'Lien audio',
+    'Advanced filters': 'Filtrage avancé',
+    Advertising : 'Publicité',
+    'By topic': 'Par rubriquage'
   };
   

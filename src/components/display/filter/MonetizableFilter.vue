@@ -1,6 +1,7 @@
 <template>
-	<div class="d-flex">
-		<select class="basic-select" v-model="monetization" @change="onChange">
+	<div class="d-flex align-items-center">
+		<div>{{$t('Advertising') + ' :'}}</div>
+		<select class="basic-select ml-2 mb-0 border" v-model="monetization" @change="onChange">
 			<option value="UNDEFINED" v-if="isEmission">{{ $t('All emissions') }}</option>
 			<option value="UNDEFINED" v-else>{{ $t('All podcasts') }}</option>
 			<option value="YES">{{ $t('Authorized advertising') }}</option>
