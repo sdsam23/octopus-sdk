@@ -59,3 +59,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.13.18 Prise en compte des balises html dans les descriptions
  * 0.13.19 Améliorations demandées par fabien
  * 0.13.20 Changement d'une locale
+ * 0.13.21 Remonter le diffuseur dans les écoutes via miniplayer

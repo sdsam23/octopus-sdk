@@ -35,7 +35,7 @@ var initialize = function initialize(initObject){
     if(initObject.generalParameters){
       let param = initObject.generalParameters;
       state.generalParameters.organisationId = (typeof param.organisationId !== "undefined") ? param.organisationId : 'ecbd98d9-79bd-4312-ad5e-fc7c1c4a191c';
-      state.generalParameters.authenticated = (typeof param.authenticated !== "undefined") ? param.authenticated : false;
+      state.generalParameters.authenticated = (typeof param.authenticated !== "undefined") ? param.authenticated : true;
       state.generalParameters.isAdmin =(typeof param.isAdmin !== "undefined") ? param.isAdmin : false;
       state.generalParameters.ApiUri = (typeof param.ApiUri !== "undefined") ? param.ApiUri : 'https://api.staging.saooti.org/';
       state.generalParameters.isIE11 = (typeof param.isIE11 !== "undefined") ? param.isIE11 : false;
@@ -45,7 +45,7 @@ var initialize = function initialize(initObject){
     if(initObject.podcastPage){
       let param = initObject.podcastPage;
       state.podcastPage.EditBox = (typeof param.EditBox !== "undefined") ? param.EditBox : false;
-      state.podcastPage.SharePlayer = (typeof param.SharePlayer !== "undefined") ? param.SharePlayer : false;
+      state.podcastPage.SharePlayer = (typeof param.SharePlayer !== "undefined") ? param.SharePlayer : true;
       state.podcastPage.ShareButtons = (typeof param.ShareButtons !== "undefined") ? param.ShareButtons : true;
       state.podcastPage.ShareDistribution = (typeof param.ShareDistribution !== "undefined")? param.ShareDistribution : false;
       state.podcastPage.MiniplayerUri = (typeof param.MiniplayerUri !== "undefined") ? param.MiniplayerUri : 'https://player.staging.saooti.org/';
