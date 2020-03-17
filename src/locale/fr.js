@@ -195,7 +195,7 @@ export default {
     'Look for participant name': 'Rechercher un intervenant par nom',
     'Look for productor name': 'Rechercher un producteur par nom',
     'Look for emission name': 'Rechercher une émission par nom',
-    'Look for podcast name': 'Rechercher un podcast par nom',
+    'Look for podcast name': 'Rechercher un épisode par nom',
     'Type string to filter by organisation': 'Filtrer les producteurs par nom',
     'Type string to filter by emission': 'Filtrer les émissions par nom',
     'Type string to filter by podcast': 'Filtrer les épisodes par nom',
@@ -339,9 +339,9 @@ export default {
     'Allow advertising for this organisation':  'Autoriser la publicité pour cette organisation',
     'Prohibit advertising for this organisation': 'Interdire la publicité pour cette organisation',
     'No advertising': "Pas de publicité",
-    'You cannot insert advertising': "Vous ne pouvez pas insérer de publicité sur ce podcast",
+    'You cannot insert advertising': "Vous ne pouvez pas insérer de publicité sur cet épisode",
     'Exclusive advertising': 'Publicité exclusive',
-    'You cannot modify advertising':'Vous ne pouvez pas modifier la publicité pour ce podcast',
+    'You cannot modify advertising':'Vous ne pouvez pas modifier la publicité pour cet épisode',
     'Handle advertising': 'Gérer la publicité de mon organisation',
     'Handle advertising platform': 'Gérer la publicité de la plateforme',
     'Default tag':'Tag par défaut',
@@ -391,6 +391,15 @@ export default {
     'Direct link': 'Lien audio',
     'Advanced filters': 'Filtrage avancé',
     Advertising : 'Publicité',
-    'By topic': 'Par rubriquage'
+    'By topic': 'Selon rubriquage',
+    'By rubric': 'Par rubrique',
+    'Type string to filter by rubrics': 'Filtrer les rubriques par nom',
+    'No rubric filter': 'Toutes les rubriques',
+    'From the :' : 'Depuis le :',
+    'To the :': "Jusqu'au :",
+    'Visible':'Visible',
+    'In creation':'En cours de création',
+    'Publish in future':'Publié dans le futur',
+    'In error':'En erreur'
   };
   

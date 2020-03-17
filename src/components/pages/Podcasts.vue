@@ -11,23 +11,25 @@
       @updateOrganisationId='updateOrganisationId'
       @updateSearchPattern='updateSearchPattern'
       v-if="isProductorSearch" />
-    <div class="d-flex justify-content-center mb-3" @click="showFilters = !showFilters">
-      <div class="text-secondary c-hand">{{$t('Advanced filters')}}</div>
-      <div class="text-secondary c-hand align-self-center large-font-size" :class="{'arrow-transform':showFilters}">
-        <div class="saooti-arrow_drop_down"></div>
-      </div>
-    </div>
-    <AdvancedSearch v-if="showFilters" @updateMonetization='updateMonetization'/>
-    <PodcastList :first="first" :size="size" :organisationId='organisationId' :query='searchPattern' :monetization="monetization" :emissionId='emissionId'/>
+    <AdvancedSearch 
+    :isEmission='false'
+    @updateRubriquage='updateRubriquage'
+    @updateRubrique='updateRubrique'
+    @updateMonetization='updateMonetization' 
+    @updateFromDate='updateFromDate'
+    @updateToDate='updateToDate'
+    :organisationId='organisationId'/>
+    <PodcastList 
+    :first="first" 
+    :size="size" 
+    :organisationId='organisationId' 
+    :query='searchPattern' 
+    :monetization="monetization" 
+    :emissionId='emissionId'
+    :rubriqueId='rubriqueId'/>
   </div>
 </template>
 <style lang="scss">
-.large-font-size{
-  font-size: 1.3rem;
-}
-.arrow-transform{
-  transform: rotate(180deg);
-}
 </style>
 <script>
 // @ is an alias to /src
@@ -70,17 +72,18 @@ export default {
       searchPattern: '',
       organisationId: undefined,
       monetization: undefined,
+      rubriquageId: undefined,
+      rubriqueId: undefined,
       emissionId: undefined,
-      showFilters : false,
+      fromDate: undefined,
+      toDate: undefined,
+      
     };
   },
 
   computed:{
     isProductorSearch(){
       return state.podcastsPage.ProductorSearch;
-    },
-    isMonetizableFilter(){
-      return state.podcastsPage.MonetizableFilter;
     },
     titlePage(){
       return state.podcastsPage.titlePage;
@@ -91,6 +94,26 @@ export default {
   },
 
   methods:{
+    updateToDate(value){
+      if(value[0]){
+        this.toDate = value[1];
+      }else{
+        this.toDate = undefined;
+      }
+    },
+    updateFromDate(value){
+      if(value[0]){
+        this.fromDate = value[1];
+      }else{
+        this.fromDate = undefined;
+      }
+    },
+    updateRubriquage(value){
+      this.rubriquageId = value;
+    },
+    updateRubrique(value){
+      this.rubriqueId = value;
+    },
     updateOrganisationId(value){
       this.organisationId = value;
     },

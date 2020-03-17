@@ -160,6 +160,11 @@ export default {
         this.fetchContent(true);
       },
     },
+    rubriqueId: {
+      handler() {
+        this.fetchContent(true);
+      },
+    },
   },
 };
 </script>

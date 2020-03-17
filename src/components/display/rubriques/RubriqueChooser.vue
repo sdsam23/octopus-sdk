@@ -48,6 +48,15 @@
 </style>
 <script>
 import Multiselect from 'vue-multiselect';
+
+const getDefaultRubrique = defaultName => {
+  if(defaultName !== undefined){
+    return {name: defaultName, rubriqueId: 0};
+  } else {
+    return '';
+  }
+};
+
 export default {
   components: {
     Multiselect,
@@ -55,6 +64,7 @@ export default {
 
   props: { 
     width: { default: '100%' },
+    defaultanswer: { default: undefined },
     rubriqueSelected: {default: undefined},
     multiple: {default: false},
     rubriqueArray: {default: undefined},
@@ -65,7 +75,7 @@ export default {
   data() {
     return {
       rubriques: [],
-      rubrique: '',
+      rubrique: getDefaultRubrique(this.defaultanswer),
       isLoading: false,
     };
   },
@@ -84,19 +94,37 @@ export default {
       if(this.rubriqueArray === undefined) {
         this.rubrique = '';
       } 
-      this.rubriques = this.allRubriques;
+      if(this.defaultanswer !== undefined){
+        this.rubriques = [getDefaultRubrique(this.defaultanswer)].concat(
+          this.allRubriques
+        );
+      } else {
+        this.rubriques = this.allRubriques;
+      }
     },
 
     onClose() {
       if (!this.rubrique && this.rubriqueArray === undefined) {
-        this.rubrique = '';
+        if(this.defaultanswer !== undefined){
+          this.rubrique = getDefaultRubrique(this.defaultanswer);
+        } else{
+          this.rubrique = '';
+        }
         this.onRubriqueSelected(this.rubrique);
       }
     },
 
     onSearchRubrique(query) {
       this.isLoading = true;
-      this.rubriques = this.allRubriques.filter(item => {
+      let list;
+      if(this.defaultanswer !== undefined){
+        list = [getDefaultRubrique(this.defaultanswer)].concat(
+          this.allRubriques
+        );
+      } else{
+        list = this.allRubriques;
+      }
+      this.rubriques = list.filter(item => {
         return item.name.toUpperCase().includes(query.toUpperCase());
       });
       this.isLoading = false;

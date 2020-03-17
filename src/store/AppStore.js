@@ -15,11 +15,21 @@ export default new Vuex.Store({
     },
     authentication:{
       isAuthenticated : true,
+    },
+    filter:{
+      organisationId: undefined,
+      rubriquage: undefined,
     }
   },
 
   getters: {},
   mutations: {
+    initFilter(state, data) {
+      state.filter = {
+        ...state.filter,
+        ...data,
+      };
+    },
 		playerPlayPodcast(state, podcast) {
       if (!podcast) {
         state.player = {

@@ -18,6 +18,7 @@
         class='filter-search-input input-no-outline'
 				:placeholder="searchText"
 				:value="searchPattern"
+        ref="search"
         v-on:input="(event)=> this.$emit('updateSearchPattern', event.target.value)"
 			/>
 			</div>
@@ -102,6 +103,12 @@ export default {
       if(!this.$route.query.productor){
         this.$router.replace({query: {productor: this.organisationId}});
       }
+    }
+  },
+
+  mounted(){
+    if(this.$refs.search){
+      this.$refs.search.focus();
     }
   },
 

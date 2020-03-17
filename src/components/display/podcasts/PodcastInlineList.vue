@@ -279,7 +279,12 @@ export default {
       handler() {
         this.fetchContent(true);
       }
-    }
+    },
+    rubriqueId: {
+      handler() {
+        this.fetchContent(true);
+      },
+    },
   }
 };
 </script>

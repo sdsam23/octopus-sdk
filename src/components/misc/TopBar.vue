@@ -37,7 +37,7 @@
               <b-dropdown-item href="/sso/logout">{{ $t('Logout') }}</b-dropdown-item>
             </template>
           </b-dropdown>
-          <router-link to="/main/pub/search">
+          <router-link to="/main/pub/podcasts">
             <div class="btn admin-button m-1">
               <i class="saooti-search text-dark"></i>
             </div>

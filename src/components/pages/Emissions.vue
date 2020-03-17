@@ -9,7 +9,14 @@
       @updateOrganisationId='updateOrganisationId'
       @updateSearchPattern='updateSearchPattern'
       v-if="isProductorSearch"/>
-    <MonetizableFilter @updateMonetization='updateMonetization' :isEmission='true' v-if="isMonetizableFilter"/>
+      <AdvancedSearch 
+      :isEmission='true'
+      @updateRubriquage='updateRubriquage'
+      @updateRubrique='updateRubrique'
+      @updateMonetization='updateMonetization' 
+      @updateFromDate='updateFromDate'
+      @updateToDate='updateToDate'
+      :organisationId='organisationId'/>
     <EmissionList
       :first="first"
       :size="size"
@@ -25,14 +32,14 @@
 // @ is an alias to /src
 import EmissionList from '../display/emission/EmissionList.vue';
 import ProductorSearch from '../display/filter/ProductorSearch.vue';
-import MonetizableFilter from '../display/filter/MonetizableFilter.vue';
+import AdvancedSearch from '../display/filter/AdvancedSearch.vue';
 import {state} from "../../store/paramStore.js";
 
 export default {
   components: {
     ProductorSearch,
     EmissionList,
-    MonetizableFilter
+    AdvancedSearch
   },
 
   created() {
@@ -59,7 +66,12 @@ export default {
       size: undefined,
       searchPattern: '',
       organisationId: undefined,
-      monetization: undefined
+      monetization: undefined,
+      rubriquageId: undefined,
+      rubriqueId: undefined,
+      emissionId: undefined,
+      fromDate: undefined,
+      toDate: undefined,
     };
   },
 
@@ -76,6 +88,26 @@ export default {
   },
 
   methods:{
+    updateToDate(value){
+      if(value[0]){
+        this.toDate = value[1];
+      }else{
+        this.toDate = undefined;
+      }
+    },
+    updateFromDate(value){
+      if(value[0]){
+        this.fromDate = value[1];
+      }else{
+        this.fromDate = undefined;
+      }
+    },
+    updateRubriquage(value){
+      this.rubriquageId = value;
+    },
+    updateRubrique(value){
+      this.rubriqueId = value;
+    },
     updateOrganisationId(value){
       this.organisationId = value;
     },
