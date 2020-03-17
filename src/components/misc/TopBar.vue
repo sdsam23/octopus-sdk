@@ -20,9 +20,9 @@
           <button class="btn btn-primary">{{ $t('Upload new podcast') }}</button>
         </router-link>
         <div class="d-flex justify-content-end">
-          <b-dropdown right toggle-class="text-decoration-none  m-1 admin-button btn-rounded-icon" no-caret>
+          <b-dropdown right toggle-class="text-decoration-none m-1 admin-button btn-rounded-icon" no-caret>
             <template v-slot:button-content>
-              <i class="saooti-user text-dark"></i><span class="sr-only">Profile</span>
+              <i class="saooti-user text-dark" v-if="!imageUrl"></i><span class="sr-only">Profile</span>
             </template>
             <template v-if="!authenticated">
               <b-dropdown-item href="/sso/login">{{ $t('Login') }}</b-dropdown-item>
@@ -136,6 +136,9 @@ export default {
   name: "TopBar",
 
   mounted() {
+    let imageLogin = document.getElementsByClassName('btn-rounded-icon')[0];
+    imageLogin.style.background = "url(" + this.imageUrl + ")";
+    imageLogin.style.backgroundSize = "cover";
     window.addEventListener("scroll", this.handleScroll);
   },
   beforeDestroy() {
@@ -161,6 +164,9 @@ export default {
     },
     name(){
       return state.organisation.userName;
+    },
+    imageUrl(){
+      return this.$store.state.profile.imageUrl;
     },
   },
 
