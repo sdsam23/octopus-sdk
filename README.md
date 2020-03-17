@@ -60,3 +60,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.13.19 Améliorations demandées par fabien
  * 0.13.20 Changement d'une locale
  * 0.13.21 Remonter le diffuseur dans les écoutes via miniplayer
+ * 0.13.22 Partage de miniplayer -> 3 épisodes par défaut

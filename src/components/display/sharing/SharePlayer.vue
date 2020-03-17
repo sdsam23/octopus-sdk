@@ -96,7 +96,7 @@ export default {
   data() {
     return {
       iFrameModel:'default',
-      iFrameNumberPriv: '1',
+      iFrameNumberPriv: '3',
       isShareModal: false,
     };
   },
