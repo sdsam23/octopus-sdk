@@ -73,7 +73,8 @@ export default {
     monetization: { default: undefined },
     popularSort: { default: false },
     reload : {default: false},
-    rubriqueId: {default: undefined}
+    rubriqueId: {default: undefined},
+    rubriquageId: {default:undefined},
   },
 
   components: {
@@ -123,7 +124,8 @@ export default {
           query: this.query,
           monetisable: this.monetization,
           sort: this.popularSort ? "POPULARITY" : "DATE",
-          rubriqueId: this.rubriqueId
+          rubriqueId: this.rubriqueId,
+          rubriquageId: this.rubriquageId,
         })
         .then((data)=> {
           if (reset) {
@@ -188,6 +190,11 @@ export default {
       },
     },
     rubriqueId: {
+      handler() {
+        this.fetchContent(true);
+      },
+    },
+    rubriquageId: {
       handler() {
         this.fetchContent(true);
       },

@@ -122,6 +122,7 @@ export default {
     "isArrow",
     "buttonPlus",
     "rubriqueId",
+    "rubriquageId"
   ],
 
   components: {
@@ -186,6 +187,7 @@ export default {
           emissionId: this.emissionId,
           iabId: this.iabId,
           rubriqueId: this.rubriqueId,
+          rubriquageId: this.rubriquageId,
           sort: this.popularSort ? "POPULARITY" : "DATE"
         })
         .then(data => {
@@ -281,6 +283,11 @@ export default {
       }
     },
     rubriqueId: {
+      handler() {
+        this.fetchContent(true);
+      },
+    },
+    rubriquageId: {
       handler() {
         this.fetchContent(true);
       },

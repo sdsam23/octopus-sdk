@@ -38,7 +38,8 @@ export default {
     "organisationId",
     "href",
     "buttonText",
-    "rubriqueId"
+    "rubriqueId",
+    "rubriquageId"
   ],
 
   components: {
@@ -95,6 +96,7 @@ export default {
           size: this.size + 1,
           organisationId: this.organisationId,
           rubriqueId: this.rubriqueId,
+          rubriquageId: this.rubriquageId,
         })
         .then(data => {
           this.loading = false;

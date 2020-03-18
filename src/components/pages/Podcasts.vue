@@ -26,7 +26,8 @@
     :query='searchPattern' 
     :monetization="monetization" 
     :emissionId='emissionId'
-    :rubriqueId='rubriqueId'/>
+    :rubriqueId='rubriqueId'
+    :rubriquageId='rubriquageId'/>
   </div>
 </template>
 <style lang="scss">

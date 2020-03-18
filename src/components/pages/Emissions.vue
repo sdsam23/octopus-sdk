@@ -23,6 +23,8 @@
       :query="searchPattern"
       :organisationId="organisationId"
       :monetization="monetization"
+      :rubriqueId='rubriqueId'
+      :rubriquageId='rubriquageId'
     />
   </div>
 </template>

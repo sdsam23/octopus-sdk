@@ -69,7 +69,8 @@ export default {
     multiple: {default: false},
     rubriqueArray: {default: undefined},
     rubriquageId: {default:undefined},
-    allRubriques: {default: []}
+    allRubriques: {default: []},
+    reset: {default: false},
   },
 
   data() {
@@ -164,6 +165,9 @@ export default {
         })
         this.$emit('selected', idsArray);
       }
+    },
+    reset() {
+      this.rubrique = getDefaultRubrique(this.defaultanswer);
     },
   }
 };

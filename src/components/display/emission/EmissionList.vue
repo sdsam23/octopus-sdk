@@ -72,7 +72,7 @@ import {state} from "../../../store/paramStore.js";
 export default {
   name: 'EmissionList',
 
-  props: ['first', 'size', 'query', 'organisationId', 'monetization','rubriqueId'],
+  props: ['first', 'size', 'query', 'organisationId', 'monetization','rubriqueId', 'rubriquageId'],
 
   components: {
     EmissionItem,
@@ -125,7 +125,8 @@ export default {
           query: self.query,
           organisationId: self.organisationId,
           monetisable: self.monetization,
-          rubriqueId: self.rubriqueId
+          rubriqueId: self.rubriqueId,
+          rubriquageId: self.rubriquageId,
         })
         .then(function(data) {
           self.$data.loading = false;
@@ -161,6 +162,11 @@ export default {
       },
     },
     rubriqueId: {
+      handler() {
+        this.fetchContent(true);
+      },
+    },
+    rubriquageId: {
       handler() {
         this.fetchContent(true);
       },

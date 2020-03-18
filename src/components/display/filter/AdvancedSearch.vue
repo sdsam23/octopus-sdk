@@ -32,6 +32,7 @@
 					:rubriquageId='rubriquageId' 
 					:allRubriques='getRubriques(rubriquageId)' 
 					:defaultanswer='$t("No rubric filter")'
+					:reset='reset'
 					width='auto'
 					@selected="onRubriqueSelected"		
 				/>
@@ -153,6 +154,7 @@ export default {
 			isFuture: false,
 			isError: false,
 			showFilters : false,
+			reset: false,
     };
   },
 
@@ -241,6 +243,7 @@ export default {
 			let value = parseInt($event.target.value, 10);
 			if(value != this.rubriquageId){
 				this.rubriquageId = value;
+				this.reset = !this.reset;
 				if(this.isRubriquage){
 					this.$emit('updateRubriquage', this.rubriquageId);
 				}
@@ -286,11 +289,12 @@ export default {
 		isTo(newVal){
 			this.$emit('updateToDate', [newVal, this.toDate]);
 		},
-		updateRubriquage(newVal){
+		isRubriquage(newVal){
 			if(newVal){
 				this.$emit('updateRubriquage', this.rubriquageId);
 			}else{
 				this.$emit('updateRubriquage', undefined);
+				this.$emit('updateRubrique', undefined);
 			}
 		}
 	}
