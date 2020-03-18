@@ -136,9 +136,12 @@ export default {
   name: "TopBar",
 
   mounted() {
-    let imageLogin = document.getElementsByClassName('btn-rounded-icon')[0];
-    imageLogin.style.background = "url(" + this.imageUrl + ")";
-    imageLogin.style.backgroundSize = "cover";
+    if(this.imageUrl){
+      let imageLogin = document.getElementsByClassName('btn-rounded-icon')[0];
+      imageLogin.style.background = "url(" + this.imageUrl + ")";
+      imageLogin.style.backgroundSize = "cover";
+    }
+    
     window.addEventListener("scroll", this.handleScroll);
   },
   beforeDestroy() {
