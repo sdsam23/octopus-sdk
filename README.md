@@ -68,4 +68,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.14.3 Lists paramètre de tri par rubrique
  * 0.14.4 Recherche avancée dans octopus
  * 0.14.5 Exposition du composant RubriqueChooser
+ * 0.14.6 merge
 
