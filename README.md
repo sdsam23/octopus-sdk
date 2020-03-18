@@ -59,6 +59,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.13.18 Prise en compte des balises html dans les descriptions
  * 0.13.19 Améliorations demandées par fabien
  * 0.13.20 Changement d'une locale
+ * 0.13.21 Remonter le diffuseur dans les écoutes via miniplayer
+ * 0.13.22 Partage de miniplayer -> 3 épisodes par défaut
 
  * 0.14.0 Nouveau sprint
  * 0.14.1 Merge de staging
@@ -66,3 +68,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.14.3 Lists paramètre de tri par rubrique
  * 0.14.4 Recherche avancée dans octopus
  * 0.14.5 Exposition du composant RubriqueChooser
+

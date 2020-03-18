@@ -96,7 +96,7 @@ export default {
   data() {
     return {
       iFrameModel:'default',
-      iFrameNumberPriv: '1',
+      iFrameNumberPriv: '3',
       isShareModal: false,
     };
   },
@@ -112,23 +112,24 @@ export default {
     authenticated(){
       return state.generalParameters.authenticated;
     },
-
     iFrameSrc() {
+      let url = "";
       if(!this.podcast){
         if(this.iFrameModel === 'default'){
-          return `${state.podcastPage.MiniplayerUri}miniplayer/emission/${this.emissionId}/${this.iFrameNumberPriv}`;
+          url =  `${state.podcastPage.MiniplayerUri}miniplayer/emission/${this.emissionId}/${this.iFrameNumberPriv}`;
         } else{
-          return `${state.podcastPage.MiniplayerUri}miniplayer/emissionLarge/${this.emissionId}/${this.iFrameNumberPriv}`;
+          url = `${state.podcastPage.MiniplayerUri}miniplayer/emissionLarge/${this.emissionId}/${this.iFrameNumberPriv}`;
         }
       }else {
         if (this.iFrameModel === 'emission' || this.iFrameModel === 'largeEmission') {
-            return `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.emissionId}/${this.iFrameNumberPriv}/${this.podcast.podcastId}`;
+          url = `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.emissionId}/${this.iFrameNumberPriv}/${this.podcast.podcastId}`;
         } else if(this.iFrameModel === 'largeSuggestion'){
-            return `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.podcast.podcastId}/${this.iFrameNumberPriv}`;
+          url = `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.podcast.podcastId}/${this.iFrameNumberPriv}`;
         }else {
-          return `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.podcast.podcastId}`;
+          url = `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.podcast.podcastId}`;
         }
       }
+      return url + '?distributorId=' + this.organisationId;
     },
 
     iFrameNumber: {
