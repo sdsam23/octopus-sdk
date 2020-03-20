@@ -38,7 +38,7 @@
 				/>
 			</template>
 		</div>
-		<div class="d-flex mt-3 align-items-center" v-if="false">
+		<div class="d-flex mt-3 align-items-center" v-if="false && !isEmission">
 			<div class="checkbox-saooti flex-shrink">  
 				<input type="checkbox" class="custom-control-input" id="search-from-checkbox" v-model="isFrom">  
 				<label class="custom-control-label" for="search-from-checkbox">{{ $t('From the :') }}</label>  
@@ -254,23 +254,12 @@ export default {
 		},
 		fetchTopics(){
 			if(this.organisationId){
-				if(this.$store.state.filter.organisationId === this.organisationId){
-					this.rubriquageData = this.$store.state.filter.rubriquage;
-					if(this.$store.state.filter.rubriquage.length !== 0){
-						this.rubriquageId = this.$store.state.filter.rubriquage[0].rubriquageId;
+				octopusApi.fetchTopics(this.organisationId).then((data)=>{
+					this.rubriquageData = data;
+					if(data.length !== 0){
+						this.rubriquageId = data[0].rubriquageId;
 					}
-				} else{
-					octopusApi.fetchTopics(this.organisationId).then((data)=>{
-						this.rubriquageData = data;
-						if(data.length !== 0){
-							this.rubriquageId = data[0].rubriquageId;
-						}
-						this.$store.commit('initFilter', {
-							organisationId: this.organisationId,
-							rubriquage: data,
-						});
-					});
-				}
+				});
 			}
 		},
 		updateVisible(){

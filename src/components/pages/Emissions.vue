@@ -14,8 +14,6 @@
       @updateRubriquage='updateRubriquage'
       @updateRubrique='updateRubrique'
       @updateMonetization='updateMonetization' 
-      @updateFromDate='updateFromDate'
-      @updateToDate='updateToDate'
       :organisationId='organisationId'/>
     <EmissionList
       :first="first"
@@ -72,8 +70,6 @@ export default {
       rubriquageId: undefined,
       rubriqueId: undefined,
       emissionId: undefined,
-      fromDate: undefined,
-      toDate: undefined,
     };
   },
 
@@ -90,20 +86,6 @@ export default {
   },
 
   methods:{
-    updateToDate(value){
-      if(value[0]){
-        this.toDate = value[1];
-      }else{
-        this.toDate = undefined;
-      }
-    },
-    updateFromDate(value){
-      if(value[0]){
-        this.fromDate = value[1];
-      }else{
-        this.fromDate = undefined;
-      }
-    },
     updateRubriquage(value){
       this.rubriquageId = value;
     },

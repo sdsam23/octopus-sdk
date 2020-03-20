@@ -75,6 +75,8 @@ export default {
     reload : {default: false},
     rubriqueId: {default: undefined},
     rubriquageId: {default:undefined},
+    before: {default:undefined},
+    after: {default:undefined},
   },
 
   components: {
@@ -102,6 +104,11 @@ export default {
     },
     buttonPlus(){
       return state.generalParameters.buttonPlus;
+    },
+    changed(){
+      return `${this.first}|${this.size}|${this.organisationId}|${this.emissionId}|
+      ${this.iabId}|${this.participantId}|${this.query}|${this.monetization}|${this.popularSort}|
+      ${this.rubriqueId}|${this.rubriquageId}|${this.before}|${this.after}`;
     }
   },
 
@@ -126,6 +133,8 @@ export default {
           sort: this.popularSort ? "POPULARITY" : "DATE",
           rubriqueId: this.rubriqueId,
           rubriquageId: this.rubriquageId,
+          before: this.before,
+          after: this.after,
         })
         .then((data)=> {
           if (reset) {
@@ -154,47 +163,12 @@ export default {
   },
 
   watch: {
-    emissionId: {
-      handler() {
-        this.fetchContent(true);
-      },
-    },
-    organisationId: {
-      handler() {
-        this.fetchContent(true);
-      },
-    },
-    iabId: {
-      handler() {
-        this.fetchContent(true);
-      },
-    },
-    participantId: {
-      handler() {
-        this.fetchContent(true);
-      },
-    },
-    query: {
-      handler() {
-        this.fetchContent(true);
-      },
-    },
-    monetization: {
-      handler() {
+    changed:{
+       handler() {
         this.fetchContent(true);
       },
     },
     reload: {
-      handler() {
-        this.fetchContent(true);
-      },
-    },
-    rubriqueId: {
-      handler() {
-        this.fetchContent(true);
-      },
-    },
-    rubriquageId: {
       handler() {
         this.fetchContent(true);
       },

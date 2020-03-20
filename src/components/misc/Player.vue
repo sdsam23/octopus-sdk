@@ -333,17 +333,19 @@ export default {
       if(this.downloadId){
         this.endListeningProgress();
       }
-      ///Localhost/////////
-      /* let persoCookie = "XSRF-TOKEN=559b9adc-7ecb-4697-8488-8988b38c5324; player_6547=11764; player_9432=11765"; */
-      //////
+      
       let cookiestring = RegExp("player_"+ this.$store.state.player.podcast.podcastId +"=[^;]+").exec(document.cookie);
       this.downloadId = decodeURIComponent(cookiestring ? cookiestring.toString().replace(/^[^=]+./,"") : "");
+      ///Localhost/////////
+      /* this.downloadId = "test"; */
+      //////
     },
 
     endListeningProgress(){
       if(this.downloadId){
         octopusApi.updatePlayerTime(this.downloadId, Math.round(this.listenTime));
         this.downloadId = undefined;
+        this.notListenTime = 0;
       }
     }
   },

@@ -27,7 +27,9 @@
     :monetization="monetization" 
     :emissionId='emissionId'
     :rubriqueId='rubriqueId'
-    :rubriquageId='rubriquageId'/>
+    :rubriquageId='rubriquageId'
+    :before='toDate'
+    :after='fromDate'/>
   </div>
 </template>
 <style lang="scss">

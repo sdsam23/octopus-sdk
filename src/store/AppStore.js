@@ -16,10 +16,6 @@ export default new Vuex.Store({
     authentication:{
       isAuthenticated : true,
     },
-    filter:{
-      organisationId: undefined,
-      rubriquage: undefined,
-    },
     profile: {
       imageUrl:"https://s3.eu-west-3.amazonaws.com/saooti.lebook/da5d40f6-101c-4566-929f-70a7b202e505/0390fc31-1856-42fa-a440-55aa4cf498ab",
     },
@@ -27,12 +23,6 @@ export default new Vuex.Store({
 
   getters: {},
   mutations: {
-    initFilter(state, data) {
-      state.filter = {
-        ...state.filter,
-        ...data,
-      };
-    },
 		playerPlayPodcast(state, podcast) {
       if (!podcast) {
         state.player = {
