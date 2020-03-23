@@ -333,7 +333,6 @@ export default {
       if(this.downloadId){
         this.endListeningProgress();
       }
-      
       let cookiestring = RegExp("player_"+ this.$store.state.player.podcast.podcastId +"=[^;]+").exec(document.cookie);
       this.downloadId = decodeURIComponent(cookiestring ? cookiestring.toString().replace(/^[^=]+./,"") : "");
       ///Localhost/////////
@@ -346,6 +345,8 @@ export default {
         octopusApi.updatePlayerTime(this.downloadId, Math.round(this.listenTime));
         this.downloadId = undefined;
         this.notListenTime = 0;
+        this.lastSend = 0;
+        this.listenTime = 0;
       }
     }
   },
