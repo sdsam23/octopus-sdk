@@ -74,5 +74,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.14.6 merge
  * 0.14.7 merge et filtrage avancé
  * 0.14.8 merge et filtrage avancé par dates
-
+ * 0.14.9 amélioration filtrage
 

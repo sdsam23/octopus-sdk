@@ -136,7 +136,9 @@ export default {
 
   methods:{
     onOrganisationSelected(organisation) {
-      this.$router.push({query: {productor: undefined}});
+      if(this.$route.query.productor){
+        this.$router.push({query: {productor: undefined}});
+      }
       state.filter.organisationId = this.organisationId;
       this.keepOrganisation = false;
       if (organisation && organisation.id) {
@@ -151,10 +153,14 @@ export default {
     },
     onKeepOrganisation(){
       if(!this.keepOrganisation){
-        this.$router.push({query: {productor: this.organisationId}});
+        if(this.$route.query.productor !== this.organisationId){
+          this.$router.push({query: {productor: this.organisationId}});
+        }
         state.filter.organisationId = this.organisationId;
       }else {
-        this.$router.push({query: {productor: undefined}});
+        if(this.$route.query.productor){
+          this.$router.push({query: {productor: undefined}});
+        }
         state.filter.organisationId = this.organisationId;
       }
     }

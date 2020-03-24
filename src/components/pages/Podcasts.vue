@@ -13,6 +13,7 @@
       v-if="isProductorSearch" />
     <AdvancedSearch 
     :isEmission='false'
+    :resetRubriquage='resetRubriquage'
     @updateRubriquage='updateRubriquage'
     @updateRubrique='updateRubrique'
     @updateMonetization='updateMonetization' 
@@ -80,6 +81,7 @@ export default {
       emissionId: undefined,
       fromDate: undefined,
       toDate: undefined,
+      resetRubriquage: false,
       
     };
   },
@@ -118,6 +120,9 @@ export default {
       this.rubriqueId = value;
     },
     updateOrganisationId(value){
+      this.resetRubriquage = !this.resetRubriquage;
+      this.rubriquageId = undefined;
+      this.rubriqueId= undefined;
       this.organisationId = value;
     },
     updateSearchPattern(value){

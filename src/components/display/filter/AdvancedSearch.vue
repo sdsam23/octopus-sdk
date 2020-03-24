@@ -15,10 +15,10 @@
       </div>
 			<template v-if="isRubriquage">
 				<label class="wrap">
-					<select class="basic-select ml-2 mb-0 border" @change="onRubriquageSelected">
+					<select class="basic-select ml-2 mb-0 border" v-model="rubriquageId" @change="onRubriquageSelected">
 						<option 
 							v-for="rubriquage in rubriquageData" 
-							v-show="rubriquage.rubriques.length"
+							v-show="rubriquage.rubriques.length !== 0"
 							:key="rubriquage.rubriquageId" 
 							:value="rubriquage.rubriquageId"
 						>{{rubriquage.title}}</option>
@@ -129,7 +129,7 @@ export default {
 		Datetime
 	},
 	
-	props: ['organisationId', 'isEmission'],
+	props: ['organisationId', 'isEmission', 'resetRubriquage'],
 
   created() {
 		this.fetchTopics();
@@ -257,7 +257,12 @@ export default {
 				octopusApi.fetchTopics(this.organisationId).then((data)=>{
 					this.rubriquageData = data;
 					if(data.length !== 0){
-						this.rubriquageId = data[0].rubriquageId;
+						for (let index = 0; index < this.rubriquageData.length; index++) {
+							if(this.rubriquageData[index].rubriques.length !== 0){
+								this.rubriquageId = this.rubriquageData[index].rubriquageId;
+								break;
+							}
+						}
 					}
 				});
 			}
@@ -285,6 +290,9 @@ export default {
 				this.$emit('updateRubriquage', undefined);
 				this.$emit('updateRubrique', undefined);
 			}
+		},
+		resetRubriquage(){
+			this.isRubriquage = false;
 		}
 	}
 };

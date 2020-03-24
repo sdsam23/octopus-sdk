@@ -10,6 +10,7 @@
       @updateSearchPattern='updateSearchPattern'
       v-if="isProductorSearch"/>
       <AdvancedSearch 
+      :resetRubriquage='resetRubriquage'
       :isEmission='true'
       @updateRubriquage='updateRubriquage'
       @updateRubrique='updateRubrique'
@@ -70,6 +71,7 @@ export default {
       rubriquageId: undefined,
       rubriqueId: undefined,
       emissionId: undefined,
+      resetRubriquage: false,
     };
   },
 
@@ -93,6 +95,9 @@ export default {
       this.rubriqueId = value;
     },
     updateOrganisationId(value){
+      this.resetRubriquage = !this.resetRubriquage;
+      this.rubriquageId = undefined;
+      this.rubriqueId= undefined;
       this.organisationId = value;
     },
     updateSearchPattern(value){
