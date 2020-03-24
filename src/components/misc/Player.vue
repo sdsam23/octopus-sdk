@@ -52,7 +52,7 @@
           }"
         ></div>
       </div>
-      <div class="flex-grow d-flex flex-column text-light">
+      <div class="text-light player-grow-content">
         <div class="d-flex">
           <div class="flex-grow player-title">{{ podcastTitle }}</div>
           <div v-if="!isBarTop" class="hide-phone">{{ playedTime }} / {{ totalTime }}</div>
@@ -121,13 +121,21 @@
     font-size: 0.8rem;
     margin: 0 0 5px 0;
   }
+  .player-grow-content{
+    display : flex;
+    flex-grow: 1;
+    flex-direction: column;
+    flex-shrink: 1;
+    flex-basis: 20px;
+    overflow: hidden;
+  }
 }
 /** PHONES*/
 @media (max-width: 960px) {
   .player-container{
     .d-flex{
       @media (max-width: 960px) {
-        flex-wrap: nowrap;
+        flex-wrap: nowrap !important;
       }
     }
     .player-title{
@@ -333,7 +341,6 @@ export default {
       if(this.downloadId){
         this.endListeningProgress();
       }
-      
       let cookiestring = RegExp("player_"+ this.$store.state.player.podcast.podcastId +"=[^;]+").exec(document.cookie);
       this.downloadId = decodeURIComponent(cookiestring ? cookiestring.toString().replace(/^[^=]+./,"") : "");
       ///Localhost/////////
@@ -346,6 +353,8 @@ export default {
         octopusApi.updatePlayerTime(this.downloadId, Math.round(this.listenTime));
         this.downloadId = undefined;
         this.notListenTime = 0;
+        this.lastSend = 0;
+        this.listenTime = 0;
       }
     }
   },

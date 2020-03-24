@@ -38,7 +38,7 @@
 				/>
 			</template>
 		</div>
-		<div class="d-flex mt-3 align-items-center" v-if="false && !isEmission">
+		<div class="d-flex mt-3 align-items-center" v-if="!isEmission">
 			<div class="checkbox-saooti flex-shrink">  
 				<input type="checkbox" class="custom-control-input" id="search-from-checkbox" v-model="isFrom">  
 				<label class="custom-control-label" for="search-from-checkbox">{{ $t('From the :') }}</label>  
