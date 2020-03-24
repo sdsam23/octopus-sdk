@@ -63,3 +63,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.13.22 Partage de miniplayer -> 3 épisodes par défaut
  * 0.13.23 Taux de complétion négatif
  * 0.13.24 Taux de complétion d'écoute sur Octopus incorrect
+ * 0.13.25 PB responsive sur le player podcastmaker de l'indépendant 
