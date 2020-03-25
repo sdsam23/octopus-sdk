@@ -400,6 +400,12 @@ export default {
     'Visible':'Visible',
     'In creation':'En cours de création',
     'Publish in future':'Publié dans le futur',
-    'In error':'En erreur'
+    'In error':'En erreur',
+    'Emission with episode published :':'Emission ayant au moins un épisode sorti :',
+    'Sort emissions': 'Tri des émissions',
+    'Filter emissions': 'Filtrage des émissions',
+    'Sort score': 'Par pertinence',
+    'Sort name': 'Par ordre alphabétique',
+    'Sort last': 'Par ordre antechronologique',
   };
   

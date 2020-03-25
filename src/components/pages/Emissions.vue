@@ -15,6 +15,9 @@
       @updateRubriquage='updateRubriquage'
       @updateRubrique='updateRubrique'
       @updateMonetization='updateMonetization' 
+      @updateFromDate='updateFromDate'
+      @updateToDate='updateToDate'
+      @updateSortEmission='updateSortEmission'
       :organisationId='organisationId'/>
     <EmissionList
       :first="first"
@@ -24,6 +27,9 @@
       :monetization="monetization"
       :rubriqueId='rubriqueId'
       :rubriquageId='rubriquageId'
+      :before='toDate'
+      :after='fromDate'
+      :sort='sortEmission'
     />
   </div>
 </template>
@@ -71,7 +77,10 @@ export default {
       rubriquageId: undefined,
       rubriqueId: undefined,
       emissionId: undefined,
+      fromDate: undefined,
+      toDate: undefined,
       resetRubriquage: false,
+      sortEmission : 'SCORE',
     };
   },
 
@@ -88,6 +97,23 @@ export default {
   },
 
   methods:{
+    updateSortEmission(value){
+      this.sortEmission = value;
+    },
+    updateToDate(value){
+      if(value[0]){
+        this.toDate = value[1];
+      }else{
+        this.toDate = undefined;
+      }
+    },
+    updateFromDate(value){
+      if(value[0]){
+        this.fromDate = value[1];
+      }else{
+        this.fromDate = undefined;
+      }
+    },
     updateRubriquage(value){
       this.rubriquageId = value;
     },

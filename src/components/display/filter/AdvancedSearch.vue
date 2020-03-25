@@ -7,80 +7,94 @@
 		</div>
 	</div>
   <div class="advanced-search-container" v-if="showFilters" >
-    <MonetizableFilter @updateMonetization='updateMonetization' :isEmission='isEmission' v-if="isMonetizableFilter"/>
-		<div class="d-flex mt-3 align-items-center" v-if="organisationId && rubriquageDisplay">
-			<div class="checkbox-saooti flex-shrink">  
-				<input type="checkbox" class="custom-control-input" id="search-rubriquage-checkbox" v-model="isRubriquage">  
-				<label class="custom-control-label" for="search-rubriquage-checkbox">{{ $t('By topic') }}</label>  
-      </div>
-			<template v-if="isRubriquage">
-				<label class="wrap">
-					<select class="basic-select ml-2 mb-0 border" v-model="rubriquageId" @change="onRubriquageSelected">
-						<option 
-							v-for="rubriquage in rubriquageData" 
-							v-show="rubriquage.rubriques.length !== 0"
-							:key="rubriquage.rubriquageId" 
-							:value="rubriquage.rubriquageId"
-						>{{rubriquage.title}}</option>
-					</select>
-					<div class="saooti-arrow_down octopus-arrow-down-2"></div>
-				</label>
-				<div class="ml-3 flex-shrink">{{$t('By rubric')}}</div>
-				<RubriqueChooser 
-					class="ml-2"
-					:multiple='false' 
-					:rubriquageId='rubriquageId' 
-					:allRubriques='getRubriques(rubriquageId)' 
-					:defaultanswer='$t("No rubric filter")'
-					:reset='reset'
-					width='auto'
-					@selected="onRubriqueSelected"		
+		<div class="d-flex flex-column">
+			<div class="primary-color mb-2">{{$t('Filter emissions')}}</div>
+			<MonetizableFilter @updateMonetization='updateMonetization' :isEmission='isEmission' v-if="isMonetizableFilter"/>
+			<div class="d-flex mt-3 align-items-center" v-if="organisationId && rubriquageDisplay">
+				<div class="checkbox-saooti flex-shrink">  
+					<input type="checkbox" class="custom-control-input" id="search-rubriquage-checkbox" v-model="isRubriquage">  
+					<label class="custom-control-label" for="search-rubriquage-checkbox">{{ $t('By topic') }}</label>  
+				</div>
+				<template v-if="isRubriquage">
+					<label class="wrap">
+						<select class="basic-select ml-2 mb-0 border" v-model="rubriquageId" @change="onRubriquageSelected">
+							<option 
+								v-for="rubriquage in rubriquageData" 
+								v-show="rubriquage.rubriques.length !== 0"
+								:key="rubriquage.rubriquageId" 
+								:value="rubriquage.rubriquageId"
+							>{{rubriquage.title}}</option>
+						</select>
+						<div class="saooti-arrow_down octopus-arrow-down-2"></div>
+					</label>
+					<div class="ml-3 flex-shrink">{{$t('By rubric')}}</div>
+					<RubriqueChooser 
+						class="ml-2"
+						:multiple='false' 
+						:rubriquageId='rubriquageId' 
+						:allRubriques='getRubriques(rubriquageId)' 
+						:defaultanswer='$t("No rubric filter")'
+						:reset='reset'
+						width='auto'
+						@selected="onRubriqueSelected"		
+					/>
+				</template>
+			</div>
+			<div class="d-flex mt-3 align-items-center">
+				<div class="mr-2" v-if="isEmission">{{$t('Emission with episode published :')}}</div>
+				<div class="checkbox-saooti flex-shrink">  
+					<input type="checkbox" class="custom-control-input" id="search-from-checkbox" v-model="isFrom">  
+					<label class="custom-control-label" for="search-from-checkbox">{{ $t('From the :') }}</label>  
+				</div>
+				<Datetime
+					type="datetime"
+					moment-locale="fr"
+					v-model="fromDate"
+					class="theme-saooti pl-3"
+					@input="updateFromDate"
+					:i18n="lang"
 				/>
-			</template>
+				<div class="checkbox-saooti flex-shrink ml-3">  
+					<input type="checkbox" class="custom-control-input" id="search-to-checkbox" v-model="isTo">  
+					<label class="custom-control-label" for="search-to-checkbox">{{ $t('To the :') }}</label>  
+				</div>
+				<Datetime
+					type="datetime"
+					moment-locale="fr"
+					v-model="toDate"
+					class="theme-saooti pl-3"
+					@input="updateToDate"
+					:i18n="lang"
+				/>
+			</div>
+			<div class="d-flex flex-column mt-3" v-if="organisationRight && false">
+				<div class="checkbox-saooti flex-shrink">  
+					<input type="checkbox" class="custom-control-input" id="search-visible-checkbox" v-model="isVisible" :disabled='lastCheckbox(isVisible)'>  
+					<label class="custom-control-label" for="search-visible-checkbox">{{ $t('Visible') }}</label>  
+				</div>
+				<div class="checkbox-saooti flex-shrink">  
+					<input type="checkbox" class="custom-control-input" id="search-inCreate-checkbox" v-model="isInCreate" :disabled='lastCheckbox(isInCreate)'>  
+					<label class="custom-control-label" for="search-inCreate-checkbox">{{ $t('In creation') }}</label>  
+				</div>
+				<div class="checkbox-saooti flex-shrink">  
+					<input type="checkbox" class="custom-control-input" id="search-future-checkbox" v-model="isFuture" :disabled='lastCheckbox(isFuture)'>  
+					<label class="custom-control-label" for="search-future-checkbox">{{ $t('Publish in future') }}</label>  
+				</div>
+				<div class="checkbox-saooti flex-shrink">  
+					<input type="checkbox" class="custom-control-input" id="search-error-checkbox" v-model="isError" :disabled='lastCheckbox(isError)'>  
+					<label class="custom-control-label" for="search-error-checkbox">{{ $t('In error') }}</label>  
+				</div>
+			</div>
 		</div>
-		<div class="d-flex mt-3 align-items-center" v-if="!isEmission">
-			<div class="checkbox-saooti flex-shrink">  
-				<input type="checkbox" class="custom-control-input" id="search-from-checkbox" v-model="isFrom">  
-				<label class="custom-control-label" for="search-from-checkbox">{{ $t('From the :') }}</label>  
-      </div>
-			<Datetime
-				type="datetime"
-				moment-locale="fr"
-				v-model="fromDate"
-				class="theme-saooti pl-3"
-				@input="updateFromDate"
-				:i18n="lang"
-      />
-			<div class="checkbox-saooti flex-shrink ml-3">  
-				<input type="checkbox" class="custom-control-input" id="search-to-checkbox" v-model="isTo">  
-				<label class="custom-control-label" for="search-to-checkbox">{{ $t('To the :') }}</label>  
-      </div>
-			<Datetime
-				type="datetime"
-				moment-locale="fr"
-				v-model="toDate"
-				class="theme-saooti pl-3"
-				@input="updateToDate"
-				:i18n="lang"
-      />
-		</div>
-		<div class="d-flex flex-column mt-3" v-if="organisationRight && false">
-			<div class="checkbox-saooti flex-shrink">  
-				<input type="checkbox" class="custom-control-input" id="search-visible-checkbox" v-model="isVisible" :disabled='lastCheckbox(isVisible)'>  
-				<label class="custom-control-label" for="search-visible-checkbox">{{ $t('Visible') }}</label>  
-      </div>
-			<div class="checkbox-saooti flex-shrink">  
-				<input type="checkbox" class="custom-control-input" id="search-inCreate-checkbox" v-model="isInCreate" :disabled='lastCheckbox(isInCreate)'>  
-				<label class="custom-control-label" for="search-inCreate-checkbox">{{ $t('In creation') }}</label>  
-      </div>
-			<div class="checkbox-saooti flex-shrink">  
-				<input type="checkbox" class="custom-control-input" id="search-future-checkbox" v-model="isFuture" :disabled='lastCheckbox(isFuture)'>  
-				<label class="custom-control-label" for="search-future-checkbox">{{ $t('Publish in future') }}</label>  
-      </div>
-			<div class="checkbox-saooti flex-shrink">  
-				<input type="checkbox" class="custom-control-input" id="search-error-checkbox" v-model="isError" :disabled='lastCheckbox(isError)'>  
-				<label class="custom-control-label" for="search-error-checkbox">{{ $t('In error') }}</label>  
-      </div>
+		<div class="d-flex flex-column ml-3" v-if="isEmission">
+			<div class="primary-color mb-2">{{$t('Sort emissions')}}</div>
+			<b-form-group>
+				<b-form-radio-group v-model="emissionSort" class="d-flex flex-column">
+					<b-form-radio value="SCORE">{{$t('Sort score')}}</b-form-radio>
+					<b-form-radio value="LAST_PODCAST_DESC">{{$t('Sort last')}}</b-form-radio>
+					<b-form-radio value="NAME">{{$t('Sort name')}}</b-form-radio>
+				</b-form-radio-group>
+			</b-form-group>
 		</div>
   </div>
 </div>
@@ -96,7 +110,6 @@
 	background: #fff;
   border-radius: 2rem;
 	display: flex;
-	flex-direction: column;
   width: 100%;
 	padding: 1rem;
 	margin: 1rem;
@@ -155,6 +168,7 @@ export default {
 			isError: false,
 			showFilters : false,
 			reset: false,
+			emissionSort: 'SCORE',
     };
   },
 
@@ -290,6 +304,9 @@ export default {
 				this.$emit('updateRubriquage', undefined);
 				this.$emit('updateRubrique', undefined);
 			}
+		},
+		emissionSort(newVal){
+			this.$emit('updateSortEmission', newVal);
 		},
 		resetRubriquage(){
 			this.isRubriquage = false;

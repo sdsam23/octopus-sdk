@@ -72,7 +72,7 @@ import {state} from "../../../store/paramStore.js";
 export default {
   name: 'EmissionList',
 
-  props: ['first', 'size', 'query', 'organisationId', 'monetization','rubriqueId', 'rubriquageId'],
+  props: ['first', 'size', 'query', 'organisationId', 'monetization','rubriqueId', 'rubriquageId', 'before', 'after', 'sort'],
 
   components: {
     EmissionItem,
@@ -106,6 +106,10 @@ export default {
     },
     itemPlayer(){
       return state.emissionsPage.itemPlayer;
+    },
+    changed(){
+      return `${this.first}|${this.size}|${this.organisationId}|${this.query}|${this.monetization}|
+      ${this.rubriqueId}|${this.rubriquageId}|${this.before}|${this.after}|${this.sort}`;
     }
   },
 
@@ -127,6 +131,9 @@ export default {
           monetisable: self.monetization,
           rubriqueId: self.rubriqueId,
           rubriquageId: self.rubriquageId,
+          before: this.before,
+          after: this.after,
+          sort: this.sort
         })
         .then(function(data) {
           self.$data.loading = false;
@@ -146,28 +153,8 @@ export default {
   },
 
   watch: {
-    query: {
-      handler() {
-        this.fetchContent(true);
-      },
-    },
-    organisationId: {
-      handler() {
-        this.fetchContent(true);
-      },
-    },
-    monetization: {
-      handler() {
-        this.fetchContent(true);
-      },
-    },
-    rubriqueId: {
-      handler() {
-        this.fetchContent(true);
-      },
-    },
-    rubriquageId: {
-      handler() {
+    changed:{
+       handler() {
         this.fetchContent(true);
       },
     },
