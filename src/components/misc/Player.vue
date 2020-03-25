@@ -166,6 +166,7 @@ export default {
       notListenTime: 0,
       lastSend:0,
       downloadId: undefined,
+      new : true,
     };
   },
   mounted(){
@@ -310,6 +311,10 @@ export default {
     },
 
     onTimeUpdate(event) {
+      if(this.new){
+        this.new = false;
+        this.startListeningProgress();
+      }
       this.listenTime = event.currentTarget.currentTime - this.notListenTime;
       const duration = event.currentTarget.duration;
       const currentTime = event.currentTarget.currentTime;
@@ -364,7 +369,7 @@ export default {
     },
     podcastAudioURL(newVal){
       if(newVal !== ""){
-        this.startListeningProgress();
+        this.new = true;
       }
     },
     listenTime(newVal){
