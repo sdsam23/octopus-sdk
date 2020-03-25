@@ -167,6 +167,7 @@ export default {
       lastSend:0,
       downloadId: undefined,
       new : true,
+      saveCookie : undefined,
     };
   },
   mounted(){
@@ -346,11 +347,23 @@ export default {
       if(this.downloadId){
         this.endListeningProgress();
       }
-      let cookiestring = RegExp("player_"+ this.$store.state.player.podcast.podcastId +"=[^;]+").exec(document.cookie);
-      this.downloadId = decodeURIComponent(cookiestring ? cookiestring.toString().replace(/^[^=]+./,"") : "");
+      this.loadDownloadId(0);
       ///Localhost/////////
       /* this.downloadId = "test"; */
       //////
+    },
+
+    loadDownloadId(index) {
+      if(index < 5){
+        setTimeout(()=>{
+          let cookiestring = RegExp("player_"+ this.$store.state.player.podcast.podcastId +"=[^;]+").exec(document.cookie);
+          if(cookiestring !== null){
+            this.downloadId = decodeURIComponent(cookiestring ? cookiestring.toString().replace(/^[^=]+./,"") : "");
+          } else{
+            this.loadDownloadId(index + 1);
+          }
+        }, 500);
+      }
     },
 
     endListeningProgress(){
