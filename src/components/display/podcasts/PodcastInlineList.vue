@@ -50,7 +50,7 @@
     padding: 0;
     display: flex;
     flex-wrap: nowrap;
-    justify-content: space-between;
+    justify-content: left;
     display: grid	;
     grid-auto-flow: column;
     grid-gap: 1rem;
