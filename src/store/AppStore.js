@@ -12,6 +12,7 @@ export default new Vuex.Store({
       volume: 1, //From 0 to 1
       elapsed: 0, //From 0 to 1
       total: 0,
+      media : undefined
     },
     authentication:{
       isAuthenticated : true,
@@ -33,15 +34,26 @@ export default new Vuex.Store({
       } else {
         if (
           state.player.podcast &&
-          state.player.podcast.podcastId === podcast.podcastId
+          (state.player.podcast.podcastId === podcast.podcastId ||
+           state.player.podcast.mediaId === podcast.mediaId)
         ) {
           //Do nothing
         } else {
-          state.player = {
-            status: 'LOADING', //STOPPED, LOADING, PLAYING, PAUSED
-            podcast: podcast,
-            elapsed: 0,
-          };
+          if(podcast.podcastId){
+            state.player = {
+              status: 'LOADING', //STOPPED, LOADING, PLAYING, PAUSED
+              podcast: podcast,
+              media: undefined,
+              elapsed: 0,
+            };
+          }else{
+            state.player = {
+              status: 'LOADING', //STOPPED, LOADING, PLAYING, PAUSED
+              podcast: undefined,
+              media: podcast,
+              elapsed: 0,
+            };
+          }
         }
       }
     },
