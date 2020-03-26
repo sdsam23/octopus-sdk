@@ -64,6 +64,11 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.13.23 Taux de complétion négatif
  * 0.13.24 Taux de complétion d'écoute sur Octopus incorrect
  * 0.13.25 PB responsive sur le player podcastmaker de l'indépendant 
+ * 0.13.26 Taux de complétion d'écoute sur Octopus incorrect
+ * 0.13.27 Player horizontal : améliorer gestion espace blanc avant/après
+ * 0.13.28 Taux de complétion d'écoute sur Octopus incorrect
+ * 0.13.29 Style popup
+
 
  * 0.14.0 Nouveau sprint
  * 0.14.1 Merge de staging
