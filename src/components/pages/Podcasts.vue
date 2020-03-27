@@ -19,6 +19,7 @@
     @updateMonetization='updateMonetization' 
     @updateFromDate='updateFromDate'
     @updateToDate='updateToDate'
+    @includeHidden='updateHidden'
     :organisationId='organisationId'/>
     <PodcastList 
     :first="first" 
@@ -30,7 +31,8 @@
     :rubriqueId='rubriqueId'
     :rubriquageId='rubriquageId'
     :before='toDate'
-    :after='fromDate'/>
+    :after='fromDate'
+    :includeHidden='includeHidden'/>
   </div>
 </template>
 <style lang="scss">
@@ -82,7 +84,7 @@ export default {
       fromDate: undefined,
       toDate: undefined,
       resetRubriquage: false,
-      
+      includeHidden : false,
     };
   },
 
@@ -99,6 +101,9 @@ export default {
   },
 
   methods:{
+    updateHidden(value){
+      this.includeHidden = value;
+    },
     updateToDate(value){
       if(value[0]){
         this.toDate = value[1];

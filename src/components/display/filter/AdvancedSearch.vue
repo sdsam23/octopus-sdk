@@ -67,23 +67,23 @@
 					:i18n="lang"
 				/>
 			</div>
-			<div class="d-flex flex-column mt-3" v-if="organisationRight && false">
+			<div class="d-flex flex-column mt-3" v-if="organisationRight && !isEmission && !isPodcastmaker">
 				<div class="checkbox-saooti flex-shrink">  
-					<input type="checkbox" class="custom-control-input" id="search-visible-checkbox" v-model="isVisible" :disabled='lastCheckbox(isVisible)'>  
+					<input type="checkbox" class="custom-control-input" id="search-visible-checkbox" v-model="isVisible" :disabled='true || lastCheckbox(isVisible)'>  
 					<label class="custom-control-label" for="search-visible-checkbox">{{ $t('Visible') }}</label>  
 				</div>
-				<div class="checkbox-saooti flex-shrink">  
+				<!-- <div class="checkbox-saooti flex-shrink">  
 					<input type="checkbox" class="custom-control-input" id="search-inCreate-checkbox" v-model="isInCreate" :disabled='lastCheckbox(isInCreate)'>  
 					<label class="custom-control-label" for="search-inCreate-checkbox">{{ $t('In creation') }}</label>  
-				</div>
+				</div> -->
 				<div class="checkbox-saooti flex-shrink">  
 					<input type="checkbox" class="custom-control-input" id="search-future-checkbox" v-model="isFuture" :disabled='lastCheckbox(isFuture)'>  
 					<label class="custom-control-label" for="search-future-checkbox">{{ $t('Publish in future') }}</label>  
 				</div>
-				<div class="checkbox-saooti flex-shrink">  
+				<!-- <div class="checkbox-saooti flex-shrink">  
 					<input type="checkbox" class="custom-control-input" id="search-error-checkbox" v-model="isError" :disabled='lastCheckbox(isError)'>  
 					<label class="custom-control-label" for="search-error-checkbox">{{ $t('In error') }}</label>  
-				</div>
+				</div> -->
 			</div>
 		</div>
 		<div class="d-flex flex-column ml-3" v-if="isEmission">
@@ -146,7 +146,15 @@ export default {
 
   created() {
 		this.fetchTopics();
-  },
+	},
+	
+	mounted(){
+		if(this.organisationRight){
+			this.isInCreate = true;
+			this.isFuture = true;
+			this.isError = true;
+		}
+	},
 
   data() {
     return {
@@ -206,6 +214,9 @@ export default {
       }
       return false;
 		},
+		isPodcastmaker(){
+      return state.generalParameters.podcastmaker;
+    },
   },
 
   methods:{
@@ -215,16 +226,17 @@ export default {
 				if(!this.isVisible){
 					i++;
 				}
-				if(!this.isInCreate){
+				/* if(!this.isInCreate){
 					i++;
 				}
 				if(!this.isError){
 					i++;
-				}
+				} */
 				if(!this.isFuture){
 					i++;
 				}
-				return i === 3;
+				/* return i === 3; */
+				return i === 1;
 			}else{
 				return false;
 			}
@@ -281,11 +293,6 @@ export default {
 				});
 			}
 		},
-		updateVisible(){
-			if(!this.isInCreate && !this.isFuture && !this.isError){
-				this.isVisible = true;
-			}
-		}
 	},
 	watch:{
 		organisationId(){
@@ -310,6 +317,12 @@ export default {
 		},
 		resetRubriquage(){
 			this.isRubriquage = false;
+		},
+		isVisible(){
+			//emit quelqueChose
+		},
+		isFuture(newVal){
+			this.$emit('includeHidden', newVal);
 		}
 	}
 };
