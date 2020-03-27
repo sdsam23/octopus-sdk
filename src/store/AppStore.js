@@ -29,6 +29,7 @@ export default new Vuex.Store({
         state.player = {
           status: 'STOPPED', //STOPPED, LOADING, PLAYING, PAUSED
           podcast: undefined,
+          media: undefined,
           elapsed: 0,
         };
       } else {
