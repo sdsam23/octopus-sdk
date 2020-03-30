@@ -224,24 +224,29 @@ export default {
 
   methods:{
 		lastCheckbox(value){
-			if(value){
-				let i = 0;
-				if(!this.isVisible){
-					i++;
+			if(this.organisationId === undefined){
+				this.isFuture = false;
+				return true;
+			} else{
+				if(value){
+					let i = 0;
+					if(!this.isVisible){
+						i++;
+					}
+					/* if(!this.isInCreate){
+						i++;
+					}
+					if(!this.isError){
+						i++;
+					} */
+					if(!this.isFuture){
+						i++;
+					}
+					/* return i === 3; */
+					return i === 1;
+				}else{
+					return false;
 				}
-				/* if(!this.isInCreate){
-					i++;
-				}
-				if(!this.isError){
-					i++;
-				} */
-				if(!this.isFuture){
-					i++;
-				}
-				/* return i === 3; */
-				return i === 1;
-			}else{
-				return false;
 			}
 		},
 		updateFromDate(){
