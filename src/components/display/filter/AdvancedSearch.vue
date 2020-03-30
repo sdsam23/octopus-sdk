@@ -6,18 +6,18 @@
 			<div class="saooti-arrow_drop_down"></div>
 		</div>
 	</div>
-  <div class="advanced-search-container" v-if="showFilters" >
+  <div class="advanced-search-container" v-show="showFilters" >
 		<div class="d-flex flex-column">
 			<div class="primary-color mb-2">{{$t('Filter emissions')}}</div>
 			<MonetizableFilter @updateMonetization='updateMonetization' :isEmission='isEmission' v-if="isMonetizableFilter"/>
-			<div class="d-flex mt-3 align-items-center" v-if="organisationId && rubriquageDisplay">
+			<div class="d-flex mt-3 align-items-center rubrique-select-height" v-if="organisationId && rubriquageDisplay">
 				<div class="checkbox-saooti flex-shrink">  
 					<input type="checkbox" class="custom-control-input" id="search-rubriquage-checkbox" v-model="isRubriquage">  
 					<label class="custom-control-label" for="search-rubriquage-checkbox">{{ $t('By topic') }}</label>  
 				</div>
 				<template v-if="isRubriquage">
 					<label class="wrap">
-						<select class="basic-select ml-2 mb-0 border" v-model="rubriquageId" @change="onRubriquageSelected">
+						<select class="basic-select ml-2 mb-0 border c-hand" v-model="rubriquageId" @change="onRubriquageSelected">
 							<option 
 								v-for="rubriquage in rubriquageData" 
 								v-show="rubriquage.rubriques.length !== 0"
@@ -25,7 +25,7 @@
 								:value="rubriquage.rubriquageId"
 							>{{rubriquage.title}}</option>
 						</select>
-						<div class="saooti-arrow_down octopus-arrow-down-2"></div>
+						<div class="saooti-arrow_down octopus-arrow-down-2 classic-select"></div>
 					</label>
 					<div class="ml-3 flex-shrink">{{$t('By rubric')}}</div>
 					<RubriqueChooser 
@@ -108,11 +108,11 @@
 }
 .advanced-search-container{
 	background: #fff;
-  border-radius: 2rem;
+  border-radius: 0.8rem;
 	display: flex;
   width: 100%;
 	padding: 1rem;
-	margin: 1rem;
+	margin-bottom: 1rem;
 	label.wrap { 
 		position: relative;
 		margin:0;
@@ -121,6 +121,9 @@
 		-webkit-appearance: none;
 		-moz-appearance: none;
 		appearance: none;
+	}
+	.rubrique-select-height{
+		height: 30px;
 	}
 }
 
@@ -242,13 +245,13 @@ export default {
 			}
 		},
 		updateFromDate(){
-			if(this.isFrom){
-				this.$emit('updateFromDate', [true, this.fromDate]);
+			if(moment(this.fromDate).startOf('minute').toISOString() !== moment().subtract(10, "days").startOf('minute').toISOString()){
+				this.isFrom = true;
 			}
 		},
 		updateToDate(){
-			if(this.isTo){
-				this.$emit('updateToDate', [true, this.toDate]);
+			if(moment(this.toDate).startOf('minute').toISOString() !== moment().startOf('minute').toISOString()){
+				this.isTo = true;
 			}
 		},
 		getRubriques(rubriquageId){
@@ -299,10 +302,18 @@ export default {
 			this.fetchTopics();
 		},
 		isFrom(newVal){
-			this.$emit('updateFromDate', [newVal, this.fromDate]);
+			if(newVal){
+				this.$emit('updateFromDate', this.fromDate);
+			}else{
+				this.$emit('updateFromDate', undefined);
+			}
 		},
 		isTo(newVal){
-			this.$emit('updateToDate', [newVal, this.toDate]);
+			if(newVal){
+				this.$emit('updateToDate', this.toDate);
+			}else{
+				this.$emit('updateToDate', undefined);
+			}
 		},
 		isRubriquage(newVal){
 			if(newVal){

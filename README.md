@@ -82,3 +82,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.14.9 amélioration filtrage
  * 0.14.10 Adaptation du player pour standalone Media
  * 0.14.11 Nouvelle version du tri
+ * 0.14.12 Pétouilles recherche avancée

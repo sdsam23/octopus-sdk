@@ -105,18 +105,10 @@ export default {
       this.includeHidden = value;
     },
     updateToDate(value){
-      if(value[0]){
-        this.toDate = value[1];
-      }else{
-        this.toDate = undefined;
-      }
+      this.toDate = value;
     },
     updateFromDate(value){
-      if(value[0]){
-        this.fromDate = value[1];
-      }else{
-        this.fromDate = undefined;
-      }
+      this.fromDate = value;
     },
     updateRubriquage(value){
       this.rubriquageId = value;
