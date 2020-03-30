@@ -56,6 +56,7 @@
 
 <script>
 import octopusApi from "@saooti/octopus-api";
+import podcastApi from '@/api/podcasts';
 import PodcastItem from './PodcastItem.vue';
 import {state} from "../../../store/paramStore.js";
 
@@ -77,6 +78,7 @@ export default {
     rubriquageId: {default:undefined},
     before: {default:undefined},
     after: {default:undefined},
+    includeHidden:{default:false},
   },
 
   components: {
@@ -108,7 +110,7 @@ export default {
     changed(){
       return `${this.first}|${this.size}|${this.organisationId}|${this.emissionId}|
       ${this.iabId}|${this.participantId}|${this.query}|${this.monetization}|${this.popularSort}|
-      ${this.rubriqueId}|${this.rubriquageId}|${this.before}|${this.after}`;
+      ${this.rubriqueId}|${this.rubriquageId}|${this.before}|${this.after}|${this.includeHidden}`;
     }
   },
 
@@ -120,40 +122,54 @@ export default {
         this.loading = true;
         this.loaded = false;
       }
-      octopusApi
-        .fetchPodcasts({
-          first: this.dfirst,
-          size: this.dsize,
-          organisationId: this.organisationId,
-          emissionId: this.emissionId,
-          iabId: this.iabId,
-          participantId: this.participantId,
-          query: this.query,
-          monetisable: this.monetization,
-          sort: this.popularSort ? "POPULARITY" : "DATE",
-          rubriqueId: this.rubriqueId,
-          rubriquageId: this.rubriquageId,
-          before: this.before,
-          after: this.after,
-        })
-        .then((data)=> {
-          if (reset) {
-            this.podcasts = [];
-            this.dfirst = 0;
-            this.loading = true;
-            this.loaded = false;
-          }
-          this.loading = false;
-          this.loaded = true;
-          this.podcasts = this.podcasts.concat(data.result).filter((p)=>{
-            return p!== null;
-          });
-          this.dfirst += this.dsize;
-          this.totalCount = data.count;
-          if(this.podcasts.length === 0){
-            this.$emit('emptyList');
-          }
+      let param = {
+        first: this.dfirst,
+        size: this.dsize,
+        organisationId: this.organisationId,
+        emissionId: this.emissionId,
+        iabId: this.iabId,
+        participantId: this.participantId,
+        query: this.query,
+        monetisable: this.monetization,
+        sort: this.popularSort ? "POPULARITY" : "DATE",
+        rubriqueId: this.rubriqueId,
+        rubriquageId: this.rubriquageId,
+        before: this.before,
+        after: this.after,
+      }
+      if(this.includeHidden){
+        param.includeHidden = this.includeHidden;
+        podcastApi
+        .fetchPodcastsAdmin(this.$store, param).then((data)=> {
+          this.afterFetching(reset, data);
         });
+      }else{
+        octopusApi
+        .fetchPodcasts(param)
+        .then((data)=> {
+          this.afterFetching(reset, data);
+        });
+      }
+     
+    },
+
+    afterFetching(reset, data){
+      if (reset) {
+        this.podcasts = [];
+        this.dfirst = 0;
+        this.loading = true;
+        this.loaded = false;
+      }
+      this.loading = false;
+      this.loaded = true;
+      this.podcasts = this.podcasts.concat(data.result).filter((p)=>{
+        return p!== null;
+      });
+      this.dfirst += this.dsize;
+      this.totalCount = data.count;
+      if(this.podcasts.length === 0){
+        this.$emit('emptyList');
+      }
     },
 
     displayMore(event) {

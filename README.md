@@ -81,5 +81,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.14.8 merge et filtrage avancé par dates
  * 0.14.9 amélioration filtrage
  * 0.14.10 Adaptation du player pour standalone Media
- * 0.14.11 Customization de player, trac 8513
-
+ * 0.14.11 Nouvelle version du tri
+ * 0.14.12 Pétouilles recherche avancée
+ * 0.14.13 Customization de player, trac 8513
