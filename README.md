@@ -84,3 +84,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.14.11 Nouvelle version du tri
  * 0.14.12 Pétouilles recherche avancée
  * 0.14.13 Customization de player, trac 8513
+ * 0.14.14 Recherche avancée

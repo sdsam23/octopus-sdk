@@ -68,7 +68,7 @@
 				/>
 			</div>
 			<div class="d-flex flex-column mt-3" v-if="organisationRight && !isEmission && !isPodcastmaker">
-				<div class="checkbox-saooti flex-shrink">  
+				<div class="checkbox-saooti flex-shrink" v-show="false">  
 					<input type="checkbox" class="custom-control-input" id="search-visible-checkbox" v-model="isVisible" :disabled='true || lastCheckbox(isVisible)'>  
 					<label class="custom-control-label" for="search-visible-checkbox">{{ $t('Visible') }}</label>  
 				</div>
