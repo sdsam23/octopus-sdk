@@ -45,7 +45,7 @@ var initialize = function initialize(initObject){
     if(initObject.podcastPage){
       let param = initObject.podcastPage;
       state.podcastPage.EditBox = (typeof param.EditBox !== "undefined") ? param.EditBox : false;
-      state.podcastPage.SharePlayer = (typeof param.SharePlayer !== "undefined") ? param.SharePlayer : false;
+      state.podcastPage.SharePlayer = (typeof param.SharePlayer !== "undefined") ? param.SharePlayer : true;
       state.podcastPage.ShareButtons = (typeof param.ShareButtons !== "undefined") ? param.ShareButtons : true;
       state.podcastPage.ShareDistribution = (typeof param.ShareDistribution !== "undefined")? param.ShareDistribution : false;
       state.podcastPage.MiniplayerUri = (typeof param.MiniplayerUri !== "undefined") ? param.MiniplayerUri : 'https://player.dev2.saooti.org/';
