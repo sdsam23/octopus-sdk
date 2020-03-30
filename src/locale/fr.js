@@ -407,6 +407,6 @@ export default {
     'Sort score': 'Par pertinence',
     'Sort name': 'Par ordre alphabétique',
     'Sort last': 'Par ordre antechronologique',
-    'Choose color':'Choisissez la couleur',
+    'Choose color':'Modification de la couleur principale du player',
   };
   
