@@ -129,6 +129,15 @@
     flex-basis: 20px;
     overflow: hidden;
   }
+  .player-title {
+    font-size: 0.8rem;
+    margin: 0 0 5px 0;
+  }
+
+  .hide-phone {
+    font-size: 0.8rem;
+    margin: 0 0 5px 0;
+}
 }
 /** PHONES*/
 @media (max-width: 960px) {

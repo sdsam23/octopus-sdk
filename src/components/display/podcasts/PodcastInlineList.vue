@@ -45,17 +45,17 @@
 }
 
   .podcast-list-inline {
-    align-self: stretch;
-    flex-grow: 1;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    display: grid	;
-    grid-auto-flow: column;
-    grid-gap: 1rem;
-    grid-row: 1;
+  align-self: stretch;
+  flex-grow: 1;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  display: grid	;
+  grid-auto-flow: column;
+  grid-gap: 1rem;
+  grid-row: 1;
   }
   .out-left-enter-active,
   .out-left-leave-active,

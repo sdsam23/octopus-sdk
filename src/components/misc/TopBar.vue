@@ -86,6 +86,11 @@
 
       .hamburger-menu {
         display: block;
+        .saooti-burger-menu {
+          font-size: 2.2em;
+          font-weight: bold;
+          margin: 0;
+        }
       }
       .top-bar-logo {
         flex-grow: 1;

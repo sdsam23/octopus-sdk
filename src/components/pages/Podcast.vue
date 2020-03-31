@@ -79,7 +79,6 @@
           <SharePlayer
             :podcast="podcast"
             :emissionId="podcast.emission.emissionId"
-            
             :exclusive="exclusive"
             :organisationId='organisationId'
             v-if="isSharePlayer"
