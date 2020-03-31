@@ -89,3 +89,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.14.16 Mise à jour de l'image de la topbar
  * 0.14.17 Merge dev-fabien
  * 0.14.18 Sticker invisible
+ * 0.14.19 Sticker invisible

@@ -22,11 +22,12 @@
     <div class="background-icon saooti-arrow-down2" v-if="isDescription && displayDescription && isMobile" @click="showDescription"></div>
   </template>
   <template v-else>
-    <div class="d-flex w-100 h-100 justify-content-center align-items-center transparent-background">
+    <div class="d-flex flex-column w-100 h-100 justify-content-center align-items-center transparent-background">
       <img
         src="/img/novisible.png"
         class="no-visible-img"
       />
+      <div class="small-Text mt-2 font-weight-bold">{{$t('Podcast no visible')}}</div>
     </div>
   </template>
   </div>
@@ -36,6 +37,8 @@
 .no-visible-img{
   width: 4rem;
   height: 4rem;
+  background: #ccc;
+  border-radius: 50%;
 }
 .transparent-background{
   background-color: rgba(255,255,255, .5);

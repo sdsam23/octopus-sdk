@@ -408,5 +408,6 @@ export default {
     'Sort name': 'Par ordre alphabétique',
     'Sort last': 'Par ordre antechronologique',
     'Choose color':'Modification de la couleur principale du player',
+    'Podcast no visible':'Épisode non visible actuellement'
   };
   
