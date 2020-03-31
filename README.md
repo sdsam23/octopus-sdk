@@ -86,3 +86,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.14.13 Customization de player, trac 8513
  * 0.14.14 Recherche avancée
  * 0.14.15 Amélioration recherche avancée
+ * 0.14.16 Mise à jour de l'image de la topbar

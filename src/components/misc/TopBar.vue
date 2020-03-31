@@ -141,7 +141,6 @@ export default {
       imageLogin.style.background = "url(" + this.imageUrl + ")";
       imageLogin.style.backgroundSize = "cover";
     }
-    
     window.addEventListener("scroll", this.handleScroll);
   },
   beforeDestroy() {
@@ -212,5 +211,14 @@ export default {
     }
   },
 
+  watch:{
+    imageUrl(newVal){
+      if(newVal){
+        let imageLogin = document.getElementsByClassName('btn-rounded-icon')[0];
+        imageLogin.style.background = "url(" + newVal + ")";
+        imageLogin.style.backgroundSize = "cover";
+      }
+    }
+  }
 };
 </script>
