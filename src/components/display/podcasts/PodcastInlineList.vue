@@ -28,8 +28,8 @@
       <div class="spinner-border mr-3"></div>
       <h3 class="mt-2">{{ $t('Loading podcasts ...') }}</h3>
     </div>
-    <transition-group :name="transitionName" class="podcast-list-inline" tag="ul" v-show="loaded">
-      <PodcastItem class="flex-shrink item-phone-margin" v-bind:podcast="p" v-for="p in podcasts" v-bind:key="p.podcastId" />
+    <transition-group :name="transitionName" class="podcast-list-inline" tag="ul" v-show="loaded" :class="[alignLeft? 'justify-content-start':'']">
+      <PodcastItem class="flex-shrink item-phone-margin" v-bind:podcast="p" v-for="p in podcasts" v-bind:key="p.podcastId" :class="[alignLeft? 'mr-3':'']"/>
     </transition-group>
     <router-link class="btn btn-link" :class="buttonPlus? 'btn-linkPlus': ''" v-bind:to="href">{{buttonText}}<div class="saooti-plus" v-if="buttonPlus"></div></router-link>
   </div>
@@ -44,46 +44,46 @@
   }
 }
 
-  .podcast-list-inline {
-    align-self: stretch;
-    flex-grow: 1;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    display: grid	;
-    grid-auto-flow: column;
-    grid-gap: 1rem;
-    grid-row: 1;
-  }
-  .out-left-enter-active,
-  .out-left-leave-active,
-  .out-right-enter-active,
-  .out-right-leave-active {
-    transition: all 0.3s ease;
-  }
+.podcast-list-inline {
+  align-self: stretch;
+  flex-grow: 1;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  display: grid	;
+  grid-auto-flow: column;
+  grid-gap: 1rem;
+  grid-row: 1;
+}
+.out-left-enter-active,
+.out-left-leave-active,
+.out-right-enter-active,
+.out-right-leave-active {
+  transition: all 0.3s ease;
+}
 
-  .out-left-leave-to,
-  .out-right-enter {
-    transform: translateX(-110%);
-    opacity: 0;
-  }
+.out-left-leave-to,
+.out-right-enter {
+  transform: translateX(-110%);
+  opacity: 0;
+}
 
-  .out-left-enter,
-  .out-right-leave-to {
-    transform: translateX(110%);
-    opacity: 0;
-  }
+.out-left-enter,
+.out-right-leave-to {
+  transform: translateX(110%);
+  opacity: 0;
+}
 
-  .out-left-leave-to,
-  .out-right-leave-to {
-    position: absolute;
-  }
-  .out-right-leave-to {
-    right: 5rem;
-    z-index: -1;
-  }
+.out-left-leave-to,
+.out-right-leave-to {
+  position: absolute;
+}
+.out-right-leave-to {
+  right: 5rem;
+  z-index: -1;
+}
 /** PHONES*/
 @media (max-width: 960px) {
   .podcast-list-inline{
@@ -158,7 +158,8 @@ export default {
       totalCount: 0,
       popularSort: true,
       allPodcasts: [],
-      direction: 1
+      direction: 1,
+      alignLeft : false,
     };
   },
 
@@ -199,6 +200,9 @@ export default {
             this.preloadImage(nexEl.imageUrl);
           }
           this.allPodcasts = this.allPodcasts.concat(data.result);
+          if(this.allPodcasts.length <= 3){
+            this.alignLeft = true;
+          }
           this.first += this.size;
         });
     },

@@ -28,7 +28,6 @@
 </template>
 
 <style lang="scss">
-
 .podcast-list {
   align-self: stretch;
   flex-grow: 1;
