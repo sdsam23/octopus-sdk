@@ -69,3 +69,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.13.28 Taux de complétion d'écoute sur Octopus incorrect
  * 0.13.29 Style popup
  * 0.13.30 Merge staging-fabien
+ * 0.13.31 Amélioration list inline
