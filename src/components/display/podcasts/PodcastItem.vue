@@ -34,7 +34,7 @@
 
 <style lang="scss">
 .podcast-item-container {
-  border-radius: 0.5rem;
+  border-radius: 0.8rem;
   list-style: none;
   position: relative;
   width: 13rem;

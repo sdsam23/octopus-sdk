@@ -3,9 +3,11 @@
     <div class="module-box text-center-mobile">
       <h3>{{ $t('Embed') }}</h3>
       <div class="d-flex flex-column align-items-center" v-if="!exclusive && authenticated">
-        <div v-if="noAd" class="sticker" :title="$t('You cannot insert advertising')">
-          {{ $t('No advertising') }}
-        </div>
+        <div
+          v-if="noAd"
+          class="sticker"
+          :title="$t('You cannot insert advertising')"
+        >{{ $t('No advertising') }}</div>
         <iframe
           :src="iFrameSrc"
           scrolling="no"
@@ -14,9 +16,7 @@
           :height="iFrameHeight"
         ></iframe>
         <div class="d-flex flex-column">
-          <button class="btn mb-3" @click="isShareModal = true;">
-            {{ $t('Share') }}
-          </button>
+          <button class="btn mb-3" @click="isShareModal = true;">{{ $t('Share') }}</button>
           <select v-model="iFrameModel" class="frame-select">
             <option value="default">{{$t('Default version')}}</option>
             <option value="large">{{$t('Large version')}}</option>
@@ -24,8 +24,16 @@
             <option value="largeEmission" v-if="podcast && podcast.podcastId">{{$t('Large emission version')}}</option>
             <option value="largeSuggestion" v-if="podcast && podcast.podcastId">{{$t('Large suggestion version')}}</option>
           </select>
+          <div class="form__field d-flex flex-column justify-content-center mt-3">
+            <div class="form__label">{{$t('Choose color')}}</div>
+            <div class="form__input" >
+              <swatches v-model="color" class="c-hand input-no-outline" colors="text-advanced" popover-to="left" ></swatches>
+            </div>
+          </div>
         </div>
-        <div class="d-flex align-items-center mt-3" v-if="!podcast || iFrameModel === 'emission' || iFrameModel === 'largeEmission' || iFrameModel === 'largeSuggestion'">
+        <div class="d-flex align-items-center mt-3"
+          v-if="!podcast || iFrameModel === 'emission' || iFrameModel === 'largeEmission' || iFrameModel === 'largeSuggestion'"
+        >
           <span>{{ $t('Show') }}</span>
           <input
             type="number"
@@ -37,99 +45,113 @@
           <span>{{ $t('Last podcasts') }}</span>
         </div>
       </div>
-      <div v-if="exclusive && authenticated">
-        {{ $t('Only organisation members can share the content') }}
-      </div>
-      <div v-if="!authenticated">
-        {{ $t('Only authenticated members can share the content') }}
-      </div>
+      <div
+        v-if="exclusive && authenticated"
+      >{{ $t('Only organisation members can share the content') }}</div>
+      <div v-if="!authenticated">{{ $t('Only authenticated members can share the content') }}</div>
     </div>
-    <ShareModal 
-      v-if="isShareModal" 
-      @close='isShareModal=false;'
-      :embedLink='iFrame'
-      :embedlyLink='iFrameSrc'
-      :directLink='podcast'
+    <ShareModal
+      v-if="isShareModal"
+      @close="isShareModal=false;"
+      :embedLink="iFrame"
+      :embedlyLink="iFrameSrc"
+      :directLink="podcast"
+      :colorLink ="colorLink"
     ></ShareModal>
   </div>
 </template>
 
 <style lang="scss">
-@import '../../../sass/_variables.scss';
+@import "../../../sass/_variables.scss";
 
-.input-share-player{
+.input-share-player {
   border: 1px solid #ddd;
   border-radius: 50px;
-  input[type=number]{
+  input[type="number"] {
     margin: 0 1rem;
     width: 100px;
   }
 }
-.sticker{
-  align-self:center;
-  background:rgba($octopus-primary-color, 0.3);
-  padding:0.5rem;
-  transition:all .5s ease;
-  color:#41403E;
-  letter-spacing:1px;
-  outline:none;
-  box-shadow: 10px 10px 34px -15px hsla(0,0%,0%,.4);
+.sticker {
+  align-self: center;
+  background: rgba($octopus-primary-color, 0.3);
+  padding: 0.5rem;
+  transition: all 0.5s ease;
+  color: #41403e;
+  letter-spacing: 1px;
+  outline: none;
+  box-shadow: 10px 10px 34px -15px hsla(0, 0%, 0%, 0.4);
   border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-  border:solid 2px #41403E;
-    &:hover{
-      box-shadow:2px 8px 4px -6px hsla(0,0%,0%,.3);
-  } 
+  border: solid 2px #41403e;
+  &:hover {
+    box-shadow: 2px 8px 4px -6px hsla(0, 0%, 0%, 0.3);
+  }
+}
+.vue-swatches__trigger{
+  margin: auto !important;
 }
 </style>
 
 <script>
-import ShareModal from '../../misc/modal/ShareModal.vue';
-import {state} from "../../../store/paramStore.js";
+import ShareModal from "../../misc/modal/ShareModal.vue";
+import { state } from "../../../store/paramStore.js";
+import Swatches from "vue-swatches";
 
 export default {
-  props: ['podcast', 'emissionId', "organisationId", 'exclusive'],
+  props: ["podcast", "emissionId", "organisationId", "exclusive"],
 
-  components:{
-    ShareModal
-  },
+  components: {
+    ShareModal,
+    Swatches
+  }, 
 
   data() {
     return {
-      iFrameModel:'default',
-      iFrameNumberPriv: '3',
+      iFrameModel: "default",
+      iFrameNumberPriv: "3",
       isShareModal: false,
+      color: "#50b684"
     };
   },
   computed: {
-    noAd(){
-      if(this.podcast && this.podcast.organisation.id !== this.organisationId && this.podcast.monetisable === 'NO' || (this.podcast && this.podcast.monetisable === 'UNDEFINED' && this.podcast.emission.monetisable === 'NO')){
+    noAd() {
+      if (
+        (this.podcast &&
+          this.podcast.organisation.id !== this.organisationId &&
+          this.podcast.monetisable === "NO") ||
+        (this.podcast &&
+          this.podcast.monetisable === "UNDEFINED" &&
+          this.podcast.emission.monetisable === "NO")
+      ) {
         return true;
-      } else{
+      } else {
         return false;
       }
-      
     },
-    authenticated(){
+    authenticated() {
       return state.generalParameters.authenticated;
     },
     iFrameSrc() {
       let url = "";
-      if(!this.podcast){
-        if(this.iFrameModel === 'default'){
-          url =  `${state.podcastPage.MiniplayerUri}miniplayer/emission/${this.emissionId}/${this.iFrameNumberPriv}`;
-        } else{
+      if (!this.podcast) {
+        if (this.iFrameModel === "default") {
+          url = `${state.podcastPage.MiniplayerUri}miniplayer/emission/${this.emissionId}/${this.iFrameNumberPriv}`;
+        } else {
           url = `${state.podcastPage.MiniplayerUri}miniplayer/emissionLarge/${this.emissionId}/${this.iFrameNumberPriv}`;
         }
-      }else {
-        if (this.iFrameModel === 'emission' || this.iFrameModel === 'largeEmission') {
+      } else {
+        if (
+          this.iFrameModel === "emission" ||
+          this.iFrameModel === "largeEmission"
+        ) {
           url = `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.emissionId}/${this.iFrameNumberPriv}/${this.podcast.podcastId}`;
-        } else if(this.iFrameModel === 'largeSuggestion'){
+        } else if (this.iFrameModel === "largeSuggestion") {
           url = `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.podcast.podcastId}/${this.iFrameNumberPriv}`;
-        }else {
+        } else {
           url = `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.podcast.podcastId}`;
         }
       }
-      return url + '?distributorId=' + this.organisationId;
+      return url + "?distributorId=" + this.organisationId + "&color=" + this.color.substring(1) ;
     },
 
     iFrameNumber: {
@@ -141,11 +163,11 @@ export default {
         if (!isNaN(val) && val >= 1 && val <= 10) {
           this.iFrameNumberPriv = value;
         }
-      },
+      }
     },
 
     iFrameWidth() {
-      return '100%';
+      return "100%";
     },
 
     iFrameHeight() {
@@ -176,21 +198,19 @@ export default {
         case 'emission':
           return '530px';
         default:
-          if(this.podcast){
-            return '520px';
-          } else{
-            return '530px';
+          if (this.podcast) {
+            return "520px";
+          } else {
+            return "530px";
           }
-
       }
     },
 
-    iFrame(){
+    iFrame() {
       return `<iframe src="${this.iFrameSrc}" width="${this.iFrameWidth}" height="${this.iFrameHeight}" scrolling="no" frameborder="0"></iframe>`;
     }
   },
 
-  methods: {
-  },
+  methods: {}
 };
 </script>

@@ -13,6 +13,7 @@ import PodcastPage from '@/components/pages/Podcast.vue';
 import ParticipantPage from '@/components/pages/Participant.vue';
 import SearchPage from '@/components/pages/Search.vue';
 import CategoryPage from '@/components/pages/Category.vue';
+import RubriquePage from '@/components/pages/Rubrique.vue';
 
 Vue.use(VueRouter);
 
@@ -72,7 +73,15 @@ const routes = [
       iabId: parseInt(route.params.iabId, 10),
     }),
   },
-
+  {
+    path: '/main/pub/rubrique/:rubriqueId',
+    component: RubriquePage,
+    props: route => ({
+      first: parseInt(route.query.first, 10) || 0,
+      size: parseInt(route.query.size, 10) || 12,
+      rubriqueId: parseInt(route.params.rubriqueId, 10),
+    }),
+  },
 ];
 
 export default new VueRouter({

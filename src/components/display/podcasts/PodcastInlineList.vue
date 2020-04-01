@@ -120,7 +120,9 @@ export default {
     "buttonText",
     "requirePopularSort",
     "isArrow",
-    "buttonPlus"
+    "buttonPlus",
+    "rubriqueId",
+    "rubriquageId"
   ],
 
   components: {
@@ -185,6 +187,8 @@ export default {
           organisationId: this.organisationId,
           emissionId: this.emissionId,
           iabId: this.iabId,
+          rubriqueId: this.rubriqueId,
+          rubriquageId: this.rubriquageId,
           sort: this.popularSort ? "POPULARITY" : "DATE"
         })
         .then(data => {
@@ -281,7 +285,17 @@ export default {
       handler() {
         this.fetchContent(true);
       }
-    }
+    },
+    rubriqueId: {
+      handler() {
+        this.fetchContent(true);
+      },
+    },
+    rubriquageId: {
+      handler() {
+        this.fetchContent(true);
+      },
+    },
   }
 };
 </script>

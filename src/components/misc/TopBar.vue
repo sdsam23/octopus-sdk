@@ -19,10 +19,10 @@
         <router-link to="/main/priv/upload" v-if="authenticated && !isPodcastmaker" class="mr-3">
           <button class="btn btn-primary">{{ $t('Upload new podcast') }}</button>
         </router-link>
-        <div class="d-flex justify-content-end">
-          <b-dropdown right toggle-class="text-decoration-none  m-1 admin-button btn-rounded-icon" no-caret>
+        <div class="d-flex justify-content-end mr-3">
+          <b-dropdown right toggle-class="text-decoration-none m-1 admin-button btn-rounded-icon" no-caret>
             <template v-slot:button-content>
-              <i class="saooti-user text-dark"></i><span class="sr-only">Profile</span>
+              <i class="saooti-user text-dark" v-if="!imageUrl"></i><span class="sr-only">Profile</span>
             </template>
             <template v-if="!authenticated">
               <b-dropdown-item href="/sso/login">{{ $t('Login') }}</b-dropdown-item>
@@ -37,7 +37,7 @@
               <b-dropdown-item href="/sso/logout">{{ $t('Logout') }}</b-dropdown-item>
             </template>
           </b-dropdown>
-          <router-link to="/main/pub/search">
+          <router-link to="/main/pub/podcasts">
             <div class="btn admin-button m-1">
               <i class="saooti-search text-dark"></i>
             </div>
@@ -141,6 +141,11 @@ export default {
   name: "TopBar",
 
   mounted() {
+    if(this.imageUrl){
+      let imageLogin = document.getElementsByClassName('btn-rounded-icon')[0];
+      imageLogin.style.background = "url(" + this.imageUrl + ")";
+      imageLogin.style.backgroundSize = "cover";
+    }
     window.addEventListener("scroll", this.handleScroll);
   },
   beforeDestroy() {
@@ -166,6 +171,9 @@ export default {
     },
     name(){
       return state.organisation.userName;
+    },
+    imageUrl(){
+      return this.$store.state.profile.imageUrl;
     },
   },
 
@@ -208,5 +216,14 @@ export default {
     }
   },
 
+  watch:{
+    imageUrl(newVal){
+      if(newVal){
+        let imageLogin = document.getElementsByClassName('btn-rounded-icon')[0];
+        imageLogin.style.background = "url(" + newVal + ")";
+        imageLogin.style.backgroundSize = "cover";
+      }
+    }
+  }
 };
 </script>

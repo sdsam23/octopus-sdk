@@ -26,7 +26,7 @@
         @playing="onPlay"
         @durationChange="onTimeUpdate"
       />
-      <router-link :to=podcastShareUrl v-if="isImage">
+      <router-link :to=podcastShareUrl v-if="isImage && podcastImage">
         <img
           v-bind:src="podcastImage"
           :alt="$t('Podcast image')"
@@ -61,7 +61,7 @@
           <div class="progress-bar primary-bg" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" :style="'width: '+ percentProgress + '%'"></div>
         </div>
       </div>
-      <router-link :to=podcastShareUrl class="text-light hide-phone">
+      <router-link :to=podcastShareUrl class="text-light hide-phone" v-if='podcastShareUrl !== ""'>
         <div class="saooti-export-bounty c-hand m-2" ></div>
       </router-link>
       <div class="d-flex text-light align-items-center hide-phone" v-if="isClock">
@@ -221,6 +221,7 @@ export default {
       },
       status: state => state.player.status,
       podcast: state => state.player.podcast,
+      media: state => state.player.media,
       volume: state => state.player.volume,
 
       podcastImage: state => {
@@ -240,7 +241,9 @@ export default {
               ? '&distributorId=' + state.authentication.organisationId
               : '';
           return state.player.podcast.audioUrl + parameters;
-        } else {
+        } else if(state.player.media){
+          return state.player.media.audioUrl;
+        } else{
           return '';
         }
       },
@@ -283,6 +286,8 @@ export default {
         }else{
           return this.podcast.title;
         }
+      }else if(this.media){
+        return this.media.title;
       } else {
         return '';
       }
@@ -316,16 +321,20 @@ export default {
       const percentPosition = x / barWidth;
       const seekTime = this.$store.state.player.total * percentPosition;
 
-      this.notListenTime = seekTime - this.listenTime;
+      if(this.podcast){
+        this.notListenTime = seekTime - this.listenTime;
+      }
       audioPlayer.currentTime = seekTime;
     },
 
     onTimeUpdate(event) {
-      if(this.new){
-        this.new = false;
-        this.startListeningProgress();
+      if(this.podcast){
+        if(this.new){
+          this.new = false;
+          this.startListeningProgress();
+        }
+        this.listenTime = event.currentTarget.currentTime - this.notListenTime;
       }
-      this.listenTime = event.currentTarget.currentTime - this.notListenTime;
       const duration = event.currentTarget.duration;
       const currentTime = event.currentTarget.currentTime;
       if (duration && currentTime) {
@@ -341,7 +350,9 @@ export default {
     },
 
     onFinished() {
-      this.endListeningProgress();
+      if(this.podcast){
+        this.endListeningProgress();
+      }
       this.$data.forceHide = true;
     },
 
@@ -390,12 +401,12 @@ export default {
       this.$emit('hide', newVal=== 0? true : false);
     },
     podcastAudioURL(newVal){
-      if(newVal !== ""){
+      if(this.podcast && newVal !== ""){
         this.new = true;
       }
     },
     listenTime(newVal){
-      if(newVal - this.lastSend >= 10 && this.downloadId){
+      if(this.podcast && newVal - this.lastSend >= 10 && this.downloadId){
         this.lastSend = newVal;
         octopusApi.updatePlayerTime(this.downloadId, Math.round(newVal));
       }

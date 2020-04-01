@@ -51,6 +51,9 @@
   justify-content: center;
   white-space: nowrap;
   flex-shrink: 0;
+  .router-link-active {
+    background: #ddd !important;
+  }
   &:hover {
     background: #ddd !important;
   }

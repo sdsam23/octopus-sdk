@@ -9,13 +9,27 @@
       @updateOrganisationId='updateOrganisationId'
       @updateSearchPattern='updateSearchPattern'
       v-if="isProductorSearch"/>
-    <MonetizableFilter @updateMonetization='updateMonetization' :isEmission='true' v-if="isMonetizableFilter"/>
+      <AdvancedSearch 
+      :resetRubriquage='resetRubriquage'
+      :isEmission='true'
+      @updateRubriquage='updateRubriquage'
+      @updateRubrique='updateRubrique'
+      @updateMonetization='updateMonetization' 
+      @updateFromDate='updateFromDate'
+      @updateToDate='updateToDate'
+      @updateSortEmission='updateSortEmission'
+      :organisationId='organisationId'/>
     <EmissionList
       :first="first"
       :size="size"
       :query="searchPattern"
       :organisationId="organisationId"
       :monetization="monetization"
+      :rubriqueId='rubriqueId'
+      :rubriquageId='rubriquageId'
+      :before='toDate'
+      :after='fromDate'
+      :sort='sortEmission'
     />
   </div>
 </template>
@@ -25,14 +39,14 @@
 // @ is an alias to /src
 import EmissionList from '../display/emission/EmissionList.vue';
 import ProductorSearch from '../display/filter/ProductorSearch.vue';
-import MonetizableFilter from '../display/filter/MonetizableFilter.vue';
+import AdvancedSearch from '../display/filter/AdvancedSearch.vue';
 import {state} from "../../store/paramStore.js";
 
 export default {
   components: {
     ProductorSearch,
     EmissionList,
-    MonetizableFilter
+    AdvancedSearch
   },
 
   created() {
@@ -59,7 +73,14 @@ export default {
       size: undefined,
       searchPattern: '',
       organisationId: undefined,
-      monetization: undefined
+      monetization: undefined,
+      rubriquageId: undefined,
+      rubriqueId: undefined,
+      emissionId: undefined,
+      fromDate: undefined,
+      toDate: undefined,
+      resetRubriquage: false,
+      sortEmission : 'SCORE',
     };
   },
 
@@ -76,7 +97,25 @@ export default {
   },
 
   methods:{
+    updateSortEmission(value){
+      this.sortEmission = value;
+    },
+    updateToDate(value){
+      this.toDate = value;
+    },
+    updateFromDate(value){
+      this.fromDate = value;
+    },
+    updateRubriquage(value){
+      this.rubriquageId = value;
+    },
+    updateRubrique(value){
+      this.rubriqueId = value;
+    },
     updateOrganisationId(value){
+      this.resetRubriquage = !this.resetRubriquage;
+      this.rubriquageId = undefined;
+      this.rubriqueId= undefined;
       this.organisationId = value;
     },
     updateSearchPattern(value){

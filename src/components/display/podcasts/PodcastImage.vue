@@ -4,6 +4,7 @@
     :style="{ 'background-image': 'url(\'' + podcast.imageUrl + '\')' }"
     v-if="podcast"
   >
+  <template v-if="podcast && podcast.availability.visibility">
     <div class="podcast-image-play-button" v-on:click="play" v-if="hidePlay">
       <div class="icon-container">
         <div
@@ -19,11 +20,29 @@
     </div>
     <div class="background-icon saooti-arrow-up2" v-if="!isDescription && displayDescription && isMobile" @click="showDescription"></div>
     <div class="background-icon saooti-arrow-down2" v-if="isDescription && displayDescription && isMobile" @click="showDescription"></div>
+  </template>
+  <template v-else>
+    <div class="d-flex flex-column w-100 h-100 justify-content-center align-items-center transparent-background">
+      <img
+        src="/img/novisible.png"
+        class="no-visible-img"
+      />
+      <div class="small-Text mt-2 font-weight-bold">{{$t('Podcast no visible')}}</div>
+    </div>
+  </template>
   </div>
 </template>
 
 <style lang="scss">
-
+.no-visible-img{
+  width: 4rem;
+  height: 4rem;
+  background: #ccc;
+  border-radius: 50%;
+}
+.transparent-background{
+  background-color: rgba(255,255,255, .5);
+}
 .podcast-image-play-button {
   position: absolute;
   display: flex;
