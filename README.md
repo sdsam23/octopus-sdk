@@ -93,3 +93,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.14.17 Merge dev-fabien
  * 0.14.18 Sticker invisible
  * 0.14.19 Sticker invisible
+
+ * 0.15.0 Nouveau sprint
