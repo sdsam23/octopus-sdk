@@ -96,3 +96,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
  * 0.15.0 Nouveau sprint
  * 0.15.1 Erreur de merge
+ * 0.15.2 Nouvelle version api
