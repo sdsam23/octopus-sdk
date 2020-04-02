@@ -273,14 +273,10 @@ export default {
 				}
 			}
 		},
-		onRubriquageSelected($event){
-			let value = parseInt($event.target.value, 10);
-			if(value != this.rubriquageId){
-				this.rubriquageId = value;
-				this.reset = !this.reset;
-				if(this.isRubriquage){
-					this.$emit('updateRubriquage', this.rubriquageId);
-				}
+		onRubriquageSelected(){
+			this.reset = !this.reset;
+			if(this.isRubriquage){
+				this.$emit('updateRubriquage', this.rubriquageId);
 			}
 		},
     updateMonetization(value){
