@@ -112,6 +112,7 @@ export default {
     },
     updateRubriquage(value){
       this.rubriquageId = value;
+      this.rubriqueId = undefined;
     },
     updateRubrique(value){
       this.rubriqueId = value;
