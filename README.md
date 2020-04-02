@@ -95,3 +95,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.14.19 Sticker invisible
 
  * 0.15.0 Nouveau sprint
+ * 0.15.1 Erreur de merge
