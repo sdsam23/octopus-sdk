@@ -44,7 +44,7 @@ const routes = [
     props: route => ({
       productor: route.params.productor,
     }) },
-    {
+  {
     path: '/main/pub/emission/:emissionId/:productor?', name:'emission', component: EmissionPage,
     props: route => ({
       first: parseInt(route.query.first, 10) || 0,

@@ -19,7 +19,7 @@
         class="linkHover p-3 text-dark font-weight-bold">{{ $t('Emissions') }}</router-link>
         <router-link 
         :to="{ name: 'productors', query:{productor: $store.state.filter.organisationId}}"
-        class="linkHover p-3 text-dark font-weight-bold" v-if="!isPodcastmaker">{{ $t('Productors') }}</router-link>
+        class="linkHover p-3 text-dark font-weight-bold" v-if="!isPodcastmaker && !filterOrga">{{ $t('Productors') }}</router-link>
         <router-link 
         :to="{ name: 'participants', query:{productor: $store.state.filter.organisationId}}"
         class="linkHover p-3 text-dark font-weight-bold">{{ $t('Speakers') }}</router-link>
