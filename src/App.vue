@@ -25,6 +25,11 @@ export default {
     CategoryList,
     Footer
   },
+  created(){
+    if (this.$route.query.productor) {
+      this.$store.commit('filterOrga', this.$route.query.productor);
+    }
+  },
 
   data() {
     return {

@@ -68,7 +68,7 @@
 				/>
 			</div>
 			<div class="d-flex flex-column mt-3" v-if="organisationRight && !isEmission && !isPodcastmaker">
-				<div class="checkbox-saooti flex-shrink">  
+				<div class="checkbox-saooti flex-shrink" v-show="false">  
 					<input type="checkbox" class="custom-control-input" id="search-visible-checkbox" v-model="isVisible" :disabled='true || lastCheckbox(isVisible)'>  
 					<label class="custom-control-label" for="search-visible-checkbox">{{ $t('Visible') }}</label>  
 				</div>
@@ -219,29 +219,46 @@ export default {
 		},
 		isPodcastmaker(){
       return state.generalParameters.podcastmaker;
+		},
+		filterOrga(){
+      return this.$store.state.filter.organisationId;
+    },
+    organisation(){
+      if(this.organisationId){
+        return this.organisationId;
+      }else if(this.filterOrga){
+        return this.filterOrga;
+      }else {
+        return undefined;
+      }
     },
   },
 
   methods:{
 		lastCheckbox(value){
-			if(value){
-				let i = 0;
-				if(!this.isVisible){
-					i++;
+			if(this.organisationId === undefined){
+				this.isFuture = false;
+				return true;
+			} else{
+				if(value){
+					let i = 0;
+					if(!this.isVisible){
+						i++;
+					}
+					/* if(!this.isInCreate){
+						i++;
+					}
+					if(!this.isError){
+						i++;
+					} */
+					if(!this.isFuture){
+						i++;
+					}
+					/* return i === 3; */
+					return i === 1;
+				}else{
+					return false;
 				}
-				/* if(!this.isInCreate){
-					i++;
-				}
-				if(!this.isError){
-					i++;
-				} */
-				if(!this.isFuture){
-					i++;
-				}
-				/* return i === 3; */
-				return i === 1;
-			}else{
-				return false;
 			}
 		},
 		updateFromDate(){
@@ -268,22 +285,18 @@ export default {
 				}
 			}
 		},
-		onRubriquageSelected($event){
-			let value = parseInt($event.target.value, 10);
-			if(value != this.rubriquageId){
-				this.rubriquageId = value;
-				this.reset = !this.reset;
-				if(this.isRubriquage){
-					this.$emit('updateRubriquage', this.rubriquageId);
-				}
+		onRubriquageSelected(){
+			this.reset = !this.reset;
+			if(this.isRubriquage){
+				this.$emit('updateRubriquage', this.rubriquageId);
 			}
 		},
     updateMonetization(value){
       this.$emit('updateMonetization', value);
 		},
 		fetchTopics(){
-			if(this.organisationId){
-				octopusApi.fetchTopics(this.organisationId).then((data)=>{
+			if(this.organisation){
+				octopusApi.fetchTopics(this.organisation).then((data)=>{
 					this.rubriquageData = data;
 					if(data.length !== 0){
 						for (let index = 0; index < this.rubriquageData.length; index++) {
@@ -298,7 +311,7 @@ export default {
 		},
 	},
 	watch:{
-		organisationId(){
+		organisation(){
 			this.fetchTopics();
 		},
 		isFrom(newVal){

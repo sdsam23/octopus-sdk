@@ -28,7 +28,6 @@
 </template>
 
 <style lang="scss">
-
 .podcast-list {
   align-self: stretch;
   flex-grow: 1;
@@ -108,10 +107,22 @@ export default {
       return state.generalParameters.buttonPlus;
     },
     changed(){
-      return `${this.first}|${this.size}|${this.organisationId}|${this.emissionId}|
+      return `${this.first}|${this.size}|${this.organisation}|${this.emissionId}|
       ${this.iabId}|${this.participantId}|${this.query}|${this.monetization}|${this.popularSort}|
       ${this.rubriqueId}|${this.rubriquageId}|${this.before}|${this.after}|${this.includeHidden}`;
-    }
+    },
+    filterOrga(){
+      return this.$store.state.filter.organisationId;
+    },
+    organisation(){
+      if(this.organisationId){
+        return this.organisationId;
+      }else if(this.filterOrga){
+        return this.filterOrga;
+      }else {
+        return undefined;
+      }
+    },
   },
 
   methods: {
@@ -125,7 +136,7 @@ export default {
       let param = {
         first: this.dfirst,
         size: this.dsize,
-        organisationId: this.organisationId,
+        organisationId: this.organisation,
         emissionId: this.emissionId,
         iabId: this.iabId,
         participantId: this.participantId,

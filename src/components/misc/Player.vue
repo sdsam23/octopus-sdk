@@ -129,6 +129,15 @@
     flex-basis: 20px;
     overflow: hidden;
   }
+  .player-title {
+    font-size: 0.8rem;
+    margin: 0 0 5px 0;
+  }
+
+  .hide-phone {
+    font-size: 0.8rem;
+    margin: 0 0 5px 0;
+}
 }
 /** PHONES*/
 @media (max-width: 960px) {
@@ -241,7 +250,7 @@ export default {
 
       podcastShareUrl: state => {
         if (state.player.podcast) {
-          return "/main/pub/podcast/"+state.player.podcast.podcastId;
+          return { name: 'podcast', params: {podcastId : state.player.podcast.podcastId}, query:{productor: this.$store.state.filter.organisationId}};
         } else {
           return '';
         }

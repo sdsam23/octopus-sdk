@@ -41,6 +41,7 @@ var initialize = function initialize(initObject){
       state.generalParameters.isIE11 = (typeof param.isIE11 !== "undefined") ? param.isIE11 : false;
       state.generalParameters.podcastmaker =(typeof param.podcastmaker !== "undefined") ? param.podcastmaker : false;
       state.generalParameters.buttonPlus =(typeof param.buttonPlus !== "undefined") ? param.buttonPlus : true;
+      state.generalParameters.allCategories =(typeof param.allCategories !== "undefined") ? param.allCategories : [];
     }
     if(initObject.podcastPage){
       let param = initObject.podcastPage;
@@ -110,11 +111,13 @@ var initialize = function initialize(initObject){
       let error = octopusApi.initialize(state.octopusApi);
       if(error){
         reject();
-      } else{
+      } else if(state.generalParameters.allCategories.length === 0){
         octopusApi.fetchCategories({ lang: 'fr' }).then((data)=>{
           state.generalParameters.allCategories = data;
           resolve();
         });
+      }else{
+        resolve();
       }
     }else{
       reject();

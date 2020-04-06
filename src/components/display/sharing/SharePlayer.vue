@@ -24,12 +24,10 @@
             <option value="largeEmission" v-if="podcast && podcast.podcastId">{{$t('Large emission version')}}</option>
             <option value="largeSuggestion" v-if="podcast && podcast.podcastId">{{$t('Large suggestion version')}}</option>
           </select>
-          <div class="form__field">
-            <div class="form__label">
-              <strong>{{$t('Choose color')}}</strong>
-            </div>
+          <div class="form__field d-flex flex-column justify-content-center mt-3">
+            <div class="form__label">{{$t('Choose color')}}</div>
             <div class="form__input" >
-              <swatches v-model="color" colors="text-advanced" popover-to="left" ></swatches>
+              <swatches v-model="color" class="c-hand input-no-outline" colors="text-advanced" popover-to="left" ></swatches>
             </div>
           </div>
         </div>
@@ -88,6 +86,9 @@
   &:hover {
     box-shadow: 2px 8px 4px -6px hsla(0, 0%, 0%, 0.3);
   }
+}
+.vue-swatches__trigger{
+  margin: auto !important;
 }
 </style>
 

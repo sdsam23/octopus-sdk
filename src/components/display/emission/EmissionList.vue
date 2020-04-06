@@ -108,9 +108,21 @@ export default {
       return state.emissionsPage.itemPlayer;
     },
     changed(){
-      return `${this.first}|${this.size}|${this.organisationId}|${this.query}|${this.monetization}|
+      return `${this.first}|${this.size}|${this.organisation}|${this.query}|${this.monetization}|
       ${this.rubriqueId}|${this.rubriquageId}|${this.before}|${this.after}|${this.sort}`;
-    }
+    },
+    filterOrga(){
+      return this.$store.state.filter.organisationId;
+    },
+    organisation(){
+      if(this.organisationId){
+        return this.organisationId;
+      }else if(this.filterOrga){
+        return this.filterOrga;
+      }else {
+        return undefined;
+      }
+    },
   },
 
   methods: {
@@ -127,7 +139,7 @@ export default {
           first: self.dfirst,
           size: self.dsize,
           query: self.query,
-          organisationId: self.organisationId,
+          organisationId: self.organisation,
           monetisable: self.monetization,
           rubriqueId: self.rubriqueId,
           rubriquageId: self.rubriquageId,

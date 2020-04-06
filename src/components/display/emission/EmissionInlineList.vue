@@ -14,8 +14,8 @@
       <div class="spinner-border mr-3"></div>
       <h3 class="mt-2">{{ $t('Loading emissions ...') }}</h3>
     </div>
-    <transition-group :name="transitionName" class="podcast-list-inline" tag="ul" v-show="loaded">
-      <EmissionPlayerItem class="flex-shrink item-phone-margin" :emission='e'  v-for="e in emissions" v-bind:key="e.emissionId" />
+    <transition-group :name="transitionName" class="podcast-list-inline" tag="ul" v-show="loaded" :class="[alignLeft? 'justify-content-start':'']">
+      <EmissionPlayerItem class="flex-shrink item-phone-margin" :emission='e'  v-for="e in emissions" v-bind:key="e.emissionId" :class="[alignLeft? 'mr-3':'']" />
     </transition-group>
     <router-link v-bind:to="href" class="btn btn-link">{{buttonText}}</router-link>
   </div>
@@ -69,7 +69,8 @@ export default {
       totalCount: 0,
       popularSort: true,
       allEmissions: [],
-      direction: 1
+      direction: 1,
+      alignLeft : false,
     };
   },
 
@@ -107,6 +108,9 @@ export default {
             this.preloadImage(nexEl.imageUrl);
           }
           this.allEmissions = this.allEmissions.concat(data.result);
+          if(this.allEmissions.length <= 3){
+            this.alignLeft = true;
+          }
           this.first += this.size;
         });
     },

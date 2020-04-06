@@ -14,16 +14,16 @@
         <div class="mr-3 small-Text">{{ date }}</div>
         <div class="small-Text"><span class="saooti-clock3"></span>{{ duration }}</div>
       </div>
-      <AnimatorsItem v-bind:animators="podcast.animators" />
+      <AnimatorsItem v-bind:animators="podcast.animators"/>
       <router-link
-        v-bind:to="'/main/pub/podcast/' + podcast.podcastId"
+        :to="{ name: 'podcast', params: {podcastId:podcast.podcastId}, query:{productor: $store.state.filter.organisationId}}"
         class="text-dark d-flex flex-column flex-grow"
       >
         <div class="title-podcast-item">{{ title }}</div>
       </router-link>
       <router-link
         v-if="!isPodcastmaker"
-        v-bind:to="'/main/pub/productor/' + podcast.organisation.id"
+        :to="{ name: 'productor', params: {productorId:podcast.organisation.id}, query:{productor: $store.state.filter.organisationId}}"
         class="text-dark producer-podcast-item"
       >
         <div>{{ '© ' + podcast.organisation.name }}</div>
@@ -34,7 +34,7 @@
 
 <style lang="scss">
 .podcast-item-container {
-  border-radius: 0.5rem;
+  border-radius: 0.8rem;
   list-style: none;
   position: relative;
   width: 13rem;

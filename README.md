@@ -68,6 +68,9 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.13.27 Player horizontal : améliorer gestion espace blanc avant/après
  * 0.13.28 Taux de complétion d'écoute sur Octopus incorrect
  * 0.13.29 Style popup
+ * 0.13.30 Merge staging-fabien
+ * 0.13.31 Amélioration list inline
+
 
 
  * 0.14.0 Nouveau sprint
@@ -84,3 +87,14 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.14.11 Nouvelle version du tri
  * 0.14.12 Pétouilles recherche avancée
  * 0.14.13 Customization de player, trac 8513
+ * 0.14.14 Recherche avancée
+ * 0.14.15 Amélioration recherche avancée
+ * 0.14.16 Mise à jour de l'image de la topbar
+ * 0.14.17 Merge dev-fabien
+ * 0.14.18 Sticker invisible
+ * 0.14.19 Sticker invisible
+
+ * 0.15.0 Nouveau sprint
+ * 0.15.1 Erreur de merge
+ * 0.15.2 Nouvelle version api
+ * 0.15.3 Mettre en place une version d’octopus dans laquelle l’utilisateur ne voit que ses contenus
