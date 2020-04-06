@@ -36,11 +36,12 @@ var initialize = function initialize(initObject){
       let param = initObject.generalParameters;
       state.generalParameters.organisationId = (typeof param.organisationId !== "undefined") ? param.organisationId : 'ecbd98d9-79bd-4312-ad5e-fc7c1c4a191c';
       state.generalParameters.authenticated = (typeof param.authenticated !== "undefined") ? param.authenticated : true;
-      state.generalParameters.isAdmin =(typeof param.isAdmin !== "undefined") ? param.isAdmin : true;
+      state.generalParameters.isAdmin =(typeof param.isAdmin !== "undefined") ? param.isAdmin : false;
       state.generalParameters.ApiUri = (typeof param.ApiUri !== "undefined") ? param.ApiUri : 'https://api.dev2.saooti.org/';
       state.generalParameters.isIE11 = (typeof param.isIE11 !== "undefined") ? param.isIE11 : false;
       state.generalParameters.podcastmaker =(typeof param.podcastmaker !== "undefined") ? param.podcastmaker : false;
       state.generalParameters.buttonPlus =(typeof param.buttonPlus !== "undefined") ? param.buttonPlus : true;
+      state.generalParameters.allCategories =(typeof param.allCategories !== "undefined") ? param.allCategories : [];
     }
     if(initObject.podcastPage){
       let param = initObject.podcastPage;
@@ -110,11 +111,13 @@ var initialize = function initialize(initObject){
       let error = octopusApi.initialize(state.octopusApi);
       if(error){
         reject();
-      } else{
+      } else if(state.generalParameters.allCategories.length === 0){
         octopusApi.fetchCategories({ lang: 'fr' }).then((data)=>{
           state.generalParameters.allCategories = data;
           resolve();
         });
+      }else{
+        resolve();
       }
     }else{
       reject();

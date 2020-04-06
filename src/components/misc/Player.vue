@@ -250,7 +250,7 @@ export default {
 
       podcastShareUrl: state => {
         if (state.player.podcast) {
-          return "/main/pub/podcast/"+state.player.podcast.podcastId;
+          return { name: 'podcast', params: {podcastId : state.player.podcast.podcastId}, query:{productor: this.$store.state.filter.organisationId}};
         } else {
           return '';
         }

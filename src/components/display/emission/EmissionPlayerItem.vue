@@ -1,6 +1,8 @@
 <template>
   <li class="emission-player-container shadow-element">
-    <router-link v-bind:to="'/main/pub/emission/' + emission.emissionId" class="d-flex flex-column text-dark">
+    <router-link 
+    :to="{ name: 'emission', params: {emissionId:emission.emissionId}, query:{productor: $store.state.filter.organisationId}}"
+    class="d-flex flex-column text-dark">
       <div class="img-box no-border-round" :style="{ 'background-image': 'url(\'' + emission.imageUrl + '\')' }"></div>
       <div class="d-flex flex-column p-2">
           <div class="font-weight-bold text-uppercase text-ellipsis">{{emission.name}}</div>
@@ -9,7 +11,9 @@
     </router-link>
     <div class="border-top emission-item-border-color p-2 secondary-bg d-flex" v-for="p in podcasts" :key="p.podcastId">
         <div class="d-flex justify-content-between flex-grow">
-            <router-link v-bind:to="'/main/pub/podcast/' + p.podcastId" class="d-flex flex-column define-width text-dark">
+            <router-link 
+            :to="{ name: 'podcast', params: {podcastId:p.podcastId}, query:{productor: $store.state.filter.organisationId}}"
+            class="d-flex flex-column define-width text-dark">
             <div class="font-weight-bold text-ellipsis">{{p.title}}</div>
             <div class="two-line-clamp" v-html="p.description">{{p.description}}</div>
             </router-link>

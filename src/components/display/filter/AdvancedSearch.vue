@@ -219,6 +219,18 @@ export default {
 		},
 		isPodcastmaker(){
       return state.generalParameters.podcastmaker;
+		},
+		filterOrga(){
+      return this.$store.state.filter.organisationId;
+    },
+    organisation(){
+      if(this.organisationId){
+        return this.organisationId;
+      }else if(this.filterOrga){
+        return this.filterOrga;
+      }else {
+        return undefined;
+      }
     },
   },
 
@@ -283,8 +295,8 @@ export default {
       this.$emit('updateMonetization', value);
 		},
 		fetchTopics(){
-			if(this.organisationId){
-				octopusApi.fetchTopics(this.organisationId).then((data)=>{
+			if(this.organisation){
+				octopusApi.fetchTopics(this.organisation).then((data)=>{
 					this.rubriquageData = data;
 					if(data.length !== 0){
 						for (let index = 0; index < this.rubriquageData.length; index++) {
@@ -299,7 +311,7 @@ export default {
 		},
 	},
 	watch:{
-		organisationId(){
+		organisation(){
 			this.fetchTopics();
 		},
 		isFrom(newVal){

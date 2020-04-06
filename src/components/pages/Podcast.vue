@@ -7,7 +7,9 @@
           <EditBox :podcast="podcast" v-if="editRight && isEditBox"></EditBox>
           <div class="module-box">
             <h2 class="text-uppercase font-weight-bold title-page-podcast" v-if="!isOuestFrance">{{ this.podcast.title }}</h2>
-            <router-link v-bind:to="'/main/pub/emission/' + this.podcast.emission.emissionId" v-else>
+            <router-link 
+            :to="{ name: 'emission', params: {emissionId:podcast.emission.emissionId}, query:{productor: $store.state.filter.organisationId}}"
+            v-else>
               <h1>{{ this.podcast.emission.name }}</h1>
             </router-link>
             <div class="mb-5 d-flex">
@@ -26,36 +28,32 @@
                 </div>
                 <div class="descriptionText" v-html="this.podcast.description">{{ this.podcast.description }}</div>
                 <div class="mt-3 mb-3">
-                  <div class="comma">{{ $t('Animated by : ') }}
+                  <div class="comma" v-if="podcast.animators">{{ $t('Animated by : ') }}
                     <router-link
                       class="link-info"
-                      v-bind:to="
-                        '/main/pub/participant/' + animator.participantId
-                      "
                       v-for="animator in podcast.animators"
                       v-bind:key="animator.participantId"
+                      :to="{ name: 'participant', params: {participantId: animator.participantId}, query:{productor: $store.state.filter.organisationId}}"
                     >{{ getName(animator) }}</router-link>
                   </div>
                   <div v-if="!isOuestFrance">{{ $t('Emission') + ' : ' }}
                     <router-link
                       class="link-info"
-                      v-bind:to="
-                        '/main/pub/emission/' + this.podcast.emission.emissionId
-                      "
+                      :to="{ name: 'emission', params: {emissionId:podcast.emission.emissionId}, query:{productor: $store.state.filter.organisationId}}"
                     >{{ this.podcast.emission.name }}</router-link>
                   </div>
                   <div v-if="!isPodcastmaker">{{ $t('Producted by : ') }}
                     <router-link
                       class="link-info"
-                      v-bind:to="'/main/pub/productor/' + podcast.organisation.id"
+                      :to="{ name: 'productor', params: {productorId:podcast.organisation.id}, query:{productor: $store.state.filter.organisationId}}"
                     >{{ this.podcast.organisation.name }}</router-link>
                   </div>
                   <div class="comma" v-if="podcast.guests">{{ $t('Guests') + ' : ' }}
                     <router-link
                       class="link-info"
-                      v-bind:to="'/main/pub/participant/' + guest.participantId"
                       v-for="guest in podcast.guests"
                       v-bind:key="guest.participantId"
+                      :to="{ name: 'participant', params: {participantId:guest.participantId}, query:{productor: $store.state.filter.organisationId}}"
                     >{{ getName(guest) }}</router-link>
                   </div>
                   <div v-if="editRight && !isPodcastmaker">

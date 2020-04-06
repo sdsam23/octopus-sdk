@@ -4,18 +4,36 @@
       <div class="hamburger-menu" v-on:click="onDisplayMenu(false)">
         <div class="saooti-burger-menu h3"></div>
       </div>
-      <router-link to="/main/pub/home">
+      <router-link 
+      :to="{ name: 'home', query:{productor: $store.state.filter.organisationId}}">
         <div class="top-bar-logo m-3" v-on:click="onDisplayMenu(true)">
           <img src="/img/logo_octopus_final.svg" :alt="$t('Logo of main page')" />
         </div>
       </router-link>
       <div class="d-flex align-items-center justify-content-center flex-grow">
-        <router-link class="linkHover p-3 text-dark font-weight-bold" to="/main/pub/podcasts">{{ $t('Podcasts') }}</router-link>
-        <router-link class="linkHover p-3 text-dark font-weight-bold" to="/main/pub/emissions">{{ $t('Emissions') }}</router-link>
-        <router-link class="linkHover p-3 text-dark font-weight-bold" to="/main/pub/productors" v-if="!isPodcastmaker">{{ $t('Productors') }}</router-link>
-        <router-link class="linkHover p-3 text-dark font-weight-bold" to="/main/pub/participants">{{ $t('Speakers') }}</router-link>
+        <router-link 
+        :to="{ name: 'podcasts', query:{productor: $store.state.filter.organisationId}}"
+        class="linkHover p-3 text-dark font-weight-bold">{{ $t('Podcasts') }}</router-link>
+        <router-link
+        :to="{ name: 'emissions', query:{productor: $store.state.filter.organisationId}}"
+        class="linkHover p-3 text-dark font-weight-bold">{{ $t('Emissions') }}</router-link>
+        <router-link 
+        :to="{ name: 'productors', query:{productor: $store.state.filter.organisationId}}"
+        class="linkHover p-3 text-dark font-weight-bold" v-if="!isPodcastmaker">{{ $t('Productors') }}</router-link>
+        <router-link 
+        :to="{ name: 'participants', query:{productor: $store.state.filter.organisationId}}"
+        class="linkHover p-3 text-dark font-weight-bold">{{ $t('Speakers') }}</router-link>
       </div>
       <div class="d-flex align-items-center justify-content-end">
+        <OrganisationChooser
+					:defaultanswer="$t('No organisation filter')"
+					@selected="onOrganisationSelected"
+					:value='organisationId'
+          :light='true'
+          class="mr-2 hide-phone"
+          :reset='reset'
+          v-if="!isPodcastmaker"
+          />
         <router-link to="/main/priv/upload" v-if="authenticated && !isPodcastmaker" class="mr-3">
           <button class="btn btn-primary">{{ $t('Upload new podcast') }}</button>
         </router-link>
@@ -37,7 +55,8 @@
               <b-dropdown-item href="/sso/logout">{{ $t('Logout') }}</b-dropdown-item>
             </template>
           </b-dropdown>
-          <router-link to="/main/pub/podcasts">
+          <router-link 
+          :to="{ name: 'podcasts', query:{productor: $store.state.filter.organisationId}}">
             <div class="btn admin-button m-1">
               <i class="saooti-search text-dark"></i>
             </div>
@@ -136,15 +155,23 @@
 
 <script>
 import {state} from "../../store/paramStore.js";
+import OrganisationChooser from '../display/organisation/OrganisationChooser.vue';
 
 export default {
   name: "TopBar",
+
+  components:{
+    OrganisationChooser
+  },
 
   mounted() {
     if(this.imageUrl){
       let imageLogin = document.getElementsByClassName('btn-rounded-icon')[0];
       imageLogin.style.background = "url(" + this.imageUrl + ")";
       imageLogin.style.backgroundSize = "cover";
+    }
+    if(this.filterOrga){
+      this.organisationId = this.filterOrga;
     }
     window.addEventListener("scroll", this.handleScroll);
   },
@@ -158,7 +185,9 @@ export default {
     return {
       scrolled: false,
       oldScrollY: 0,
-      minScroll: 0
+      minScroll: 0,
+      organisationId:undefined,
+      reset: false,
     };
   },
 
@@ -175,6 +204,9 @@ export default {
     imageUrl(){
       return this.$store.state.profile.imageUrl;
     },
+    filterOrga(){
+      return this.$store.state.filter.organisationId;
+    }
   },
 
   methods: {
@@ -213,6 +245,20 @@ export default {
       } else {
         this.$refs.menu.className = "menu";
       }
+    },
+
+    onOrganisationSelected(organisation){
+      if (organisation && organisation.id) {
+        if(this.$route.query.productor !== organisation.id){
+          this.$router.push({query: {productor: organisation.id}});
+        }
+        this.$store.commit('filterOrga', organisation.id);
+      } else {
+        if(this.$route.query.productor){
+          this.$router.push({query: {productor: undefined}});
+        }
+        this.$store.commit('filterOrga', undefined);
+      }
     }
   },
 
@@ -222,6 +268,13 @@ export default {
         let imageLogin = document.getElementsByClassName('btn-rounded-icon')[0];
         imageLogin.style.background = "url(" + newVal + ")";
         imageLogin.style.backgroundSize = "cover";
+      }
+    },
+    filterOrga(newVal){
+      if(newVal){
+        this.organisationId = newVal;
+      }else{
+        this.reset = !this.reset;
       }
     }
   }

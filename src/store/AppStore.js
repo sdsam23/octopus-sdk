@@ -20,6 +20,11 @@ export default new Vuex.Store({
     profile: {
       imageUrl:"https://s3.eu-west-3.amazonaws.com/saooti.lebook/da5d40f6-101c-4566-929f-70a7b202e505/0390fc31-1856-42fa-a440-55aa4cf498ab",
     },
+    filter:{
+      organisationId: undefined,
+    },
+    categories: [],
+    categoriesOrga: [],
   },
 
   getters: {},
@@ -77,6 +82,18 @@ export default new Vuex.Store({
 
     playerVolume(state, volume) {
       state.player.volume = volume;
+    },
+
+    filterOrga(state, orgaId) {
+      state.filter.organisationId = orgaId;
+    },
+
+    categoriesSet(state, categories) {
+      state.categories = categories;
+    },
+
+    categoriesOrgaSet(state, categories) {
+      state.categoriesOrga = categories;
     },
   },
 });

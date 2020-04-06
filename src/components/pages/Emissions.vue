@@ -3,7 +3,7 @@
     <h1 v-if="titlePage === undefined">{{ $t('All emissions') }}</h1>
     <h1 v-else>{{ titlePage }}</h1>
     <ProductorSearch 
-      :organisationId='organisationId' 
+      :organisationId.sync='organisationId' 
       :searchPattern='searchPattern'
       type='emission'
       @updateOrganisationId='updateOrganisationId'
@@ -60,10 +60,8 @@ export default {
     } else {
       this.$data.size = 12;
     }
-     if (this.$route.query.productor) {
+    if (this.$route.query.productor) {
       this.$data.organisationId = this.$route.query.productor;
-    } else if (state.filter.organisationId) {
-      this.$data.organisationId = state.filter.organisationId;
     }
   },
 
@@ -125,6 +123,6 @@ export default {
     updateMonetization(value){
       this.monetization = value;
     }
-  }
+  },
 };
 </script>

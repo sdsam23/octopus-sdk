@@ -98,7 +98,7 @@ export default {
 
   created() {
     if (this.organisationId) {
-      state.filter.organisationId = this.organisationId;
+      this.$store.commit('filterOrga', this.organisationId);
       this.keepOrganisation = true;
       if(!this.$route.query.productor){
         this.$router.replace({query: {productor: this.organisationId}});
@@ -131,6 +131,9 @@ export default {
       } else{
         return this.$t('Look for podcast name');
       }
+    },
+    filterOrga(){
+      return this.$store.state.filter.organisationId;
     }
   },
 
@@ -139,7 +142,7 @@ export default {
       if(this.$route.query.productor){
         this.$router.push({query: {productor: undefined}});
       }
-      state.filter.organisationId = this.organisationId;
+      this.$store.commit('filterOrga', undefined);
       this.keepOrganisation = false;
       if (organisation && organisation.id) {
         this.showBubble=true;
@@ -156,14 +159,24 @@ export default {
         if(this.$route.query.productor !== this.organisationId){
           this.$router.push({query: {productor: this.organisationId}});
         }
-        state.filter.organisationId = this.organisationId;
+        this.$store.commit('filterOrga', this.organisationId);
       }else {
         if(this.$route.query.productor){
           this.$router.push({query: {productor: undefined}});
         }
-        state.filter.organisationId = this.organisationId;
+        this.$store.commit('filterOrga', undefined);
       }
     }
+  },
+  watch:{
+    filterOrga(){
+      if(this.filterOrga){
+        this.keepOrganisation=true;
+        this.$emit('updateOrganisationId', this.filterOrga);
+      } else{
+        this.keepOrganisation=false;
+      }
+    },
   }
 };
 </script>
