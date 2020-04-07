@@ -123,13 +123,6 @@ export default {
         return undefined;
       }
     },
-    includeStatus(){
-      if(this.includeHidden){
-        return ['READY','PLANNED', 'PROCESSING','ERROR'];
-      }else{
-        return undefined;
-      }
-    }
   },
 
   methods: {
@@ -154,7 +147,6 @@ export default {
         rubriquageId: this.rubriquageId,
         before: this.before,
         after: this.after,
-        includeStatus: this.includeStatus,
       }
       if(this.includeHidden){
         param.includeHidden = this.includeHidden;
