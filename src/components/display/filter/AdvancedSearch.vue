@@ -8,7 +8,7 @@
 	</div>
   <div class="advanced-search-container" v-show="showFilters" >
 		<div class="d-flex flex-column">
-			<div class="primary-color mb-2">{{$t('Filter emissions')}}</div>
+			<div class="primary-color mb-2" v-if="isEmission">{{$t('Filter')}}</div>
 			<MonetizableFilter @updateMonetization='updateMonetization' :isEmission='isEmission' v-if="isMonetizableFilter"/>
 			<div class="d-flex mt-3 align-items-center rubrique-select-height" v-if="organisationId && rubriquageDisplay">
 				<div class="checkbox-saooti flex-shrink">  
@@ -87,7 +87,7 @@
 			</div>
 		</div>
 		<div class="d-flex flex-column ml-3" v-if="isEmission">
-			<div class="primary-color mb-2">{{$t('Sort emissions')}}</div>
+			<div class="primary-color mb-2 padding-left-custom-radio">{{$t('Sort')}}</div>
 			<b-form-group>
 				<b-form-radio-group v-model="emissionSort" class="d-flex flex-column">
 					<b-form-radio value="SCORE">{{$t('Sort score')}}</b-form-radio>
@@ -100,6 +100,9 @@
 </div>
 </template>
 <style lang="scss">
+.padding-left-custom-radio{
+	padding-left: 1.5rem;
+}
 .large-font-size{
   font-size: 1.3rem;
 }
@@ -251,12 +254,20 @@ export default {
 		},
 		updateFromDate(){
 			if(moment(this.fromDate).startOf('minute').toISOString() !== moment().subtract(10, "days").startOf('minute').toISOString()){
-				this.isFrom = true;
+				if(this.isFrom){
+					this.$emit('updateFromDate', this.fromDate);
+				}else{
+					this.isFrom = true;
+				}
 			}
 		},
 		updateToDate(){
 			if(moment(this.toDate).startOf('minute').toISOString() !== moment().startOf('minute').toISOString()){
-				this.isTo = true;
+				if(this.isTo){
+					this.$emit('updateToDate', this.toDate);
+				}else{
+					this.isTo = true;
+				}
 			}
 		},
 		getRubriques(rubriquageId){
@@ -273,7 +284,7 @@ export default {
 				}
 			}
 		},
-		onRubriquageSelected($event){
+		onRubriquageSelected(){
 			this.reset = !this.reset;
 			if(this.isRubriquage){
 				this.$emit('updateRubriquage', this.rubriquageId);
