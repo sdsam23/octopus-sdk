@@ -397,10 +397,6 @@ export default {
     'No rubric filter': 'Toutes les rubriques',
     'From the :' : 'Depuis le :',
     'To the :': "Jusqu'au :",
-    'Visible':'Visible',
-    'In creation':'En cours de création',
-    'Publish in future':'Publié dans le futur',
-    'In error':'En erreur',
     'Emission with episode published :':'Emission ayant au moins un épisode sorti :',
     'Sort emissions': 'Tri des émissions',
     'Filter emissions': 'Filtrage des émissions',
@@ -408,6 +404,11 @@ export default {
     'Sort name': 'Par ordre alphabétique',
     'Sort last': 'Par ordre antechronologique',
     'Choose color':'Modification de la couleur principale du player',
-    'Podcast no visible':'Épisode non visible actuellement'
+    'Podcast no visible':'Épisode non visible actuellement',
+    'Display episodes':'Affichage des épisodes',
+    'Podcast publish in future':'Épisode publié dans le futur',
+    'Podcast in process': 'Épisode en traitement',
+    'Podcast in error':'Épisode en erreur',
+    'See podcasts no visible':'Voir aussi les épisodes masqués pour les auditeurs',
   };
   

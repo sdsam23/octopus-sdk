@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex align-items-center justify-content-start" v-if="animators.length !== 0">
+  <div class="d-flex align-items-center justify-content-start" v-if="animators && animators.length !== 0">
     <router-link
       :to="{ name: 'participant', params: {participantId:animator.participantId}, query:{productor: $store.state.filter.organisationId}}"
       class="animator-item"

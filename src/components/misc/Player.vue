@@ -248,14 +248,6 @@ export default {
         }
       },
 
-      podcastShareUrl: state => {
-        if (state.player.podcast) {
-          return { name: 'podcast', params: {podcastId : state.player.podcast.podcastId}, query:{productor: this.$store.state.filter.organisationId}};
-        } else {
-          return '';
-        }
-      },
-
       playedTime: state => {
         if (state.player.elapsed > 0 && state.player.total > 0) {
           return DurationHelper.formatDuration(
@@ -278,6 +270,14 @@ export default {
         }
       },
     }),
+
+    podcastShareUrl(){
+      if (this.podcast) {
+        return { name: 'podcast', params: {podcastId : this.podcast.podcastId}, query:{productor: this.$store.state.filter.organisationId}};
+      } else {
+        return '';
+      }
+    },
 
     podcastTitle(){
       if (this.podcast) {
