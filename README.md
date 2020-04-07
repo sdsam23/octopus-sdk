@@ -93,6 +93,9 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.14.17 Merge dev-fabien
  * 0.14.18 Sticker invisible
  * 0.14.19 Sticker invisible
+ * 0.14.20 Merge de staging
+ * 0.14.21 Erreur de merge
+ * 0.14.22 Filtrage avancé : simplification vocabulaire
 
  * 0.15.0 Nouveau sprint
  * 0.15.1 Erreur de merge
@@ -100,3 +103,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.15.3 Mettre en place une version d’octopus dans laquelle l’utilisateur ne voit que ses contenus
  * 0.15.4 Recherche avancée - status de processing
  * 0.15.5 Recherche avancée - status de processing
+ * 0.15.6 Merge de staging
+
