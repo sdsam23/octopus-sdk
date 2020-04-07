@@ -98,3 +98,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.15.1 Erreur de merge
  * 0.15.2 Nouvelle version api
  * 0.15.3 Mettre en place une version d’octopus dans laquelle l’utilisateur ne voit que ses contenus
+ * 0.15.4 Recherche avancée - status de processing
