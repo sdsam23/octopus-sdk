@@ -8,6 +8,7 @@
     <div class="podcast-image-play-button" v-on:click="play" v-if="hidePlay">
       <div class="icon-container">
         <div
+          :aria-label="$t('Play')"
           class="saooti-play2-bounty primary-color"
           v-show="!playingPodcast"
         ></div>
@@ -18,8 +19,10 @@
         </div>
       </div>
     </div>
-    <div class="background-icon saooti-arrow-up2" v-if="!isDescription && displayDescription && isMobile" @click="showDescription"></div>
-    <div class="background-icon saooti-arrow-down2" v-if="isDescription && displayDescription && isMobile" @click="showDescription"></div>
+    <div class="background-icon saooti-arrow-up2" :aria-label="$t('Show description')"
+    v-if="!isDescription && displayDescription && isMobile" @click="showDescription"></div>
+    <div class="background-icon saooti-arrow-down2" :aria-label="$t('Hide description')"
+    v-if="isDescription && displayDescription && isMobile" @click="showDescription"></div>
   </template>
   <template v-else>
     <div class="d-flex flex-column w-100 h-100 justify-content-center align-items-center transparent-background"

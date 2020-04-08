@@ -414,5 +414,14 @@ export default {
     'Number emissions' : '{nb} émissions',
     'Number participants' : '{nb} intervenants',
     'Number productors' : '{nb} producteurs',
+    "Display next" : 'Voir les épisodes suivants',
+    "Display previous": 'Voir les épisodes précédents',
+    "Play": 'Jouer',
+    "Pause": 'Pause',
+    "Show description": "Voir la description",
+    "Hide description":"Cacher la description",
+    "open left Menu": 'Ouvrir/Fermer le menu',
+    'Participant': 'Intervenant',
+    'Number of player podcasts': "Nombre d'épisodes dans le miniplayer"
   };
   

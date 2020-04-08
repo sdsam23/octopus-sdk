@@ -6,6 +6,7 @@
       v-for="(animator, index) in animators"
       v-bind:key="animator.participantId"
       v-show="index == visibleIndex"
+      :aria-label="$t('Participant')"
     >
       <div class="podcast-item-animator text-dark">{{ getAnimatorName(animator) }}</div>
     </router-link>

@@ -30,6 +30,7 @@
                 <div class="mt-3 mb-3">
                   <div class="comma" v-if="podcast.animators">{{ $t('Animated by : ') }}
                     <router-link
+                      :aria-label="$t('Participant')"
                       class="link-info"
                       v-for="animator in podcast.animators"
                       v-bind:key="animator.participantId"

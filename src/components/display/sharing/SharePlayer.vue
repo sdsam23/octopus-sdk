@@ -9,6 +9,7 @@
           :title="$t('You cannot insert advertising')"
         >{{ $t('No advertising') }}</div>
         <iframe
+          title="miniplayer"
           :src="iFrameSrc"
           scrolling="no"
           frameborder="0"
@@ -17,7 +18,8 @@
         ></iframe>
         <div class="d-flex flex-column">
           <button class="btn mb-3" @click="isShareModal = true;">{{ $t('Share') }}</button>
-          <select v-model="iFrameModel" class="frame-select">
+          <label for="iframe-select" class="d-inline" aria-label="select miniplayer"></label>
+          <select v-model="iFrameModel" id="iframe-select" class="frame-select">
             <option value="default">{{$t('Default version')}}</option>
             <option value="large">{{$t('Large version')}}</option>
             <option value="emission" v-if="podcast && podcast.podcastId">{{$t('Emission version')}}</option>
@@ -36,12 +38,14 @@
         >
           <span>{{ $t('Show') }}</span>
           <input
+            id="number-input"
             type="number"
             v-model="iFrameNumber"
             min="1"
             max="10"
             class="input-share-player input-no-outline text-center m-2"
           />
+          <label for="number-input" class="d-inline" :aria-label="$t('Number of player podcasts')"></label>
           <span>{{ $t('Last podcasts') }}</span>
         </div>
       </div>

@@ -17,6 +17,7 @@
       v-bind:href="'/main/pub/participants?first=' + dfirst + '&size=' + dsize"
       @click="displayMore"
       v-show="!allFetched && loaded"
+      :aria-label="$t('See more')"
     >
       <div class="saooti-plus"></div>
     </a>

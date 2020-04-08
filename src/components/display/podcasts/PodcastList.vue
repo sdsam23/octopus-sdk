@@ -21,6 +21,7 @@
       :class="buttonPlus? 'btn-linkPlus mt-3': 'btn-more'"
       @click="displayMore"
       v-show="!allFetched && loaded"
+      :aria-label="$t('See more')"
     >
       <template v-if="buttonPlus">{{$t('See more')}}</template>
       <div class="saooti-plus"></div>

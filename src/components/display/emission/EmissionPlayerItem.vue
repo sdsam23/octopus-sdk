@@ -18,10 +18,10 @@
             <div class="two-line-clamp" v-html="p.description">{{p.description}}</div>
             </router-link>
             <div class="play-button-box bg-secondary" @click="play(p)" v-if="$store.state.player.podcast !== p ||($store.state.player.podcast === p && $store.state.player.status === 'PAUSED')">
-                <div class="text-light saooti-play2-bounty"></div>
+                <div class="text-light saooti-play2-bounty" :aria-label="$t('Play')"></div>
             </div>
             <div class="play-button-box bg-secondary" @click="pause(p)" v-else>
-                <div class="text-light saooti-pause-bounty"></div>
+                <div class="text-light saooti-pause-bounty" :aria-label="$t('Pause')"></div>
             </div>
         </div>
     </div>
