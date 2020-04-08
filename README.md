@@ -106,5 +106,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.15.5 Recherche avancée - status de processing
  * 0.15.6 Merge de staging
  * 0.15.7 Merge de staging
+ * 0.15.8 Norme d'accessibilité
 
 
