@@ -4,6 +4,7 @@
       <div class="spinner-border mr-3"></div>
       <h3 class="mt-2">{{ $t('Loading emissions ...') }}</h3>
     </div>
+    <div v-if="showCount && loaded && emissions.length > 1" class="text-secondary mb-2">{{$t('Number emissions',{nb :totalCount})}}</div>
     <ul class="emission-list" :class="smallItems? 'threeEmissions': 'twoEmissions'" v-show="loaded" v-if="!itemPlayer">
       <EmissionItem
         v-bind:emission="e"
@@ -72,7 +73,7 @@ import {state} from "../../../store/paramStore.js";
 export default {
   name: 'EmissionList',
 
-  props: ['first', 'size', 'query', 'organisationId', 'monetization','rubriqueId', 'rubriquageId', 'before', 'after', 'sort'],
+  props: ['first', 'size', 'query', 'organisationId', 'monetization','rubriqueId', 'rubriquageId', 'before', 'after', 'sort', 'showCount'],
 
   components: {
     EmissionItem,

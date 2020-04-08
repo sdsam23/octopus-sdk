@@ -22,6 +22,7 @@
     @includeHidden='updateHidden'
     :organisationId='organisationId'/>
     <PodcastList 
+    :showCount="true"
     :first="first" 
     :size="size" 
     :organisationId='organisationId' 

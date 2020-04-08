@@ -8,6 +8,7 @@
       @updateOrganisationId='updateOrganisationId'
       @updateSearchPattern='updateSearchPattern' />
     <ParticipantList
+      :showCount="true"
       :first="first"
       :size="size"
       :query="searchPattern"

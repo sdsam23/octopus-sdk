@@ -399,7 +399,7 @@ export default {
     'To the :': "Jusqu'au :",
     'Visible':'Visible',
     'In creation':'En cours de création',
-    'Publish in future':'Publié dans le futur',
+    'Publish in future':'Voir aussi les épisodes masqués pour les auditeurs',
     'In error':'En erreur',
     'Emission with episode published :':'Emission ayant au moins un épisode sorti :',
     'Sort': 'Tri',
@@ -408,6 +408,10 @@ export default {
     'Sort name': 'Alphabétique',
     'Sort last': 'Antéchronologique',
     'Choose color':'Modification de la couleur principale du player',
-    'Podcast no visible':'Épisode non visible actuellement'
+    'Podcast no visible':'Épisode non visible actuellement',
+    'Number podcasts' : '{nb} épisodes',
+    'Number emissions' : '{nb} émissions',
+    'Number participants' : '{nb} intervenants',
+    'Number productors' : '{nb} producteurs',
   };
   

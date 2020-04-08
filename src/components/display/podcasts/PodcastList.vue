@@ -7,6 +7,7 @@
     <div v-if="loaded && !podcasts.length">
       <p>{{ $t('No podcast match your query') }}</p>
     </div>
+    <div v-if="showCount && loaded && podcasts.length > 1" class="text-secondary mb-2">{{$t('Number podcasts',{nb :totalCount})}}</div>
     <ul class="podcast-list" v-show="loaded">
       <PodcastItem
         v-bind:podcast="p"
@@ -78,6 +79,7 @@ export default {
     before: {default:undefined},
     after: {default:undefined},
     includeHidden:{default:false},
+    showCount:{default:false},
   },
 
   components: {

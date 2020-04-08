@@ -20,6 +20,7 @@
       @updateSortEmission='updateSortEmission'
       :organisationId='organisationId'/>
     <EmissionList
+      :showCount="true"
       :first="first"
       :size="size"
       :query="searchPattern"
