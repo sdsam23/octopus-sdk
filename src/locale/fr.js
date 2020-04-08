@@ -410,5 +410,9 @@ export default {
     'Podcast in process': 'Épisode en traitement',
     'Podcast in error':'Épisode en erreur',
     'See podcasts no visible':'Voir aussi les épisodes masqués pour les auditeurs',
+    'Number podcasts' : '{nb} épisodes',
+    'Number emissions' : '{nb} émissions',
+    'Number participants' : '{nb} intervenants',
+    'Number productors' : '{nb} producteurs',
   };
   

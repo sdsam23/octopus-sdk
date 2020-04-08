@@ -96,6 +96,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.14.20 Merge de staging
  * 0.14.21 Erreur de merge
  * 0.14.22 Filtrage avancé : simplification vocabulaire
+ * 0.14.23 Affichage du nombre d'éléments affichable en haut des pages Episodes, Emissions, Intervenants, Producteurs
 
  * 0.15.0 Nouveau sprint
  * 0.15.1 Erreur de merge
@@ -104,4 +105,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.15.4 Recherche avancée - status de processing
  * 0.15.5 Recherche avancée - status de processing
  * 0.15.6 Merge de staging
+ * 0.15.7 Merge de staging
+
 

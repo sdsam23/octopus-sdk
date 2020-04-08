@@ -4,6 +4,7 @@
       <div class="spinner-border mr-3"></div>
       <h3 class="mt-2">{{ $t('Loading participants ...') }}</h3>
     </div>
+    <div v-if="showCount && loaded && participants.length > 1" class="text-secondary mb-2">{{$t('Number participants',{nb :totalCount})}}</div>
     <ul class="participant-list" v-show="loaded">
       <ParticipantItem
         v-bind:participant="p"
@@ -54,7 +55,7 @@ import ParticipantItem from './ParticipantItem.vue';
 export default {
   name: 'ParticipantList',
 
-  props: ['first', 'size', 'query', 'organisationId'],
+  props: ['first', 'size', 'query', 'organisationId', 'showCount'],
 
   components: {
     ParticipantItem,
