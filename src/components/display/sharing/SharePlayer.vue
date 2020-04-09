@@ -31,17 +31,19 @@
             >{{$t('Large suggestion version')}}</option>
           </select>
         </div>
-        <div class="row d_flex flex-row mt-3" >
-          <div class="col">{{$t('Choose color')}}</div>  
-          <div class="col">{{$t('Choose theme')}}</div>
-        </div>
-        <div class="row d-flex flex-row mt-2">
-          <div class="col"><swatches v-model="color" class="c-hand input-no-outline" colors="text-advanced" popover-to="left"></swatches></div>
+        <div class="row d-flex flex-row justify-content-center mt-3" >
           <div class="col">
-            <swatches v-model="theme" class="c-hand input-no-outline" :colors="themes" inline ></swatches>
-          </div>
+            <div class="row justify-content-center">{{$t('Choose color')}}</div>
+            <div class="row justify-content-center"><swatches v-model="color" class="c-hand input-no-outline" colors="text-advanced" popover-to="right"></swatches></div>
+          </div>  
+          <div class="col">
+            <div class="row justify-content-center">{{$t('Choose theme')}}</div>
+            <div class="row justify-content-center ">
+              <div class="col-6"><swatches v-model="theme" class="c-hand input-no-outline" :swatch-style="{padding: '0px 0px', marginRight: '0px', marginBottom: '0px'}" :wrapper-style="{paddingTop: '0px', paddingLeft: '0px', paddingRight: '0px', paddingBottom: '0px'}" :colors="['#000000']" inline ></swatches></div>
+              <div class="col-6"><swatches v-model="theme" class="c-hand input-no-outline" :swatch-style="{padding: '0px 0px', marginRight: '0px', marginBottom: '0px'}" :wrapper-style="{paddingTop: '0px', paddingLeft: '0px', paddingRight: '0px', paddingBottom: '0px'}" :colors="['#ffffff']" inline ></swatches></div>
+            </div>
+          </div> 
         </div>
-            
         <div
           class="d-flex align-items-center mt-3"
           v-if="!podcast || iFrameModel === 'emission' || iFrameModel === 'largeEmission' || iFrameModel === 'largeSuggestion'"
@@ -98,15 +100,14 @@
     box-shadow: 2px 8px 4px -6px hsla(0, 0%, 0%, 0.3);
   }
 }
-.vue-swatches__trigger {
-  margin: auto !important;
-}
+
 </style>
 
 <script>
 import ShareModal from "../../misc/modal/ShareModal.vue";
 import { state } from "../../../store/paramStore.js";
 import Swatches from "vue-swatches";
+import "vue-swatches/dist/vue-swatches.min.css"
 
 export default {
   props: ["podcast", "emissionId", "organisationId", "exclusive"],
@@ -123,7 +124,6 @@ export default {
       isShareModal: false,
       color: "#50b684",
       theme: "#ffffff",
-      themes: ["#ffffff", "#000000"],
     };
   },
   computed: {
@@ -148,25 +148,20 @@ export default {
       let url = "";
       if (!this.podcast) {
         if (this.iFrameModel === "default") {
-          url = `http://localhost:4000/miniplayer/emission/${this.emissionId}/${this.iFrameNumberPriv}`;
-          //url = `${state.podcastPage.MiniplayerUri}miniplayer/emission/${this.emissionId}/${this.iFrameNumberPriv}`;
+          url = `${state.podcastPage.MiniplayerUri}miniplayer/emission/${this.emissionId}/${this.iFrameNumberPriv}`;
         } else {
-          url = `http://localhost:4000/miniplayer/emissionLarge/${this.emissionId}/${this.iFrameNumberPriv}`;
-          //url = `${state.podcastPage.MiniplayerUri}miniplayer/emissionLarge/${this.emissionId}/${this.iFrameNumberPriv}`;
+          url = `${state.podcastPage.MiniplayerUri}miniplayer/emissionLarge/${this.emissionId}/${this.iFrameNumberPriv}`;
         }
       } else {
         if (
           this.iFrameModel === "emission" ||
           this.iFrameModel === "largeEmission"
         ) {
-          url = `http://localhost:4000/miniplayer/${this.iFrameModel}/${this.emissionId}/${this.iFrameNumberPriv}/${this.podcast.podcastId}`;
-          //url = `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.emissionId}/${this.iFrameNumberPriv}/${this.podcast.podcastId}`;
+          url = `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.emissionId}/${this.iFrameNumberPriv}/${this.podcast.podcastId}`;
         } else if (this.iFrameModel === "largeSuggestion") {
-          url = `http://localhost:4000/miniplayer/${this.iFrameModel}/${this.podcast.podcastId}/${this.iFrameNumberPriv}`;
-          //url = `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.podcast.podcastId}/${this.iFrameNumberPriv}`;
+          url = `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.podcast.podcastId}/${this.iFrameNumberPriv}`;
         } else {
-          url = `http://localhost:4000/miniplayer/${this.iFrameModel}/${this.podcast.podcastId}`;
-          //url = `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.podcast.podcastId}`;
+          url = `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.podcast.podcastId}`;
         }
       }
       return (
