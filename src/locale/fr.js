@@ -413,5 +413,6 @@ export default {
     'Number emissions' : '{nb} émissions',
     'Number participants' : '{nb} intervenants',
     'Number productors' : '{nb} producteurs',
+    'Proceed reading':'Poursuivre la lecture',
   };
   
