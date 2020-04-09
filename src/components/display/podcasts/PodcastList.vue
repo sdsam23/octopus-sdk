@@ -7,6 +7,7 @@
     <div v-if="loaded && !podcasts.length">
       <p>{{ $t('No podcast match your query') }}</p>
     </div>
+    <div v-if="showCount && loaded && podcasts.length > 1" class="text-secondary mb-2">{{$t('Number podcasts',{nb :totalCount})}}</div>
     <ul class="podcast-list" v-show="loaded">
       <PodcastItem
         v-bind:podcast="p"
@@ -20,6 +21,7 @@
       :class="buttonPlus? 'btn-linkPlus mt-3': 'btn-more'"
       @click="displayMore"
       v-show="!allFetched && loaded"
+      :aria-label="$t('See more')"
     >
       <template v-if="buttonPlus">{{$t('See more')}}</template>
       <div class="saooti-plus"></div>
@@ -78,6 +80,7 @@ export default {
     before: {default:undefined},
     after: {default:undefined},
     includeHidden:{default:false},
+    showCount:{default:false},
   },
 
   components: {

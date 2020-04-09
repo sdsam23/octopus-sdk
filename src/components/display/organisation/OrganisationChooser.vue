@@ -1,8 +1,9 @@
 <template>
   <div class="w-100" :style="{ width: width }" :class="{'multiselect-hide-arrow' : !displayArrow }">
+    <label for="organisationChooser" class="d-inline" aria-label="select productor"></label>
     <Multiselect
       v-model="organisation"
-      id="ajax"
+      id="organisationChooser"
       label="name"
       track-by="organisationId"
       :placeholder="$t('Type string to filter by organisation')"

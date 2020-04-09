@@ -1,7 +1,7 @@
 <template>
   <div class="top-bar-container position-sticky" v-bind:class="{ 'shadow-element': scrolled }">
     <div class="top-bar">
-      <div class="hamburger-menu" v-on:click="onDisplayMenu(false)">
+      <div class="hamburger-menu" v-on:click="onDisplayMenu(false)" :aria-label="$t('open left Menu')">
         <div class="saooti-burger-menu h3"></div>
       </div>
       <router-link 
@@ -56,6 +56,7 @@
             </template>
           </b-dropdown>
           <router-link 
+          :aria-label ="$t('Search')"
           :to="{ name: 'podcasts', query:{productor: $store.state.filter.organisationId}}">
             <div class="btn admin-button m-1">
               <i class="saooti-search text-dark"></i>

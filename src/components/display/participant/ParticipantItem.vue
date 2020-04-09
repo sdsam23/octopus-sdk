@@ -2,7 +2,8 @@
   <li class="participant-item-container" v-if="participant">
     <router-link 
     :to="{ name: 'participant', params: {participantId:participant.participantId}, query:{productor: $store.state.filter.organisationId}}"
-    class="mt-3" >
+    class="mt-3"
+    :aria-label="$t('Participant')">
       <div class="img-box-circle" :style="{ 'background-image': 'url(\'' + participant.imageUrl + '\')' }"></div>
     </router-link>
     <router-link 

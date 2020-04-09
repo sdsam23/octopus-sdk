@@ -44,6 +44,7 @@
       >
         <div
           class="text-light"
+          :aria-label="$t('Play')"
           v-bind:class="{
             saooti: status == 'PLAYING' || status == 'PAUSED',
             'saooti-play2-bounty': status == 'PAUSED',
@@ -61,7 +62,7 @@
           <div class="progress-bar primary-bg" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" :style="'width: '+ percentProgress + '%'"></div>
         </div>
       </div>
-      <router-link :to=podcastShareUrl class="text-light hide-phone" v-if='podcastShareUrl !== ""'>
+      <router-link :to=podcastShareUrl class="text-light hide-phone" v-if='podcastShareUrl !== ""' :aria-label="$t('Podcast')">
         <div class="saooti-export-bounty c-hand m-2" ></div>
       </router-link>
       <div class="d-flex text-light align-items-center hide-phone" v-if="isClock">
@@ -234,24 +235,20 @@ export default {
 
       podcastAudioURL: state => {
         if (state.player.podcast) {
-          let parameters = '?origin=octopus';
-          parameters += "&cookieName=player_"+state.player.podcast.podcastId
-          parameters +=
-            state.authentication && state.authentication.organisationId
-              ? '&distributorId=' + state.authentication.organisationId
-              : '';
-          return state.player.podcast.audioUrl + parameters;
+          if(state.player.podcast.availability.visibility === false){
+            return state.player.podcast.audioStorageUrl;
+          }else{
+             let parameters = '?origin=octopus';
+            parameters += "&cookieName=player_"+state.player.podcast.podcastId
+            parameters +=
+              state.authentication && state.authentication.organisationId
+                ? '&distributorId=' + state.authentication.organisationId
+                : '';
+            return state.player.podcast.audioUrl + parameters;
+          }
         } else if(state.player.media){
           return state.player.media.audioUrl;
         } else{
-          return '';
-        }
-      },
-
-      podcastShareUrl: state => {
-        if (state.player.podcast) {
-          return { name: 'podcast', params: {podcastId : state.player.podcast.podcastId}, query:{productor: this.$store.state.filter.organisationId}};
-        } else {
           return '';
         }
       },
@@ -278,6 +275,14 @@ export default {
         }
       },
     }),
+
+    podcastShareUrl(){
+      if (this.podcast) {
+        return { name: 'podcast', params: {podcastId : this.podcast.podcastId}, query:{productor: this.$store.state.filter.organisationId}};
+      } else {
+        return '';
+      }
+    },
 
     podcastTitle(){
       if (this.podcast) {

@@ -14,6 +14,7 @@
       right
       toggle-class="text-decoration-none text-dark category-item category-item-plus"
       no-caret
+      :aria-label="$t('See more')"
     >
       <template v-slot:button-content>
         <i class="saooti-plus"></i>

@@ -267,6 +267,9 @@ a.linkHover:hover{
     background: linear-gradient(to right, rgba(255,255,255,0), $octopus-background 50%);
   }
 }
+.font-weight-600{
+  font-weight: 600;
+}
 @media (max-width: 655px) {
   .description-fade-hid{
     display: none;

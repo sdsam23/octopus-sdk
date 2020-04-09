@@ -16,10 +16,10 @@
       </div>
       <div v-else></div>
       <div class="hide-phone" v-if="!isArrow">
-        <button class="btn btn-arrow" @click="displayPrevious()" :class="{ disabled: !previousAvailable }">
+        <button class="btn btn-arrow" @click="displayPrevious()" :class="{ disabled: !previousAvailable }" :aria-label="$t('Display previous')">
           <div class="saooti-arrow-left2"></div>
         </button>
-        <button class="btn btn-arrow" @click="displayNext()" :class="{ disabled: !nextAvailable }">
+        <button class="btn btn-arrow" @click="displayNext()" :class="{ disabled: !nextAvailable }" :aria-label="$t('Display next')">
           <div class="saooti-arrow-right2"></div>
         </button>
       </div>

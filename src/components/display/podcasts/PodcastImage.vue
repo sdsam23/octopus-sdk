@@ -8,6 +8,7 @@
     <div class="podcast-image-play-button" v-on:click="play" v-if="hidePlay">
       <div class="icon-container">
         <div
+          :aria-label="$t('Play')"
           class="saooti-play2-bounty primary-color"
           v-show="!playingPodcast"
         ></div>
@@ -18,16 +19,20 @@
         </div>
       </div>
     </div>
-    <div class="background-icon saooti-arrow-up2" v-if="!isDescription && displayDescription && isMobile" @click="showDescription"></div>
-    <div class="background-icon saooti-arrow-down2" v-if="isDescription && displayDescription && isMobile" @click="showDescription"></div>
+    <div class="background-icon saooti-arrow-up2" :aria-label="$t('Show description')"
+    v-if="!isDescription && displayDescription && isMobile" @click="showDescription"></div>
+    <div class="background-icon saooti-arrow-down2" :aria-label="$t('Hide description')"
+    v-if="isDescription && displayDescription && isMobile" @click="showDescription"></div>
   </template>
   <template v-else>
-    <div class="d-flex flex-column w-100 h-100 justify-content-center align-items-center transparent-background">
+    <div class="d-flex flex-column w-100 h-100 justify-content-center align-items-center transparent-background"
+    :class="podcast.processingStatus === 'READY' ? 'c-hand':''" :click="play"
+    >
       <img
-        src="/img/novisible.png"
+        :src="imgUrl"
         class="no-visible-img"
       />
-      <div class="small-Text mt-2 font-weight-bold">{{$t('Podcast no visible')}}</div>
+      <div class="small-Text mt-2 font-weight-bold">{{textVisible}}</div>
     </div>
   </template>
   </div>
@@ -144,6 +149,7 @@
 
 <script>
 import { mapState } from 'vuex';
+const moment = require('moment');
 export default {
   name: 'PodcastImage',
 
@@ -160,7 +166,34 @@ export default {
     }),
     isMobile(){
       return window.matchMedia( "(hover: none)" ).matches;
+    },
+    imgUrl(){
+      if(this.podcast.processingStatus === "READY"){
+        if(moment(this.podcast.pubDate).year() === 1970){
+          return "/img/novisible.png";
+        }else{
+          return "/img/clock.png";
+        }
+      }else if(this.podcast.processingStatus === "PLANNED" || this.podcast.processingStatus === "PROCESSING"){
+        return '/img/hourglass.png';
+      }else{
+        return '/img/caution.png';
+      }
+    },
+    textVisible(){
+      if(this.podcast.processingStatus === "READY"){
+        if(moment(this.podcast.pubDate).year() === 1970){
+          return this.$t('Podcast no visible');
+        }else{
+          return this.$t('Podcast publish in future');
+        }
+      }else if(this.podcast.processingStatus === "PLANNED" || this.podcast.processingStatus === "PROCESSING"){
+        return this.$t('Podcast in process');
+      }else{
+        return this.$t('Podcast in error');
+      }
     }
+    
   },
 
   data() {

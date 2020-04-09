@@ -2,6 +2,7 @@
   <li class="mt-3" :class="lightItems? 'noList emission-light-max-size':'emission-item-container shadow-element'">
     <router-link 
     :to="{ name: 'emission', params: {emissionId:emission.emissionId}, query:{productor: $store.state.filter.organisationId}}"
+    :aria-label="$t('Emission')"
     class="text-dark">
       <div class="img-box" :style="{ 'background-image': 'url(\'' + emission.imageUrl + '\')' }" v-if="!lightItems"></div>
       <div class="d-flex" v-else>

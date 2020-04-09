@@ -9,6 +9,7 @@
           :title="$t('You cannot insert advertising')"
         >{{ $t('No advertising') }}</div>
         <iframe
+          title="miniplayer"
           :src="iFrameSrc"
           scrolling="no"
           frameborder="0"
@@ -17,7 +18,8 @@
         ></iframe>
         <div class="d-flex flex-column">
           <button class="btn mb-3" @click="isShareModal = true;">{{ $t('Share') }}</button>
-          <select v-model="iFrameModel" class="frame-select">
+          <label for="iframe-select" class="d-inline" aria-label="select miniplayer"></label>
+          <select v-model="iFrameModel" id="iframe-select" class="frame-select input-no-outline">
             <option value="default">{{$t('Default version')}}</option>
             <option value="large">{{$t('Large version')}}</option>
             <option value="emission" v-if="podcast && podcast.podcastId">{{$t('Emission version')}}</option>
@@ -31,32 +33,37 @@
             >{{$t('Large suggestion version')}}</option>
           </select>
         </div>
-        <div class="row d-flex flex-row justify-content-center mt-3" >
-          <div class="col">
-            <div class="row justify-content-center">{{$t('Choose color')}}</div>
-            <div class="row justify-content-center"><swatches v-model="color" class="c-hand input-no-outline" colors="text-advanced" popover-to="right"></swatches></div>
+        <div class="d-flex justify-content-between mt-3 flex-grow" >
+          <div class="d-flex flex-column align-items-center flex-shrink mr-2">
+            <div class="font-weight-600">{{$t('Choose color')}}</div>
+            <swatches v-model="color" class="c-hand input-no-outline" colors="text-advanced" popover-to="right"></swatches>
           </div>  
-          <div class="col">
-            <div class="row justify-content-center">{{$t('Choose theme')}}</div>
-            <div class="row justify-content-center ">
-              <div class="col-6"><swatches v-model="theme" class="c-hand input-no-outline" :swatch-style="{padding: '0px 0px', marginRight: '0px', marginBottom: '0px'}" :wrapper-style="{paddingTop: '0px', paddingLeft: '0px', paddingRight: '0px', paddingBottom: '0px'}" :colors="['#000000']" inline ></swatches></div>
-              <div class="col-6"><swatches v-model="theme" class="c-hand input-no-outline" :swatch-style="{padding: '0px 0px', marginRight: '0px', marginBottom: '0px'}" :wrapper-style="{paddingTop: '0px', paddingLeft: '0px', paddingRight: '0px', paddingBottom: '0px'}" :colors="['#ffffff']" inline ></swatches></div>
+          <div class="d-flex flex-column align-items-center">
+            <div class="font-weight-600">{{$t('Choose theme')}}</div>
+            <div class="d-flex">
+              <swatches v-model="theme" class="c-hand input-no-outline mr-1" :swatch-style="{padding: '0px 0px', marginRight: '0px', marginBottom: '0px'}" :wrapper-style="{paddingTop: '0px', paddingLeft: '0px', paddingRight: '0px', paddingBottom: '0px'}" :colors="['#000000']" inline ></swatches>
+              <swatches v-model="theme" class="c-hand input-no-outline" :swatch-style="{padding: '0px 0px', marginRight: '0px', marginBottom: '0px'}" :wrapper-style="{paddingTop: '0px', paddingLeft: '0px', paddingRight: '0px', paddingBottom: '0px'}" :colors="['#ffffff']" inline ></swatches>
             </div>
           </div> 
         </div>
-        <div
-          class="d-flex align-items-center mt-3"
-          v-if="!podcast || iFrameModel === 'emission' || iFrameModel === 'largeEmission' || iFrameModel === 'largeSuggestion'"
-        >
+        <div class="d-flex flex-column flex-grow" v-if="!podcast || iFrameModel === 'emission' || iFrameModel === 'largeEmission' || iFrameModel === 'largeSuggestion'">
+        <div class="d-flex align-items-center mt-3">
           <span>{{ $t('Show') }}</span>
           <input
+            id="number-input"
             type="number"
             v-model="iFrameNumber"
             min="1"
             max="10"
             class="input-share-player input-no-outline text-center m-2"
           />
+          <label for="number-input" class="d-inline" :aria-label="$t('Number of player podcasts')"></label>
           <span>{{ $t('Last podcasts') }}</span>
+        </div>
+        <div class="checkbox-saooti">  
+          <input type="checkbox" class="custom-control-input" id="proceedCheck" v-model="proceedReading">  
+          <label class="custom-control-label" for="proceedCheck">{{$t('Proceed reading')}}</label>  
+        </div>
         </div>
       </div>
       <div
@@ -100,6 +107,9 @@
     box-shadow: 2px 8px 4px -6px hsla(0, 0%, 0%, 0.3);
   }
 }
+.vue-swatches__container{
+  padding : 0 !important;
+}
 
 </style>
 
@@ -124,6 +134,7 @@ export default {
       isShareModal: false,
       color: "#50b684",
       theme: "#ffffff",
+      proceedReading: true,
     };
   },
   computed: {
@@ -164,15 +175,12 @@ export default {
           url = `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.podcast.podcastId}`;
         }
       }
-      return (
-        url +
-        "?distributorId=" +
-        this.organisationId +
-        "&color=" +
-        this.color.substring(1) +
-        "&theme=" +
-        this.theme.substring(1)
-      );
+      url += "?distributorId=" + this.organisationId;
+      url += "&color=" + this.color.substring(1) + "&theme=" +this.theme.substring(1);
+      if(!this.proceedReading){
+        url += "&proceed=false";
+      }
+      return url;
     },
 
     iFrameNumber: {
