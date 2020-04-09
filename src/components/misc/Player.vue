@@ -234,13 +234,17 @@ export default {
 
       podcastAudioURL: state => {
         if (state.player.podcast) {
-          let parameters = '?origin=octopus';
-          parameters += "&cookieName=player_"+state.player.podcast.podcastId
-          parameters +=
-            state.authentication && state.authentication.organisationId
-              ? '&distributorId=' + state.authentication.organisationId
-              : '';
-          return state.player.podcast.audioUrl + parameters;
+          if(state.player.podcast.availability.visibility === false){
+            return state.player.podcast.audioStorageUrl;
+          }else{
+             let parameters = '?origin=octopus';
+            parameters += "&cookieName=player_"+state.player.podcast.podcastId
+            parameters +=
+              state.authentication && state.authentication.organisationId
+                ? '&distributorId=' + state.authentication.organisationId
+                : '';
+            return state.player.podcast.audioUrl + parameters;
+          }
         } else if(state.player.media){
           return state.player.media.audioUrl;
         } else{
