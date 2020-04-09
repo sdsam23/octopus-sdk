@@ -97,6 +97,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.14.21 Erreur de merge
  * 0.14.22 Filtrage avancé : simplification vocabulaire
  * 0.14.23 Affichage du nombre d'éléments affichable en haut des pages Episodes, Emissions, Intervenants, Producteurs
+ * 0.14.24 Pré Choix d'enchainer les épisodes ou pas
+ * 0.14.25 Lecture épisode invisibles
 
  * 0.15.0 Nouveau sprint
  * 0.15.1 Erreur de merge
@@ -107,5 +109,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.15.6 Merge de staging
  * 0.15.7 Merge de staging
  * 0.15.8 Norme d'accessibilité
+ * 0.15.9 Merge de staging
+
 
 

@@ -19,7 +19,7 @@
         <div class="d-flex flex-column">
           <button class="btn mb-3" @click="isShareModal = true;">{{ $t('Share') }}</button>
           <label for="iframe-select" class="d-inline" aria-label="select miniplayer"></label>
-          <select v-model="iFrameModel" id="iframe-select" class="frame-select">
+          <select v-model="iFrameModel" id="iframe-select" class="frame-select input-no-outline">
             <option value="default">{{$t('Default version')}}</option>
             <option value="large">{{$t('Large version')}}</option>
             <option value="emission" v-if="podcast && podcast.podcastId">{{$t('Emission version')}}</option>
@@ -33,9 +33,8 @@
             </div>
           </div>
         </div>
-        <div class="d-flex align-items-center mt-3"
-          v-if="!podcast || iFrameModel === 'emission' || iFrameModel === 'largeEmission' || iFrameModel === 'largeSuggestion'"
-        >
+        <div class="d-flex flex-column flex-grow" v-if="!podcast || iFrameModel === 'emission' || iFrameModel === 'largeEmission' || iFrameModel === 'largeSuggestion'">
+        <div class="d-flex align-items-center mt-3">
           <span>{{ $t('Show') }}</span>
           <input
             id="number-input"
@@ -47,6 +46,11 @@
           />
           <label for="number-input" class="d-inline" :aria-label="$t('Number of player podcasts')"></label>
           <span>{{ $t('Last podcasts') }}</span>
+        </div>
+        <div class="checkbox-saooti">  
+          <input type="checkbox" class="custom-control-input" id="proceedCheck" v-model="proceedReading">  
+          <label class="custom-control-label" for="proceedCheck">{{$t('Proceed reading')}}</label>  
+        </div>
         </div>
       </div>
       <div
@@ -114,7 +118,8 @@ export default {
       iFrameModel: "default",
       iFrameNumberPriv: "3",
       isShareModal: false,
-      color: "#50b684"
+      color: "#50b684",
+      proceedReading: true,
     };
   },
   computed: {
@@ -155,7 +160,11 @@ export default {
           url = `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.podcast.podcastId}`;
         }
       }
-      return url + "?distributorId=" + this.organisationId + "&color=" + this.color.substring(1) ;
+      url += "?distributorId=" + this.organisationId + "&color=" + this.color.substring(1) ;
+      if(!this.proceedReading){
+        url += "&proceed=false";
+      }
+      return url;
     },
 
     iFrameNumber: {

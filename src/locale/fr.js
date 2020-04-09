@@ -397,6 +397,10 @@ export default {
     'No rubric filter': 'Toutes les rubriques',
     'From the :' : 'Depuis le :',
     'To the :': "Jusqu'au :",
+    'Visible':'Visible',
+    'In creation':'En cours de création',
+    'Publish in future':'Voir aussi les épisodes masqués pour les auditeurs',
+    'In error':'En erreur',
     'Emission with episode published :':'Emission ayant au moins un épisode sorti :',
     'Sort': 'Tri',
     'Filter': 'Filtrage',
@@ -422,6 +426,7 @@ export default {
     "Hide description":"Cacher la description",
     "open left Menu": 'Ouvrir/Fermer le menu',
     'Participant': 'Intervenant',
-    'Number of player podcasts': "Nombre d'épisodes dans le miniplayer"
+    'Number of player podcasts': "Nombre d'épisodes dans le miniplayer",
+    'Proceed reading':'Poursuivre la lecture',
   };
   
