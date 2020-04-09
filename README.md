@@ -110,6 +110,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.15.7 Merge de staging
  * 0.15.8 Norme d'accessibilité
  * 0.15.9 Merge de staging
+ * 0.15.10 Merge de Samuel
 
 
 
