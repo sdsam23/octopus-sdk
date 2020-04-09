@@ -26,12 +26,19 @@
             <option value="largeEmission" v-if="podcast && podcast.podcastId">{{$t('Large emission version')}}</option>
             <option value="largeSuggestion" v-if="podcast && podcast.podcastId">{{$t('Large suggestion version')}}</option>
           </select>
-          <div class="form__field d-flex flex-column justify-content-center mt-3">
-            <div class="form__label">{{$t('Choose color')}}</div>
-            <div class="form__input" >
-              <swatches v-model="color" class="c-hand input-no-outline" colors="text-advanced" popover-to="left" ></swatches>
+        </div>
+        <div class="d-flex justify-content-between mt-3 flex-grow" >
+          <div class="d-flex flex-column align-items-center flex-shrink mr-2">
+            <div class="font-weight-600">{{$t('Choose color')}}</div>
+            <swatches v-model="color" class="c-hand input-no-outline" colors="text-advanced" popover-to="right"></swatches>
+          </div>  
+          <div class="d-flex flex-column align-items-center">
+            <div class="font-weight-600">{{$t('Choose theme')}}</div>
+            <div class="d-flex">
+              <swatches v-model="theme" class="c-hand input-no-outline mr-1" :swatch-style="{padding: '0px 0px', marginRight: '0px', marginBottom: '0px'}" :wrapper-style="{paddingTop: '0px', paddingLeft: '0px', paddingRight: '0px', paddingBottom: '0px'}" :colors="['#000000']" inline ></swatches>
+              <swatches v-model="theme" class="c-hand input-no-outline" :swatch-style="{padding: '0px 0px', marginRight: '0px', marginBottom: '0px'}" :wrapper-style="{paddingTop: '0px', paddingLeft: '0px', paddingRight: '0px', paddingBottom: '0px'}" :colors="['#ffffff']" inline ></swatches>
             </div>
-          </div>
+          </div> 
         </div>
         <div class="d-flex flex-column flex-grow" v-if="!podcast || iFrameModel === 'emission' || iFrameModel === 'largeEmission' || iFrameModel === 'largeSuggestion'">
         <div class="d-flex align-items-center mt-3">
@@ -95,15 +102,17 @@
     box-shadow: 2px 8px 4px -6px hsla(0, 0%, 0%, 0.3);
   }
 }
-.vue-swatches__trigger{
-  margin: auto !important;
+.vue-swatches__container{
+  padding : 0 !important;
 }
+
 </style>
 
 <script>
 import ShareModal from "../../misc/modal/ShareModal.vue";
 import { state } from "../../../store/paramStore.js";
 import Swatches from "vue-swatches";
+import "vue-swatches/dist/vue-swatches.min.css"
 
 export default {
   props: ["podcast", "emissionId", "organisationId", "exclusive"],
@@ -111,7 +120,7 @@ export default {
   components: {
     ShareModal,
     Swatches
-  }, 
+  },
 
   data() {
     return {
@@ -119,6 +128,7 @@ export default {
       iFrameNumberPriv: "3",
       isShareModal: false,
       color: "#50b684",
+      theme: "#ffffff",
       proceedReading: true,
     };
   },
@@ -160,7 +170,8 @@ export default {
           url = `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.podcast.podcastId}`;
         }
       }
-      url += "?distributorId=" + this.organisationId + "&color=" + this.color.substring(1) ;
+      url += "?distributorId=" + this.organisationId;
+      url += "&color=" + this.color.substring(1) + "&theme=" +this.theme.substring(1);
       if(!this.proceedReading){
         url += "&proceed=false";
       }
