@@ -22,7 +22,7 @@
     <div class="background-icon saooti-arrow-down2" v-if="isDescription && displayDescription && isMobile" @click="showDescription"></div>
   </template>
   <template v-else>
-    <div class="d-flex flex-column w-100 h-100 justify-content-center align-items-center transparent-background">
+    <div class="d-flex flex-column w-100 h-100 justify-content-center align-items-center transparent-background c-hand" @click="play">
       <img
         src="/img/novisible.png"
         class="no-visible-img"
