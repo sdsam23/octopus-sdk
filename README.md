@@ -99,3 +99,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.14.23 Affichage du nombre d'éléments affichable en haut des pages Episodes, Emissions, Intervenants, Producteurs
  * 0.14.24 Pré Choix d'enchainer les épisodes ou pas
  * 0.14.25 Lecture épisode invisibles
+ * 0.14.26 Affichage et date d'un épisode non disponible pour les auditeurs

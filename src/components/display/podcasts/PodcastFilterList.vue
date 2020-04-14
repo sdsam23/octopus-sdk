@@ -23,6 +23,7 @@
         :emissionId="emissionId"
         :organisationId="productorId"
         :reload="reloadList"
+        :includeHidden="editRight"
       />
   </div>
 </template>
@@ -82,7 +83,8 @@ export default {
     'emissionId',
     'categoryFilter',
     'productorId',
-    'reload'
+    'reload',
+    'editRight',
   ],
 
   data() {

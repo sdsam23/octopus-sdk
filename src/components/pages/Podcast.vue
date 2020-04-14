@@ -21,7 +21,7 @@
                 @playPodcast='playPodcast' />
                 <h3 v-if="isOuestFrance">{{ this.podcast.title }}</h3>
                 <div class="date-text-zone">
-                  <div class="mr-5" v-if="!isOuestFrance">{{ date }}</div>
+                  <div class="mr-5" v-if="!isOuestFrance && date.length !==0">{{ date }}</div>
                   <div><span class="saooti-clock3" v-if="isOuestFrance"></span>{{ $t('Duration', { duration: duration }) }}</div>
                 </div>
                 <div class="descriptionText" v-html="this.podcast.description">{{ this.podcast.description }}</div>
@@ -229,7 +229,12 @@ export default {
     },
 
     date() {
-      return moment(this.podcast.pubDate).format("D MMMM YYYY [à] HH[h]mm");
+      if(moment(this.podcast.pubDate).year() !== 1970){
+        return moment(this.podcast.pubDate).format("D MMMM YYYY [à] HH[h]mm");
+      }else{
+        return ""
+      }
+      
     },
 
     duration() {
