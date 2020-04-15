@@ -414,5 +414,7 @@ export default {
     'Number participants' : '{nb} intervenants',
     'Number productors' : '{nb} producteurs',
     'Proceed reading':'Poursuivre la lecture',
+    'Without topic':'Sans rubriquage',
+    'Without rubric':'Non rubriqué',
   };
   

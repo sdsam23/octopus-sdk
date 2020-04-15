@@ -31,6 +31,7 @@
       :before='toDate'
       :after='fromDate'
       :sort='sortEmission'
+      :noRubrique='noRubrique'
     />
   </div>
 </template>
@@ -82,6 +83,7 @@ export default {
       toDate: undefined,
       resetRubriquage: false,
       sortEmission : 'SCORE',
+      noRubrique: false,
     };
   },
 
@@ -108,11 +110,22 @@ export default {
       this.fromDate = value;
     },
     updateRubriquage(value){
-      this.rubriquageId = value;
+      if(value !== -1){
+        this.rubriquageId = value;
+        this.noRubrique = false;
+      }else{
+        this.rubriquageId = undefined;
+        this.noRubrique = true;
+      }
       this.rubriqueId = undefined;
     },
     updateRubrique(value){
-      this.rubriqueId = value;
+      if(value !== -1){
+        this.rubriqueId = value;
+        this.noRubrique = false;
+      }else{
+        this.noRubrique = true;
+      }
     },
     updateOrganisationId(value){
       this.resetRubriquage = !this.resetRubriquage;
