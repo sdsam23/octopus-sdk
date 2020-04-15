@@ -26,7 +26,7 @@
       <div v-if="editRight">
         <ShareDistribution :emissionId="emissionId" v-if="isShareDistribution"></ShareDistribution>
       </div>
-      <PodcastFilterList :emissionId="emissionId" :categoryFilter="false" :editRight='editRight' v-if="!isOuestFrance" />
+      <PodcastFilterList :emissionId="emissionId" :categoryFilter="false" :editRight='editRight' :productorId='emission.orga.id' v-if="!isOuestFrance" />
       <PodcastList :first="0" :size="15" :emissionId="emissionId" v-else/>
     </div>
     <div class="d-flex justify-content-center" v-if="!loaded">

@@ -101,6 +101,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.14.25 Lecture épisode invisibles
  * 0.14.26 Affichage et date d'un épisode non disponible pour les auditeurs
  * 0.14.27 Pouvoir filtrer sur les épisodes ou émissions "non rubriquées" ou "sans rubriquage"
+ * 0.14.28 Affichage et date d'un épisode non disponible pour les auditeurs
 
  * 0.15.0 Nouveau sprint
  * 0.15.1 Erreur de merge
@@ -114,6 +115,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.15.9 Merge de staging
  * 0.15.10 Merge de Samuel
  * 0.15.11 Merge de staging
+ * 0.15.12 Merge de staging
 
 
 
