@@ -100,3 +100,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.14.24 Pré Choix d'enchainer les épisodes ou pas
  * 0.14.25 Lecture épisode invisibles
  * 0.14.26 Affichage et date d'un épisode non disponible pour les auditeurs
+ * 0.14.27 Pouvoir filtrer sur les épisodes ou émissions "non rubriquées" ou "sans rubriquage"
