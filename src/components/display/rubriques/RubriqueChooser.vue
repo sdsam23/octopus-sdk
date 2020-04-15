@@ -32,7 +32,7 @@
         </div>
       </template>
       <template slot="option" slot-scope="props">
-        <div class="multiselect-octopus-proposition">
+        <div class="multiselect-octopus-proposition" :class="props.option.rubriqueId <=0 ? 'primary-dark':''">
           <span class="option__title">{{ props.option.name }}</span>
         </div>
       </template>
@@ -72,6 +72,7 @@ export default {
     rubriquageId: {default:undefined},
     allRubriques: {default: []},
     reset: {default: false},
+    withoutRubrique: {default:false}
   },
 
   data() {
@@ -79,6 +80,7 @@ export default {
       rubriques: [],
       rubrique: getDefaultRubrique(this.defaultanswer),
       isLoading: false,
+      withoutItem: {name: this.$t('Without rubric'), rubriqueId: -1}
     };
   },
 
@@ -97,9 +99,15 @@ export default {
         this.rubrique = '';
       } 
       if(this.defaultanswer !== undefined){
-        this.rubriques = [getDefaultRubrique(this.defaultanswer)].concat(
-          this.allRubriques
-        );
+        if(this.withoutRubrique){
+          this.rubriques = [getDefaultRubrique(this.defaultanswer),this.withoutItem].concat(
+            this.allRubriques
+          );
+        }else{
+          this.rubriques = [getDefaultRubrique(this.defaultanswer)].concat(
+            this.allRubriques
+          );
+        }
       } else {
         this.rubriques = this.allRubriques;
       }
@@ -120,9 +128,15 @@ export default {
       this.isLoading = true;
       let list;
       if(this.defaultanswer !== undefined){
-        list = [getDefaultRubrique(this.defaultanswer)].concat(
-          this.allRubriques
-        );
+        if(this.withoutRubrique){
+          list = [getDefaultRubrique(this.defaultanswer), this.withoutItem].concat(
+            this.allRubriques
+          );
+        }else{
+          list = [getDefaultRubrique(this.defaultanswer)].concat(
+            this.allRubriques
+          );
+        }
       } else{
         list = this.allRubriques;
       }

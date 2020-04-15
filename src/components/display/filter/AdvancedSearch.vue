@@ -18,6 +18,7 @@
 				<template v-if="isRubriquage">
 					<label class="wrap">
 						<select class="basic-select ml-2 mb-0 border c-hand" v-model="rubriquageId" @change="onRubriquageSelected">
+							<option :value="-1" class="primary-dark">{{$t('Without topic')}}</option>
 							<option 
 								v-for="rubriquage in rubriquageData" 
 								v-show="rubriquage.rubriques.length !== 0"
@@ -27,17 +28,20 @@
 						</select>
 						<div class="saooti-arrow_down octopus-arrow-down-2 classic-select"></div>
 					</label>
-					<div class="ml-3 flex-shrink">{{$t('By rubric')}}</div>
-					<RubriqueChooser 
-						class="ml-2"
-						:multiple='false' 
-						:rubriquageId='rubriquageId' 
-						:allRubriques='getRubriques(rubriquageId)' 
-						:defaultanswer='$t("No rubric filter")'
-						:reset='reset'
-						width='auto'
-						@selected="onRubriqueSelected"		
-					/>
+					<template v-if="rubriquageId && rubriquageId !== -1">
+						<div class="ml-3 flex-shrink">{{$t('By rubric')}}</div>
+						<RubriqueChooser 
+							class="ml-2"
+							:multiple='false' 
+							:rubriquageId='rubriquageId' 
+							:allRubriques='getRubriques(rubriquageId)' 
+							:defaultanswer='$t("No rubric filter")'
+							:reset='reset'
+							:withoutRubrique='true'
+							width='auto'
+							@selected="onRubriqueSelected"		
+						/>
+					</template>
 				</template>
 			</div>
 			<div class="d-flex mt-3 align-items-center">
@@ -255,6 +259,7 @@ export default {
 		},
 		onRubriquageSelected(){
 			this.reset = !this.reset;
+			this.rubriqueId = 0;
 			if(this.isRubriquage){
 				this.$emit('updateRubriquage', this.rubriquageId);
 			}

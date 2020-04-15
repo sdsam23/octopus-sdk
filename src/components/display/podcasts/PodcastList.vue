@@ -81,6 +81,7 @@ export default {
     after: {default:undefined},
     includeHidden:{default:false},
     showCount:{default:false},
+    noRubrique:{default:false},
   },
 
   components: {
@@ -112,7 +113,7 @@ export default {
     changed(){
       return `${this.first}|${this.size}|${this.organisation}|${this.emissionId}|
       ${this.iabId}|${this.participantId}|${this.query}|${this.monetization}|${this.popularSort}|
-      ${this.rubriqueId}|${this.rubriquageId}|${this.before}|${this.after}|${this.includeHidden}`;
+      ${this.rubriqueId}|${this.rubriquageId}|${this.before}|${this.after}|${this.includeHidden}|${this.noRubrique}`;
     },
     filterOrga(){
       return this.$store.state.filter.organisationId;
@@ -150,6 +151,7 @@ export default {
         rubriquageId: this.rubriquageId,
         before: this.before,
         after: this.after,
+        noRubrique: this.noRubrique
       }
       if(this.includeHidden){
         param.includeHidden = this.includeHidden;
