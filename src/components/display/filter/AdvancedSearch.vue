@@ -3,7 +3,7 @@
 	<div class="d-flex justify-content-center mb-3" @click="showFilters = !showFilters">
 		<div class="text-secondary c-hand">{{$t('Advanced filters')}}</div>
 		<div class="text-secondary c-hand align-self-center large-font-size" :class="{'arrow-transform':showFilters}">
-			<div class="saooti-arrow_drop_down"></div>
+			<div class="saooti-arrow_down"></div>
 		</div>
 	</div>
   <div class="advanced-search-container" v-show="showFilters" >
@@ -111,6 +111,14 @@
 	label.wrap { 
 		position: relative;
 		margin:0;
+	}
+	input {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 0.2em 0.5em;
+	}
+	.saooti-arrow_down {
+		margin-top: 2px;
 	}
 	select{       
 		-webkit-appearance: none;

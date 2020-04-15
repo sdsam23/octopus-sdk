@@ -127,7 +127,7 @@ export default {
       iFrameModel: "default",
       iFrameNumberPriv: "3",
       isShareModal: false,
-      color: "#50b684",
+      color: "#40a372",
       theme: "#ffffff",
       proceedReading: true,
     };
