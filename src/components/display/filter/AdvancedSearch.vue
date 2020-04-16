@@ -71,10 +71,10 @@
 					:i18n="lang"
 				/>
 			</div>
-			<div class="d-flex flex-column mt-3" v-if="organisation && organisationRight && !isEmission && !isPodcastmaker">
+			<div class="d-flex flex-column mt-3" v-if="organisation && organisationRight && !isPodcastmaker">
 				<div class="checkbox-saooti flex-shrink">  
 					<input type="checkbox" class="custom-control-input" id="search-future-checkbox" v-model="isNotVisible">  
-					<label class="custom-control-label" for="search-future-checkbox">{{ $t('See podcasts no visible') }}</label>  
+					<label class="custom-control-label" for="search-future-checkbox">{{ textNotVisible }}</label>  
 				</div>
 			</div>
 		</div>
@@ -155,8 +155,8 @@ export default {
 	},
 	
 	mounted(){
-		if(this.organisation && this.organisationRight){
-			this.isNotVisible = true;
+		if(this.organisation && this.organisationRight && !this.isEmission){
+				this.isNotVisible = true;
 		}
 	},
 
@@ -229,7 +229,14 @@ export default {
       }else {
         return undefined;
       }
-    },
+		},
+		textNotVisible(){
+			if(this.isEmission){
+				return this.$t('Consider podcasts no visible');
+			} else{
+				return this.$t('See podcasts no visible');
+			}
+		}
   },
 
   methods:{
@@ -293,7 +300,7 @@ export default {
 	},
 	watch:{
 		organisation(){
-			if(this.organisation && this.organisationRight){
+			if(this.organisation && this.organisationRight && !this.isEmission){
 				this.isNotVisible = true;
 			}else{
 				this.isNotVisible = false;

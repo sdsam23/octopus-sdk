@@ -18,6 +18,7 @@
       @updateFromDate='updateFromDate'
       @updateToDate='updateToDate'
       @updateSortEmission='updateSortEmission'
+      @includeHidden='updateHidden'
       :organisationId='organisationId'/>
     <EmissionList
       :showCount="true"
@@ -32,6 +33,7 @@
       :after='fromDate'
       :sort='sortEmission'
       :noRubrique='noRubrique'
+      :includeHidden='includeHidden'
     />
   </div>
 </template>
@@ -80,6 +82,7 @@ export default {
       fromDate: undefined,
       toDate: undefined,
       resetRubriquage: false,
+      includeHidden : false,
       sortEmission : 'SCORE',
       noRubrique: false,
     };
@@ -98,6 +101,9 @@ export default {
   },
 
   methods:{
+    updateHidden(value){
+      this.includeHidden = value;
+    },
     updateSortEmission(value){
       this.sortEmission = value;
     },
