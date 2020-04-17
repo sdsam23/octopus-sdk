@@ -402,16 +402,6 @@ export default {
     'Publish in future':'Voir aussi les épisodes masqués pour les auditeurs',
     'In error':'En erreur',
     'Emission with episode published :':'Emission ayant au moins un épisode sorti :',
-<<<<<<< HEAD
-    'Sort emissions': 'Tri des émissions',
-    'Filter emissions': 'Filtrage des émissions',
-    'Sort score': 'Par pertinence',
-    'Sort name': 'Par ordre alphabétique',
-    'Sort last': 'Par ordre antechronologique',
-    'Choose color':'Couleur principale',
-    'Choose theme':'Théme',
-    'Podcast no visible':'Épisode non visible actuellement'
-=======
     'Sort': 'Tri',
     'Filter': 'Filtrage',
     'Sort score': 'Pertinence',
@@ -439,6 +429,5 @@ export default {
     'Participant': 'Intervenant',
     'Number of player podcasts': "Nombre d'épisodes dans le miniplayer",
     'Proceed reading':'Poursuivre la lecture',
->>>>>>> 1759c32b13b58c61850c0946dae00f93823c7a5f
   };
   

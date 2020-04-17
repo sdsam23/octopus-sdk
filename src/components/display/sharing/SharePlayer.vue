@@ -117,7 +117,9 @@
 import ShareModal from "../../misc/modal/ShareModal.vue";
 import { state } from "../../../store/paramStore.js";
 import Swatches from "vue-swatches";
-import "vue-swatches/dist/vue-swatches.min.css"
+import "vue-swatches/dist/vue-swatches.min.css";
+import profile from '@/api/profile';
+
 
 export default {
   props: ["podcast", "emissionId", "organisationId", "exclusive"],
@@ -125,6 +127,22 @@ export default {
   components: {
     ShareModal,
     Swatches
+  },
+
+  created() {
+    profile.fetchOrganisationAttibutes(this.$store, this.podcast.organisation.id)
+    .then(data => {
+      if(data.hasOwnProperty('COLOR')) {
+        this.color = data.COLOR;
+      } else {
+        this.color = "#50b684";
+      }
+      if(data.hasOwnProperty('THEME')) {
+        this.theme = data.THEME;
+      } else {
+        this.theme = "#ffffff";
+      }
+    })
   },
 
   data() {
@@ -155,6 +173,7 @@ export default {
     authenticated() {
       return state.generalParameters.authenticated;
     },
+
     iFrameSrc() {
       let url = "";
       if (!this.podcast) {
@@ -252,6 +271,7 @@ export default {
     }
   },
 
-  methods: {}
+  methods: {},
+
 };
 </script>
