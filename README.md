@@ -102,3 +102,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.14.26 Affichage et date d'un épisode non disponible pour les auditeurs
  * 0.14.27 Pouvoir filtrer sur les épisodes ou émissions "non rubriquées" ou "sans rubriquage"
  * 0.14.28 Affichage et date d'un épisode non disponible pour les auditeurs
+ * 0.14.29 la date dans le calendrier et le filtre ne sont pas les mêmes

@@ -56,6 +56,7 @@
 					v-model="fromDate"
 					class="theme-saooti pl-3"
 					@input="updateFromDate"
+					input-format="D/MM/YYYY [à] HH[h]mm"
 					:i18n="lang"
 				/>
 				<div class="checkbox-saooti flex-shrink ml-3">  
@@ -68,6 +69,7 @@
 					v-model="toDate"
 					class="theme-saooti pl-3"
 					@input="updateToDate"
+					input-format="D/MM/YYYY [à] HH[h]mm"
 					:i18n="lang"
 				/>
 			</div>
