@@ -429,5 +429,8 @@ export default {
     'Participant': 'Intervenant',
     'Number of player podcasts': "Nombre d'épisodes dans le miniplayer",
     'Proceed reading':'Poursuivre la lecture',
+    'Without topic':'Sans rubriquage',
+    'Without rubric':'Non rubriqué',
+    'Consider podcasts no visible':'Prendre aussi en compte les épisodes masqués pour les auditeurs',
   };
   

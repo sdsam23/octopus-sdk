@@ -67,6 +67,7 @@
 
 <script>
 import octopusApi from "@saooti/octopus-api";
+import emissionApi from '@/api/emissions';
 import EmissionItem from './EmissionItem.vue';
 import EmissionPlayerItem from './EmissionPlayerItem.vue';
 import {state} from "../../../store/paramStore.js";
@@ -74,7 +75,7 @@ import {state} from "../../../store/paramStore.js";
 export default {
   name: 'EmissionList',
 
-  props: ['first', 'size', 'query', 'organisationId', 'monetization','rubriqueId', 'rubriquageId', 'before', 'after', 'sort', 'showCount'],
+  props: ['first', 'size', 'query', 'organisationId', 'monetization','rubriqueId', 'rubriquageId', 'before', 'after', 'sort', 'showCount', 'noRubrique','includeHidden'],
 
   components: {
     EmissionItem,
@@ -110,8 +111,8 @@ export default {
       return state.emissionsPage.itemPlayer;
     },
     changed(){
-      return `${this.first}|${this.size}|${this.organisation}|${this.query}|${this.monetization}|
-      ${this.rubriqueId}|${this.rubriquageId}|${this.before}|${this.after}|${this.sort}`;
+      return `${this.first}|${this.size}|${this.organisationId}|${this.query}|${this.monetization}|${this.includeHidden}
+      ${this.rubriqueId}|${this.rubriquageId}|${this.before}|${this.after}|${this.sort}|${this.noRubrique}`;
     },
     filterOrga(){
       return this.$store.state.filter.organisationId;
@@ -136,28 +137,46 @@ export default {
         self.$data.loading = true;
         self.$data.loaded = false;
       }
-      octopusApi
-        .fetchEmissions( {
-          first: self.dfirst,
-          size: self.dsize,
-          query: self.query,
-          organisationId: self.organisation,
-          monetisable: self.monetization,
-          rubriqueId: self.rubriqueId,
-          rubriquageId: self.rubriquageId,
-          before: this.before,
-          after: this.after,
-          sort: this.sort
-        })
-        .then(function(data) {
-          self.$data.loading = false;
-          self.$data.loaded = true;
-          self.$data.emissions = self.$data.emissions.concat(data.result).filter((e)=>{
-            return e!== null;
-          });
-          self.$data.dfirst += self.$data.dsize;
-          self.$data.totalCount = data.count;
+      let param = {
+        first: self.dfirst,
+        size: self.dsize,
+        query: self.query,
+        organisationId: self.organisation,
+        monetisable: self.monetization,
+        rubriqueId: self.rubriqueId,
+        rubriquageId: self.rubriquageId,
+        before: this.before,
+        after: this.after,
+        sort: this.sort,
+        noRubrique: this.noRubrique,
+      }
+      if(this.includeHidden){
+        param.includeHidden = this.includeHidden;
+        emissionApi
+        .fetchEmissionsAdmin(this.$store, param).then((data)=> {
+          this.afterFetching(reset, data);
         });
+      }else{
+        octopusApi
+        .fetchEmissions(param)
+        .then((data)=> {
+          this.afterFetching(reset, data);
+        });
+      }
+    },
+    
+    afterFetching(reset, data){
+      if (reset) {
+        this.emissions = [];
+        this.dfirst = 0;
+      }
+      this.loading = false;
+      this.loaded = true;
+      this.emissions = this.emissions.concat(data.result).filter((e)=>{
+        return e!== null;
+      });
+      this.dfirst += this.dsize;
+      this.totalCount = data.count;
     },
 
     displayMore(event) {

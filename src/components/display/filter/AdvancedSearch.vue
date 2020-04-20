@@ -3,7 +3,7 @@
 	<div class="d-flex justify-content-center mb-3" @click="showFilters = !showFilters">
 		<div class="text-secondary c-hand">{{$t('Advanced filters')}}</div>
 		<div class="text-secondary c-hand align-self-center large-font-size" :class="{'arrow-transform':showFilters}">
-			<div class="saooti-arrow_drop_down"></div>
+			<div class="saooti-arrow_down"></div>
 		</div>
 	</div>
   <div class="advanced-search-container" v-show="showFilters" >
@@ -18,6 +18,7 @@
 				<template v-if="isRubriquage">
 					<label class="wrap">
 						<select class="basic-select ml-2 mb-0 border c-hand" v-model="rubriquageId" @change="onRubriquageSelected">
+							<option :value="-1" class="primary-dark">{{$t('Without topic')}}</option>
 							<option 
 								v-for="rubriquage in rubriquageData" 
 								v-show="rubriquage.rubriques.length !== 0"
@@ -27,17 +28,20 @@
 						</select>
 						<div class="saooti-arrow_down octopus-arrow-down-2 classic-select"></div>
 					</label>
-					<div class="ml-3 flex-shrink">{{$t('By rubric')}}</div>
-					<RubriqueChooser 
-						class="ml-2"
-						:multiple='false' 
-						:rubriquageId='rubriquageId' 
-						:allRubriques='getRubriques(rubriquageId)' 
-						:defaultanswer='$t("No rubric filter")'
-						:reset='reset'
-						width='auto'
-						@selected="onRubriqueSelected"		
-					/>
+					<template v-if="rubriquageId && rubriquageId !== -1">
+						<div class="ml-3 flex-shrink">{{$t('By rubric')}}</div>
+						<RubriqueChooser 
+							class="ml-2"
+							:multiple='false' 
+							:rubriquageId='rubriquageId' 
+							:allRubriques='getRubriques(rubriquageId)' 
+							:defaultanswer='$t("No rubric filter")'
+							:reset='reset'
+							:withoutRubrique='true'
+							width='auto'
+							@selected="onRubriqueSelected"		
+						/>
+					</template>
 				</template>
 			</div>
 			<div class="d-flex mt-3 align-items-center">
@@ -67,10 +71,10 @@
 					:i18n="lang"
 				/>
 			</div>
-			<div class="d-flex flex-column mt-3" v-if="organisation && organisationRight && !isEmission && !isPodcastmaker">
+			<div class="d-flex flex-column mt-3" v-if="organisation && organisationRight && !isPodcastmaker">
 				<div class="checkbox-saooti flex-shrink">  
 					<input type="checkbox" class="custom-control-input" id="search-future-checkbox" v-model="isNotVisible">  
-					<label class="custom-control-label" for="search-future-checkbox">{{ $t('See podcasts no visible') }}</label>  
+					<label class="custom-control-label" for="search-future-checkbox">{{ textNotVisible }}</label>  
 				</div>
 			</div>
 		</div>
@@ -108,6 +112,14 @@
 		position: relative;
 		margin:0;
 	}
+	input {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 0.2em 0.5em;
+	}
+	.saooti-arrow_down {
+		margin-top: 2px;
+	}
 	select{       
 		-webkit-appearance: none;
 		-moz-appearance: none;
@@ -143,8 +155,8 @@ export default {
 	},
 	
 	mounted(){
-		if(this.organisation && this.organisationRight){
-			this.isNotVisible = true;
+		if(this.organisation && this.organisationRight && !this.isEmission){
+				this.isNotVisible = true;
 		}
 	},
 
@@ -217,7 +229,14 @@ export default {
       }else {
         return undefined;
       }
-    },
+		},
+		textNotVisible(){
+			if(this.isEmission){
+				return this.$t('Consider podcasts no visible');
+			} else{
+				return this.$t('See podcasts no visible');
+			}
+		}
   },
 
   methods:{
@@ -255,6 +274,7 @@ export default {
 		},
 		onRubriquageSelected(){
 			this.reset = !this.reset;
+			this.rubriqueId = 0;
 			if(this.isRubriquage){
 				this.$emit('updateRubriquage', this.rubriquageId);
 			}
@@ -280,7 +300,7 @@ export default {
 	},
 	watch:{
 		organisation(){
-			if(this.organisation && this.organisationRight){
+			if(this.organisation && this.organisationRight && !this.isEmission){
 				this.isNotVisible = true;
 			}else{
 				this.isNotVisible = false;

@@ -18,6 +18,7 @@
       @updateFromDate='updateFromDate'
       @updateToDate='updateToDate'
       @updateSortEmission='updateSortEmission'
+      @includeHidden='updateHidden'
       :organisationId='organisationId'/>
     <EmissionList
       :showCount="true"
@@ -31,6 +32,8 @@
       :before='toDate'
       :after='fromDate'
       :sort='sortEmission'
+      :noRubrique='noRubrique'
+      :includeHidden='includeHidden'
     />
   </div>
 </template>
@@ -79,7 +82,9 @@ export default {
       fromDate: undefined,
       toDate: undefined,
       resetRubriquage: false,
+      includeHidden : false,
       sortEmission : 'SCORE',
+      noRubrique: false,
     };
   },
 
@@ -96,6 +101,9 @@ export default {
   },
 
   methods:{
+    updateHidden(value){
+      this.includeHidden = value;
+    },
     updateSortEmission(value){
       this.sortEmission = value;
     },
@@ -106,11 +114,22 @@ export default {
       this.fromDate = value;
     },
     updateRubriquage(value){
-      this.rubriquageId = value;
+      if(value !== -1){
+        this.rubriquageId = value;
+        this.noRubrique = false;
+      }else{
+        this.rubriquageId = undefined;
+        this.noRubrique = true;
+      }
       this.rubriqueId = undefined;
     },
     updateRubrique(value){
-      this.rubriqueId = value;
+      if(value !== -1){
+        this.rubriqueId = value;
+        this.noRubrique = false;
+      }else{
+        this.noRubrique = true;
+      }
     },
     updateOrganisationId(value){
       this.resetRubriquage = !this.resetRubriquage;

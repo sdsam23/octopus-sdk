@@ -42,9 +42,9 @@
 
 #footer {
   font-size: 0.7rem;
-  a, .text-dark{
-    color: #888 !important;
-  }
+    a{
+      color: #666;
+    }
 }
 .border-round {
   border-radius: 0 0 2rem 2rem;
