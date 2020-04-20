@@ -56,6 +56,11 @@
               <template @click="displayMenuPhone(true)" v-else>
                 <b-dropdown-item to="/main/priv/edit/profile" v-if="!isPodcastmaker">{{ $t('Edit my profile') }}</b-dropdown-item>
                 <b-dropdown-item to="/main/priv/edit/organisation" v-if="!isPodcastmaker">{{$t('Edit my organisation')}}</b-dropdown-item>
+                <b-dropdown-header>{{$t('Help')}}<span class="saooti-arrow_down"></span></b-dropdown-header>
+                <b-dropdown-item class="ml-3" href="https://help.octopus.saooti.com/" target="_blank">{{ $t('TutoMag') }}</b-dropdown-item>
+                <b-dropdown-item class="ml-3">{{ $t('News') }}</b-dropdown-item>
+                <b-dropdown-item class="ml-3">{{ $t('Known issues') }}</b-dropdown-item>
+                <b-dropdown-divider></b-dropdown-divider>
                 <b-dropdown-item href="/sso/logout">{{ $t('Logout') }}</b-dropdown-item>
               </template>
             </b-dropdown-text>
@@ -134,6 +139,10 @@
     flex-direction: column;
     justify-content: center;
   }
+  .dropdown-header{
+    display: flex;
+    align-items: center;
+  }
   .hostedBy{
     font-size: 0.65rem;
   }
@@ -179,11 +188,6 @@ export default {
   },
 
   mounted() {
-    /* if(this.imageUrl){
-      let imageLogin = document.getElementsByClassName('btn-rounded-icon')[0];
-      imageLogin.style.background = "url(" + this.imageUrl + ")";
-      imageLogin.style.backgroundSize = "cover";
-    } */
     if(this.filterOrga){
       this.organisationId = this.filterOrga;
     }
@@ -215,9 +219,6 @@ export default {
     name(){
       return state.organisation.userName;
     },
-    /* imageUrl(){
-      return this.$store.state.profile.imageUrl;
-    }, */
     filterOrga(){
       return this.$store.state.filter.organisationId;
     }
@@ -282,13 +283,6 @@ export default {
   },
 
   watch:{
-    /* imageUrl(newVal){
-      if(newVal){
-        let imageLogin = document.getElementsByClassName('btn-rounded-icon')[0];
-        imageLogin.style.background = "url(" + newVal + ")";
-        imageLogin.style.backgroundSize = "cover";
-      }
-    }, */
     filterOrga(newVal){
       if(newVal){
         this.organisationId = newVal;

@@ -432,6 +432,9 @@ export default {
     'Without topic':'Sans rubriquage',
     'Without rubric':'Non rubriqué',
     'Consider podcasts no visible':'Prendre aussi en compte les épisodes masqués pour les auditeurs',
-    'Hosted by': "Hébergé par"
+    'Hosted by': "Hébergé par",
+    'TutoMag':'TutoMag',
+    'News':'Nouveautés',
+    'Known issues' : 'Problèmes connus',
   };
   
