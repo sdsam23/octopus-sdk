@@ -58,7 +58,7 @@ export default {
       'Les nouvelles informations de votre profil ont été sauvegardées',
     'Error occurs while updating your profile ...':
       'Une erreur est survenue lors de la sauvegarde des nouvelles informations de votre profil',
-    'Upload new podcast': 'Téléverser un épisode',
+    'Upload': 'Téléverser',
     'Count more elements matched your query, please make a more specific search.':
       'Encore {count} élément(s) correspondant à votre recherche. Veuillez effectuer une recherche plus spécifique.',
     ' or ': ' ou ',
@@ -432,5 +432,6 @@ export default {
     'Without topic':'Sans rubriquage',
     'Without rubric':'Non rubriqué',
     'Consider podcasts no visible':'Prendre aussi en compte les épisodes masqués pour les auditeurs',
+    'Hosted by': "Hébergé par"
   };
   

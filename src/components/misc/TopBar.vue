@@ -10,6 +10,16 @@
           <img src="/img/logo_octopus_final.svg" :alt="$t('Logo of main page')" />
         </div>
       </router-link>
+      <OrganisationChooser
+        width="auto"
+        :defaultanswer="$t('No organisation filter')"
+        @selected="onOrganisationSelected"
+        :value='organisationId'
+        :light='true'
+        class="mr-2 hide-top-bar"
+        :reset='reset'
+        v-if="!isPodcastmaker"
+        />
       <div class="d-flex align-items-center justify-content-center flex-grow">
         <router-link 
         :to="{ name: 'podcasts', query:{productor: $store.state.filter.organisationId}}"
@@ -24,36 +34,31 @@
         :to="{ name: 'participants', query:{productor: $store.state.filter.organisationId}}"
         class="linkHover p-3 text-dark font-weight-bold">{{ $t('Speakers') }}</router-link>
       </div>
-      <div class="d-flex align-items-center justify-content-end">
-        <OrganisationChooser
-					:defaultanswer="$t('No organisation filter')"
-					@selected="onOrganisationSelected"
-					:value='organisationId'
-          :light='true'
-          class="mr-2 hide-phone"
-          :reset='reset'
-          v-if="!isPodcastmaker"
-          />
-        <router-link to="/main/priv/upload" v-if="authenticated && !isPodcastmaker" class="mr-3">
-          <button class="btn btn-primary">{{ $t('Upload new podcast') }}</button>
-        </router-link>
-        <div class="d-flex justify-content-end mr-3">
-          <b-dropdown right toggle-class="text-decoration-none m-1 admin-button btn-rounded-icon" no-caret>
-            <template v-slot:button-content>
-              <i class="saooti-user text-dark" v-if="!imageUrl"></i><span class="sr-only">Profile</span>
-            </template>
-            <template v-if="!authenticated">
-              <b-dropdown-item href="/sso/login">{{ $t('Login') }}</b-dropdown-item>
-              <b-dropdown-item to="/main/pub/create" v-if="!isPodcastmaker">{{$t('Create an account')}}</b-dropdown-item>
-            </template>
-            <template @click="displayMenuPhone(true)" v-else>
-              <b-dropdown-item to="/main/priv/backoffice">{{$t('My space')}}</b-dropdown-item>
-              <b-dropdown-item to="/main/priv/edit/profile" v-if="!isPodcastmaker">{{ $t('Edit my profile') }}</b-dropdown-item>
-              <b-dropdown-item to="/main/priv/edit/organisation" v-if="!isPodcastmaker">{{$t('Edit my organisation')}}</b-dropdown-item>
-              <!-- Lien pour mobile-->
-              <b-dropdown-item to="/main/priv/upload" class="show-phone" v-if="!isPodcastmaker">{{$t('Upload new podcast')}}</b-dropdown-item>
-              <b-dropdown-item href="/sso/logout">{{ $t('Logout') }}</b-dropdown-item>
-            </template>
+      <div class="d-flex flex-column">
+        <div class="d-flex justify-content-end hostedBy hide-phone"><span>{{$t('Hosted by')}}</span><span class="ml-1 mr-2 primary-color">Saooti</span></div>
+        <div class="d-flex align-items-center justify-content-end">
+          <b-dropdown
+            class="split-dropdown"
+            split
+            right
+            variant="primary"
+            @click="goToUrl('/main/priv/backoffice')"
+            :text="$t('My space')"
+          >
+            <b-dropdown-text>
+              <router-link to="/main/priv/upload" v-if="authenticated && !isPodcastmaker" class="align-self-center">
+                <button class="btn btn-primary">{{ $t('Upload') }}</button>
+              </router-link>
+              <template v-if="!authenticated">
+                <b-dropdown-item href="/sso/login">{{ $t('Login') }}</b-dropdown-item>
+                <b-dropdown-item to="/main/pub/create" v-if="!isPodcastmaker">{{$t('Create an account')}}</b-dropdown-item>
+              </template>
+              <template @click="displayMenuPhone(true)" v-else>
+                <b-dropdown-item to="/main/priv/edit/profile" v-if="!isPodcastmaker">{{ $t('Edit my profile') }}</b-dropdown-item>
+                <b-dropdown-item to="/main/priv/edit/organisation" v-if="!isPodcastmaker">{{$t('Edit my organisation')}}</b-dropdown-item>
+                <b-dropdown-item href="/sso/logout">{{ $t('Logout') }}</b-dropdown-item>
+              </template>
+            </b-dropdown-text>
           </b-dropdown>
           <router-link 
           :aria-label ="$t('Search')"
@@ -124,10 +129,18 @@
       }
     }
   }
+  .b-dropdown-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .hostedBy{
+    font-size: 0.65rem;
+  }
   
   /** PHONES*/
   @media (max-width: 1200px) {
-    .hid {
+    .hide-top-bar {
       display: none;
     }
     .top-bar {
@@ -166,11 +179,11 @@ export default {
   },
 
   mounted() {
-    if(this.imageUrl){
+    /* if(this.imageUrl){
       let imageLogin = document.getElementsByClassName('btn-rounded-icon')[0];
       imageLogin.style.background = "url(" + this.imageUrl + ")";
       imageLogin.style.backgroundSize = "cover";
-    }
+    } */
     if(this.filterOrga){
       this.organisationId = this.filterOrga;
     }
@@ -202,9 +215,9 @@ export default {
     name(){
       return state.organisation.userName;
     },
-    imageUrl(){
+    /* imageUrl(){
       return this.$store.state.profile.imageUrl;
-    },
+    }, */
     filterOrga(){
       return this.$store.state.filter.organisationId;
     }
@@ -260,17 +273,22 @@ export default {
         }
         this.$store.commit('filterOrga', undefined);
       }
+    },
+    goToUrl(url){
+      if(this.authenticated){
+        this.$router.push(url);
+      }
     }
   },
 
   watch:{
-    imageUrl(newVal){
+    /* imageUrl(newVal){
       if(newVal){
         let imageLogin = document.getElementsByClassName('btn-rounded-icon')[0];
         imageLogin.style.background = "url(" + newVal + ")";
         imageLogin.style.backgroundSize = "cover";
       }
-    },
+    }, */
     filterOrga(newVal){
       if(newVal){
         this.organisationId = newVal;
