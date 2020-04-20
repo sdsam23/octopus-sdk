@@ -71,7 +71,6 @@
       :embedLink="iFrame"
       :embedlyLink="iFrameSrc"
       :directLink="podcast"
-      :colorLink ="colorLink"
     ></ShareModal>
   </div>
 </template>
@@ -112,7 +111,8 @@
 import ShareModal from "../../misc/modal/ShareModal.vue";
 import { state } from "../../../store/paramStore.js";
 import Swatches from "vue-swatches";
-import "vue-swatches/dist/vue-swatches.min.css"
+import "vue-swatches/dist/vue-swatches.min.css";
+import profileApi from '@/api/profile';
 
 export default {
   props: ["podcast", "emissionId", "organisationId", "exclusive"],
@@ -120,6 +120,22 @@ export default {
   components: {
     ShareModal,
     Swatches
+  },
+
+  created() {
+    profileApi.fetchOrganisationAttibutes(this.$store, this.podcast.organisation.id)
+    .then(data => {
+      if(data.hasOwnProperty('COLOR')) {
+        this.color = data.COLOR;
+      } else {
+        this.color = "#40a372";
+      }
+      if(data.hasOwnProperty('THEME')) {
+        this.theme = data.THEME;
+      } else {
+        this.theme = "#ffffff";
+      }
+    });
   },
 
   data() {
@@ -209,7 +225,7 @@ export default {
               default: return '435px';
             }
           }
-        case 'largeEmission':
+       case 'largeEmission':
         case 'largeSuggestion':
           switch(this.iFrameNumberPriv){
             case "1": return '260px';
@@ -219,8 +235,8 @@ export default {
             case "5": return '465px';
             default: return '510px';
           }
-        case 'emission':
-          return '530px';
+        case "emission":
+          return "530px";
         default:
           if (this.podcast) {
             return "520px";

@@ -117,5 +117,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.15.11 Merge de staging
  * 0.15.12 Merge de staging
  * 0.15.13 Recherche d'emissions et podcast cachés
+ * 0.15.14 Merge de Samuel + ajout d'un fichier profile.js 
+
 
 
