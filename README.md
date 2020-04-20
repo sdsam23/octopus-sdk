@@ -120,6 +120,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.15.14 Merge de Samuel + ajout d'un fichier profile.js 
  * 0.15.15 Customisation du player
  * 0.15.16 Bouton "Téléverser" + Bouton "Mon Espace"
+ * 0.15.17 Bouton "Téléverser" + Bouton "Mon Espace"
 
 
 

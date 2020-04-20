@@ -436,5 +436,6 @@ export default {
     'TutoMag':'TutoMag',
     'News':'Nouveautés',
     'Known issues' : 'Problèmes connus',
+    'Help': 'Aide'
   };
   

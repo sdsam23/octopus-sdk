@@ -56,10 +56,11 @@
               <template @click="displayMenuPhone(true)" v-else>
                 <b-dropdown-item to="/main/priv/edit/profile" v-if="!isPodcastmaker">{{ $t('Edit my profile') }}</b-dropdown-item>
                 <b-dropdown-item to="/main/priv/edit/organisation" v-if="!isPodcastmaker">{{$t('Edit my organisation')}}</b-dropdown-item>
-                <b-dropdown-header>{{$t('Help')}}<span class="saooti-arrow_down"></span></b-dropdown-header>
-                <b-dropdown-item class="ml-3" href="https://help.octopus.saooti.com/" target="_blank">{{ $t('TutoMag') }}</b-dropdown-item>
-                <b-dropdown-item class="ml-3">{{ $t('News') }}</b-dropdown-item>
-                <b-dropdown-item class="ml-3">{{ $t('Known issues') }}</b-dropdown-item>
+                <b-dropdown-divider></b-dropdown-divider>
+                <b-dropdown-header>{{$t('Help')}}</b-dropdown-header>
+                <b-dropdown-item href="https://help.octopus.saooti.com/" target="_blank">{{ $t('TutoMag') }}</b-dropdown-item>
+                <b-dropdown-item >{{ $t('News') }}</b-dropdown-item>
+                <b-dropdown-item >{{ $t('Known issues') }}</b-dropdown-item>
                 <b-dropdown-divider></b-dropdown-divider>
                 <b-dropdown-item href="/sso/logout">{{ $t('Logout') }}</b-dropdown-item>
               </template>
@@ -145,6 +146,9 @@
   }
   .hostedBy{
     font-size: 0.65rem;
+  }
+  .dropdown-header{
+    font-weight: bold;
   }
   
   /** PHONES*/
