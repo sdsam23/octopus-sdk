@@ -119,12 +119,7 @@ import ShareModal from "../../misc/modal/ShareModal.vue";
 import { state } from "../../../store/paramStore.js";
 import Swatches from "vue-swatches";
 import "vue-swatches/dist/vue-swatches.min.css";
-<<<<<<< HEAD
-import profile from '@/api/profile';
-
-=======
 import profileApi from '@/api/profile';
->>>>>>> f9b8e1575c69d68a0115ad241514e98e0673dec4
 
 export default {
   props: ["podcast", "emissionId", "organisationId", "exclusive"],
@@ -135,31 +130,19 @@ export default {
   },
 
   created() {
-<<<<<<< HEAD
-    profile.fetchOrganisationAttibutes(this.$store, this.podcast.organisation.id)
-=======
     profileApi.fetchOrganisationAttibutes(this.$store, this.podcast.organisation.id)
->>>>>>> f9b8e1575c69d68a0115ad241514e98e0673dec4
     .then(data => {
       if(data.hasOwnProperty('COLOR')) {
         this.color = data.COLOR;
       } else {
-<<<<<<< HEAD
-        this.color = "#50b684";
-=======
         this.color = "#40a372";
->>>>>>> f9b8e1575c69d68a0115ad241514e98e0673dec4
       }
       if(data.hasOwnProperty('THEME')) {
         this.theme = data.THEME;
       } else {
         this.theme = "#ffffff";
       }
-<<<<<<< HEAD
-    })
-=======
     });
->>>>>>> f9b8e1575c69d68a0115ad241514e98e0673dec4
   },
 
   data() {
@@ -256,23 +239,6 @@ export default {
                 return "435px";
             }
           }
-<<<<<<< HEAD
-        case "largeEmission":
-        case "largeSuggestion":
-          switch (this.iFrameNumberPriv) {
-            case "1":
-              return "260px";
-            case "2":
-              return "315px";
-            case "3":
-              return "365px";
-            case "4":
-              return "420px";
-            case "5":
-              return "465px";
-            default:
-              return "510px";
-=======
        case 'largeEmission':
         case 'largeSuggestion':
           switch(this.iFrameNumberPriv){
@@ -282,7 +248,6 @@ export default {
             case "4": return '420px';
             case "5": return '465px';
             default: return '510px';
->>>>>>> f9b8e1575c69d68a0115ad241514e98e0673dec4
           }
         case "emission":
           return "530px";
