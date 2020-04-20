@@ -103,6 +103,7 @@
 }
 .vue-swatches__container{
   padding : 0 !important;
+  background-color: transparent !important;
 }
 
 </style>
