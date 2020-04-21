@@ -11,7 +11,7 @@
         </div>
       </router-link>
       <OrganisationChooser
-        width="auto"
+        width="230px"
         :defaultanswer="$t('No organisation filter')"
         @selected="onOrganisationSelected"
         :value='organisationId'
@@ -35,8 +35,8 @@
         class="linkHover p-3 text-dark font-weight-bold">{{ $t('Speakers') }}</router-link>
       </div>
       <div class="d-flex flex-column">
-        <div class="d-flex justify-content-end hostedBy hide-phone"><span>{{$t('Hosted by')}}</span><span class="ml-1 mr-2 primary-color">Saooti</span></div>
-        <div class="d-flex align-items-center justify-content-end">
+        <div class="d-flex justify-content-end hostedBy hide-phone"><span>{{$t('Hosted by')}}</span><span class="ml-1 mr-1 primary-color">Saooti</span></div>
+        <div class="d-flex align-items-center justify-content-end shadow-margin">
           <b-dropdown
             class="split-dropdown"
             split
@@ -46,8 +46,8 @@
             :text="$t('My space')"
           >
             <b-dropdown-text>
-              <router-link to="/main/priv/upload" v-if="authenticated && !isPodcastmaker" class="align-self-center">
-                <button class="btn btn-primary">{{ $t('Upload') }}</button>
+              <router-link to="/main/priv/upload" v-if="authenticated && !isPodcastmaker" class="align-self-center w-100 mb-2">
+                <button class="btn btn-primary w-100">{{ $t('Upload') }}</button>
               </router-link>
               <template v-if="!authenticated">
                 <b-dropdown-item href="/sso/login">{{ $t('Login') }}</b-dropdown-item>
@@ -84,6 +84,7 @@
   background: #fff;
   width: 100%;
   z-index: 10;
+  padding: 0 2em;
 
   .top-bar {
     transition: height 1s;
@@ -94,9 +95,17 @@
     height: 5rem;
 
     .top-bar-logo{
-      width: 200px;
+      width: 160px;
+      margin: 1rem 2rem 1rem 1rem !important;
+    }
+    .multiselect__tags {
+      padding: 6px 40px 0 10px;
     }
 
+    .btn-group .dropdown-toggle-split {
+      background: #389452;
+    }
+   
     .hamburger-menu {
       display: none;
       margin: 0 1rem;
@@ -133,6 +142,9 @@
           width: auto;
         }
       }
+      .shadow-margin{
+        margin-top : 20px;
+      }
     }
   }
   .b-dropdown-text{
@@ -146,6 +158,9 @@
   }
   .hostedBy{
     font-size: 0.65rem;
+    position: absolute;
+    top: 5px;
+    right: 0;
   }
   .dropdown-header{
     font-weight: bold;

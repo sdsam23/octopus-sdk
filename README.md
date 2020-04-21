@@ -122,6 +122,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.15.16 Bouton "Téléverser" + Bouton "Mon Espace"
  * 0.15.17 Bouton "Téléverser" + Bouton "Mon Espace"
  * 0.15.18 la date dans le calendrier et le filtre ne sont pas les mêmes
-
+ * 0.15.19 Merge dev-fabien
 
 
