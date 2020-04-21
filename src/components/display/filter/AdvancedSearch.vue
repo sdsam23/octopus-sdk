@@ -3,7 +3,7 @@
 	<div class="d-flex justify-content-center mb-3" @click="showFilters = !showFilters">
 		<div class="text-secondary c-hand">{{$t('Advanced filters')}}</div>
 		<div class="text-secondary c-hand align-self-center large-font-size" :class="{'arrow-transform':showFilters}">
-			<div class="saooti-arrow_down"></div>
+			<div class="saooti-arrow_down saooti-arrow_down-margin"></div>
 		</div>
 	</div>
   <div class="advanced-search-container" v-show="showFilters" >
@@ -94,6 +94,9 @@
 </div>
 </template>
 <style lang="scss">
+.saooti-arrow_down-margin {
+	margin: 3px 0 0;
+}
 .padding-left-custom-radio{
 	padding-left: 1.5rem;
 }

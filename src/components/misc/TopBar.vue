@@ -36,11 +36,12 @@
       </div>
       <div class="d-flex flex-column">
         <div class="d-flex justify-content-end hostedBy hide-phone"><span>{{$t('Hosted by')}}</span><span class="ml-1 mr-1 primary-color">Saooti</span></div>
-        <div class="d-flex align-items-center justify-content-end shadow-margin">
+        <div class="d-flex align-items-center justify-content-end flex-no-wrap">
           <b-dropdown
             class="split-dropdown"
             split
             right
+            split-variant="primary main-button-dropdown"
             variant="primary"
             @click="goToUrl('/main/priv/backoffice')"
             :text="$t('My space')"
@@ -54,6 +55,7 @@
                 <b-dropdown-item to="/main/pub/create" v-if="!isPodcastmaker">{{$t('Create an account')}}</b-dropdown-item>
               </template>
               <template @click="displayMenuPhone(true)" v-else>
+                <b-dropdown-item to="/main/priv/backoffice" class="linkSpace" v-if="!isPodcastmaker">{{ $t('My space') }}</b-dropdown-item>
                 <b-dropdown-item to="/main/priv/edit/profile" v-if="!isPodcastmaker">{{ $t('Edit my profile') }}</b-dropdown-item>
                 <b-dropdown-item to="/main/priv/edit/organisation" v-if="!isPodcastmaker">{{$t('Edit my organisation')}}</b-dropdown-item>
                 <b-dropdown-divider></b-dropdown-divider>
@@ -93,6 +95,7 @@
     justify-content: center;
     align-items: center;
     height: 5rem;
+    position: relative;
 
     .top-bar-logo{
       width: 160px;
@@ -142,8 +145,8 @@
           width: auto;
         }
       }
-      .shadow-margin{
-        margin-top : 20px;
+      .hostedBy{
+        display: none !important;
       }
     }
   }
@@ -157,7 +160,7 @@
     align-items: center;
   }
   .hostedBy{
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     position: absolute;
     top: 5px;
     right: 0;
@@ -165,16 +168,25 @@
   .dropdown-header{
     font-weight: bold;
   }
+  .linkSpace{
+    display: none;
+  }
   
   /** PHONES*/
   @media (max-width: 1200px) {
     .hide-top-bar {
-      display: none;
+      display: none !important;
+    }
+    .linkSpace{
+      display: block;
+    }
+    .hostedBy{
+      display: none !important;
     }
     .top-bar {
       padding: 0;
       height: 3.5rem;
-      .linkHover, .btn-primary{
+      .linkHover{
         display: none;
       }
       .hamburger-menu {
@@ -191,6 +203,18 @@
         }
       }
     }
+  }
+  @media (max-width: 650px) {
+    .dropdown{
+      .main-button-dropdown{
+        display: none;
+      }
+    }
+    .btn-group .dropdown-toggle-split {
+        height: 30px;
+        width: 30px;
+        border-radius: 50% !important;
+      }
   }
 }
 </style>

@@ -36,7 +36,7 @@ h2{
 h1,h2,h3,h4,h5,h6{
   font-weight: 600;
   line-height: 1.2;
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
   margin-top: 0;
   @media (max-width: 500px){
     margin-bottom: 10px;
@@ -272,6 +272,9 @@ a.linkHover:hover{
 }
 .font-weight-600{
   font-weight: 600;
+}
+.flex-no-wrap{
+  flex-wrap: nowrap !important;
 }
 @media (max-width: 655px) {
   .description-fade-hid{

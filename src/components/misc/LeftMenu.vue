@@ -45,6 +45,7 @@
       >
         {{ category.name }}</router-link
       >
+      <div class="d-flex hostedBy"><span>{{$t('Hosted by')}}</span><span class="ml-1 mr-1 primary-color">Saooti</span></div>
     </div>
   </div>
 </template>
@@ -63,6 +64,12 @@
     display: flex;
     flex-direction: column;
         font-size: 0.9rem;
+  }
+  .hostedBy{
+    font-size: 0.6rem;
+    position: absolute;
+    bottom: 10px;
+    right: 0;
   }
 }
 /** PHONES*/
