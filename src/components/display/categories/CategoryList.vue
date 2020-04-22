@@ -138,7 +138,6 @@ export default {
       }
     },
     fetchCategories(organisationId){
-      debugger;
       console.log(octopusApi);
       octopusApi.fetchCategoriesOrga(organisationId, { lang: 'fr'}).then((data)=>{
         this.$store.commit('categoriesOrgaSet', data);
