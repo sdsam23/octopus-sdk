@@ -149,7 +149,6 @@
 
 <script>
 import { mapState } from 'vuex';
-const moment = require('moment');
 export default {
   name: 'PodcastImage',
 
@@ -169,10 +168,10 @@ export default {
     },
     imgUrl(){
       if(this.podcast.processingStatus === "READY"){
-        if(moment(this.podcast.pubDate).year() === 1970){
-          return "/img/novisible.png";
-        }else{
+        if(!this.podcast.availability.visibility && this.podcast.availability.date){
           return "/img/clock.png";
+        }else{
+          return "/img/novisible.png";
         }
       }else if(this.podcast.processingStatus === "PLANNED" || this.podcast.processingStatus === "PROCESSING"){
         return '/img/hourglass.png';
@@ -182,10 +181,10 @@ export default {
     },
     textVisible(){
       if(this.podcast.processingStatus === "READY"){
-        if(moment(this.podcast.pubDate).year() === 1970){
-          return this.$t('Podcast no visible');
-        }else{
+        if(!this.podcast.availability.visibility && this.podcast.availability.date){
           return this.$t('Podcast publish in future');
+        }else{
+          return this.$t('Podcast no visible');
         }
       }else if(this.podcast.processingStatus === "PLANNED" || this.podcast.processingStatus === "PROCESSING"){
         return this.$t('Podcast in process');
