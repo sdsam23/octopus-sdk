@@ -2,10 +2,10 @@
   <div class="d-flex flex-column p-3 list-episode">
     <div class="d-flex justify-content-end">
       <div class="hide-phone">
-        <button class="btn btn-arrow" @click="displayPrevious()" :class="{ disabled: !previousAvailable }">
+        <button class="btn btn-arrow" @click="displayPrevious()" :class="{ disabled: !previousAvailable }" :aria-label="$t('Display previous')">
           <div class="saooti-arrow-left2"></div>
         </button>
-        <button class="btn btn-arrow" @click="displayNext()" :class="{ disabled: !nextAvailable }">
+        <button class="btn btn-arrow" @click="displayNext()" :class="{ disabled: !nextAvailable }" :aria-label="$t('Display next')">
           <div class="saooti-arrow-right2"></div>
         </button>
       </div>

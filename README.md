@@ -104,3 +104,33 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.14.28 Affichage et date d'un épisode non disponible pour les auditeurs
  * 0.14.29 la date dans le calendrier et le filtre ne sont pas les mêmes
  * 0.14.30 Ajout de données pour les tests automatiques
+
+
+ * 0.15.0 Nouveau sprint
+ * 0.15.1 Erreur de merge
+ * 0.15.2 Nouvelle version api
+ * 0.15.3 Mettre en place une version d’octopus dans laquelle l’utilisateur ne voit que ses contenus
+ * 0.15.4 Recherche avancée - status de processing
+ * 0.15.5 Recherche avancée - status de processing
+ * 0.15.6 Merge de staging
+ * 0.15.7 Merge de staging
+ * 0.15.8 Norme d'accessibilité
+ * 0.15.9 Merge de staging
+ * 0.15.10 Merge de Samuel
+ * 0.15.11 Merge de staging
+ * 0.15.12 Merge de staging
+ * 0.15.13 Recherche d'emissions et podcast cachés
+ * 0.15.14 Merge de Samuel + ajout d'un fichier profile.js 
+ * 0.15.15 Customisation du player
+ * 0.15.16 Bouton "Téléverser" + Bouton "Mon Espace"
+ * 0.15.17 Bouton "Téléverser" + Bouton "Mon Espace"
+ * 0.15.18 la date dans le calendrier et le filtre ne sont pas les mêmes
+ * 0.15.19 Merge dev-fabien
+ * 0.15.20 Merge dev-fabien + ajout responsive
+ * 0.15.22 Mise à jour api 
+ * 0.15.23 Mettre en place une version d’octopus dans laquelle l’utilisateur ne voit que ses contenus
+ * 0.15.24 merge de staging
+ * 0.15.25 Mettre en place une version d’octopus dans laquelle l’utilisateur ne voit que ses contenus
+
+
+
