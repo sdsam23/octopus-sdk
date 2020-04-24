@@ -26,6 +26,9 @@ export default new Vuex.Store({
     },
     categories: [],
     categoriesOrga: [],
+    organisation:{
+      imageUrl: undefined,
+    }
   },
 
   getters: {},

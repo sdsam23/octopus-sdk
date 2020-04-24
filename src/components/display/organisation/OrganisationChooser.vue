@@ -104,7 +104,7 @@ export default {
   },
 
   created() {
-    if(this.authenticated && state.organisation.imageUrl === undefined){
+    if(this.authenticated && this.$store.state.organisation.imageUrl === undefined){
       octopusApi.fetchOrganisation(this.organisationId)
       .then(data => {
           this.myImage = data.imageUrl;

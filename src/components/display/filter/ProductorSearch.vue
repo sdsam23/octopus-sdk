@@ -175,7 +175,7 @@ export default {
     filterOrga(){
       if(this.filterOrga){
         this.keepOrganisation=true;
-        this.$emit('updateOrganisationId', {orgaId: this.filterOrga});
+        this.$emit('updateOrganisationId', this.filterOrga);
       } else{
         this.keepOrganisation=false;
       }
