@@ -7,7 +7,8 @@
       <router-link 
       :to="{ name: 'home', query:{productor: $store.state.filter.organisationId}}">
         <div class="top-bar-logo m-3" v-on:click="onDisplayMenu(true)">
-          <img src="/img/logo_octopus_final.svg" :alt="$t('Logo of main page')" />
+          <img src="/img/logo_octopus_final.svg" :alt="$t('Logo of main page')" v-if="!filterOrga || imgUrl === undefined" />
+          <img :src="imgUrl" :alt="$t('Logo of main page')" v-else/>
         </div>
       </router-link>
       <OrganisationChooser
@@ -100,6 +101,10 @@
     .top-bar-logo{
       width: 160px;
       margin: 1rem 2rem 1rem 1rem !important;
+      img{
+        max-width: 160px;
+        max-height: 50px;
+      }
     }
     .multiselect__tags {
       padding: 6px 40px 0 10px;
@@ -264,6 +269,13 @@ export default {
     },
     filterOrga(){
       return this.$store.state.filter.organisationId;
+    },
+    imgUrl(){
+      if(this.$store.state.filter.imgUrl && !this.$store.state.filter.imgUrl.includes('emptypodcast')){
+        return this.$store.state.filter.imgUrl;
+      }else{
+        return undefined;
+      }
     }
   },
 
@@ -310,12 +322,13 @@ export default {
         if(this.$route.query.productor !== organisation.id){
           this.$router.push({query: {productor: organisation.id}});
         }
-        this.$store.commit('filterOrga', organisation.id);
+        this.$store.commit('filterOrga', {orgaId: organisation.id, imgUrl: organisation.imageUrl});
       } else {
+        this.organisationId = undefined;
         if(this.$route.query.productor){
           this.$router.push({query: {productor: undefined}});
         }
-        this.$store.commit('filterOrga', undefined);
+        this.$store.commit('filterOrga', {orgaId: undefined});
       }
     },
     goToUrl(url){

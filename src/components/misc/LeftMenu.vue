@@ -137,12 +137,12 @@ export default {
         if(this.$route.query.productor !== organisation.id){
           this.$router.push({query: {productor: organisation.id}});
         }
-        this.$store.commit('filterOrga', organisation.id);
+        this.$store.commit('filterOrga', {orgaId: organisation.id, imgUrl: organisation.imageUrl});
       } else {
         if(this.$route.query.productor){
           this.$router.push({query: {productor: undefined}});
         }
-        this.$store.commit('filterOrga', undefined);
+        this.$store.commit('filterOrga', {orgaId: undefined});
       }
     }
   },

@@ -239,8 +239,8 @@ export default {
     },
     reset(){
       this.organisation = this.defaultanswer
-          ? getDefaultOrganistion(this.defaultanswer)
-          : '';
+        ? getDefaultOrganistion(this.defaultanswer)
+        : '';
     }
   }
 };

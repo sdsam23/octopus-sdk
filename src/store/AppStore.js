@@ -22,6 +22,7 @@ export default new Vuex.Store({
     },
     filter:{
       organisationId: undefined,
+      imgUrl: undefined,
     },
     categories: [],
     categoriesOrga: [],
@@ -84,8 +85,11 @@ export default new Vuex.Store({
       state.player.volume = volume;
     },
 
-    filterOrga(state, orgaId) {
-      state.filter.organisationId = orgaId;
+    filterOrga(state, filter) {
+      state.filter.organisationId = filter.orgaId;
+      if(filter.imgUrl){
+        state.filter.imgUrl = filter.imgUrl;
+      }
     },
 
     categoriesSet(state, categories) {

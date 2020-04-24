@@ -125,5 +125,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.15.19 Merge dev-fabien
  * 0.15.20 Merge dev-fabien + ajout responsive
  * 0.15.22 Mise à jour api 
+ * 0.15.23 Mettre en place une version d’octopus dans laquelle l’utilisateur ne voit que ses contenus
 
 

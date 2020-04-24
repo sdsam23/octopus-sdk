@@ -1,6 +1,6 @@
 <template>
 	<div class="d-flex align-items-center">
-			<div class="filter-organisation-chooser" v-if="!isPodcastmaker">
+			<div class="filter-organisation-chooser" v-if="!isPodcastmaker && !filterOrga">
 			<OrganisationChooser
 					:defaultanswer="$t('No organisation filter')"
 					@selected="onOrganisationSelected"
@@ -99,7 +99,7 @@ export default {
 
   created() {
     if (this.organisationId) {
-      this.$store.commit('filterOrga', this.organisationId);
+      this.$store.commit('filterOrga', {orgaId: this.organisationId});
       this.keepOrganisation = true;
       if(!this.$route.query.productor){
         this.$router.replace({query: {productor: this.organisationId}});
@@ -117,6 +117,7 @@ export default {
     return {
       keepOrganisation: false,
       showBubble: false,
+      imgUrl: undefined,
     };
   },
 
@@ -143,7 +144,8 @@ export default {
       if(this.$route.query.productor){
         this.$router.push({query: {productor: undefined}});
       }
-      this.$store.commit('filterOrga', undefined);
+      this.imgUrl = organisation.imageUrl;
+      this.$store.commit('filterOrga', {orgaId: undefined, imgUrl: this.imgUrl});
       this.keepOrganisation = false;
       if (organisation && organisation.id) {
         this.showBubble=true;
@@ -160,12 +162,12 @@ export default {
         if(this.$route.query.productor !== this.organisationId){
           this.$router.push({query: {productor: this.organisationId}});
         }
-        this.$store.commit('filterOrga', this.organisationId);
+        this.$store.commit('filterOrga', {orgaId: this.organisationId, imgUrl: this.imgUrl});
       }else {
         if(this.$route.query.productor){
           this.$router.push({query: {productor: undefined}});
         }
-        this.$store.commit('filterOrga', undefined);
+        this.$store.commit('filterOrga', {orgaId: undefined});
       }
     }
   },
@@ -173,7 +175,7 @@ export default {
     filterOrga(){
       if(this.filterOrga){
         this.keepOrganisation=true;
-        this.$emit('updateOrganisationId', this.filterOrga);
+        this.$emit('updateOrganisationId', {orgaId: this.filterOrga});
       } else{
         this.keepOrganisation=false;
       }
