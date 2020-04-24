@@ -1,5 +1,5 @@
 <template>
-  <li class="podcast-item-container m-0" :class="[podcastShadow? 'shadow-element':'', podcastBorderBottom? 'border-bottom':'']">
+  <li class="podcast-item-container m-0" :class="[podcastShadow? 'shadow-element':'', podcastBorderBottom? 'border-bottom':'']" :data-pubdate="displayDate" :data-count="podcast.downloadCount">
     <PodcastImage 
       v-bind:podcast="podcast" 
       :hidePlay='!hover || !description' 
@@ -119,6 +119,9 @@ export default {
     },
     date() {
       return moment(this.podcast.pubDate).format('D/MM/YYYY [à] HH[h]mm');
+    },
+    displayDate(){
+      return moment(this.podcast.pubDate).format('X');
     },
     category() {
       const catIds = this.podcast.emission.iabIds;
