@@ -131,6 +131,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.15.23 Mettre en place une version d’octopus dans laquelle l’utilisateur ne voit que ses contenus
  * 0.15.24 merge de staging
  * 0.15.25 Mettre en place une version d’octopus dans laquelle l’utilisateur ne voit que ses contenus
+ * 0.15.26 Bouton "Téléverser" + Bouton "Mon Espace"
 
 
 
