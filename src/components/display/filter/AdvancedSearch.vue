@@ -111,7 +111,7 @@
   border-radius: 0.8rem;
 	display: flex;
   width: 100%;
-	padding: 1rem;
+	padding: 1rem 2rem;
 	margin-bottom: 1rem;
 	label.wrap { 
 		position: relative;
@@ -121,9 +121,6 @@
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 0.2em 0.5em;
-	}
-	.saooti-arrow_down {
-		margin-top: 2px;
 	}
 	select{       
 		-webkit-appearance: none;

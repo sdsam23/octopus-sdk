@@ -99,11 +99,10 @@
     position: relative;
 
     .top-bar-logo{
-      width: 160px;
       margin: 1rem 2rem 1rem 1rem !important;
       img{
         max-width: 160px;
-        max-height: 50px;
+        max-height: 80px;
       }
     }
     .multiselect__tags {
@@ -112,6 +111,7 @@
 
     .btn-group .dropdown-toggle-split {
       background: #389452;
+      align-items: center;
     }
    
     .hamburger-menu {
