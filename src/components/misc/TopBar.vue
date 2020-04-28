@@ -105,8 +105,9 @@
     .top-bar-logo{
       margin: 1rem 2rem 1rem 1rem !important;
       img{
-        max-width: 160px;
+        max-width: 160px !important;
         max-height: 80px;
+        height: 80px;
       }
     }
     .multiselect__tags {
