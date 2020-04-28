@@ -46,16 +46,13 @@
             variant="primary"
             @click="goToUrl('/main/priv/backoffice')"
             :text="$t('My space')"
+            v-if="authenticated"
           >
             <b-dropdown-text>
               <router-link to="/main/priv/upload" v-if="authenticated && !isPodcastmaker" class="align-self-center w-100 mb-2">
                 <button class="btn btn-primary w-100">{{ $t('Upload') }}</button>
               </router-link>
-              <template v-if="!authenticated">
-                <b-dropdown-item href="/sso/login">{{ $t('Login') }}</b-dropdown-item>
-                <b-dropdown-item to="/main/pub/create" v-if="!isPodcastmaker">{{$t('Create an account')}}</b-dropdown-item>
-              </template>
-              <template @click="displayMenuPhone(true)" v-else>
+              <template @click="displayMenuPhone(true)">
                 <b-dropdown-item to="/main/priv/backoffice" class="linkSpace" v-if="!isPodcastmaker">{{ $t('My space') }}</b-dropdown-item>
                 <b-dropdown-item to="/main/priv/edit/profile" v-if="!isPodcastmaker">{{ $t('Edit my profile') }}</b-dropdown-item>
                 <b-dropdown-item to="/main/priv/edit/organisation" v-if="!isPodcastmaker">{{$t('Edit my organisation')}}</b-dropdown-item>
@@ -68,6 +65,13 @@
                 <b-dropdown-item href="/sso/logout">{{ $t('Logout') }}</b-dropdown-item>
               </template>
             </b-dropdown-text>
+          </b-dropdown>
+          <b-dropdown right toggle-class="text-decoration-none  m-1 admin-button btn-rounded-icon" no-caret v-else>
+            <template v-slot:button-content>
+              <i class="saooti-user text-dark"></i><span class="sr-only">Profile</span>
+            </template>
+              <b-dropdown-item href="/sso/login">{{ $t('Login') }}</b-dropdown-item>
+              <b-dropdown-item to="/main/pub/create" v-if="!isPodcastmaker">{{$t('Create an account')}}</b-dropdown-item>
           </b-dropdown>
           <router-link 
           :aria-label ="$t('Search')"
@@ -99,11 +103,10 @@
     position: relative;
 
     .top-bar-logo{
-      width: 160px;
       margin: 1rem 2rem 1rem 1rem !important;
       img{
         max-width: 160px;
-        max-height: 50px;
+        max-height: 80px;
       }
     }
     .multiselect__tags {
@@ -112,6 +115,7 @@
 
     .btn-group .dropdown-toggle-split {
       background: #389452;
+      align-items: center;
     }
    
     .hamburger-menu {
