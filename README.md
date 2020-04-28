@@ -133,6 +133,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.15.25 Mettre en place une version d’octopus dans laquelle l’utilisateur ne voit que ses contenus
  * 0.15.26 Bouton "Téléverser" + Bouton "Mon Espace"
  * 0.15.27 Bouton "Téléverser" + Bouton "Mon Espace"
+ * 0.15.28 Design mini player Octopus 
 
 
 
