@@ -15,6 +15,7 @@
           frameborder="0"
           :width="iFrameWidth"
           :height="iFrameHeight"
+          class="maxIframe"
         ></iframe>
         <div class="d-flex flex-column">
           <button class="btn mb-3" @click="isShareModal = true;">{{ $t('Share') }}</button>
@@ -27,20 +28,20 @@
             <option value="largeSuggestion" v-if="podcast && podcast.podcastId">{{$t('Large suggestion version')}}</option>
           </select>
         </div>
-        <div class="d-flex justify-content-between mt-3 flex-grow" >
-          <div class="d-flex flex-column align-items-center flex-shrink mr-2">
+        <div class="d-flex justify-content-around mt-3 flex-grow w-100" >
+          <div class="d-flex flex-column align-items-center flex-shrink mr-3">
             <div class="font-weight-600">{{$t('Choose color')}}</div>
             <swatches v-model="color" class="c-hand input-no-outline" colors="text-advanced" popover-to="right"></swatches>
           </div>  
           <div class="d-flex flex-column align-items-center">
             <div class="font-weight-600">{{$t('Choose theme')}}</div>
             <div class="d-flex">
-              <swatches v-model="theme" class="c-hand input-no-outline mr-1" :swatch-style="{padding: '0px 0px', marginRight: '0px', marginBottom: '0px'}" :wrapper-style="{paddingTop: '0px', paddingLeft: '0px', paddingRight: '0px', paddingBottom: '0px'}" :colors="['#000000']" inline ></swatches>
-              <swatches v-model="theme" class="c-hand input-no-outline" :swatch-style="{padding: '0px 0px', marginRight: '0px', marginBottom: '0px'}" :wrapper-style="{paddingTop: '0px', paddingLeft: '0px', paddingRight: '0px', paddingBottom: '0px'}" :colors="['#ffffff']" inline ></swatches>
+              <swatches v-model="theme" class="c-hand input-no-outline mr-1" :swatch-style="{padding: '0px 0px', marginRight: '0px', marginBottom: '0px', border:'1px gray solid'}" :wrapper-style="{paddingTop: '0px', paddingLeft: '0px', paddingRight: '0px', paddingBottom: '0px'}" :colors="['#000000']" inline ></swatches>
+              <swatches v-model="theme" class="c-hand input-no-outline" :swatch-style="{padding: '0px 0px', marginRight: '0px', marginBottom: '0px', border:'1px gray solid'}" :wrapper-style="{paddingTop: '0px', paddingLeft: '0px', paddingRight: '0px', paddingBottom: '0px'}" :colors="['#ffffff']" inline ></swatches>
             </div>
           </div> 
         </div>
-        <div class="d-flex flex-column flex-grow" v-if="!podcast || iFrameModel === 'emission' || iFrameModel === 'largeEmission' || iFrameModel === 'largeSuggestion'">
+        <div class="d-flex flex-column align-items-center flex-grow" v-if="!podcast || iFrameModel === 'emission' || iFrameModel === 'largeEmission' || iFrameModel === 'largeSuggestion'">
         <div class="d-flex align-items-center mt-3">
           <span>{{ $t('Show') }}</span>
           <input
@@ -101,9 +102,17 @@
     box-shadow: 2px 8px 4px -6px hsla(0, 0%, 0%, 0.3);
   }
 }
+.maxIframe{
+  max-width: 300px;
+}
 .vue-swatches__container{
   padding : 0 !important;
   background-color: transparent !important;
+}
+.vue-swatches__swatch--selected{
+  border: 2px #40a372 solid !important;
+  box-shadow: unset !important;
+  -webkit-box-shadow: unset !important;
 }
 
 </style>
