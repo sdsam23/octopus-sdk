@@ -125,7 +125,7 @@ import "vue-swatches/dist/vue-swatches.min.css";
 import profileApi from '@/api/profile';
 
 export default {
-  props: ["podcast", "emissionId", "organisationId", "exclusive"],
+  props: ["podcast", "emission", "organisationId", "exclusive"],
 
   components: {
     ShareModal,
@@ -133,7 +133,13 @@ export default {
   },
 
   created() {
-    profileApi.fetchOrganisationAttibutes(this.$store, this.podcast.organisation.id)
+    let orgaId = undefined;
+    if(this.podcast){
+      orgaId= this.podcast.organisation.id;
+    }else{
+      orgaId= this.emission.orga.id;
+    }
+    profileApi.fetchOrganisationAttibutes(this.$store, orgaId)
     .then(data => {
       if(data.hasOwnProperty('COLOR')) {
         this.color = data.COLOR;
@@ -180,16 +186,16 @@ export default {
       let url = "";
       if (!this.podcast) {
         if (this.iFrameModel === "default") {
-          url = `${state.podcastPage.MiniplayerUri}miniplayer/emission/${this.emissionId}/${this.iFrameNumberPriv}`;
+          url = `${state.podcastPage.MiniplayerUri}miniplayer/emission/${this.emission.emissionId}/${this.iFrameNumberPriv}`;
         } else {
-          url = `${state.podcastPage.MiniplayerUri}miniplayer/emissionLarge/${this.emissionId}/${this.iFrameNumberPriv}`;
+          url = `${state.podcastPage.MiniplayerUri}miniplayer/emissionLarge/${this.emission.emissionId}/${this.iFrameNumberPriv}`;
         }
       } else {
         if (
           this.iFrameModel === "emission" ||
           this.iFrameModel === "largeEmission"
         ) {
-          url = `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.emissionId}/${this.iFrameNumberPriv}/${this.podcast.podcastId}`;
+          url = `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.emission.emissionId}/${this.iFrameNumberPriv}/${this.podcast.podcastId}`;
         } else if (this.iFrameModel === "largeSuggestion") {
           url = `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.podcast.podcastId}/${this.iFrameNumberPriv}`;
         } else {

@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="d-flex flex-column">
-          <SharePlayer :emissionId="emissionId" :exclusive="exclusive" :organisationId='organisationId' v-if="isSharePlayer"></SharePlayer>
+          <SharePlayer :emission="emission" :exclusive="exclusive" :organisationId='organisationId' v-if="isSharePlayer"></SharePlayer>
           <ShareButtons :emission="emission" v-if="isShareButtons"></ShareButtons>
         </div>
       </div>
