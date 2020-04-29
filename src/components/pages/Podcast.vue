@@ -77,7 +77,7 @@
         <div class="d-flex flex-column flex-grow">
           <SharePlayer
             :podcast="podcast"
-            :emissionId="podcast.emission.emissionId"
+            :emission="podcast.emission"
             :exclusive="exclusive"
             :organisationId='organisationId'
             v-if="isSharePlayer"
