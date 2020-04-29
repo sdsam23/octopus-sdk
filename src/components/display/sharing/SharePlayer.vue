@@ -43,7 +43,7 @@
         </div>
         <div class="d-flex flex-column align-items-center flex-grow" v-if="!podcast || iFrameModel === 'emission' || iFrameModel === 'largeEmission' || iFrameModel === 'largeSuggestion'">
         <div class="d-flex align-items-center mt-3">
-          <span>{{ $t('Show') }}</span>
+          <span class="flex-shrink">{{ $t('Show') }}</span>
           <input
             id="number-input"
             type="number"
@@ -53,7 +53,7 @@
             class="input-share-player input-no-outline text-center m-2"
           />
           <label for="number-input" class="d-inline" :aria-label="$t('Number of player podcasts')"></label>
-          <span>{{ $t('Last podcasts') }}</span>
+          <span class="flex-shrink">{{ $t('Last podcasts') }}</span>
         </div>
         <div class="checkbox-saooti">  
           <input type="checkbox" class="custom-control-input" id="proceedCheck" v-model="proceedReading">  
