@@ -156,7 +156,7 @@ export default {
     },
 
     duration() {
-      if(this.podcast.duration){
+      if(this.podcast.duration > 1){
         return humanizeDuration(this.podcast.duration, {
           language: 'fr',
           largest: 1,
