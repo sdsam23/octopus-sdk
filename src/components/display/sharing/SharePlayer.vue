@@ -31,7 +31,7 @@
         <div class="d-flex justify-content-around mt-3 flex-grow w-100" >
           <div class="d-flex flex-column align-items-center flex-shrink mr-3">
             <div class="font-weight-600">{{$t('Choose color')}}</div>
-            <swatches v-model="color" class="c-hand input-no-outline" colors="text-advanced" popover-to="right"></swatches>
+            <swatches v-model="color" class="c-hand input-no-outline" show-fallback colors="text-advanced" popover-to="right"></swatches>
           </div>  
           <div class="d-flex flex-column align-items-center">
             <div class="font-weight-600">{{$t('Choose theme')}}</div>

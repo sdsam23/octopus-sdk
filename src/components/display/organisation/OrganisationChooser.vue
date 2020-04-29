@@ -1,5 +1,5 @@
 <template>
-  <div class="default-multiselect-width" :style="{ width: width }" :class="{'multiselect-hide-arrow' : !displayArrow }">
+  <div class="default-multiselect-width" :style="{ width: width }" :class="{'multiselect-hide-arrow' : !displayArrow }" v-if='!value || init'>
     <label for="organisationChooser" class="d-inline" aria-label="select productor"></label>
     <Multiselect
       v-model="organisation"
@@ -215,13 +215,13 @@ export default {
     },
 
     fetchOrganisation(){
-      this.init = true;
       if(this.organisations.length ===0){
         this.onSearchOrganisation();
       }
       octopusApi.fetchOrganisation(this.value)
       .then(data => {
           this.organisation = data;
+          this.init = true;
       })
     },
 
