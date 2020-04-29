@@ -136,6 +136,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.15.28 Design mini player Octopus 
  * 0.15.29 Erreur customisation de player (pour émission)
  * 0.15.30 Design mini player Octopus 
+ * 0.15.31 Pouvoir choisir le code hexa, de la couleur customs du player
 
 
 

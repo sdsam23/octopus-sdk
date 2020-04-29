@@ -1,5 +1,5 @@
 <template>
-  <div class="top-bar-container position-sticky" v-bind:class="{ 'shadow-element': scrolled }">
+  <div class="top-bar-container position-sticky" v-bind:class="{ 'shadow-element': scrolled }" v-if="init">
     <div class="top-bar">
       <div class="hamburger-menu" v-on:click="onDisplayMenu(false)" :aria-label="$t('open left Menu')">
         <div class="saooti-burger-menu h3"></div>
@@ -244,6 +244,7 @@ export default {
     if(this.filterOrga){
       this.organisationId = this.filterOrga;
     }
+    this.init=true;
     window.addEventListener("scroll", this.handleScroll);
   },
   beforeDestroy() {
@@ -259,6 +260,7 @@ export default {
       minScroll: 0,
       organisationId:undefined,
       reset: false,
+      init: false,
     };
   },
 

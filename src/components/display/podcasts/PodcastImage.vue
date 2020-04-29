@@ -42,9 +42,9 @@
 .no-visible-img{
   width: 3rem;
   height: 3rem;
-  background: #ccc;
   border-radius: 50%;
   padding: 0.5em;
+  background: rgba(0,0,0,.31);
 }
 .transparent-background{
   background-color: rgba(255,255,255, .5);

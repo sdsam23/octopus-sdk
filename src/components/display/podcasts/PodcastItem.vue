@@ -156,11 +156,15 @@ export default {
     },
 
     duration() {
-      return humanizeDuration(this.podcast.duration, {
-        language: 'fr',
-        largest: 1,
-        round: true,
-      });
+      if(this.podcast.duration){
+        return humanizeDuration(this.podcast.duration, {
+          language: 'fr',
+          largest: 1,
+          round: true,
+        });
+      }else{
+        return '';
+      }
     },
   },
   methods:{

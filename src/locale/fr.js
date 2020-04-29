@@ -407,7 +407,7 @@ export default {
     'Sort score': 'Pertinence',
     'Sort name': 'Alphabétique',
     'Sort last': 'Antéchronologique',
-    'Choose color':'Couleur principale',
+    'Choose color':'Couleur',
     'Choose theme':'Thème',
     'Podcast no visible':'Épisode non visible actuellement',
     'Display episodes':'Affichage des épisodes',
