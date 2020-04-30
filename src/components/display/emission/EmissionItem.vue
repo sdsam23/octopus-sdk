@@ -6,7 +6,7 @@
     class="text-dark">
       <div class="img-box" :style="{ 'background-image': 'url(\'' + emission.imageUrl +'?dummy='+dummyParam+ '\')' }" v-if="!lightItems"></div>
       <div class="d-flex" v-else>
-        <div class="img-box-light flex-shrink" :style="{ 'background-image': 'url(\'' + emission.imageUrl + '\')' }"></div>
+        <div class="img-box-light flex-shrink" :style="{ 'background-image': 'url(\'' + emission.imageUrl +'?dummy='+dummyParam+  '\')' }"></div>
         <div class="emission-light-title">{{ name }}</div>
       </div>
     </router-link>
