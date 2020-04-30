@@ -1,5 +1,5 @@
 <template>
-  <div class="default-multiselect-width" :style="{ width: width }" :class="{'multiselect-hide-arrow' : !displayArrow }" v-if='!value || init'>
+  <div class="default-multiselect-width" :style="{ width: width }" :class="{'multiselect-hide-arrow' : !displayArrow }" v-if='!value ||init'>
     <label for="organisationChooser" class="d-inline" aria-label="select productor"></label>
     <Multiselect
       v-model="organisation"

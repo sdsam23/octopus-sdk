@@ -15,7 +15,7 @@
       <h3 class="mt-2">{{ $t('Loading emissions ...') }}</h3>
     </div>
     <transition-group :name="transitionName" class="podcast-list-inline" tag="ul" v-show="loaded" :class="[alignLeft? 'justify-content-start':'']">
-      <EmissionPlayerItem class="flex-shrink item-phone-margin" :emission='e'  v-for="e in emissions" v-bind:key="e.emissionId" :class="[alignLeft? 'mr-3':'']" />
+      <EmissionPlayerItem class="flex-shrink item-phone-margin" :emission='e'  v-for="e in emissions" v-bind:key="e.emissionId" :class="[alignLeft? 'mr-3':'']" :nbPodcasts="nbPodcasts"/>
     </transition-group>
     <router-link v-bind:to="href" class="btn btn-link">{{buttonText}}</router-link>
   </div>
@@ -39,7 +39,8 @@ export default {
     "href",
     "buttonText",
     "rubriqueId",
-    "rubriquageId"
+    "rubriquageId",
+    "nbPodcasts"
   ],
 
   components: {

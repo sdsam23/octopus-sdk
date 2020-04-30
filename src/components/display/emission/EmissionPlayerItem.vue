@@ -3,6 +3,7 @@
     <router-link 
     :to="{ name: 'emission', params: {emissionId:emission.emissionId}, query:{productor: $store.state.filter.organisationId}}"
     class="d-flex flex-column text-dark">
+      <div class="emissionPlayerItem-info"></div>
       <div class="img-box no-border-round" :style="{ 'background-image': 'url(\'' + emission.imageUrl + '\')' }"></div>
       <div class="d-flex flex-column p-2">
           <div class="font-weight-bold text-uppercase text-ellipsis">{{emission.name}}</div>
@@ -77,7 +78,7 @@ import octopusApi from "@saooti/octopus-api";
 export default {
   name: 'EmissionPlayerItem',
 
-  props: ['emission'],
+  props: ['emission', "nbPodcasts"],
 
   created(){
     this.loadPodcasts();
@@ -96,10 +97,11 @@ export default {
 
    methods:{
     loadPodcasts(){
+        let nb = this.nbPodcasts? this.nbPodcasts: 2;
         octopusApi
         .fetchPodcasts({
             emissionId: this.emission.emissionId,
-            size: 2
+            size: nb
         })
         .then((data) => {
             if(data.count === 0 && this.editRight){
