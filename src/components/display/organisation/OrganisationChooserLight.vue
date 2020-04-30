@@ -1,5 +1,5 @@
 <template>
-  <div class="default-multiselect-width" :style="{ width: width }" v-if='init'>
+  <div class="default-multiselect-width" :style="{ width: width }" v-if='(!value ||init) && organisation !== ""'>
     <select class="basic-select mb-0 c-hand" v-model='actual' @change="onOrganisationSelected">
 			<option :value="organisation.id">{{organisation.name}}</option>
 			<option :value="-1">{{$t('No organisation filter')}}</option>
