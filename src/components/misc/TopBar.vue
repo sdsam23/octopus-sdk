@@ -11,8 +11,8 @@
           <img :src="imgUrl" :alt="$t('Logo of main page')" v-else/>
         </div>
       </router-link>
-      <OrganisationChooser
-        width="230px"
+      <OrganisationChooserLight
+        width="auto"
         :defaultanswer="$t('No organisation filter')"
         @selected="onOrganisationSelected"
         :value='organisationId'
@@ -231,13 +231,13 @@
 
 <script>
 import {state} from "../../store/paramStore.js";
-import OrganisationChooser from '../display/organisation/OrganisationChooser.vue';
+import OrganisationChooserLight from '../display/organisation/OrganisationChooserLight.vue';
 
 export default {
   name: "TopBar",
 
   components:{
-    OrganisationChooser
+    OrganisationChooserLight
   },
 
   mounted() {
