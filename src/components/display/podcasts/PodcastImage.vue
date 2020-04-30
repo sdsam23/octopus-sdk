@@ -26,7 +26,7 @@
   </template>
   <template v-else>
     <div class="d-flex flex-column w-100 h-100 justify-content-center align-items-center transparent-background"
-    :class="podcast.processingStatus === 'READY' ? 'c-hand':''" :click="play"
+    :class="podcast.processingStatus === 'READY' ? 'c-hand':''" @click="play"
     >
       <img
         :src="imgUrl"
