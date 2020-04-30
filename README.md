@@ -141,7 +141,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.15.31 Pouvoir choisir le code hexa, de la couleur customs du player
  * 0.15.32 Ne pas afficher 0 seconde lors de l'indication d'un épisode en cours de traitement 
  * 0.15.33 Privatisation : Mettre en place une version d’octopus dans laquelle l’utilisateur ne voit que ses contenus.
-
+ * 0.15.34 Selenium couleurs hexa
 
 
 
