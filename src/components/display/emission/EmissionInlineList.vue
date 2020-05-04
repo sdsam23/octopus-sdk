@@ -113,7 +113,6 @@ export default {
           this.totalCount = data.count;
           if(this.first === 0 && this.displayRubriquage && state.emissionsPage.mainRubrique){
             data.result.sort((a, b)=>{
-              console.log(state.emissionsPage.mainRubrique);
               if (a.rubriqueIds[0] === state.emissionsPage.mainRubrique)
                 return 1;
               if (b.rubriqueIds[0] === state.emissionsPage.mainRubrique)
