@@ -183,7 +183,7 @@ export default {
       });
     },
     rubriquesId(emission){
-      if(this.displayRubriquage && emission.rubriqueIds.length !== 0){
+      if(this.displayRubriquage && emission.rubriqueIds.length !== 0 && this.rubriques.length){
         let rubrique = this.rubriques.find(element => element.rubriqueId === emission.rubriqueIds[0]);
         return rubrique.name;
       }else{

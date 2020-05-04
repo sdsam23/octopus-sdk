@@ -144,6 +144,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.15.34 Selenium couleurs hexa
  * 0.15.35 Privatisation : Mettre en place une version d’octopus dans laquelle l’utilisateur ne voit que ses contenus.
  * 0.15.36 Podcastmaker SudPresse
+ * 0.15.37 Podcastmaker SudPresse
 
 
 
