@@ -69,6 +69,8 @@ var initialize = function initialize(initObject){
       state.emissionsPage.lightItems = (typeof param.lightItems !== "undefined") ? param.lightItems : false;
       state.emissionsPage.titlePage = (typeof param.titlePage !== "undefined") ? param.titlePage : undefined;
       state.emissionsPage.itemPlayer = (typeof param.itemPlayer !== "undefined") ? param.itemPlayer : false;
+      state.emissionsPage.rubriquage = (typeof param.rubriquage !== "undefined") ? param.rubriquage : undefined;
+      state.emissionsPage.mainRubrique = (typeof param.mainRubrique !== "undefined") ? param.mainRubrique : undefined;
     }
     if(initObject.emissionPage){
       let param = initObject.emissionPage;

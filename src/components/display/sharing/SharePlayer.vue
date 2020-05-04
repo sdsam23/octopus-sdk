@@ -31,13 +31,13 @@
         <div class="d-flex justify-content-around mt-3 flex-grow w-100" >
           <div class="d-flex flex-column align-items-center flex-shrink mr-3">
             <div class="font-weight-600">{{$t('Choose color')}}</div>
-            <swatches v-model="color" class="c-hand input-no-outline" show-fallback colors="text-advanced" popover-to="right"></swatches>
+            <swatches v-model="color" class="c-hand input-no-outline" show-fallback colors="text-advanced" popover-to="right" :data-color="color"></swatches>
           </div>  
           <div class="d-flex flex-column align-items-center">
             <div class="font-weight-600">{{$t('Choose theme')}}</div>
             <div class="d-flex">
-              <swatches v-model="theme" class="c-hand input-no-outline mr-1" :swatch-style="{padding: '0px 0px', marginRight: '0px', marginBottom: '0px', border:'1px gray solid'}" :wrapper-style="{paddingTop: '0px', paddingLeft: '0px', paddingRight: '0px', paddingBottom: '0px'}" :colors="['#000000']" inline ></swatches>
-              <swatches v-model="theme" class="c-hand input-no-outline" :swatch-style="{padding: '0px 0px', marginRight: '0px', marginBottom: '0px', border:'1px gray solid'}" :wrapper-style="{paddingTop: '0px', paddingLeft: '0px', paddingRight: '0px', paddingBottom: '0px'}" :colors="['#ffffff']" inline ></swatches>
+              <swatches v-model="theme" :data-theme="theme" class="c-hand input-no-outline mr-1" :swatch-style="{padding: '0px 0px', marginRight: '0px', marginBottom: '0px', border:'1px gray solid'}" :wrapper-style="{paddingTop: '0px', paddingLeft: '0px', paddingRight: '0px', paddingBottom: '0px'}" :colors="['#000000']" inline ></swatches>
+              <swatches v-model="theme" :data-theme="theme" class="c-hand input-no-outline" :swatch-style="{padding: '0px 0px', marginRight: '0px', marginBottom: '0px', border:'1px gray solid'}" :wrapper-style="{paddingTop: '0px', paddingLeft: '0px', paddingRight: '0px', paddingBottom: '0px'}" :colors="['#ffffff']" inline ></swatches>
             </div>
           </div> 
         </div>
