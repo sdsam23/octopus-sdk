@@ -3,7 +3,7 @@
     <router-link 
     :to="{ name: 'emission', params: {emissionId:emission.emissionId}, query:{productor: $store.state.filter.organisationId}}"
     class="d-flex flex-column text-dark">
-      <div class="emissionPlayerItem-info"></div>
+      <div class="emissionPlayerItem-info" v-if="rubriqueName">{{rubriqueName}}</div>
       <div class="img-box no-border-round" :style="{ 'background-image': 'url(\'' + emission.imageUrl + '\')' }"></div>
       <div class="d-flex flex-column p-2">
           <div class="font-weight-bold text-uppercase text-ellipsis">{{emission.name}}</div>
@@ -78,7 +78,7 @@ import octopusApi from "@saooti/octopus-api";
 export default {
   name: 'EmissionPlayerItem',
 
-  props: ['emission', "nbPodcasts"],
+  props: ['emission', "nbPodcasts", "rubriqueName"],
 
   created(){
     this.loadPodcasts();
@@ -97,18 +97,18 @@ export default {
 
    methods:{
     loadPodcasts(){
-        let nb = this.nbPodcasts? this.nbPodcasts: 2;
-        octopusApi
-        .fetchPodcasts({
-            emissionId: this.emission.emissionId,
-            size: nb
-        })
-        .then((data) => {
-            if(data.count === 0 && this.editRight){
-                this.activeEmission = false;
-            }
-            this.podcasts=data.result;
-        });
+      let nb = this.nbPodcasts? this.nbPodcasts: 2;
+      octopusApi
+      .fetchPodcasts({
+        emissionId: this.emission.emissionId,
+        size: nb
+      })
+      .then((data) => {
+        if(data.count === 0 && this.editRight){
+          this.activeEmission = false;
+        }
+        this.podcasts=data.result;
+      });
     },
     play(podcast){
       if(podcast === this.$store.state.player.podcast){
@@ -119,7 +119,7 @@ export default {
     },
     pause(){
       this.$store.commit('playerPause', true);
-    }
+    },
   },
 };
 </script>
