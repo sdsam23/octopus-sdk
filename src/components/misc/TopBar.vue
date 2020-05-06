@@ -123,8 +123,9 @@
       display: none;
       margin: 0 1rem;
       .saooti-burger-menu {
-      font-size: 1.5rem;
-      font-weight: bold;
+        font-size: 2.2em;
+        font-weight: bold;
+        margin-bottom: 0;
       }
       cursor: pointer;
     }
@@ -209,7 +210,7 @@
         display: flex;
         width: 100px;
         img {
-          max-width: 100px;
+          max-width: 100px !important;
         }
       }
     }
@@ -225,6 +226,13 @@
         width: 30px;
         border-radius: 50% !important;
       }
+    .top-bar {
+      .top-bar-logo {
+        img {
+          height: 2rem;
+        }
+      }
+    }
   }
 }
 </style>
