@@ -31,7 +31,9 @@
       <img
         :src="imgUrl"
         class="no-visible-img"
+        v-if="imgUrl"
       />
+      <div class="no-visible-img d-flex justify-content-center align-items-center" v-else><div class="spinner-border"></div></div>
       <div class="small-Text mt-2 font-weight-bold">{{textVisible}}</div>
     </div>
   </template>
@@ -175,7 +177,8 @@ export default {
           return "/img/novisible.png";
         }
       }else if(this.podcast.processingStatus === "PLANNED" || this.podcast.processingStatus === "PROCESSING"){
-        return '/img/hourglass.png';
+        /* return '/img/hourglass.png'; */
+        return undefined;
       }else{
         return '/img/caution.png';
       }
