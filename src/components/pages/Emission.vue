@@ -4,7 +4,7 @@
       <h1 v-if="!isOuestFrance">{{ $t('Emission') }}</h1>
       <div class="d-flex">
         <div class="d-flex flex-column flex-grow">
-          <EditBox :emission='emission' :rssEmission='rssEmission' v-if="editRight && isEditBox"></EditBox>
+          <EditBox :emission='emission' :rssEmission='rssEmission' :isReady='isReady' v-if="editRight && isEditBox"></EditBox>
           <div class="module-box">
             <h2 v-if="!isOuestFrance">{{ name }}</h2>
             <h1 v-else>{{ name }}</h1>
@@ -26,8 +26,8 @@
       <div v-if="editRight">
         <ShareDistribution :emissionId="emissionId" v-if="isShareDistribution"></ShareDistribution>
       </div>
-      <PodcastFilterList :emissionId="emissionId" :categoryFilter="false" :editRight='editRight' :productorId='emission.orga.id' v-if="!isOuestFrance" />
-      <PodcastList :first="0" :size="15" :emissionId="emissionId" v-else/>
+      <PodcastFilterList :emissionId="emissionId" :categoryFilter="false" :editRight='editRight' :productorId='emission.orga.id' v-if="!isOuestFrance" @fetch="fetch"/>
+      <PodcastList :first="0" :size="15" :emissionId="emissionId" @fetch="fetch" v-else/>
     </div>
     <div class="d-flex justify-content-center" v-if="!loaded">
       <div class="spinner-border mr-3"></div>
@@ -74,7 +74,8 @@ export default {
       emission: undefined,
       error: false,
       rssEmission: false,
-      exclusive: false
+      exclusive: false,
+      isReady: true,
     };
   },
 
@@ -129,7 +130,7 @@ export default {
         }
       }
       return false;
-    }
+    },
   },
 
   watch: {
@@ -165,6 +166,12 @@ export default {
           this.loaded = true;
         });
     },
+    fetch(podcasts){
+      let found = podcasts.find(element => element.processingStatus === 'PLANNED' ||element.processingStatus === 'PROCESSING');
+      if(found){
+        this.isReady = false;
+      }
+    }
   }
 };
 </script>

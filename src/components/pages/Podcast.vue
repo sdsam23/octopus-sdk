@@ -4,7 +4,7 @@
       <h1 v-if="!isOuestFrance">{{ $t('Episode') }}</h1>
       <div class="d-flex">
         <div class="d-flex flex-column flex-super-grow">
-          <EditBox :podcast="podcast" v-if="editRight && isEditBox"></EditBox>
+          <EditBox :podcast="podcast" v-if="editRight && isEditBox" :isReady='isReady'></EditBox>
           <div class="module-box">
             <h2 class="text-uppercase font-weight-bold title-page-podcast" v-if="!isOuestFrance">{{ this.podcast.title }}</h2>
             <router-link 
@@ -254,6 +254,13 @@ export default {
         }
       }
       return false;
+    },
+    isReady(){
+      if(this.podcast && this.podcast.processingStatus !== "PLANNED" && this.podcast.processingStatus !== "PROCESSING"){
+        return true;
+      }else{
+        return false;
+      }
     }
   },
 

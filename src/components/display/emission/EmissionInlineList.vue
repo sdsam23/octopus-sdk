@@ -41,7 +41,8 @@ export default {
     "buttonText",
     "rubriqueId",
     "rubriquageId",
-    "nbPodcasts"
+    "nbPodcasts",
+    'itemSize',
   ],
 
   components: {
@@ -158,7 +159,10 @@ export default {
           this.size = 10;
         } else {
           const width = this.$el.offsetWidth;
-          const sixteen = domHelper.convertRemToPixels(13.7);
+          let sixteen = domHelper.convertRemToPixels(13.7);
+          if(this.itemSize){
+            sixteen = domHelper.convertRemToPixels(this.itemSize + .7);
+          }
           this.size = Math.floor(width / sixteen);
         }
       }
@@ -183,7 +187,7 @@ export default {
       });
     },
     rubriquesId(emission){
-      if(this.displayRubriquage && emission.rubriqueIds.length !== 0){
+      if(this.displayRubriquage && emission.rubriqueIds && emission.rubriqueIds.length !== 0 && this.rubriques.length){
         let rubrique = this.rubriques.find(element => element.rubriqueId === emission.rubriqueIds[0]);
         return rubrique.name;
       }else{

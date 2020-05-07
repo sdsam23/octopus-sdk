@@ -181,6 +181,7 @@ export default {
       this.podcasts = this.podcasts.concat(data.result).filter((p)=>{
         return p!== null;
       });
+      this.$emit('fetch', this.podcasts);
       this.dfirst += this.dsize;
       this.totalCount = data.count;
       if(this.podcasts.length === 0){
