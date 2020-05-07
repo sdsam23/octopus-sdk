@@ -149,5 +149,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.15.39 Responsive topbar
  * 0.15.40 Player avec url invalide 
  * 0.15.41 Suppression d'un podcast en processing
+ * 0.15.42 Ne pas afficher 0 seconde lors de l'indication d'un épisode en cours de traitement 
 
 
