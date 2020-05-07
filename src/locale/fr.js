@@ -436,6 +436,7 @@ export default {
     'TutoMag':'TutoMag',
     'News':'Nouveautés',
     'Known issues' : 'Problèmes connus',
-    'Help': 'Aide'
+    'Help': 'Aide',
+    "Podcast play error":"La lecture de cette resource entraine une erreur",
   };
   
