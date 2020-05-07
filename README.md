@@ -148,6 +148,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.15.38 Podcastmaker SudPresse
  * 0.15.39 Responsive topbar
  * 0.15.40 Player avec url invalide 
-
+ * 0.15.41 Suppression d'un podcast en processing
 
 

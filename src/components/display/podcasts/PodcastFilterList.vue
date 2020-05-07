@@ -25,6 +25,7 @@
         :organisationId="productorId"
         :reload="reloadList"
         :includeHidden="editRight"
+        @fetch='fetch'
       />
   </div>
 </template>
@@ -116,6 +117,9 @@ export default {
         this.iabId = undefined;
       }
     },
+    fetch(podcasts){
+      this.$emit('fetch', podcasts);
+    }
   },
 
   watch:{
