@@ -90,7 +90,7 @@ export default new Vuex.Store({
 
     filterOrga(state, filter) {
       state.filter.organisationId = filter.orgaId;
-      if(filter.imgUrl){
+      if(filter.imgUrl || !filter.orgaId){
         state.filter.imgUrl = filter.imgUrl;
       }
     },

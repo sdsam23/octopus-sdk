@@ -81,47 +81,45 @@
       right: -0.2rem;
     }
     z-index: 2;
+  }
+}
+.bloc-paddle {
+  align-items: flex-end;
+  display: flex;
+  width: 2rem;
+  height: 2.6rem;
+  padding: 0.7rem;
+  justify-content: space-around;
+  align-content: flex-start;
+  border-radius: 50%;
+  background: transparent !important;
 
-    .bloc-paddle {
-      align-items: flex-end;
-      display: flex;
-      width: 2rem;
-      height: 2.6rem;
-      padding: 0.7rem;
-      justify-content: space-around;
-      align-content: flex-start;
-      border-radius: 50%;
-      background: transparent !important;
-
-      > span {
-        width: 0.1rem;
-        background: #fff;
-      }
-
-      .paddle1 {
-        animation-duration: 0.6s;
-        animation-name: slidein;
-        animation-iteration-count: infinite;
-        animation-direction: alternate;
-      }
-
-      .paddle2 {
-        animation-duration: 0.3s;
-        animation-name: slidein2;
-        animation-iteration-count: infinite;
-        animation-direction: alternate;
-      }
-
-      .paddle3 {
-        animation-duration: 0.5s;
-        animation-name: slidein3;
-        animation-iteration-count: infinite;
-        animation-direction: alternate;
-      }
-    }
+  > span {
+    width: 0.1rem;
+    background: #fff;
   }
 
-  @keyframes slidein {
+  .paddle1 {
+    animation-duration: 0.6s;
+    animation-name: slidein;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+
+  .paddle2 {
+    animation-duration: 0.3s;
+    animation-name: slidein2;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+
+  .paddle3 {
+    animation-duration: 0.5s;
+    animation-name: slidein3;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+    @keyframes slidein {
     0% {
       height: 0;
     }
