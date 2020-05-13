@@ -437,6 +437,6 @@ export default {
     'News':'Nouveautés',
     'Known issues' : 'Problèmes connus',
     'Help': 'Aide',
-    "Podcast play error":"La lecture de cette resource entraine une erreur",
+    "Podcast play error":"Erreur à la lecture de cette ressource",
   };
   
