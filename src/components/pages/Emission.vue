@@ -166,7 +166,7 @@ export default {
           this.loaded = true;
         });
     },
-    fetch(podcasts){
+    fetch(/* podcasts */){
       // Interdire supression si podcast en process
       /* let found = podcasts.find(element => element.processingStatus === 'PLANNED' ||element.processingStatus === 'PROCESSING');
       if(found){
