@@ -74,13 +74,13 @@
             <TagList v-if="isTagList" :tagList='podcast.tags'/>
           </div>
         </div>
-        <div class="d-flex flex-column flex-grow">
+        <div class="d-flex flex-column" :class="authenticated?'flex-grow':''">
           <SharePlayer
             :podcast="podcast"
             :emission="podcast.emission"
             :exclusive="exclusive"
             :organisationId='organisationId'
-            v-if="isSharePlayer"
+            v-if="isSharePlayer && authenticated"
           ></SharePlayer>
           <ShareButtons :podcastId="podcastId" v-if="isShareButtons"></ShareButtons>
         </div>
