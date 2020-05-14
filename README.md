@@ -152,5 +152,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.15.42 Ne pas afficher 0 seconde lors de l'indication d'un épisode en cours de traitement 
  * 0.15.43 Player avec url invalide
  * 0.15.44 Podcastmaker SudPresse
+ * 0.15.45 Recherche avancée dans octopus (rajout de la partie processing en cours)
 
 
