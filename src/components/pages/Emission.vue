@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="d-flex flex-column">
-          <SharePlayer :emission="emission" :exclusive="exclusive" :organisationId='organisationId' v-if="isSharePlayer"></SharePlayer>
+          <SharePlayer :emission="emission" :exclusive="exclusive" :organisationId='organisationId' v-if="isSharePlayer && authenticated"></SharePlayer>
           <ShareButtons :emission="emission" v-if="isShareButtons"></ShareButtons>
         </div>
       </div>
@@ -166,11 +166,12 @@ export default {
           this.loaded = true;
         });
     },
-    fetch(podcasts){
-      let found = podcasts.find(element => element.processingStatus === 'PLANNED' ||element.processingStatus === 'PROCESSING');
+    fetch(/* podcasts */){
+      // Interdire supression si podcast en process
+      /* let found = podcasts.find(element => element.processingStatus === 'PLANNED' ||element.processingStatus === 'PROCESSING');
       if(found){
         this.isReady = false;
-      }
+      } */
     }
   }
 };

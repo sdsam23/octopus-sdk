@@ -117,7 +117,7 @@
 		position: relative;
 		margin:0;
 	}
-	input {
+	input:not(#rubriqueChooser){
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 0.2em 0.5em;
