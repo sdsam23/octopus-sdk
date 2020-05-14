@@ -5,19 +5,21 @@
       <h3 class="mt-2">{{ $t('Loading emissions ...') }}</h3>
     </div>
     <div v-if="showCount && loaded && emissions.length > 1" class="text-secondary mb-2">{{$t('Number emissions',{nb :totalCount})}}</div>
-    <ul class="emission-list" :class="smallItems? 'threeEmissions': 'twoEmissions'" v-show="loaded" v-if="!itemPlayer">
+    <ul class="emission-list" :class="smallItems? 'threeEmissions': 'twoEmissions'" v-if="!itemPlayer">
       <EmissionItem
         v-bind:emission="e"
         v-for="e in emissions"
         v-bind:key="e.emissionId"
       />
     </ul>
-    <ul class="d-flex flex-wrap justify-content-around" v-show="loaded" v-else>
+    <ul class="d-flex flex-wrap justify-content-around" v-show="(displayRubriquage && rubriques) || !(displayRubriquage &&loaded)" v-else>
       <EmissionPlayerItem
         v-bind:emission="e"
         v-for="e in emissions"
         v-bind:key="e.emissionId"
         class="m-3 flex-shrink"
+        :class="mainRubriquage(e.rubriqueIds[0])" 
+        :rubriqueName="rubriquesId(e)"
       />
     </ul>
     <a
@@ -84,6 +86,9 @@ export default {
 
   mounted() {
     this.fetchContent(true);
+    if(this.displayRubriquage){
+      this.fetchRubriques();
+    }
   },
 
   data() {
@@ -94,6 +99,7 @@ export default {
       dsize: this.$props.size,
       totalCount: 0,
       emissions: [],
+      rubriques:undefined,
     };
   },
 
@@ -109,6 +115,9 @@ export default {
     },
     itemPlayer(){
       return state.emissionsPage.itemPlayer;
+    },
+    displayRubriquage(){
+      return state.emissionsPage.rubriquage;
     },
     changed(){
       return `${this.first}|${this.size}|${this.organisationId}|${this.query}|${this.monetization}|${this.includeHidden}
@@ -182,6 +191,26 @@ export default {
     displayMore(event) {
       event.preventDefault();
       this.fetchContent(false);
+    },
+    fetchRubriques(){
+      octopusApi.fetchTopic(this.displayRubriquage).then((data)=>{
+        this.rubriques = data.rubriques; 
+      });
+    },
+    mainRubriquage(rubriqueId){
+      if(rubriqueId === state.emissionsPage.mainRubrique){
+        return "partenaireRubrique";
+      }else{
+        return "";
+      }
+    },
+    rubriquesId(emission){
+      if(this.displayRubriquage && emission.rubriqueIds && emission.rubriqueIds.length !== 0 && this.rubriques && this.rubriques.length){
+        let rubrique = this.rubriques.find(element => element.rubriqueId === emission.rubriqueIds[0]);
+        return rubrique.name;
+      }else{
+        return undefined;
+      }
     },
   },
 

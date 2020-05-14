@@ -14,7 +14,8 @@
       <div class="spinner-border mr-3"></div>
       <h3 class="mt-2">{{ $t('Loading emissions ...') }}</h3>
     </div>
-    <transition-group :name="transitionName" class="podcast-list-inline" tag="ul" v-show="loaded" :class="[alignLeft? 'justify-content-start':'']">
+    <transition-group :name="transitionName" class="podcast-list-inline" tag="ul" 
+    v-show="(displayRubriquage && rubriques) || !(displayRubriquage &&loaded)" :class="[alignLeft? 'justify-content-start':'']">
       <EmissionPlayerItem class="flex-shrink item-phone-margin" :emission='e'  v-for="e in emissions" v-bind:key="e.emissionId" :class="[alignLeft? 'mr-3':'', mainRubriquage(e.rubriqueIds[0])]" :nbPodcasts="nbPodcasts" :rubriqueName="rubriquesId(e)"/>
     </transition-group>
     <router-link v-bind:to="href" class="btn btn-link">{{buttonText}}</router-link>
@@ -77,6 +78,7 @@ export default {
       allEmissions: [],
       direction: 1,
       alignLeft : false,
+      rubriques:undefined,
     };
   },
 
