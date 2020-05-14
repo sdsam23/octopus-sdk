@@ -167,10 +167,11 @@ export default {
         });
     },
     fetch(podcasts){
-      let found = podcasts.find(element => element.processingStatus === 'PLANNED' ||element.processingStatus === 'PROCESSING');
+      // Interdire supression si podcast en process
+      /* let found = podcasts.find(element => element.processingStatus === 'PLANNED' ||element.processingStatus === 'PROCESSING');
       if(found){
         this.isReady = false;
-      }
+      } */
     }
   }
 };
