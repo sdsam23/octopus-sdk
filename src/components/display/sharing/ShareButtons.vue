@@ -1,23 +1,23 @@
 <template>
   <div class="module-box text-center-mobile">
-    <h3 v-if="!bigRound && (authenticated || participantId)">{{ $t('Share') }}</h3>
-    <div class="d-flex" :class="[bigRound && !audioUrl?'justify-content-center':'', countLink >1? 'flex-wrap':'', !authenticated && !participantId ? 'flex-column':'']">
+    <h3 v-if="!bigRound && (authenticated || participantId || organisationId)">{{ $t('Share') }}</h3>
+    <div class="d-flex" :class="[bigRound && !audioUrl?'justify-content-center':'', countLink >1? 'flex-wrap':'', !authenticated && !participantId && !organisationId ? 'flex-column':'']">
       <a class="btn btn-bigRound" :title="$t('Downloading')" :href="audioUrl"  target="_blank" download  v-if="audioUrl" :aria-label="$t('Downloading')">
         <div class="saooti-download-bounty"></div>
       </a>
-      <a target="_blank" :href="facebookURL" :class="[bigRound?'btn btn-bigRound':'btn btn-circle btn-facebook share-btn', !authenticated && !participantId? 'mb-2' :'mr-3']" aria-label="Facebook">
+      <a target="_blank" :href="facebookURL" :class="[bigRound?'btn btn-bigRound':'btn btn-circle btn-facebook share-btn', !authenticated && !participantId && !organisationId? 'mb-2' :'mr-3']" aria-label="Facebook">
         <span class="saooti-facebook-bounty" v-if="!bigRound"></span>
         <div class="saooti-facebook-bounty" v-else></div>
       </a>
-      <a target="_blank" :class="[bigRound?'btn btn-bigRound':'btn btn-circle btn-twitter share-btn', !authenticated && !participantId? 'mb-2' :'mr-3']" :href="twitterURL" aria-label="Twitter">
+      <a target="_blank" :class="[bigRound?'btn btn-bigRound':'btn btn-circle btn-twitter share-btn', !authenticated && !participantId && !organisationId? 'mb-2' :'mr-3']" :href="twitterURL" aria-label="Twitter">
         <span class="saooti-twitter-bounty" v-if="!bigRound"></span>
         <div class="saooti-twitter-bounty" v-else></div>
       </a>
-      <a target="_blank" :class="[bigRound?'btn btn-bigRound':'btn btn-circle btn-linkedin share-btn', !authenticated && !participantId? 'mb-2' :'mr-3']" :href="linkedinURL" aria-label="Linkedin">
+      <a target="_blank" :class="[bigRound?'btn btn-bigRound':'btn btn-circle btn-linkedin share-btn', !authenticated && !participantId && !organisationId? 'mb-2' :'mr-3']" :href="linkedinURL" aria-label="Linkedin">
         <span class="saooti-linkedin1" v-if="!bigRound"></span>
         <div class="saooti-linkedin1" v-else></div>
       </a>
-      <a target="_blank" :class="[bigRound?'btn btn-bigRound':'btn btn-circle btn-rss share-btn', !authenticated && !participantId? 'mb-2' :'mr-3']" @click.prevent="openPopup()" :href="rssUrl" :title="$t('Subscribe to this emission')" aria-label="RSS" v-if="rssUrl">
+      <a target="_blank" :class="[bigRound?'btn btn-bigRound':'btn btn-circle btn-rss share-btn', !authenticated && !participantId && !organisationId? 'mb-2' :'mr-3']" @click.prevent="openPopup()" :href="rssUrl" :title="$t('Subscribe to this emission')" aria-label="RSS" v-if="rssUrl">
         <span class="saooti-rss-bounty" v-if="!bigRound"></span>
         <div class="saooti-rss-bounty" v-else></div>
       </a>
