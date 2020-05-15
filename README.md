@@ -163,6 +163,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.16.1 Merge de staging
  * 0.16.2 Merge de staging
  * 0.16.3 Merge de staging
+ * 0.16.4 Merge de staging
  
 
 
