@@ -230,6 +230,7 @@ export default {
     'Image size': "Dimensions de l'image",
     Embed: 'Player',
     Share: 'Partager cette page',
+    'Share player': 'Partager le player',
     'Copy code': 'Copier le code',
     'Copy': 'Copier',
     'You can change your file': 'Changer le contenu téléversé',
