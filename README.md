@@ -157,5 +157,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.15.47 Partage Réseaux Sociaux : page d'épisode spécifique
  * 0.15.48 Partage Réseaux Sociaux : page d'épisode spécifique
  * 0.15.49 Partage Réseaux Sociaux : page d'épisode spécifique
+ * 0.15.50 Suppression d'un podcast en processing (revert pour episode)
 
 

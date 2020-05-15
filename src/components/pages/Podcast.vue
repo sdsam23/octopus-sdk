@@ -256,11 +256,12 @@ export default {
       return false;
     },
     isReady(){
-      if(this.podcast && this.podcast.processingStatus !== "PLANNED" && this.podcast.processingStatus !== "PROCESSING"){
+      /* if(this.podcast && this.podcast.processingStatus !== "PLANNED" && this.podcast.processingStatus !== "PROCESSING"){
         return true;
       }else{
         return false;
-      }
+      } */
+      return true;
     }
   },
 
