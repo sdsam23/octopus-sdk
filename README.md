@@ -106,7 +106,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.14.30 Ajout de données pour les tests automatiques
  * 0.14.31 Mise à jour Vignette non prises en compte lors édition épisode
  * 0.14.32 Mise à jour Vignette non prises en compte lors édition épisode
-
+ * 0.14.33 Mise à jour Vignette non prises en compte lors édition épisode
 
  * 0.15.0 Nouveau sprint
  * 0.15.1 Erreur de merge
@@ -158,13 +158,17 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.15.48 Partage Réseaux Sociaux : page d'épisode spécifique
  * 0.15.49 Partage Réseaux Sociaux : page d'épisode spécifique
  * 0.15.50 Suppression d'un podcast en processing (revert pour episode)
+ * 0.15.52 Responsive
+ * 0.15.53 Intervertir menu "Intervenants" et menu "Producteurs"
  
  * 0.16.0 Nouveau sprint
  * 0.16.1 Merge de staging
  * 0.16.2 Merge de staging
  * 0.16.3 Merge de staging
  * 0.16.4 Merge de staging
+ * 0.16.5 Merge de staging
  
+
 
 
 

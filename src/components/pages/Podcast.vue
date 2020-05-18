@@ -74,7 +74,7 @@
             <TagList v-if="isTagList" :tagList='podcast.tags'/>
           </div>
         </div>
-        <div class="d-flex flex-column" :class="authenticated?'flex-grow':''">
+        <div class="d-flex flex-column share-container" :class="authenticated?'flex-grow':''">
           <SharePlayer
             :podcast="podcast"
             :emission="podcast.emission"
@@ -124,6 +124,11 @@
   @media (max-width: 600px) {
     display: initial;
   }
+}
+.share-container{
+   @media (max-width: 960px) {
+     flex-grow: 1;
+   }
 }
 </style>
 <script>
@@ -215,7 +220,7 @@ export default {
       if (typeof this.podcast !== "undefined") {
         return this.allCategories
           .filter(item => {
-            return this.podcast.emission.iabIds.indexOf(item.id) !== -1;
+            return  this.podcast.emission.iabIds && this.podcast.emission.iabIds.indexOf(item.id) !== -1;
           })
           .sort((a, b) => {
             if (a.id === this.emissionMainCategory) return -1;

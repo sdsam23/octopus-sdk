@@ -18,7 +18,7 @@
             <ShareButtons :emission="emission" :bigRound='true' v-if="isRssButton"></ShareButtons>
           </div>
         </div>
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column share-container">
           <SharePlayer :emission="emission" :exclusive="exclusive" :organisationId='organisationId' v-if="isSharePlayer && authenticated"></SharePlayer>
           <ShareButtons :emission="emission" v-if="isShareButtons"></ShareButtons>
         </div>

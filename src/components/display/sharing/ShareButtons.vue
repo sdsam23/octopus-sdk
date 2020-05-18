@@ -1,5 +1,5 @@
 <template>
-  <div class="module-box text-center-mobile">
+  <div class="module-box text-center-mobile share-button-page">
     <h3 v-if="!bigRound && (authenticated || participantId || organisationId)">{{ $t('Share') }}</h3>
     <div class="d-flex" :class="[bigRound && !audioUrl?'justify-content-center':'', countLink >1? 'flex-wrap':'', !authenticated && !participantId && !organisationId ? 'flex-column':'']">
       <a class="btn btn-bigRound" :title="$t('Downloading')" :href="audioUrl"  target="_blank" download  v-if="audioUrl" :aria-label="$t('Downloading')">
@@ -64,6 +64,13 @@
 }
 .saooti-tootak{
   color: #ff4d53;
+}
+.share-button-page{
+  @media (max-width: 960px) {
+  .flex-column{
+    flex-direction: row !important;
+  }
+  }
 }
 </style>
 
