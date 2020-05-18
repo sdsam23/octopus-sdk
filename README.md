@@ -106,7 +106,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.14.30 Ajout de données pour les tests automatiques
  * 0.14.31 Mise à jour Vignette non prises en compte lors édition épisode
  * 0.14.32 Mise à jour Vignette non prises en compte lors édition épisode
-
+ * 0.14.33 Mise à jour Vignette non prises en compte lors édition épisode
 
  * 0.15.0 Nouveau sprint
  * 0.15.1 Erreur de merge
