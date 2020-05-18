@@ -29,11 +29,11 @@
         :to="{ name: 'emissions', query:{productor: $store.state.filter.organisationId}}"
         class="linkHover p-3 text-dark font-weight-bold">{{ $t('Emissions') }}</router-link>
         <router-link 
-        :to="{ name: 'productors', query:{productor: $store.state.filter.organisationId}}"
-        class="linkHover p-3 text-dark font-weight-bold" v-if="!isPodcastmaker && !filterOrga">{{ $t('Productors') }}</router-link>
-        <router-link 
         :to="{ name: 'participants', query:{productor: $store.state.filter.organisationId}}"
         class="linkHover p-3 text-dark font-weight-bold">{{ $t('Speakers') }}</router-link>
+        <router-link 
+        :to="{ name: 'productors', query:{productor: $store.state.filter.organisationId}}"
+        class="linkHover p-3 text-dark font-weight-bold" v-if="!isPodcastmaker && !filterOrga">{{ $t('Productors') }}</router-link>
       </div>
       <div class="d-flex flex-column">
         <div class="d-flex justify-content-end hostedBy hide-phone"><span>{{$t('Hosted by')}}</span><span class="ml-1 mr-1 primary-color">Saooti</span></div>
@@ -59,8 +59,8 @@
                 <b-dropdown-divider></b-dropdown-divider>
                 <b-dropdown-header>{{$t('Help')}}</b-dropdown-header>
                 <b-dropdown-item href="https://help.octopus.saooti.com/" target="_blank">{{ $t('TutoMag') }}</b-dropdown-item>
-                <b-dropdown-item >{{ $t('News') }}</b-dropdown-item>
-                <b-dropdown-item >{{ $t('Known issues') }}</b-dropdown-item>
+                <!-- <b-dropdown-item >{{ $t('News') }}</b-dropdown-item>
+                <b-dropdown-item >{{ $t('Known issues') }}</b-dropdown-item> -->
                 <b-dropdown-divider></b-dropdown-divider>
                 <b-dropdown-item href="/sso/logout">{{ $t('Logout') }}</b-dropdown-item>
               </template>

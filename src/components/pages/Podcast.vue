@@ -220,7 +220,7 @@ export default {
       if (typeof this.podcast !== "undefined") {
         return this.allCategories
           .filter(item => {
-            return this.podcast.emission.iabIds.indexOf(item.id) !== -1;
+            return  this.podcast.emission.iabIds && this.podcast.emission.iabIds.indexOf(item.id) !== -1;
           })
           .sort((a, b) => {
             if (a.id === this.emissionMainCategory) return -1;
