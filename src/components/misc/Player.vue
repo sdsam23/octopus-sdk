@@ -94,7 +94,7 @@
 .player-container {
   position: fixed;
   overflow: hidden;
-  z-index: 10;
+  z-index: 12;
   width: 100%;
   bottom: 0;
   display: flex;
