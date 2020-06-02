@@ -56,7 +56,7 @@
         ></div>
       </div>
       <div
-        v-if="(status=== 'PLAYING' || status=== 'PAUSED')&& isStoppable"
+        v-if="(status=== 'PLAYING' || status=== 'PAUSED')&& media"
         class="play-button-box primary-bg text-light"
         @click="stopPlayer"
       >
@@ -195,7 +195,6 @@ export default {
     };
   },
 
-  props : ['isStoppable'],
 
   mounted(){
     moment.locale('fr');
