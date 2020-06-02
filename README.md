@@ -174,6 +174,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.16.5 Merge de staging
  * 0.16.6 Modification du z-index du player
  * 0.16.7 Padding modal
+ * 0.16.8 Player bouton stop
  
 
 

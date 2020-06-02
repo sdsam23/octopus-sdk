@@ -55,6 +55,16 @@
           }"
         ></div>
       </div>
+      <div
+        v-if="(status=== 'PLAYING' || status=== 'PAUSED')&& isStoppable"
+        class="play-button-box primary-bg text-light"
+        @click="stopPlayer"
+      >
+        <div
+          class="text-light saooti-stop-bounty"
+          :aria-label="$t('Stop')"
+        ></div>
+      </div>
       <div class="text-light player-grow-content">
         <div class="d-flex">
           <div class="text-warning player-title ml-2 mr-2" v-if='playerError'>{{ $t('Podcast play error') + " - "}}</div>
@@ -184,6 +194,9 @@ export default {
       playerError: false,
     };
   },
+
+  props : ['isStoppable'],
+
   mounted(){
     moment.locale('fr');
     if(this.isClock){
@@ -325,7 +338,9 @@ export default {
         this.onPause();
       }
     },
-
+    stopPlayer(){
+      this.$store.commit("playerPlayPodcast");
+    },
     seekTo(event) {
       const audioPlayer = document.querySelector('#audio-player');
       const rect = event.currentTarget.getBoundingClientRect();
