@@ -178,6 +178,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.16.9 Player bouton stop
 
  * 0.17.0 Nouveau sprint
+ * 0.17.1 Selenium : attributs d'élément
  
 
 
