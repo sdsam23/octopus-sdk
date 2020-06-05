@@ -176,6 +176,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.16.7 Padding modal
  * 0.16.8 Player bouton stop
  * 0.16.9 Player bouton stop
+ * 0.16.10 EmissionInlineList ordre antechronologique
  
 
 
