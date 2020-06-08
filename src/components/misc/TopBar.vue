@@ -4,7 +4,6 @@
       <div class="hamburger-menu" v-on:click="onDisplayMenu(false)" :aria-label="$t('open left Menu')">
         <div class="saooti-burger-menu h3"></div>
       </div>
-      <div class="top-bar-left">
       <router-link 
       :to="{ name: 'home', query:{productor: $store.state.filter.organisationId}}">
         <div class="top-bar-logo m-3" v-on:click="onDisplayMenu(true)">
@@ -22,8 +21,7 @@
         :reset='reset'
         v-if="!isPodcastmaker"
         />
-        </div>
-      <div class="d-flex align-items-center justify-content-center flex-grow menu-topbar">
+      <div class="d-flex align-items-center justify-content-center flex-grow">
         <router-link 
         :to="{ name: 'podcasts', query:{productor: $store.state.filter.organisationId}}"
         class="linkHover p-3 text-dark font-weight-bold">{{ $t('Podcasts') }}</router-link>
@@ -103,18 +101,6 @@
     align-items: center;
     height: 5rem;
     position: relative;
-
-    .menu-topbar {
-    position: absolute;
-    left: 0;
-    right: 0;
-    }
-
-    .top-bar-left {
-    display: flex;
-    align-items: center;
-    flex: 1;
-    }
 
     .top-bar-logo{
       margin: 1rem 2rem 1rem 1rem !important;

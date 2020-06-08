@@ -169,7 +169,7 @@ export default {
 
     onOpen() {
       this.clearAll();
-      /* this.onSearchOrganisation(); */
+      this.onSearchOrganisation();
     },
 
     onClose() {
@@ -232,7 +232,7 @@ export default {
 
     clearAll() {
       this.organisation = '';
-      /* this.organisations = []; */
+      this.organisations = [];
     },
   },
 
