@@ -184,6 +184,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.16.10 EmissionInlineList ordre antechronologique
  * 0.16.11 Merge de Fabien
  * 0.16.12 Après avoir commencé un épisode, vous ne pouvez pas cliquer sur un autre épisode
+ * 0.16.13 Réparation Merge de Fabien
  
 
 
