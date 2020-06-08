@@ -102,7 +102,6 @@
     height: 5rem;
     position: relative;
 
-
     .top-bar-logo{
       margin: 1rem 2rem 1rem 1rem !important;
       img{

@@ -170,6 +170,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.15.61 Nouvelles demandes sudpresse
  * 0.15.62 Nouvelles demandes sudpresse
  * 0.15.63 Sélecteur de nombre d'épisodes dans les miniplayers "suggestion" ou "émission" trop large sure firefox
+ * 0.15.64 Nouvelles demandes sudpresse (encore...)
  
  * 0.16.0 Nouveau sprint
  * 0.16.1 Merge de staging
@@ -185,6 +186,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.16.11 Merge de Fabien
  * 0.16.12 Après avoir commencé un épisode, vous ne pouvez pas cliquer sur un autre épisode
  * 0.16.13 Réparation Merge de Fabien
+ * 0.16.14 Merge de prod
  
 
 
