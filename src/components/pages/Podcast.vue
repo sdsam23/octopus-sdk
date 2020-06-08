@@ -12,7 +12,7 @@
             v-else>
               <h1>{{ this.podcast.emission.name }}</h1>
             </router-link>
-            <div class="mb-5 d-flex">
+            <div class="mb-5 mt-3 d-flex">
               <div>
               <PodcastImage
                 :class="isOuestFrance? '':'shadow-element'"
