@@ -177,6 +177,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.16.8 Player bouton stop
  * 0.16.9 Player bouton stop
  * 0.16.10 EmissionInlineList ordre antechronologique
+ * 0.16.11 Merge de Fabien
  
 
 
