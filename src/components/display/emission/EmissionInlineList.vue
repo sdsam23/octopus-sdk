@@ -32,8 +32,14 @@
     scroll-behavior: smooth;
     padding-bottom:1rem;
     width: 100%;
+    @media (max-width: 960px) {
+      overflow-y: auto;
+      overflow-x: hidden;
+      height: 80vh;
+      flex-direction: column;
+    }
     .item-phone-margin{
-      margin: 0 0.5rem !important;
+      margin: 1rem 0.5rem !important;
       &:first-of-type{
         margin-left: auto !important;
       }
@@ -131,7 +137,7 @@ export default {
           organisationId: this.organisationId,
           rubriqueId: this.rubriqueId,
           rubriquageId: this.rubriquageId,
-          sort: "DATE",
+          sort: "LAST_PODCAST_DESC",
         })
         .then(data => {
           this.loading = false;
