@@ -173,6 +173,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.15.64 Nouvelles demandes sudpresse (encore...)
  * 0.15.65 Sélecteur de nombre d'épisodes dans les miniplayers "suggestion" ou "émission" trop large sure firefox
  * 0.15.66 URGENT "Partage cette page" versus "Intégration Player"
+ * 0.15.67 URGENT "Partage cette page" versus "Intégration Player"
  
  * 0.16.0 Nouveau sprint
  * 0.16.1 Merge de staging
@@ -190,9 +191,12 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.16.13 Réparation Merge de Fabien
  * 0.16.14 Merge de prod
  * 0.16.15 Les durées sont arrondies
-
+ * 0.16.16 Player en erreur
+ 
  * 0.17.0 Nouveau sprint
  * 0.17.1 Selenium : attributs d'élément
+
+
 
 
 
