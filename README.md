@@ -195,6 +195,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  
  * 0.17.0 Nouveau sprint
  * 0.17.1 Selenium : attributs d'élément
+ * 0.17.2 Merge de staging
 
 
 
