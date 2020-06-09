@@ -18,7 +18,7 @@
           class="maxIframe"
         ></iframe>
         <div class="d-flex flex-column">
-          <button class="btn mb-3" @click="isShareModal = true;">{{ $t('Share') }}</button>
+          <button class="btn mb-3" @click="isShareModal = true;">{{ $t('Share the player') }}</button>
           <label for="iframe-select" class="d-inline" aria-label="select miniplayer"></label>
           <select v-model="iFrameModel" id="iframe-select" class="frame-select input-no-outline">
             <option value="default">{{$t('Default version')}}</option>
@@ -79,12 +79,12 @@
 <style lang="scss">
 @import "../../../sass/_variables.scss";
 
-.input-share-player {
+.input-share-player{
   border: 1px solid #ddd;
   border-radius: 50px;
-  input[type="number"] {
+  &#number-input{
     margin: 0 1rem;
-    width: 100px;
+    width: 60px;
   }
 }
 .sticker {

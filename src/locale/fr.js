@@ -230,6 +230,7 @@ export default {
     'Image size': "Dimensions de l'image",
     Embed: 'Player',
     Share: 'Partager cette page',
+    'Share the player': 'Intégrer le player',
     'Share player': 'Partager le player',
     'Copy code': 'Copier le code',
     'Copy': 'Copier',
@@ -441,5 +442,6 @@ export default {
     "Podcast play error":"Erreur à la lecture de cette ressource",
     "More episodes":"Plus d’épisodes",
     'Stop': 'Stop',
+    'Share this page without edit and share blocks':"Partager cette page sans afficher les blocs d'édition et d'intégration du player"
   };
   
