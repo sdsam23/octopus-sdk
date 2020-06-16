@@ -193,6 +193,11 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.16.14 Merge de prod
  * 0.16.15 Les durées sont arrondies
  * 0.16.16 Player en erreur
+ 
+ * 0.17.0 Nouveau sprint
+ * 0.17.1 Selenium : attributs d'élément
+ * 0.17.2 Merge de staging
+ * 0.17.3 Amélioration modale
 
 
 
