@@ -178,7 +178,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.15.69 Correction podcastmaker
  * 0.15.70 Probleme podcastmaker barre de recherche
  * 0.15.71 Pétouilles diverses sur le front octopus
- 
+ * 0.15.72 PB espacement boutons de distribution dans la page émission
+
  * 0.16.0 Nouveau sprint
  * 0.16.1 Merge de staging
  * 0.16.2 Merge de staging
@@ -201,6 +202,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.17.1 Selenium : attributs d'élément
  * 0.17.2 Merge de staging
  * 0.17.3 Amélioration modale
+
 
 
 
