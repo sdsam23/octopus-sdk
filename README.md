@@ -180,7 +180,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.15.71 Pétouilles diverses sur le front octopus
  * 0.15.72 PB espacement boutons de distribution dans la page émission
  * 0.15.73 Image sablier
-
+ * 0.15.74 Si erreur de lecture, lecture du lien direct vers le storage
+ 
  * 0.16.0 Nouveau sprint
  * 0.16.1 Merge de staging
  * 0.16.2 Merge de staging
@@ -205,6 +206,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.17.3 Amélioration modale
  * 0.17.4 Merge de staging-fabien
  * 0.17.5 Nouveau status (canceled)
+
 
 
 
