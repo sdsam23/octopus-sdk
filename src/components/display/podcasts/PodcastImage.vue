@@ -175,8 +175,9 @@ export default {
           return "/img/novisible.png";
         }
       }else if(this.podcast.processingStatus === "PLANNED" || this.podcast.processingStatus === "PROCESSING"){
-        /* return '/img/hourglass.png'; */
-        return undefined;
+        return '/img/hourglass.png';
+      }else if(this.podcast.processingStatus === "CANCELED"){
+        return '/img/cancelled.png';
       }else{
         return '/img/caution.png';
       }
@@ -190,6 +191,8 @@ export default {
         }
       }else if(this.podcast.processingStatus === "PLANNED" || this.podcast.processingStatus === "PROCESSING"){
         return this.$t('Podcast in process');
+      }else if(this.podcast.processingStatus === "CANCELED"){
+        return this.$t('Podcast in cancelled status');
       }else{
         return this.$t('Podcast in error');
       }
