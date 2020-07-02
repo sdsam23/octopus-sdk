@@ -206,6 +206,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.17.3 Amélioration modale
  * 0.17.4 Merge de staging-fabien
  * 0.17.5 Nouveau status (canceled)
+ * 0.17.6 Durée trop longues
 
 
 
