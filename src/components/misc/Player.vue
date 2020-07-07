@@ -294,7 +294,6 @@ export default {
         return '';
       }
     },
-
     podcastShareUrl(){
       if (this.podcast) {
         return { name: 'podcast', params: {podcastId : this.podcast.podcastId}, query:{productor: this.$store.state.filter.organisationId}};
