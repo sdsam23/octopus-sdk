@@ -102,12 +102,21 @@
     height: 5rem;
     position: relative;
 
+    .main-button-dropdown {
+      padding-bottom: 0.4rem;
+      width: 140px;
+      text-align: left;
+      padding-left: 25px;
+      margin-right: 30px;
+    }
+
     .top-bar-logo{
       margin: 1rem 2rem 1rem 1rem !important;
       img{
         max-width: 160px !important;
         max-height: 80px;
         height: 80px;
+        border-radius: 0.8rem;
       }
     }
     .multiselect__tags {
@@ -115,8 +124,20 @@
     }
 
     .btn-group .dropdown-toggle-split {
-      background: #389452;
       align-items: center;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      position: absolute;
+      right: 5px;
+      border: 4px solid white;
+      z-index: 2;
+      @media (max-width: 650px) {
+        position: relative;
+        right: auto;
+      }
     }
    
     .hamburger-menu {
