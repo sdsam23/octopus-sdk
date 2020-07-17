@@ -19,8 +19,8 @@
           </div>
         </div>
         <div class="d-flex flex-column share-container">
-          <SharePlayer :emission="emission" :exclusive="exclusive" :organisationId='organisationId' v-if="isSharePlayer && authenticated"></SharePlayer>
-          <ShareButtons :emission="emission" v-if="isShareButtons"></ShareButtons>
+          <SharePlayer :emission="emission" :exclusive="exclusive" :notExclusive="notExclusive" :organisationId='organisationId' v-if="isSharePlayer && (authenticated || notExclusive)"></SharePlayer>
+          <ShareButtons :emission="emission" :notExclusive="notExclusive" v-if="isShareButtons"></ShareButtons>
         </div>
       </div>
       <div v-if="editRight">
@@ -75,6 +75,7 @@ export default {
       error: false,
       rssEmission: false,
       exclusive: false,
+      notExclusive: false,
       isReady: true,
     };
   },
@@ -158,6 +159,9 @@ export default {
                 this.emission.annotations.exclusive == "true" ? true : false;
               this.exclusive =
                 this.exclusive && this.organisationId !== this.emission.orga.id;
+            }
+            if (this.emission.annotations.notExclusive) {
+              this.notExclusive = this.emission.annotations.notExclusive == "true" ? true : false;
             }
           }
         })

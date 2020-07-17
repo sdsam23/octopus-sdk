@@ -2,7 +2,7 @@
   <div>
     <div class="module-box text-center-mobile">
       <h3>{{ $t('Embed') }}</h3>
-      <div class="d-flex flex-column align-items-center" v-if="!exclusive && authenticated">
+      <div class="d-flex flex-column align-items-center" v-if="!exclusive && (authenticated || notExclusive)">
         <div
           v-if="noAd"
           class="sticker"
@@ -61,10 +61,8 @@
         </div>
         </div>
       </div>
-      <div
-        v-if="exclusive && authenticated"
-      >{{ $t('Only organisation members can share the content') }}</div>
-      <div v-if="!authenticated">{{ $t('Only authenticated members can share the content') }}</div>
+      <div v-else-if="exclusive && authenticated">{{ $t('Only organisation members can share the content') }}</div>
+      <div v-else-if="!authenticated">{{ $t('Only authenticated members can share the content') }}</div>
     </div>
     <ShareModal
       v-if="isShareModal"
@@ -125,7 +123,7 @@ import "vue-swatches/dist/vue-swatches.min.css";
 import profileApi from '@/api/profile';
 
 export default {
-  props: ["podcast", "emission", "organisationId", "exclusive"],
+  props: ["podcast", "emission", "organisationId", "exclusive", "notExclusive"],
 
   components: {
     ShareModal,

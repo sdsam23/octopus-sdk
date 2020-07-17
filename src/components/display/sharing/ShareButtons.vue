@@ -1,46 +1,46 @@
 <template>
   <div class="module-box text-center-mobile share-button-page">
     <div class="d-flex align-items-center mb-3">
-      <h3 class="mb-0" v-if="!bigRound && (authenticated || participantId || organisationId)">{{ $t('Share') }}</h3>
+      <h3 class="mb-0" v-if="!bigRound && (authenticated || participantId || organisationId || notExclusive)">{{ $t('Share') }}</h3>
       <span class="saooti-help ml-2" id="popover-share-help" :aria-label="$t('Help')" v-if="authenticated"></span>
       <b-popover target="popover-share-help" triggers="hover" placement="right" custom-class="wizard-help">
         {{$t('Share this page without edit and share blocks')}}
 			</b-popover>
     </div>
-    <div class="d-flex" :class="[bigRound && !audioUrl?'justify-content-center':'', countLink >1? 'flex-wrap':'', !authenticated && !participantId && !organisationId ? 'flex-column':'']">
+    <div class="d-flex" :class="[bigRound && !audioUrl?'justify-content-center':'', countLink >1? 'flex-wrap':'', verticalDisplay ? 'flex-column':'']">
       <a class="btn btn-bigRound" :title="$t('Downloading')" :href="audioUrl"  target="_blank" download  v-if="audioUrl" :aria-label="$t('Downloading')">
         <div class="saooti-download-bounty"></div>
       </a>
-      <a target="_blank" :href="facebookURL" :class="[bigRound?'btn btn-bigRound':'btn btn-circle btn-facebook share-btn mb-2', !authenticated && !participantId && !organisationId? '' :'mr-3']" aria-label="Facebook">
+      <a target="_blank" :href="facebookURL" :class="[bigRound?'btn btn-bigRound':'btn btn-circle btn-facebook share-btn mb-2', verticalDisplay? '' :'mr-3']" aria-label="Facebook">
         <span class="saooti-facebook-bounty" v-if="!bigRound"></span>
         <div class="saooti-facebook-bounty" v-else></div>
       </a>
-      <a target="_blank" :class="[bigRound?'btn btn-bigRound':'btn btn-circle btn-twitter share-btn mb-2', !authenticated && !participantId && !organisationId? '' :'mr-3']" :href="twitterURL" aria-label="Twitter">
+      <a target="_blank" :class="[bigRound?'btn btn-bigRound':'btn btn-circle btn-twitter share-btn mb-2', verticalDisplay? '' :'mr-3']" :href="twitterURL" aria-label="Twitter">
         <span class="saooti-twitter-bounty" v-if="!bigRound"></span>
         <div class="saooti-twitter-bounty" v-else></div>
       </a>
-      <a target="_blank" :class="[bigRound?'btn btn-bigRound':'btn btn-circle btn-linkedin share-btn mb-2', !authenticated && !participantId && !organisationId? '' :'mr-3']" :href="linkedinURL" aria-label="Linkedin">
+      <a target="_blank" :class="[bigRound?'btn btn-bigRound':'btn btn-circle btn-linkedin share-btn mb-2', verticalDisplay? '' :'mr-3']" :href="linkedinURL" aria-label="Linkedin">
         <span class="saooti-linkedin1" v-if="!bigRound"></span>
         <div class="saooti-linkedin1" v-else></div>
       </a>
-      <a target="_blank" :class="[bigRound?'btn btn-bigRound':'btn btn-circle btn-rss share-btn mb-2', !authenticated && !participantId && !organisationId? '' :'mr-3']" @click.prevent="openPopup()" :href="rssUrl" :title="$t('Subscribe to this emission')" aria-label="RSS" v-if="rssUrl">
+      <a target="_blank" :class="[bigRound?'btn btn-bigRound':'btn btn-circle btn-rss share-btn mb-2', verticalDisplay? '' :'mr-3']" @click.prevent="openPopup()" :href="rssUrl" :title="$t('Subscribe to this emission')" aria-label="RSS" v-if="rssUrl">
         <span class="saooti-rss-bounty" v-if="!bigRound"></span>
         <div class="saooti-rss-bounty" v-else></div>
       </a>
-      <a target="_blank" :class="[bigRound?'btn btn-bigRound':'btn btn-circle btn-rss share-btn mb-2', !authenticated && !participantId && !organisationId? '' :'mr-3']" aria-label="copy" @click="onCopyCode">
+      <a target="_blank" :class="[bigRound?'btn btn-bigRound':'btn btn-circle btn-rss share-btn mb-2', verticalDisplay? '' :'mr-3']" aria-label="copy" @click="onCopyCode">
         <span class="saooti-link" v-if="!bigRound"></span>
         <div class="saooti-link" v-else></div>
       </a>
-      <a target="_blank" class="btn btn-circle mb-2 share-btn" :class="[!authenticated && !participantId && !organisationId? '' :'mr-3']" :href="applePodcast" v-if="applePodcast && !bigRound" aria-label="Apple">
+      <a target="_blank" class="btn btn-circle mb-2 share-btn" :class="[verticalDisplay? '' :'mr-3']" :href="applePodcast" v-if="applePodcast && !bigRound" aria-label="Apple">
         <span class="saooti-apple"></span>
       </a>
-      <a target="_blank" class="btn btn-circle mb-2 share-btn" :class="[!authenticated && !participantId && !organisationId? '' :'mr-3']" :href="deezer" v-if="deezer && !bigRound" aria-label="Deezer">
+      <a target="_blank" class="btn btn-circle mb-2 share-btn" :class="[verticalDisplay? '' :'mr-3']" :href="deezer" v-if="deezer && !bigRound" aria-label="Deezer">
         <span class="saooti-deezer"></span>
       </a>
-      <a target="_blank" class="btn btn-circle mb-2 share-btn" :class="[!authenticated && !participantId && !organisationId? '' :'mr-3']" :href="spotify" v-if="spotify && !bigRound" aria-label="Spotify">
+      <a target="_blank" class="btn btn-circle mb-2 share-btn" :class="[verticalDisplay? '' :'mr-3']" :href="spotify" v-if="spotify && !bigRound" aria-label="Spotify">
         <span class="saooti-spotify"></span>
       </a>
-      <a target="_blank" class="btn btn-circle mb-2 share-btn" :class="[!authenticated && !participantId && !organisationId? '' :'mr-3']" :href="tunein" v-if="tunein && !bigRound" aria-label="Tunin">
+      <a target="_blank" class="btn btn-circle mb-2 share-btn" :class="[verticalDisplay? '' :'mr-3']" :href="tunein" v-if="tunein && !bigRound" aria-label="Tunin">
         <span class="saooti-tunin"></span>
       </a>
       <a target="_blank" class="btn btn-circle mr-3 mb-2 btn-tootak share-btn" :href="tootak" v-if="tootak && !bigRound" aria-label="Tootak">
@@ -94,7 +94,8 @@ export default {
     "participantId",
     "organisationId",
     'bigRound',
-    'audioUrl'
+    'audioUrl',
+    "notExclusive"
   ],
 
   components: {
@@ -129,6 +130,9 @@ export default {
   },
 
   computed: {
+    verticalDisplay(){
+      return !this.authenticated && !this.participantId && !this.organisationId && !this.notExclusive;
+    },
     authenticated(){
       return state.generalParameters.authenticated;
     },
