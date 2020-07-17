@@ -139,24 +139,26 @@ export default {
 
   created() {
     let orgaId = undefined;
-    if(this.podcast){
-      orgaId= this.podcast.organisation.id;
-    }else{
-      orgaId= this.emission.orga.id;
+    if(this.authenticated){
+      if(this.podcast){
+        orgaId= this.podcast.organisation.id;
+      }else{
+        orgaId= this.emission.orga.id;
+      }
+      profileApi.fetchOrganisationAttibutes(this.$store, orgaId)
+      .then(data => {
+        if(data.hasOwnProperty('COLOR')) {
+          this.color = data.COLOR;
+        } else {
+          this.color = "#40a372";
+        }
+        if(data.hasOwnProperty('THEME')) {
+          this.theme = data.THEME;
+        } else {
+          this.theme = "#ffffff";
+        }
+      });
     }
-    profileApi.fetchOrganisationAttibutes(this.$store, orgaId)
-    .then(data => {
-      if(data.hasOwnProperty('COLOR')) {
-        this.color = data.COLOR;
-      } else {
-        this.color = "#40a372";
-      }
-      if(data.hasOwnProperty('THEME')) {
-        this.theme = data.THEME;
-      } else {
-        this.theme = "#ffffff";
-      }
-    });
   },
 
   data() {
