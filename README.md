@@ -213,6 +213,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.17.10 Miniplayers émissions et suggestions : permettre plus de 10 épisodes 
  * 0.17.11 Problème de podcast nuls renvoyés par l'api 
  * 0.17.12 PB de chargement des podcasts les + populaires de Politique & Information sur octopus.saooti.com
+ * 0.17.13 Permettre l'accès anonyme aux players de certaines émissions
+ * 0.17.14 Permettre l'accès anonyme aux players de certaines émissions
 
 
 

@@ -74,15 +74,16 @@
             <TagList v-if="isTagList" :tagList='podcast.tags'/>
           </div>
         </div>
-        <div class="d-flex flex-column share-container" :class="authenticated?'flex-grow':''">
+        <div class="d-flex flex-column share-container" :class="authenticated || notExclusive ?'flex-grow':''">
           <SharePlayer
             :podcast="podcast"
             :emission="podcast.emission"
             :exclusive="exclusive"
+            :notExclusive="notExclusive"
             :organisationId='organisationId'
-            v-if="isSharePlayer && authenticated"
+            v-if="isSharePlayer && (authenticated || notExclusive)"
           ></SharePlayer>
-          <ShareButtons :podcastId="podcastId" v-if="isShareButtons"></ShareButtons>
+          <ShareButtons :podcastId="podcastId" :notExclusive="notExclusive" v-if="isShareButtons"></ShareButtons>
         </div>
       </div>
       <template v-if="!isOuestFrance">
@@ -165,7 +166,8 @@ export default {
       loaded: false,
       podcast: undefined,
       error: false,
-      exclusive: false
+      exclusive: false,
+      notExclusive: false,
     };
   },
 
@@ -308,6 +310,9 @@ export default {
             this.exclusive =
               this.exclusive &&
               this.organisationId !== this.podcast.organisation.id;
+          }
+          if (this.podcast.emission.annotations.notExclusive) {
+            this.notExclusive = this.podcast.emission.annotations.notExclusive == "true" ? true : false;
           }
           if(!this.podcast.availability.visibility && !this.editRight){
             this.error= true;
