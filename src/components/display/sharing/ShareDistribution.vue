@@ -5,6 +5,7 @@
       <span class="primary-color">{{rss}}</span>
       <input type="button" :value="$t('Copy')" class="btn btn-primary" @click="onCopyRSSURL()" :aria-label="$t('Copy')" />
     </p>
+    <RssParameters :rssLink="baseRss" :paramRSS.sync='rss'  v-if="baseRss !== ''"/>
     <div class="sharing-distribution-container">
       <router-link v-bind:to="'/main/priv/distribution/deezer/' + emissionId" class="text-dark">
         <span class="saooti-deezer"/>Deezer
@@ -29,6 +30,7 @@
   </div>
 </template>
 <style lang="scss">
+
 .sharing-distribution-container {
   border: 0.05rem solid #eee;
   border-radius: 0.3rem;
@@ -65,16 +67,18 @@
 <script>
 import octopusApi from "@saooti/octopus-api";
 import Snackbar from '../../misc/Snackbar.vue';
+import RssParameters from './RssParameters.vue';
 
 export default {
 
   components:{
-    Snackbar
+    Snackbar,
+    RssParameters
   },
 
   mounted() {
     this.getEmissionDetails(this.emissionId);
-    this.fetchRss();
+    this.getRSS();
   },
 
   props: ['emissionId'],
@@ -83,6 +87,7 @@ export default {
     return {
       emission: undefined,
       error: false,
+      baseRss: "",
       rss: "",
     };
   },
@@ -107,10 +112,11 @@ export default {
         this.loaded = true;
       });
     },
-    fetchRss() {
+    getRSS(){
       if (this.$props.emissionId && this.$props.emissionId > 0) {
-        this.emissionPage=octopusApi.fetchEmissionPath(this.emissionId);
-        this.rss = octopusApi.fetchRSS(this.emissionId);
+        /* this.emissionPage=octopusApi.fetchEmissionPath(this.emissionId); */
+        this.baseRss = octopusApi.fetchRSS(this.emissionId);
+        this.rss = this.baseRss;
       }
     },
     onCopyRSSURL() {

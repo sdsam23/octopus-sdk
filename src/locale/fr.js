@@ -446,5 +446,10 @@ export default {
     'Podcast in cancelled status':'Épisode avec un traitement qui a été annulé',
     'Show every episode':'Afficher tous les épisodes',
     'Subscribe emission': "Abonnement à l'émission",
+    'Rss feed parameters': "Paramètres du flux RSS",
+    'Not share episodes before':"Ne pas partager les épisodes publiés il y a moins de",
+    'Not share episodes after':"Ne pas partager les épisodes publiés il y a plus de",
+    hours: 'heures',
+    days: 'jours',
   };
   
