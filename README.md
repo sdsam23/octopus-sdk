@@ -216,6 +216,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.17.13 Permettre l'accès anonyme aux players de certaines émissions
  * 0.17.14 Permettre l'accès anonyme aux players de certaines émissions
  * 0.17.15 Permettre l'accès anonyme aux players de certaines émissions
+ * 0.17.16 Miniplayers émissions et suggestions : permettre plus de 10 épisodes 
 
 
 
