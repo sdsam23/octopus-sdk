@@ -73,6 +73,7 @@
             </div>
             <TagList v-if="isTagList" :tagList='podcast.tags'/>
           </div>
+          <SubscribeButtons :emission="podcast.emission" v-if="isShareButtons && countLink >= 1"/>
         </div>
         <div class="d-flex flex-column share-container" :class="authenticated || notExclusive ?'flex-grow':''">
           <SharePlayer
@@ -140,6 +141,7 @@ import ShareButtons from "../display/sharing/ShareButtons.vue";
 import PodcastInlineList from "../display/podcasts/PodcastInlineList.vue";
 import PodcastImage from "../display/podcasts/PodcastImage.vue";
 import TagList from "../display/podcasts/TagList.vue";
+import SubscribeButtons from "../display/sharing/SubscribeButtons.vue";
 import octopusApi from "@saooti/octopus-api";
 import {state} from "../../store/paramStore.js";
 const moment = require("moment");
@@ -152,7 +154,8 @@ export default {
     ShareButtons,
     SharePlayer,
     EditBox,
-    TagList
+    TagList,
+    SubscribeButtons
   },
 
   mounted() {
@@ -281,7 +284,19 @@ export default {
         return false;
       } */
       return true;
-    }
+    },
+    countLink(){
+      let count = 0;
+      if(this.podcast.emission && this.podcast.emission.annotations){
+        if (this.podcast.emission.annotations.applePodcast !== undefined) count++;
+        if (this.podcast.emission.annotations.deezer !== undefined) count++;
+        if (this.podcast.emission.annotations.spotify !== undefined) count++;
+        if (this.podcast.emission.annotations.tunein !== undefined) count++;
+        if (this.podcast.emission.annotations.tootak !== undefined) count++;
+        if (this.podcast.emission.annotations.radioline !== undefined) count++;
+      }
+      return count;
+    },
   },
 
   watch: {
@@ -311,7 +326,7 @@ export default {
               this.exclusive &&
               this.organisationId !== this.podcast.organisation.id;
           }
-          if (this.podcast.emission.annotations.notExclusive) {
+          if (this.podcast.emission.annotations && this.podcast.emission.annotations.notExclusive) {
             this.notExclusive = this.podcast.emission.annotations.notExclusive == "true" ? true : false;
           }
           if(!this.podcast.availability.visibility && !this.editRight){

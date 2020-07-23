@@ -7,7 +7,7 @@
         {{$t('Share this page without edit and share blocks')}}
 			</b-popover>
     </div>
-    <div class="d-flex" :class="[bigRound && !audioUrl?'justify-content-center':'', countLink >1? 'flex-wrap':'', verticalDisplay ? 'flex-column':'']">
+    <div class="d-flex" :class="[bigRound && !audioUrl?'justify-content-center':'', verticalDisplay ? 'flex-column':'']">
       <a class="btn btn-bigRound" :title="$t('Downloading')" :href="audioUrl"  target="_blank" download  v-if="audioUrl" :aria-label="$t('Downloading')">
         <div class="saooti-download-bounty"></div>
       </a>
@@ -31,24 +31,6 @@
         <span class="saooti-link" v-if="!bigRound"></span>
         <div class="saooti-link" v-else></div>
       </a>
-      <a target="_blank" class="btn btn-circle mb-2 share-btn" :class="[verticalDisplay? '' :'mr-3']" :href="applePodcast" v-if="applePodcast && !bigRound" aria-label="Apple">
-        <span class="saooti-apple"></span>
-      </a>
-      <a target="_blank" class="btn btn-circle mb-2 share-btn" :class="[verticalDisplay? '' :'mr-3']" :href="deezer" v-if="deezer && !bigRound" aria-label="Deezer">
-        <span class="saooti-deezer"></span>
-      </a>
-      <a target="_blank" class="btn btn-circle mb-2 share-btn" :class="[verticalDisplay? '' :'mr-3']" :href="spotify" v-if="spotify && !bigRound" aria-label="Spotify">
-        <span class="saooti-spotify"></span>
-      </a>
-      <a target="_blank" class="btn btn-circle mb-2 share-btn" :class="[verticalDisplay? '' :'mr-3']" :href="tunein" v-if="tunein && !bigRound" aria-label="Tunin">
-        <span class="saooti-tunin"></span>
-      </a>
-      <a target="_blank" class="btn btn-circle mr-3 mb-2 btn-tootak share-btn" :href="tootak" v-if="tootak && !bigRound" aria-label="Tootak">
-        <span class="saooti-tootak"></span>
-      </a>
-      <a target="_blank" class="btn btn-circle mr-3 mb-2 btn-radioline share-btn" :href="radioline" v-if="radioline && !bigRound" aria-label="Radioline">
-        <span class="saooti-radioline"></span>
-      </a>
     </div>
     <ClipboardModal
       v-if="dataRSSSave"
@@ -62,15 +44,6 @@
 </template>
 
 <style lang="scss">
-.saooti-tunin{
-  color: #36b4a7;
-}
-.saooti-radioline{
-  color: #2273b9;
-}
-.saooti-tootak{
-  color: #ff4d53;
-}
 .share-button-page{
   @media (max-width: 960px) {
   .flex-column{
@@ -104,12 +77,6 @@ export default {
   },
 
   mounted(){
-    this.applePodcast = this.externaliseLinks(this.applePodcast);
-    this.deezer = this.externaliseLinks(this.deezer);
-    this.spotify = this.externaliseLinks(this.spotify);
-    this.tunein = this.externaliseLinks(this.tunein);
-    this.tootak = this.externaliseLinks(this.tootak);
-    this.radioline = this.externaliseLinks(this.radioline);
   },
 
   data() {
@@ -117,14 +84,6 @@ export default {
       facebookURL: `https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`,
       twitterURL: `https://twitter.com/intent/tweet?text=${window.location.href}`,
       linkedinURL: `https://www.linkedin.com/sharing/share-offsite/?url=${window.location.href}`,
-      iFrameModel: this.podcastId ? "default" : "emission",
-      iFrameNumberPriv: "1",
-      applePodcast:this.emission && this.emission.annotations ? this.emission.annotations.applePodcast : undefined,
-      deezer: this.emission && this.emission.annotations ? this.emission.annotations.deezer : undefined,
-      spotify: this.emission && this.emission.annotations ? this.emission.annotations.spotify : undefined,
-      tunein: this.emission && this.emission.annotations ? this.emission.annotations.tunein : undefined,
-      tootak: this.emission && this.emission.annotations ? this.emission.annotations.tootak : undefined,
-      radioline: this.emission && this.emission.annotations ? this.emission.annotations.radioline : undefined,
       dataRSSSave:false
     };
   },
@@ -135,16 +94,6 @@ export default {
     },
     authenticated(){
       return state.generalParameters.authenticated;
-    },
-    countLink(){
-      let count = 0;
-      if (this.applePodcast !== undefined) count++;
-      if (this.deezer !== undefined) count++;
-      if (this.spotify !== undefined) count++;
-      if (this.tunein !== undefined) count++;
-      if (this.tootak !== undefined) count++;
-      if (this.radioline !== undefined) count++;
-      return count;
     },
     rssUrl() {
       if (this.emission) {
@@ -158,47 +107,9 @@ export default {
       }
       return null;
     },
-
-    iFrameNumber: {
-      get() {
-        return this.iFrameNumberPriv;
-      },
-      set(value) {
-        let val = parseInt(value, 10);
-        if (!isNaN(val) && val >= 1 && val <= 10) {
-          this.iFrameNumberPriv = value;
-        }
-      }
-    },
-
-    iFrameWidth() {
-      switch (this.iFrameModel) {
-        case "large":
-          return "730px";
-        default:
-          return "355px";
-      }
-    },
-
-    iFrameHeight() {
-      switch (this.iFrameModel) {
-        case "large":
-          return "165px";
-        case "emission":
-          return "530px";
-        default:
-          return "494px";
-      }
-    }
   },
 
   methods: {
-    externaliseLinks(link){
-      if(link && !link.startsWith('http') && !link.startsWith('//')){
-        return '//' + link;
-      }
-      return link;
-    },
     openPopup() {
       this.dataRSSSave = ! this.dataRSSSave;
     },
