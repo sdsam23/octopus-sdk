@@ -219,6 +219,9 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.17.16 Miniplayers émissions et suggestions : permettre plus de 10 épisodes 
  * 0.17.17 Boutons d'abonnement à l'émission
 
+ * 0.18.0 Nouveau sprint
+
+
 
 
 
