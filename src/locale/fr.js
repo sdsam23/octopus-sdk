@@ -451,5 +451,12 @@ export default {
     'Not share episodes after':"Ne pas partager les épisodes publiés il y a plus de",
     hours: 'heures',
     days: 'jours',
+    Live:'Live',
+    'In live':"En live",
+    "Launch a new live":"Programmer un nouveau live",
+    'Loading lives...': 'Chargement des lives...',
+    'No live currently':"Il n'y a aucun live actuellement",
+    "live upcoming":"live imminent",
+    "Debriefing":"Debriefing",
   };
   

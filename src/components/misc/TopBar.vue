@@ -22,6 +22,9 @@
         v-if="!isPodcastmaker"
         />
       <div class="d-flex align-items-center justify-content-center flex-grow">
+        <router-link v-if="isLiveTab"
+        :to="{ name: 'lives', query:{productor: $store.state.filter.organisationId}}"
+        class="linkHover p-3 text-dark font-weight-bold">{{ $t('Live') }}</router-link>
         <router-link 
         :to="{ name: 'podcasts', query:{productor: $store.state.filter.organisationId}}"
         class="linkHover p-3 text-dark font-weight-bold">{{ $t('Podcasts') }}</router-link>
@@ -296,6 +299,9 @@ export default {
   computed: {
     isPodcastmaker(){
       return state.generalParameters.podcastmaker;
+    },
+    isLiveTab(){
+      return state.generalParameters.isLiveTab;
     },
     authenticated(){
       return this.$store.state.authentication.isAuthenticated;

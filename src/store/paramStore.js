@@ -42,6 +42,7 @@ var initialize = function initialize(initObject){
       state.generalParameters.podcastmaker =(typeof param.podcastmaker !== "undefined") ? param.podcastmaker : false;
       state.generalParameters.buttonPlus =(typeof param.buttonPlus !== "undefined") ? param.buttonPlus : true;
       state.generalParameters.allCategories =(typeof param.allCategories !== "undefined") ? param.allCategories : [];
+      state.generalParameters.isLiveTab =(typeof param.isLiveTab !== "undefined") ? param.isLiveTab : false;
     }
     if(initObject.podcastPage){
       let param = initObject.podcastPage;

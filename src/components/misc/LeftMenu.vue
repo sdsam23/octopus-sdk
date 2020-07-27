@@ -6,6 +6,10 @@
         :to="{ name: 'home', query:{productor: $store.state.filter.organisationId}}"
         >{{ $t('Home') }}</router-link
       >
+      <router-link @click.native="onMenuClick" v-if="isLiveTab"
+        class="text-dark font-weight-bold mb-3"
+        :to="{ name: 'lives', query:{productor: $store.state.filter.organisationId}}"
+        >{{ $t('Live') }}</router-link>
       <router-link @click.native="onMenuClick"
         class="text-dark font-weight-bold mb-3"
         :to="{ name: 'podcasts', query:{productor: $store.state.filter.organisationId}}"
@@ -148,6 +152,9 @@ export default {
   },
 
   computed: {
+    isLiveTab(){
+      return state.generalParameters.isLiveTab;
+    },
     categories(){
       return state.generalParameters.allCategories.filter(c => {
           if(this.isPodcastmaker){

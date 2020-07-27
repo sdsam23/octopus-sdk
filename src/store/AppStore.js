@@ -28,6 +28,9 @@ export default new Vuex.Store({
     categoriesOrga: [],
     organisation:{
       imageUrl: undefined,
+      attributes:{
+        'live.active':false,
+      }
     }
   },
 
