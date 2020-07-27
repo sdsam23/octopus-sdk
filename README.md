@@ -220,6 +220,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.17.17 Boutons d'abonnement à l'émission
 
  * 0.18.0 Nouveau sprint
+ * 0.18.1 Mise en place du live
 
 
 
