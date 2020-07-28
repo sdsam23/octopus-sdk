@@ -220,6 +220,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.17.17 Boutons d'abonnement à l'émission
  * 0.17.18 Bouton de partage dans la bande de lecture bas de page Octopus
  * 0.17.19 Menu aide 
+ * 0.17.20 Word break
 
 
 
