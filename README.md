@@ -221,6 +221,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
  * 0.18.0 Nouveau sprint
  * 0.18.1 Mise en place du live
+ * 0.18.2 Page intervenant
 
 
 
