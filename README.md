@@ -222,6 +222,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.17.19 Menu aide 
  * 0.17.20 Word break
  * 0.17.21 Podcastmaker cacher le tri par pertinence
+ * 0.17.22 Accessibilité Octopus
 
 
 
