@@ -446,5 +446,6 @@ export default {
     'Podcast in cancelled status':'Épisode avec un traitement qui a été annulé',
     'Show every episode':'Afficher tous les épisodes',
     'Subscribe emission': "Abonnement à l'émission",
+    "select productor":"Choisir un producteur",
   };
   
