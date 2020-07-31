@@ -218,10 +218,15 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.17.15 Permettre l'accès anonyme aux players de certaines émissions
  * 0.17.16 Miniplayers émissions et suggestions : permettre plus de 10 épisodes 
  * 0.17.17 Boutons d'abonnement à l'émission
-
+ * 0.17.18 Bouton de partage dans la bande de lecture bas de page Octopus
+ * 0.17.19 Menu aide 
+ * 0.17.20 Word break
+ * 0.17.21 Podcastmaker cacher le tri par pertinence
+ 
  * 0.18.0 Nouveau sprint
  * 0.18.1 Mise en place du live
  * 0.18.2 Page intervenant
+
 
 
 
