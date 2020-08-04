@@ -77,7 +77,7 @@ export default {
   computed:{
 			emissionName(){
 				if(this.displayEmissionName){
-					return `<tr><td colspan="2" style="font-size: 16px;line-height:24px;font-weight: bold;">`+this.podcast.emission.name+`</td></tr`;
+					return `<tr><td colspan="2" style="font-size: 16px;line-height:24px;font-weight: bold;">`+this.podcast.emission.name+`</td></tr>`;
 				}else{
 					return '';
 				}
@@ -123,7 +123,7 @@ export default {
 				</td>
 		</tr>
 		`+this.emissionName;
-			if(this.podcast.description){
+		if(this.podcast.description){
 				html+=`<tr>
 				<td colspan="2" valign="top" style="line-height:24px;font-size: 14px;max-width: 500px;">
 						`+this.podcast.description+`
@@ -134,7 +134,7 @@ export default {
 		<tr>
 				<td colspan="2" style="vertical-align: middle; text-align: center;padding: 20px;">
 						<a href="`+window.location.href+`" aria-label="`+this.$t('Listen this episode')+`">
-							<img width="44" height="44" style="display: inline-block;vertical-align: middle" src="https://rouzic.saooti.net/static/default/img/play-podcast.png">
+							<img width="44" height="44" style="display: inline-block;vertical-align: middle" src="`+window.location.origin+`/img/play-podcast.png">
 						</a>
 						<a style="color: #000;text-decoration: none;" href="`+window.location.href+`">
 								`+this.$t('Listen this episode')+`

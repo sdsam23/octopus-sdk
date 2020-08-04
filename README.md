@@ -229,7 +229,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.18.2 Page intervenant
  * 0.18.3 Accessibilité Octopus
  * 0.18.4 Partage pour newsletter
-
+ * 0.18. Partage pour newsletter -image en local
 
 
 
