@@ -466,5 +466,7 @@ export default {
     "Display emission name":"Afficher le nom de l'émission",
     "Display participants list":"Afficher la liste des intervenants",
     "Choose main color" : "Choisir la couleur principale",
+    "select productor":"Choisir un producteur",
+    "Octopus is ACPM Podcast accredited":"Octopus est accrédité ACPM Podcasts",
   };
   
