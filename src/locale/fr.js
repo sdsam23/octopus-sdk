@@ -458,5 +458,6 @@ export default {
     'No live currently':"Il n'y a aucun live actuellement",
     "live upcoming":"live imminent",
     "Debriefing":"Debriefing",
+    "select productor":"Choisir un producteur",
   };
   
