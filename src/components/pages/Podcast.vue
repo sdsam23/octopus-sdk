@@ -67,7 +67,7 @@
                         {{ $t('Podcast is not visible for listeners') }}
                       </div>
                   </div>
-                  <ShareButtons :podcastId="podcastId" :bigRound='true' :audioUrl="podcast.audioUrl" v-if="isDownloadButton"></ShareButtons>
+                  <ShareButtons :podcast="podcast" :bigRound='true' :audioUrl="podcast.audioUrl" v-if="isDownloadButton"></ShareButtons>
                 </div>
               </div>
             </div>
@@ -84,7 +84,7 @@
             :organisationId='organisationId'
             v-if="isSharePlayer && (authenticated || notExclusive)"
           ></SharePlayer>
-          <ShareButtons :podcastId="podcastId" :notExclusive="notExclusive" v-if="isShareButtons"></ShareButtons>
+          <ShareButtons :podcast="podcast" :notExclusive="notExclusive" v-if="isShareButtons"></ShareButtons>
         </div>
       </div>
       <template v-if="!isOuestFrance">
@@ -243,7 +243,6 @@ export default {
       }else{
         return ""
       }
-      
     },
 
     duration() {

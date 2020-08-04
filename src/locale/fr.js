@@ -459,5 +459,12 @@ export default {
     "live upcoming":"live imminent",
     "Debriefing":"Debriefing",
     "select productor":"Choisir un producteur",
+    "Share newsletter":"Partage d'une newsletter",
+    Configuration:"Configuration",
+    "HTML Code":"Code HTML",
+    "Listen this episode":"Écouter ce podcast",
+    "Display emission name":"Afficher le nom de l'émission",
+    "Display participants list":"Afficher la liste des intervenants",
+    "Choose main color" : "Choisir la couleur principale",
   };
   

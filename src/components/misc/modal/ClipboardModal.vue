@@ -12,7 +12,7 @@
           <p class="d-flex justify-content-between align-items-center">
             {{$t('Rss feed:')}}
             <span id="LINK">{{rss}}</span>
-            <input type="button" value="Copier" class="btn btn-primary" @click="onCopyLINK()" :aria-label="$t('Copy')" />
+            <input type="button" :value="$t('Copy')" class="btn btn-primary" @click="onCopyLINK()" :aria-label="$t('Copy')" />
           </p>
           <RssParameters :rssLink="link" :paramRSS.sync='rss'  v-if="link !== ''"/>
         </div>

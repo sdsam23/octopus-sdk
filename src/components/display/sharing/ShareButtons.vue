@@ -31,6 +31,10 @@
         <span class="saooti-link" v-if="!bigRound"></span>
         <div class="saooti-link" v-else></div>
       </a>
+      <a target="_blank" v-if="podcast" :class="[bigRound?'btn btn-bigRound':'btn btn-circle btn-rss share-btn mb-2', verticalDisplay? '' :'mr-2 ml-2']" :aria-label="$t('Share newsletter')" @click="newsletter=true;">
+        <span class="saooti-mail-bounty" v-if="!bigRound"></span>
+        <div class="saooti-mail-bounty" v-else></div>
+      </a>
     </div>
     <ClipboardModal
       v-if="dataRSSSave"
@@ -38,6 +42,12 @@
       @close="closeModal()"
       :link="rssUrl"
       :title="$t('RSS Link')"
+    />
+    <NewsletterModal
+      v-if="newsletter"
+      :closable="true"
+      :podcast="podcast"
+      @close="newsletter=false"
     />
     <Snackbar ref="snackbar" position="bottom-left"></Snackbar>
   </div>
@@ -58,11 +68,12 @@
 
 <script>
 import {state} from "../../../store/paramStore.js";
-import ClipboardModal from '../../misc/modal/ClipboardModal.vue'
+import ClipboardModal from '../../misc/modal/ClipboardModal.vue';
+import NewsletterModal from '../../misc/modal/NewsletterModal.vue';
 import Snackbar from '../../misc/Snackbar.vue';
 export default {
   props: [
-    "podcastId",
+    "podcast",
     "emission",
     "participantId",
     "organisationId",
@@ -73,6 +84,7 @@ export default {
 
   components: {
     ClipboardModal,
+    NewsletterModal,
     Snackbar
   },
 
@@ -84,7 +96,8 @@ export default {
       facebookURL: `https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`,
       twitterURL: `https://twitter.com/intent/tweet?text=${window.location.href}`,
       linkedinURL: `https://www.linkedin.com/sharing/share-offsite/?url=${window.location.href}`,
-      dataRSSSave:false
+      dataRSSSave:false,
+      newsletter: false,
     };
   },
 
