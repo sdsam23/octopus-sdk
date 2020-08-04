@@ -447,5 +447,6 @@ export default {
     'Show every episode':'Afficher tous les épisodes',
     'Subscribe emission': "Abonnement à l'émission",
     "select productor":"Choisir un producteur",
+    "Octopus is ACPM Podcast accredited":"Octopus est accrédité ACPM Podcasts",
   };
   
