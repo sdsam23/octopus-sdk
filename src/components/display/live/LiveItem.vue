@@ -1,20 +1,26 @@
 <template>
   <div class="d-flex w-100">
-		<div class="live-date-box">
+		<router-link class="live-date-box" :to="{ name: 'podcast', params: {podcastId:live.podcastId}, query:{productor: $store.state.filter.organisationId}}">
 			<div class="font-weight-bold">{{date}}</div>
 			<div class="font-weight-bold">{{hours}}</div>
 			<div class="font-size-smaller">{{ $t('Duration', { duration: duration }) }}</div>
-		</div>
-		<div
-			class="img-box rounded-lg flex-shrink live-box-shadow"
-			:style="{ 'background-image': 'url(\'' + live.imageUrl +'?dummy='+dummyParam+  '\')' }"
-			v-if="live"
-		>
-			<div class="live-image-status" :class="live.processingStatus ? live.processingStatus.toLowerCase()+'-bg' : ''" v-if="status">{{status}}</div>
-		</div>
+    </router-link>
+		<router-link :to="{ name: 'podcast', params: {podcastId:live.podcastId}, query:{productor: $store.state.filter.organisationId}}">
+			<PodcastImage
+				class="live-box-shadow"
+				v-bind:podcast="live" 
+				:hidePlay='false'
+				:playingPodcast='false'
+				:statusText="status"
+				:fetchConference="fetchConference"/>
+		</router-link>
 		<div class="d-flex flex-column live-special-width">
-			<div class="text-uppercase primary-color font-weight-bold text-truncate">{{live.title}}</div>
-			<div class="primary-color font-weight-bold text-truncate">{{live.emission.name}}</div>
+			<router-link class="text-uppercase primary-color font-weight-bold text-truncate"
+			:to="{ name: 'podcast', params: {podcastId:live.podcastId}, query:{productor: $store.state.filter.organisationId}}"
+			>{{live.title}}</router-link>
+			<router-link class="primary-color font-weight-bold text-truncate"
+        :to="{ name: 'emission', params: {emissionId:live.emission.emissionId}, query:{productor: $store.state.filter.organisationId}}"
+				>{{live.emission.name}}</router-link>
 			<div class="four-line-clamp" v-if="description" v-html="description">{{description}}</div>
 			<div class="comma" v-if="live.animators">{{ $t('Animated by : ') }}
 				<router-link
@@ -31,7 +37,7 @@
 					:to="{ name: 'productor', params: {productorId:live.organisation.id}, query:{productor: $store.state.filter.organisationId}}"
 				>{{ live.organisation.name }}</router-link>
 			</div>
-			<RecordingItemButton :live="true" :recording="live" v-if="editRight && isEditBox"></RecordingItemButton>
+			<RecordingItemButton :live="true" :recording="fetchConference" v-if="fetchConference && organisationRight && isEditBox"></RecordingItemButton>
 		</div>
   </div>
 </template>
@@ -96,6 +102,8 @@
 import {state} from "../../../store/paramStore.js";
 const moment = require('moment');
 const humanizeDuration = require('humanize-duration');
+import studioApi from '@/api/studio';
+import PodcastImage from "../podcasts/PodcastImage.vue";
 import RecordingItemButton from "@/components/display/studio/RecordingItemButton.vue";
 
 export default {
@@ -104,12 +112,23 @@ export default {
   props: ['live'],
 
   components: {
-		RecordingItemButton
-  },
+		RecordingItemButton,
+		PodcastImage
+	},
+	
+	async mounted(){
+		if(this.organisationRight){
+			let data = await studioApi.getConference(this.$store, this.live.conferenceId);
+			this.fetchConference = data.data;
+		}else{
+			//Get anonymus status
+		}
+	},
   
   data() {
     return {
 			dummyParam : new Date().getTime().toString(),
+			fetchConference: undefined,
     };
   },
 
@@ -136,23 +155,24 @@ export default {
         return '';
       }
 		},
-		organisationId(){
-      return state.generalParameters.organisationId;
-		},
-		authenticated(){
+    authenticated(){
       return state.generalParameters.authenticated;
     },
-		editRight() {
-      if (this.authenticated) {
-        if (this.organisationId === this.live.organisation.id) {
-          return true;
-        }
-        if (state.generalParameters.isAdmin) {
+    myOrganisationId(){
+      return state.generalParameters.organisationId;
+    },
+		organisationRight() {
+      if (this.authenticated && this.isAnimator) {
+        if (this.myOrganisationId === this.live.organisation.id) {
           return true;
         }
       }
       return false;
     },
+    isAnimator() {
+      return state.generalParameters.isAdmin || state.generalParameters.isAnimator;
+    },
+	
     duration() {
       if(this.live.duration > 1){
 				if(this.live.duration > 600000){
@@ -173,20 +193,24 @@ export default {
       }
 		},
 		status(){
-			switch (this.live.processingStatus) {
-				case 'READY': return this.$t('live upcoming');
-        case "PREPARING":
-          return this.$t("Planning");
-        case "PENDING":
-          return this.$t('live upcoming');
-        case "RECORDING":
-          return this.$t("In live");
-        case "DEBRIEFING":
-          return this.$t("Debriefing");
-        default:
-          return "";
+			if(this.fetchConference){
+				switch (this.fetchConference.status) {
+					case 'READY': return this.$t('live upcoming');
+					case "PREPARING":
+						return this.$t("Planning");
+					case "PENDING":
+						return this.$t('live upcoming');
+					case "RECORDING":
+						return this.$t("In live");
+					case "DEBRIEFING":
+						return this.$t("Debriefing");
+					default:
+						return "";
+				}
 			}
+			return "";
 		}
+			
   },
   methods:{
 		getName(person) {

@@ -19,6 +19,7 @@
         </div>
       </div>
     </div>
+    <div class="live-image-status" :class="fetchConference ? fetchConference.status.toLowerCase()+'-bg' : ''" v-else-if="statusText">{{statusText}}</div>
     <div class="background-icon saooti-arrow-up2" :aria-label="$t('Show description')"
     v-if="!isDescription && displayDescription && isMobile" @click="showDescription"></div>
     <div class="background-icon saooti-arrow-down2" :aria-label="$t('Hide description')"
@@ -153,7 +154,7 @@ import { mapState } from 'vuex';
 export default {
   name: 'PodcastImage',
 
-  props: ['podcast', 'hidePlay', 'displayDescription', 'arrowDirection'],
+  props: ['podcast', 'hidePlay', 'displayDescription', 'arrowDirection', "statusText", "fetchConference"],
 
   computed: {
     ...mapState({

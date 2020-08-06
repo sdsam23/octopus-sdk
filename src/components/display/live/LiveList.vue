@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column align-items-center">
+  <div class="d-flex flex-column align-items-center" v-if="filterOrga">
     <div class="d-flex justify-content-center" v-if="loading">
       <div class="spinner-border mr-3"></div>
       <h3 class="mt-2">{{ $t('Loading lives...') }}</h3>
@@ -21,8 +21,9 @@
 
 <script>
 import octopusApi from "@saooti/octopus-api";
+import podcastApi from '@/api/podcasts';
 import LiveItem from './LiveItem.vue';
-/* import {state} from "../../../store/paramStore.js"; */
+import {state} from "../../../store/paramStore.js";
 
 export default {
   name: 'LiveList',
@@ -55,20 +56,51 @@ export default {
     filterOrga(){
       return this.$store.state.filter.organisationId;
     },
+    authenticated(){
+      return state.generalParameters.authenticated;
+    },
+    myOrganisationId(){
+      return state.generalParameters.organisationId;
+    },
+		organisationRight() {
+      if (this.authenticated && this.isAnimator) {
+        if (this.myOrganisationId === this.filterOrga) {
+          return true;
+        }
+      }
+      return false;
+    },
+    isAnimator() {
+      return state.generalParameters.isAdmin || state.generalParameters.isAnimator;
+    }
   },
 
   methods: {
-    fetchContent(reset) {
+    async fetchContent(reset) {
       let param = {
         first: this.dfirst,
         size: this.dsize,
         organisationId: this.filterOrga,
+        withConference: true,
+        excludeStatus: ['READY'],
       }
-			octopusApi
-			.fetchPodcasts(param)
-			.then((data)=> {
-				this.afterFetching(reset, data);
-			});
+      if(this.filterOrga && this.organisationRight){
+        param.includeHidden = true;
+        podcastApi
+        .fetchPodcastsAdmin(this.$store, param).then((data)=> {
+          this.afterFetching(reset, data);
+        });
+        //Param with podcastId
+        /* let data = await studioApi.listConferences(this.$store);
+        debugger;
+        this.afterFetching(reset, data); */
+      }else{
+        octopusApi
+        .fetchPodcasts(param)
+        .then((data)=> {
+          this.afterFetching(reset, data);
+        });
+      }
     },
 
     afterFetching(reset, data){

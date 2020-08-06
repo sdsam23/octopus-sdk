@@ -2,7 +2,9 @@
   <div class="page-box">
     <div class="d-flex flex-column align-items-center mb-3">
         <h1>{{$t('In live')}}</h1>
-        <button class="btn btn-primary" v-if="liveRight">{{$t('Launch a new live')}}</button>
+        <router-link to="/main/priv/edit/live" v-if="liveRight">
+          <button class="btn btn-primary">{{ $t('Launch a new live') }}</button>
+        </router-link>
     </div>
 		<LiveList/>
   </div>
@@ -41,11 +43,14 @@ export default {
       return state.generalParameters.authenticated;
     },
     liveRight() {
-      if (this.authenticated && this.live) {
+      if (this.authenticated && this.live && this.isAnimator) {
         return true;
       }
       return false;
     },
+    isAnimator() {
+      return this.$store.state.authentication.role.includes("ADMIN") || this.$store.state.authentication.role.includes("ANIMATOR");
+    }
   },
 
   methods:{

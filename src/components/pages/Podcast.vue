@@ -1,10 +1,12 @@
 <template>
   <div>
     <div class="page-box" v-if="loaded && !error">
-      <h1 v-if="!isOuestFrance">{{ $t('Episode') }}</h1>
+      <h1 v-if="!isOuestFrance">{{ titlePage }}</h1>
+      <Countdown :timeRemaining="172801" v-if="isLive && podcast.processingStatus === 'READY_TO_RECORD'"/>
       <div class="d-flex">
         <div class="d-flex flex-column flex-super-grow">
-          <EditBox :podcast="podcast" v-if="editRight && isEditBox" :isReady='isReady'></EditBox>
+          <RecordingItemButton class="module-box text-center-mobile flex-no-grow" :live="true" :recording="fetchConference" v-if="fetchConference && isLive && podcast.processingStatus === 'READY_TO_RECORD' && isOctopusAndAnimator"></RecordingItemButton>
+          <EditBox :podcast="podcast" v-else-if="!(isLive && podcast.processingStatus === 'READY_TO_RECORD') && editRight && isEditBox" :isReady='isReady'></EditBox>
           <div class="module-box">
             <h2 class="text-uppercase font-weight-bold title-page-podcast" v-if="!isOuestFrance">{{ this.podcast.title }}</h2>
             <router-link 
@@ -15,12 +17,15 @@
             <div class="mb-5 mt-3 d-flex">
               <div>
               <PodcastImage
-                :class="isOuestFrance? '':'shadow-element'"
+                :class="[!isOuestFrance && !(isLive && podcast.processingStatus === 'READY_TO_RECORD') ? 'shadow-element':'', 
+                (isLive && podcast.processingStatus === 'READY_TO_RECORD')?'live-box-shadow':'']"
                 class="mr-3" 
                 v-bind:podcast="podcast" 
-                hidePlay='false'
+                :hidePlay='!(isLive && podcast.processingStatus === "READY_TO_RECORD")'
                 :playingPodcast='playingPodcast' 
-                @playPodcast='playPodcast' />
+                @playPodcast='playPodcast'
+                :statusText="status"
+                :fetchConference="fetchConference" />
                 <h3 v-if="isOuestFrance">{{ this.podcast.title }}</h3>
                 <div class="date-text-zone">
                   <div class="mr-5" v-if="!isOuestFrance && date.length !==0">{{ date }}</div>
@@ -82,7 +87,7 @@
             :exclusive="exclusive"
             :notExclusive="notExclusive"
             :organisationId='organisationId'
-            v-if="isSharePlayer && (authenticated || notExclusive)"
+            v-if="isSharePlayer && (authenticated || notExclusive) && !(isLive && podcast.processingStatus === 'READY_TO_RECORD')"
           ></SharePlayer>
           <ShareButtons :podcast="podcast" :notExclusive="notExclusive" v-if="isShareButtons"></ShareButtons>
         </div>
@@ -135,6 +140,7 @@
 </style>
 <script>
 // @ is an alias to /src
+import RecordingItemButton from "@/components/display/studio/RecordingItemButton.vue";
 import EditBox from "@/components/display/edit/EditBox.vue";
 import SharePlayer from "../display/sharing/SharePlayer.vue";
 import ShareButtons from "../display/sharing/ShareButtons.vue";
@@ -142,7 +148,9 @@ import PodcastInlineList from "../display/podcasts/PodcastInlineList.vue";
 import PodcastImage from "../display/podcasts/PodcastImage.vue";
 import TagList from "../display/podcasts/TagList.vue";
 import SubscribeButtons from "../display/sharing/SubscribeButtons.vue";
+import Countdown from '../display/live/CountDown.vue';
 import octopusApi from "@saooti/octopus-api";
+import studioApi from '@/api/studio';
 import {state} from "../../store/paramStore.js";
 const moment = require("moment");
 const humanizeDuration = require("humanize-duration");
@@ -155,11 +163,22 @@ export default {
     SharePlayer,
     EditBox,
     TagList,
-    SubscribeButtons
+    SubscribeButtons,
+    RecordingItemButton,
+    Countdown
   },
 
-  mounted() {
-    this.getPodcastDetails(this.podcastId);
+  async mounted() {
+    await this.getPodcastDetails(this.podcastId);
+    if(this.isLive && this.podcast.processingStatus === 'READY_TO_RECORD'){
+      if(this.isOctopusAndAnimator){
+        let data = await studioApi.getConference(this.$store, this.podcast.conferenceId);
+        this.fetchConference = data.data;
+      }else{
+        let data = await studioApi.getRealConferenceStatus(this.$store, this.podcast.conferenceId);
+        this.fetchConference = {status : data.data};
+      }
+    }
   },
 
   props: ["podcastId", "playingPodcast"],
@@ -171,6 +190,7 @@ export default {
       error: false,
       exclusive: false,
       notExclusive: false,
+      fetchConference: undefined,
     };
   },
 
@@ -296,6 +316,37 @@ export default {
       }
       return count;
     },
+    isLive(){
+      return this.podcast.conferenceId && this.podcast.conferenceId !== 0;
+    },
+    isOctopusAndAnimator(){
+      return !this.isPodcastmaker && this.editRight && (state.generalParameters.isAdmin || state.generalParameters.isAnimator);
+    },
+    titlePage(){
+      if(this.isLive){
+        return this.$t('Live episode');
+      }else{
+        return this.$t('Episode');
+      }
+    },
+    status(){
+			if(this.fetchConference){
+				switch (this.fetchConference.status) {
+					case 'READY': return this.$t('live upcoming');
+					case "PREPARING":
+						return this.$t("Planning");
+					case "PENDING":
+						return this.$t('live upcoming');
+					case "RECORDING":
+						return this.$t("In live");
+					case "DEBRIEFING":
+						return this.$t("Debriefing");
+					default:
+						return "";
+				}
+			}
+			return "";
+		}
   },
 
   watch: {
@@ -307,36 +358,34 @@ export default {
   },
 
   methods: {
-    getPodcastDetails(podcastId) {
-      octopusApi
-        .fetchPodcast(podcastId)
-        .then(data => {
-          this.podcast = data;
-          this.$emit('podcastTitle', this.podcast.title);
-          if (
-            this.podcast.emission.annotations &&
-            this.podcast.emission.annotations.exclusive
-          ) {
-            this.exclusive =
-              this.podcast.emission.annotations.exclusive == "true"
-                ? true
-                : false;
-            this.exclusive =
-              this.exclusive &&
-              this.organisationId !== this.podcast.organisation.id;
-          }
-          if (this.podcast.emission.annotations && this.podcast.emission.annotations.notExclusive) {
-            this.notExclusive = this.podcast.emission.annotations.notExclusive == "true" ? true : false;
-          }
-          if(!this.podcast.availability.visibility && !this.editRight){
-            this.error= true;
-          }
-          this.loaded = true;
-        })
-        .catch(() => {
-          this.error = true;
-          this.loaded = true;
-        });
+    async getPodcastDetails(podcastId) {
+      try {
+        let data = await octopusApi.fetchPodcast(podcastId);
+        this.podcast = data;
+        this.$emit('podcastTitle', this.podcast.title);
+        if (
+          this.podcast.emission.annotations &&
+          this.podcast.emission.annotations.exclusive
+        ) {
+          this.exclusive =
+            this.podcast.emission.annotations.exclusive == "true"
+              ? true
+              : false;
+          this.exclusive =
+            this.exclusive &&
+            this.organisationId !== this.podcast.organisation.id;
+        }
+        if (this.podcast.emission.annotations && this.podcast.emission.annotations.notExclusive) {
+          this.notExclusive = this.podcast.emission.annotations.notExclusive == "true" ? true : false;
+        }
+        if(!this.podcast.availability.visibility && !this.editRight){
+          this.error= true;
+        }
+        this.loaded = true;
+      } catch {
+        this.error = true;
+        this.loaded = true;
+      }
     },
     getName(person) {
       const first = person.firstName || "";
