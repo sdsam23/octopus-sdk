@@ -5,7 +5,7 @@
       <Countdown :timeRemaining="timeRemaining" v-if="isLive && podcast.processingStatus === 'READY_TO_RECORD'"/>
       <div class="d-flex">
         <div class="d-flex flex-column flex-super-grow">
-          <RecordingItemButton class="module-box text-center-mobile flex-no-grow" :live="true" :recording="fetchConference" v-if="fetchConference && isLive && podcast.processingStatus === 'READY_TO_RECORD' && isOctopusAndAnimator"></RecordingItemButton>
+          <RecordingItemButton class="module-box text-center-mobile flex-no-grow" :podcast="podcast" :live="true" :recording="fetchConference" v-if="!!fetchConference && isLive && podcast.processingStatus === 'READY_TO_RECORD' && isOctopusAndAnimator"></RecordingItemButton>
           <EditBox :podcast="podcast" v-else-if="!(isLive && podcast.processingStatus === 'READY_TO_RECORD') && editRight && isEditBox" :isReady='isReady'></EditBox>
           <div class="module-box">
             <h2 class="text-uppercase font-weight-bold title-page-podcast" v-if="!isOuestFrance">{{ this.podcast.title }}</h2>
@@ -174,7 +174,11 @@ export default {
     if(this.isLive && this.podcast.processingStatus === 'READY_TO_RECORD'){
       if(this.isOctopusAndAnimator){
         let data = await studioApi.getConference(this.$store, this.podcast.conferenceId);
-        this.fetchConference = data.data;
+        if(data.data !== ""){
+          this.fetchConference = data.data;
+        }else{
+          this.fetchConference = "null";
+        }
       }else{
         let data = await studioApi.getRealConferenceStatus(this.$store, this.podcast.conferenceId);
         this.fetchConference = {status : data.data};

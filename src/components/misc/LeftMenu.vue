@@ -31,12 +31,13 @@
         :to="{ name: 'participants', query:{productor: $store.state.filter.organisationId}}"
         >{{ $t('Speakers') }}</router-link
       >
-      <OrganisationChooser
+        <OrganisationChooserLight
+        width="auto"
         :defaultanswer="$t('No organisation filter')"
         @selected="onOrganisationSelected"
         :value='organisationId'
         :light='true'
-        class="mr-2"
+        class="mr-2 hide-top-bar"
         :reset='reset'
         v-if="!isPodcastmaker"
         />
@@ -106,14 +107,14 @@
 }
 </style>
 <script>
-import OrganisationChooser from '../display/organisation/OrganisationChooser.vue';
+import OrganisationChooserLight from '../display/organisation/OrganisationChooserLight.vue';
 import {state} from "../../store/paramStore.js";
 
 export default {
   name: 'LeftMenu',
 
   components:{
-    OrganisationChooser
+    OrganisationChooserLight
   },
 
   props: ["displayMenu"],

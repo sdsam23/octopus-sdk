@@ -19,7 +19,6 @@
         </div>
       </div>
     </div>
-    <div class="live-image-status" :class="fetchConference ? fetchConference.status.toLowerCase()+'-bg' : ''" v-else-if="fetchConference">{{statusText}}</div>
     <div class="background-icon saooti-arrow-up2" :aria-label="$t('Show description')"
     v-if="!isDescription && displayDescription && isMobile" @click="showDescription"></div>
     <div class="background-icon saooti-arrow-down2" :aria-label="$t('Hide description')"
@@ -38,6 +37,7 @@
       <div class="small-Text mt-2 font-weight-bold">{{textVisible}}</div>
     </div>
   </template>
+  <div class="live-image-status" :class="fetchConference && fetchConference!=='null' ? fetchConference.status.toLowerCase()+'-bg' : ''" v-if="fetchConference">{{statusText}}</div>
   </div>
 </template>
 
@@ -169,7 +169,7 @@ export default {
       return window.matchMedia( "(hover: none)" ).matches;
     },
     imgUrl(){
-      if(this.podcast.processingStatus === "READY"){
+      if(this.podcast.processingStatus === "READY" || this.fetchConference){
         if(!this.podcast.availability.visibility && this.podcast.availability.date){
           return "/img/clock.png";
         }else{
@@ -184,7 +184,7 @@ export default {
       }
     },
     textVisible(){
-      if(this.podcast.processingStatus === "READY"){
+      if(this.podcast.processingStatus === "READY" || this.fetchConference){
         if(!this.podcast.availability.visibility && this.podcast.availability.date){
           return this.$t('Podcast publish in future');
         }else{

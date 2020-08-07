@@ -37,7 +37,7 @@
 					:to="{ name: 'productor', params: {productorId:live.organisation.id}, query:{productor: $store.state.filter.organisationId}}"
 				>{{ live.organisation.name }}</router-link>
 			</div>
-			<RecordingItemButton :live="true" :recording="fetchConference" v-if="fetchConference && organisationRight && isEditBox"></RecordingItemButton>
+			<RecordingItemButton :live="true" :recording="fetchConference" :podcast="live" v-if="fetchConference && organisationRight && isEditBox"></RecordingItemButton>
 		</div>
   </div>
 </template>
@@ -78,7 +78,7 @@
 	width: 0;
   flex-grow: 1;
 }
-.ready-bg {
+.planned-bg {
 	background: #f09653;
 }
 .preparing-bg {
