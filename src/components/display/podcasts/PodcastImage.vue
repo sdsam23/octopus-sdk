@@ -19,7 +19,7 @@
         </div>
       </div>
     </div>
-    <div class="live-image-status" :class="fetchConference ? fetchConference.status.toLowerCase()+'-bg' : ''" v-else-if="statusText">{{statusText}}</div>
+    <div class="live-image-status" :class="fetchConference ? fetchConference.status.toLowerCase()+'-bg' : ''" v-else-if="fetchConference">{{statusText}}</div>
     <div class="background-icon saooti-arrow-up2" :aria-label="$t('Show description')"
     v-if="!isDescription && displayDescription && isMobile" @click="showDescription"></div>
     <div class="background-icon saooti-arrow-down2" :aria-label="$t('Hide description')"
@@ -154,7 +154,7 @@ import { mapState } from 'vuex';
 export default {
   name: 'PodcastImage',
 
-  props: ['podcast', 'hidePlay', 'displayDescription', 'arrowDirection', "statusText", "fetchConference"],
+  props: ['podcast', 'hidePlay', 'displayDescription', 'arrowDirection', "fetchConference", "isAnimatorLive"],
 
   computed: {
     ...mapState({
@@ -197,8 +197,28 @@ export default {
       }else{
         return this.$t('Podcast in error');
       }
-    }
-    
+    },
+    statusText(){
+			if(this.fetchConference){
+				switch (this.fetchConference.status) {
+					case "PREPARING":
+            if(this.isAnimatorLive){
+              return this.$t("Open studio");
+            }else{
+              return "";
+            }
+					case "PENDING":
+						return this.$t('live upcoming');
+					case "RECORDING":
+						return this.$t("In live");
+					case "DEBRIEFING":
+						return this.$t("Debriefing");
+					default:
+						return "";
+				}
+			}
+			return "";
+		}
   },
 
   data() {

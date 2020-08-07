@@ -2,7 +2,7 @@
   <div>
     <div class="page-box" v-if="loaded && !error">
       <h1 v-if="!isOuestFrance">{{ titlePage }}</h1>
-      <Countdown :timeRemaining="172801" v-if="isLive && podcast.processingStatus === 'READY_TO_RECORD'"/>
+      <Countdown :timeRemaining="timeRemaining" v-if="isLive && podcast.processingStatus === 'READY_TO_RECORD'"/>
       <div class="d-flex">
         <div class="d-flex flex-column flex-super-grow">
           <RecordingItemButton class="module-box text-center-mobile flex-no-grow" :live="true" :recording="fetchConference" v-if="fetchConference && isLive && podcast.processingStatus === 'READY_TO_RECORD' && isOctopusAndAnimator"></RecordingItemButton>
@@ -24,12 +24,13 @@
                 :hidePlay='!(isLive && podcast.processingStatus === "READY_TO_RECORD")'
                 :playingPodcast='playingPodcast' 
                 @playPodcast='playPodcast'
-                :statusText="status"
-                :fetchConference="fetchConference" />
+                :fetchConference="fetchConference"
+                :isAnimatorLive="isOctopusAndAnimator"/>
                 <h3 v-if="isOuestFrance">{{ this.podcast.title }}</h3>
                 <div class="date-text-zone">
                   <div class="mr-5" v-if="!isOuestFrance && date.length !==0">{{ date }}</div>
-                  <div><span class="saooti-clock3" v-if="isOuestFrance"></span>{{ $t('Duration', { duration: duration }) }}</div>
+                  <div :class="isLive && podcast.processingStatus !=='READY_TO_RECORD'? 'mr-5':''"><span class="saooti-clock3" v-if="isOuestFrance"></span>{{ $t('Duration', { duration: duration }) }}</div>
+                  <div class="text-danger" v-if="isLive && podcast.processingStatus !=='READY_TO_RECORD'">{{$t('Episode record in live')}}</div>
                 </div>
                 <div class="descriptionText" v-html="urlify(this.podcast.description)"></div>
                 <div class="mt-3 mb-3">
@@ -329,24 +330,10 @@ export default {
         return this.$t('Episode');
       }
     },
-    status(){
-			if(this.fetchConference){
-				switch (this.fetchConference.status) {
-					case 'READY': return this.$t('live upcoming');
-					case "PREPARING":
-						return this.$t("Planning");
-					case "PENDING":
-						return this.$t('live upcoming');
-					case "RECORDING":
-						return this.$t("In live");
-					case "DEBRIEFING":
-						return this.$t("Debriefing");
-					default:
-						return "";
-				}
-			}
-			return "";
-		}
+    timeRemaining(){
+      return moment(this.podcast.pubDate).diff(moment(), 'seconds');
+    }
+    
   },
 
   watch: {

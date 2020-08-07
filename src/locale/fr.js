@@ -470,5 +470,7 @@ export default {
     "Live episode":"Épisode en live",
     "This live will start":"Ce live débutera",
     "In days hours minutes seconds":"Dans {days} jours {hours} heures {minutes} minutes et {seconds} secondes",
+    "Open studio": "Studio ouvert",
+    "Episode record in live":"Réalisé en live",
   };
   

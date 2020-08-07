@@ -11,8 +11,8 @@
 				v-bind:podcast="live" 
 				:hidePlay='false'
 				:playingPodcast='false'
-				:statusText="status"
-				:fetchConference="fetchConference"/>
+				:fetchConference="fetchConference"
+				:isAnimatorLive="organisationRight"/>
 		</router-link>
 		<div class="d-flex flex-column live-special-width">
 			<router-link class="text-uppercase primary-color font-weight-bold text-truncate"
@@ -192,25 +192,6 @@ export default {
         return '';
       }
 		},
-		status(){
-			if(this.fetchConference){
-				switch (this.fetchConference.status) {
-					case 'READY': return this.$t('live upcoming');
-					case "PREPARING":
-						return this.$t("Planning");
-					case "PENDING":
-						return this.$t('live upcoming');
-					case "RECORDING":
-						return this.$t("In live");
-					case "DEBRIEFING":
-						return this.$t("Debriefing");
-					default:
-						return "";
-				}
-			}
-			return "";
-		}
-			
   },
   methods:{
 		getName(person) {

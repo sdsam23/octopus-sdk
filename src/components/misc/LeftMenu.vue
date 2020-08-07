@@ -6,7 +6,7 @@
         :to="{ name: 'home', query:{productor: $store.state.filter.organisationId}}"
         >{{ $t('Home') }}</router-link
       >
-      <router-link @click.native="onMenuClick" v-if="isLiveTab && !isPodcastmaker && !filterOrga"
+      <router-link @click.native="onMenuClick" v-if="isLiveTab && !isPodcastmaker && filterOrga"
         class="text-dark font-weight-bold mb-3"
         :to="{ name: 'lives', query:{productor: $store.state.filter.organisationId}}"
         >{{ $t('Live') }}</router-link>
