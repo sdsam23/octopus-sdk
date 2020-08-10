@@ -37,7 +37,13 @@
 					:to="{ name: 'productor', params: {productorId:live.organisation.id}, query:{productor: $store.state.filter.organisationId}}"
 				>{{ live.organisation.name }}</router-link>
 			</div>
-			<RecordingItemButton :live="true" :recording="fetchConference" :podcast="live" v-if="fetchConference && organisationRight && isEditBox"></RecordingItemButton>
+			<RecordingItemButton 
+			:live="true" 
+			:recording="fetchConference" 
+			:podcast="live" 
+			@deleteItem="deleteItem"
+			v-if="fetchConference && organisationRight && isEditBox"
+			></RecordingItemButton>
 		</div>
   </div>
 </template>
@@ -110,7 +116,7 @@ import RecordingItemButton from "@/components/display/studio/RecordingItemButton
 export default {
   name: 'LiveItem',
 
-  props: ['fetchConference'],
+  props: ['fetchConference', 'index'],
 
   components: {
 		RecordingItemButton,
@@ -202,6 +208,9 @@ export default {
 					this.live = tempLive;
 				}
 			}
+		},
+		deleteItem(){
+			this.$emit('deleteItem', this.index);
 		}
   }
 };

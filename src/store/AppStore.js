@@ -12,7 +12,8 @@ export default new Vuex.Store({
       volume: 1, //From 0 to 1
       elapsed: 0, //From 0 to 1
       total: 0,
-      media : undefined
+      media : undefined,
+      live: undefined,
     },
     authentication:{
       isAuthenticated : true,
@@ -42,6 +43,7 @@ export default new Vuex.Store({
           status: 'STOPPED', //STOPPED, LOADING, PLAYING, PAUSED
           podcast: undefined,
           media: undefined,
+          live:undefined,
           elapsed: 0,
         };
       } else {
@@ -57,13 +59,23 @@ export default new Vuex.Store({
               status: 'LOADING', //STOPPED, LOADING, PLAYING, PAUSED
               podcast: podcast,
               media: undefined,
+              live:undefined,
+              elapsed: 0,
+            };
+          }else if(podcast.mediaId){
+            state.player = {
+              status: 'LOADING', //STOPPED, LOADING, PLAYING, PAUSED
+              podcast: undefined,
+              media: podcast,
+              live:undefined,
               elapsed: 0,
             };
           }else{
             state.player = {
               status: 'LOADING', //STOPPED, LOADING, PLAYING, PAUSED
               podcast: undefined,
-              media: podcast,
+              media: undefined,
+              live:podcast,
               elapsed: 0,
             };
           }

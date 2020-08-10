@@ -5,7 +5,7 @@
     v-if="podcast"
   >
   <template v-if="podcast && podcast.availability.visibility">
-    <div class="podcast-image-play-button" v-on:click="play" v-if="hidePlay">
+    <div class="podcast-image-play-button" v-on:click="play" v-if="hidePlay || recordingLive">
       <div class="icon-container">
         <div
           :aria-label="$t('Play')"
@@ -150,6 +150,7 @@
 </style>
 
 <script>
+import {state} from "../../../store/paramStore.js";
 import { mapState } from 'vuex';
 export default {
   name: 'PodcastImage',
@@ -160,8 +161,9 @@ export default {
     ...mapState({
       playingPodcast(state) {
         return (
-          state.player.podcast &&
-          state.player.podcast.podcastId == this.podcast.podcastId
+          (state.player.podcast &&
+          state.player.podcast.podcastId == this.podcast.podcastId) || 
+          (this.fetchConference && this.fetchConference!=='null' && state.player.live && state.player.live.conferenceId === this.fetchConference.conferenceId)
         );
       },
     }),
@@ -218,7 +220,10 @@ export default {
 				}
 			}
 			return "";
-		}
+    },
+    recordingLive(){
+      return this.fetchConference && this.fetchConference!=='null' && this.fetchConference.status === 'RECORDING';
+    }
   },
 
   data() {
@@ -230,7 +235,23 @@ export default {
 
   methods: {
     play() {
-      this.$store.commit('playerPlayPodcast', this.podcast);
+      if(this.recordingLive){
+        this.$store.commit('playerPlayPodcast', {title: this.podcast.title, conferenceId: this.fetchConference.conferenceId});
+      }else{
+        this.$store.commit('playerPlayPodcast', this.podcast);
+      }
+    },
+    playLive(){
+      let audio = document.getElementById('audio-hls');
+      let audioSrc = state.podcastPage.hlsUri+'stream/dev.'+this.fetchConference.conferenceId+'/index.m3u8';
+      if (Hls.isSupported()) {
+        var hls = new Hls();
+        hls.loadSource(audioSrc);
+        hls.attachMedia(audio);
+        hls.on(Hls.Events.MANIFEST_PARSED, function() {
+          audio.play();
+        });
+      } 
     },
     showDescription(){
       if(this.isDescription){

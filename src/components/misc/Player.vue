@@ -26,7 +26,17 @@
         @playing="onPlay"
         @durationChange="onTimeUpdate"
         @error="onError"
+        v-if="!live"
       />
+      <audio 
+      id="audio-player"
+      src=""
+      @timeupdate="onTimeUpdate"
+      @ended="onFinished"
+      @playing="onPlay"
+      @durationChange="onTimeUpdate"
+      @error="onError"
+      v-else/>
       <router-link :to=podcastShareUrl v-if="isImage && podcastImage">
         <img
           v-bind:src="podcastImage"
@@ -173,6 +183,7 @@ import { mapState } from 'vuex';
 import {state} from "../../store/paramStore.js";
 import DurationHelper from '../../helper/duration';
 import octopusApi from "@saooti/octopus-api";
+import Hls from 'hls.js';
 const moment = require('moment');
 
 export default {
@@ -237,6 +248,7 @@ export default {
       status: state => state.player.status,
       podcast: state => state.player.podcast,
       media: state => state.player.media,
+      live: state => state.player.live,
       volume: state => state.player.volume,
 
       podcastImage: state => {
@@ -308,7 +320,9 @@ export default {
         }
       }else if(this.media){
         return this.media.title;
-      } else {
+      } else if(this.live){
+        return this.live.title;
+      }else{
         return '';
       }
     },
@@ -381,6 +395,9 @@ export default {
     onFinished() {
       if(this.podcast){
         this.endListeningProgress();
+      }else if(this.live){
+        let audio = document.getElementById('audio-player');
+        audio.src="";
       }
       this.$data.forceHide = true;
     },
@@ -426,6 +443,21 @@ export default {
     }
   },
   watch: {
+    async live(){
+      if(this.live){
+        let audio = document.getElementById('audio-player');
+        let audioSrc = state.podcastPage.hlsUri+'stream/dev.'+this.live.conferenceId+'/index.m3u8';
+        if (Hls.isSupported()) {
+          var hls = new Hls();
+          hls.loadSource(audioSrc);
+          hls.attachMedia(audio);
+          hls.on(Hls.Events.MANIFEST_PARSED, async() =>{
+            await audio.play();
+            this.onPlay();
+          });
+        } 
+      }
+    },
     playerHeight(newVal){
       this.$emit('hide', newVal=== 0? true : false);
     },

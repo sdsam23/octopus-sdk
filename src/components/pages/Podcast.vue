@@ -5,7 +5,13 @@
       <Countdown :timeRemaining="timeRemaining" v-if="isCounter"/>
       <div class="d-flex">
         <div class="d-flex flex-column flex-super-grow">
-          <RecordingItemButton class="module-box text-center-mobile flex-no-grow" :podcast="podcast" :live="true" :recording="fetchConference" v-if="!!fetchConference && isLive && podcast.processingStatus === 'READY_TO_RECORD' && isOctopusAndAnimator"></RecordingItemButton>
+          <RecordingItemButton 
+          class="module-box text-center-mobile flex-no-grow" 
+          :podcast="podcast" :live="true" 
+          :recording="fetchConference" 
+          @deleteItem="removeDeleted"
+          v-if="!!fetchConference && isLive && podcast.processingStatus === 'READY_TO_RECORD' && isOctopusAndAnimator"
+          ></RecordingItemButton>
           <EditBox :podcast="podcast" v-else-if="!(isLive && podcast.processingStatus === 'READY_TO_RECORD') && editRight && isEditBox" :isReady='isReady'></EditBox>
           <div class="module-box">
             <h2 class="text-uppercase font-weight-bold title-page-podcast" v-if="!isOuestFrance">{{ this.podcast.title }}</h2>
@@ -399,7 +405,14 @@ export default {
       }else{
         return '';
       }
-    }
+    },
+    removeDeleted() {
+      if(window.history.length > 1){
+        this.$router.go(-1);
+      } else{
+        this.$router.push('/');
+      }
+    },
   }
 };
 </script>

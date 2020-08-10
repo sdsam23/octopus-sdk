@@ -9,9 +9,11 @@
     </div>
 		<LiveItem
 			class="mt-3"
-			v-for="l in lives"
+			v-for="(l, index) in lives"
 			:fetchConference="l"
 			:key="l.podcastId"
+      :index="index"
+      @deleteItem="deleteRecording"
 		/>
   </div>
 </template>
@@ -108,6 +110,9 @@ export default {
         return p!== null;
       });
       this.dfirst += this.dsize;
+    },
+    deleteRecording(index){
+      this.lives.splice(index,1);
     },
 
   },
