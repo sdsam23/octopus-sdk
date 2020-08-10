@@ -2,7 +2,7 @@
   <div>
     <div class="page-box" v-if="loaded && !error">
       <h1 v-if="!isOuestFrance">{{ titlePage }}</h1>
-      <Countdown :timeRemaining="timeRemaining" v-if="isLive && podcast.processingStatus === 'READY_TO_RECORD'"/>
+      <Countdown :timeRemaining="timeRemaining" v-if="isCounter"/>
       <div class="d-flex">
         <div class="d-flex flex-column flex-super-grow">
           <RecordingItemButton class="module-box text-center-mobile flex-no-grow" :podcast="podcast" :live="true" :recording="fetchConference" v-if="!!fetchConference && isLive && podcast.processingStatus === 'READY_TO_RECORD' && isOctopusAndAnimator"></RecordingItemButton>
@@ -166,8 +166,7 @@ export default {
     TagList,
     SubscribeButtons,
     RecordingItemButton,
-    Countdown
-    SubscribeButtons
+    Countdown,
   },
 
   async mounted() {
@@ -324,6 +323,9 @@ export default {
     },
     isLive(){
       return this.podcast.conferenceId && this.podcast.conferenceId !== 0;
+    },
+    isCounter(){
+      return this.isLive && this.podcast.processingStatus === 'READY_TO_RECORD' && this.fetchConference && (this.fetchConference.status === 'PREPARING' ||this.fetchConference.status === 'PENDING');
     },
     isOctopusAndAnimator(){
       return !this.isPodcastmaker && this.editRight && (state.generalParameters.isAdmin || state.generalParameters.isAnimator);

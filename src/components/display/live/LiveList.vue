@@ -21,7 +21,7 @@
 
 <script>
 import octopusApi from "@saooti/octopus-api";
-import podcastApi from '@/api/podcasts';
+/* import podcastApi from '@/api/podcasts'; */
 import studioApi from '@/api/studio';
 import LiveItem from './LiveItem.vue';
 import {state} from "../../../store/paramStore.js";

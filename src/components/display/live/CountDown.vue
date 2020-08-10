@@ -1,8 +1,9 @@
 <template>
-  <div class="d-flex flex-column align-items-center text-danger" v-if="displayCountdown">
+  <div class="d-flex flex-column align-items-center text-danger" >
     <h3>{{$t('This live will start')}}</h3>
 		<h3 ref="countdown" v-if="countdownTimer"
 		>{{$t('In days hours minutes seconds',{days: pad(days), hours: pad(hours), minutes: pad(minutes), seconds: pad(remainingSeconds)})}}</h3>
+		<h3 v-else="countdownTimer">{{$t('In a moment')}}</h3>
   </div>
 </template>
 <style lang="scss">
@@ -18,7 +19,6 @@ export default {
 			this.countdownTimer = setInterval(() => {
 				this.timer();
 			}, 1000);
-			this.displayCountdown = true;
 		}
   },
 
@@ -32,7 +32,6 @@ export default {
 			hours: 0,
 			minutes: 0,
 			remainingSeconds: 0,
-			displayCountdown: false,
     };
   },
 
@@ -52,7 +51,6 @@ export default {
 			if (this.seconds == 0) {
 				clearInterval(this.countdownTimer);
 				this.countdownTimer = undefined;
-				this.displayCountdown = false;
 			} else {
 				this.seconds--;
 			}

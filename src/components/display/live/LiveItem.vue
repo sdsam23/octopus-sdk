@@ -102,7 +102,7 @@
 import {state} from "../../../store/paramStore.js";
 const moment = require('moment');
 const humanizeDuration = require('humanize-duration');
-import podcastApi from '@/api/podcasts';
+/* import podcastApi from '@/api/podcasts'; */
 import octopusApi from "@saooti/octopus-api";
 import PodcastImage from "../podcasts/PodcastImage.vue";
 import RecordingItemButton from "@/components/display/studio/RecordingItemButton.vue";
