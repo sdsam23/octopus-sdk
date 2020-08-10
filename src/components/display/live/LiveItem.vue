@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex w-100">
+  <div class="d-flex w-100" v-if="live">
 		<router-link class="live-date-box" :to="{ name: 'podcast', params: {podcastId:live.podcastId}, query:{productor: $store.state.filter.organisationId}}">
 			<div class="font-weight-bold">{{date}}</div>
 			<div class="font-weight-bold">{{hours}}</div>
@@ -102,33 +102,29 @@
 import {state} from "../../../store/paramStore.js";
 const moment = require('moment');
 const humanizeDuration = require('humanize-duration');
-import studioApi from '@/api/studio';
+import podcastApi from '@/api/podcasts';
+import octopusApi from "@saooti/octopus-api";
 import PodcastImage from "../podcasts/PodcastImage.vue";
 import RecordingItemButton from "@/components/display/studio/RecordingItemButton.vue";
 
 export default {
   name: 'LiveItem',
 
-  props: ['live'],
+  props: ['fetchConference'],
 
   components: {
 		RecordingItemButton,
 		PodcastImage
 	},
-	
-	async mounted(){
-		if(this.organisationRight){
-			let data = await studioApi.getConference(this.$store, this.live.conferenceId);
-			this.fetchConference = data.data;
-		}else{
-			//Get anonymus status
-		}
+
+	async created(){
+		this.fetchPodcastData();
 	},
   
   data() {
     return {
 			dummyParam : new Date().getTime().toString(),
-			fetchConference: undefined,
+			live: undefined,
     };
   },
 
@@ -198,7 +194,15 @@ export default {
       const first = person.firstName || "";
       const last = person.lastName || "";
       return (first + " " + last).trim();
-    },
+		},
+		async fetchPodcastData(){
+			if(this.fetchConference && this.fetchConference.podcastId){
+				let tempLive = await octopusApi.fetchPodcast(this.fetchConference.podcastId);
+				if (tempLive.availability.visibility || (this.authenticated && this.isAnimator && this.myOrganisationId === tempLive.organisation.id)) {
+					this.live = tempLive;
+				}
+			}
+		}
   }
 };
 </script>

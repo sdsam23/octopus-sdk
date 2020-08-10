@@ -10,7 +10,7 @@
 		<LiveItem
 			class="mt-3"
 			v-for="l in lives"
-			:live="l"
+			:fetchConference="l"
 			:key="l.podcastId"
 		/>
   </div>
@@ -22,6 +22,7 @@
 <script>
 import octopusApi from "@saooti/octopus-api";
 import podcastApi from '@/api/podcasts';
+import studioApi from '@/api/studio';
 import LiveItem from './LiveItem.vue';
 import {state} from "../../../store/paramStore.js";
 
@@ -85,15 +86,8 @@ export default {
         excludeStatus: ['READY'],
       }
       if(this.filterOrga && this.organisationRight){
-        param.includeHidden = true;
-        podcastApi
-        .fetchPodcastsAdmin(this.$store, param).then((data)=> {
-          this.afterFetching(reset, data);
-        });
-        //Param with podcastId
-        /* let data = await studioApi.listConferences(this.$store);
-        debugger;
-        this.afterFetching(reset, data); */
+        let data = await studioApi.listConferences(this.$store, true, this.filterOrga);
+        this.afterFetching(reset, data);
       }else{
         octopusApi
         .fetchPodcasts(param)
@@ -110,7 +104,7 @@ export default {
       }
       this.loading = false;
       this.loaded = true;
-      this.lives = this.lives.concat(data.result).filter((p)=>{
+      this.lives = this.lives.concat(data).filter((p)=>{
         return p!== null;
       });
       this.dfirst += this.dsize;
