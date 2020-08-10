@@ -472,5 +472,7 @@ export default {
     "In days hours minutes seconds":"Dans {days} jours {hours} heures {minutes} minutes et {seconds} secondes",
     "Open studio": "Studio ouvert",
     "Episode record in live":"Réalisé en live",
+    "select productor":"Choisir un producteur",
+    "Octopus is ACPM Podcast accredited":"Octopus est accrédité ACPM Podcasts",
   };
   

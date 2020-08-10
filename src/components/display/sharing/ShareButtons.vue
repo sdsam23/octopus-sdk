@@ -98,6 +98,7 @@ export default {
       linkedinURL: `https://www.linkedin.com/sharing/share-offsite/?url=${window.location.href}`,
       dataRSSSave:false,
       newsletter: false,
+      dataRSSSave:false
     };
   },
 

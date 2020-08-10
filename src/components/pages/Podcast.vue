@@ -167,6 +167,7 @@ export default {
     SubscribeButtons,
     RecordingItemButton,
     Countdown
+    SubscribeButtons
   },
 
   async mounted() {
