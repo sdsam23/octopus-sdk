@@ -473,5 +473,8 @@ export default {
     "Open studio": "Studio ouvert",
     "Episode record in live":"Réalisé en live",
     "In a moment":"Dans quelques instants",
+    "Live to be":"À venir",
+    "Live terminated":"Terminés",
+    "Next live date":"Le prohain live sera le {date}",
   };
   

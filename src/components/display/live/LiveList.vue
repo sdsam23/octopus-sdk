@@ -1,40 +1,89 @@
 <template>
-  <div class="d-flex flex-column align-items-center" v-if="filterOrga">
+  <div class="d-flex flex-column align-items-center live-list-container" v-if="filterOrga">
     <div class="d-flex justify-content-center" v-if="loading">
       <div class="spinner-border mr-3"></div>
       <h3 class="mt-2">{{ $t('Loading lives...') }}</h3>
     </div>
-    <div v-if="loaded && !lives.length">
+    <div v-if="loaded && (!lives.length && !livesToBe.length && !livesTerminated.length)">
       <p>{{ $t('No live currently') }}</p>
     </div>
-		<LiveItem
-			class="mt-3"
-			v-for="(l, index) in lives"
-			:fetchConference="l"
-			:key="l.podcastId"
-      :index="index"
-      @deleteItem="deleteRecording"
+    <div v-if="loaded && displayNextLiveMessage">
+      <h3 class="text-danger">{{ displayNextLiveMessage }}</h3>
+    </div>
+    <template v-if="lives.length">
+      <div class="horizontal-separator"></div>
+      <p class="live-list-category">{{$t('In live')}}</p>
+      <LiveItem
+        class="mt-3"
+        v-for="(l, index) in lives"
+        :fetchConference="l"
+        :key="l.podcastId"
+        :index="index"
+        @deleteItem="deleteLive"
+      />
+    </template>
+    <template v-if="livesToBe.length">
+      <div class="horizontal-separator"></div>
+      <p class="live-list-category">{{$t('Live to be')}}</p>
+      <LiveItem
+        class="mt-3"
+        v-for="(l, index) in livesToBe"
+        :fetchConference="l"
+        :key="l.podcastId"
+        :index="index"
+        @deleteItem="deleteLiveToBe"
 		/>
+    </template>
+    <template v-if="livesTerminated.length">
+      <div class="horizontal-separator"></div>
+      <p class="live-list-category">{{$t('Live terminated')}}</p>
+      <LiveItem
+        class="mt-3"
+        v-for="(l, index) in livesTerminated"
+        :fetchConference="l"
+        :key="l.podcastId"
+        :index="index"
+        @deleteItem="deleteLiveTerminated"
+      />
+    </template>
+    <template v-if="livesError.length">
+      <div class="horizontal-separator"></div>
+      <p class="live-list-category">{{$t('In error')}}</p>
+      <LiveItem
+        class="mt-3"
+        v-for="(l, index) in livesError"
+        :fetchConference="l"
+        :key="l.podcastId"
+        :index="index"
+        @deleteItem="deleteLiveError"
+      />
+    </template>
   </div>
 </template>
 
 <style lang="scss">
+.live-list-container .horizontal-separator{
+  border-top: 1px solid #cccccc;
+  width: 100%;
+  margin: 2rem;
+}
+.live-list-category{
+  align-self: flex-start;
+  text-transform: uppercase;
+  font-weight: bold;
+}
 </style>
 
 <script>
-import octopusApi from "@saooti/octopus-api";
-/* import podcastApi from '@/api/podcasts'; */
 import studioApi from '@/api/studio';
 import LiveItem from './LiveItem.vue';
+const moment = require('moment');
 import {state} from "../../../store/paramStore.js";
 
 export default {
   name: 'LiveList',
 
   props:  {
-    first: { default: 0 },
-    size: { default: 20 },
-    reload : {default: false},
   },
 
   components: {
@@ -42,22 +91,30 @@ export default {
   },
 
   created() {
-    this.fetchContent(true);
+    this.fetchContent();
   },
 
   data() {
     return {
       loading: true,
       loaded: true,
-      dfirst: this.$props.first,
-      dsize: this.$props.size,
       lives: [],
+      livesToBe: [],
+      livesTerminated: [],
+      livesError: [],
     };
   },
 
   computed: {
     filterOrga(){
       return this.$store.state.filter.organisationId;
+    },
+    displayNextLiveMessage(){
+      if(this.lives.length === 0 && this.livesToBe.length > 0){
+        return this.$t('Next live date',{date : moment(this.livesToBe[0].date).format('LLLL')});
+      }else{
+        return "";
+      }
     },
     authenticated(){
       return state.generalParameters.authenticated;
@@ -75,53 +132,48 @@ export default {
     },
     isAnimator() {
       return state.generalParameters.isAdmin || state.generalParameters.isAnimator;
-    }
+    },
   },
 
   methods: {
-    async fetchContent(reset) {
-      let param = {
-        first: this.dfirst,
-        size: this.dsize,
-        organisationId: this.filterOrga,
-        withConference: true,
-        excludeStatus: ['READY'],
-      }
-      if(this.filterOrga && this.organisationRight){
-        let data = await studioApi.listConferences(this.$store, true, this.filterOrga);
-        this.afterFetching(reset, data);
-      }else{
-        octopusApi
-        .fetchPodcasts(param)
-        .then((data)=> {
-          this.afterFetching(reset, data);
-        });
+    async fetchContent() {
+      if(this.filterOrga){
+        this.loading = true;
+        this.loaded = false;
+        let dataLives = await studioApi.listConferences(this.$store, true, this.filterOrga, 'RECORDING');
+        this.lives = dataLives.filter((p)=>{return p!== null;});
+        let dataLivesToBe = await studioApi.listConferences(this.$store, true, this.filterOrga, 'PENDING');
+        let dataLivesPlanned = await studioApi.listConferences(this.$store, true, this.filterOrga, 'PLANNED');
+        this.livesToBe = dataLivesToBe.concat(dataLivesPlanned).filter((p)=>{return p!== null;});
+        let dataLivesTerminated = await studioApi.listConferences(this.$store, true, this.filterOrga, 'DEBRIEFING');
+        this.livesTerminated = dataLivesTerminated.filter((p)=>{return p!== null;});
+        if(this.organisationRight){
+          let dataLivesError = await studioApi.listConferences(this.$store, true, this.filterOrga, 'ERROR');
+          this.livesError = dataLivesError.filter((p)=>{return p!== null;});
+        }
+        this.loading = false;
+        this.loaded = true;
       }
     },
-
-    afterFetching(reset, data){
-      if (reset) {
-        this.lives = [];
-        this.dfirst = 0;
-      }
-      this.loading = false;
-      this.loaded = true;
-      this.lives = this.lives.concat(data).filter((p)=>{
-        return p!== null;
-      });
-      this.dfirst += this.dsize;
-    },
-    deleteRecording(index){
+    deleteLive(index){
       this.lives.splice(index,1);
     },
-
+    deleteLiveToBe(index){
+      this.livesToBe.splice(index,1);
+    },
+    deleteLiveTerminated(index){
+      this.livesTerminated.splice(index,1);
+    },
+    deleteLiveError(index){
+      this.livesError.splice(index,1);
+    },
   },
 
   watch: {
-    reload: {
-      handler() {
-        this.fetchContent(true);
-      },
+    filterOrga(){
+      if(!this.filterOrga){
+        this.$router.push('/');
+      }
     },
   },
 };

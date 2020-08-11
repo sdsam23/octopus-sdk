@@ -235,3 +235,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.18.6 Début du live
  * 0.18.7 Amélioration du live
  * 0.18.8 Amélioration du live
+ * 0.18.9 Amélioration du live

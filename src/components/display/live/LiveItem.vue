@@ -102,6 +102,9 @@
 .done-bg {
 	background: #679fe9;
 }
+.publishing-bg {
+	background: #7d7d7d;
+}
 </style>
 
 <script>
@@ -206,6 +209,8 @@ export default {
 				let tempLive = await octopusApi.fetchPodcast(this.fetchConference.podcastId);
 				if (tempLive.availability.visibility || (this.authenticated && this.isAnimator && this.myOrganisationId === tempLive.organisation.id)) {
 					this.live = tempLive;
+				}else{
+					this.$emit('deleteItem', this.item);
 				}
 			}
 		},

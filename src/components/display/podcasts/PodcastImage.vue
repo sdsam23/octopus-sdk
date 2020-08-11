@@ -203,14 +203,12 @@ export default {
     statusText(){
 			if(this.fetchConference){
 				switch (this.fetchConference.status) {
-					case "PREPARING":
-            if(this.isAnimatorLive){
+					case "PENDING":
+             if(this.isAnimatorLive){
               return this.$t("Open studio");
             }else{
-              return "";
+              return this.$t('live upcoming');
             }
-					case "PENDING":
-						return this.$t('live upcoming');
 					case "RECORDING":
 						return this.$t("In live");
 					case "DEBRIEFING":
