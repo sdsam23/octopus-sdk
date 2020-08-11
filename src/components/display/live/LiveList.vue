@@ -145,9 +145,9 @@ export default {
         let dataLivesToBe = await studioApi.listConferences(this.$store, true, this.filterOrga, 'PENDING');
         let dataLivesPlanned = await studioApi.listConferences(this.$store, true, this.filterOrga, 'PLANNED');
         this.livesToBe = dataLivesToBe.concat(dataLivesPlanned).filter((p)=>{return p!== null;});
-        let dataLivesTerminated = await studioApi.listConferences(this.$store, true, this.filterOrga, 'DEBRIEFING');
-        this.livesTerminated = dataLivesTerminated.filter((p)=>{return p!== null;});
         if(this.organisationRight){
+          let dataLivesTerminated = await studioApi.listConferences(this.$store, true, this.filterOrga, 'DEBRIEFING');
+          this.livesTerminated = dataLivesTerminated.filter((p)=>{return p!== null;});
           let dataLivesError = await studioApi.listConferences(this.$store, true, this.filterOrga, 'ERROR');
           this.livesError = dataLivesError.filter((p)=>{return p!== null;});
         }

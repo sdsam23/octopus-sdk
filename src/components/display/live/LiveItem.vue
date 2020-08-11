@@ -87,9 +87,6 @@
 .planned-bg {
 	background: #f09653;
 }
-.preparing-bg {
-	background: #f09653;
-}
 .pending-bg {
 	background: #f1643e;
 }

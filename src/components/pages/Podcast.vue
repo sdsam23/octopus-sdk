@@ -178,6 +178,7 @@ export default {
   async mounted() {
     await this.getPodcastDetails(this.podcastId);
     if(this.isLive && this.podcast.processingStatus === 'READY_TO_RECORD'){
+      this.$emit('initConferenceId',this.podcast.conferenceId);
       if(this.isOctopusAndAnimator){
         let data = await studioApi.getConference(this.$store, this.podcast.conferenceId);
         if(data.data !== ""){
@@ -192,7 +193,7 @@ export default {
     }
   },
 
-  props: ["podcastId", "playingPodcast"],
+  props: ["podcastId", "playingPodcast", "updateStatus"],
 
   data() {
     return {
@@ -331,7 +332,7 @@ export default {
       return this.podcast.conferenceId && this.podcast.conferenceId !== 0;
     },
     isCounter(){
-      return this.isLive && this.podcast.processingStatus === 'READY_TO_RECORD' && this.fetchConference && (this.fetchConference.status === 'PREPARING' ||this.fetchConference.status === 'PENDING');
+      return this.isLive && this.podcast.processingStatus === 'READY_TO_RECORD' && this.fetchConference && (this.fetchConference.status === 'PLANNED' ||this.fetchConference.status === 'PENDING');
     },
     isOctopusAndAnimator(){
       return !this.isPodcastmaker && this.editRight && (state.generalParameters.isAdmin || state.generalParameters.isAnimator);
@@ -347,14 +348,6 @@ export default {
       return moment(this.podcast.pubDate).diff(moment(), 'seconds');
     }
     
-  },
-
-  watch: {
-    podcastId(val) {
-      this.loaded = false;
-      this.error = false;
-      this.getPodcastDetails(val);
-    }
   },
 
   methods: {
@@ -413,6 +406,18 @@ export default {
         this.$router.push('/');
       }
     },
+  }, 
+  watch:{
+    updateStatus(){
+      if(this.fetchConference && this.fetchConference !== null){
+        this.fetchConference.status = this.updateStatus;
+      }
+    },
+    podcastId(val) {
+      this.loaded = false;
+      this.error = false;
+      this.getPodcastDetails(val);
+    }
   }
 };
 </script>
