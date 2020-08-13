@@ -4,7 +4,8 @@
     :style="{ 'background-image': 'url(\'' + podcast.imageUrl +'?dummy='+dummyParam+  '\')' }"
     v-if="podcast"
   >
-  <template v-if="podcast && podcast.availability.visibility">
+  <div class="live-image-status" :class="fetchConference && fetchConference!=='null' ? fetchConference.status.toLowerCase()+'-bg' : ''" v-if="fetchConference">{{statusText}}</div>
+  <template v-if="podcast && (podcast.availability.visibility ||podcast.processingStatus === 'READY_TO_RECORD')">
     <div class="podcast-image-play-button" v-on:click="play" v-if="hidePlay || recordingLive">
       <div class="icon-container">
         <div
@@ -37,7 +38,6 @@
       <div class="small-Text mt-2 font-weight-bold">{{textVisible}}</div>
     </div>
   </template>
-  <div class="live-image-status" :class="fetchConference && fetchConference!=='null' ? fetchConference.status.toLowerCase()+'-bg' : ''" v-if="fetchConference">{{statusText}}</div>
   </div>
 </template>
 

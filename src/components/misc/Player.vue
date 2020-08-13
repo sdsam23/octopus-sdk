@@ -201,6 +201,7 @@ export default {
       saveCookie : undefined,
       playerError: false,
       listenError: false,
+      nbTry: 0,
     };
   },
 
@@ -459,16 +460,18 @@ export default {
         let audioSrc = state.podcastPage.hlsUri+'stream/dev.'+this.live.conferenceId+'/index.m3u8';
         this.initHls(audio, audioSrc);
         setTimeout(()=>{
-          if(audio.readyState === 0) {
+          if(audio.readyState === 0 && this.nbTry < 5) {
+            this.nbTry++;
             this.playLive();
           }
-        }, 5000);
+        }, 3000);
         
     },
   },
   watch: {
     async live(){
       if(this.live){
+        this.nbTry = 0;
         this.playLive();
       }
     },

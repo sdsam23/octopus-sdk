@@ -237,3 +237,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.18.8 Amélioration du live
  * 0.18.9 Amélioration du live
  * 0.18.10 Amélioration du live
+ * 0.18.11 Amélioration du live

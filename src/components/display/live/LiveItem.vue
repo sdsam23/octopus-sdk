@@ -123,6 +123,7 @@ const humanizeDuration = require('humanize-duration');
 /* import podcastApi from '@/api/podcasts'; */
 import octopusApi from "@saooti/octopus-api";
 import PodcastImage from "../podcasts/PodcastImage.vue";
+import studioApi from '@/api/studio';
 import RecordingItemButton from "@/components/display/studio/RecordingItemButton.vue";
 
 export default {
@@ -215,11 +216,11 @@ export default {
 		},
 		async fetchPodcastData(){
 			if(this.fetchConference && this.fetchConference.podcastId){
-				let tempLive = await octopusApi.fetchPodcast(this.fetchConference.podcastId);
-				if (tempLive.availability.visibility || (this.authenticated && this.isAnimator && this.myOrganisationId === tempLive.organisation.id)) {
-					this.live = tempLive;
-				}else{
-					this.$emit('deleteItem', this.item);
+				try {
+					this.live = await octopusApi.fetchPodcast(this.fetchConference.podcastId);
+				} catch {
+					this.$emit('deleteItem', this.index);
+					studioApi.deleteConference(this.$store, this.fetchConference.conferenceId);
 				}
 			}
 		},
