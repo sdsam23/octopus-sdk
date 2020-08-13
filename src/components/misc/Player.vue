@@ -215,10 +215,12 @@ export default {
     window.addEventListener('beforeunload', this.endListeningProgress);
     this.$store.watch((state) => state.player.status, (newValue) => {
       const audioPlayer = document.querySelector('#audio-player');
-      if(newValue === 'PAUSED'){
-        audioPlayer.pause();
-      } else{
-        audioPlayer.play();
+      if(audioPlayer){
+        if(newValue === 'PAUSED'){
+          audioPlayer.pause();
+        } else{
+          audioPlayer.play();
+        }
       }
     })
   },
@@ -440,22 +442,34 @@ export default {
         this.lastSend = 0;
         this.listenTime = 0;
       }
-    }
+    },
+    initHls(audio, audioSrc){
+      if (Hls.isSupported()) {
+        var hls = new Hls();
+        hls.loadSource(audioSrc);
+        hls.attachMedia(audio);
+        hls.on(Hls.Events.MANIFEST_PARSED, async() =>{
+          await audio.play();
+          this.onPlay();
+        });
+      }
+    },
+    playLive(){
+        let audio = document.getElementById('audio-player');
+        let audioSrc = state.podcastPage.hlsUri+'stream/dev.'+this.live.conferenceId+'/index.m3u8';
+        this.initHls(audio, audioSrc);
+        setTimeout(()=>{
+          if(audio.readyState === 0) {
+            this.playLive();
+          }
+        }, 5000);
+        
+    },
   },
   watch: {
     async live(){
       if(this.live){
-        let audio = document.getElementById('audio-player');
-        let audioSrc = state.podcastPage.hlsUri+'stream/dev.'+this.live.conferenceId+'/index.m3u8';
-        if (Hls.isSupported()) {
-          var hls = new Hls();
-          hls.loadSource(audioSrc);
-          hls.attachMedia(audio);
-          hls.on(Hls.Events.MANIFEST_PARSED, async() =>{
-            await audio.play();
-            this.onPlay();
-          });
-        } 
+        this.playLive();
       }
     },
     playerHeight(newVal){

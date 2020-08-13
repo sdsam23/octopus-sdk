@@ -10,9 +10,9 @@
           :podcast="podcast" :live="true" 
           :recording="fetchConference" 
           @deleteItem="removeDeleted"
-          v-if="!!fetchConference && isLive && podcast.processingStatus === 'READY_TO_RECORD' && isOctopusAndAnimator"
+          v-if="!!fetchConference && isLiveReadyToRecord && !isNotRecorded && isOctopusAndAnimator"
           ></RecordingItemButton>
-          <EditBox :podcast="podcast" v-else-if="!(isLive && podcast.processingStatus === 'READY_TO_RECORD') && editRight && isEditBox" :isReady='isReady'></EditBox>
+          <EditBox :podcast="podcast" v-else-if="editRight && isEditBox" :isReady='isReady'></EditBox>
           <div class="module-box">
             <h2 class="text-uppercase font-weight-bold title-page-podcast" v-if="!isOuestFrance">{{ this.podcast.title }}</h2>
             <router-link 
@@ -21,22 +21,21 @@
               <h1>{{ this.podcast.emission.name }}</h1>
             </router-link>
             <div class="mb-5 mt-3 d-flex">
-              <div>
+              <div class="w-100">
               <PodcastImage
-                :class="[!isOuestFrance && !(isLive && podcast.processingStatus === 'READY_TO_RECORD') ? 'shadow-element':'', 
-                (isLive && podcast.processingStatus === 'READY_TO_RECORD')?'live-box-shadow':'']"
+                :class="[!isOuestFrance && !isLiveReadyToRecord ? 'shadow-element':'',isLiveReadyToRecord && fetchConference && fetchConference != 'null' && fetchConference.status ? fetchConference.status.toLowerCase()+'-shadow' : '']"
                 class="mr-3" 
                 v-bind:podcast="podcast" 
-                :hidePlay='!(isLive && podcast.processingStatus === "READY_TO_RECORD")'
+                :hidePlay='!isLiveReadyToRecord'
                 :playingPodcast='playingPodcast' 
                 @playPodcast='playPodcast'
                 :fetchConference="fetchConference"
                 :isAnimatorLive="isOctopusAndAnimator"/>
                 <h3 v-if="isOuestFrance">{{ this.podcast.title }}</h3>
-                <div class="date-text-zone">
-                  <div class="mr-5" v-if="!isOuestFrance && date.length !==0">{{ date }}</div>
-                  <div :class="isLive && podcast.processingStatus !=='READY_TO_RECORD'? 'mr-5':''"><span class="saooti-clock3" v-if="isOuestFrance"></span>{{ $t('Duration', { duration: duration }) }}</div>
-                  <div class="text-danger" v-if="isLive && podcast.processingStatus !=='READY_TO_RECORD'">{{$t('Episode record in live')}}</div>
+                <div class="date-text-zone" :class="isLiveReady?'justify-content-between':''">
+                  <div :class="!isLiveReady?'mr-5':''" v-if="!isOuestFrance && date.length !==0">{{ date }}</div>
+                  <div><span class="saooti-clock3" v-if="isOuestFrance"></span>{{ $t('Duration', { duration: duration }) }}</div>
+                  <div class="text-danger" v-if="isLiveReady">{{$t('Episode record in live')}}</div>
                 </div>
                 <div class="descriptionText" v-html="urlify(this.podcast.description)"></div>
                 <div class="mt-3 mb-3">
@@ -94,7 +93,7 @@
             :exclusive="exclusive"
             :notExclusive="notExclusive"
             :organisationId='organisationId'
-            v-if="isSharePlayer && (authenticated || notExclusive) && !(isLive && podcast.processingStatus === 'READY_TO_RECORD')"
+            v-if="isSharePlayer && (authenticated || notExclusive) && !isLiveReadyToRecord"
           ></SharePlayer>
           <ShareButtons :podcast="podcast" :notExclusive="notExclusive" v-if="isShareButtons"></ShareButtons>
         </div>
@@ -133,7 +132,6 @@
 .date-text-zone{
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-end;
   margin-bottom:1rem;
   @media (max-width: 600px) {
     display: initial;
@@ -177,7 +175,7 @@ export default {
 
   async mounted() {
     await this.getPodcastDetails(this.podcastId);
-    if(this.isLive && this.podcast.processingStatus === 'READY_TO_RECORD'){
+    if(this.isLiveReadyToRecord){
       this.$emit('initConferenceId',this.podcast.conferenceId);
       if(this.isOctopusAndAnimator){
         let data = await studioApi.getConference(this.$store, this.podcast.conferenceId);
@@ -328,17 +326,23 @@ export default {
       }
       return count;
     },
-    isLive(){
-      return this.podcast.conferenceId && this.podcast.conferenceId !== 0;
+    isLiveReadyToRecord(){
+      return this.podcast.conferenceId && this.podcast.conferenceId !== 0 && this.podcast.processingStatus === 'READY_TO_RECORD';
+    },
+    isLiveReady(){
+      return this.podcast.conferenceId && this.podcast.conferenceId !== 0 && this.podcast.processingStatus === 'READY';
     },
     isCounter(){
-      return this.isLive && this.podcast.processingStatus === 'READY_TO_RECORD' && this.fetchConference && (this.fetchConference.status === 'PLANNED' ||this.fetchConference.status === 'PENDING');
+      return this.isLiveReadyToRecord && this.fetchConference && (this.fetchConference.status === 'PLANNED' ||this.fetchConference.status === 'PENDING');
+    },
+    isNotRecorded(){
+      return this.isLiveReadyToRecord && this.fetchConference && this.fetchConference.status === 'DEBRIEFING';
     },
     isOctopusAndAnimator(){
       return !this.isPodcastmaker && this.editRight && (state.generalParameters.isAdmin || state.generalParameters.isAnimator);
     },
     titlePage(){
-      if(this.isLive){
+      if(this.isLiveReadyToRecord){
         return this.$t('Live episode');
       }else{
         return this.$t('Episode');

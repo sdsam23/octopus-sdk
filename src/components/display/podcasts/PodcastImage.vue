@@ -212,7 +212,15 @@ export default {
 					case "RECORDING":
 						return this.$t("In live");
 					case "DEBRIEFING":
-						return this.$t("Debriefing");
+            if(this.isAnimatorLive){
+              if(this.podcast.processingStatus === "READY_TO_RECORD"){
+                return this.$t("Not recording");
+              }else{
+                return this.$t("Debriefing");
+              }
+            }else{
+              return "";
+            }
 					default:
 						return "";
 				}

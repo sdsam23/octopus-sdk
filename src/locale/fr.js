@@ -476,5 +476,6 @@ export default {
     "Live to be":"À venir",
     "Live terminated":"Terminés",
     "Next live date":"Le prohain live sera le {date}",
+    "Not recording":"Non enregistré",
   };
   

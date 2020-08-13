@@ -7,7 +7,8 @@
     </router-link>
 		<router-link :to="{ name: 'podcast', params: {podcastId:live.podcastId}, query:{productor: $store.state.filter.organisationId}}">
 			<PodcastImage
-				class="live-box-shadow"
+				class="mr-3"
+				:class="fetchConference && fetchConference != 'null' && fetchConference.status ? fetchConference.status.toLowerCase()+'-shadow' : ''"
 				v-bind:podcast="live" 
 				:hidePlay='false'
 				:playingPodcast='false'
@@ -15,10 +16,10 @@
 				:isAnimatorLive="organisationRight"/>
 		</router-link>
 		<div class="d-flex flex-column live-special-width">
-			<router-link class="text-uppercase primary-color font-weight-bold text-truncate"
+			<router-link class="text-uppercase link-info text-truncate"
 			:to="{ name: 'podcast', params: {podcastId:live.podcastId}, query:{productor: $store.state.filter.organisationId}}"
 			>{{live.title}}</router-link>
-			<router-link class="primary-color font-weight-bold text-truncate"
+			<router-link class="link-info text-truncate"
         :to="{ name: 'emission', params: {emissionId:live.emission.emissionId}, query:{productor: $store.state.filter.organisationId}}"
 				>{{live.emission.name}}</router-link>
 			<div class="four-line-clamp" v-if="description" v-html="description">{{description}}</div>
@@ -65,10 +66,6 @@
 	color: white;
 	text-transform: uppercase;
 }
-.live-box-shadow{
-	margin: 0 1rem;
-	box-shadow: 0px 12px 48px 6px rgba(255, 132, 87, 0.5) !important;
-}
 .four-line-clamp{
 	display: block;
 	max-width: 100%;
@@ -101,6 +98,21 @@
 }
 .publishing-bg {
 	background: #7d7d7d;
+}
+.planned-shadow {
+	box-shadow: 0px 12px 48px 6px rgba(240, 151, 83, 0.2);
+}
+.pending-shadow {
+	box-shadow: 0px 12px 48px 6px rgba(241, 101, 62, 0.2);
+}
+.recording-shadow {
+	box-shadow: 0px 12px 48px 6px rgba(243, 74, 74, 0.2);
+}
+.debriefing-shadow {
+	box-shadow: 0px 12px 48px 6px rgba(110, 198, 110, 0.2);
+}
+.publishing-shadow {
+	box-shadow: 0px 12px 48px 6px rgba(125,125,125, 0.2);
 }
 </style>
 
