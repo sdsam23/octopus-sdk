@@ -226,7 +226,17 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.17.23 Placer l'icône de la certification ACPM sur Octopus
  * 0.17.24 Problème organisation chooser
 
-
-
-
-
+ * 0.18.0 Nouveau sprint
+ * 0.18.1 Mise en place du live
+ * 0.18.2 Page intervenant
+ * 0.18.3 Accessibilité Octopus
+ * 0.18.4 Partage pour newsletter
+ * 0.18.5 Partage pour newsletter -image en local
+ * 0.18.6 Début du live
+ * 0.18.7 Amélioration du live
+ * 0.18.8 Amélioration du live
+ * 0.18.9 Amélioration du live
+ * 0.18.10 Amélioration du live
+ * 0.18.11 Amélioration du live
+ * 0.18.12 RecordingItemButton false component
+ * 0.18.13 Amélioration du live
