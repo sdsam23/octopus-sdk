@@ -475,7 +475,7 @@ export default {
     "In a moment":"Dans quelques instants",
     "Live to be":"À venir",
     "Live terminated":"Terminés",
-    "Next live date":"Le prohain live sera le {date}",
+    "Next live date":"Le prochain live sera le {date}",
     "Not recording":"Non enregistré",
   };
   
