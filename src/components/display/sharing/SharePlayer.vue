@@ -17,7 +17,7 @@
           :height="iFrameHeight"
           class="maxIframe"
         ></iframe>
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column" v-if="!isLiveReadyToRecord">
           <button class="btn mb-3" @click="isShareModal = true;">{{ $t('Share the player') }}</button>
           <label for="iframe-select" class="d-inline" aria-label="select miniplayer"></label>
           <select v-model="iFrameModel" id="iframe-select" class="frame-select input-no-outline">
@@ -159,6 +159,9 @@ export default {
         }
       });
     }
+    if(this.isLiveReadyToRecord){
+      this.iFrameModel = "large";
+    }
   },
 
   data() {
@@ -173,6 +176,9 @@ export default {
     };
   },
   computed: {
+    isLiveReadyToRecord(){
+      return this.podcast.conferenceId && this.podcast.conferenceId !== 0 && this.podcast.processingStatus === 'READY_TO_RECORD';
+    },
     noAd() {
       if (
         (this.podcast &&

@@ -93,7 +93,7 @@
             :exclusive="exclusive"
             :notExclusive="notExclusive"
             :organisationId='organisationId'
-            v-if="isSharePlayer && (authenticated || notExclusive) && !isLiveReadyToRecord"
+            v-if="isSharePlayer && (authenticated || notExclusive)"
           ></SharePlayer>
           <ShareButtons :podcast="podcast" :notExclusive="notExclusive" v-if="isShareButtons"></ShareButtons>
         </div>

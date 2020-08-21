@@ -240,3 +240,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.18.11 Amélioration du live
  * 0.18.12 RecordingItemButton false component
  * 0.18.13 Amélioration du live
+
+ * 0.19.0 Nouveau sprint
