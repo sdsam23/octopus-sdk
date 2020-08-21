@@ -150,7 +150,6 @@
 </style>
 
 <script>
-import {state} from "../../../store/paramStore.js";
 import { mapState } from 'vuex';
 export default {
   name: 'PodcastImage',
@@ -246,18 +245,6 @@ export default {
       }else{
         this.$store.commit('playerPlayPodcast', this.podcast);
       }
-    },
-    playLive(){
-      let audio = document.getElementById('audio-hls');
-      let audioSrc = state.podcastPage.hlsUri+'stream/dev.'+this.fetchConference.conferenceId+'/index.m3u8';
-      if (Hls.isSupported()) {
-        var hls = new Hls();
-        hls.loadSource(audioSrc);
-        hls.attachMedia(audio);
-        hls.on(Hls.Events.MANIFEST_PARSED, function() {
-          audio.play();
-        });
-      } 
     },
     showDescription(){
       if(this.isDescription){
