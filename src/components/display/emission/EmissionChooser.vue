@@ -125,7 +125,7 @@ export default {
       this.$emit("selected", emission);
     },
 
-    onSearchEmission(query) {
+    async onSearchEmission(query) {
       this.isLoading = true;
       let standardParam = {
         query: query,
@@ -139,19 +139,16 @@ export default {
       } else {
         standardParam = {...standardParam, organisationId: this.organisationId};
       }
-      octopusApi
-        .fetchEmissions(standardParam)
-        .then(response => {
-          if (this.defaultanswer) {
-            this.emissions = [getDefaultEmission(this.defaultanswer)].concat(
-              response.result
-            );
-          } else {
-            this.emissions = response.result.concat();
-          }
-          this.isLoading = false;
-          this.remainingElements = Math.max(0, response.count - ELEMENTS_COUNT);
-        });
+      const response = await octopusApi.fetchEmissions(standardParam);
+      if (this.defaultanswer) {
+        this.emissions = [getDefaultEmission(this.defaultanswer)].concat(
+          response.result
+        );
+      } else {
+        this.emissions = response.result.concat();
+      }
+      this.isLoading = false;
+      this.remainingElements = Math.max(0, response.count - ELEMENTS_COUNT);
     },
 
     clearAll() {

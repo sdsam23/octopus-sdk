@@ -24,6 +24,7 @@ export default new Vuex.Store({
     filter:{
       organisationId: undefined,
       imgUrl: undefined,
+      live: false,
     },
     categories: [],
     categoriesOrga: [],
@@ -108,6 +109,10 @@ export default new Vuex.Store({
       if(filter.imgUrl || !filter.orgaId){
         state.filter.imgUrl = filter.imgUrl;
       }
+    },
+
+    filterOrgaLive(state, isLive){
+      state.filter.live = isLive;
     },
 
     categoriesSet(state, categories) {

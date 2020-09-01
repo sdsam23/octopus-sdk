@@ -137,7 +137,7 @@ export default {
     Swatches
   },
 
-  created() {
+  async created() {
     let orgaId = undefined;
     if(this.authenticated){
       if(this.podcast){
@@ -145,19 +145,17 @@ export default {
       }else{
         orgaId= this.emission.orga.id;
       }
-      profileApi.fetchOrganisationAttibutes(this.$store, orgaId)
-      .then(data => {
-        if(data.hasOwnProperty('COLOR')) {
-          this.color = data.COLOR;
-        } else {
-          this.color = "#40a372";
-        }
-        if(data.hasOwnProperty('THEME')) {
-          this.theme = data.THEME;
-        } else {
-          this.theme = "#ffffff";
-        }
-      });
+      const data = await profileApi.fetchOrganisationAttibutes(this.$store, orgaId);
+      if(data.hasOwnProperty('COLOR')) {
+        this.color = data.COLOR;
+      } else {
+        this.color = "#40a372";
+      }
+      if(data.hasOwnProperty('THEME')) {
+        this.theme = data.THEME;
+      } else {
+        this.theme = "#ffffff";
+      }
     }
   },
 

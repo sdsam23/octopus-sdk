@@ -104,12 +104,10 @@ export default {
     Multiselect,
   },
 
-  created() {
+  async created() {
     if(this.authenticated && this.$store.state.organisation.imageUrl === undefined){
-      octopusApi.fetchOrganisation(this.organisationId)
-      .then(data => {
-          this.myImage = data.imageUrl;
-      })
+      const data = await octopusApi.fetchOrganisation(this.organisationId)
+      this.myImage = data.imageUrl;
     }
     if(this.value){
       this.fetchOrganisation();
@@ -185,52 +183,47 @@ export default {
       this.$emit('selected', organisation);
     },
 
-    onSearchOrganisation(query) {
+    async onSearchOrganisation(query) {
       this.isLoading = true;
-      octopusApi
-        .fetchOrganisations( {
+      const response = await octopusApi.fetchOrganisations( {
           query: query,
           first: 0,
           size: ELEMENTS_COUNT,
-        })
-        .then(response => {
-          let notNull =response.result.filter((o)=>{
-            return o!== null;
-          });
-          if (this.defaultanswer) {
-            this.organisations = [
-              getDefaultOrganistion(this.defaultanswer),
-            ].concat(notNull);
-          } else {
-            this.organisations = notNull;
-          }
-          if(this.myOrganisation){
-            if(query === undefined){
-              this.organisations = this.organisations.filter(obj => {
-                return obj.id !== this.organisationId;
-              });
-              this.organisations.splice(1, 0, this.myOrganisation);
-            } else {
-              let foundIndex = this.organisations.findIndex(obj => obj.id === this.organisationId);
-              if(foundIndex){
-              this.organisations[foundIndex] = this.myOrganisation; 
-              }
-            }
-          }
-          this.isLoading = false;
-          this.remainingElements = Math.max(0, response.count - ELEMENTS_COUNT);
         });
+      let notNull =response.result.filter((o)=>{
+        return o!== null;
+      });
+      if (this.defaultanswer) {
+        this.organisations = [
+          getDefaultOrganistion(this.defaultanswer),
+        ].concat(notNull);
+      } else {
+        this.organisations = notNull;
+      }
+      if(this.myOrganisation){
+        if(query === undefined){
+          this.organisations = this.organisations.filter(obj => {
+            return obj.id !== this.organisationId;
+          });
+          this.organisations.splice(1, 0, this.myOrganisation);
+        } else {
+          let foundIndex = this.organisations.findIndex(obj => obj.id === this.organisationId);
+          if(foundIndex){
+          this.organisations[foundIndex] = this.myOrganisation; 
+          }
+        }
+      }
+      this.isLoading = false;
+      this.remainingElements = Math.max(0, response.count - ELEMENTS_COUNT);
     },
 
-    fetchOrganisation(){
+    async fetchOrganisation(){
       if(this.organisations.length ===0){
         this.onSearchOrganisation();
       }
-      octopusApi.fetchOrganisation(this.value)
-      .then(data => {
-          this.organisation = data;
-          this.init = true;
-      })
+      const data = await octopusApi.fetchOrganisation(this.value);
+      this.organisation = data;
+      this.init = true;
     },
 
     clearAll() {
