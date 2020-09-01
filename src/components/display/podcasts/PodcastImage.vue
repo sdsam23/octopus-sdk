@@ -5,7 +5,8 @@
     v-if="podcast"
   >
   <div class="live-image-status" :class="fetchConference && fetchConference!=='null' ? fetchConference.status.toLowerCase()+'-bg' : ''" v-if="fetchConference">{{statusText}}</div>
-  <template v-if="podcast && (podcast.availability.visibility ||podcast.processingStatus === 'READY_TO_RECORD')">
+  <div class="live-image-status recording-bg" v-if="isRecordedInLive">{{"Enregistré en live"}}</div>
+  <template v-if="podcast && (podcast.availability.visibility || (podcast.processingStatus === 'READY_TO_RECORD'))&& !isLiveToBeRecorded">
     <div class="podcast-image-play-button" v-on:click="play" v-if="hidePlay || recordingLive">
       <div class="icon-container">
         <div
@@ -155,7 +156,6 @@ export default {
   name: 'PodcastImage',
 
   props: ['podcast', 'hidePlay', 'displayDescription', 'arrowDirection', "fetchConference", "isAnimatorLive"],
-
   computed: {
     ...mapState({
       playingPodcast(state) {
@@ -169,8 +169,16 @@ export default {
     isMobile(){
       return window.matchMedia( "(hover: none)" ).matches;
     },
+    isRecordedInLive(){
+      return this.fetchConference === undefined && this.podcast.conferenceId !== undefined && this.podcast.processingStatus !== "READY_TO_RECORD";
+    },
+    isLiveToBeRecorded(){
+      return this.fetchConference === undefined && this.podcast.conferenceId !== undefined && this.podcast.processingStatus === "READY_TO_RECORD";
+    },
     imgUrl(){
-      if(this.podcast.processingStatus === "READY" || this.fetchConference){
+      if(this.isLiveToBeRecorded){
+        return "/img/clock.png";
+      }else if(this.podcast.processingStatus === "READY" || this.fetchConference){
         if(!this.podcast.availability.visibility && this.podcast.availability.date){
           return "/img/clock.png";
         }else{
@@ -185,7 +193,9 @@ export default {
       }
     },
     textVisible(){
-      if(this.podcast.processingStatus === "READY" || this.fetchConference){
+      if(this.isLiveToBeRecorded){
+        return this.$t("Podcast linked to waiting live");
+      }else if(this.podcast.processingStatus === "READY" || this.fetchConference){
         if(!this.podcast.availability.visibility && this.podcast.availability.date){
           return this.$t('Podcast publish in future');
         }else{

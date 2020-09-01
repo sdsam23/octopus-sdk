@@ -6,7 +6,7 @@
           <button class="btn btn-primary">{{ $t('Launch a new live') }}</button>
         </router-link>
     </div>
-		<LiveList/>
+		<LiveList @initConferenceIds="initConferenceIds" :conferenceWatched="conferenceWatched"/>
   </div>
 </template>
 <style lang="scss">
@@ -19,6 +19,9 @@ import LiveList from "../display/live/LiveList.vue";
 export default {
   components: {
 		LiveList
+  },
+  props:{
+    conferenceWatched: { default: [] }, 
   },
 
   created() {
@@ -54,6 +57,9 @@ export default {
   },
 
   methods:{
+    initConferenceIds(listIds){
+      this.$emit('initConferenceIds', listIds);
+    }
   }
 };
 </script>

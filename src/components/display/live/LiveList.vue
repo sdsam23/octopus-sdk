@@ -95,7 +95,8 @@ import {state} from "../../../store/paramStore.js";
 export default {
   name: 'LiveList',
 
-  props:  {
+  props:{
+    conferenceWatched: { default: [] }, 
   },
 
   components: {
@@ -181,6 +182,8 @@ export default {
         }
         this.loading = false;
         this.loaded = true;
+        let listIds= this.lives.concat(this.livesToBe);
+        this.$emit('initConferenceIds', listIds);
       }
     },
     deleteLive(index){
@@ -195,6 +198,30 @@ export default {
     deleteLiveError(index){
       this.livesError.splice(index,1);
     },
+    updateLiveLocal(){
+      for (let index = 0; index < this.conferenceWatched.length; index++) {
+        const element = this.conferenceWatched[index];
+        let indexLivesToBe = this.livesToBe.findIndex((el)=>el.conferenceId === element.conferenceId);
+        if(indexLivesToBe !== -1){
+          if(element.status === "RECORDING"){
+            let newConf = this.livesToBe[indexLivesToBe];
+            newConf.status = element.status;
+            this.livesToBe.splice(indexLivesToBe,1);
+            this.lives.push(newConf);
+            break;
+          }
+        }else{
+          let indexLives = this.lives.findIndex((el)=>el.conferenceId === element.conferenceId);
+          if(indexLives !== -1 && element.status === "DEBRIEFING"){
+            let newConf = this.lives[indexLives];
+            newConf.status = element.status;
+            this.lives.splice(indexLives,1);
+            this.livesTerminated.push(newConf);
+            break;
+          }
+        }
+      }
+    }
   },
 
   watch: {
@@ -203,6 +230,12 @@ export default {
         this.$router.push('/');
       }
     },
+    conferenceWatched:{
+      handler() {
+        this.updateLiveLocal();
+      },
+      deep:true,
+    }
   },
 };
 </script>

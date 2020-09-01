@@ -479,5 +479,7 @@ export default {
     "Not recording":"Non enregistré",
     "This live is not started yet":"Ce live n'a pas encore démarré",
     "A live can start any moment":"Un live peut démarrer de manière imminente",
+    "Recorded in live":"Enregistré en live",
+    "Podcast linked to waiting live":"Épisode associé à un live en attente",
   };
   
