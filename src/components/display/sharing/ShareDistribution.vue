@@ -93,8 +93,9 @@ export default {
   },
 
   methods: {
-    getEmissionDetails(emissionId) {
-      octopusApi.fetchEmission(emissionId).then(data => {
+    async getEmissionDetails(emissionId) {
+      try {
+        const data = await octopusApi.fetchEmission(emissionId);
         this.emission = data;
         this.loaded = true;
         if(this.emission.annotations){
@@ -106,11 +107,10 @@ export default {
             this.exclusive = this.exclusive && (this.organisationId !== this.emission.orga.id);
           }
         }
-      })
-      .catch(()=> {
+      } catch {
         this.error = true;
         this.loaded = true;
-      });
+      }
     },
     getRSS(){
       if (this.$props.emissionId && this.$props.emissionId > 0) {

@@ -184,16 +184,11 @@ export default {
   },
 
    methods:{
-    hasPodcast(){
-      octopusApi
-        .fetchPodcasts({
-          emissionId: this.emission.emissionId,
-        })
-        .then((data) => {
-          if(data.count === 0 && this.editRight){
-            this.activeEmission = false;
-          }
-        });
+    async hasPodcast(){
+      const data = await octopusApi.fetchPodcasts({emissionId: this.emission.emissionId,});
+      if(data.count === 0 && this.editRight){
+        this.activeEmission = false;
+      }
     }
   },
 };

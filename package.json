@@ -21,7 +21,7 @@
     "build_bundle": "vue-cli-service build --target lib --name octopus ./index.js"
   },
   "dependencies": {
-    "@saooti/octopus-api": "0.0.15",
+    "@saooti/octopus-api": "0.0.16",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.4.0",

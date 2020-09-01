@@ -22,7 +22,7 @@
         v-if="!isPodcastmaker"
         />
       <div class="d-flex align-items-center justify-content-center flex-grow">
-        <router-link v-if="isLiveTab && !isPodcastmaker && filterOrga"
+        <router-link v-if="isLiveTab && !isPodcastmaker && filterOrga && filterOrgaLive"
         :to="{ name: 'lives', query:{productor: $store.state.filter.organisationId}}"
         class="linkHover p-3 text-dark font-weight-bold">{{ $t('Live') }}</router-link>
         <router-link 
@@ -264,6 +264,7 @@
 <script>
 import {state} from "../../store/paramStore.js";
 import OrganisationChooserLight from '../display/organisation/OrganisationChooserLight.vue';
+import octopusApi from "@saooti/octopus-api";
 
 export default {
   name: "TopBar",
@@ -312,6 +313,9 @@ export default {
     filterOrga(){
       return this.$store.state.filter.organisationId;
     },
+    filterOrgaLive(){
+      return this.$store.state.filter.live;
+    },
     imgUrl(){
       if(this.$store.state.filter.imgUrl && !this.$store.state.filter.imgUrl.includes('emptypodcast')){
         return this.$store.state.filter.imgUrl;
@@ -359,12 +363,14 @@ export default {
       }
     },
 
-    onOrganisationSelected(organisation){
+    async onOrganisationSelected(organisation){
       if (organisation && organisation.id) {
         if(this.$route.query.productor !== organisation.id){
           this.$router.push({query: {productor: organisation.id}});
         }
         this.$store.commit('filterOrga', {orgaId: organisation.id, imgUrl: organisation.imageUrl});
+        const isLive = await octopusApi.liveEnabledOrganisation(organisation.id);
+        this.$store.commit('filterOrgaLive', isLive);
       } else {
         this.organisationId = undefined;
         if(this.$route.query.productor){
