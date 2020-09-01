@@ -477,5 +477,7 @@ export default {
     "Live terminated":"Terminés",
     "Next live date":"Le prochain live sera le {date}",
     "Not recording":"Non enregistré",
+    "Recorded in live":"Enregistré en live",
+    "Podcast linked to waiting live":"Épisode associé à un live en attente",
   };
   
