@@ -477,5 +477,7 @@ export default {
     "Live terminated":"Terminés",
     "Next live date":"Le prochain live sera le {date}",
     "Not recording":"Non enregistré",
+    "This live is not started yet":"Ce live n'a pas encore démarré",
+    "A live can start any moment":"Un live peut démarrer de manière imminente",
   };
   

@@ -22,6 +22,18 @@
         @deleteItem="deleteLive"
       />
     </template>
+    <template v-if="livesNotStarted.length">
+      <div class="horizontal-separator"></div>
+      <p class="live-list-category">{{$t('This live is not started yet')}}</p>
+      <LiveItem
+        class="mt-3"
+        v-for="(l, index) in livesNotStarted"
+        :fetchConference="l"
+        :key="l.podcastId"
+        :index="index"
+        @deleteItem="deleteLive"
+      />
+    </template>
     <template v-if="livesToBe.length">
       <div class="horizontal-separator"></div>
       <p class="live-list-category">{{$t('Live to be')}}</p>
@@ -99,6 +111,7 @@ export default {
       loading: true,
       loaded: true,
       lives: [],
+      livesNotStarted: [],
       livesToBe: [],
       livesTerminated: [],
       livesError: [],
@@ -110,8 +123,14 @@ export default {
       return this.$store.state.filter.organisationId;
     },
     displayNextLiveMessage(){
-      if(this.lives.length === 0 && this.livesToBe.length > 0){
-        return this.$t('Next live date',{date : moment(this.livesToBe[0].date).format('LLLL')});
+      if(this.lives.length === 0){
+        if(this.livesNotStarted.length > 0){
+          return this.$t('A live can start any moment');
+        }else if(this.livesToBe.length > 0){
+          return this.$t('Next live date',{date : moment(this.livesToBe[0].date).format('LLLL')});
+        }else{
+          return "";
+        }
       }else{
         return "";
       }
@@ -143,8 +162,17 @@ export default {
         let dataLives = await studioApi.listConferences(this.$store, true, this.filterOrga, 'RECORDING');
         this.lives = dataLives.filter((p)=>{return p!== null;});
         let dataLivesToBe = await studioApi.listConferences(this.$store, true, this.filterOrga, 'PENDING');
+        let indexPast = 0;
+        for (let index = 0; index < dataLivesToBe.length; index++) {
+          if(moment(dataLivesToBe[index].date).isBefore(moment())){
+            this.livesNotStarted.push(dataLivesToBe[index])
+          }else{
+            indexPast = index;
+            break;
+          }
+        }
         let dataLivesPlanned = await studioApi.listConferences(this.$store, true, this.filterOrga, 'PLANNED');
-        this.livesToBe = dataLivesToBe.concat(dataLivesPlanned).filter((p)=>{return p!== null;});
+        this.livesToBe = dataLivesToBe.slice(indexPast + 1).concat(dataLivesPlanned).filter((p)=>{return p!== null;});
         if(this.organisationRight){
           let dataLivesTerminated = await studioApi.listConferences(this.$store, true, this.filterOrga, 'DEBRIEFING');
           this.livesTerminated = dataLivesTerminated.filter((p)=>{return p!== null;});

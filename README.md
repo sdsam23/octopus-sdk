@@ -244,4 +244,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
  * 0.19.0 Nouveau sprint
  * 0.19.1 Merge de staging
+ * 0.19.2 Classement des live
 
