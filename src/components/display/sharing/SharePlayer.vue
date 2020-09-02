@@ -17,16 +17,18 @@
           :height="iFrameHeight"
           class="maxIframe"
         ></iframe>
-        <div class="d-flex flex-column" v-if="!isLiveReadyToRecord">
+        <div class="d-flex flex-column">
           <button class="btn mb-3" @click="isShareModal = true;">{{ $t('Share the player') }}</button>
-          <label for="iframe-select" class="d-inline" aria-label="select miniplayer"></label>
-          <select v-model="iFrameModel" id="iframe-select" class="frame-select input-no-outline">
-            <option value="default">{{$t('Default version')}}</option>
-            <option value="large">{{$t('Large version')}}</option>
-            <option value="emission" v-if="podcast && podcast.podcastId">{{$t('Emission version')}}</option>
-            <option value="largeEmission" v-if="podcast && podcast.podcastId">{{$t('Large emission version')}}</option>
-            <option value="largeSuggestion" v-if="podcast && podcast.podcastId">{{$t('Large suggestion version')}}</option>
-          </select>
+          <template v-if="!isLiveReadyToRecord">
+            <label for="iframe-select" class="d-inline" aria-label="select miniplayer"></label>
+            <select v-model="iFrameModel" id="iframe-select" class="frame-select input-no-outline">
+              <option value="default">{{$t('Default version')}}</option>
+              <option value="large">{{$t('Large version')}}</option>
+              <option value="emission" v-if="podcast && podcast.podcastId">{{$t('Emission version')}}</option>
+              <option value="largeEmission" v-if="podcast && podcast.podcastId">{{$t('Large emission version')}}</option>
+              <option value="largeSuggestion" v-if="podcast && podcast.podcastId">{{$t('Large suggestion version')}}</option>
+            </select>
+          </template>
         </div>
         <div class="d-flex justify-content-around mt-3 flex-grow w-100" >
           <div class="d-flex flex-column align-items-center flex-shrink mr-3">

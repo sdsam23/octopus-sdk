@@ -167,13 +167,14 @@ export default {
         for (let index = 0; index < dataLivesToBe.length; index++) {
           if(moment(dataLivesToBe[index].date).isBefore(moment())){
             this.livesNotStarted.push(dataLivesToBe[index])
+            indexPast = index;
           }else{
             indexPast = index;
             break;
           }
         }
         let dataLivesPlanned = await studioApi.listConferences(this.$store, true, this.filterOrga, 'PLANNED');
-        this.livesToBe = dataLivesToBe.slice(indexPast).concat(dataLivesPlanned).filter((p)=>{return p!== null;});
+        this.livesToBe = dataLivesToBe.slice(indexPast+1).concat(dataLivesPlanned).filter((p)=>{return p!== null;});
         if(this.organisationRight){
           let dataLivesTerminated = await studioApi.listConferences(this.$store, true, this.filterOrga, 'DEBRIEFING');
           this.livesTerminated = dataLivesTerminated.filter((p)=>{return p!== null;});
