@@ -247,5 +247,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.19.1 Merge de staging
  * 0.19.2 Classement des live
  * 0.19.3 Amélioration du live
-
+ * 0.19.4 Merge de staging
 
