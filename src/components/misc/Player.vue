@@ -82,7 +82,9 @@
           <div v-if="!playerError" v-show="!isBarTop" class="hide-phone">{{ playedTime }} / {{ totalTime }}</div>
         </div>
         <div class="progress c-hand" @mouseup="seekTo" style="height: 3px;" v-if="!playerError" v-show="!isBarTop">
+          <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" :style="'width: '+ percentLiveProgress + '%'"></div>
           <div class="progress-bar primary-bg" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" :style="'width: '+ percentProgress + '%'"></div>
+          <div class="progress-bar progress-bar-duration bg-danger" v-if="percentLiveProgress === 100" :style="'left: '+ durationLivePosition + '%'"></div>
         </div>
       </div>
       <div class="d-flex text-light align-items-center hide-phone" v-if="isClock">
@@ -134,9 +136,14 @@
   .progress{
     align-items: flex-end;
     height: 10px;
+    position: relative;
+  }
+  .progress-bar-duration{
+    width : 10px;
   }
   .progress-bar{
     height: 4px;
+    position: absolute;
   }
   .player-title, .hide-phone {
     font-size: 0.8rem;
@@ -202,6 +209,8 @@ export default {
       playerError: false,
       listenError: false,
       nbTry: 0,
+      percentLiveProgress: 0,
+      durationLivePosition: 0,
     };
   },
 
@@ -365,12 +374,14 @@ export default {
       const x = event.clientX - rect.left; //x position within the element.
 
       const percentPosition = x / barWidth;
-      const seekTime = this.$store.state.player.total * percentPosition;
-
-      if(this.podcast){
-        this.notListenTime = seekTime - this.listenTime;
+      console.log(percentPosition * 100,this.percentLiveProgress, this.$store.state.player.total);
+      if(!this.live || percentPosition * 100 < this.percentLiveProgress){
+        const seekTime = this.$store.state.player.total * percentPosition;
+        if(this.podcast){
+          this.notListenTime = seekTime - this.listenTime;
+        }
+        audioPlayer.currentTime = seekTime;
       }
-      audioPlayer.currentTime = seekTime;
     },
 
     onTimeUpdate(event) {
@@ -384,8 +395,18 @@ export default {
       const duration = event.currentTarget.duration;
       const currentTime = event.currentTarget.currentTime;
       if (duration && currentTime) {
-        this.$store.commit('playerTotalTime', duration);
-        this.$store.commit('playerElapsed', currentTime / duration);
+        if(this.live && (this.live.duration /1000) > duration){
+          this.percentLiveProgress = (duration / (this.live.duration/1000)) * 100;
+          this.$store.commit('playerTotalTime', this.live.duration / 1000);
+          this.$store.commit('playerElapsed', currentTime / (this.live.duration/1000));
+        }else{
+          if(this.live){
+            this.percentLiveProgress = 100;
+            this.durationLivePosition = ((this.live.duration/1000) / duration) * 100;
+          }
+          this.$store.commit('playerTotalTime', duration);
+          this.$store.commit('playerElapsed', currentTime / duration);
+        }
       }
     },
     onPlay() {
