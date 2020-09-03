@@ -242,7 +242,9 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.18.13 Amélioration du live
  * 0.18.14 async/await et Récupération de l'information "accès aux lives"
  * 0.18.15 Amélioration du live
- 
+ * 0.18.16 Problème modal avec emissionChooser
+ * 0.18.17 Problème modal avec categoryChooser et orgaChooser
+
  * 0.19.0 Nouveau sprint
  * 0.19.1 Merge de staging
  * 0.19.2 Classement des live
@@ -250,4 +252,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.19.4 Merge de staging
  * 0.19.5 Amélioration du live
  * 0.19.6 Amélioration du live (polling au lieu de websocket)
+
 
