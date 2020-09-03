@@ -72,7 +72,9 @@
         </div>
       </template>
       <template slot="noOptions">{{ $t('List is empty') }}</template>
-      <span v-if='!light' class="saooti-arrow_down octopus-arrow-down-2" :class="{'octopus-arrow-down-top' : stats}" slot="caret"></span>
+      <div class="position-relative" slot="caret" v-if='!light'>
+        <span class="saooti-arrow_down octopus-arrow-down-2" :class="{'octopus-arrow-down-top' : stats}"></span>
+      </div>
     </Multiselect>
   </div>
 </template>
