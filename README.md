@@ -242,3 +242,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.18.13 Amélioration du live
  * 0.18.14 async/await et Récupération de l'information "accès aux lives"
  * 0.18.15 Amélioration du live
+ * 0.18.16 Problème modal avec emissionChooser

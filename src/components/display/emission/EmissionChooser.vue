@@ -53,7 +53,9 @@
         </div>
       </template>
       <template slot="noOptions">{{ $t('List is empty') }}</template>
-      <span class="saooti-arrow_down octopus-arrow-down-2 octopus-arrow-down-top" slot="caret"></span>
+      <div class="position-relative" slot="caret">
+        <span class="saooti-arrow_down octopus-arrow-down-2 octopus-arrow-down-top"></span>
+      </div>
     </Multiselect>
   </div>
 </template>
