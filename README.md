@@ -249,4 +249,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.19.3 Amélioration du live
  * 0.19.4 Merge de staging
  * 0.19.5 Amélioration du live
+ * 0.19.6 Amélioration du live (polling au lieu de websocket)
 

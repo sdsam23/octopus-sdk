@@ -176,7 +176,6 @@ export default {
   async mounted() {
     await this.getPodcastDetails(this.podcastId);
     if(this.isLiveReadyToRecord){
-      this.$emit('initConferenceId',this.podcast.conferenceId);
       if(this.isOctopusAndAnimator){
         let data = await studioApi.getConference(this.$store, this.podcast.conferenceId);
         if(data.data !== ""){
@@ -187,6 +186,9 @@ export default {
       }else{
         let data = await studioApi.getRealConferenceStatus(this.$store, this.podcast.conferenceId);
         this.fetchConference = {status : data.data};
+      }
+      if(this.fetchConference !== "null" && this.fetchConference.status !=="PUBLISHING" && this.fetchConference.status !=="DEBRIEFING"){
+        this.$emit('initConferenceId',this.podcast.conferenceId);
       }
     }
   },
@@ -416,7 +418,8 @@ export default {
       if(this.fetchConference && this.fetchConference !== null){
         if(this.updateStatus !== "DEBRIEFING"){
           this.fetchConference.status = this.updateStatus;
-        }else if(this.fetchConference.status === "PUBLISHING"){
+        }
+        if(this.fetchConference.status === "PUBLISHING"){
           setTimeout(()=>{
             window.location.reload();
           }, 3000);
