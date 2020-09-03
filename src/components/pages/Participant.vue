@@ -134,7 +134,7 @@ export default {
 
   methods: {
     async getParticipantDetails() {
-      this.error = true;
+      this.loaded = false;
       try {
         const data = await octopusApi.fetchParticipant(this.participantId);
         this.participant = data;
