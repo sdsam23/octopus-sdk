@@ -31,7 +31,7 @@
         :fetchConference="l"
         :key="l.podcastId"
         :index="index"
-        @deleteItem="deleteLive"
+        @deleteItem="deleteLiveNotStarted"
       />
     </template>
     <template v-if="livesToBe.length">
@@ -197,6 +197,9 @@ export default {
     },
     deleteLiveError(index){
       this.livesError.splice(index,1);
+    },
+    deleteLiveNotStarted(index){
+      this.livesNotStarted.splice(index,1);
     },
     updateLiveLocal(){
       for (let index = 0; index < this.conferenceWatched.length; index++) {
