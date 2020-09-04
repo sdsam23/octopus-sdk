@@ -177,7 +177,11 @@ export default {
   },
   computed: {
     isLiveReadyToRecord(){
-      return this.podcast.conferenceId && this.podcast.conferenceId !== 0 && this.podcast.processingStatus === 'READY_TO_RECORD';
+      if(this.podcast){
+        return this.podcast.conferenceId && this.podcast.conferenceId !== 0 && this.podcast.processingStatus === 'READY_TO_RECORD';
+      }else{
+        return false;
+      }
     },
     noAd() {
       if (
