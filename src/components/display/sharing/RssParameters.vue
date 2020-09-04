@@ -9,7 +9,7 @@
             <div class="d-flex align-items-center mb-2">
               <div class="checkbox-saooti">  
                 <input type="checkbox" class="custom-control-input" id="episodeBeforeCheck" v-model="episodeBefore">  
-                <label class="custom-control-label" for="episodeBeforeCheck">{{$t('Not share episodes before')}}</label>  
+                <label class="custom-control-label sentence" for="episodeBeforeCheck">{{$t('Not share episodes before')}}</label>  
               </div>
               <input type="number" min="1" class="input-share-player input-no-outline text-center ml-1" v-model="numberEpisodeBefore"/>
               <b-form-radio v-model="typeEpisodeBefore" name="typeEpisodeBefore" value="d">{{$t('days')}}</b-form-radio>
@@ -18,7 +18,7 @@
             <div class="d-flex align-items-center">
               <div class="checkbox-saooti">  
                 <input type="checkbox" class="custom-control-input" id="episodeAfterCheck" v-model="episodeAfter">  
-                <label class="custom-control-label" for="episodeAfterCheck">{{$t('Not share episodes after')}}</label>  
+                <label class="custom-control-label sentence" for="episodeAfterCheck">{{$t('Not share episodes after')}}</label>  
               </div>
               <input type="number" min="1" class="input-share-player input-no-outline text-center ml-1" v-model="numberEpisodeAfter"/>
               <b-form-radio v-model="typeEpisodeAfter" name="typeEpisodeAfter" value="d">{{$t('days')}}</b-form-radio>
@@ -43,6 +43,15 @@
   .card-body {
     border: 0.05rem solid #eee;
     background-color: #fafafa;
+  }
+  input[type=number]{
+    width: 90px;
+  }
+  .custom-control-label.sentence{
+    width: 415px;
+    @media (max-width: 960px) {
+      width: auto;
+    }
   }
 }
 
