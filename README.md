@@ -245,3 +245,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.18.16 Problème modal avec emissionChooser
  * 0.18.17 Problème modal avec categoryChooser et orgaChooser
  * 0.18.18 Page participant ne s'affiche plus
+ * 0.18.19 Demandes d'évolution sur les fils RSS
