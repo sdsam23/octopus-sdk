@@ -40,6 +40,15 @@
   font-weight: 500;
   align-items: center;
   justify-content: space-between;
+  .saooti-tunin{
+    color: #36b4a7;
+  }
+  .saooti-radioline{
+    color: #2273b9;
+  }
+  .saooti-tootak{
+    color: #ff4d53;
+  }
   a {
     display: flex;
     align-items: center;

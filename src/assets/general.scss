@@ -49,9 +49,7 @@ h1,h2,h3,h4,h5,h6{
 .primary-dark{
   color: $octopus-primary-dark;
 }
-.text-secondary{
-  color: #646D73 !important;
-}
+
 .primary-bg{
   background: $octopus-primary-color;
 }
@@ -157,6 +155,9 @@ a.linkHover:hover{
   @media (max-width: 960px) {
     text-align: center;
   }
+}
+.box-share {
+  flex-grow: inherit;
 }
 .hide-phone{
   @media (max-width: 960px) {
