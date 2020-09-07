@@ -4,6 +4,8 @@ import Podcast from "./src/components/pages/Podcast.vue";
 import Podcasts from "./src/components/pages/Podcasts.vue";
 import Emission from "./src/components/pages/Emission.vue";
 import Emissions from "./src/components/pages/Emissions.vue";
+import Playlist from "./src/components/pages/Playlist.vue";
+import Playlists from "./src/components/pages/Playlists.vue";
 import Participant from "./src/components/pages/Participant.vue";
 import Participants from "./src/components/pages/Participants.vue";
 import Search from "./src/components/pages/Search.vue";
@@ -45,6 +47,8 @@ const components = {
     Podcasts,
     Emission,
     Emissions,
+    Playlist,
+    Playlists,
     Participant,
     Participants,
     Search,
@@ -76,6 +80,8 @@ export {
     Podcasts,
     Emission,
     Emissions,
+    Playlist,
+    Playlists,
     Participant,
     Participants,
     Search,

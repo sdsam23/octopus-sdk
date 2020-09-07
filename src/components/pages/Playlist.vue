@@ -120,6 +120,7 @@ export default {
       try {
         const data = await octopusApi.fetchEmission(playlistId);
         this.playlist = data;
+        this.$emit('playlistTitle', this.playlist.name);
         this.loaded = true;
       } catch {
         this.error = true;

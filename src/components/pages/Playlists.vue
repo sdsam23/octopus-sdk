@@ -1,6 +1,9 @@
 <template>
   <div class="page-box">
     <h1>{{ $t('All playlists') }}</h1>
+    <router-link to="/main/priv/edit/playlist" v-if="editRight && !isPodcastmaker" class="d-flex justify-content-center">
+      <button class="btn btn-primary">{{ $t('Create playlist') }}</button>
+    </router-link>
     <ProductorSearch 
       :organisationId.sync='organisationId' 
       :searchPattern='searchPattern'
@@ -60,6 +63,21 @@ export default {
     isProductorSearch(){
       return state.podcastsPage.ProductorSearch;
     },
+    organisationId(){
+      return state.generalParameters.organisationId;
+    },
+    authenticated(){
+      return state.generalParameters.authenticated;
+    },
+    isPodcastmaker(){
+      return state.generalParameters.podcastmaker;
+    },
+    editRight() {
+      if (this.authenticated && (this.$store.state.authentication.role.includes("PLAYLIST") || state.generalParameters.isAdmin)) {
+        return true;
+      }
+      return false;
+    }
   },
 
   methods:{
