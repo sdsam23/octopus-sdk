@@ -133,7 +133,9 @@ export default {
         return this.$t('Look for emission name');
       }else if(this.type === "participant"){
         return this.$t('Look for participant name');
-      } else{
+      }else if(this.type ==="playlist"){
+        return this.$t('Look for playlist name');
+      }else{
         return this.$t('Look for podcast name');
       }
     },

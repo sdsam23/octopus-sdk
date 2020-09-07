@@ -31,6 +31,9 @@
         :to="{ name: 'participants', query:{productor: $store.state.filter.organisationId}}"
         >{{ $t('Speakers') }}</router-link
       >
+      <router-link 
+        :to="{ name: 'playlists', query:{productor: $store.state.filter.organisationId}}"
+        class="linkHover p-3 text-dark font-weight-bold">{{ $t('Playlists') }}</router-link>
         <OrganisationChooserLight
         width="auto"
         :defaultanswer="$t('No organisation filter')"

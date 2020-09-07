@@ -481,5 +481,13 @@ export default {
     "A live can start any moment":"Un live peut démarrer de manière imminente",
     "Recorded in live":"Enregistré en live",
     "Podcast linked to waiting live":"Épisode associé à un live en attente",
+    Playlists:"Playlists",
+    Playlist: "Playlist",
+    'All playlists':'Toutes les playlists',
+    'Look for playlist name': 'Rechercher une playlist par nom',
+    'Number playlists' : '{nb} playlists',
+    'Playlist have not podcasts': "Cette playlist n'a pas d'épisodes",
+    "Playlist doesn't exist" : "La playlist demandée n'existe pas",
+    'Playlist name image': "Image de la playlist {name}",
   };
   

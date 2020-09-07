@@ -15,6 +15,8 @@ import SearchPage from '@/components/pages/Search.vue';
 import CategoryPage from '@/components/pages/Category.vue';
 import RubriquePage from '@/components/pages/Rubrique.vue';
 import LivesPage from '@/components/pages/Lives.vue';
+import PlaylistPage from '@/components/pages/Playlist.vue';
+import PlaylistsPage from '@/components/pages/Playlists.vue';
 
 Vue.use(VueRouter);
 
@@ -103,6 +105,18 @@ const routes = [
     path: '/main/pub/home', name:'productors', component: Home,
     props: () => ({
       productorId:0,
+    }),
+  },
+  { path: '/main/pub/playlists/:productor?', name:'playlists', component: PlaylistsPage,
+    props: route => ({
+      productor: route.params.productor,
+    })
+  },
+  {
+    path: '/main/pub/playlist/:playlistId/:productor?', name:'playlist', component: PlaylistPage,
+    props: route => ({
+      playlistId: parseInt(route.params.playlistId, 10),
+      productor: route.params.productor,
     }),
   },
 ];

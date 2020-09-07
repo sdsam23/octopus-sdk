@@ -35,6 +35,9 @@
         :to="{ name: 'participants', query:{productor: $store.state.filter.organisationId}}"
         class="linkHover p-3 text-dark font-weight-bold">{{ $t('Speakers') }}</router-link>
         <router-link 
+        :to="{ name: 'playlists', query:{productor: $store.state.filter.organisationId}}"
+        class="linkHover p-3 text-dark font-weight-bold">{{ $t('Playlists') }}</router-link>
+        <router-link 
         :to="{ name: 'productors', query:{productor: $store.state.filter.organisationId}}"
         class="linkHover p-3 text-dark font-weight-bold" v-if="!isPodcastmaker && !filterOrga">{{ $t('Productors') }}</router-link>
       </div>

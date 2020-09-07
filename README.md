@@ -256,6 +256,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.19.6 Amélioration du live (polling au lieu de websocket)
  * 0.19.7 Merge de staging
  * 0.19.8 Affichage des lives après suppression d'un épisode en état pending
+ * 0.19.9 Début des playlists
 
 
 
