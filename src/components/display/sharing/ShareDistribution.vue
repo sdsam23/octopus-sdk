@@ -32,7 +32,7 @@
 <style lang="scss">
 
 .sharing-distribution-container {
-  border: 0.05rem solid #eee;
+  border: 0.05rem solid #dee2e6;
   border-radius: 0.3rem;
   padding: 0.4rem;
   margin: 0.2rem 1rem;
@@ -40,6 +40,15 @@
   font-weight: 500;
   align-items: center;
   justify-content: space-between;
+  .saooti-tunin{
+    color: #36b4a7;
+  }
+  .saooti-radioline{
+    color: #2273b9;
+  }
+  .saooti-tootak{
+    color: #ff4d53;
+  }
   a {
     display: flex;
     align-items: center;
