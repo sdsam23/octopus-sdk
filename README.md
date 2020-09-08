@@ -258,6 +258,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.19.8 Affichage des lives après suppression d'un épisode en état pending
  * 0.19.9 Début des playlists
  * 0.19.10 Avancée playlists
+ * 0.19.11 Avancée playlists
 
 
 

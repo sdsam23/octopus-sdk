@@ -20,6 +20,7 @@
           <ShareButtons v-if="isShareButtons"></ShareButtons>
         </div>
       </div>
+      <PodcastList :playlist="playlist"/>
     </div>
     <div class="d-flex justify-content-center" v-if="!loaded">
       <div class="spinner-border mr-3"></div>
@@ -36,6 +37,7 @@
 // @ is an alias to /src
 import EditBox from "@/components/display/edit/EditBox.vue";
 import ShareButtons from "../display/sharing/ShareButtons.vue";
+import PodcastList from "../display/playlist/PodcastList.vue";
 import octopusApi from "@saooti/octopus-api";
 import {state} from "../../store/paramStore.js";
 
@@ -43,6 +45,7 @@ export default {
   components: {
     ShareButtons,
     EditBox,
+    PodcastList
   },
 
   mounted() {
