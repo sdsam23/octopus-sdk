@@ -9,7 +9,7 @@
   background: $octopus-light-secondary-color ;
   border: 0;
   border-radius: 50px;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   cursor: pointer;
   text-align: center;
   transition: background .2s, border .2s, box-shadow .2s, color .2s;
@@ -133,7 +133,6 @@
     &.active {
       background: darken($octopus-secondary-color, 5%);
       color: $octopus-primary-color;
-      border-bottom: 2px solid transparent;
     }
     @media (max-width: 500px){
       margin: 0.3rem;
