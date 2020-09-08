@@ -17,11 +17,9 @@
           </div>
         </div>
         <div class="d-flex flex-column share-container">
-          <!-- <SharePlayer :emission="playlist" :exclusive="exclusive" :notExclusive="notExclusive" :organisationId='organisationId' v-if="isSharePlayer && (authenticated || notExclusive)"></SharePlayer> -->
           <ShareButtons v-if="isShareButtons"></ShareButtons>
         </div>
       </div>
-      <!-- <PodcastFilterList :emissionId="playlistId" :editRight='editRight' :productorId='playlist.orga.id' @fetch="fetch"/> -->
     </div>
     <div class="d-flex justify-content-center" v-if="!loaded">
       <div class="spinner-border mr-3"></div>
@@ -37,22 +35,18 @@
 <script>
 // @ is an alias to /src
 import EditBox from "@/components/display/edit/EditBox.vue";
-/* import SharePlayer from '../display/sharing/SharePlayer.vue'; */
 import ShareButtons from "../display/sharing/ShareButtons.vue";
-/* import PodcastFilterList from '../display/podcasts/PodcastFilterList.vue'; */
 import octopusApi from "@saooti/octopus-api";
 import {state} from "../../store/paramStore.js";
 
 export default {
   components: {
-    /* PodcastFilterList, */
-    /* SharePlayer, */
     ShareButtons,
     EditBox,
   },
 
   mounted() {
-    this.getPlaylistDetails(this.playlistId);
+    this.getPlaylistDetails();
   },
 
   props: ["playlistId"],
@@ -83,7 +77,7 @@ export default {
       return state.podcastPage.SharePlayer;
     },
     name() {
-      return this.playlist ? this.playlist.name : "";
+      return this.playlist ? this.playlist.title : "";
     },
 
     imageUrl() {
@@ -96,7 +90,7 @@ export default {
 
     editRight() {
       if (this.authenticated) {
-        if (this.organisationId === this.playlist.orga.id && this.$store.state.authentication.role.includes("PLAYLIST")) {
+        if (this.organisationId === this.playlist.organisation.id && this.$store.state.authentication.role.includes("PLAYLIST")) {
           return true;
         }
         if (state.generalParameters.isAdmin) {
@@ -116,11 +110,11 @@ export default {
   },
 
   methods: {
-    async getPlaylistDetails(playlistId) {
+    async getPlaylistDetails() {
       try {
-        const data = await octopusApi.fetchEmission(playlistId);
+        const data = await octopusApi.fetchPlaylist(this.playlistId);
         this.playlist = data;
-        this.$emit('playlistTitle', this.playlist.name);
+        this.$emit('playlistTitle', this.playlist.title);
         this.loaded = true;
       } catch {
         this.error = true;

@@ -87,6 +87,7 @@ export default {
       if (reset) {
         this.loading = true;
         this.loaded = false;
+        this.dfirst = 0;
       }
       let param = {
         first: this.dfirst,

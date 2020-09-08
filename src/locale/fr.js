@@ -490,5 +490,7 @@ export default {
     "Playlist doesn't exist" : "La playlist demandée n'existe pas",
     'Playlist name image': "Image de la playlist {name}",
     'Create playlist':"Créer une playlist",
+    'Podcasts in the playlist':"Tous les épisodes de la playlist",
+    'No podcasts in the playlist':"La playlist ne contient pas d'épisodes",
   };
   

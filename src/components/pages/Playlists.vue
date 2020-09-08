@@ -82,9 +82,6 @@ export default {
 
   methods:{
     updateOrganisationId(value){
-      this.resetRubriquage = !this.resetRubriquage;
-      this.rubriquageId = undefined;
-      this.rubriqueId= undefined;
       this.organisationId = value;
     },
     updateSearchPattern(value){

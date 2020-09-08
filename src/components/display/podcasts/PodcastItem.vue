@@ -21,6 +21,7 @@
       >
         <div class="title-podcast-item">{{ title }}</div>
       </router-link>
+      <div class="d-flex justify-content-between">
       <router-link
         v-if="!isPodcastmaker"
         :to="{ name: 'productor', params: {productorId:podcast.organisation.id}, query:{productor: $store.state.filter.organisationId}}"
@@ -28,6 +29,8 @@
       >
         <div>{{ '© ' + podcast.organisation.name }}</div>
       </router-link>
+      <span class="saooti-star-bounty text-danger pr-2" v-if="podcast.order && podcast.order > 1"></span>
+      </div>
     </div>
   </li>
 </template>
@@ -46,6 +49,9 @@
   flex-shrink: 0;
    .text-secondary {
     margin: 0.5rem !important;
+  }
+  .saooti-star-bounty{
+    font-size: 22px;
   }
 
   .title-podcast-item {
