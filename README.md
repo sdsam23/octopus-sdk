@@ -200,6 +200,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.16.15 Les durées sont arrondies
  * 0.16.16 Player en erreur
  
+ * 16.0.0 Nouvelle version
+
  * 0.17.0 Nouveau sprint
  * 0.17.1 Selenium : attributs d'élément
  * 0.17.2 Merge de staging
@@ -225,7 +227,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.17.22 Accessibilité Octopus
  * 0.17.23 Placer l'icône de la certification ACPM sur Octopus
  * 0.17.24 Problème organisation chooser
-
+ * 0.17.25 Add dummy param (cache issues)
+ 
  * 0.18.0 Nouveau sprint
  * 0.18.1 Mise en place du live
  * 0.18.2 Page intervenant
@@ -248,3 +251,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.18.19 Demandes d'évolution sur les fils RSS
  * 0.18.20 Merge de staging fabien
  * 0.18.21 Merge de staging fabien
+ 
+
+
+
+
