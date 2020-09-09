@@ -71,6 +71,7 @@ export default {
 			displayParticipantsNames: true,
 			displayEmissionName: true,
 			color: "#40a372",
+			dummyParam : new Date().getTime().toString(),
     };
   },
 
@@ -89,7 +90,7 @@ export default {
 						text +=`<table width='100%' style="width:100%;background: #f3f3f3;font-family: Arial, sans-serif;font-size: 12px;line-height: 20px;">
 						<tr>
 							<td width="90" rowspan="2" style="text-align:left; vertical-align: top; width: 90px;padding:0 15px 15px 15px">
-								<img width="72"  style="width: 72px;height: 72px;border-radius: 50%;background-color: #fff;" src="`+element.imageUrl+`" alt="`+this.$t('Animator image')+`">
+								<img width="72"  style="width: 72px;height: 72px;border-radius: 50%;background-color: #fff;" src="`+element.imageUrl+'?dummy='+this.dummyParam+`" alt="`+this.$t('Animator image')+`">
 							</td>
 							<td height="1" style="height: 1px;text-align:left; font-size: 14px;line-height:20px;vertical-align: top;font-weight: bold;padding-top: 20px;">`+this.getName(element)+`</td>
 						</tr>`;
@@ -111,7 +112,7 @@ export default {
 				let html = `<table style="background:#f3f3f3;font-family: Arial, sans-serif;font-size: 12px;line-height: 20px;">
 		<tr>
 				<td valign="top" rowspan="4" style="vertical-align: top; padding-right: 10px;">
-						<img width="140" height="140" src="`+this.podcast.imageUrl+`" alt="`+this.$t('Podcast image')+`" style="width: 140px;border-radius: 16px; box-shadow: 0px 12px 48px 6px rgba(64, 163, 114, 0.2);">
+						<img width="140" height="140" src="`+this.podcast.imageUrl+'?dummy='+this.dummyParam+`" alt="`+this.$t('Podcast image')+`" style="width: 140px;border-radius: 16px; box-shadow: 0px 12px 48px 6px rgba(64, 163, 114, 0.2);">
 				</td>
 				<td colspan="2" style="height: 1px;color: #666;font-size: 12px;line-height: 16px;padding-top:15px;">
 						<span>`+this.date+`</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="padding: 0 10px">`+this.$t('Duration', { duration: this.duration })+`</span>

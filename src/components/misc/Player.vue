@@ -295,7 +295,7 @@ export default {
       },
     }),
     podcastAudioURL(){
-      if (this.podcast || this.live) {
+      if (this.podcast ||this.live) {
         if(this.podcast && this.podcast.availability.visibility === false){
           return this.podcast.audioStorageUrl;
         }else{

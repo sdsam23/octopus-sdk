@@ -321,7 +321,8 @@ export default {
     },
     imgUrl(){
       if(this.$store.state.filter.imgUrl && !this.$store.state.filter.imgUrl.includes('emptypodcast')){
-        return this.$store.state.filter.imgUrl;
+        let dummy = new Date().getTime().toString();
+        return this.$store.state.filter.imgUrl +'?dummy='+dummy;
       }else{
         return undefined;
       }

@@ -87,7 +87,8 @@ export default {
     },
 
     imageUrl() {
-      return this.playlist ? this.playlist.imageUrl : "";
+      let dummy = new Date().getTime().toString();
+      return this.playlist ? this.playlist.imageUrl+'?dummy='+dummy : "";
     },
 
     description() {
