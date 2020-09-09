@@ -192,6 +192,7 @@ import DurationHelper from '../../helper/duration';
 import octopusApi from "@saooti/octopus-api";
 import Hls from 'hls.js';
 const moment = require('moment');
+const axios = require('axios');
 
 export default {
   name: 'Player',
@@ -294,20 +295,30 @@ export default {
       },
     }),
     podcastAudioURL(){
-      if (this.podcast) {
-        if(this.podcast.availability.visibility === false){
+      if (this.podcast || this.live) {
+        if(this.podcast && this.podcast.availability.visibility === false){
           return this.podcast.audioStorageUrl;
         }else{
           if(this.listenError){
             return this.podcast.audioStorageUrl;
           }else{
             let parameters = '?origin=octopus';
-            parameters += "&cookieName=player_"+this.podcast.podcastId
+            if(this.podcast){
+              parameters += "&cookieName=player_"+this.podcast.podcastId;
+            }else{
+              parameters += "&cookieName=player_"+this.live.livePodcastId;
+            }
             parameters +=
               this.$store.state.authentication && this.$store.state.authentication.organisationId
                 ? '&distributorId=' + this.$store.state.authentication.organisationId
                 : '';
-            return this.podcast.audioUrl + parameters;
+                //Live même si c'est déjà un podcast ? 
+            parameters += this.live ?'&live=true': '';
+            if(this.live){
+              return this.live.audioUrl + parameters;
+            }else{
+              return this.podcast.audioUrl + parameters;
+            }
           }
         }
       } else if(this.media){
@@ -478,16 +489,16 @@ export default {
       }
     },
     playLive(){
-        let audio = document.getElementById('audio-player');
-        let audioSrc = state.podcastPage.hlsUri+'stream/dev.'+this.live.conferenceId+'/index.m3u8';
-        this.initHls(audio, audioSrc);
-        setTimeout(()=>{
-          if(audio.readyState === 0 && this.nbTry < 5) {
-            this.nbTry++;
-            this.playLive();
-          }
-        }, 3000);
-        
+      axios.get(this.podcastAudioURL);
+      let audio = document.getElementById('audio-player');
+      let audioSrc = state.podcastPage.hlsUri+'stream/dev.'+this.live.conferenceId+'/index.m3u8';
+      this.initHls(audio, audioSrc);
+      setTimeout(()=>{
+        if(audio.readyState === 0 && this.nbTry < 5) {
+          this.nbTry++;
+          this.playLive();
+        }
+      }, 3000);
     },
   },
   watch: {
