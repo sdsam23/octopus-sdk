@@ -17,6 +17,7 @@
           </div>
         </div>
         <div class="d-flex flex-column share-container">
+          <SharePlayer :playlist="playlist" :organisationId='organisationId' v-if="isSharePlayer && authenticated"></SharePlayer>
           <ShareButtons v-if="isShareButtons"></ShareButtons>
         </div>
       </div>
@@ -37,6 +38,7 @@
 // @ is an alias to /src
 import EditBox from "@/components/display/edit/EditBox.vue";
 import ShareButtons from "../display/sharing/ShareButtons.vue";
+import SharePlayer from '../display/sharing/SharePlayer.vue';
 import PodcastList from "../display/playlist/PodcastList.vue";
 import octopusApi from "@saooti/octopus-api";
 import {state} from "../../store/paramStore.js";
@@ -45,7 +47,8 @@ export default {
   components: {
     ShareButtons,
     EditBox,
-    PodcastList
+    PodcastList,
+    SharePlayer
   },
 
   mounted() {

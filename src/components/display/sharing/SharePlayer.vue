@@ -43,7 +43,7 @@
             </div>
           </div> 
         </div>
-        <div class="d-flex flex-column align-items-center flex-grow" v-if="!podcast || iFrameModel === 'emission' || iFrameModel === 'largeEmission' || iFrameModel === 'largeSuggestion'">
+        <div class="d-flex flex-column align-items-center flex-grow" v-if="(!podcast || iFrameModel === 'emission' || iFrameModel === 'largeEmission' || iFrameModel === 'largeSuggestion') && !playlist">
         <div class="d-flex align-items-center w-100 flex-wrap mt-3" v-if="!podcast || iFrameModel === 'emission' || iFrameModel === 'largeEmission'">
           <b-form-radio v-model="episodeNumbers" name="episodeNumbers" value="all" ></b-form-radio>
           <span class="flex-shrink">{{ $t('Show every episode') }}</span>
@@ -132,7 +132,7 @@ import "vue-swatches/dist/vue-swatches.min.css";
 import profileApi from '@/api/profile';
 
 export default {
-  props: ["podcast", "emission", "organisationId", "exclusive", "notExclusive"],
+  props: ["podcast", "emission", "organisationId", "exclusive", "notExclusive", "playlist"],
 
   components: {
     ShareModalPlayer,
@@ -144,6 +144,8 @@ export default {
     if(this.authenticated){
       if(this.podcast){
         orgaId= this.podcast.organisation.id;
+      }else if(this.playlist){
+        orgaId= this.playlist.organisation.id;
       }else{
         orgaId= this.emission.orga.id;
       }
@@ -206,13 +208,19 @@ export default {
       if((!this.podcast || this.iFrameModel === "emission" || this.iFrameModel === "largeEmission") && this.episodeNumbers === "all"){
         iFrameNumber = "/0";
       }
-      if (!this.podcast) {
+      if (!this.podcast && !this.playlist) {
         if (this.iFrameModel === "default") {
           url = `${state.podcastPage.MiniplayerUri}miniplayer/emission/${this.emission.emissionId}${iFrameNumber}`;
         } else {
           url = `${state.podcastPage.MiniplayerUri}miniplayer/emissionLarge/${this.emission.emissionId}${iFrameNumber}`;
         }
-      } else {
+      }else if(this.playlist){
+        if (this.iFrameModel === "default") {
+          url = `${state.podcastPage.MiniplayerUri}miniplayer/playlist/${this.playlist.playlistId}`;
+        } else {
+          url = `${state.podcastPage.MiniplayerUri}miniplayer/playlistLarge/${this.playlist.playlistId}`;
+        }
+      }else {
         if (
           this.iFrameModel === "emission" ||
           this.iFrameModel === "largeEmission"

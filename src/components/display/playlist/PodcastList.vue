@@ -97,13 +97,17 @@ export default {
       this.loading = true;
       this.loaded = false;
       let content = await octopusApi.fetchPlaylistContent(this.playlist.playlistId);
-			for (const property in this.playlist.podcasts) {
+      for (let index = 0; index < content.length; index++) {
+        content[index].order = this.playlist.podcasts[content[index].podcastId];
+      }
+      this.podcasts = content;
+		/* 	for (const property in this.playlist.podcasts) {
 				const index = content.findIndex(element => element.podcastId === parseInt(property,10));
 				if(index !== -1){
 					this.podcasts.push({...content[index], ...{order: this.playlist.podcasts[property]}});
 				}
 			}
-      this.podcasts.sort((a, b) => parseFloat(b.order) - parseFloat(a.order));
+      this.podcasts.sort((a, b) => parseFloat(b.order) - parseFloat(a.order)); */
       this.podcastsQuery = this.podcasts;
       this.loading = false;
       this.loaded = true;

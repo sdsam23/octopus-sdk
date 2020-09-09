@@ -47,6 +47,8 @@ export default {
     }
     if (this.$route.query.productor) {
       this.$data.organisationId = this.$route.query.productor;
+    }else if (this.$store.state.filter.organisationId) {
+      this.$data.organisationId = this.$store.state.filter.organisationId;
     }
   },
 
@@ -62,9 +64,6 @@ export default {
   computed:{
     isProductorSearch(){
       return state.podcastsPage.ProductorSearch;
-    },
-    organisationId(){
-      return state.generalParameters.organisationId;
     },
     authenticated(){
       return state.generalParameters.authenticated;

@@ -37,7 +37,6 @@ export default {
 
   data() {
     return {
-      activePlaylist: true,
       dummyParam : new Date().getTime().toString(),
     };
   },
