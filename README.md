@@ -251,6 +251,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.18.19 Demandes d'évolution sur les fils RSS
  * 0.18.20 Merge de staging fabien
  * 0.18.21 Merge de staging fabien
+ * 0.18.22 Modif de style
  
 
 
