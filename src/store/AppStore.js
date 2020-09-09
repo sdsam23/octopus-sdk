@@ -14,6 +14,7 @@ export default new Vuex.Store({
       total: 0,
       media : undefined,
       live: undefined,
+      stop: undefined,
     },
     authentication:{
       isAuthenticated : true,
@@ -80,6 +81,9 @@ export default new Vuex.Store({
               live:podcast,
               elapsed: 0,
             };
+          }
+          if(podcast.isStop){
+            state.player.stop = true;
           }
         }
       }

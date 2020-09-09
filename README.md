@@ -259,6 +259,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.19.9 Début des playlists
  * 0.19.10 Avancée playlists
  * 0.19.11 Avancée playlists
+ * 0.19.12 Avancée playlists
 
 
 

@@ -66,7 +66,7 @@
         ></div>
       </div>
       <div
-        v-if="(status=== 'PLAYING' || status=== 'PAUSED')&& media"
+        v-if="(status=== 'PLAYING' || status=== 'PAUSED')&& (media|| isStop)"
         class="play-button-box primary-bg text-light"
         @click="stopPlayer"
       >
@@ -262,6 +262,7 @@ export default {
       media: state => state.player.media,
       live: state => state.player.live,
       volume: state => state.player.volume,
+      isStop: state => state.player.stop,
 
       podcastImage: state => {
         if (state.player.podcast) {

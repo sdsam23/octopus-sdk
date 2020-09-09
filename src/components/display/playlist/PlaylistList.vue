@@ -85,6 +85,7 @@ export default {
   methods: {
     async fetchContent(reset) {
       if (reset) {
+        this.dfirst = 0;
         this.loading = true;
         this.loaded = false;
       }
