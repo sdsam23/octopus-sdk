@@ -80,7 +80,6 @@ export default {
       exclusive: false,
       notExclusive: false,
       isReady: true,
-      dummyParam : new Date().getTime().toString(),
     };
   },
 
@@ -118,7 +117,7 @@ export default {
     },
 
     imageUrl() {
-      return this.emission ? this.emission.imageUrl+'?dummy='+this.dummyParam : "";
+      return this.emission ? this.emission.imageUrl : "";
     },
 
     description() {

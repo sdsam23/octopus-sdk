@@ -294,7 +294,6 @@ export default {
       organisationId:undefined,
       reset: false,
       init: false,
-      dummyParam : new Date().getTime().toString(),
     };
   },
 
@@ -319,7 +318,7 @@ export default {
     },
     imgUrl(){
       if(this.$store.state.filter.imgUrl && !this.$store.state.filter.imgUrl.includes('emptypodcast')){
-        return this.$store.state.filter.imgUrl+'?dummy='+this.dummyParam;
+        return this.$store.state.filter.imgUrl;
       }else{
         return undefined;
       }

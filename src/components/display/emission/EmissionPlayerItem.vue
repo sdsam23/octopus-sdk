@@ -4,7 +4,7 @@
     :to="{ name: 'emission', params: {emissionId:emission.emissionId}, query:{productor: $store.state.filter.organisationId}}"
     class="d-flex flex-column text-dark">
       <div class="emissionPlayerItem-info" v-if="rubriqueName">{{rubriqueName}}</div>
-      <div class="img-box no-border-round" :style="{ 'background-image': 'url(\'' + emission.imageUrl +'?dummy='+dummyParam+ '\')' }"></div>
+      <div class="img-box no-border-round" :style="{ 'background-image': 'url(\'' + emission.imageUrl + '\')' }"></div>
       <div class="d-flex flex-column p-2">
           <div class="font-weight-bold text-uppercase text-ellipsis">{{emission.name}}</div>
           <div class="text-ellipsis" v-html="emission.description">{{emission.description}}</div>
@@ -94,7 +94,6 @@ export default {
     return {
       activeEmission: true,
       podcasts : [],
-      dummyParam : new Date().getTime().toString(),
     };
   },
 

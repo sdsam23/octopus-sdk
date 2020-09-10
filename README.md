@@ -252,6 +252,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.18.20 Merge de staging fabien
  * 0.18.21 Merge de staging fabien
  * 0.18.22 Modif de style
+ * 0.18.23 Enlever dummy parameters
  
 
 
