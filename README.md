@@ -268,6 +268,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.19.12 Avancée playlists
  * 0.19.13 Avancée playlists
  * 0.19.14 Live envoi taux de complétion
+ * 0.19.15 Live envoi taux de complétion
 
 
  

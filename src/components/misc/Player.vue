@@ -462,9 +462,11 @@ export default {
     loadDownloadId(index) {
       if(index < 5){
         setTimeout(()=>{
-          let cookiestring = RegExp("player_"+ this.$store.state.player.podcast.podcastId +"=[^;]+").exec(document.cookie);
+          let cookiestring;
           if(this.live){
             cookiestring = RegExp("player_"+ this.$store.state.player.live.livePodcastId +"=[^;]+").exec(document.cookie);
+          }else{
+            cookiestring = RegExp("player_"+ this.$store.state.player.podcast.podcastId +"=[^;]+").exec(document.cookie);
           }
           if(cookiestring !== null){
             this.downloadId = decodeURIComponent(cookiestring ? cookiestring.toString().replace(/^[^=]+./,"") : "");
