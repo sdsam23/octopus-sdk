@@ -386,10 +386,9 @@ export default {
       const x = event.clientX - rect.left; //x position within the element.
 
       const percentPosition = x / barWidth;
-      console.log(percentPosition * 100,this.percentLiveProgress, this.$store.state.player.total);
-      if(!this.live || percentPosition * 100 < this.percentLiveProgress){
+      if(percentPosition * 100 < this.percentLiveProgress){
         const seekTime = this.$store.state.player.total * percentPosition;
-        if(this.podcast){
+        if(this.podcast ||this.live){
           this.notListenTime = seekTime - this.listenTime;
         }
         audioPlayer.currentTime = seekTime;
@@ -397,12 +396,17 @@ export default {
     },
 
     onTimeUpdate(event) {
-      if(this.podcast){
+      if(this.podcast ||this.live){
         if(this.new){
           this.new = false;
           this.startListeningProgress();
         }
-        this.listenTime = event.currentTarget.currentTime - this.notListenTime;
+        if(this.live && this.listenTime === 0 && event.currentTarget.currentTime !==0){
+          this.notListenTime = event.currentTarget.currentTime;
+          this.listenTime = 1;
+        }else{
+          this.listenTime = event.currentTarget.currentTime - this.notListenTime;
+        }
       }
       const duration = event.currentTarget.duration;
       const currentTime = event.currentTarget.currentTime;
@@ -459,6 +463,9 @@ export default {
       if(index < 5){
         setTimeout(()=>{
           let cookiestring = RegExp("player_"+ this.$store.state.player.podcast.podcastId +"=[^;]+").exec(document.cookie);
+          if(this.live){
+            cookiestring = RegExp("player_"+ this.$store.state.player.live.livePodcastId +"=[^;]+").exec(document.cookie);
+          }
           if(cookiestring !== null){
             this.downloadId = decodeURIComponent(cookiestring ? cookiestring.toString().replace(/^[^=]+./,"") : "");
           } else{
@@ -521,7 +528,7 @@ export default {
       }
     },
     listenTime(newVal){
-      if(this.podcast && newVal - this.lastSend >= 10 && this.downloadId){
+      if((this.podcast||this.live) && newVal - this.lastSend >= 10 && this.downloadId){
         this.lastSend = newVal;
         octopusApi.updatePlayerTime(this.downloadId, Math.round(newVal));
       }
