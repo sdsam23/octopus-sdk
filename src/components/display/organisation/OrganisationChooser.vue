@@ -7,6 +7,7 @@
       label="name"
       track-by="organisationId"
       :placeholder="$t('Type string to filter by organisation')"
+      ref="multiselectRef"
       :options="organisations"
       :multiple="false"
       :searchable="true"
@@ -114,6 +115,10 @@ export default {
     if(this.value){
       this.fetchOrganisation();
     }
+  },
+
+  mounted(){
+    this.$refs.multiselectRef.$refs.search.setAttribute("autocomplete", "off");
   },
 
   props: { 

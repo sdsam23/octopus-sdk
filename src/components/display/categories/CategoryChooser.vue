@@ -7,6 +7,7 @@
       label="name"
       track-by="id"
       :placeholder="$t('Type string to filter by categories')"
+      ref="multiselectRef"
       :options="categories"
       :multiple="multiple"
       :searchable="true"
@@ -92,6 +93,7 @@ export default {
   },
 
   mounted() {
+    this.$refs.multiselectRef.$refs.search.setAttribute("autocomplete", "off");
     if(this.categorySelected !== undefined){
       this.initCategorySelected(this.categorySelected);
     }

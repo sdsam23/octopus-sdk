@@ -7,6 +7,7 @@
       label="name"
       track-by="emissionId"
       :placeholder="$t('Type string to filter by emission')"
+      ref="multiselectRef"
       :options="emissions"
       :multiple="false"
       :searchable="true"
@@ -93,6 +94,10 @@ export default {
     distributedBy: {default:undefined},
     organisationDistributedBy: {default:undefined},
     reset: {default: false},
+  },
+
+  mounted(){
+    this.$refs.multiselectRef.$refs.search.setAttribute("autocomplete", "off");
   },
 
   data() {

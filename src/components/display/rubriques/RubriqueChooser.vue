@@ -7,6 +7,7 @@
       label="name"
       track-by="rubriqueId"
       :placeholder="$t('Type string to filter by rubrics')"
+      ref="multiselectRef"
       :options="rubriques"
       :multiple="multiple"
       :searchable="true"
@@ -86,6 +87,7 @@ export default {
   },
 
   mounted() {
+    this.$refs.multiselectRef.$refs.search.setAttribute("autocomplete", "off");
     if(this.rubriqueSelected !== undefined){
       this.initRubriqueSelected(this.rubriqueSelected);
     }
