@@ -274,7 +274,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.19.14 Live envoi taux de complétion
  * 0.19.15 Live envoi taux de complétion
  * 0.19.16 Suppression autocomplétion pour les multiselects
-
+ * 0.19.17 Merge de staging
 
  
 
