@@ -256,6 +256,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.18.22 Modif de style
  * 0.18.23 Enlever dummy parameters
  * 0.18.24 Merge de prod
+ * 0.18.25 Bug-Fix : Wrong hls url used Cédric Clavier
  
 
 
