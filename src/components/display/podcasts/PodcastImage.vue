@@ -1,7 +1,7 @@
 <template>
   <div
     class="img-box d-flex flex-column justify-content-start align-items-start position-relative justify rounded-lg flex-shrink float-left"
-    :style="{ 'background-image': 'url(\'' + podcast.imageUrl +'?dummy='+dummyParam+  '\')' }"
+    :style="{ 'background-image': 'url(\'' + podcast.imageUrl +  '\')' }"
     v-if="podcast"
   >
   <div class="live-image-status" :class="fetchConference && fetchConference!=='null' ? fetchConference.status.toLowerCase()+'-bg' : ''" v-if="fetchConference">{{statusText}}</div>
@@ -244,7 +244,6 @@ export default {
   data() {
     return {
       isDescription : false,
-      dummyParam : new Date().getTime().toString(),
     };
   },
 

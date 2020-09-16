@@ -228,6 +228,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.17.23 Placer l'icône de la certification ACPM sur Octopus
  * 0.17.24 Problème organisation chooser
  * 0.17.25 Add dummy param (cache issues)
+ * 0.17.26 Renomer la popup "Partager le player" en "Integrer le player"
+ * 0.17.27 Erreur trim
  
  * 0.18.0 Nouveau sprint
  * 0.18.1 Mise en place du live
@@ -252,6 +254,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.18.20 Merge de staging fabien
  * 0.18.21 Merge de staging fabien
  * 0.18.22 Modif de style
+ * 0.18.23 Enlever dummy parameters
+ * 0.18.24 Merge de prod
  
  * 0.19.0 Nouveau sprint
  * 0.19.1 Merge de staging
@@ -273,6 +277,9 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
  
+
+ 
+
 
 
 

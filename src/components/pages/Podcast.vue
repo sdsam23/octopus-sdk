@@ -185,7 +185,7 @@ export default {
         }
       }else{
         let data = await studioApi.getRealConferenceStatus(this.$store, this.podcast.conferenceId);
-        this.fetchConference = {status : data.data};
+        this.fetchConference = {status : data.data, conferenceId: this.podcast.conferenceId};
       }
       if(this.fetchConference !== "null" && this.fetchConference.status !=="PUBLISHING" && this.fetchConference.status !=="DEBRIEFING"){
         this.$emit('initConferenceId',this.podcast.conferenceId);
