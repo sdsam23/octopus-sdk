@@ -276,6 +276,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.19.16 Suppression autocomplétion pour les multiselects
  * 0.19.17 Merge de staging
  * 0.19.18 Bug-Fix : Wrong hls url used
+ * 0.19.19 Gestion des statistiques et de la progression du live
 
  
 
