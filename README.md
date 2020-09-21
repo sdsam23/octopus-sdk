@@ -200,8 +200,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.16.15 Les durées sont arrondies
  * 0.16.16 Player en erreur
  
- * 16.0.0 Nouvelle version
-
  * 0.17.0 Nouveau sprint
  * 0.17.1 Selenium : attributs d'élément
  * 0.17.2 Merge de staging
@@ -256,6 +254,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.18.22 Modif de style
  * 0.18.23 Enlever dummy parameters
  * 0.18.24 Merge de prod
+ * 0.18.25 Bug-Fix : Wrong hls url used Cédric Clavier
+ * 0.18.26 Amélioration du fonctionnement de la barre de défilement du player dans le cas des lives
  
  * 0.19.0 Nouveau sprint
  * 0.19.1 Merge de staging
@@ -277,12 +277,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.19.17 Merge de staging
  * 0.19.18 Bug-Fix : Wrong hls url used
  * 0.19.19 Gestion des statistiques et de la progression du live
-
- 
-
- 
-
-
-
-
-
+ * 0.19.20 Corretion d'une erreur lors de la lecture d'un podcast sur l'avancement 

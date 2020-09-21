@@ -96,7 +96,7 @@ export default {
   name: 'LiveList',
 
   props:{
-    conferenceWatched: { default: [] }, 
+    conferenceWatched: { default: [] },
   },
 
   components: {

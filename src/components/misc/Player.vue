@@ -303,7 +303,7 @@ export default {
             Math.round(state.player.elapsed * state.player.total)
           );
         } else {
-          return "--':--'";
+          return "--:--";
         }
       },
 
@@ -315,7 +315,7 @@ export default {
         if (state.player.elapsed > 0 && state.player.total > 0) {
           return DurationHelper.formatDuration(Math.round(state.player.total));
         } else {
-          return "--':--'";
+          return "--:--";
         }
       },
     }),
@@ -412,7 +412,7 @@ export default {
     },
 
     stopPlayer() {
-      this.$store.commit("playerPlayPodcast");
+      this.$store.commit('playerPlayPodcast');
     },
 
     seekTo(event) {
@@ -457,9 +457,9 @@ export default {
         if (this.live && this.live.duration / 1000 > duration) {
           this.percentLiveProgress =
             (duration / (this.live.duration / 1000)) * 100;
-          this.$store.commit("playerTotalTime", this.live.duration / 1000);
+          this.$store.commit('playerTotalTime', this.live.duration / 1000);
           this.$store.commit(
-            "playerElapsed",
+            'playerElapsed',
             currentTime / (this.live.duration / 1000)
           );
         } else {
@@ -468,9 +468,9 @@ export default {
             this.durationLivePosition =
               (this.live.duration / 1000 / duration) * 100;
           }
-          this.$store.commit("playerTotalTime", duration);
-          this.$store.commit("playerElapsed", currentTime / duration);
         }
+        this.$store.commit('playerTotalTime', duration);
+        this.$store.commit('playerElapsed', currentTime / duration);
       }
     },
 
@@ -505,7 +505,7 @@ export default {
       }
       this.loadDownloadId(0);
       ///Localhost/////////
-      /* this.downloadId = "test"; */
+      /* this.downloadId = 'test'; */
       //////
     },
 
@@ -588,7 +588,7 @@ export default {
 
     podcastAudioURL(newVal) {
       this.playerError = false;
-      if (this.podcast && newVal !== "") {
+      if (this.podcast && newVal !== '') {
         this.new = true;
       }
     },
