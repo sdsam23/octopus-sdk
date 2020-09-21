@@ -250,7 +250,13 @@ export default {
   methods: {
     play() {
       if(this.recordingLive){
-        this.$store.commit('playerPlayPodcast', {title: this.podcast.title, conferenceId: this.fetchConference.conferenceId});
+        this.$store.commit('playerPlayPodcast', {
+          title: this.podcast.title,
+          audioUrl:this.podcast.audioUrl,
+          duration : this.podcast.duration,
+          conferenceId: this.fetchConference.conferenceId,
+          livePodcastId: this.podcast.podcastId
+        });
       }else{
         this.$store.commit('playerPlayPodcast', this.podcast);
       }
