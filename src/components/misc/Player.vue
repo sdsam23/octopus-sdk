@@ -433,7 +433,7 @@ export default {
 
     onTimeUpdate(event) {
       if (this.podcast || this.live) {
-        if (this.new) {
+        if(this.new){
           this.new = false;
           this.startListeningProgress();
         }
@@ -445,32 +445,33 @@ export default {
           this.notListenTime = event.currentTarget.currentTime;
           this.listenTime = 1;
         } else {
-          this.listenTime =
-            event.currentTarget.currentTime - this.notListenTime;
+          this.listenTime =   event.currentTarget.currentTime - this.notListenTime;
         }
       }
 
-      const duration = event.currentTarget.duration;
-      const currentTime = event.currentTarget.currentTime;
+      const streamDuration = event.currentTarget.duration;
+      if(!streamDuration){
+        return;
+      }
+      const playerCurrentTime = event.currentTarget.currentTime;
+      if(!playerCurrentTime) {
+        return;
+      }
+      if(!this.live){
+        this.$store.commit('playerTotalTime', streamDuration);
+        this.$store.commit('playerElapsed', playerCurrentTime / streamDuration);
+      }
 
-      if (duration && currentTime) {
-        if (this.live && this.live.duration / 1000 > duration) {
-          this.percentLiveProgress =
-            (duration / (this.live.duration / 1000)) * 100;
-          this.$store.commit('playerTotalTime', this.live.duration / 1000);
-          this.$store.commit(
-            'playerElapsed',
-            currentTime / (this.live.duration / 1000)
-          );
-        } else {
-          if (this.live) {
-            this.percentLiveProgress = 100;
-            this.durationLivePosition =
-              (this.live.duration / 1000 / duration) * 100;
-          }
-        }
-        this.$store.commit('playerTotalTime', duration);
-        this.$store.commit('playerElapsed', currentTime / duration);
+      const scheduledDuration = this.live.duration / 1000
+      if (scheduledDuration > streamDuration) {
+          this.percentLiveProgress = (streamDuration / scheduledDuration) * 100;
+          this.$store.commit('playerTotalTime', scheduledDuration);
+          this.$store.commit('playerElapsed',   playerCurrentTime / scheduledDuration);
+      } else {
+          this.percentLiveProgress = 100;
+          this.durationLivePosition = (scheduledDuration / streamDuration) * 100;
+          this.$store.commit('playerTotalTime', streamDuration);
+          this.$store.commit('playerElapsed', playerCurrentTime / streamDuration);
       }
     },
 

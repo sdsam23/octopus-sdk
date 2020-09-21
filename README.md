@@ -256,6 +256,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.18.24 Merge de prod
  * 0.18.25 Bug-Fix : Wrong hls url used Cédric Clavier
  * 0.18.26 Amélioration du fonctionnement de la barre de défilement du player dans le cas des lives
+ * 0.18.27 A la fin de la lecture d'un live il y a une erreur de lecture
+  
  
  * 0.19.0 Nouveau sprint
  * 0.19.1 Merge de staging
