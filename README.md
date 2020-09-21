@@ -281,3 +281,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.19.19 Gestion des statistiques et de la progression du live
  * 0.19.20 Corretion d'une erreur lors de la lecture d'un podcast sur l'avancement 
  * 0.19.21 Merge from staging
+ * 0.19.22 Merge from staging
