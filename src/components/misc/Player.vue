@@ -37,7 +37,7 @@
       @durationChange="onTimeUpdate"
       @error="onError"
       v-else/>
-      <router-link :to=podcastShareUrl v-if="isImage && podcastImage">
+      <router-link :to="podcastShareUrl" v-if="isImage && podcastImage">
         <img
           v-bind:src="podcastImage"
           :alt="$t('Podcast image')"
@@ -46,7 +46,7 @@
       </router-link>
       
       <div
-        v-if='!playerError'
+        v-if="!playerError"
         class="play-button-box"
         v-bind:class="{
           'primary-bg': status != 'LOADING',
@@ -66,7 +66,9 @@
         ></div>
       </div>
       <div
-        v-if="(status=== 'PLAYING' || status=== 'PAUSED')&& media"
+          v-if="
+            (status === 'PLAYING' || status === 'PAUSED') && (media || isStop)
+          "
         class="play-button-box primary-bg text-light"
         @click="stopPlayer"
       >
@@ -77,12 +79,42 @@
       </div>
       <div class="text-light player-grow-content">
         <div class="d-flex">
-          <div class="text-warning player-title ml-2 mr-2" v-if='playerError'>{{ $t('Podcast play error') + " - "}}</div>
+            <div class="text-warning player-title ml-2 mr-2" v-if="playerError">
+              {{ $t('Podcast play error') + ' - ' }}
+            </div>
           <div class="flex-grow player-title">{{ podcastTitle }}</div>
-          <div v-if="!playerError" v-show="!isBarTop" class="hide-phone">{{ playedTime }} / {{ totalTime }}</div>
+            <div v-if="!playerError" v-show="!isBarTop" class="hide-phone">
+              {{ playedTime }} / {{ totalTime }}
         </div>
-        <div class="progress c-hand" @mouseup="seekTo" style="height: 3px;" v-if="!playerError" v-show="!isBarTop">
-          <div class="progress-bar primary-bg" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" :style="'width: '+ percentProgress + '%'"></div>
+          </div>
+          <div
+            class="progress c-hand"
+            @mouseup="seekTo"
+            style="height: 3px"
+            v-if="!playerError"
+            v-show="!isBarTop"
+          >
+            <div
+              class="progress-bar bg-warning"
+              role="progressbar"
+              aria-valuenow="0"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              :style="'width: ' + percentLiveProgress + '%'"
+            ></div>
+            <div
+              class="progress-bar primary-bg"
+              role="progressbar"
+              aria-valuenow="0"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              :style="'width: ' + percentProgress + '%'"
+            ></div>
+            <div
+              class="progress-bar progress-bar-duration bg-danger"
+              v-if="percentLiveProgress === 100"
+              :style="'left: ' + durationLivePosition + '%'"
+            ></div>
         </div>
       </div>
       <div class="d-flex text-light align-items-center hide-phone" v-if="isClock">
@@ -134,9 +166,14 @@
   .progress{
     align-items: flex-end;
     height: 10px;
+    position: relative;
+  }
+  .progress-bar-duration {
+    width: 10px;
   }
   .progress-bar{
     height: 4px;
+    position: absolute;
   }
   .player-title, .hide-phone {
     font-size: 0.8rem;
@@ -180,9 +217,9 @@
 
 <script>
 import { mapState } from 'vuex';
-import {state} from "../../store/paramStore.js";
+import { state } from '../../store/paramStore.js';
 import DurationHelper from '../../helper/duration';
-import octopusApi from "@saooti/octopus-api";
+import octopusApi from '@saooti/octopus-api';
 import Hls from 'hls.js';
 const moment = require('moment');
 
@@ -202,6 +239,8 @@ export default {
       playerError: false,
       listenError: false,
       nbTry: 0,
+      percentLiveProgress: 0,
+      durationLivePosition: 0,
     };
   },
 
@@ -210,8 +249,8 @@ export default {
     moment.locale('fr');
     if(this.isClock){
       setInterval(() => {
-        this.actualTime = moment(new Date()).format("HH:mm:ss");
-      }, 1000)
+        this.actualTime = moment(new Date()).format('HH:mm:ss');
+      }, 1000);
     }
     window.addEventListener('beforeunload', this.endListeningProgress);
     this.$store.watch((state) => state.player.status, (newValue) => {
@@ -223,7 +262,8 @@ export default {
           audioPlayer.play();
         }
       }
-    })
+      }
+    );
   },
 
   computed: {
@@ -240,7 +280,7 @@ export default {
       return state.player.barTop;
     },
     ...mapState({
-      display: state => state.player.status != 'STOPPED',
+      display: (state) => state.player.status != 'STOPPED',
       playerHeight(state) {
         if (state.player.status == 'STOPPED' || this.forceHide) {
           return 0;
@@ -248,38 +288,40 @@ export default {
           return '5rem';
         }
       },
-      status: state => state.player.status,
-      podcast: state => state.player.podcast,
-      media: state => state.player.media,
-      live: state => state.player.live,
-      volume: state => state.player.volume,
+      status: (state) => state.player.status,
+      podcast: (state) => state.player.podcast,
+      media: (state) => state.player.media,
+      live: (state) => state.player.live,
+      volume: (state) => state.player.volume,
+      isStop: (state) => state.player.stop,
 
-      podcastImage: state => {
+      podcastImage: (state) => {
         if (state.player.podcast) {
           return state.player.podcast.imageUrl;
         } else {
           return '';
         }
       },
-      playedTime: state => {
+
+      playedTime: (state) => {
         if (state.player.elapsed > 0 && state.player.total > 0) {
           return DurationHelper.formatDuration(
             Math.round(state.player.elapsed * state.player.total)
           );
         } else {
-          return "--':--'";
+          return "--:--";
         }
       },
 
-      percentProgress: state => {
+      percentProgress: (state) => {
         return state.player.elapsed * 100;
       },
 
-      totalTime: state => {
+      totalTime: (state) => {
         if (state.player.elapsed > 0 && state.player.total > 0) {
           return DurationHelper.formatDuration(Math.round(state.player.total));
         } else {
-          return "--':--'";
+          return "--:--";
         }
       },
     }),
@@ -308,7 +350,11 @@ export default {
     },
     podcastShareUrl(){
       if (this.podcast) {
-        return { name: 'podcast', params: {podcastId : this.podcast.podcastId}, query:{productor: this.$store.state.filter.organisationId}};
+        return {
+          name: 'podcast',
+          params: { podcastId: this.podcast.podcastId },
+          query: { productor: this.$store.state.filter.organisationId }
+        };
       } else {
         return '';
       }
@@ -355,9 +401,11 @@ export default {
         this.onPause();
       }
     },
+
     stopPlayer(){
-      this.$store.commit("playerPlayPodcast");
+      this.$store.commit('playerPlayPodcast');
     },
+
     seekTo(event) {
       const audioPlayer = document.querySelector('#audio-player');
       const rect = event.currentTarget.getBoundingClientRect();
@@ -365,12 +413,13 @@ export default {
       const x = event.clientX - rect.left; //x position within the element.
 
       const percentPosition = x / barWidth;
-      const seekTime = this.$store.state.player.total * percentPosition;
-
-      if(this.podcast){
-        this.notListenTime = seekTime - this.listenTime;
+      if (percentPosition * 100 < this.percentLiveProgress) {
+        const seekTime = this.$store.state.player.total * percentPosition;
+        if (this.podcast || this.live) {
+          this.notListenTime = seekTime - this.listenTime;
+        }
+        audioPlayer.currentTime = seekTime;
       }
-      audioPlayer.currentTime = seekTime;
     },
 
     onTimeUpdate(event) {
@@ -384,10 +433,26 @@ export default {
       const duration = event.currentTarget.duration;
       const currentTime = event.currentTarget.currentTime;
       if (duration && currentTime) {
+        if (this.live && this.live.duration / 1000 > duration) {
+          this.percentLiveProgress =
+            (duration / (this.live.duration / 1000)) * 100;
+          this.$store.commit('playerTotalTime', this.live.duration / 1000);
+          this.$store.commit(
+            'playerElapsed',
+            currentTime / (this.live.duration / 1000)
+          );
+        } else {
+          if (this.live) {
+            this.percentLiveProgress = 100;
+            this.durationLivePosition =
+              (this.live.duration / 1000 / duration) * 100;
+          }
+        }
         this.$store.commit('playerTotalTime', duration);
         this.$store.commit('playerElapsed', currentTime / duration);
       }
     },
+
     onPlay() {
       this.$store.commit('playerPause', false);
     },
@@ -400,7 +465,7 @@ export default {
         this.endListeningProgress();
       }else if(this.live){
         let audio = document.getElementById('audio-player');
-        audio.src="";
+        audio.src = '';
       }
       this.$data.forceHide = true;
     },
@@ -418,7 +483,7 @@ export default {
       }
       this.loadDownloadId(0);
       ///Localhost/////////
-      /* this.downloadId = "test"; */
+      /* this.downloadId = 'test'; */
       //////
     },
 
@@ -483,10 +548,11 @@ export default {
     },
     podcastAudioURL(newVal){
       this.playerError=false;
-      if(this.podcast && newVal !== ""){
+      if (this.podcast && newVal !== '') {
         this.new = true;
       }
     },
+
     listenTime(newVal){
       if(this.podcast && newVal - this.lastSend >= 10 && this.downloadId){
         this.lastSend = newVal;

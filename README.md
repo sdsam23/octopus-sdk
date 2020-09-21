@@ -257,6 +257,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.18.23 Enlever dummy parameters
  * 0.18.24 Merge de prod
  * 0.18.25 Bug-Fix : Wrong hls url used Cédric Clavier
+ * 0.18.26 Amélioration du fonctionnement de la barre de défilement du player dans le cas des lives
  
 
 
