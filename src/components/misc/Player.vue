@@ -103,7 +103,7 @@
             ></div>
             <div
               class="progress-bar progress-bar-duration bg-danger"
-              v-if="percentLiveProgress === 100"
+              v-if="displayAlertBar"
               :style="'left: '+ durationLivePosition + '%'"
             ></div>
           </div>
@@ -169,6 +169,15 @@
     height: 4px;
     position: absolute;
   }
+
+  .progress.custom-bg-darkgrey{
+    background: #555;
+  }
+
+  .progress-bar.custom-bg-grey{
+    background: #e9ecef;
+  }
+
   .player-title,
   .hide-phone {
     font-size: 0.8rem;
@@ -237,6 +246,7 @@ export default {
       nbTry: 0,
       percentLiveProgress: 0,
       durationLivePosition: 0,
+      displayAlertBar: false,
     };
   },
 
@@ -463,6 +473,7 @@ export default {
       }
 
       if(!this.live){
+        this.displayAlertBar = false;
         this.percentLiveProgress = 100;
         this.$store.commit('playerTotalTime', streamDuration);
         this.$store.commit('playerElapsed', playerCurrentTime / streamDuration);
@@ -471,11 +482,13 @@ export default {
 
       const scheduledDuration = this.live.duration / 1000
       if (scheduledDuration > streamDuration) {
+          this.displayAlertBar = false;
           this.percentLiveProgress = (streamDuration / scheduledDuration) * 100;
           this.$store.commit('playerTotalTime', scheduledDuration);
           this.$store.commit('playerElapsed',   playerCurrentTime / scheduledDuration);
       } else {
           this.percentLiveProgress = 100;
+          this.displayAlertBar = true;
           this.durationLivePosition = (scheduledDuration / streamDuration) * 100;
           this.$store.commit('playerTotalTime', streamDuration);
           this.$store.commit('playerElapsed', playerCurrentTime / streamDuration);
