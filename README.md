@@ -287,3 +287,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.19.30 Merge from staging
  * 0.19.31 Merge from staging
  * 0.19.32 Merge from staging
+ * 0.19.33 Merge from staging
