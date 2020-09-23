@@ -261,6 +261,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.18.29 Bug-Fix : Correction de bug sur les dernières ameliorations
  * 0.18.30 Bug-Fix : Correction de bug sur les dernières ameliorations
  * 0.18.31 Le player peut désormais lancer un lecture d'un flux qui n'est pas encore disponible
+ * 0.18.32 Bug-Fix Le switch lecture live/podcast ne fonctionne pas bien
  
  * 0.19.0 Nouveau sprint
  * 0.19.1 Merge de staging
@@ -288,3 +289,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.19.31 Merge from staging
  * 0.19.32 Merge from staging
  * 0.19.33 Merge from staging
+ * 0.19.34 Merge from staging

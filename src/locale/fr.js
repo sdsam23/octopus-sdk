@@ -492,5 +492,6 @@ export default {
     'Create playlist':"Créer une playlist",
     'Podcasts in the playlist':"Tous les épisodes de la playlist",
     'No podcasts in the playlist':"La playlist ne contient pas d'épisodes",
+    "Start in a while":"Démarre dans un instant",
   };
   
