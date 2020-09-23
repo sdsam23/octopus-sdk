@@ -260,6 +260,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.18.28 Mise en place de nouvelles couleur pour la progression. Remise à zero de la barre de loading lors de la lecture d'un podcast.
  * 0.18.29 Bug-Fix : Correction de bug sur les dernières ameliorations
  * 0.18.30 Bug-Fix : Correction de bug sur les dernières ameliorations
+ * 0.18.31 Le player peut désormais lancer un lecture d'un flux qui n'est pas encore disponible
  
  * 0.19.0 Nouveau sprint
  * 0.19.1 Merge de staging
@@ -285,3 +286,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.19.21 Merge from staging
  * 0.19.30 Merge from staging
  * 0.19.31 Merge from staging
+ * 0.19.32 Merge from staging

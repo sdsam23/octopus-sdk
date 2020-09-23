@@ -247,6 +247,7 @@ export default {
       percentLiveProgress: 0,
       durationLivePosition: 0,
       displayAlertBar: false,
+      hlsReady: false,
     };
   },
 
@@ -262,12 +263,16 @@ export default {
       (state) => state.player.status,
       (newValue) => {
         const audioPlayer = document.querySelector("#audio-player");
-        if (audioPlayer) {
-          if (newValue === "PAUSED") {
-            audioPlayer.pause();
-          } else {
-            audioPlayer.play();
-          }
+        if(!audioPlayer){
+          return;
+        }
+        if(this.live && !this.hlsReady){
+          return;
+        }
+        if (newValue === "PAUSED") {
+          audioPlayer.pause();
+        } else {
+          audioPlayer.play();
         }
       }
     );
@@ -567,32 +572,41 @@ export default {
       }
     },
 
-    initHls(audio, audioSrc) {
-      if (Hls.isSupported()) {
-        var hls = new Hls();
-        hls.loadSource(audioSrc);
-        hls.attachMedia(audio);
-        hls.on(Hls.Events.MANIFEST_PARSED, async () => {
-          await audio.play();
-          this.onPlay();
-        });
-      }
-    },
+    async initHls(audio, audioSrc){
+         return new Promise((resolve, reject) => {
+           if (!Hls.isSupported()) {
+             reject("Hls is not supported ! ");
+           }
 
-    playLive() {
-      let audio = document.getElementById("audio-player");
-      this.initHls(audio, this.podcastAudioURL);
-      setTimeout(() => {
-        if (audio.readyState === 0 && this.nbTry < 5) {
-          this.nbTry++;
-          this.playLive();
-        }
-      }, 3000);
-    },
+           var hls = new Hls();
+           hls.on(Hls.Events.MANIFEST_PARSED, async (event, data) =>{
+             this.hlsReady = true;
+             hls.attachMedia(audio);
+             await audio.play();
+             this.onPlay();
+             resolve();
+           });
+           hls.on(Hls.Events.ERROR, async (event, error) => {
+             reject("There is an error while reading media content")
+           });
+           hls.loadSource(audioSrc);
+         })
+       },
+
+       async playLive(){
+           let audio = document.getElementById('audio-player');
+           let audioSrc = state.podcastPage.hlsUri+'stream/dev.'+this.live.conferenceId+'/index.m3u8';
+           try{
+             await this.initHls(audio, audioSrc);
+           } catch(error) {
+             setTimeout(()=>{this.playLive();}, 1000);
+           }
+       },
   },
 
   watch: {
     async live() {
+      this.hlsReady = false;
       if (this.live) {
         this.nbTry = 0;
         this.playLive();
