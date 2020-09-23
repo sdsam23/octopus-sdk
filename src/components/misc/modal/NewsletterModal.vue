@@ -15,7 +15,7 @@
 							<label class="custom-control-label" for="display-participants-names">{{$t('Display participants list')}}</label>  
 						</div>
 						<div class="d-flex align-items-center mt-2">
-							<swatches v-model="color" class="c-hand input-no-outline mr-2 mt-2"" show-fallback colors="text-advanced" popover-to="right" :data-color="color"></swatches>
+							<swatches v-model="color" class="c-hand input-no-outline mr-2 mt-2" show-fallback colors="text-advanced" popover-to="right" :data-color="color"></swatches>
 							<div>{{$t('Choose main color')}}</div>
 						</div>
 						<div class=" d-flex justify-content-between align-items-center mt-3 mb-2">

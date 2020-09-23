@@ -570,14 +570,14 @@ export default {
         }
 
         var hls = new Hls();
-        hls.on(Hls.Events.MANIFEST_PARSED, async (event, data) =>{
+        hls.on(Hls.Events.MANIFEST_PARSED, async () =>{
           this.hlsReady = true;
           hls.attachMedia(audio);
           await audio.play();
           this.onPlay();
           resolve();
         });
-        hls.on(Hls.Events.ERROR, async (event, error) => {
+        hls.on(Hls.Events.ERROR, async () => {
           reject("There is an error while reading media content")
         });
         hls.loadSource(audioSrc);
