@@ -253,7 +253,6 @@ export default {
       saveCookie : undefined,
       playerError: false,
       listenError: false,
-      nbTry: 0,
       percentLiveProgress: 0,
       durationLivePosition: 0,
       displayAlertBar: false,
@@ -269,7 +268,9 @@ export default {
         this.actualTime = moment(new Date()).format("HH:mm:ss");
       }, 1000);
     }
+
     window.addEventListener("beforeunload", this.endListeningProgress);
+
     this.$store.watch(
       (state) => state.player.status,
       (newValue) => {
@@ -278,6 +279,9 @@ export default {
           return;
         }
         if(this.live && !this.hlsReady){
+          audioPlayer.pause();
+          this.percentLiveProgress= 0;
+          this.durationLivePosition= 0;
           return;
         }
         if (newValue === "PAUSED") {
@@ -394,6 +398,9 @@ export default {
       }else if(this.media){
         return this.media.title;
       } else if(this.live){
+        if(!this.hlsReady) {
+          return this.live.title + " ("+this.$t("Start in a while")+")";
+        }
         return this.live.title;
       }else{
         return "";
@@ -578,29 +585,31 @@ export default {
     },
 
     async playLive(){
-        let audio = document.getElementById('audio-player');
-        let audioSrc = state.podcastPage.hlsUri+'stream/dev.'+this.live.conferenceId+'/index.m3u8';
-        try{
-          await this.initHls(audio, audioSrc);
-        } catch(error) {
-          setTimeout(()=>{this.playLive();}, 1000);
+        if(this.live){
+          let audio = document.getElementById('audio-player');
+          let audioSrc = state.podcastPage.hlsUri+'stream/dev.'+this.live.conferenceId+'/index.m3u8';
+          try{
+            await this.initHls(audio, audioSrc);
+          } catch(error) {
+            setTimeout(()=>{this.playLive();}, 1000);
+          }
         }
     },
   },
   watch: {
     async live(){
       this.hlsReady = false;
-      if(this.live){
-        this.nbTry = 0;
-        this.playLive();
-      }
+      this.playLive();
     },
+
     playerHeight(newVal){
       this.$emit("hide", newVal === 0 ? true : false);
     },
+
     podcast(){
       this.listenError=false;
     },
+
     podcastAudioURL(newVal){
       this.playerError=false;
       if (this.podcast && newVal !== '') {
