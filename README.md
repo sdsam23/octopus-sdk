@@ -290,3 +290,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.19.32 Merge from staging
  * 0.19.33 Merge from staging
  * 0.19.34 Merge from staging
+ * 0.19.35 Merge from staging
+ * 0.19.36 Mise en place des statistique de live

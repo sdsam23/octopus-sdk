@@ -15,7 +15,7 @@
       <div class="d-flex align-items-center justify-center flex-grow pr-5 pl-5">
         <audio
           id="audio-player"
-          v-bind:src="podcastAudioURL"
+          v-bind:src="audioUrl"
           autoplay
           @timeupdate="onTimeUpdate"
           @ended="onFinished"
@@ -238,9 +238,7 @@ export default {
       listenTime: 0,
       notListenTime: 0,
       lastSend: 0,
-      downloadId: undefined,
-      new: true,
-      saveCookie: undefined,
+      _downloadId: null,
       playerError: false,
       listenError: false,
       percentLiveProgress: 0,
@@ -342,40 +340,27 @@ export default {
       },
     }),
 
-    podcastAudioURL() {
-      if (this.podcast || this.live) {
-        if (this.podcast && this.podcast.availability.visibility === false) {
-          return this.podcast.audioStorageUrl;
-        } else {
-          if (this.listenError) {
-            return this.podcast.audioStorageUrl;
-          } else {
-            let parameters = "?origin=octopus";
-            if (this.podcast) {
-              parameters += "&cookieName=player_" + this.podcast.podcastId;
-            } else {
-              parameters += "&cookieName=player_" + this.live.livePodcastId;
-            }
-            parameters +=
-              this.$store.state.authentication &&
-              this.$store.state.authentication.organisationId
-                ? "&distributorId=" +
-                  this.$store.state.authentication.organisationId
-                : "";
-            //Live même si c'est déjà un podcast ?
-            parameters += this.live ? "&live=true" : "";
-            if (this.live) {
-              return this.live.audioUrl + parameters;
-            } else {
-              return this.podcast.audioUrl + parameters;
-            }
-          }
-        }
-      } else if (this.media) {
+    audioUrl() {
+      if (this.media) {
         return this.media.audioUrl;
-      } else {
-        return "";
       }
+      if (this.podcast) {
+        if (!this.podcast.availability.visibility) {
+          return this.podcast.audioStorageUrl;
+        }
+        if (this.listenError) {
+          return this.podcast.audioStorageUrl;
+        }
+
+        let parameters = []
+        parameters.push("origin=octopus")
+        parameters.push("cookieName=player_" + this.podcast.podcastId);
+        if( this.$store.state.authentication && this.$store.state.authentication.organisationId){
+          parameters.push("distributorId=" + this.$store.state.authentication.organisationId)
+        }
+        return this.podcast.audioUrl +"?"+ parameters.join("&");
+      }
+      return "";
     },
 
     podcastShareUrl() {
@@ -419,6 +404,15 @@ export default {
   },
 
   methods: {
+    getDownloadId() {
+      return this._downloadId;
+    },
+
+    setDownloadId(newValue) {
+      this.endListeningProgress();
+      this._downloadId = newValue;
+    },
+
     onError() {
       if (this.podcast && !this.listenError) {
         this.listenError = true;
@@ -458,9 +452,8 @@ export default {
 
     onTimeUpdate(event) {
       if (this.podcast || this.live) {
-        if(this.new){
-          this.new = false;
-          this.startListeningProgress();
+        if(!this.getDownloadId()){
+          this.loadDownloadId();
         }
         if (
           this.live &&
@@ -516,9 +509,8 @@ export default {
     },
 
     onFinished() {
-      if (this.podcast) {
-        this.endListeningProgress();
-      } else if (this.live) {
+      this.setDownloadId(null);
+      if (this.live) {
         let audio = document.getElementById("audio-player");
         audio.src = "";
       }
@@ -532,91 +524,79 @@ export default {
       }
     },
 
-    startListeningProgress() {
-      if (this.downloadId) {
-        this.endListeningProgress();
-      }
-      this.loadDownloadId(0);
-      ///Localhost/////////
-      /* this.downloadId = 'test'; */
-      //////
-    },
-
     loadDownloadId(index) {
-      if (index < 5) {
-        setTimeout(() => {
-          let cookiestring;
-          if (this.live) {
-            cookiestring = RegExp(
-              "player_" + this.$store.state.player.live.livePodcastId + "=[^;]+"
-            ).exec(document.cookie);
-          } else {
-            cookiestring = RegExp(
-              "player_" + this.$store.state.player.podcast.podcastId + "=[^;]+"
-            ).exec(document.cookie);
-          }
-          if (cookiestring !== null) {
-            this.downloadId = decodeURIComponent(
-              cookiestring ? cookiestring.toString().replace(/^[^=]+./, "") : ""
-            );
-          } else {
-            this.loadDownloadId(index + 1);
-          }
-        }, 500);
+      if(this.podcast){
+        debugger;
+        const cookies = document.cookie;
+        let cookieString = RegExp("player_" + this.podcast.podcastId + "=[^;]+").exec(document.cookie);
+        if(cookieString) {
+          this.setDownloadId(decodeURIComponent(cookieString.toString().replace(/^[^=]+./)));
+        }
       }
     },
 
     endListeningProgress() {
-      if (this.downloadId) {
+      if (this.getDownloadId()) {
         octopusApi.updatePlayerTime(
-          this.downloadId,
+          this.getDownloadId(),
           Math.round(this.listenTime)
         );
-        this.downloadId = undefined;
+        this.setDownloadId(null);
         this.notListenTime = 0;
         this.lastSend = 0;
         this.listenTime = 0;
       }
     },
 
-    async initHls(audio, audioSrc){
-         return new Promise((resolve, reject) => {
-           if (!Hls.isSupported()) {
-             reject("Hls is not supported ! ");
-           }
-
-           var hls = new Hls();
-        hls.on(Hls.Events.MANIFEST_PARSED, async () =>{
-             this.hlsReady = true;
-             hls.attachMedia(audio);
-             await audio.play();
-             this.onPlay();
-             resolve();
-           });
-        hls.on(Hls.Events.ERROR, async () => {
-             reject("There is an error while reading media content")
-           });
-           hls.loadSource(audioSrc);
-         })
-       },
-
-       async playLive(){
-        if(this.live){
-           let audio = document.getElementById('audio-player');
-           let audioSrc = state.podcastPage.hlsUri+'stream/dev.'+this.live.conferenceId+'/index.m3u8';
-           try{
-             await this.initHls(audio, audioSrc);
-           } catch(error) {
-             setTimeout(()=>{this.playLive();}, 1000);
-           }
+    async initHls(audio, hlsStreamUrl){
+      return new Promise((resolve, reject) => {
+        if (!Hls.isSupported()) {
+         reject("Hls is not supported ! ");
         }
-       },
+        var hls = new Hls();
+        hls.on(Hls.Events.MANIFEST_PARSED, async () =>{
+          let downloadId = null;
+          try{
+            downloadId = await octopusApi.requestLiveDownloadId(this.live.livePodcastId);
+          } catch(error){
+            //There is an error while getting downloadId, do without it
+          }
+          await octopusApi.markPlayingLive(this.live.livePodcastId, downloadId, "octopus", this.$store.state.authentication.organisationId);
+          this.setDownloadId(downloadId);
+          this.hlsReady = true;
+          hls.attachMedia(audio);
+          await audio.play();
+          this.onPlay();
+          resolve();
+        });
+        hls.on(Hls.Events.ERROR, async () => {
+          reject("There is an error while reading media content")
+        });
+        hls.loadSource(hlsStreamUrl);
+      })
+    },
+
+    async playLive(){
+      if(this.live){
+        let audio = document.getElementById('audio-player');
+        let hlsStreamUrl = state.podcastPage.hlsUri+'stream/dev.'+this.live.conferenceId+'/index.m3u8';
+        try{
+          await this.initHls(audio, hlsStreamUrl);
+        } catch(error) {
+          console.log(error);
+          setTimeout(()=>{this.playLive();}, 1000);
+        }
+      }
+    },
   },
 
   watch: {
     async live() {
       this.hlsReady = false;
-      this.playLive();
+      this.setDownloadId(null);
+      this.listenError = false;
+      await this.playLive();
+
     },
 
     playerHeight(newVal) {
@@ -624,25 +604,25 @@ export default {
     },
 
     podcast() {
+      this.setDownloadId(null);
       this.listenError = false;
     },
 
-    podcastAudioURL(newVal) {
-      this.playerError = false;
-      if (this.podcast && newVal !== '') {
-        this.new = true;
-      }
-    },
-
     listenTime(newVal) {
-      if (
-        (this.podcast || this.live) &&
-        newVal - this.lastSend >= 10 &&
-        this.downloadId
-      ) {
-        this.lastSend = newVal;
-        octopusApi.updatePlayerTime(this.downloadId, Math.round(newVal));
+      if (!this.podcast && !this.live) {
+        //Nothing can be done there is no listen time
+        return;
       }
+      if(!this.getDownloadId()){
+        //nothing can be done there is no downloadId
+        return;
+      }
+      if(newVal - this.lastSend < 10) {
+        //Last send is too recent, do nothing
+        return;
+      }
+      this.lastSend = newVal;
+      octopusApi.updatePlayerTime(this.getDownloadId(), Math.round(newVal));
     },
   },
 };
