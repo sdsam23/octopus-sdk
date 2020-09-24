@@ -526,11 +526,17 @@ export default {
 
     loadDownloadId(index) {
       if(this.podcast){
-        debugger;
         const cookies = document.cookie;
-        let cookieString = RegExp("player_" + this.podcast.podcastId + "=[^;]+").exec(document.cookie);
-        if(cookieString) {
-          this.setDownloadId(decodeURIComponent(cookieString.toString().replace(/^[^=]+./)));
+        const cookie = cookieline.split(";")
+                                 .map((item) => {
+                                    const _return = item.trim().split("=");
+                                    return _return.map((item) => item.trim())
+                                 })
+                                 .filter((item) => {
+                                    return item[0] === "player_"+this.podcast.podcastId
+                                 })
+        if(cookie.length === 1){
+          this.setDownloadId(cookie[0][1])
         }
       }
     },
@@ -556,11 +562,7 @@ export default {
         var hls = new Hls();
         hls.on(Hls.Events.MANIFEST_PARSED, async () =>{
           let downloadId = null;
-          try{
-            downloadId = await octopusApi.requestLiveDownloadId(this.live.livePodcastId);
-          } catch(error){
-            //There is an error while getting downloadId, do without it
-          }
+          downloadId = await octopusApi.requestLiveDownloadId(this.live.livePodcastId);
           await octopusApi.markPlayingLive(this.live.livePodcastId, downloadId, "octopus", this.$store.state.authentication.organisationId);
           this.setDownloadId(downloadId);
           this.hlsReady = true;
