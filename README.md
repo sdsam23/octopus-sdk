@@ -293,5 +293,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.19.35 Merge from staging
  * 0.19.36 Mise en place des statistique de live
  * 0.19.37 Changement de version de l'api
- * 0.19.38 Changement de version de l'api. Refactoring de la gestion des cookies.
+ * 0.19.38 Changement de version de l'api.
+ * 0.19.39 Refactoring de la gestion des cookies.
  

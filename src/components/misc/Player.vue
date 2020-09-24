@@ -526,8 +526,7 @@ export default {
 
     loadDownloadId(index) {
       if(this.podcast){
-        const cookies = document.cookie;
-        const cookie = cookieline.split(";")
+        const matching_cookies = document.cookie.split(";")
                                  .map((item) => {
                                     const _return = item.trim().split("=");
                                     return _return.map((item) => item.trim())
@@ -535,8 +534,8 @@ export default {
                                  .filter((item) => {
                                     return item[0] === "player_"+this.podcast.podcastId
                                  })
-        if(cookie.length === 1){
-          this.setDownloadId(cookie[0][1])
+        if(matching_cookies.length === 1){
+          this.setDownloadId(matching_cookies[0][1])
         }
       }
     },
