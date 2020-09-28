@@ -72,7 +72,7 @@ export default {
       return state.generalParameters.podcastmaker;
     },
     editRight() {
-      if (this.authenticated && (this.$store.state.authentication.role.includes("PLAYLIST") || state.generalParameters.isAdmin)) {
+      if (this.authenticated && (this.$store.state.authentication.role.includes("PLAYLISTS") || state.generalParameters.isAdmin)) {
         return true;
       }
       return false;

@@ -97,7 +97,7 @@ export default {
 
     editRight() {
       if (this.authenticated) {
-        if (this.organisationId === this.playlist.organisation.id && this.$store.state.authentication.role.includes("PLAYLIST")) {
+        if (this.organisationId === this.playlist.organisation.id && this.$store.state.authentication.role.includes("PLAYLISTS")) {
           return true;
         }
         if (state.generalParameters.isAdmin) {
