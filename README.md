@@ -295,5 +295,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.19.37 Changement de version de l'api
  * 0.19.38 Changement de version de l'api.
  * 0.19.39 Refactoring de la gestion des cookies.
- * 0.19.40 PB Suppression/edition des playlists - role ORGANISATION
+ * 0.19.41 PB Suppression/edition des playlists - role ORGANISATION
  
