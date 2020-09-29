@@ -87,7 +87,6 @@ export default {
   },
 
   mounted() {
-    this.$refs.multiselectRef.$refs.search.setAttribute("autocomplete", "off");
     if(this.rubriqueSelected !== undefined){
       this.initRubriqueSelected(this.rubriqueSelected);
     }
@@ -101,6 +100,7 @@ export default {
       return Vue.seleniumFormat(string);
     },
     clearAll() {
+      this.$refs.multiselectRef.$refs.search.setAttribute("autocomplete", "off");
       if(this.rubriqueArray === undefined) {
         this.rubrique = '';
       } 

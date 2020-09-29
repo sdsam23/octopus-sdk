@@ -117,10 +117,6 @@ export default {
     }
   },
 
-  mounted(){
-    this.$refs.multiselectRef.$refs.search.setAttribute("autocomplete", "off");
-  },
-
   props: { 
     width: { default: '100%' }, 
     defaultanswer: { default: false }, 
@@ -173,6 +169,7 @@ export default {
     },
 
     onOpen() {
+      this.$refs.multiselectRef.$refs.search.setAttribute("autocomplete", "off");
       this.clearAll();
       this.onSearchOrganisation();
     },

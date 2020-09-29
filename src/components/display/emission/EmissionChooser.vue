@@ -96,10 +96,6 @@ export default {
     reset: {default: false},
   },
 
-  mounted(){
-    this.$refs.multiselectRef.$refs.search.setAttribute("autocomplete", "off");
-  },
-
   data() {
     let _return = {
       emission: "",
@@ -115,6 +111,7 @@ export default {
 
   methods: {
     onOpen() {
+      this.$refs.multiselectRef.$refs.search.setAttribute("autocomplete", "off");
       this.clearAll();
       this.onSearchEmission();
     },

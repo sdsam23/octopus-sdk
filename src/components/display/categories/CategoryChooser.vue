@@ -93,7 +93,6 @@ export default {
   },
 
   mounted() {
-    this.$refs.multiselectRef.$refs.search.setAttribute("autocomplete", "off");
     if(this.categorySelected !== undefined){
       this.initCategorySelected(this.categorySelected);
     }
@@ -104,6 +103,7 @@ export default {
 
   methods: {
     clearAll() {
+      this.$refs.multiselectRef.$refs.search.setAttribute("autocomplete", "off");
       if(this.categoryArray === undefined) {
         this.category = '';
       }
