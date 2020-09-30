@@ -262,7 +262,7 @@ export default {
         case 'large':
           if(this.podcast){
             return '180px';
-          } else{
+          } else if(this.episodeNumbers==='number'){
             switch(this.iFrameNumberPriv){
               case "1": return '185px';
               case "2": return '240px';
@@ -271,16 +271,22 @@ export default {
               case "5": return '390px';
               default: return '435px';
             }
+          }else{
+            return '435px';
           }
        case 'largeEmission':
         case 'largeSuggestion':
-          switch(this.iFrameNumberPriv){
-            case "1": return '260px';
-            case "2": return '315px';
-            case "3": return '365px';
-            case "4": return '420px';
-            case "5": return '465px';
-            default: return '510px';
+          if(this.episodeNumbers==='number'){
+            switch(this.iFrameNumberPriv){
+              case "1": return '260px';
+              case "2": return '315px';
+              case "3": return '365px';
+              case "4": return '420px';
+              case "5": return '465px';
+              default: return '510px';
+            }
+          }else{
+            return '510px';
           }
         case "emission":
           return "530px";

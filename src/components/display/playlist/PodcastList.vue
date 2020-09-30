@@ -100,14 +100,9 @@ export default {
       for (let index = 0; index < content.length; index++) {
         content[index].order = this.playlist.podcasts[content[index].podcastId];
       }
-      this.podcasts = content;
-		/* 	for (const property in this.playlist.podcasts) {
-				const index = content.findIndex(element => element.podcastId === parseInt(property,10));
-				if(index !== -1){
-					this.podcasts.push({...content[index], ...{order: this.playlist.podcasts[property]}});
-				}
-			}
-      this.podcasts.sort((a, b) => parseFloat(b.order) - parseFloat(a.order)); */
+      this.podcasts = content.filter((p)=>{
+        return p!== null && (!p.availability || p.availability.visibility === true);
+      });
       this.podcastsQuery = this.podcasts;
       this.loading = false;
       this.loaded = true;
