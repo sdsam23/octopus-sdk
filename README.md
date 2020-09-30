@@ -297,3 +297,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.19.39 Refactoring de la gestion des cookies.
  * 0.19.41 PB Suppression/edition des playlists - role ORGANISATION
  * 0.19.42 refs undefined
+ * 0.19.43 player envoi évènements async 

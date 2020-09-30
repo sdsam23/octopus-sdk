@@ -540,9 +540,9 @@ export default {
       }
     },
 
-    endListeningProgress() {
+    async endListeningProgress() {
       if (this.getDownloadId()) {
-        octopusApi.updatePlayerTime(
+        await octopusApi.updatePlayerTime(
           this.getDownloadId(),
           Math.round(this.listenTime)
         );
@@ -609,7 +609,7 @@ export default {
       this.listenError = false;
     },
 
-    listenTime(newVal) {
+    async listenTime(newVal) {
       if (!this.podcast && !this.live) {
         //Nothing can be done there is no listen time
         return;
@@ -623,7 +623,7 @@ export default {
         return;
       }
       this.lastSend = newVal;
-      octopusApi.updatePlayerTime(this.getDownloadId(), Math.round(newVal));
+      await octopusApi.updatePlayerTime(this.getDownloadId(), Math.round(newVal));
     },
   },
 };
