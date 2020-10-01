@@ -89,6 +89,25 @@ export default {
     buttonPlus(){
       return state.generalParameters.buttonPlus;
     },
+    organisationId(){
+      return state.generalParameters.organisationId;
+    },
+
+    authenticated(){
+      return state.generalParameters.authenticated;
+    },
+
+    editRight() {
+      if (this.authenticated) {
+        if (this.organisationId === this.playlist.organisation.id) {
+          return true;
+        }
+        if (state.generalParameters.isAdmin) {
+          return true;
+        }
+      }
+      return false;
+    }
   },
 
   methods: {
@@ -100,9 +119,13 @@ export default {
       for (let index = 0; index < content.length; index++) {
         content[index].order = this.playlist.podcasts[content[index].podcastId];
       }
-      this.podcasts = content.filter((p)=>{
-        return p!== null && (!p.availability || p.availability.visibility === true);
-      });
+      this.podcasts = content;
+      if(!this.editRight){
+        this.podcasts = this.podcasts.filter((p)=>{
+          return p!== null && (!p.availability || p.availability.visibility === true);
+        });
+      }
+      
       this.podcastsQuery = this.podcasts;
       this.loading = false;
       this.loaded = true;
