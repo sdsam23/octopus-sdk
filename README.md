@@ -300,3 +300,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.19.43 player envoi évènements async 
  * 0.19.44 dans dev probleme avec taille de frame pour playlist
  * 0.19.45 problem dans playlists dev
+ * 0.19.46 merge de jimmy
