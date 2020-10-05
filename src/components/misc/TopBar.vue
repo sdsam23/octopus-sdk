@@ -22,7 +22,7 @@
         v-if="!isPodcastmaker"
         />
       <div class="d-flex align-items-center justify-content-center flex-grow">
-        <router-link v-if="isLiveTab && !isPodcastmaker && filterOrga && filterOrgaLive"
+        <router-link v-if="isLiveTab && !isPodcastmaker && ((filterOrga && filterOrgaLive) || !filterOrga)"
         :to="{ name: 'lives', query:{productor: $store.state.filter.organisationId}}"
         class="linkHover p-3 text-dark font-weight-bold">{{ $t('Live') }}</router-link>
         <router-link 

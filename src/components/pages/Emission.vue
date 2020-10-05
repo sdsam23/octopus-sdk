@@ -27,6 +27,7 @@
       <div v-if="editRight">
         <ShareDistribution :emissionId="emissionId" v-if="isShareDistribution"></ShareDistribution>
       </div>
+      <LiveHorizontalList :emissionId='emissionId' v-if="!isPodcastmaker"/>
       <PodcastFilterList :emissionId="emissionId" :categoryFilter="false" :editRight='editRight' :productorId='emission.orga.id' v-if="!isOuestFrance" @fetch="fetch"/>
       <PodcastList :first="0" :size="15" :emissionId="emissionId" @fetch="fetch" v-else/>
     </div>
@@ -50,6 +51,7 @@ import SubscribeButtons from "../display/sharing/SubscribeButtons.vue";
 import ShareDistribution from '../display/sharing/ShareDistribution.vue';
 import PodcastFilterList from '../display/podcasts/PodcastFilterList.vue';
 import PodcastList from '../display/podcasts/PodcastList.vue';
+import LiveHorizontalList from '../display/live/LiveHorizontalList.vue';
 import octopusApi from "@saooti/octopus-api";
 import {state} from "../../store/paramStore.js";
 
@@ -61,7 +63,8 @@ export default {
     ShareDistribution,
     EditBox,
     PodcastList,
-    SubscribeButtons
+    SubscribeButtons,
+    LiveHorizontalList,
   },
 
   mounted() {
@@ -81,6 +84,7 @@ export default {
       notExclusive: false,
       isReady: true,
       dummyParam : new Date().getTime().toString(),
+      fetchLive:true,
     };
   },
 
@@ -109,6 +113,9 @@ export default {
     },
     isRssButton(){
       return state.emissionPage.rssButton;
+    },
+    isPodcastmaker(){
+      return state.generalParameters.podcastmaker;
     },
     rssUrl(){
       return state.generalParameters.ApiUri + 'rss/emission/' + this.emissionId;

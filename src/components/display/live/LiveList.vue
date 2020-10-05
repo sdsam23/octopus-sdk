@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column align-items-center live-list-container" v-if="filterOrga">
+  <div class="d-flex flex-column align-items-center live-list-container" v-if="filterOrga || organisationId">
     <div class="d-flex justify-content-center" v-if="loading">
       <div class="spinner-border mr-3"></div>
       <h3 class="mt-2">{{ $t('Loading lives...') }}</h3>
@@ -89,6 +89,7 @@
 <script>
 import studioApi from '@/api/studio';
 import LiveItem from './LiveItem.vue';
+import octopusApi from "@saooti/octopus-api";
 const moment = require('moment');
 import {state} from "../../../store/paramStore.js";
 
@@ -97,14 +98,21 @@ export default {
 
   props:{
     conferenceWatched: { default: [] },
+    organisationId: {default: undefined},
   },
 
   components: {
     LiveItem,
   },
 
-  created() {
-    this.fetchContent();
+  async created() {
+    const isLive = await octopusApi.liveEnabledOrganisation(this.filterOrgaUsed);
+    if(isLive){
+      this.fetchContent();
+    }else{
+      this.loading = false;
+      this.loaded = true;
+    }
   },
 
   data() {
@@ -120,6 +128,15 @@ export default {
   },
 
   computed: {
+    filterOrgaUsed(){
+      if(this.filterOrga){
+        return this.filterOrga;
+      }else if(this.organisationId){
+        return this.organisationId;
+      }else{
+        return undefined;
+      }
+    },
     filterOrga(){
       return this.$store.state.filter.organisationId;
     },
@@ -144,7 +161,7 @@ export default {
     },
 		organisationRight() {
       if (this.authenticated && this.isAnimator) {
-        if (this.myOrganisationId === this.filterOrga) {
+        if (this.myOrganisationId === this.filterOrgaUsed) {
           return true;
         }
       }
@@ -156,13 +173,20 @@ export default {
   },
 
   methods: {
+    initArrays(){
+      this.lives=[];
+      this.livesNotStarted=[];
+      this.livesToBe = [];
+      this.livesTerminated=[];
+      this.livesError = [];
+    },
     async fetchContent() {
-      if(this.filterOrga){
+      if(this.filterOrgaUsed){
         this.loading = true;
         this.loaded = false;
-        let dataLives = await studioApi.listConferences(this.$store, true, this.filterOrga, 'RECORDING');
+        let dataLives = await studioApi.listConferences(this.$store, true, this.filterOrgaUsed, 'RECORDING');
         this.lives = dataLives.filter((p)=>{return p!== null;});
-        let dataLivesToBe = await studioApi.listConferences(this.$store, true, this.filterOrga, 'PENDING');
+        let dataLivesToBe = await studioApi.listConferences(this.$store, true, this.filterOrgaUsed, 'PENDING');
         let indexPast = 0;
         for (let index = 0; index < dataLivesToBe.length; index++) {
           if(moment(dataLivesToBe[index].date).isBefore(moment())){
@@ -172,19 +196,19 @@ export default {
             break;
           }
         }
-        let dataLivesPlanned = await studioApi.listConferences(this.$store, true, this.filterOrga, 'PLANNED');
+        let dataLivesPlanned = await studioApi.listConferences(this.$store, true, this.filterOrgaUsed, 'PLANNED');
         this.livesToBe = dataLivesToBe.slice(indexPast).concat(dataLivesPlanned).filter((p)=>{return p!== null;});
         if(this.organisationRight){
-          let dataLivesTerminated = await studioApi.listConferences(this.$store, true, this.filterOrga, 'DEBRIEFING');
+          let dataLivesTerminated = await studioApi.listConferences(this.$store, true, this.filterOrgaUsed, 'DEBRIEFING');
           this.livesTerminated = dataLivesTerminated.filter((p)=>{return p!== null;});
-          let dataLivesError = await studioApi.listConferences(this.$store, true, this.filterOrga, 'ERROR');
+          let dataLivesError = await studioApi.listConferences(this.$store, true, this.filterOrgaUsed, 'ERROR');
           this.livesError = dataLivesError.filter((p)=>{return p!== null;});
         }
-        this.loading = false;
-        this.loaded = true;
         let listIds= this.lives.concat(this.livesToBe).concat(this.livesNotStarted);
         this.$emit('initConferenceIds', listIds);
       }
+      this.loading = false;
+      this.loaded = true;
     },
     deleteLive(index){
       this.lives.splice(index,1);
@@ -228,10 +252,19 @@ export default {
   },
 
   watch: {
-    filterOrga(){
-      if(!this.filterOrga){
-        this.$router.push('/');
+    async organisationId(){
+      this.initArrays();
+      const isLive = await octopusApi.liveEnabledOrganisation(this.organisationId);
+      if(isLive){
+        this.fetchContent();
+      }else{
+        this.loading = false;
+        this.loaded = true;
       }
+    },
+    filterOrga(){
+      this.initArrays();
+      this.fetchContent();
     },
     conferenceWatched:{
       handler() {
