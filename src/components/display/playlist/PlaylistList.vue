@@ -71,6 +71,12 @@ export default {
     filterOrga(){
       return this.$store.state.filter.organisationId;
     },
+    sort(){
+      if(!this.query){
+        return "NAME";
+      }
+      return "SCORE";
+    },
     organisation(){
       if(this.organisationId){
         return this.organisationId;
@@ -94,6 +100,7 @@ export default {
         size: this.dsize,
         query: this.query,
         organisationId: this.organisation,
+        sort: this.sort
       }
       const data = await octopusApi.fetchPlaylists(param);
       this.afterFetching(reset, data);

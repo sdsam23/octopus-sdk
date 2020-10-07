@@ -29,7 +29,7 @@
       >
         <div>{{ '© ' + podcast.organisation.name }}</div>
       </router-link>
-      <span class="saooti-star-bounty text-danger pr-2" v-if="podcast.order && podcast.order > 1"></span>
+      <span class="saooti-star-bounty text-danger pr-2" v-if="editRight && podcast.order && podcast.order > 1"></span>
       </div>
     </div>
   </li>
@@ -161,6 +161,23 @@ export default {
       } else {
         return this.podcast.title;
       }
+    },
+    organisationId(){
+      return state.generalParameters.organisationId;
+    },
+    authenticated(){
+      return state.generalParameters.authenticated;
+    },
+    editRight() {
+      if (this.authenticated) {
+        if (this.organisationId === this.podcast.organisation.id) {
+          return true;
+        }
+        if (state.generalParameters.isAdmin) {
+          return true;
+        }
+      }
+      return false;
     },
 
     duration() {
