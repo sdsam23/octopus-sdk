@@ -493,6 +493,7 @@ export default {
     'Podcasts in the playlist':"Tous les épisodes de la playlist",
     'No podcasts in the playlist':"La playlist ne contient pas d'épisodes",
     "Start in a while":"Démarre dans un instant",
-    'All live emission button':"Tous les lives de l'émission"
+    'All live emission button':"Tous les lives de l'émission",
+    "live in few time":"live à venir",
   };
   
