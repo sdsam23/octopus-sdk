@@ -524,7 +524,7 @@ export default {
       }
     },
 
-    loadDownloadId(index) {
+    loadDownloadId() {
       if(this.podcast){
         const matching_cookies = document.cookie.split(";")
                                  .map((item) => {

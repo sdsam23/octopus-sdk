@@ -304,6 +304,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.19.45 problem dans playlists dev
  * 0.19.46 merge de jimmy
  * 0.19.47 Problème locales
+ * 0.19.48 Merge fabien
  
  * 0.20.0 Mise à jour Api et améliorations live
 

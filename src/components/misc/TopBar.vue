@@ -99,6 +99,10 @@
   z-index: 10;
   padding: 0 2em;
 
+  @media (max-width: 400px) {
+    padding: 0 0.5rem;
+  }
+
   .top-bar {
     transition: height 1s;
     display: flex;
@@ -109,11 +113,11 @@
     position: relative;
 
     .main-button-dropdown {
-      padding-bottom: 0.4rem;
-      width: 140px;
-      text-align: left;
-      padding-left: 25px;
-      margin-right: 30px;
+          padding-bottom: 0.4rem;
+          width: 140px;
+          text-align: left;
+          padding-left: 25px;
+          margin-right: 30px;
     }
 
     .top-bar-logo{
@@ -149,6 +153,9 @@
     .hamburger-menu {
       display: none;
       margin: 0 1rem;
+      @media (max-width: 600px) {
+        margin: 0;
+      }
       .saooti-burger-menu {
         font-size: 2.2em;
         font-weight: bold;
