@@ -97,6 +97,9 @@
 .octopus-arrow-down-2{
 	right: 10px;
     top: 12px;
+    @media (max-width: 450px) {
+        top: 16px;
+    }
 }
 
 

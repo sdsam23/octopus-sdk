@@ -110,6 +110,12 @@ button.btn.btn-primary.share-btn.m-3 {
     justify-content: center;
   }
 }
+
+@media (max-width: 450px) {
+.emission-item-text {
+    padding: 0.5rem 0;
+  }
+}
 </style>
 
 <script>

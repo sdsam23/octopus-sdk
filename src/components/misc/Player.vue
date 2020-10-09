@@ -202,6 +202,16 @@
   }
 }
 /** PHONES*/
+@media (max-width: 450px) {
+  .player-container {
+        height: 3.5rem !important;
+        .player-image {
+          height: 2rem;
+          width: 2rem;
+        }
+  }
+}
+
 @media (max-width: 960px) {
   .player-container {
     .d-flex {
@@ -217,6 +227,7 @@
     }
   }
 }
+
 </style>
 
 <script>

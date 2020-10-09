@@ -112,16 +112,56 @@
   transform: rotate(180deg);
 }
 .advanced-search-container{
-	background: #fff;
+  background: #fff;
   border-radius: 0.8rem;
-	display: flex;
+  display: flex;
   width: 100%;
-	padding: 1rem 2rem;
-	margin-bottom: 1rem;
+  padding: 1rem 2rem;
+  margin-bottom: 1rem;
+  .checkbox-saooti .custom-control-label::after {
+    top: 0.22rem;
+}
+  .checkbox-saooti .custom-control-label::before {
+    top: 0.22rem;
+}
+
+@media (max-width: 450px) {
+	    flex-direction: column;
+  .vdatetime {
+    padding: 0.5em 0 !important;
+	width: 100%;
+	input {
+		width: 100%;
+	}
+}
+
+  .checkbox-saooti {
+	margin-left: 0rem !important;
+}
+    padding: 1rem;
+	.basic-select {	  
+	 width: 100%;
+     margin: 0 !important;
+  }
+
+  label.wrap {
+	width: 100%;
+    margin: 0.5em 0;
+	position: relative;
+  }
+
+  	.rubrique-select-height {
+		height: 30px;
+		margin-top: 0.5rem !important;
+	}
+  }
+
+  @media (min-width: 401px) {
 	label.wrap { 
 		position: relative;
 		margin:0;
 	}
+  }
 	input:not(#rubriqueChooser){
     border: 1px solid #ddd;
     border-radius: 5px;

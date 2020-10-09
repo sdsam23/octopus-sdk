@@ -22,7 +22,7 @@
   display: none; // none by default, but block on "open" of the menu
   float: left;
   min-width: $dropdown-min-width;
-  padding: $dropdown-padding-y 0;
+  padding: $dropdown-padding-y 0.5rem;
   margin: $dropdown-spacer 0 0; // override default ul
   @include font-size($dropdown-font-size);
   color: $dropdown-color;
@@ -33,6 +33,9 @@
   border: $dropdown-border-width solid $dropdown-border-color;
   @include border-radius($dropdown-border-radius);
   @include box-shadow($dropdown-box-shadow);
+  @media (max-width: 450px) {
+    min-width: 15rem;
+  }
 }
 
 @each $breakpoint in map-keys($grid-breakpoints) {
@@ -132,6 +135,9 @@
   background-color: transparent; // For `<button>`s
   border: 0; // For `<button>`s
   font-size: 0.8rem;
+  @media (max-width: 450px) {
+    padding: 0.25rem 0;
+  }
 
   // Prevent dropdown overflow if there's no padding
   // See https://github.com/twbs/bootstrap/pull/27703
@@ -182,6 +188,9 @@
   @include font-size($font-size-sm);
   color: $dropdown-header-color;
   white-space: nowrap; // as with > li > a
+      @media (max-width: 450px) {
+    margin: 1rem 0 0;
+  }
 }
 
 // Dropdown text

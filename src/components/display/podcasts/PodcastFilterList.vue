@@ -43,6 +43,10 @@
 .list-episodes {
   padding: 2rem 0rem 1rem !important;
   margin: 0 0.5rem;
+  
+  @media (max-width: 450px) {
+  padding: 0.5rem 0rem 1rem !important;
+}
   h2 {
     margin-bottom: 0.5rem;
   }
@@ -54,6 +58,8 @@
 .small-flex-grow{
   flex-grow: 0.3;
 }
+
+
 </style>
 
 <script>

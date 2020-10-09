@@ -43,6 +43,9 @@
   @media (max-width: 960px) {
     margin: 0;
   }
+    @media (max-width: 450px) {
+    margin: 1rem 0 0;
+  }
 }
 </style>
 

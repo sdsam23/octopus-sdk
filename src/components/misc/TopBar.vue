@@ -99,7 +99,7 @@
   z-index: 10;
   padding: 0 2em;
 
-  @media (max-width: 400px) {
+  @media (max-width: 450px) {
     padding: 0 0.5rem;
   }
 

@@ -84,6 +84,16 @@
   text-transform: uppercase;
   font-weight: bold;
 }
+
+@media (max-width: 450px) {
+.live-list-container h3 {
+    text-align: center;
+    font-size: 1rem;
+}
+.live-list-container .horizontal-separator{
+  margin: 1rem;
+}
+}
 </style>
 
 <script>

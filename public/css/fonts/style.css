@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'saooti-ui';
-  src:url('/css/fonts/saooti-ui.eot?2ftnxd');
-  src:url('/css/fonts/saooti-ui.eot?2ftnxd#iefix') format('embedded-opentype'),
-      url('/css/fonts/saooti-ui.ttf?2ftnxd') format('truetype'),
-      url('/css/fonts/saooti-ui.woff?2ftnxd') format('woff'),
-      url('/css/fonts/saooti-ui.svg?2ftnxd#saooti-ui') format('svg');
+  src:url('/assets/fonts/saooti-ui.eot?x8no1z');
+  src:url('/assets/fonts/saooti-ui.eot?x8no1z#iefix') format('embedded-opentype'),
+      url('/assets/fonts/saooti-ui.ttf?x8no1z') format('truetype'),
+      url('/assets/fonts/saooti-ui.woff?x8no1z') format('woff'),
+      url('/assets/fonts/saooti-ui.svg?x8no1z#saooti-ui') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -37,6 +37,9 @@
 
 .saooti-user-octopus:before {
   content: "\ea9b";
+}
+.saooti-audionow:before {
+  content: "\ea9c";
 }
 .saooti-listening:before {
   content: "\ea9a";

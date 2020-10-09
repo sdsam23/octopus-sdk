@@ -37,6 +37,9 @@
 </template>
 
 <style lang="scss">
+.loading-title {
+  margin: 0.4rem 0 0;
+}
 .emission-list {
   align-self: stretch;
   flex-grow: 1;

@@ -63,6 +63,12 @@
     margin-right: 0.5rem;
   }
   }
+    @media (max-width: 450px) {
+  .flex-column{
+    flex-direction: row !important;
+    flex-wrap: wrap;
+  }
+  }
 }
 .share-button-title{
   height: 2rem;

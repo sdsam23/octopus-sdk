@@ -39,6 +39,9 @@
 
 .list-episode {
   padding: 2rem 0rem 1rem !important;
+    @media (max-width: 450px) {
+  padding: 0.5rem 0rem 1rem !important;
+}
   h2 {
     margin-bottom: 1rem;
   }

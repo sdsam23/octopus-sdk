@@ -39,8 +39,16 @@ h1,h2,h3,h4,h5,h6{
   margin-bottom: 0.5em;
   margin-top: 0;
   @media (max-width: 500px){
-    margin-bottom: 10px;
+    margin: 0.5rem 0;
+    font-size: 1rem;
   }
+}
+
+h1 {
+  @media (max-width: 500px){
+    margin: 0.5rem 0 1rem;
+  }
+
 }
 
 .primary-color{
@@ -86,7 +94,7 @@ h1,h2,h3,h4,h5,h6{
   @media (max-width: 1200px) {
     padding: 1rem;
   }
-  @media (max-width: 400px) {
+  @media (max-width: 450px) {
     padding: 1rem 0.5rem;
   }
 }
@@ -136,6 +144,9 @@ a.linkHover:hover{
   word-wrap: break-word;
   text-align: justify;
   font-size: 0.7rem;
+  @media (max-width: 450px) {
+    margin: 1rem 0;
+  }
 }
 
 .alert-text{
@@ -278,6 +289,13 @@ a.linkHover:hover{
 }
 .flex-no-wrap{
   flex-wrap: nowrap !important;
+}
+
+@media (max-width: 450px) {
+  .module-box .img-box {
+    margin: 0.5rem auto !important;
+    float: inherit !important;
+}
 }
 
 @media (max-width: 655px) {

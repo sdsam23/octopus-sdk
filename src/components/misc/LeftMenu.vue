@@ -33,7 +33,7 @@
       >
       <router-link 
         :to="{ name: 'playlists', query:{productor: $store.state.filter.organisationId}}"
-        class="linkHover p-3 text-dark font-weight-bold">{{ $t('Playlists') }}</router-link>
+        class="linkHover pb-3 text-dark font-weight-bold">{{ $t('Playlists') }}</router-link>
         <OrganisationChooserLight
         width="auto"
         :defaultanswer="$t('No organisation filter')"
@@ -104,8 +104,13 @@
 }
 @media (max-width: 450px) {
   .left-menu-container {
-    width: 90%;
+    width: 94%;
     font-size: 0.3rem;
+    padding: 2rem 0 1.5rem 1rem;
+  }
+  .default-multiselect-width .basic-select {
+    background: #eee !important;
+    width: 98%;
   }
 }
 </style>

@@ -68,8 +68,9 @@
   }
   @media (max-width: 960px) {
     flex-wrap: wrap;
+    margin: 0.2rem 0.5rem;
   }
-  @media (max-width: 500px) {
+  @media (max-width: 450px) {
     .primary-color{
       display: none;
     }

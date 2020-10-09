@@ -36,9 +36,11 @@
 </template>
 
 <style lang="scss">
+@media (min-width: 950px) {
 .participant-desc {
       max-width: 50%;
     line-height: 1.5em;
+}
 }
 </style>
 
