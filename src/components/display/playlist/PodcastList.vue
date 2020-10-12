@@ -38,6 +38,9 @@
 <style lang="scss">
 .width-600{
   width: 600px;
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 }
 </style>
 

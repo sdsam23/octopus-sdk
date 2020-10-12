@@ -308,10 +308,12 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.19.49 Améliorations dans la playlist
  * 0.19.50 Merge fabien
  * 0.19.51 Mise à jour icones
-
+ * 0.19.52 Problèmes responsive
+ 
  * 0.20.0 Mise à jour Api et améliorations live
 
  
+
 
 
 
