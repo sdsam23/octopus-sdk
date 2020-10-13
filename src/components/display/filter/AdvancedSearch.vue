@@ -126,7 +126,7 @@
 }
 
 @media (max-width: 450px) {
-	    flex-direction: column;
+	flex-direction: column;
   .vdatetime {
     padding: 0.5em 0 !important;
 	width: 100%;
@@ -140,8 +140,8 @@
 }
     padding: 1rem;
 	.basic-select {	  
-	 width: 100%;
-     margin: 0 !important;
+		width: 100%;
+		margin: 0 !important;
   }
 
   label.wrap {
@@ -150,7 +150,7 @@
 	position: relative;
   }
 
-  	.rubrique-select-height {
+.rubrique-select-height {
 		height: 30px;
 		margin-top: 0.5rem !important;
 	}

@@ -204,7 +204,6 @@
 /** PHONES*/
 @media (max-width: 450px) {
   .player-container {
-        height: 3.5rem !important;
         .player-image {
           height: 2rem;
           width: 2rem;
@@ -309,8 +308,10 @@ export default {
       playerHeight(state) {
         if (state.player.status == "STOPPED" || this.forceHide) {
           return 0;
-        } else {
+        } else if(window.innerWidth>450){
           return "5rem";
+        }else{
+          return "3.5rem";
         }
       },
       status: (state) => state.player.status,
