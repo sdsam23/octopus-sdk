@@ -248,7 +248,7 @@ export default {
       listenTime: 0,
       notListenTime: 0,
       lastSend: 0,
-      _downloadId: null,
+      downloadId: null,
       playerError: false,
       listenError: false,
       percentLiveProgress: 0,

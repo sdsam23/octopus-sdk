@@ -495,5 +495,7 @@ export default {
     "Start in a while":"Démarre dans un instant",
     'All live emission button':"Tous les lives de l'émission",
     "live in few time":"live à venir",
+    'player parameters': "Paramètres du player",
+    "Start at": "Démarrer à"
   };
   

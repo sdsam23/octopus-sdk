@@ -2,72 +2,60 @@
   <div>
     <div class="module-box text-center-mobile">
       <h3>{{ $t('Embed') }}</h3>
-      <div class="d-flex flex-column align-items-center" v-if="!exclusive && (authenticated || notExclusive)">
-        <div
-          v-if="noAd"
-          class="sticker"
-          :title="$t('You cannot insert advertising')"
-        >{{ $t('No advertising') }}</div>
-        <iframe
-          title="miniplayer"
-          :src="iFrameSrc"
-          scrolling="no"
-          frameborder="0"
-          :width="iFrameWidth"
-          :height="iFrameHeight"
-          class="maxIframe"
-        ></iframe>
-        <div class="d-flex flex-column">
-          <button class="btn mb-3" @click="isShareModal = true;">{{ $t('Share the player') }}</button>
-          <template v-if="!isLiveReadyToRecord">
-            <label for="iframe-select" class="d-inline" aria-label="select miniplayer"></label>
-            <select v-model="iFrameModel" id="iframe-select" class="frame-select input-no-outline">
-              <option value="default">{{$t('Default version')}}</option>
-              <option value="large">{{$t('Large version')}}</option>
-              <option value="emission" v-if="podcast && podcast.podcastId">{{$t('Emission version')}}</option>
-              <option value="largeEmission" v-if="podcast && podcast.podcastId">{{$t('Large emission version')}}</option>
-              <option value="largeSuggestion" v-if="podcast && podcast.podcastId">{{$t('Large suggestion version')}}</option>
-            </select>
-          </template>
+      <template v-if="!exclusive && (authenticated || notExclusive)">
+        <div class="d-flex flex-column align-items-center">
+          <div
+            v-if="noAd"
+            class="sticker"
+            :title="$t('You cannot insert advertising')"
+          >{{ $t('No advertising') }}</div>
+          <iframe
+            title="miniplayer"
+            :src="iFrameSrc"
+            scrolling="no"
+            frameborder="0"
+            :width="iFrameWidth"
+            :height="iFrameHeight"
+            class="maxIframe"
+          ></iframe>
+          <div class="d-flex flex-column">
+            <button class="btn mb-3" @click="isShareModal = true;">{{ $t('Share the player') }}</button>
+            <template v-if="!isLiveReadyToRecord">
+              <label for="iframe-select" class="d-inline" aria-label="select miniplayer"></label>
+              <select v-model="iFrameModel" id="iframe-select" class="frame-select input-no-outline">
+                <option value="default">{{$t('Default version')}}</option>
+                <option value="large">{{$t('Large version')}}</option>
+                <option value="emission" v-if="podcast && podcast.podcastId">{{$t('Emission version')}}</option>
+                <option value="largeEmission" v-if="podcast && podcast.podcastId">{{$t('Large emission version')}}</option>
+                <option value="largeSuggestion" v-if="podcast && podcast.podcastId">{{$t('Large suggestion version')}}</option>
+              </select>
+            </template>
+          </div>
+          <div class="d-flex justify-content-around mt-3 flex-grow w-100" >
+            <div class="d-flex flex-column align-items-center flex-shrink mr-3">
+              <div class="font-weight-600">{{$t('Choose color')}}</div>
+              <swatches v-model="color" class="c-hand input-no-outline" show-fallback colors="text-advanced" popover-to="right" :data-color="color"></swatches>
+            </div>  
+            <div class="d-flex flex-column align-items-center">
+              <div class="font-weight-600">{{$t('Choose theme')}}</div>
+              <div class="d-flex">
+                <swatches v-model="theme" :data-theme="theme" class="c-hand input-no-outline mr-1" :swatch-style="{padding: '0px 0px', marginRight: '0px', marginBottom: '0px', border:'1px gray solid'}" :wrapper-style="{paddingTop: '0px', paddingLeft: '0px', paddingRight: '0px', paddingBottom: '0px'}" :colors="['#000000']" inline ></swatches>
+                <swatches v-model="theme" :data-theme="theme" class="c-hand input-no-outline" :swatch-style="{padding: '0px 0px', marginRight: '0px', marginBottom: '0px', border:'1px gray solid'}" :wrapper-style="{paddingTop: '0px', paddingLeft: '0px', paddingRight: '0px', paddingBottom: '0px'}" :colors="['#ffffff']" inline ></swatches>
+              </div>
+            </div> 
+          </div>
         </div>
-        <div class="d-flex justify-content-around mt-3 flex-grow w-100" >
-          <div class="d-flex flex-column align-items-center flex-shrink mr-3">
-            <div class="font-weight-600">{{$t('Choose color')}}</div>
-            <swatches v-model="color" class="c-hand input-no-outline" show-fallback colors="text-advanced" popover-to="right" :data-color="color"></swatches>
-          </div>  
-          <div class="d-flex flex-column align-items-center">
-            <div class="font-weight-600">{{$t('Choose theme')}}</div>
-            <div class="d-flex">
-              <swatches v-model="theme" :data-theme="theme" class="c-hand input-no-outline mr-1" :swatch-style="{padding: '0px 0px', marginRight: '0px', marginBottom: '0px', border:'1px gray solid'}" :wrapper-style="{paddingTop: '0px', paddingLeft: '0px', paddingRight: '0px', paddingBottom: '0px'}" :colors="['#000000']" inline ></swatches>
-              <swatches v-model="theme" :data-theme="theme" class="c-hand input-no-outline" :swatch-style="{padding: '0px 0px', marginRight: '0px', marginBottom: '0px', border:'1px gray solid'}" :wrapper-style="{paddingTop: '0px', paddingLeft: '0px', paddingRight: '0px', paddingBottom: '0px'}" :colors="['#ffffff']" inline ></swatches>
-            </div>
-          </div> 
-        </div>
-        <div class="d-flex flex-column align-items-center flex-grow" v-if="(!podcast || iFrameModel === 'emission' || iFrameModel === 'largeEmission' || iFrameModel === 'largeSuggestion') && !playlist">
-        <div class="d-flex align-items-center w-100 flex-wrap mt-3" v-if="!podcast || iFrameModel === 'emission' || iFrameModel === 'largeEmission'">
-          <b-form-radio v-model="episodeNumbers" name="episodeNumbers" value="all" ></b-form-radio>
-          <span class="flex-shrink">{{ $t('Show every episode') }}</span>
-        </div>
-        <div class="d-flex align-items-center flex-wrap" :class="!podcast || iFrameModel === 'emission' || iFrameModel === 'largeEmission'? '':'mt-3'">
-          <b-form-radio v-model="episodeNumbers" name="episodeNumbers" value="number" v-if="!podcast || iFrameModel === 'emission' || iFrameModel === 'largeEmission'"></b-form-radio>
-          <span class="flex-shrink">{{ $t('Show') }}</span>
-          <input
-            id="number-input"
-            type="number"
-            v-model="iFrameNumber"
-            min="1"
-            max="50"
-            class="input-share-player input-no-outline text-center m-2"
-          />
-          <label for="number-input" class="d-inline" :aria-label="$t('Number of player podcasts')"></label>
-          <span class="flex-shrink">{{ $t('Last podcasts') }}</span>
-        </div>
-        <div class="checkbox-saooti">  
-          <input type="checkbox" class="custom-control-input" id="proceedCheck" v-model="proceedReading">  
-          <label class="custom-control-label" for="proceedCheck">{{$t('Proceed reading')}}</label>  
-        </div>
-        </div>
-      </div>
+        <PlayerParameters
+        v-if="(!podcast || iFrameModel === 'emission' || iFrameModel === 'largeEmission' || iFrameModel === 'largeSuggestion')"
+        :podcast="podcast"
+        :playlist="playlist"
+        :iFrameModel="iFrameModel"
+        @episodeNumbers="updateEpisodeNumber"
+        @proceedReading="updateProceedReading"
+        @iFrameNumber="updateIframeNumber"
+        @startTime="updateStartTime"
+        />
+      </template>
       <div v-else-if="exclusive && authenticated">{{ $t('Only organisation members can share the content') }}</div>
       <div v-else-if="!authenticated">{{ $t('Only authenticated members can share the content') }}</div>
     </div>
@@ -126,6 +114,7 @@
 
 <script>
 import ShareModalPlayer from "../../misc/modal/ShareModalPlayer.vue";
+import PlayerParameters from "./PlayerParameters.vue";
 import { state } from "../../../store/paramStore.js";
 import Swatches from "vue-swatches";
 import "vue-swatches/dist/vue-swatches.min.css";
@@ -136,31 +125,12 @@ export default {
 
   components: {
     ShareModalPlayer,
-    Swatches
+    Swatches,
+    PlayerParameters
   },
 
   async created() {
-    let orgaId = undefined;
-    if(this.authenticated){
-      if(this.podcast){
-        orgaId= this.podcast.organisation.id;
-      }else if(this.playlist){
-        orgaId= this.playlist.organisation.id;
-      }else{
-        orgaId= this.emission.orga.id;
-      }
-      const data = await profileApi.fetchOrganisationAttibutes(this.$store, orgaId);
-      if(data.hasOwnProperty('COLOR')) {
-        this.color = data.COLOR;
-      } else {
-        this.color = "#40a372";
-      }
-      if(data.hasOwnProperty('THEME')) {
-        this.theme = data.THEME;
-      } else {
-        this.theme = "#ffffff";
-      }
-    }
+    await this.initColor();
     if(this.isLiveReadyToRecord){
       this.iFrameModel = "large";
     }
@@ -169,12 +139,13 @@ export default {
   data() {
     return {
       iFrameModel: "default",
-      iFrameNumberPriv: "3",
       isShareModal: false,
       color: "#40a372",
       theme: "#ffffff",
       proceedReading: true,
-      episodeNumbers: 'number'
+      episodeNumbers: 'number',
+      iFrameNumber: '3',
+      startTime:0,
     };
   },
   computed: {
@@ -204,7 +175,7 @@ export default {
     },
     iFrameSrc() {
       let url = "";
-      let iFrameNumber = "/"+this.iFrameNumberPriv;
+      let iFrameNumber = "/"+this.iFrameNumber;
       if((!this.podcast || this.iFrameModel === "emission" || this.iFrameModel === "largeEmission") && this.episodeNumbers === "all"){
         iFrameNumber = "/0";
       }
@@ -238,19 +209,8 @@ export default {
       if(!this.proceedReading){
         url += "&proceed=false";
       }
+      url += "&time="+this.startTime;
       return url;
-    },
-
-    iFrameNumber: {
-      get() {
-        return this.iFrameNumberPriv;
-      },
-      set(value) {
-        let val = parseInt(value, 10);
-        if (!isNaN(val) && val >= 1 && val <= 50) {
-          this.iFrameNumberPriv = value;
-        }
-      }
     },
 
     iFrameWidth() {
@@ -263,7 +223,7 @@ export default {
           if(this.podcast){
             return '180px';
           } else if(this.episodeNumbers==='number'){
-            switch(this.iFrameNumberPriv){
+            switch(this.iFrameNumber){
               case "1": return '185px';
               case "2": return '240px';
               case "3": return '290px';
@@ -277,7 +237,7 @@ export default {
        case 'largeEmission':
         case 'largeSuggestion':
           if(this.episodeNumbers==='number'){
-            switch(this.iFrameNumberPriv){
+            switch(this.iFrameNumber){
               case "1": return '260px';
               case "2": return '315px';
               case "3": return '365px';
@@ -304,6 +264,42 @@ export default {
     }
   },
 
-  methods: {},
+  methods: {
+    async initColor(){
+      let orgaId = undefined;
+      if(this.authenticated){
+        if(this.podcast){
+          orgaId= this.podcast.organisation.id;
+        }else if(this.playlist){
+          orgaId= this.playlist.organisation.id;
+        }else{
+          orgaId= this.emission.orga.id;
+        }
+        const data = await profileApi.fetchOrganisationAttibutes(this.$store, orgaId);
+        if(data.hasOwnProperty('COLOR')) {
+          this.color = data.COLOR;
+        } else {
+          this.color = "#40a372";
+        }
+        if(data.hasOwnProperty('THEME')) {
+          this.theme = data.THEME;
+        } else {
+          this.theme = "#ffffff";
+        }
+      }
+    },
+    updateEpisodeNumber(value){
+      this.episodeNumbers = value;
+    },
+    updateProceedReading(value){
+      this.proceedReading = value;
+    },
+    updateIframeNumber(value){
+      this.iFrameNumber = value;
+    },
+    updateStartTime(value){
+      this.startTime = value;
+    }
+  },
 };
 </script>

@@ -8,8 +8,7 @@
         <OrganisationChooser
 					:defaultanswer="$t('No organisation filter')"
 					@selected="onOrganisationSelected"
-          v-else
-			  />
+          v-else/>
     </div>
 		<LiveList @initConferenceIds="initConferenceIds" :conferenceWatched="conferenceWatched" :organisationId="organisationId" v-if="filterOrga||organisationId"/>
   </div>

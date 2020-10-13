@@ -69,7 +69,7 @@
 }
 </style>
 <script>
-import Snackbar from '../../misc/Snackbar.vue';
+import Snackbar from '../Snackbar.vue';
 export default {
   name: 'ShareModalPlayer',
 
