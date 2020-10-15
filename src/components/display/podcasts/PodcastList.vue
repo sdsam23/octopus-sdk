@@ -7,7 +7,7 @@
     <div v-if="loaded && !podcasts.length">
       <p>{{ $t('No podcast match your query') }}</p>
     </div>
-    <div v-if="showCount && loaded && podcasts.length > 1" class="text-secondary mb-2">{{$t('Number podcasts',{nb :totalCount})}}</div>
+    <div v-if="showCount && loaded && podcasts.length > 1" class="text-secondary mb-2">{{$t('Number podcasts',{nb :totalCount})+ sortText}}</div>
     <ul class="podcast-list" v-show="loaded">
       <PodcastItem
         v-bind:podcast="p"
@@ -82,6 +82,7 @@ export default {
     includeHidden:{default:false},
     showCount:{default:false},
     noRubrique:{default:false},
+    sortCriteria:{default:undefined}
   },
 
   components: {
@@ -111,7 +112,7 @@ export default {
       return state.generalParameters.buttonPlus;
     },
     changed(){
-      return `${this.first}|${this.size}|${this.organisation}|${this.emissionId}|
+      return `${this.first}|${this.size}|${this.organisation}|${this.emissionId}|${this.sortCriteria}|${this.sort}
       ${this.iabId}|${this.participantId}|${this.query}|${this.monetization}|${this.popularSort}|
       ${this.rubriqueId}|${this.rubriquageId}|${this.before}|${this.after}|${this.includeHidden}|${this.noRubrique}`;
     },
@@ -130,12 +131,18 @@ export default {
     sort(){
       if(this.popularSort){
         return "POPULARITY";
-      }else if(this.query && this.query.length){
-        return "SCORE";
       }else{
-        return "DATE";
+        return this.sortCriteria;
       }
-    }
+    },
+    sortText(){
+      switch (this.sortCriteria) {
+        case "SCORE": return this.$t('sort by score');
+        case "DATE":return this.$t('sort by date');
+        case "NAME":return this.$t('sort by alphabetical');
+        default:return this.$t('sort by date');
+      }
+    },
   },
 
   methods: {

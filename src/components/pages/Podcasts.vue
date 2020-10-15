@@ -15,11 +15,13 @@
     :isEmission='false'
     :resetRubriquage='resetRubriquage'
     :isSearchBar="isProductorSearch"
+    :sortCriteria="sortCriteria"
     @updateRubriquage='updateRubriquage'
     @updateRubrique='updateRubrique'
     @updateMonetization='updateMonetization' 
     @updateFromDate='updateFromDate'
     @updateToDate='updateToDate'
+    @updateSortCriteria='updateSortCriteria'
     @includeHidden='updateHidden'
     :organisationId='organisationId'/>
     <PodcastList 
@@ -34,6 +36,7 @@
     :rubriquageId='rubriquageId'
     :before='toDate'
     :after='fromDate'
+    :sortCriteria="sortCriteria"
     :includeHidden='includeHidden'
     :noRubrique='noRubrique'/>
   </div>
@@ -89,6 +92,7 @@ export default {
       resetRubriquage: false,
       includeHidden : false,
       noRubrique: false,
+      sortCriteria : 'DATE',
     };
   },
 
@@ -105,6 +109,9 @@ export default {
   },
 
   methods:{
+    updateSortCriteria(value){
+      this.sortCriteria = value;
+    },
     updateHidden(value){
       this.includeHidden = value;
     },
@@ -139,6 +146,11 @@ export default {
       this.organisationId = value;
     },
     updateSearchPattern(value){
+      if(value !== ""){
+        this.sortCriteria = "SCORE";
+      }else{
+        this.sortCriteria = "DATE";
+      }
       this.searchPattern =value;
     },
     updateMonetization(value){

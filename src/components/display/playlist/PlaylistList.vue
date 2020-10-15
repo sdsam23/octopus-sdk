@@ -4,7 +4,7 @@
       <div class="spinner-border mr-3"></div>
       <h3 class="mt-2">{{ $t('Loading content ...') }}</h3>
     </div>
-    <div v-if="loaded && playlists.length > 1" class="text-secondary mb-2">{{$t('Number playlists',{nb :totalCount})}}</div>
+    <div v-if="loaded && playlists.length > 1" class="text-secondary mb-2">{{$t('Number playlists',{nb :totalCount})+ $t('sort by score')}}</div>
     <ul class="emission-list twoEmissions">
       <PlaylistItem
         v-bind:playlist="p"

@@ -13,12 +13,13 @@
       :resetRubriquage='resetRubriquage'
       :isEmission='true'
       :isSearchBar="isProductorSearch"
+      :sortCriteria="sortEmission"
       @updateRubriquage='updateRubriquage'
       @updateRubrique='updateRubrique'
       @updateMonetization='updateMonetization' 
       @updateFromDate='updateFromDate'
       @updateToDate='updateToDate'
-      @updateSortEmission='updateSortEmission'
+      @updateSortCriteria='updateSortEmission'
       @includeHidden='updateHidden'
       :organisationId='organisationId'/>
     <EmissionList
@@ -139,6 +140,11 @@ export default {
       this.organisationId = value;
     },
     updateSearchPattern(value){
+      if(value !== ""){
+        this.sortEmission = "SCORE";
+      }else{
+        this.sortEmission = "LAST_PODCAST_DESC";
+      }
       this.searchPattern =value;
     },
     updateMonetization(value){

@@ -9,7 +9,7 @@
     <div v-if="loaded && !podcasts.length && notEmptyPlaylist">
       <p>{{ $t('No podcast match your query')}}</p>
     </div>
-    <div v-if="loaded && podcasts.length > 1" class="text-secondary mb-2">{{$t('Number podcasts',{nb :podcasts.length})}}</div>
+    <div v-if="loaded && podcasts.length > 1" class="text-secondary mb-2">{{$t('Number podcasts',{nb :podcasts.length}) + $t('sort by score')}}</div>
     <div class="d-flex position-relative width-600 align-self-baseline" v-if="notEmptyPlaylist">
         <label for="search" class="d-inline" :aria-label="$t('Search')"></label>
         <input :placeholder="$t('Search')" v-model="searchPattern" class="filter-search-input input-no-outline flex-grow" id="search"/>

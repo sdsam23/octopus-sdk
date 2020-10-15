@@ -8,7 +8,7 @@
 	</div>
   <div class="advanced-search-container" v-show="showFilters" >
 		<div class="d-flex flex-column">
-			<div class="primary-color mb-2" v-if="isEmission">{{$t('Filter')}}</div>
+			<div class="primary-color mb-2">{{$t('Filter')}}</div>
 			<MonetizableFilter @updateMonetization='updateMonetization' :isEmission='isEmission' v-if="isMonetizableFilter"/>
 			<div class="d-flex mt-3 align-items-center rubrique-select-height" v-if="organisationId && rubriquageDisplay">
 				<div class="checkbox-saooti flex-shrink">  
@@ -44,34 +44,38 @@
 					</template>
 				</template>
 			</div>
-			<div class="d-flex mt-3 align-items-center">
+			<div class="d-flex mt-3 align-items-center flex-wrap">
 				<div class="mr-2" v-if="isEmission">{{$t('Emission with episode published :')}}</div>
-				<div class="checkbox-saooti flex-shrink">  
-					<input type="checkbox" class="custom-control-input" id="search-from-checkbox" v-model="isFrom">  
-					<label class="custom-control-label" for="search-from-checkbox">{{ $t('From the :') }}</label>  
+				<div class="d-flex align-items-center">
+					<div class="checkbox-saooti flex-shrink">  
+						<input type="checkbox" class="custom-control-input" id="search-from-checkbox" v-model="isFrom">  
+						<label class="custom-control-label" for="search-from-checkbox">{{ $t('From the :') }}</label>  
+					</div>
+					<Datetime
+						type="datetime"
+						moment-locale="fr"
+						v-model="fromDate"
+						class="theme-saooti pl-3 pr-3"
+						@input="updateFromDate"
+						input-format="D/MM/YYYY [à] HH[h]mm"
+						:i18n="lang"
+					/>
 				</div>
-				<Datetime
-					type="datetime"
-					moment-locale="fr"
-					v-model="fromDate"
-					class="theme-saooti pl-3"
-					@input="updateFromDate"
-					input-format="D/MM/YYYY [à] HH[h]mm"
-					:i18n="lang"
-				/>
-				<div class="checkbox-saooti flex-shrink ml-3">  
-					<input type="checkbox" class="custom-control-input" id="search-to-checkbox" v-model="isTo">  
-					<label class="custom-control-label" for="search-to-checkbox">{{ $t('To the :') }}</label>  
+				<div class="d-flex align-items-center">
+					<div class="checkbox-saooti flex-shrink">  
+						<input type="checkbox" class="custom-control-input" id="search-to-checkbox" v-model="isTo">  
+						<label class="custom-control-label" for="search-to-checkbox">{{ $t('To the :') }}</label>  
+					</div>
+					<Datetime
+						type="datetime"
+						moment-locale="fr"
+						v-model="toDate"
+						class="theme-saooti pl-3"
+						@input="updateToDate"
+						input-format="D/MM/YYYY [à] HH[h]mm"
+						:i18n="lang"
+					/>
 				</div>
-				<Datetime
-					type="datetime"
-					moment-locale="fr"
-					v-model="toDate"
-					class="theme-saooti pl-3"
-					@input="updateToDate"
-					input-format="D/MM/YYYY [à] HH[h]mm"
-					:i18n="lang"
-				/>
 			</div>
 			<div class="d-flex flex-column mt-3" v-if="organisation && organisationRight && !isPodcastmaker">
 				<div class="checkbox-saooti flex-shrink">  
@@ -80,12 +84,13 @@
 				</div>
 			</div>
 		</div>
-		<div class="d-flex flex-column ml-3" v-if="isEmission">
+		<div class="d-flex flex-column">
 			<div class="primary-color mb-2 padding-left-custom-radio">{{$t('Sort')}}</div>
 			<b-form-group>
-				<b-form-radio-group v-model="emissionSort" class="d-flex flex-column">
+				<b-form-radio-group v-model="sort" class="d-flex flex-column">
 					<b-form-radio value="SCORE" v-if="isSearchBar">{{$t('Sort score')}}</b-form-radio>
-					<b-form-radio value="LAST_PODCAST_DESC">{{$t('Sort last')}}</b-form-radio>
+					<b-form-radio value="LAST_PODCAST_DESC" v-if="isEmission">{{$t('Sort last')}}</b-form-radio>
+					<b-form-radio value="DATE" v-else>{{$t('Sort last')}}</b-form-radio>
 					<b-form-radio value="NAME">{{$t('Sort name')}}</b-form-radio>
 				</b-form-radio-group>
 			</b-form-group>
@@ -104,6 +109,10 @@
 }
 .padding-left-custom-radio{
 	padding-left: 1.5rem;
+	@media (max-width: 720px) {
+		padding-left: 0;
+		margin-top: 1rem;
+	}
 }
 .large-font-size{
   font-size: 1.3rem;
@@ -118,6 +127,11 @@
   width: 100%;
   padding: 1rem 2rem;
   margin-bottom: 1rem;
+	justify-content: space-around;
+	@media (max-width: 720px) {
+		flex-wrap: wrap;
+		justify-content: flex-start;
+	}
   .checkbox-saooti .custom-control-label::after {
     top: 0.22rem;
 }
@@ -195,7 +209,7 @@ export default {
 		Datetime
 	},
 	
-	props: ['organisationId', 'isEmission', 'resetRubriquage', 'isSearchBar'],
+	props: ['organisationId', 'isEmission', 'resetRubriquage', 'isSearchBar', 'sortCriteria'],
 
   created() {
 		this.fetchTopics();
@@ -205,6 +219,7 @@ export default {
 		if(this.organisation && this.organisationRight && !this.isEmission){
 				this.isNotVisible = true;
 		}
+		this.sort = this.sortCriteria;
 	},
 
   data() {
@@ -224,7 +239,7 @@ export default {
 			isNotVisible: false,
 			showFilters : false,
 			reset: false,
-			emissionSort: 'LAST_PODCAST_DESC',
+			sort: '',
     };
   },
 
@@ -375,14 +390,17 @@ export default {
 				this.$emit('updateRubrique', undefined);
 			}
 		},
-		emissionSort(newVal){
-			this.$emit('updateSortEmission', newVal);
+		sort(newVal){
+			this.$emit('updateSortCriteria', newVal);
 		},
 		resetRubriquage(){
 			this.isRubriquage = false;
 		},
 		isNotVisible(newVal){
 			this.$emit('includeHidden', newVal);
+		},
+		sortCriteria(){
+			this.sort = this.sortCriteria;
 		}
 	}
 };

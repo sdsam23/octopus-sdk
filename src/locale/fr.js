@@ -391,7 +391,7 @@ export default {
     'Embed link':'Player intégré',
     'Embedly link':'Lien player',
     'Direct link': 'Lien audio',
-    'Advanced filters': 'Filtrage avancé',
+    'Advanced filters': 'Recherche avancée',
     Advertising : 'Publicité',
     'By topic': 'Selon rubriquage',
     'By rubric': 'Par rubrique',
@@ -496,6 +496,10 @@ export default {
     'All live emission button':"Tous les lives de l'émission",
     "live in few time":"live à venir",
     'player parameters': "Paramètres du player",
-    "Start at": "Démarrer à"
+    "Start at": "Démarrer à",
+    "live in few time":"live à venir",
+    "sort by score":" triés par pertinence",
+    "sort by alphabetical":" triés par ordre alphabétique",
+    "sort by date":" triés par ordre antéchronologique",
   };
   

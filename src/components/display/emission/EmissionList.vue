@@ -4,7 +4,7 @@
       <div class="spinner-border mr-3"></div>
       <h3 class="mt-2">{{ $t('Loading emissions ...') }}</h3>
     </div>
-    <div v-if="showCount && loaded && emissions.length > 1" class="text-secondary mb-2">{{$t('Number emissions',{nb :totalCount})}}</div>
+    <div v-if="showCount && loaded && emissions.length > 1" class="text-secondary mb-2">{{$t('Number emissions',{nb :totalCount}) + sortText}}</div>
     <ul class="emission-list" :class="smallItems? 'threeEmissions': 'twoEmissions'" v-if="!itemPlayer">
       <EmissionItem
         v-bind:emission="e"
@@ -125,6 +125,14 @@ export default {
     changed(){
       return `${this.first}|${this.size}|${this.organisationId}|${this.query}|${this.monetization}|${this.includeHidden}
       ${this.rubriqueId}|${this.rubriquageId}|${this.before}|${this.after}|${this.sort}|${this.noRubrique}`;
+    },
+    sortText(){
+      switch (this.sort) {
+        case "SCORE": return this.$t('sort by score');
+        case "LAST_PODCAST_DESC":return this.$t('sort by date');
+        case "NAME":return this.$t('sort by alphabetical');
+        default:return this.$t('sort by date');
+      }
     },
     filterOrga(){
       return this.$store.state.filter.organisationId;
