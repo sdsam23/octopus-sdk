@@ -49,7 +49,7 @@
             split
             right
             split-variant="primary main-button-dropdown"
-            variant="primary"
+            variant="primary data-selenium-dropdown-topbar"
             @click="goToUrl('/main/priv/backoffice')"
             :text="$t('My space')"
             v-if="authenticated"

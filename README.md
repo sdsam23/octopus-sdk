@@ -311,8 +311,14 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.19.52 Problèmes responsive
  * 0.19.53 Problèmes responsive
  * 0.19.54 Améliorer barre de recherche emission episode
+ * 0.19.55 Merge de Jimmy
 
  * 0.20.0 Mise à jour Api et améliorations live
  * 0.20.1 Merge de staging
  * 0.20.2 Partage player avec une position temporelle de lecture
+ 
+
+
+
+
 
