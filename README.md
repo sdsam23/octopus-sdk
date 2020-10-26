@@ -316,6 +316,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.20.0 Mise à jour Api et améliorations live
  * 0.20.1 Merge de staging
  * 0.20.2 Partage player avec une position temporelle de lecture
+ * 0.20.3 Merge release19
  
 
 
