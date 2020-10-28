@@ -4,22 +4,22 @@
       <h3 class="mb-0 share-button-title">{{ $t('Subscribe emission') }}</h3>
     </div>
     <div class="d-flex">
-      <a target="_blank" class="btn btn-circle mr-3 mb-2 share-btn" :href="applePodcast" v-if="applePodcast" aria-label="Apple">
+      <a target="_blank" class="btn mr-3 mb-2 share-btn" :href="applePodcast" v-if="applePodcast" aria-label="Apple">
         <span class="saooti-apple"></span>
       </a>
-      <a target="_blank" class="btn btn-circle mr-3 mb-2 share-btn" :href="deezer" v-if="deezer" aria-label="Deezer">
+      <a target="_blank" class="btn mr-3 mb-2 share-btn" :href="deezer" v-if="deezer" aria-label="Deezer">
         <span class="saooti-deezer"></span>
       </a>
-      <a target="_blank" class="btn btn-circle mr-3 mb-2 share-btn" :href="spotify" v-if="spotify" aria-label="Spotify">
+      <a target="_blank" class="btn mr-3 mb-2 share-btn" :href="spotify" v-if="spotify" aria-label="Spotify">
         <span class="saooti-spotify"></span>
       </a>
-      <a target="_blank" class="btn btn-circle mr-3 mb-2 share-btn" :href="tunein" v-if="tunein" aria-label="Tunin">
+      <a target="_blank" class="btn mr-3 mb-2 share-btn" :href="tunein" v-if="tunein" aria-label="Tunin">
         <span class="saooti-tunin"></span>
       </a>
-      <a target="_blank" class="btn btn-circle mr-3 mb-2 btn-tootak share-btn" :href="tootak" v-if="tootak" aria-label="Tootak">
+      <a target="_blank" class="btn mr-3 mb-2 btn-tootak share-btn" :href="tootak" v-if="tootak" aria-label="Tootak">
         <span class="saooti-tootak"></span>
       </a>
-      <a target="_blank" class="btn btn-circle mr-3 mb-2 btn-radioline share-btn" :href="radioline" v-if="radioline" aria-label="Radioline">
+      <a target="_blank" class="btn mr-3 mb-2 btn-radioline share-btn" :href="radioline" v-if="radioline" aria-label="Radioline">
         <span class="saooti-radioline"></span>
       </a>
     </div>

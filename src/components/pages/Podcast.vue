@@ -3,7 +3,7 @@
     <div class="page-box" v-if="loaded && !error">
       <h1 v-if="!isOuestFrance">{{ titlePage }}</h1>
       <Countdown :timeRemaining="timeRemaining" v-if="isCounter"/>
-      <div class="d-flex">
+      <div class="d-flex" v-if="false">
         <div class="d-flex flex-column flex-super-grow">
           <RecordingItemButton 
           class="module-box text-center-mobile flex-no-grow" 
@@ -99,6 +99,7 @@
         </div>
       </div>
       <template v-if="!isOuestFrance">
+        <CommentSection :podcastId='podcastId'/>
         <PodcastInlineList
           :emissionId="this.podcast.emission.emissionId"
           :href="'/main/pub/emission/' + this.podcast.emission.emissionId"
@@ -151,6 +152,7 @@ import SharePlayer from "../display/sharing/SharePlayer.vue";
 import ShareButtons from "../display/sharing/ShareButtons.vue";
 import PodcastInlineList from "../display/podcasts/PodcastInlineList.vue";
 import PodcastImage from "../display/podcasts/PodcastImage.vue";
+import CommentSection from "../display/comments/CommentSection.vue";
 import TagList from "../display/podcasts/TagList.vue";
 import SubscribeButtons from "../display/sharing/SubscribeButtons.vue";
 import Countdown from '../display/live/CountDown.vue';
@@ -171,6 +173,7 @@ export default {
     SubscribeButtons,
     RecordingItemButton,
     Countdown,
+    CommentSection
   },
 
   async mounted() {
