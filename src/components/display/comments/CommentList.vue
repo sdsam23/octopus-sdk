@@ -31,7 +31,6 @@
 </style>
 
 <script>
-/* import CommentItem from "./CommentItem.vue" */
 /* import octopusApi from "@saooti/octopus-api"; */
 
 export default {
@@ -39,7 +38,7 @@ export default {
 
   props:  {
     first: { default: 0 },
-    size: { default: 5 },
+    size: { default: 50 },
     podcastId: {default:undefined},
     commentId: {default:undefined},
     reload:{default:false},
@@ -77,8 +76,9 @@ export default {
         first: this.dfirst,
         size: this.dsize,
         podcastId: this.podcastId
-      } */
-      /* const data = await octopusApi.fetchComments(param); */
+      }
+      const data = await octopusApi.fetchRootComments(param);
+      debugger; */
       let data;
       if(this.podcastId){
         data = [{commentId:0, status:"pending", organisationId:"ecbd98d9-79bd-4312-ad5e-fc7c1c4a191c", relatedCommentsId:0, content: "Test", date:1603806083848, name:"Lupinos Boy", relatedComments:0},
@@ -123,6 +123,9 @@ export default {
     updateComment(comment){
       let index = this.comments.findIndex(element => element.commentId === comment.commentId);
       this.comments.splice(index, 1, comment);
+    },
+    addNewComment(comment){
+      this.comments.unshift(comment);
     }
   },
 

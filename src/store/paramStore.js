@@ -38,7 +38,7 @@ var initialize = function initialize(initObject){
       state.generalParameters.authenticated = (typeof param.authenticated !== "undefined") ? param.authenticated : false;
       state.generalParameters.isAdmin =(typeof param.isAdmin !== "undefined") ? param.isAdmin : false;
       state.generalParameters.isAnimator =(typeof param.isAnimator !== "undefined") ? param.isAnimator : true;
-      state.generalParameters.ApiUri = (typeof param.ApiUri !== "undefined") ? param.ApiUri : 'https://api.staging.saooti.org/';
+      state.generalParameters.ApiUri = (typeof param.ApiUri !== "undefined") ? param.ApiUri : 'https://api.dev2.saooti.org/';
       state.generalParameters.isIE11 = (typeof param.isIE11 !== "undefined") ? param.isIE11 : false;
       state.generalParameters.podcastmaker =(typeof param.podcastmaker !== "undefined") ? param.podcastmaker : false;
       state.generalParameters.buttonPlus =(typeof param.buttonPlus !== "undefined") ? param.buttonPlus : true;
@@ -51,7 +51,7 @@ var initialize = function initialize(initObject){
       state.podcastPage.SharePlayer = (typeof param.SharePlayer !== "undefined") ? param.SharePlayer : true;
       state.podcastPage.ShareButtons = (typeof param.ShareButtons !== "undefined") ? param.ShareButtons : true;
       state.podcastPage.ShareDistribution = (typeof param.ShareDistribution !== "undefined")? param.ShareDistribution : true;
-      state.podcastPage.MiniplayerUri = (typeof param.MiniplayerUri !== "undefined") ? param.MiniplayerUri : 'https://player.staging.saooti.org/';
+      state.podcastPage.MiniplayerUri = (typeof param.MiniplayerUri !== "undefined") ? param.MiniplayerUri : 'https://player.dev2.saooti.org/';
       state.podcastPage.ouestFranceStyle = (typeof param.ouestFranceStyle !== "undefined") ? param.ouestFranceStyle : false;
       state.podcastPage.tagList= (typeof param.tagList !== "undefined") ? param.tagList : false;
       state.podcastPage.downloadButton= (typeof param.downloadButton !== "undefined") ? param.downloadButton : false;
@@ -110,7 +110,7 @@ var initialize = function initialize(initObject){
     }
     if(initObject.octopusApi){
       let param = initObject.octopusApi;
-      state.octopusApi.url = (typeof param.url !== "undefined") ? param.url : "http://api.staging.saooti.org/";
+      state.octopusApi.url = (typeof param.url !== "undefined") ? param.url : "http://api.dev2.saooti.org/";
       state.octopusApi.oAuthParam = (typeof param.oAuthParam !== "undefined") ? param.oAuthParam : undefined;
       if(state.generalParameters.podcastmaker){
         state.octopusApi.organisationId = (typeof param.organisationId !== "undefined") ? param.organisationId : undefined;

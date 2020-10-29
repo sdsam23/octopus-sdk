@@ -72,6 +72,10 @@
       border-color: darken($octopus-primary-color, 7%);
     }
   }
+  &.btn-light{
+    color: $octopus-primary-color;
+    background: transparent;
+  }
   &.btn-auth{
     &:focus,
     &:hover {

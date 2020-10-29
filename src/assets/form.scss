@@ -2,6 +2,30 @@
   outline-width: 0 !important;
 }
 
+.form-input {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background: #fff;
+	background-image: none;
+	border: 0.1rem solid #dee2e6;
+	border-radius: 0.3rem;
+	color: #353535;
+	display: block;
+	font-size: 0.8rem;
+	height: 2rem;
+	line-height: 1.2rem;
+	max-width: 100%;
+	outline: none;
+	padding: 0.25rem 0.4rem;
+	position: relative;
+	-webkit-transition: background 0.2s, border 0.2s, color 0.2s, -webkit-box-shadow 0.2s;
+	transition: background 0.2s, border 0.2s, color 0.2s, -webkit-box-shadow 0.2s;
+	transition: background 0.2s, border 0.2s, box-shadow 0.2s, color 0.2s;
+	transition: background 0.2s, border 0.2s, box-shadow 0.2s, color 0.2s, -webkit-box-shadow 0.2s;
+	width: 100%;
+}
+
 .basic-select{
   background: white;
   min-height: 40px;

@@ -29,7 +29,7 @@
     <div class="border-top emission-item-border-color p-2 secondary-bg d-flex justify-content-center" v-if="buttonMore && podcasts.length === nbPodcasts">
       <router-link 
       :to="{ name: 'emission', params: {emissionId:emission.emissionId}, query:{productor: $store.state.filter.organisationId}}"
-      class="btn btn-secondary">{{$t('More episodes')}}</router-link>
+      class="btn">{{$t('More episodes')}}</router-link>
     </div>
   </li>
 </template>

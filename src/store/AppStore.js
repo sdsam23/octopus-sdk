@@ -35,6 +35,9 @@ export default new Vuex.Store({
       attributes:{
         'live.active':false,
       }
+    },
+    comments:{
+      knownIdentity : null,
     }
   },
 
@@ -127,5 +130,8 @@ export default new Vuex.Store({
     categoriesOrgaSet(state, categories) {
       state.categoriesOrga = categories;
     },
+    setCommentIdentity(state, identity){
+      state.comments.knownIdentity = identity;
+    }
   },
 });

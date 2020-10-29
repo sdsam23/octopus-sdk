@@ -513,5 +513,7 @@ export default {
     "(nb valid comment answers)":"({nb} valides)",
     "Welcome, thanks for your comment":"Bienvenue, merci pour votre commentaire",
     "Let's get acquainted :":"Faisons connaissance :",
+    "Your name":"Votre nom",
+    "Send in progress": "Envoi en cours...",
   };
   

@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column mt-3 comment-item-container">
+  <div class="d-flex flex-column mt-3">
     <div class="d-flex small-Text">
 			<b class="mr-2">{{comment.name}}</b>
 			<div class="mr-2">{{date}}</div>
@@ -8,7 +8,7 @@
     <div >{{contentDisplay}}</div>
     <a class="c-hand font-italic" v-if="comment.content.length > 300" @click="summary = !summary">{{readMore}}</a>
 		<div class="d-flex align-items-center mt-1">
-			<button class="btn btn-secondary primary-color mr-2" v-if="comment.relatedCommentsId ===0">{{$t('To answer')}}</button>
+			<button @click="answerComment" class="btn btn-answer primary-color mr-2" v-if="comment.relatedCommentsId ===0">{{$t('To answer')}}</button>
       <div 
         v-b-toggle="'answers-comment-'+comment.commentId"
         class="primary-color c-hand d-flex align-items-center"
@@ -27,15 +27,25 @@
       </div>
       <EditCommentBox v-if="editRight" :comment="comment" @deleteComment="deleteComment" @updateComment="updateComment" />
 		</div>
-    <b-collapse :id="'answers-comment-'+comment.commentId" v-if="comment.relatedComments" class="ml-5">
-      <CommentList :commentId="comment.commentId" />
+    <b-collapse :id="'answers-comment-'+comment.commentId" class="ml-5" v-model="collapseVisible">
+      <CommentInput
+      :focus="focus"
+      :podcastId="comment.podcastId"
+      :organisationId="comment.organisationId"
+      :knownIdentity.sync="knownIdentity"
+      :commentId="comment.commentId"
+      @newComment="newComment"/>
+      <CommentList 
+      v-if="comment.relatedComments" 
+      ref="commentList" 
+      :commentId="comment.commentId" />
     </b-collapse>
   </div>
 </template>
 
 <style lang="scss">
 .comment-item-container{
-  .btn-secondary{
+  .btn-answer{
     padding: 0.1rem 0.75rem;
   }
   .collapsed > .when-opened,
@@ -47,7 +57,7 @@
 </style>
 
 <script>
-
+import CommentInput from './CommentInput.vue';
 import CommentList from "./CommentList.vue"
 import EditCommentBox from "@/components/display/edit/EditCommentBox.vue";
 import {state} from "../../../store/paramStore.js";
@@ -59,19 +69,16 @@ export default {
 
   components:{
     CommentList,
-    EditCommentBox
+    EditCommentBox,
+    CommentInput
   },
 
-  created(){
-    this.fetchAnswers();
-  },
 
   data() {
     return {
       summary: true,
-      answers: [],
-      first:0,
-      size:15,
+      collapseVisible: false,
+      focus:false,
     };
   },
 
@@ -120,37 +127,31 @@ export default {
         }
       }
       return false;
-    }
+    },
+    knownIdentity: {
+      get() {
+        return this.$store.state.comments.knownIdentity
+      },
+      set(value) {
+        this.$store.commit('setCommentIdentity', value);
+      },
+    },
   },
 
+
   methods: {
-    async fetchAnswers() {
-      this.loading = true;
-      this.loaded = false;
-      /* let param = {
-        first: this.first,
-        size: this.size,
-        commentId: this.comment.commentId,
-      } */
-      /* const data = await octopusApi.fetchCommentsAnswers(param); */
-      const data = [{commentId:10, content: "Test", date:1603806083848, name:"Lupinos Boy", relatedComments:0},
-                    {commentId:11, content: "Des", date:1603806083848, name:"Boyito Boy", relatedComments:0},
-                    {commentId:12, content: "Commentaires", date:1603806083848, name:"Cotelette", relatedComments:0},
-                    {commentId:13, content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", date:1603806083848, name:"Woodito", relatedComments:0}];
-      this.loading = false;
-      this.loaded = true;
-      this.answers = this.answers.concat(data).filter((c)=>{
-        return c!== null;
-      });
-      this.first += this.size;
-      /* this.totalCount = data.count; */
-      this.totalCount = 42;
+    answerComment(){
+      this.collapseVisible = true;
+      this.focus = !this.focus;
     },
     deleteComment(){
       this.$emit('deleteComment');
     },
     updateComment(comment){
       this.$emit('updateComment', comment);
+    },
+    newComment(comment){
+      this.$refs.commentList.addNewComment(comment);
     }
   },
 
