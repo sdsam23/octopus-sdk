@@ -85,7 +85,7 @@
 </style>
 
 <script>
-import Vue from "vue";
+import { selenium } from '../../mixins/functions'
 import Multiselect from 'vue-multiselect';
 import octopusApi from "@saooti/octopus-api";
 import {state} from "../../../store/paramStore.js";
@@ -127,6 +127,8 @@ export default {
     reset: {default:false},
     },
 
+  mixins: [selenium],
+
   data() {
     let _return = {
       organisation: '',
@@ -143,6 +145,7 @@ export default {
   },
 
   computed:{
+
     organisationId(){
       return state.generalParameters.organisationId;
     },
@@ -163,11 +166,6 @@ export default {
   },
 
   methods: {
-
-    seleniumFormat(string){
-      return Vue.seleniumFormat(string);
-    },
-
     onOpen() {
       this.$refs.multiselectRef.$refs.search.setAttribute("autocomplete", "off");
       this.clearAll();

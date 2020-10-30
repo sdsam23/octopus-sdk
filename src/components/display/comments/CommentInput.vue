@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column">
+  <div class="d-flex flex-column comment-input-container">
     <b class="small-Text mt-1" v-if="knownIdentity">{{knownIdentity}}</b>
     <b-form-textarea
 			ref="textarea"
@@ -23,7 +23,7 @@
 
 <style lang="scss">
 @import '../../../sass/_variables.scss';
-.comment-item-container{
+.comment-input-container{
   textarea::placeholder {
     color: $octopus-primary-color;  
   }
@@ -47,18 +47,20 @@
 <script>
 import AddCommentModal from './AddCommentModal.vue';
 import octopusApi from "@saooti/octopus-api";
-import Vue from "vue";
+import { cookies } from '../../mixins/functions'
+import {state} from "../../../store/paramStore.js";
 
 export default {
   name: 'CommentInput',
 
   props:  {
     podcastId: {default:undefined},
-		organisationId: {default:undefined},
 		knownIdentity:{default: null},
 		focus:{default:false},
 		commentId:{default:undefined},
-  },
+	},
+	
+	mixins: [cookies],
 
   components: {
     AddCommentModal
@@ -72,13 +74,13 @@ export default {
     };
   },
 
+  computed:{
+    organisationId(){
+      return state.generalParameters.organisationId;
+    },
+  },
+
   methods: {
-    setCookie(name, value){
-      return Vue.setCookie(name, value);
-    },
-    getCookie(name){
-      return Vue.getCookie(name);
-    },
     requestToSend(){
       if(this.knownIdentity){
         this.postComment();
@@ -88,20 +90,24 @@ export default {
     },
     async postComment(name){
       if(name){
-				this.setCookie('comment-ocopus-name', name);
+				this.setCookie('comment-octopus-name', name);
 				this.$emit('update:knownIdentity', name);
+			}
+			let timeline = 0;
+			if(this.$store.state.player.podcast && this.$store.state.player.podcast.podcastId === this.podcastId){
+				timeline = Math.round(this.$store.state.player.elapsed * this.$store.state.player.total);
 			}
       let comment = {
         content: this.newComment,
         name: this.knownIdentity,
         podcastId: this.podcastId,
-        timeline: 0,
+        timeline: timeline,
 				organisationId: this.organisationId,
 				commentIdReferer: this.commentId,
       }
 			let data = await octopusApi.postComment(comment);
 			this.$emit('newComment', data);
-      /* this.$refs.commentList.addNewComment(data); */
+			this.newComment = "";
       this.checkIdentityModal = false;
     }
   },

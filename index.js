@@ -41,6 +41,10 @@ import SharePlayer from "./src/components/display/sharing/SharePlayer.vue"; */
 import EmissionInlineList from "./src/components/display/emission/EmissionInlineList.vue";
 import RubriqueChooser from "./src/components/display/rubriques/RubriqueChooser.vue";
 
+//mixins
+import {selenium} from "./src/components/mixins/functions.js";
+import {cookies} from "./src/components/mixins/functions.js";
+
 const components = {
     Lives,
     Podcast,
@@ -69,7 +73,9 @@ const components = {
     PodcastList,
     EmissionInlineList,
     RubriqueChooser,
-    Snackbar
+    Snackbar,
+    selenium,
+    cookies,
 }
 
 export default components;
@@ -102,5 +108,7 @@ export {
     PodcastList,
     EmissionInlineList,
     RubriqueChooser,
-    Snackbar
+    Snackbar,
+    selenium,
+    cookies,
 };

@@ -49,7 +49,7 @@
 <style lang="scss">
 </style>
 <script>
-import Vue from "vue";
+import { selenium } from '../../mixins/functions'
 import Multiselect from 'vue-multiselect';
 
 const getDefaultRubrique = defaultName => {
@@ -76,6 +76,7 @@ export default {
     reset: {default: false},
     withoutRubrique: {default:false}
   },
+  mixins: [selenium],
 
   data() {
     return {
@@ -96,9 +97,6 @@ export default {
   },
 
   methods: {
-    seleniumFormat(string){
-      return Vue.seleniumFormat(string);
-    },
     clearAll() {
       this.$refs.multiselectRef.$refs.search.setAttribute("autocomplete", "off");
       if(this.rubriqueArray === undefined) {

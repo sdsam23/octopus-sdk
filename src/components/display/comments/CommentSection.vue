@@ -8,7 +8,6 @@
     </div>
     <CommentInput
     :podcastId="podcastId"
-    :organisationId="organisationId"
     :knownIdentity.sync="knownIdentity"
     @newComment="newComment"/>
     <CommentList 
@@ -33,15 +32,16 @@
 <script>
 import CommentList from "./CommentList.vue"
 import CommentInput from './CommentInput.vue';
-import Vue from "vue";
+import { cookies } from '../../mixins/functions'
 
 export default {
   name: 'CommentSection',
 
   props:  {
     podcastId: {default:undefined},
-    organisationId: {default:undefined},
   },
+
+  mixins: [cookies],
 
   components: {
     CommentList,
@@ -49,7 +49,7 @@ export default {
   },
 
   created() {
-    this.knownIdentity = this.getCookie('comment-ocopus-name');
+    this.knownIdentity = this.getCookie('comment-octopus-name');
   },
 
   data() {
@@ -72,9 +72,6 @@ export default {
   },
 
   methods: {
-    getCookie(name){
-      return Vue.getCookie(name);
-    },
     updateFetch(value){
       this.loaded = true;
       this.totalCount = value;

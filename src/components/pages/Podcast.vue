@@ -3,7 +3,7 @@
     <div class="page-box" v-if="loaded && !error">
       <h1 v-if="!isOuestFrance">{{ titlePage }}</h1>
       <Countdown :timeRemaining="timeRemaining" v-if="isCounter"/>
-      <div class="d-flex" v-if="false">
+      <div class="d-flex">
         <div class="d-flex flex-column flex-super-grow">
           <RecordingItemButton 
           class="module-box text-center-mobile flex-no-grow" 
@@ -99,7 +99,7 @@
         </div>
       </div>
       <template v-if="!isOuestFrance">
-        <CommentSection :podcastId='podcastId' :organisationId="podcast.organisation.id"/>
+        <CommentSection :podcastId='podcastId'/>
         <PodcastInlineList
           :emissionId="this.podcast.emission.emissionId"
           :href="'/main/pub/emission/' + this.podcast.emission.emissionId"

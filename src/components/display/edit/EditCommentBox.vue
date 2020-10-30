@@ -4,11 +4,11 @@
 			<span class="saooti-edit-bounty"></span>
 		</button>
 		<button class="btn btn-circle primary-color mr-1" aria-label="valid"
-		v-if="comment.status === 'pending' || comment.status === 'invalid'" @click="validComment">
+		v-if="comment.status === 'Pending' || comment.status === 'Invalid'" @click="validComment">
 			<span class="saooti-valid-stud"></span>
 		</button>
 		<button class="btn btn-circle primary-color mr-1" aria-label="invalid"
-		v-if="comment.status === 'pending' || comment.status === 'valid'" @click="invalidComment">
+		v-if="comment.status === 'Pending' || comment.status === 'Valid'" @click="invalidComment">
 			<span class="saooti-cross"></span>
 		</button>
 		<button class="btn btn-circle primary-color mr-1" aria-label="delete" @click="deleteComment">
@@ -26,17 +26,17 @@
     background: $octopus-secondary-color;
     padding: 0;
   }
-  .status-pending {
+  .status-Pending {
     background: #eb7d22;
   }
-  .status-invalid {
+  .status-Invalid {
     background: #d40303;
   }
-  .status-valid {
+  .status-Valid {
     background: $octopus-primary-color;
   }
 
-  .status-valid, .status-invalid, .status-pending {
+  .status-Valid, .status-Invalid, .status-Pending {
     width: 14px;
     height: 14px;
     border-radius: 50%;
@@ -51,7 +51,7 @@ export default {
 
 	methods:{
 		editComment(){
-
+			this.$emit('editComment');
 		},
 		validComment(){
 

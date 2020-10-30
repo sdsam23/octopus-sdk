@@ -9,6 +9,9 @@
           v-model="name"
           :placeholder="$t('Your name')"
         />
+       <!--  <vue-recaptcha ref="recaptcha"
+          @verify="onVerify" sitekey="6Ld3oV4UAAAAAPOl8ytNVcBSP-UMuLAIMg-pOak5">
+        </vue-recaptcha> -->
       </template>
       <template v-slot:default v-else>
         <div>{{$t('Send in progress')}}</div>
@@ -17,7 +20,7 @@
         <button class="btn btn-light m-1" @click="closePopup">
           {{ $t('Cancel') }}
         </button>
-        <button class="btn btn-primary m-1" :disabled="name.length === 0" @click="sendComment">
+        <button class="btn btn-primary m-1" :disabled="name.length === 0 || !verify" @click="sendComment">
           {{ $t('Validate') }}
         </button>
       </template>
@@ -33,12 +36,14 @@
 <style lang="scss">
 </style>
 <script>
+/* import VueRecaptcha from 'vue-recaptcha'; */
 export default {
   name: 'AddCommentModal',
 
   props: [],
 
   components:{
+    /* VueRecaptcha */
   },
 
   mounted(){
@@ -49,6 +54,7 @@ export default {
     return {
       name: "",
       sending: false,
+      verify:true,
     };
   },
 
@@ -60,6 +66,9 @@ export default {
     sendComment(){
       this.sending = true;
       this.$emit('validate', this.name);
+    },
+    onVerify(response){
+       if (response) this.verify = true;
     }
   },
 };

@@ -31,7 +31,7 @@
 </style>
 
 <script>
-/* import octopusApi from "@saooti/octopus-api"; */
+import octopusApi from "@saooti/octopus-api";
 
 export default {
   name: 'CommentList',
@@ -72,35 +72,20 @@ export default {
   methods: {
     async fetchContent(reset) {
       this.resetData(reset);
-      /* let param = {
+      let param = {
         first: this.dfirst,
         size: this.dsize,
         podcastId: this.podcastId
       }
       const data = await octopusApi.fetchRootComments(param);
-      debugger; */
-      let data;
-      if(this.podcastId){
-        data = [{commentId:0, status:"pending", organisationId:"ecbd98d9-79bd-4312-ad5e-fc7c1c4a191c", relatedCommentsId:0, content: "Test", date:1603806083848, name:"Lupinos Boy", relatedComments:0},
-                    {commentId:1, status:"valid", organisationId:"ecbd98d9-79bd-4312-ad5e-fc7c1c4a191c", relatedCommentsId:0, content: "Des", date:1603806083848, name:"Boyito Boy", relatedComments:3, relatedValidComments:1},
-                    {commentId:2, status:"invalid", organisationId:"ecbd98d9-79bd-4312-ad5e-fc7c1c4a191c", relatedCommentsId:0, content: "Commentaires", date:1603806083848, name:"Cotelette", relatedComments:0},
-                    {commentId:3, status:"valid", organisationId:"ecbd98d9-79bd-4312-ad5e-fc7c1c4a191c", relatedCommentsId:0, content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", date:1603806083848, name:"Woodito", relatedComments:5, relatedValidComments:5}];
-      }else{
-        data = [{commentId:10, status:"valid", organisationId:"ecbd98d9-79bd-4312-ad5e-fc7c1c4a191c", relatedCommentsId:1, content: "Test", date:1603806083848, name:"Lupinos Boy", relatedComments:0},
-                    {commentId:11, status:"valid", organisationId:"ecbd98d9-79bd-4312-ad5e-fc7c1c4a191c", relatedCommentsId:1, content: "Des", date:1603806083848, name:"Boyito Boy", relatedComments:0},
-                    {commentId:12, status:"valid", organisationId:"ecbd98d9-79bd-4312-ad5e-fc7c1c4a191c", relatedCommentsId:1, content: "Commentaires", date:1603806083848, name:"Cotelette", relatedComments:0},
-                    {commentId:13, status:"valid", organisationId:"ecbd98d9-79bd-4312-ad5e-fc7c1c4a191c", relatedCommentsId:1, content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", date:1603806083848, name:"Woodito", relatedComments:0}]
-      }
-      
       this.resetData(reset);
       this.loading = false;
       this.loaded = true;
-      this.comments = this.comments.concat(data).filter((c)=>{
+      this.comments = this.comments.concat(data.content).filter((c)=>{
         return c!== null;
       });
       this.dfirst += this.dsize;
-      /* this.totalCount = data.count; */
-      this.totalCount = 42;
+      this.totalCount = data.totalElements;
       this.$emit("fetch", this.totalCount);
     },
 
