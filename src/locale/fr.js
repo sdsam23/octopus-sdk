@@ -504,6 +504,7 @@ export default {
     "Podcast's comments":"Commentaires de l'épisode",
     '()' : '({nb})',
     "Write a comment": "Ajouter un commentaire",
+    "Answer a comment": "Répondre à un commentaire",
     "See more comments": "Plus de commentaires",
     "To answer":"Répondre",
     "Display answers":"Afficher les {nb} réponses",
@@ -515,5 +516,8 @@ export default {
     "Let's get acquainted :":"Faisons connaissance :",
     "Your name":"Votre nom",
     "Send in progress": "Envoi en cours...",
+    'Error occurs while post your comment...':"Une erreur est survenue lors de l'envoi de votre commentaire",
+    "Comments loading error":"Commentaires indisponibles pour le moment",
+    "Certified account":"Compte certifié",
   };
   

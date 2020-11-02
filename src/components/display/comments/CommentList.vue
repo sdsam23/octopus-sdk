@@ -4,21 +4,20 @@
       <div class="spinner-border mr-3"></div>
       <h3 class="mt-2">{{ $t('Loading content ...') }}</h3>
     </div>
-    <div v-if="loaded && !comments.length">
-      <p>{{ $t('Be the first to react') }}</p>
-    </div>
+    <div class="text-danger align-self-center" v-if="error">{{$t('Comments loading error')}}</div>
     <div class="d-flex flex-column" v-show="loaded">
       <CommentItem
-        :comment="c"
+        :comment.sync="c"
+        :podcast="podcast"
         v-for="c in comments"
-        :key="c.commentId"
+        :key="c.comId"
         @deleteComment="deleteComment(c)"
         @updateComment="updateComment"
       />
     </div>
     <a
       class="btn btn-primary mt-2"
-      :class="podcastId? 'align-self-center':'align-self-start'"
+      :class="comId? 'align-self-start':'align-self-center'"
       @click="displayMore"
       v-show="!allFetched && loaded"
       :aria-label="$t('See more comments')"
@@ -31,6 +30,7 @@
 </style>
 
 <script>
+import {state} from "../../../store/paramStore.js";
 import octopusApi from "@saooti/octopus-api";
 
 export default {
@@ -39,8 +39,8 @@ export default {
   props:  {
     first: { default: 0 },
     size: { default: 50 },
-    podcastId: {default:undefined},
-    commentId: {default:undefined},
+    podcast: {default:undefined},
+    comId: {default:undefined},
     reload:{default:false},
   },
 
@@ -56,6 +56,7 @@ export default {
     return {
       loading: true,
       loaded: true,
+      error:false,
       dfirst: this.$props.first,
       dsize: this.$props.size,
       totalCount: 0,
@@ -67,26 +68,60 @@ export default {
     allFetched() {
       return this.dfirst >= this.totalCount;
     },
+    organisationId(){
+      return state.generalParameters.organisationId;
+    },
+
+    authenticated(){
+      return state.generalParameters.authenticated;
+    },
+
+    editRight() {
+      if (this.authenticated) {
+        if (this.organisationId === this.podcast.organisation.id && this.$store.state.authentication.role.includes("COMMENTS_MODERATION")) {
+          return true;
+        }
+        if (state.generalParameters.isAdmin) {
+          return true;
+        }
+      }
+      return false;
+    },
   },
 
   methods: {
     async fetchContent(reset) {
       this.resetData(reset);
-      let param = {
-        first: this.dfirst,
-        size: this.dsize,
-        podcastId: this.podcastId
+      let data; 
+      try {
+        if(this.comId){
+          data = await octopusApi.fetchCommentAnswers(this.comId);
+        }else{
+          let param = {
+            first: this.dfirst,
+            size: this.dsize,
+            podcastId: this.podcast.podcastId
+          }
+          data = await octopusApi.fetchRootComments(param);
+        }
+        
+        this.resetData(reset);
+        this.loading = false;
+        this.loaded = true;
+        this.comments = this.comments.concat(data.content).filter((c)=>{
+          if(!this.editRight){
+            return c!==null && c.status === "Valid";
+          }
+          return c!== null;
+        });
+        this.dfirst += this.dsize;
+        this.totalCount = data.totalElements;
+        this.$emit("fetch", this.totalCount);
+      } catch (error) {
+        this.loading = false;
+        this.error = true;
       }
-      const data = await octopusApi.fetchRootComments(param);
-      this.resetData(reset);
-      this.loading = false;
-      this.loaded = true;
-      this.comments = this.comments.concat(data.content).filter((c)=>{
-        return c!== null;
-      });
-      this.dfirst += this.dsize;
-      this.totalCount = data.totalElements;
-      this.$emit("fetch", this.totalCount);
+      
     },
 
     resetData(reset){
@@ -102,14 +137,31 @@ export default {
       this.fetchContent(false);
     },
     deleteComment(comment){
-      let index = this.comments.findIndex(element => element.commentId === comment.commentId);
-      this.comments.splice(index, 1);
+      this.totalCount -=1; 
+      if(this.dfirst !==0){
+        this.dfirst -=1;
+      }
+      this.$emit("fetch", this.totalCount);
+      let index = this.comments.findIndex(element => element.comId === comment.comId);
+      if(index !== -1){
+        this.comments.splice(index, 1);
+      }
+      
     },
-    updateComment(comment){
-      let index = this.comments.findIndex(element => element.commentId === comment.commentId);
-      this.comments.splice(index, 1, comment);
+    updateComment(data){
+      let index = this.comments.findIndex(element => element.comId === data.comment.comId);
+      if(index !== -1){
+        this.comments.splice(index, 1, data.comment);
+      }
+      
+      if(this.comId && data.status){
+        this.$emit('updateStatus', data.status);
+      }
     },
     addNewComment(comment){
+      this.totalCount +=1; 
+      this.dfirst +=1;
+      this.$emit("fetch", this.totalCount);
       this.comments.unshift(comment);
     }
   },

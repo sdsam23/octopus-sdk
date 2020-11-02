@@ -99,7 +99,7 @@
         </div>
       </div>
       <template v-if="!isOuestFrance">
-        <CommentSection :podcastId='podcastId'/>
+        <CommentSection :podcast='podcast'/>
         <PodcastInlineList
           :emissionId="this.podcast.emission.emissionId"
           :href="'/main/pub/emission/' + this.podcast.emission.emissionId"

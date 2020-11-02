@@ -7,12 +7,12 @@
        <button class="saooti-refresh-stud btn btn-reload primary-color" @click="reloadComments"></button>
     </div>
     <CommentInput
-    :podcastId="podcastId"
+    :podcast="podcast"
     :knownIdentity.sync="knownIdentity"
     @newComment="newComment"/>
     <CommentList 
     ref="commentList"
-    :podcastId="podcastId" 
+    :podcast="podcast" 
     :reload="reload" 
     @fetch="updateFetch"/>
   </div>
@@ -38,7 +38,7 @@ export default {
   name: 'CommentSection',
 
   props:  {
-    podcastId: {default:undefined},
+    podcast: {default:undefined},
   },
 
   mixins: [cookies],

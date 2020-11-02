@@ -2,6 +2,7 @@
   <div class="d-flex flex-column mt-3">
     <div class="d-flex small-Text">
 			<b class="mr-2">{{comment.name}}</b>
+      <img class="icon-certified" src="/img/certified.png" v-if="comment.certified" :title="$t('Certified account')"/>
 			<div class="mr-2">{{date}}</div>
       <span v-if="editRight" :class="'status-'+comment.status"></span>
 		</div>
@@ -21,9 +22,12 @@
       </div>
     </template>
 		<div class="d-flex align-items-center mt-1">
-			<button @click="answerComment" class="btn btn-answer primary-color mr-2" v-if="comment.relatedCommentsId ===0">{{$t('To answer')}}</button>
+			<button 
+      @click="answerComment"
+      class="btn btn-answer primary-color mr-2"
+      v-if="comment.commentIdReferer ===null && comment.status ==='Valid'">{{$t('To answer')}}</button>
       <div 
-        v-b-toggle="'answers-comment-'+comment.commentId"
+        v-b-toggle="'answers-comment-'+comment.comId"
         class="primary-color c-hand d-flex align-items-center"
         v-if="comment.relatedComments"
       >
@@ -46,23 +50,29 @@
       @updateComment="updateComment" 
       @editComment="editComment" />
 		</div>
-    <b-collapse :id="'answers-comment-'+comment.commentId" class="ml-5" v-model="collapseVisible">
+    <b-collapse :id="'answers-comment-'+comment.comId" class="ml-5" v-model="collapseVisible">
       <CommentInput
       :focus="focus"
-      :podcastId="comment.podcastId"
+      :podcast="podcast"
       :knownIdentity.sync="knownIdentity"
-      :commentId="comment.commentId"
+      :comId="comment.comId"
       @newComment="newComment"/>
       <CommentList 
-      v-if="comment.relatedComments" 
+      v-if="comment.relatedComments && collapseVisible" 
+      @updateStatus='updateStatus'
+      :podcast="podcast"
       ref="commentList" 
-      :commentId="comment.commentId" />
+      :comId="comment.comId" />
     </b-collapse>
   </div>
 </template>
 
 <style lang="scss">
 .comment-item-container{
+  .icon-certified{
+    height: 15px;
+    margin-right: 0.5rem;
+  }
   .btn-answer{
     padding: 0.1rem 0.75rem;
   }
@@ -83,7 +93,7 @@ const moment = require('moment');
 export default {
   name: 'CommentItem',
 
-  props:  ["comment"],
+  props:  ["comment", "podcast"],
 
   components:{
     CommentList,
@@ -139,7 +149,7 @@ export default {
 
     editRight() {
       if (this.authenticated) {
-        if (this.organisationId === this.comment.organisationId && this.$store.state.authentication.role.includes("COMMENTS_MODERATION")) {
+        if (this.organisationId === this.podcast.organisation.id && this.$store.state.authentication.role.includes("COMMENTS_MODERATION")) {
           return true;
         }
         if (state.generalParameters.isAdmin) {
@@ -167,10 +177,14 @@ export default {
     deleteComment(){
       this.$emit('deleteComment');
     },
-    updateComment(comment){
-      this.$emit('updateComment', comment);
+    updateComment(data){
+      this.isEditing = false;
+      this.$emit('updateComment', data);
     },
     newComment(comment){
+      let updatedComment = this.comment;
+      updatedComment.relatedComments += 1;
+      this.$emit('update:comment', updatedComment);
       this.$refs.commentList.addNewComment(comment);
     },
     editComment(){
@@ -179,6 +193,15 @@ export default {
     },
     validEdit(){
       this.$refs.editBox.updateComment(this.temporaryContent);
+    },
+    updateStatus(data){
+      let updatedComment = this.comment;
+      if(data === "Valid"){
+        updatedComment.relatedValidComments += 1;
+      }else{
+        updatedComment.relatedValidComments -= 1;
+      }
+      this.$emit('update:comment', updatedComment);
     }
   },
 

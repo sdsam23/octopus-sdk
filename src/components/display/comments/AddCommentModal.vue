@@ -9,7 +9,7 @@
           v-model="name"
           :placeholder="$t('Your name')"
         />
-       <!--  <vue-recaptcha ref="recaptcha"
+       <!--  <vue-recaptcha ref="recaptcha" v-if="!verify"
           @verify="onVerify" sitekey="6Ld3oV4UAAAAAPOl8ytNVcBSP-UMuLAIMg-pOak5">
         </vue-recaptcha> -->
       </template>
@@ -20,7 +20,7 @@
         <button class="btn btn-light m-1" @click="closePopup">
           {{ $t('Cancel') }}
         </button>
-        <button class="btn btn-primary m-1" :disabled="name.length === 0 || !verify" @click="sendComment">
+        <button class="btn btn-primary m-1" :disabled="name.length <= 2 || !verify" @click="sendComment">
           {{ $t('Validate') }}
         </button>
       </template>
@@ -37,6 +37,7 @@
 </style>
 <script>
 /* import VueRecaptcha from 'vue-recaptcha'; */
+import {state} from "../../../store/paramStore.js";
 export default {
   name: 'AddCommentModal',
 
@@ -47,6 +48,10 @@ export default {
   },
 
   mounted(){
+    if(this.authenticated){
+      this.name = ((this.$store.state.profile.firstName || '') + ' ' + (this.$store.state.profile.lastName || '')).trim();
+      this.verify = true;
+    }
     this.$bvModal.show('add-comment-modal');
   },
 
@@ -56,6 +61,12 @@ export default {
       sending: false,
       verify:true,
     };
+  },
+
+  computed:{
+    authenticated(){
+      return state.generalParameters.authenticated;
+    },
   },
 
   methods: {
