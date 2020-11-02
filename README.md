@@ -318,6 +318,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.20.2 Partage player avec une position temporelle de lecture
  * 0.20.3 Merge release19
  * 0.20.4 Début commentaire
+
+ * 0.21.0 Début commentaire
  
 
 

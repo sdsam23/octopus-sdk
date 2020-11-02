@@ -49,7 +49,7 @@ export default {
 
   mounted(){
     if(this.authenticated){
-      this.name = ((this.$store.state.profile.firstName || '') + ' ' + (this.$store.state.profile.lastName || '')).trim();
+      this.name = ((this.$store.state.profile.firstname || '') + ' ' + (this.$store.state.profile.lastname || '')).trim();
       this.verify = true;
     }
     this.$bvModal.show('add-comment-modal');

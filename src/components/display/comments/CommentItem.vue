@@ -1,7 +1,17 @@
 <template>
   <div class="d-flex flex-column mt-3">
     <div class="d-flex small-Text">
-			<b class="mr-2">{{comment.name}}</b>
+      <template v-if="!isEditing">
+			  <b class="mr-2">{{comment.name}}</b>
+      </template>
+      <template v-else>
+        <input
+          class="form-input mr-2 width-auto"
+          type="text"
+          v-model="temporaryName"
+          v-bind:class="{'border border-danger': temporaryName.length < 2}"
+        />
+      </template>
       <img class="icon-certified" src="/img/certified.png" v-if="comment.certified" :title="$t('Certified account')"/>
 			<div class="mr-2">{{date}}</div>
       <span v-if="editRight" :class="'status-'+comment.status"></span>
@@ -18,7 +28,7 @@
       />
       <div class="d-flex justify-content-end">
         <button class="btn btn-light m-1" @click="isEditing = false;">{{ $t('Cancel') }}</button>
-        <button class="btn btn-primary m-1" :disabled="temporaryContent.length ===0" @click="validEdit">{{ $t('Validate') }}</button>
+        <button class="btn btn-primary m-1" :disabled="temporaryContent.length ===0 && temporaryName.length < 2" @click="validEdit">{{ $t('Validate') }}</button>
       </div>
     </template>
 		<div class="d-flex align-items-center mt-1">
@@ -109,6 +119,7 @@ export default {
       focus:false,
       isEditing:false,
       temporaryContent: "",
+      temporaryName: "",
     };
   },
 
@@ -189,10 +200,14 @@ export default {
     },
     editComment(){
       this.temporaryContent = this.comment.content;
+      this.temporaryName = this.comment.name;
       this.isEditing=true;
     },
     validEdit(){
-      this.$refs.editBox.updateComment(this.temporaryContent);
+      let comment = this.comment;
+      comment.content = this.temporaryContent;
+      comment.name = this.temporaryName;
+      this.$refs.editBox.updateComment(comment);
     },
     updateStatus(data){
       let updatedComment = this.comment;
