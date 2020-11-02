@@ -26,21 +26,6 @@
     background: $octopus-secondary-color;
     padding: 0;
   }
-  .status-Pending {
-    background: #eb7d22;
-  }
-  .status-Invalid {
-    background: #d40303;
-  }
-  .status-Valid {
-    background: $octopus-primary-color;
-  }
-
-  .status-Valid, .status-Invalid, .status-Pending {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-	}
 }
 </style>
 

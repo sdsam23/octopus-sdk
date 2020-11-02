@@ -2,7 +2,10 @@
   <div class="d-flex flex-column mt-3">
     <div class="d-flex small-Text">
       <template v-if="!isEditing">
-			  <b class="mr-2">{{comment.name}}</b>
+        <b 
+        class="recording-bg mr-1 text-light p-01"
+        v-if="recordingInLive && (comment.phase ==='Live' || comment.phase ==='Prelive')">{{$t('Live')}}</b>
+        <b class="mr-2">{{comment.name}}</b>
       </template>
       <template v-else>
         <input
@@ -56,6 +59,7 @@
       ref="editBox"
       v-if="editRight" 
       :comment="comment" 
+      :organisation="organisation"
       @deleteComment="deleteComment" 
       @updateComment="updateComment" 
       @editComment="editComment" />
@@ -66,11 +70,14 @@
       :podcast="podcast"
       :knownIdentity.sync="knownIdentity"
       :comId="comment.comId"
+      :fetchConference="fetchConference"
       @newComment="newComment"/>
       <CommentList 
       v-if="comment.relatedComments && collapseVisible" 
       @updateStatus='updateStatus'
       :podcast="podcast"
+      :fetchConference="fetchConference"
+      :organisation="organisation"
       ref="commentList" 
       :comId="comment.comId" />
     </b-collapse>
@@ -103,7 +110,7 @@ const moment = require('moment');
 export default {
   name: 'CommentItem',
 
-  props:  ["comment", "podcast"],
+  props:  ["comment", "podcast", "fetchConference", "organisation"],
 
   components:{
     CommentList,
@@ -160,7 +167,8 @@ export default {
 
     editRight() {
       if (this.authenticated) {
-        if (this.organisationId === this.podcast.organisation.id && this.$store.state.authentication.role.includes("COMMENTS_MODERATION")) {
+        if (((this.podcast && this.organisationId === this.podcast.organisation.id) || (this.organisationId === this.organisation))
+         && this.$store.state.authentication.role.includes("COMMENTS_MODERATION")) {
           return true;
         }
         if (state.generalParameters.isAdmin) {
@@ -177,6 +185,9 @@ export default {
         this.$store.commit('setCommentIdentity', value);
       },
     },
+    recordingInLive(){
+      return this.podcast && this.podcast.conferenceId && this.podcast.conferenceId !== 0 && this.podcast.processingStatus === 'READY';
+    }
   },
 
 

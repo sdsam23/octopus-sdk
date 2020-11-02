@@ -41,6 +41,7 @@ import ShareButtons from "./src/components/display/sharing/ShareButtons.vue";
 import SharePlayer from "./src/components/display/sharing/SharePlayer.vue"; */
 import EmissionInlineList from "./src/components/display/emission/EmissionInlineList.vue";
 import RubriqueChooser from "./src/components/display/rubriques/RubriqueChooser.vue";
+import CommentList from "./src/components/display/comments/CommentList.vue";
 
 //mixins
 import {selenium} from "./src/components/mixins/functions.js";
@@ -77,7 +78,8 @@ const components = {
     Snackbar,
     selenium,
     cookies,
-    MessageModal
+    MessageModal,
+    CommentList
 }
 
 export default components;
@@ -113,5 +115,6 @@ export {
     Snackbar,
     selenium,
     cookies,
-    MessageModal
+    MessageModal,
+    CommentList
 };

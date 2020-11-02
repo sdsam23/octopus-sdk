@@ -9,6 +9,7 @@
       <CommentItem
         :comment.sync="c"
         :podcast="podcast"
+        :fetchConference="fetchConference"
         v-for="c in comments"
         :key="c.comId"
         @deleteComment="deleteComment(c)"
@@ -42,6 +43,8 @@ export default {
     podcast: {default:undefined},
     comId: {default:undefined},
     reload:{default:false},
+    fetchConference:{default:undefined},
+    organisation:{default:undefined},
   },
 
   components: {
@@ -75,10 +78,18 @@ export default {
     authenticated(){
       return state.generalParameters.authenticated;
     },
+    podcastId(){
+      if(this.podcast){
+        return this.podcast.podcastId;
+      }else{
+        return undefined;
+      }
+    },
 
     editRight() {
       if (this.authenticated) {
-        if (this.organisationId === this.podcast.organisation.id && this.$store.state.authentication.role.includes("COMMENTS_MODERATION")) {
+        if (((this.podcast && this.organisationId === this.podcast.organisation.id) || (this.organisationId === this.organisation))
+         && this.$store.state.authentication.role.includes("COMMENTS_MODERATION")) {
           return true;
         }
         if (state.generalParameters.isAdmin) {
@@ -100,7 +111,8 @@ export default {
           let param = {
             first: this.dfirst,
             size: this.dsize,
-            podcastId: this.podcast.podcastId
+            podcastId: this.podcastId,
+            organisationId:this.organisation,
           }
           data = await octopusApi.fetchRootComments(param);
         }
@@ -108,6 +120,7 @@ export default {
         this.resetData(reset);
         this.loading = false;
         this.loaded = true;
+        this.totalCount = data.totalElements;
         this.comments = this.comments.concat(data.content).filter((c)=>{
           if(!this.editRight){
             return c!==null && c.status === "Valid";
@@ -115,13 +128,10 @@ export default {
           return c!== null;
         });
         this.dfirst += this.dsize;
-        this.totalCount = data.totalElements;
-        this.$emit("fetch", this.totalCount);
       } catch (error) {
         this.loading = false;
         this.error = true;
       }
-      
     },
 
     resetData(reset){
@@ -141,7 +151,6 @@ export default {
       if(this.dfirst !==0){
         this.dfirst -=1;
       }
-      this.$emit("fetch", this.totalCount);
       let index = this.comments.findIndex(element => element.comId === comment.comId);
       if(index !== -1){
         this.comments.splice(index, 1);
@@ -161,7 +170,6 @@ export default {
     addNewComment(comment){
       this.totalCount +=1; 
       this.dfirst +=1;
-      this.$emit("fetch", this.totalCount);
       this.comments.unshift(comment);
     }
   },
@@ -169,6 +177,9 @@ export default {
   watch: {
     reload(){
       this.fetchContent(true);
+    },
+    comments(){
+      this.$emit("fetch", {count:this.totalCount, comments:this.comments});
     }
   },
 };

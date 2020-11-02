@@ -266,7 +266,8 @@ export default {
           audioUrl:this.podcast.audioUrl,
           duration : this.podcast.duration,
           conferenceId: this.fetchConference.conferenceId,
-          livePodcastId: this.podcast.podcastId
+          livePodcastId: this.podcast.podcastId,
+          organisation: this.podcast.organisation.id,
         });
       }else{
         this.$store.commit('playerPlayPodcast', this.podcast);

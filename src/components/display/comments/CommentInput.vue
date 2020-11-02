@@ -66,7 +66,8 @@ export default {
     podcast: {default:undefined},
 		knownIdentity:{default: null},
 		focus:{default:false},
-		comId:{default:undefined},
+    comId:{default:undefined},
+    fetchConference:{default:undefined},
 	},
 	
 	mixins: [cookies],
@@ -115,7 +116,18 @@ export default {
         return this.$store.state.profile.userId;
       }
       return undefined;
-    }
+    },
+    phase(){
+      if(this.podcast.conferenceId && this.podcast.conferenceId !== 0 && this.podcast.processingStatus === 'READY_TO_RECORD'){
+        if(this.fetchConference && (this.fetchConference.status === "PLANNED" || this.fetchConference.status === "PENDING")){
+          return "Prelive"
+        }else{
+          return "Live"
+        }
+      }else{
+        return "Podcast";
+      }
+    },
   },
 
 
@@ -145,6 +157,7 @@ export default {
         commentIdReferer: this.comId,
         certified: this.isCertified,
         userId: this.userId,
+        phase: this.phase,
       }
       if(this.isCertified){
         comment.status = "Valid";

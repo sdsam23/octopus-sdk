@@ -9,11 +9,13 @@
     <CommentInput
     :podcast="podcast"
     :knownIdentity.sync="knownIdentity"
+    :fetchConference="fetchConference"
     @newComment="newComment"/>
     <CommentList 
     ref="commentList"
     :podcast="podcast" 
     :reload="reload" 
+    :fetchConference="fetchConference"
     @fetch="updateFetch"/>
   </div>
 </template>
@@ -39,6 +41,7 @@ export default {
 
   props:  {
     podcast: {default:undefined},
+    fetchConference: {default:undefined},
   },
 
   mixins: [cookies],
@@ -74,7 +77,8 @@ export default {
   methods: {
     updateFetch(value){
       this.loaded = true;
-      this.totalCount = value;
+      this.$store.commit('setCommentLoaded', {...value,podcastId:this.podcast.podcastId});
+      this.totalCount = value.count;
     },
     reloadComments(){
       this.reload = !this.reload;

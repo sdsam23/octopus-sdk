@@ -107,6 +107,15 @@
               :style="'left: '+ durationLivePosition + '%'"
             ></div>
           </div>
+          <CommentPlayer v-if="showTimeline" :totalTime="totalSecondes" :comments="comments"/>
+        </div>
+        <div 
+        class="timeline-button"
+        v-if="comments.length !== 0"
+        @click="showTimeline = !showTimeline"
+        >
+          <div class="saooti-arrow_down saooti-arrow_down-margin" :class="showTimeline?'':'arrow-transform'"></div>
+          <div>Timeline</div>
         </div>
         <div class="d-flex text-light align-items-center hide-phone" v-if="isClock">
           <div class="saooti-clock-stud m-2"></div>
@@ -131,8 +140,6 @@
   flex-shrink: 0;
   cursor: pointer;
 }
-
-
 
 .player-container {
   position: fixed;
@@ -200,6 +207,25 @@
     font-size: 0.8rem;
     margin: 0 0 5px 0;
   }
+  .timeline-button{
+    background: black;
+    padding: 0.1rem;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    color: $octopus-primary-color;
+    margin-left: 0.5rem;
+    @media (max-width: 960px) {
+      display: none;
+    }
+  }
 }
 /** PHONES*/
 @media (max-width: 450px) {
@@ -233,6 +259,7 @@
 import { mapState } from "vuex";
 import { state } from "../../store/paramStore.js";
 import DurationHelper from "../../helper/duration";
+import CommentPlayer from "../display/comments/CommentPlayer.vue";
 import octopusApi from "@saooti/octopus-api";
 import Hls from "hls.js";
 const moment = require("moment");
@@ -240,6 +267,21 @@ const moment = require("moment");
 
 export default {
   name: "Player",
+
+  components:{
+    CommentPlayer
+  },
+
+  mounted() {
+    moment.locale("fr");
+    if (this.isClock) {
+      setInterval(() => {
+        this.actualTime = moment(new Date()).format("HH:mm:ss");
+      }, 1000);
+    }
+    window.addEventListener("beforeunload", this.endListeningProgress);
+    this.watchPlayerStatus();
+  },
 
   data() {
     return {
@@ -255,39 +297,9 @@ export default {
       durationLivePosition: 0,
       displayAlertBar: false,
       hlsReady: false,
+      comments:[],
+      showTimeline:false,
     };
-  },
-
-  mounted() {
-    moment.locale("fr");
-    if (this.isClock) {
-      setInterval(() => {
-        this.actualTime = moment(new Date()).format("HH:mm:ss");
-      }, 1000);
-    }
-
-    window.addEventListener("beforeunload", this.endListeningProgress);
-
-    this.$store.watch(
-      (state) => state.player.status,
-      (newValue) => {
-        const audioPlayer = document.querySelector("#audio-player");
-        if(!audioPlayer){
-          return;
-        }
-        if(this.live && !this.hlsReady){
-          audioPlayer.pause();
-          this.percentLiveProgress= 0;
-          this.durationLivePosition= 0;
-          return;
-        }
-        if (newValue === "PAUSED") {
-          audioPlayer.pause();
-        } else {
-          audioPlayer.play();
-        }
-      }
-    );
   },
 
   computed: {
@@ -308,8 +320,10 @@ export default {
       playerHeight(state) {
         if (state.player.status == "STOPPED" || this.forceHide) {
           return 0;
-        } else if(window.innerWidth>450){
+        } else if(window.innerWidth>450 && !this.showTimeline){
           return "5rem";
+        } else if(window.innerWidth>450 && this.showTimeline){
+          return "6rem";
         }else{
           return "3.5rem";
         }
@@ -320,6 +334,7 @@ export default {
       live: (state) => state.player.live,
       volume: (state) => state.player.volume,
       isStop: (state) => state.player.stop,
+      commentsLoaded: (state) => state.comments.loadedComments,
 
       podcastImage: (state) => {
         if (state.player.podcast) {
@@ -350,6 +365,8 @@ export default {
           return "--:--";
         }
       },
+
+      totalSecondes:(state) => state.player.total,
     }),
 
     audioUrl() {
@@ -413,9 +430,39 @@ export default {
         return "";
       }
     },
+
+    organisationId(){
+      return state.generalParameters.organisationId;
+    },
+
+    authenticated(){
+      return state.generalParameters.authenticated;
+    },
   },
 
   methods: {
+    watchPlayerStatus(){
+      this.$store.watch(
+        (state) => state.player.status,
+        (newValue) => {
+          const audioPlayer = document.querySelector("#audio-player");
+          if(!audioPlayer){
+            return;
+          }
+          if(this.live && !this.hlsReady){
+            audioPlayer.pause();
+            this.percentLiveProgress= 0;
+            this.durationLivePosition= 0;
+            return;
+          }
+          if (newValue === "PAUSED") {
+            audioPlayer.pause();
+          } else {
+            audioPlayer.play();
+          }
+        }
+      );
+    },
     getDownloadId() {
       return this._downloadId;
     },
@@ -601,6 +648,45 @@ export default {
         }
       }
     },
+
+    editRight(organisation) {
+      if (this.authenticated) {
+        if (this.organisationId === organisation && this.$store.state.authentication.role.includes("COMMENTS_MODERATION")) {
+          return true;
+        }
+        if (state.generalParameters.isAdmin) {
+          return true;
+        }
+      }
+      return false;
+    },
+
+    async initComments(){
+      let podcastId, organisation;
+      if(this.podcast){
+        podcastId = this.podcast.podcastId;
+        organisation = this.podcast.organisation.id;
+      }else if(this.live){
+        podcastId = this.live.livePodcastId;
+        organisation = this.live.organisation;
+      }
+      if(podcastId && this.$store.state.comments.actualPodcastId === podcastId){
+        this.comments = this.commentsLoaded;
+      }else if(podcastId){
+        let param = {
+          first: 0,
+          size: 50,
+          podcastId: podcastId,
+        }
+        const data = await octopusApi.fetchRootComments(param);
+        this.comments = this.comments.concat(data.content).filter((c)=>{
+          if(!this.editRight(organisation)){
+            return c!==null && c.status === "Valid";
+          }
+          return c!== null;
+        });
+      }
+    }
   },
 
   watch: {
@@ -609,7 +695,7 @@ export default {
       this.setDownloadId(null);
       this.listenError = false;
       await this.playLive();
-
+      this.initComments();
     },
 
     playerHeight(newVal) {
@@ -619,6 +705,7 @@ export default {
     podcast() {
       this.setDownloadId(null);
       this.listenError = false;
+      this.initComments();
     },
 
     async listenTime(newVal) {
@@ -637,6 +724,10 @@ export default {
       this.lastSend = newVal;
       await octopusApi.updatePlayerTime(this.getDownloadId(), Math.round(newVal));
     },
+
+    commentsLoaded(){
+      this.initComments();
+    }
   },
 };
 </script>

@@ -38,6 +38,8 @@ export default new Vuex.Store({
     },
     comments:{
       knownIdentity : null,
+      actualPodcastId: undefined,
+      loadedComments:[],
     }
   },
 
@@ -132,6 +134,10 @@ export default new Vuex.Store({
     },
     setCommentIdentity(state, identity){
       state.comments.knownIdentity = identity;
+    },
+    setCommentLoaded(state, data){
+      state.comments.actualPodcastId = data.podcastId;
+      state.comments.loadedComments = data.comments;
     }
   },
 });

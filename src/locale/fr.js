@@ -519,5 +519,6 @@ export default {
     'Error occurs while post your comment...':"Une erreur est survenue lors de l'envoi de votre commentaire",
     "Comments loading error":"Commentaires indisponibles pour le moment",
     "Certified account":"Compte certifié",
+    'No comments':"Aucun commentaire",
   };
   
