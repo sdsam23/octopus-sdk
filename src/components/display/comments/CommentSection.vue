@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column mt-3 module-box comment-item-container">
+  <div class="d-flex flex-column mt-3 module-box comment-item-container" v-if="isComments">
     <div class="d-flex align-items-center">
       <h2 class="mb-0 mr-2">{{$t("Podcast's comments")}}
         <template v-if="loaded && totalCount > 1">{{$t("()",{nb:totalCount})}}</template>
@@ -64,6 +64,13 @@ export default {
   },
 
   computed: {
+    isComments(){
+      return (this.podcast.comments === "yes" 
+      ||(this.podcast.comments === "inherit" && this.podcast.organisation.comments==="yes")
+      ||(this.podcast.comments === "live_only" && this.podcast.processingStatus === 'READY_TO_RECORD')
+      ||(this.podcast.comments === "inherit" && this.podcast.organisation.comments==="live_only" && this.podcast.processingStatus === 'READY_TO_RECORD')
+      ||(this.podcast.comments === "inherit" && this.podcast.organisation.comments==="live_record" && this.podcast.conferenceId && this.podcast.conferenceId !== 0));
+    },
     knownIdentity: {
       get() {
         return this.$store.state.comments.knownIdentity

@@ -39,6 +39,7 @@
 				>{{ live.organisation.name }}</router-link>
 			</div>
 			<RecordingItemButton 
+			messageModal='../../misc/modal/MessageModal.vue'
 			:live="true" 
 			:recording="fetchConference" 
 			:podcast="live" 
@@ -119,13 +120,12 @@
 
 <script>
 import {state} from "../../../store/paramStore.js";
-const moment = require('moment');
-const humanizeDuration = require('humanize-duration');
-/* import podcastApi from '@/api/podcasts'; */
 import octopusApi from "@saooti/octopus-api";
 import PodcastImage from "../podcasts/PodcastImage.vue";
 import studioApi from '@/api/studio';
 import RecordingItemButton from "@/components/display/studio/RecordingItemButton.vue";
+const moment = require('moment');
+const humanizeDuration = require('humanize-duration');
 
 export default {
   name: 'LiveItem',

@@ -1,0 +1,83 @@
+<template>
+  <div class="mt-2">
+    <div class="d-flex" v-if="loading">
+      <div class="spinner-border mr-3"></div>
+      <div class="mt-2">{{ $t('Loading content ...') }}</div>
+    </div>
+    <div v-else>
+      <div class="d-flex small-Text">
+        <b class="mr-2">{{comment.name}}</b>
+				<img class="icon-certified" src="/img/certified.png" v-if="comment.certified" :title="$t('Certified account')"/>
+				<div class="mr-2">{{date}}</div>
+			</div>
+      <div >{{contentDisplay}}</div>
+      <a class="c-hand font-italic" v-if="comment.content.length > 300" @click="summary = !summary">{{readMore}}</a>
+  	</div>
+  </div>
+</template>
+
+<style lang="scss">
+</style>
+
+<script>
+import octopusApi from "@saooti/octopus-api";
+const moment = require('moment');
+export default {
+  name: 'CommentParentInfo',
+
+  props:  ["comId"],
+
+  components:{
+  },
+
+  async created(){
+		this.comment = await octopusApi.fetchComment(this.comId);
+		this.loading = false;
+  },
+
+  data() {
+    return {
+			loading: true,
+      summary: true,
+      comment: undefined,
+    };
+  },
+
+  computed: {
+	date() {
+      if(this.comment.date){
+        return moment(this.comment.date).format("D MMMM YYYY HH[h]mm");
+      }else{
+        return ""
+      }
+    },
+    limitContent(){
+      if(!this.comment.content) return '';
+      if(this.comment.content.length <= 300) return this.comment.content;
+      return this.comment.content.substring(0, 300 )+ '...';
+    },
+    readMore(){
+      if(this.summary){
+        return this.$t('Read more');
+      }else{
+        return this.$t('Read less');
+      }
+    },
+    contentDisplay(){
+      if(this.summary){
+        return this.limitContent;
+      }else{
+        return this.comment.content;
+      }
+    },
+  },
+
+
+  methods: {
+  
+  },
+
+  watch: {
+  },
+};
+</script>

@@ -7,6 +7,7 @@
     <div class="text-danger align-self-center" v-if="error">{{$t('Comments loading error')}}</div>
     <div class="d-flex flex-column" v-show="loaded">
       <CommentItem
+        :isFlat="isFlat"
         :comment.sync="c"
         :podcast="podcast"
         :fetchConference="fetchConference"
@@ -46,6 +47,7 @@ export default {
     fetchConference:{default:undefined},
     organisation:{default:undefined},
     status:{default:undefined},
+    isFlat:{default:false},
   },
 
   components: {
@@ -116,7 +118,11 @@ export default {
             organisationId:this.organisation,
             status:this.status,
           }
-          data = await octopusApi.fetchRootComments(param);
+          if(!this.isFlat){
+            data = await octopusApi.fetchRootComments(param);
+          }else{
+            data = await octopusApi.fetchComments(param);
+          }
         }
         
         this.resetData(reset);

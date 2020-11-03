@@ -41,17 +41,19 @@
       v-if="comment.commentIdReferer ===null && comment.status ==='Valid'">{{$t('To answer')}}</button>
       <div 
         v-b-toggle="'answers-comment-'+comment.comId"
-        class="primary-color c-hand d-flex align-items-center"
-        v-if="comment.relatedComments"
+        class="primary-color c-hand d-flex align-items-center small-Text"
+        v-if="(!isFlat && comment.relatedComments) || (isFlat && comment.commentIdReferer)"
       >
         <div class="d-flex align-items-center when-closed">
-          <div>{{$t('Display answers', {nb:comment.relatedComments})}}
+          <div v-if="comment.relatedComments">{{$t('Display answers', {nb:comment.relatedComments})}}
             <i v-if="editRight">{{$t('(nb valid comment answers)',{nb: comment.relatedValidComments})}}</i>
           </div>
+          <div v-else>{{$t('In response to')}}</div>
           <span class="saooti-arrow_down saooti-arrow_down-margin"></span>
         </div>
         <div class="d-flex align-items-center when-opened">
-          <div>{{$t('Hide answers')}}</div>
+          <div v-if="comment.relatedComments">{{$t('Hide answers')}}</div>
+          <div v-else>{{$t('In response to')}}</div>
           <span class="saooti-arrow_down saooti-arrow_down-margin arrow-transform"></span>
         </div>
       </div>
@@ -66,14 +68,18 @@
 		</div>
     <b-collapse :id="'answers-comment-'+comment.comId" class="ml-5" v-model="collapseVisible">
       <CommentInput
+      v-if="!isFlat || (isFlat && !comment.commentIdReferer)"
       :focus="focus"
       :podcast="podcast"
       :knownIdentity.sync="knownIdentity"
       :comId="comment.comId"
       :fetchConference="fetchConference"
       @newComment="newComment"/>
+      <CommentParentInfo
+      v-if="isFlat && comment.commentIdReferer && collapseVisible"
+      :comId="comment.commentIdReferer"/>
       <CommentList 
-      v-if="comment.relatedComments && collapseVisible" 
+      v-if="comment.relatedComments && collapseVisible && !isFlat" 
       @updateStatus='updateStatus'
       :podcast="podcast"
       :fetchConference="fetchConference"
@@ -104,18 +110,20 @@
 <script>
 import CommentInput from './CommentInput.vue';
 import CommentList from "./CommentList.vue"
+import CommentParentInfo from "./CommentParentInfo.vue"
 import EditCommentBox from "@/components/display/edit/EditCommentBox.vue";
 import {state} from "../../../store/paramStore.js";
 const moment = require('moment');
 export default {
   name: 'CommentItem',
 
-  props:  ["comment", "podcast", "fetchConference", "organisation"],
+  props:  ["comment", "podcast", "fetchConference", "organisation", 'isFlat'],
 
   components:{
     CommentList,
     EditCommentBox,
-    CommentInput
+    CommentInput,
+    CommentParentInfo
   },
 
 

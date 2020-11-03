@@ -520,5 +520,6 @@ export default {
     "Comments loading error":"Commentaires indisponibles pour le moment",
     "Certified account":"Compte certifié",
     'No comments':"Aucun commentaire",
+    "In response to":"En réponse à",
   };
   
