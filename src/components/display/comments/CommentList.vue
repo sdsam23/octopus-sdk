@@ -45,6 +45,7 @@ export default {
     reload:{default:false},
     fetchConference:{default:undefined},
     organisation:{default:undefined},
+    status:{default:undefined},
   },
 
   components: {
@@ -113,6 +114,7 @@ export default {
             size: this.dsize,
             podcastId: this.podcastId,
             organisationId:this.organisation,
+            status:this.status,
           }
           data = await octopusApi.fetchRootComments(param);
         }
@@ -176,6 +178,9 @@ export default {
 
   watch: {
     reload(){
+      this.fetchContent(true);
+    },
+    status(){
       this.fetchContent(true);
     },
     comments(){

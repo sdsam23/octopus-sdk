@@ -56,6 +56,7 @@
 import AddCommentModal from './AddCommentModal.vue';
 import MessageModal from '../../misc/modal/MessageModal.vue';
 import octopusApi from "@saooti/octopus-api";
+import commentApi from '@/api/comments';
 import { cookies } from '../../mixins/functions'
 import {state} from "../../../store/paramStore.js";
 
@@ -159,11 +160,14 @@ export default {
         userId: this.userId,
         phase: this.phase,
       }
-      if(this.isCertified){
-        comment.status = "Valid";
-      }
       try {
-        let data = await octopusApi.postComment(comment);
+        let data;
+        if(this.isCertified){
+          comment.status = "Valid";
+          data = await commentApi.postComment(this.$store,comment);
+        }else{
+          data = await octopusApi.postComment(comment);
+        }
         this.$emit('newComment', data);
         this.newComment = "";
         this.checkIdentityModal = false;
