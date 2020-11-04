@@ -11,6 +11,7 @@
         :comment.sync="c"
         :podcast="podcast"
         :fetchConference="fetchConference"
+        :organisation="organisation"
         v-for="c in comments"
         :key="c.comId"
         @deleteComment="deleteComment(c)"
@@ -115,8 +116,10 @@ export default {
             first: this.dfirst,
             size: this.dsize,
             podcastId: this.podcastId,
-            organisationId:this.organisation,
             status:this.status,
+          }
+          if(this.podcastId === undefined){
+            param.organisationId = this.organisation;
           }
           if(!this.isFlat){
             data = await octopusApi.fetchRootComments(param);

@@ -214,8 +214,13 @@ export default {
     newComment(comment){
       let updatedComment = this.comment;
       updatedComment.relatedComments += 1;
+      if(comment.status === "Valid"){
+        updatedComment.relatedValidComments += 1;
+      }
       this.$emit('update:comment', updatedComment);
-      this.$refs.commentList.addNewComment(comment);
+      if(this.$refs.commentList){
+        this.$refs.commentList.addNewComment(comment);
+      }
     },
     editComment(){
       this.temporaryContent = this.comment.content;
