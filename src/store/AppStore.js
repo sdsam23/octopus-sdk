@@ -40,6 +40,7 @@ export default new Vuex.Store({
       knownIdentity : null,
       actualPodcastId: undefined,
       loadedComments:[],
+      totalCount:0,
     }
   },
 
@@ -138,6 +139,7 @@ export default new Vuex.Store({
     setCommentLoaded(state, data){
       state.comments.actualPodcastId = data.podcastId;
       state.comments.loadedComments = data.comments;
+      state.comments.totalCount = data.count;
     }
   },
 });

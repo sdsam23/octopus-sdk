@@ -661,7 +661,7 @@ export default {
       return false;
     },
 
-    async initComments(){
+    async initComments(refresh = false){
       let podcastId, organisation;
       if(this.podcast){
         podcastId = this.podcast.podcastId;
@@ -670,21 +670,36 @@ export default {
         podcastId = this.live.livePodcastId;
         organisation = this.live.organisation;
       }
+      if(refresh && podcastId && this.$store.state.comments.actualPodcastId !== podcastId){
+        return;
+      }
+      let first = 0;
+      let count = 0;
+      let size = 50;
       if(podcastId && this.$store.state.comments.actualPodcastId === podcastId){
         this.comments = this.commentsLoaded;
-      }else if(podcastId){
-        let param = {
-          first: 0,
-          size: 50,
-          podcastId: podcastId,
+        if(this.commentsLoaded && this.commentsLoaded.length < this.$store.state.comments.totalCount){
+          first = this.commentsLoaded.length;
+          count = this.$store.state.comments.totalCount;
         }
-        const data = await octopusApi.fetchRootComments(param);
-        this.comments = this.comments.concat(data.content).filter((c)=>{
-          if(!this.editRight(organisation)){
-            return c!==null && c.status === "Valid";
+      }
+      if((podcastId && this.$store.state.comments.actualPodcastId !== podcastId) || first!==0){
+        while(first === 0 || this.comments.length < count){
+          let param = {
+            first: first,
+            size: size,
+            podcastId: podcastId,
           }
-          return c!== null;
-        });
+          if(!this.editRight(organisation)){
+            param.status = "Valid";
+          }
+          const data = await octopusApi.fetchRootComments(param);
+          first += size;
+          count = data.totalElements;
+          this.comments = this.comments.concat(data.content).filter((c)=>{
+            return c!== null;
+          });
+        }
       }
     }
   },
@@ -726,7 +741,7 @@ export default {
     },
 
     commentsLoaded(){
-      this.initComments();
+      this.initComments(true);
     }
   },
 };

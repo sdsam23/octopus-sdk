@@ -9,9 +9,9 @@
           v-model="name"
           :placeholder="$t('Your name')"
         />
-       <!--  <vue-recaptcha ref="recaptcha" v-if="!verify"
+        <vue-recaptcha ref="recaptcha" v-if="needVerify" :loadRecaptchaScript="true"
           @verify="onVerify" sitekey="6Ld3oV4UAAAAAPOl8ytNVcBSP-UMuLAIMg-pOak5">
-        </vue-recaptcha> -->
+        </vue-recaptcha>
       </template>
       <template v-slot:default v-else>
         <div>{{$t('Send in progress')}}</div>
@@ -36,7 +36,7 @@
 <style lang="scss">
 </style>
 <script>
-/* import VueRecaptcha from 'vue-recaptcha'; */
+import VueRecaptcha from 'vue-recaptcha';
 import {state} from "../../../store/paramStore.js";
 export default {
   name: 'AddCommentModal',
@@ -44,12 +44,13 @@ export default {
   props: [],
 
   components:{
-    /* VueRecaptcha */
+    VueRecaptcha
   },
 
   mounted(){
     if(this.authenticated){
       this.name = ((this.$store.state.profile.firstname || '') + ' ' + (this.$store.state.profile.lastname || '')).trim();
+      this.needVerify = false;
       this.verify = true;
     }
     this.$bvModal.show('add-comment-modal');
@@ -59,7 +60,8 @@ export default {
     return {
       name: "",
       sending: false,
-      verify:true,
+      verify:false,
+      needVerify:true,
     };
   },
 

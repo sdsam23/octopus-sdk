@@ -66,7 +66,7 @@
       @updateComment="updateComment" 
       @editComment="editComment" />
 		</div>
-    <b-collapse :id="'answers-comment-'+comment.comId" class="ml-5" v-model="collapseVisible">
+    <b-collapse :id="'answers-comment-'+comment.comId" class="ml-4" v-model="collapseVisible">
       <CommentInput
       v-if="!isFlat || (isFlat && !comment.commentIdReferer)"
       :focus="focus"
@@ -211,13 +211,15 @@ export default {
       this.isEditing = false;
       this.$emit('updateComment', data);
     },
-    newComment(comment){
-      let updatedComment = this.comment;
-      updatedComment.relatedComments += 1;
-      if(comment.status === "Valid"){
-        updatedComment.relatedValidComments += 1;
+    newComment(comment, fromEvent = false){
+      if(this.fetchConference === undefined || fromEvent){
+        let updatedComment = this.comment;
+        updatedComment.relatedComments += 1;
+        if(comment.status === "Valid"){
+          updatedComment.relatedValidComments += 1;
+        }
+        this.$emit('update:comment', updatedComment);
       }
-      this.$emit('update:comment', updatedComment);
       if(this.$refs.commentList){
         this.$refs.commentList.addNewComment(comment);
       }
@@ -241,6 +243,37 @@ export default {
         updatedComment.relatedValidComments -= 1;
       }
       this.$emit('update:comment', updatedComment);
+    },
+    receiveCommentEvent(event){
+      switch (event.type) {
+        case "Create": this.newComment(event.comment, true); break;
+        case "Update": 
+        if(this.$refs.commentList){
+          this.$refs.commentList.updateComment({comment:event.comment});
+        }else{
+          let updatedComment = this.comment;
+          if(event.status === "Invalid"){
+            updatedComment.relatedValidComments -= 1;
+          }else if(event.status === "Valid"){
+            updatedComment.relatedValidComments += 1;
+          }
+          this.$emit('update:comment', updatedComment);
+        }
+        break;
+        case "Delete":
+        if(this.$refs.commentList){
+          this.$refs.commentList.deleteComment(event.comment);
+        }else{
+          let updatedComment = this.comment;
+          updatedComment.relatedComments -= 1;
+          if(event.comment.status === "Valid"){
+            updatedComment.relatedValidComments -= 1;
+          }
+          this.$emit('update:comment', updatedComment);
+        }
+        break;
+        default:break;
+      }
     }
   },
 

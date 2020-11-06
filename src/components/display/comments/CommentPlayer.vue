@@ -12,9 +12,9 @@
 			<div :style="'margin-left: calc('+ percentPosition(c.timeline) +'% - 7px)'" :class="'status-'+c.status"></div>
 		</div>
 		<div class="comment-content" v-if="displayContent">
-			<div class="primary-color">{{displayContent.name}}</div>
+			<div class="primary-color flex-shrink">{{displayContent.name}}</div>
 			<div class="ml-1 mr-1">-</div>
-			<div>{{displayContent.content}}</div>
+			<div class="text-truncate">{{displayContent.content}}</div>
 		</div>
 	</div>
 </template>

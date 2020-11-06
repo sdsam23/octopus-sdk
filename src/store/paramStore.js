@@ -35,8 +35,8 @@ var initialize = function initialize(initObject){
     if(initObject.generalParameters){
       let param = initObject.generalParameters;
       state.generalParameters.organisationId = (typeof param.organisationId !== "undefined") ? param.organisationId : null;
-      state.generalParameters.authenticated = (typeof param.authenticated !== "undefined") ? param.authenticated : true;
-      state.generalParameters.isAdmin =(typeof param.isAdmin !== "undefined") ? param.isAdmin : true;
+      state.generalParameters.authenticated = (typeof param.authenticated !== "undefined") ? param.authenticated : false;
+      state.generalParameters.isAdmin =(typeof param.isAdmin !== "undefined") ? param.isAdmin : false;
       state.generalParameters.isAnimator =(typeof param.isAnimator !== "undefined") ? param.isAnimator : true;
       state.generalParameters.ApiUri = (typeof param.ApiUri !== "undefined") ? param.ApiUri : 'https://api.dev2.saooti.org/';
       state.generalParameters.isIE11 = (typeof param.isIE11 !== "undefined") ? param.isIE11 : false;

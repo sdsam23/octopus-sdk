@@ -1,10 +1,10 @@
 <template>
-  <div class="d-flex flex-column mt-3 module-box comment-item-container" v-if="isComments">
+  <div class="d-flex flex-column mt-3 module-box comment-item-container" v-if="isComments || true">
     <div class="d-flex align-items-center">
       <h2 class="mb-0 mr-2">{{$t("Podcast's comments")}}
         <template v-if="loaded && totalCount > 1">{{$t("()",{nb:totalCount})}}</template>
       </h2>
-       <button class="saooti-refresh-stud btn btn-reload primary-color" @click="reloadComments"></button>
+       <button class="saooti-refresh-stud btn btn-reload primary-color" @click="reloadComments" v-if="!isLive"></button>
     </div>
     <CommentInput
     :podcast="podcast"
@@ -79,6 +79,9 @@ export default {
         this.$store.commit('setCommentIdentity', value);
       },
     },
+    isLive(){
+      return this.fetchConference && this.fetchConference !== "null" && this.fetchConference.status !=="PUBLISHING" && this.fetchConference.status !=="DEBRIEFING";
+    }
   },
 
   methods: {
@@ -92,6 +95,19 @@ export default {
     },
     newComment(comment){
       this.$refs.commentList.addNewComment(comment);
+    },
+    receiveCommentEvent(event){
+      let statusUpdated = undefined;
+      switch (event.type) {
+        case "Create": this.$refs.commentList.addNewComment(event.comment); break;
+        case "Update":
+          if(event.comment.status !== event.oldStatus) {
+            statusUpdated=event.comment.status;
+          }
+          this.$refs.commentList.updateComment({comment:event.comment, status: statusUpdated}); break;
+        case "Delete": this.$refs.commentList.deleteComment(event.comment); break;
+        default: console.log('Event not handle');break;
+      }
     }
   },
 };

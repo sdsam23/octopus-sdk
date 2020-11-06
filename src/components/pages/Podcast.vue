@@ -100,7 +100,7 @@
         </div>
       </div>
       <template v-if="!isOuestFrance">
-        <CommentSection :podcast='podcast' :fetchConference="fetchConference"/>
+        <CommentSection :podcast='podcast' :fetchConference="fetchConference" ref="commentSection"/>
         <PodcastInlineList
           :emissionId="this.podcast.emission.emissionId"
           :href="'/main/pub/emission/' + this.podcast.emission.emissionId"
@@ -416,6 +416,9 @@ export default {
         this.$router.push('/');
       }
     },
+    receiveCommentEvent(event){
+      this.$refs.commentSection.receiveCommentEvent(event);
+    }
   }, 
   watch:{
     updateStatus(){

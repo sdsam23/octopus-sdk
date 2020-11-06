@@ -6,6 +6,7 @@
       v-model="newComment"
       :placeholder="placeholder"
       max-rows="10"
+      :class="{short:isOneLine && !newComment.includes('\n')}"
       @focus="textareaFocus = true"
       @blur="textareaFocus = false"
     ></b-form-textarea>
@@ -48,6 +49,9 @@
     background: transparent !important;
     height: 40px;
   }
+  textarea.short {
+    max-height: 38px;
+  }
 }
 
 </style>
@@ -84,6 +88,7 @@ export default {
       textareaFocus: false,
       checkIdentityModal: false,
       postError: false,
+      isOneLine: true,
     };
   },
 
@@ -133,6 +138,12 @@ export default {
 
 
   methods: {
+    inputExceeded(text, font){
+      this.element = document.createElement('canvas');
+      this.context = this.element.getContext("2d");
+      this.context.font = font;
+      return this.context.measureText(text).width;
+    },
     requestToSend(){
       if(this.knownIdentity){
         this.postComment();
@@ -184,7 +195,11 @@ export default {
 		},
 		focus(){
 			this.$refs.textarea.focus();
-		}
+    },
+    newComment(){
+      let padding = 1.5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
+      this.isOneLine = (this.$refs.textarea.$el.clientWidth - this.inputExceeded(this.newComment, "18px Montserrat, sans-serif, Helvetica Neue")) > (padding);
+    }
   },
 };
 </script>

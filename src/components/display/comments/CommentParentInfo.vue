@@ -12,7 +12,7 @@
 			</div>
       <div >{{contentDisplay}}</div>
       <a class="c-hand font-italic" v-if="comment.content.length > 300" @click="summary = !summary">{{readMore}}</a>
-  	</div>
+      </div>
   </div>
 </template>
 

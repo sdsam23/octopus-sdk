@@ -7,6 +7,7 @@
     <div class="text-danger align-self-center" v-if="error">{{$t('Comments loading error')}}</div>
     <div class="d-flex flex-column" v-show="loaded">
       <CommentItem
+        :ref="'comItem'+c.comId"
         :isFlat="isFlat"
         :comment.sync="c"
         :podcast="podcast"
@@ -118,6 +119,9 @@ export default {
             podcastId: this.podcastId,
             status:this.status,
           }
+          if(!this.editRight){
+            param.status = "Valid";
+          }
           if(this.podcastId === undefined){
             param.organisationId = this.organisation;
           }
@@ -133,9 +137,6 @@ export default {
         this.loaded = true;
         this.totalCount = data.totalElements;
         this.comments = this.comments.concat(data.content).filter((c)=>{
-          if(!this.editRight){
-            return c!==null && c.status === "Valid";
-          }
           return c!== null;
         });
         this.dfirst += this.dsize;
@@ -158,30 +159,43 @@ export default {
       this.fetchContent(false);
     },
     deleteComment(comment){
-      this.totalCount -=1; 
-      if(this.dfirst !==0){
-        this.dfirst -=1;
+      if(!this.isFlat && comment.commentIdReferer && this.comId !== comment.commentIdReferer){
+        this.$refs['comItem'+comment.commentIdReferer][0].receiveCommentEvent({type:"Delete", comment: comment});
+      }else{
+        let index = this.comments.findIndex(element => element.comId === comment.comId);
+        if(index !== -1){
+          this.totalCount -=1; 
+          if(this.dfirst !==0){
+            this.dfirst -=1;
+          }
+          this.comments.splice(index, 1);
+        }
       }
-      let index = this.comments.findIndex(element => element.comId === comment.comId);
-      if(index !== -1){
-        this.comments.splice(index, 1);
-      }
-      
     },
     updateComment(data){
-      let index = this.comments.findIndex(element => element.comId === data.comment.comId);
-      if(index !== -1){
-        this.comments.splice(index, 1, data.comment);
-      }
-      
-      if(this.comId && data.status){
-        this.$emit('updateStatus', data.status);
+      if(!this.isFlat && data.comment.commentIdReferer && this.comId !== data.comment.commentIdReferer){
+        this.$refs['comItem'+data.comment.commentIdReferer][0].receiveCommentEvent({...data, type:"Update"});
+      }else{
+        let index = this.comments.findIndex(element => element.comId === data.comment.comId);
+        if(index !== -1){
+          this.comments.splice(index, 1, data.comment);
+        }
+        if(this.comId && data.status){
+          this.$emit('updateStatus', data.status);
+        }
       }
     },
     addNewComment(comment){
-      this.totalCount +=1; 
-      this.dfirst +=1;
-      this.comments.unshift(comment);
+      if(!this.isFlat && comment.commentIdReferer && this.comId !== comment.commentIdReferer){
+        this.$refs['comItem'+comment.commentIdReferer][0].receiveCommentEvent({type:"Create", comment: comment});
+      }else{
+        let index = this.comments.findIndex(element => element.comId === comment.comId);
+        if(index === -1){
+          this.totalCount +=1; 
+          this.dfirst +=1;
+          this.comments.unshift(comment);
+        }
+      }
     }
   },
 
