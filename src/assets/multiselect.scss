@@ -96,7 +96,7 @@
 
 .octopus-arrow-down-2{
 	right: 10px;
-    top: 12px;
+    top: 11px;
     @media (max-width: 450px) {
         top: 16px;
     }
@@ -183,7 +183,7 @@ fieldset[disabled] .multiselect {
         margin-bottom: 0;
     }
     .octopus-arrow-down-2 {
-        top: 3px;
+        top: 2px;
     }
     display: flex;
     align-items: center;
@@ -266,7 +266,7 @@ fieldset[disabled] .multiselect {
 .multiselect__tags {
     min-height: 45px;
     display: block;
-    padding: 6px 40px 0 20px;
+    padding: 9px 40px 0 20px;
     border-radius: 0.3em;
     border: 0.1rem solid #dee2e6;
     background: #fff;
