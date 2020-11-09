@@ -10,7 +10,7 @@
 		<div class="d-flex flex-column">
 			<div class="primary-color mb-2">{{$t('Filter')}}</div>
 			<MonetizableFilter @updateMonetization='updateMonetization' :isEmission='isEmission' v-if="isMonetizableFilter"/>
-			<div class="d-flex mt-3 align-items-center rubrique-select-height" v-if="organisationId && rubriquageDisplay">
+			<div class="d-flex mt-3 align-items-center" v-if="organisationId && rubriquageDisplay">
 				<div class="checkbox-saooti flex-shrink">  
 					<input type="checkbox" class="custom-control-input" id="search-rubriquage-checkbox" v-model="isRubriquage">  
 					<label class="custom-control-label" for="search-rubriquage-checkbox">{{ $t('By topic') }}</label>  
@@ -163,11 +163,6 @@
     margin: 0.5em 0;
 	position: relative;
   }
-
-.rubrique-select-height {
-		height: 30px;
-		margin-top: 0.5rem !important;
-	}
   }
 
   @media (min-width: 401px) {
@@ -185,9 +180,6 @@
 		-webkit-appearance: none;
 		-moz-appearance: none;
 		appearance: none;
-	}
-	.rubrique-select-height{
-		height: 30px;
 	}
 }
 
