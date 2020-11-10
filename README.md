@@ -320,12 +320,12 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.20.4 Début commentaire
  * 0.20.5 Merge fabien
  * 0.20.6 Merge fabien
+ * 0.20.7 Message lors d'un podcast en erreur
 
  * 0.21.0 Début commentaire
  * 0.21.1 Avancée commentaires
  * 0.21.2 Avancée commentaires
-
-
+ * 0.21.3 Merge 20
  
 
 

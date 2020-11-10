@@ -74,10 +74,14 @@
                       class="mr-5"
                       v-if="podcast.annotations && podcast.annotations.RSS"
                     >{{ $t('From RSS') }}</div>
-                      <div class="alert-text" v-if="!podcast.availability.visibility">
-                        <img src="/img/caution.png" class="icon-caution"/>
-                        {{ $t('Podcast is not visible for listeners') }}
-                      </div>
+                    <div class="alert-text" v-if="!podcast.availability.visibility">
+                      <img src="/img/caution.png" class="icon-caution"/>
+                      {{ $t('Podcast is not visible for listeners') }}
+                    </div>
+                    <div class="alert-text" v-if="podcast.processingStatus === 'ERROR'">
+                      <img src="/img/caution.png" class="icon-caution"/>
+                      {{ $t('Podcast in ERROR, please contact Saooti') }}
+                    </div>
                   </div>
                   <ShareButtons :podcast="podcast" :bigRound='true' :audioUrl="podcast.audioUrl" v-if="isDownloadButton"></ShareButtons>
                 </div>
