@@ -6,7 +6,6 @@
       <div class="d-flex">
         <div class="d-flex flex-column flex-super-grow">
           <RecordingItemButton 
-          messageModal='../misc/modal/MessageModal.vue'
           class="module-box text-center-mobile flex-no-grow" 
           :podcast="podcast" :live="true" 
           :recording="fetchConference" 

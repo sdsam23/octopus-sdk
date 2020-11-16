@@ -39,7 +39,6 @@
 				>{{ live.organisation.name }}</router-link>
 			</div>
 			<RecordingItemButton 
-			messageModal='../../misc/modal/MessageModal.vue'
 			:live="true" 
 			:recording="fetchConference" 
 			:podcast="live" 

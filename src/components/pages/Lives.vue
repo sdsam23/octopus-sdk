@@ -5,10 +5,12 @@
         <router-link to="/main/priv/edit/live" v-if="liveRight && filterOrga">
           <button class="btn btn-primary">{{ $t('Launch a new live') }}</button>
         </router-link>
-        <OrganisationChooser
-					:defaultanswer="$t('No organisation filter')"
-					@selected="onOrganisationSelected"
-          v-else/>
+        <template v-else>
+          <div class="align-self-start font-weight-bold mb-2">{{$t('Please chose a productor')}}</div>
+          <OrganisationChooser
+            :defaultanswer="$t('Please chose a productor')"
+            @selected="onOrganisationSelected"/>
+        </template>
     </div>
 		<LiveList @initConferenceIds="initConferenceIds" :conferenceWatched="conferenceWatched" :organisationId="organisationId" v-if="filterOrga||organisationId"/>
   </div>

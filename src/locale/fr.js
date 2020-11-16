@@ -521,5 +521,6 @@ export default {
     "Certified account":"Compte certifié",
     'No comments':"Aucun commentaire",
     "In response to":"En réponse à",
+    "Please chose a productor":"Veuillez choisir un producteur",
   };
   

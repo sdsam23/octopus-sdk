@@ -23,7 +23,7 @@
   </b-modal>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 </style>
 <script>
 export default {
@@ -40,7 +40,6 @@ export default {
       event.preventDefault();
       this.$emit('close');
     },
-
     onValid() {
       this.$emit('validate');
     },
