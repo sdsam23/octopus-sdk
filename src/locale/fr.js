@@ -494,7 +494,6 @@ export default {
     'No podcasts in the playlist':"La playlist ne contient pas d'épisodes",
     "Start in a while":"Démarre dans un instant",
     'All live emission button':"Tous les lives de l'émission",
-    "live in few time":"live à venir",
     'player parameters': "Paramètres du player",
     "Start at": "Démarrer à",
     "sort by score":" triés par pertinence",
@@ -522,5 +521,6 @@ export default {
     'No comments':"Aucun commentaire",
     "In response to":"En réponse à",
     "Please chose a productor":"Veuillez choisir un producteur",
+    'Podcast in ERROR, please contact Saooti':"Une anomalie s'est produite lors du traitement de cet épisode. Veuillez contacter Saooti pour une prise en charge rapide du problème.",
   };
   

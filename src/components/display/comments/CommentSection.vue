@@ -65,11 +65,19 @@ export default {
 
   computed: {
     isComments(){
-      return (this.podcast.comments === "yes" 
-      ||(this.podcast.comments === "inherit" && this.podcast.organisation.comments==="yes")
-      ||(this.podcast.comments === "live_only" && this.podcast.processingStatus === 'READY_TO_RECORD')
-      ||(this.podcast.comments === "inherit" && this.podcast.organisation.comments==="live_only" && this.podcast.processingStatus === 'READY_TO_RECORD')
-      ||(this.podcast.comments === "inherit" && this.podcast.organisation.comments==="live_record" && this.podcast.conferenceId && this.podcast.conferenceId !== 0));
+      let podcastComment = "INHERIT";
+			if(this.podcast.annotations && this.podcast.annotations.COMMENTS){
+				podcastComment = this.podcast.annotations.COMMENTS;
+			}
+			let organisationComment = "LIVE_ONLY";
+			if(this.podcast.organisation.comments){
+				organisationComment = this.podcast.organisation.comments;
+			}
+      return (podcastComment === "YES" 
+      ||(podcastComment === "INHERIT" && organisationComment==="YES")
+      ||(podcastComment === "LIVE_ONLY" && this.podcast.processingStatus === 'READY_TO_RECORD')
+      ||(podcastComment === "INHERIT" && organisationComment==="LIVE_ONLY" && this.podcast.processingStatus === 'READY_TO_RECORD')
+      ||(podcastComment === "INHERIT" && organisationComment==="LIVE_RECORD" && this.podcast.conferenceId && this.podcast.conferenceId !== 0));
     },
     knownIdentity: {
       get() {
