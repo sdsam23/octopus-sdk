@@ -434,10 +434,6 @@ export default {
     organisationId(){
       return state.generalParameters.organisationId;
     },
-
-    authenticated(){
-      return state.generalParameters.authenticated;
-    },
   },
 
   methods: {
@@ -650,13 +646,8 @@ export default {
     },
 
     editRight(organisation) {
-      if (this.authenticated) {
-        if (this.organisationId === organisation && this.$store.state.authentication.role.includes("COMMENTS_MODERATION")) {
-          return true;
-        }
-        if (state.generalParameters.isAdmin) {
-          return true;
-        }
+      if ((state.generalParameters.isCommments && this.organisationId === organisation) || state.generalParameters.isAdmin) {
+        return true;
       }
       return false;
     },

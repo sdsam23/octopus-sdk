@@ -121,13 +121,8 @@ export default {
       }
     },
     editRight() {
-      if (this.authenticated) {
-        if (this.organisationId === this.participant.orga.id) {
-          return true;
-        }
-        if (state.generalParameters.isAdmin) {
-          return true;
-        }
+      if ((this.authenticated && this.organisationId === this.participant.orga.id) ||state.generalParameters.isAdmin) {
+        return true;
       }
       return false;
     }

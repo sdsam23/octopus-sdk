@@ -65,14 +65,11 @@ export default {
     isProductorSearch(){
       return state.podcastsPage.ProductorSearch;
     },
-    authenticated(){
-      return state.generalParameters.authenticated;
-    },
     isPodcastmaker(){
       return state.generalParameters.podcastmaker;
     },
     editRight() {
-      if (this.authenticated && (this.$store.state.authentication.role.includes("PLAYLISTS") || state.generalParameters.isAdmin)) {
+      if (state.generalParameters.isPlaylist || state.generalParameters.isAdmin) {
         return true;
       }
       return false;

@@ -163,17 +163,12 @@ export default {
         return "";
       }
     },
-    authenticated(){
-      return state.generalParameters.authenticated;
-    },
     myOrganisationId(){
       return state.generalParameters.organisationId;
     },
 		organisationRight() {
-      if (this.authenticated && this.isAnimator) {
-        if (this.myOrganisationId === this.filterOrgaUsed) {
-          return true;
-        }
+      if (this.isAnimator && this.myOrganisationId === this.filterOrgaUsed) {
+        return true;
       }
       return false;
     },

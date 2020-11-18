@@ -169,19 +169,9 @@ export default {
       return state.generalParameters.organisationId;
     },
 
-    authenticated(){
-      return state.generalParameters.authenticated;
-    },
-
     editRight() {
-      if (this.authenticated) {
-        if (((this.podcast && this.organisationId === this.podcast.organisation.id) || (this.organisationId === this.organisation))
-         && this.$store.state.authentication.role.includes("COMMENTS_MODERATION")) {
-          return true;
-        }
-        if (state.generalParameters.isAdmin) {
-          return true;
-        }
+      if ((state.generalParameters.isCommments && ((this.podcast && this.organisationId === this.podcast.organisation.id) || (this.organisationId === this.organisation))) || state.generalParameters.isAdmin) {
+        return true;
       }
       return false;
     },

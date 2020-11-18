@@ -107,13 +107,8 @@ export default {
       return state.generalParameters.authenticated;
     },
     isCertified() {
-      if (this.authenticated) {
-        if (this.organisationId === this.podcast.organisation.id && this.$store.state.authentication.role.includes("COMMENTS_MODERATION")) {
-          return true;
-        }
-        if (state.generalParameters.isAdmin) {
-          return true;
-        }
+      if ((state.generalParameters.isCommments && this.organisationId === this.podcast.organisation.id) ||  state.generalParameters.isAdmin) {
+        return true;
       }
       return false;
     },

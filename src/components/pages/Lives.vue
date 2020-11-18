@@ -51,17 +51,14 @@ export default {
   },
 
   computed:{
-    authenticated(){
-      return state.generalParameters.authenticated;
-    },
     liveRight() {
-      if (this.authenticated && this.live && this.isAnimator) {
+      if (this.isAnimator && this.live && this.isAnimator) {
         return true;
       }
       return false;
     },
     isAnimator() {
-      return this.$store.state.authentication.role.includes("ADMIN") || this.$store.state.authentication.role.includes("ANIMATOR");
+      return state.generalParameters.isAnimator;
     },
     filterOrga(){
       return this.$store.state.filter.organisationId;

@@ -169,13 +169,8 @@ export default {
       return state.generalParameters.authenticated;
     },
     editRight() {
-      if (this.authenticated) {
-        if (this.organisationId === this.podcast.organisation.id) {
-          return true;
-        }
-        if (state.generalParameters.isAdmin) {
-          return true;
-        }
+      if ((this.authenticated && this.organisationId === this.podcast.organisation.id) || state.generalParameters.isAdmin) {
+        return true;
       }
       return false;
     },

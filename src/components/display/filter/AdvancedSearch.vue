@@ -259,14 +259,9 @@ export default {
       return state.generalParameters.authenticated;
     },
 		organisationRight() {
-      if (this.authenticated) {
-        if (this.myOrganisationId === this.organisationId) {
-          return true;
-        }
-        if (state.generalParameters.isAdmin) {
-          return true;
-        }
-      }
+			if ((this.authenticated && this.myOrganisationId === this.organisationId) ||state.generalParameters.isAdmin) {
+				return true;
+			}
       return false;
 		},
 		isPodcastmaker(){

@@ -72,18 +72,9 @@ export default {
       return state.generalParameters.organisationId;
     },
 
-    authenticated(){
-      return state.generalParameters.authenticated;
-    },
-
     editRight() {
-      if (this.authenticated) {
-        if (this.organisationId === this.playlist.organisation.id && this.$store.state.authentication.role.includes("PLAYLISTS")) {
-          return true;
-        }
-        if (state.generalParameters.isAdmin) {
-          return true;
-        }
+      if ((state.generalParameters.isPlaylist && this.organisationId === this.playlist.organisation.id )|| state.generalParameters.isAdmin) {
+        return true;
       }
       return false;
     },

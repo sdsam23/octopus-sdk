@@ -101,13 +101,8 @@ export default {
     },
 
     editRight() {
-      if (this.authenticated) {
-        if (this.organisationId === this.playlist.organisation.id) {
-          return true;
-        }
-        if (state.generalParameters.isAdmin) {
-          return true;
-        }
+      if ((this.authenticated && this.organisationId === this.playlist.organisation.id) || state.generalParameters.isAdmin) {
+        return true;
       }
       return false;
     }

@@ -55,13 +55,13 @@
             v-if="authenticated"
           >
             <b-dropdown-text>
-              <router-link to="/main/priv/upload" v-if="authenticated && !isPodcastmaker" class="align-self-center w-100 mb-2">
+              <router-link to="/main/priv/upload" v-if="isPublicationOrProduction && !isPodcastmaker" class="align-self-center w-100 mb-2">
                 <button class="btn btn-primary w-100">{{ $t('Upload') }}</button>
               </router-link>
               <template @click="displayMenuPhone(true)">
                 <b-dropdown-item to="/main/priv/backoffice" class="linkSpace" v-if="!isPodcastmaker">{{ $t('My space') }}</b-dropdown-item>
                 <b-dropdown-item to="/main/priv/edit/profile" v-if="!isPodcastmaker">{{ $t('Edit my profile') }}</b-dropdown-item>
-                <b-dropdown-item to="/main/priv/edit/organisation" v-if="!isPodcastmaker">{{$t('Edit my organisation')}}</b-dropdown-item>
+                <b-dropdown-item to="/main/priv/edit/organisation" v-if="!isPodcastmaker && isOrganisation">{{$t('Edit my organisation')}}</b-dropdown-item>
                 <b-dropdown-divider></b-dropdown-divider>
                 <b-dropdown-item href="https://help.octopus.saooti.com/Aide/" target="_blank">{{$t('Help')}}</b-dropdown-item>
                 <b-dropdown-item href="https://help.octopus.saooti.com/" target="_blank">{{ $t('TutoMag') }}</b-dropdown-item>
@@ -317,6 +317,12 @@ export default {
     },
     authenticated(){
       return this.$store.state.authentication.isAuthenticated;
+    },
+    isOrganisation(){
+      return state.generalParameters.isOrganisation;
+    },
+    isPublicationOrProduction(){
+      return state.generalParameters.isPublication || state.generalParameters.isProduction;
     },
     name(){
       return state.organisation.userName;

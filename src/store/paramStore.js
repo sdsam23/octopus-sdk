@@ -38,6 +38,11 @@ var initialize = function initialize(initObject){
       state.generalParameters.authenticated = (typeof param.authenticated !== "undefined") ? param.authenticated : false;
       state.generalParameters.isAdmin =(typeof param.isAdmin !== "undefined") ? param.isAdmin : false;
       state.generalParameters.isAnimator =(typeof param.isAnimator !== "undefined") ? param.isAnimator : true;
+      state.generalParameters.isCommments =(typeof param.isCommments !== "undefined") ? param.isCommments : true;
+      state.generalParameters.isOrganisation =(typeof param.isOrganisation !== "undefined") ? param.isOrganisation : true;
+      state.generalParameters.isPlaylist =(typeof param.isPlaylist !== "undefined") ? param.isPlaylist : true;
+      state.generalParameters.isPublication =(typeof param.isPublication !== "undefined") ? param.isPublication : true;
+      state.generalParameters.isProduction =(typeof param.isProduction !== "undefined") ? param.isProduction : true;
       state.generalParameters.ApiUri = (typeof param.ApiUri !== "undefined") ? param.ApiUri : 'https://api.dev2.saooti.org/';
       state.generalParameters.isIE11 = (typeof param.isIE11 !== "undefined") ? param.isIE11 : false;
       state.generalParameters.podcastmaker =(typeof param.podcastmaker !== "undefined") ? param.podcastmaker : false;
