@@ -328,6 +328,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.21.3 Merge 20
  * 0.21.4 Page d'accueil de live
  * 0.21.5 Page d'accueil de live
+ * 0.21.6 Amélioration des roles
 
 
 
