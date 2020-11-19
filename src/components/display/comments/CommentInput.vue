@@ -107,8 +107,13 @@ export default {
       return state.generalParameters.authenticated;
     },
     isCertified() {
-      if ((state.generalParameters.isCommments && this.organisationId === this.podcast.organisation.id) ||  state.generalParameters.isAdmin) {
-        return true;
+      if (this.authenticated) {
+        if (this.organisationId === this.podcast.organisation.id && this.$store.state.authentication.role.includes("COMMENTS_MODERATION")) {
+          return true;
+        }
+        if (state.generalParameters.isAdmin) {
+          return true;
+        }
       }
       return false;
     },
@@ -154,10 +159,14 @@ export default {
 			let timeline = 0;
 			if(this.$store.state.player.podcast && this.$store.state.player.podcast.podcastId === this.podcast.podcastId){
 				timeline = Math.round(this.$store.state.player.elapsed * this.$store.state.player.total);
-			}
+      }
+      let sendName = this.knownIdentity;
+      if(sendName === null && name){
+        sendName = name;
+      }
       let comment = {
         content: this.newComment,
-        name: this.knownIdentity,
+        name: sendName,
         podcastId: this.podcast.podcastId,
         timeline: timeline,
 				organisationId: this.podcast.organisation.id,

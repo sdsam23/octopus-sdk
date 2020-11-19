@@ -31,7 +31,7 @@
       />
       <div class="d-flex justify-content-end">
         <button class="btn btn-light m-1" @click="isEditing = false;">{{ $t('Cancel') }}</button>
-        <button class="btn btn-primary m-1" :disabled="temporaryContent.length ===0 && temporaryName.length < 2" @click="validEdit">{{ $t('Validate') }}</button>
+        <button class="btn btn-primary m-1" :disabled="temporaryContent.length ===0 || temporaryName.length < 2" @click="validEdit">{{ $t('Validate') }}</button>
       </div>
     </template>
 		<div class="d-flex align-items-center mt-1">
@@ -215,8 +215,12 @@ export default {
       }
     },
     editComment(){
-      this.temporaryContent = this.comment.content;
-      this.temporaryName = this.comment.name;
+      if(this.comment.name && this.comment.name !== null){
+        this.temporaryName = this.comment.name;
+      }
+      if(this.comment.content && this.comment.content !== null){
+        this.temporaryContent = this.comment.content;
+      } 
       this.isEditing=true;
     },
     validEdit(){
