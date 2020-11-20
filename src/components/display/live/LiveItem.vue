@@ -173,13 +173,13 @@ export default {
       return state.generalParameters.organisationId;
     },
 		organisationRight() {
-			if (this.isAnimator && this.myOrganisationId === this.live.organisation.id) {
+			if (this.isRoleLive && this.myOrganisationId === this.live.organisation.id) {
 				return true;
 			}
       return false;
     },
-    isAnimator() {
-      return state.generalParameters.isAdmin || state.generalParameters.isAnimator;
+    isRoleLive() {
+      return state.generalParameters.isRoleLive;
     },
 	
     duration() {

@@ -52,13 +52,13 @@ export default {
 
   computed:{
     liveRight() {
-      if (this.isAnimator && this.live && this.isAnimator) {
+      if (this.isRoleLive && this.live) {
         return true;
       }
       return false;
     },
-    isAnimator() {
-      return state.generalParameters.isAnimator;
+    isRoleLive() {
+      return state.generalParameters.isRoleLive;
     },
     filterOrga(){
       return this.$store.state.filter.organisationId;

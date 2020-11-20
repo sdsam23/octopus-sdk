@@ -343,7 +343,7 @@ export default {
       return this.isLiveReadyToRecord && this.fetchConference && this.fetchConference.status === 'DEBRIEFING';
     },
     isOctopusAndAnimator(){
-      return !this.isPodcastmaker && this.editRight && (state.generalParameters.isAdmin || state.generalParameters.isAnimator);
+      return !this.isPodcastmaker && this.editRight && state.generalParameters.isRoleLive;
     },
     titlePage(){
       if(this.isLiveReadyToRecord){

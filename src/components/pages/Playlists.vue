@@ -69,7 +69,7 @@ export default {
       return state.generalParameters.podcastmaker;
     },
     editRight() {
-      if (state.generalParameters.isPlaylist || state.generalParameters.isAdmin) {
+      if (state.generalParameters.isPlaylist) {
         return true;
       }
       return false;
