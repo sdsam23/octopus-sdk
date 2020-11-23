@@ -44,6 +44,12 @@
               </div>
             </div> 
           </div>
+          <div class="d-flex align-items-center flex-wrap" v-if="isPodcastNotVisible">
+            <div class="checkbox-saooti">  
+              <input type="checkbox" class="custom-control-input" id="isVisibleCheckbox" v-model="isVisible">  
+              <label class="custom-control-label mr-2" for="isVisibleCheckbox">{{$t('Podcast still available')}}</label>  
+            </div>
+          </div>
         </div>
         <PlayerParameters
         v-if="(!podcast || iFrameModel === 'emission' || iFrameModel === 'largeEmission' || iFrameModel === 'largeSuggestion')"
@@ -146,6 +152,7 @@ export default {
       episodeNumbers: 'number',
       iFrameNumber: '3',
       startTime:0,
+      isVisible: false,
     };
   },
   computed: {
@@ -210,6 +217,9 @@ export default {
         url += "&proceed=false";
       }
       url += "&time="+this.startTime;
+      if(this.isVisible){
+        url += "&key="+window.btoa(this.dataTitle);
+      }
       return url;
     },
 
@@ -261,7 +271,22 @@ export default {
 
     iFrame() {
       return `<iframe src="${this.iFrameSrc}" width="${this.iFrameWidth}" height="${this.iFrameHeight}" scrolling="no" frameborder="0"></iframe>`;
+    },
+
+    isPodcastNotVisible(){
+      return this.podcast && !this.podcast.availability.visibility;
+    },
+
+    dataTitle(){
+      if(this.podcast){
+        return this.podcast.podcastId;
+      }else if (this.emission){
+        return this.emission.emissionId;
+      }else{
+        return this.playlist.playlistId;
+      }
     }
+    
   },
 
   methods: {
@@ -299,7 +324,7 @@ export default {
     },
     updateStartTime(value){
       this.startTime = value;
-    }
+    },
   },
 };
 </script>

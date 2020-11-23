@@ -35,8 +35,8 @@ var initialize = function initialize(initObject){
     if(initObject.generalParameters){
       let param = initObject.generalParameters;
       state.generalParameters.organisationId = (typeof param.organisationId !== "undefined") ? param.organisationId : null;
-      state.generalParameters.authenticated = (typeof param.authenticated !== "undefined") ? param.authenticated : false;
-      state.generalParameters.isAdmin =(typeof param.isAdmin !== "undefined") ? param.isAdmin : false;
+      state.generalParameters.authenticated = (typeof param.authenticated !== "undefined") ? param.authenticated : true;
+      state.generalParameters.isAdmin =(typeof param.isAdmin !== "undefined") ? param.isAdmin : true;
       state.generalParameters.isRoleLive =(typeof param.isRoleLive !== "undefined") ? param.isRoleLive : true;
       state.generalParameters.isCommments =(typeof param.isCommments !== "undefined") ? param.isCommments : true;
       state.generalParameters.isOrganisation =(typeof param.isOrganisation !== "undefined") ? param.isOrganisation : true;

@@ -522,5 +522,6 @@ export default {
     "In response to":"En réponse à",
     "Please chose a productor":"Veuillez choisir un producteur",
     'Podcast in ERROR, please contact Saooti':"Une anomalie s'est produite lors du traitement de cet épisode. Veuillez contacter Saooti pour une prise en charge rapide du problème.",
+    'Podcast still available':"Maintenir l'épisode disponible pour les auditeurs",
   };
   
