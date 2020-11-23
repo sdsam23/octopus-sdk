@@ -274,7 +274,7 @@ export default {
     },
 
     isPodcastNotVisible(){
-      return this.podcast && !this.podcast.availability.visibility;
+      return this.podcast && !this.podcast.availability.visibility && (this.iFrameModel === "default" ||this.iFrameModel === "large");
     },
 
     dataTitle(){

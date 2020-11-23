@@ -331,6 +331,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.21.6 Amélioration des roles
  * 0.21.7 Amélioration des roles
  * 0.21.8 Miniplayers - Episodes non visible
+ * 0.21.9 Miniplayers - Episodes non visible
 
 
 
