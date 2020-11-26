@@ -6,6 +6,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    education: false,
 		player: {
       status: 'STOPPED', //STOPPED, LOADING, PLAYING, PAUSED
       podcast: undefined,

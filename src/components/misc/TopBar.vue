@@ -7,7 +7,7 @@
       <router-link 
       :to="{ name: 'home', query:{productor: $store.state.filter.organisationId}}">
         <div class="top-bar-logo m-3" v-on:click="onDisplayMenu(true)">
-          <img src="/img/logo_octopus_final.svg" :alt="$t('Logo of main page')" v-if="!filterOrga || imgUrl === undefined" />
+          <img :src="logoUrl" :alt="$t('Logo of main page')" v-if="!filterOrga || imgUrl === undefined" />
           <img :src="imgUrl" :alt="$t('Logo of main page')" v-else/>
         </div>
       </router-link>
@@ -39,7 +39,7 @@
         class="linkHover p-3 text-dark font-weight-bold">{{ $t('Playlists') }}</router-link>
         <router-link 
         :to="{ name: 'productors', query:{productor: $store.state.filter.organisationId}}"
-        class="linkHover p-3 text-dark font-weight-bold" v-if="!isPodcastmaker && !filterOrga">{{ $t('Productors') }}</router-link>
+        class="linkHover p-3 text-dark font-weight-bold" v-if="!isPodcastmaker && (!filterOrga ||isEducation)">{{ $t('Productors') }}</router-link>
       </div>
       <div class="d-flex flex-column">
         <div class="d-flex justify-content-end hostedBy hide-phone"><span>{{$t('Hosted by')}}</span><span class="ml-1 mr-1 primary-color">Saooti</span></div>
@@ -309,6 +309,13 @@ export default {
   },
 
   computed: {
+    logoUrl(){
+      if(this.$store.state.education){
+        return "/img/logo-education-black.png";
+      }else{
+        return "/img/logo_octopus_final.svg";
+      }
+    },
     isPodcastmaker(){
       return state.generalParameters.podcastmaker;
     },
@@ -332,6 +339,9 @@ export default {
     },
     filterOrgaLive(){
       return this.$store.state.filter.live;
+    },
+    isEducation(){
+      return this.$store.state.education;
     },
     imgUrl(){
       if(this.$store.state.filter.imgUrl && !this.$store.state.filter.imgUrl.includes('emptypodcast')){

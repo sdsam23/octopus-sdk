@@ -21,7 +21,7 @@
         >{{ $t('Emissions') }}</router-link
       >
       <router-link @click.native="onMenuClick"
-        v-if="!isPodcastmaker && !filterOrga"
+        v-if="!isPodcastmaker && (!filterOrga ||isEducation)"
         class="text-dark font-weight-bold mb-3"
         :to="{ name: 'productors', query:{productor: $store.state.filter.organisationId}}"
         >{{ $t('Productors') }}</router-link
@@ -184,6 +184,9 @@ export default {
     },
     filterOrgaLive(){
       return this.$store.state.filter.live;
+    },
+    isEducation(){
+      return this.$store.state.education;
     },
   },
 

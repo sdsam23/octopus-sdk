@@ -16,9 +16,13 @@ Vue.config.productionTip = false;
 
 //Gestion de l'i18n
 Vue.use(VueI18n);
+let messages = I18nResources;
+if(store.state.education){
+  messages = {fr : {...I18nResources.fr, ...I18nResources.educationfr}, en: I18nResources.en};
+}
 const i18n = new VueI18n({
   locale: 'fr',
-  messages: I18nResources,
+  messages: messages,
 });
 
 // Initialisation store
