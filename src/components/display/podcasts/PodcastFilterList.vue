@@ -41,7 +41,7 @@
   }
 }
 .list-episodes {
-  padding: 2rem 0rem 1rem !important;
+  padding: 2rem 0.5rem 1rem !important;
   margin: 0 0.5rem;
   
   @media (max-width: 450px) {

@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column comment-input-container">
+  <div class="d-flex flex-column comment-input-container mt-3">
     <b class="small-Text mt-1" v-if="knownIdentity">{{knownIdentity}}</b>
     <b-form-textarea
 			ref="textarea"
@@ -11,7 +11,7 @@
       @blur="textareaFocus = false"
     ></b-form-textarea>
     <div class="d-flex justify-content-end mt-1" v-if="textareaFocus">
-      <button class="btn">{{$t('Cancel')}}</button>
+      <button class="btn mr-2">{{$t('Cancel')}}</button>
       <button class="btn btn-primary" @mousedown="requestToSend">{{placeholder}}</button>
     </div>
     <AddCommentModal
@@ -43,7 +43,7 @@
     border-top: 0;
     border-right: 0;
     border-left: 0;
-    border-bottom: 0.1rem solid black !important;
+    border-bottom: 0.1rem solid #ddd !important;
     overflow: hidden !important;
     box-shadow: unset !important;
     background: transparent !important;

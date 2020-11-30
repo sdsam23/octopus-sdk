@@ -33,7 +33,7 @@
 .podcast-list {
   align-self: stretch;
   flex-grow: 1;
-  margin: 0;
+  margin: 1em 0 0;
   padding: 0;
   /*For ie11 */
   display: flex;

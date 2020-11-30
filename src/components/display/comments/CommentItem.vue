@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column mt-3">
+  <div class="d-flex flex-column mt-2 mb-1 item-comment">
     <div class="d-flex small-Text">
       <template v-if="!isEditing">
         <b 
@@ -9,7 +9,7 @@
       </template>
       <template v-else>
         <input
-          class="form-input mr-2 width-auto"
+          class="form-input mr-2 mb-2 width-auto"
           type="text"
           v-model="temporaryName"
           v-bind:class="{'border border-danger': temporaryName.length < 2}"
@@ -41,10 +41,10 @@
       v-if="comment.commentIdReferer ===null && comment.status ==='Valid'">{{$t('To answer')}}</button>
       <div 
         v-b-toggle="'answers-comment-'+comment.comId"
-        class="primary-color c-hand d-flex align-items-center small-Text"
+        class="primary-color c-hand d-flex align-items-center small-Text input-no-outline"
         v-if="(!isFlat && comment.relatedComments) || (isFlat && comment.commentIdReferer)"
       >
-        <div class="d-flex align-items-center when-closed">
+        <div class="d-flex align-items-center when-closed mr-2">
           <div v-if="comment.relatedComments">{{$t('Display answers', {nb:comment.relatedComments})}}
             <i v-if="editRight">{{$t('(nb valid comment answers)',{nb: comment.relatedValidComments})}}</i>
           </div>
@@ -54,7 +54,7 @@
         <div class="d-flex align-items-center when-opened">
           <div v-if="comment.relatedComments">{{$t('Hide answers')}}</div>
           <div v-else>{{$t('In response to')}}</div>
-          <span class="saooti-arrow_down saooti-arrow_down-margin arrow-transform"></span>
+          <span class="saooti-arrow_down saooti-arrow_down-margin arrow-transform mr-2"></span>
         </div>
       </div>
       <EditCommentBox 
