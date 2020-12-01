@@ -10,7 +10,7 @@
           :placeholder="$t('Your name')"
         />
         <vue-recaptcha ref="recaptcha" v-if="needVerify" :loadRecaptchaScript="true"
-          @verify="onVerify" sitekey="6Ld3oV4UAAAAAPOl8ytNVcBSP-UMuLAIMg-pOak5">
+          @verify="onVerify" :sitekey="siteKey">
         </vue-recaptcha>
       </template>
       <template v-slot:default v-else>
@@ -68,6 +68,16 @@ export default {
   computed:{
     authenticated(){
       return state.generalParameters.authenticated;
+    },
+    siteKey(){
+      if(this.isCaptchaTest){
+        return "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
+      }else{
+        return "6Ld3oV4UAAAAAPOl8ytNVcBSP-UMuLAIMg-pOak5";
+      }
+    },
+    isCaptchaTest(){
+      return state.generalParameters.isCaptchaTest;
     },
   },
 

@@ -68,6 +68,13 @@ export default {
 
   methods: {
 		percentPosition(time){
+			let realDuration = this.totalTime;
+			if(this.$store.state.player.podcast && this.$store.state.player.podcast.duration){
+				realDuration = Math.round(this.$store.state.player.podcast.duration / 1000);
+			}
+			if(realDuration < this.totalTime){
+				time = time + (this.totalTime - realDuration);
+			}
 			return Math.round((time*100)/this.totalTime);
 		},
   },

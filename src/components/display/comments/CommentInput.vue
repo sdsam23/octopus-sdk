@@ -153,7 +153,13 @@ export default {
 			}
 			let timeline = 0;
 			if(this.$store.state.player.podcast && this.$store.state.player.podcast.podcastId === this.podcast.podcastId){
-				timeline = Math.round(this.$store.state.player.elapsed * this.$store.state.player.total);
+        timeline = Math.round((this.$store.state.player.elapsed * this.$store.state.player.total));
+        if(this.podcast.duration){
+          timeline = Math.round(timeline - (this.$store.state.player.total - (this.podcast.duration /1000)));
+        }
+        if(timeline < 0){
+          timeline = 0;
+        }
       }
       let sendName = this.knownIdentity;
       if(sendName === null && name){

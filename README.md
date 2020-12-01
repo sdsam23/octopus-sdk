@@ -335,6 +335,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.21.10 RadioEducation.org
  * 0.21.11 Suppression de locales
  * 0.21.12 Merge fabien
+ * 0.21.13 Captcha development
 
 
 
