@@ -7,7 +7,7 @@
       <router-link 
       :to="{ name: 'home', query:{productor: $store.state.filter.organisationId}}">
         <div class="top-bar-logo m-3" v-on:click="onDisplayMenu(true)">
-          <img :src="logoUrl" :alt="$t('Logo of main page')" v-if="!filterOrga || imgUrl === undefined" />
+          <img :src="logoUrl" :alt="$t('Logo of main page')" :class="isEducation? 'educationLogo':''" v-if="!filterOrga || imgUrl === undefined" />
           <img :src="imgUrl" :alt="$t('Logo of main page')" v-else/>
         </div>
       </router-link>
@@ -127,6 +127,10 @@
         max-height: 80px;
         height: 80px;
         border-radius: 0.8rem;
+        &.educationLogo{
+          height: auto;
+          border-radius: 0;
+        }
       }
     }
     .multiselect__tags {
@@ -310,11 +314,14 @@ export default {
 
   computed: {
     logoUrl(){
-      if(this.$store.state.education){
-        return "/img/logo-education-black.png";
+      if(this.isEducation){
+        return "/img/logo_education.png";
       }else{
         return "/img/logo_octopus_final.svg";
       }
+    },
+    isEducation(){
+      return this.$store.state.education;
     },
     isPodcastmaker(){
       return state.generalParameters.podcastmaker;
@@ -339,9 +346,6 @@ export default {
     },
     filterOrgaLive(){
       return this.$store.state.filter.live;
-    },
-    isEducation(){
-      return this.$store.state.education;
     },
     imgUrl(){
       if(this.$store.state.filter.imgUrl && !this.$store.state.filter.imgUrl.includes('emptypodcast')){
