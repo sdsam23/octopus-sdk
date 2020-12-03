@@ -337,6 +337,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.21.12 Merge fabien
  * 0.21.13 Captcha development
  * 0.21.14 RadioEducation.org -> Nouveau logo
+ * 0.21.15 RadioEducation.org
 
 
 

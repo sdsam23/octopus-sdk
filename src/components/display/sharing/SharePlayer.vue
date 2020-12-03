@@ -5,7 +5,7 @@
       <template v-if="!exclusive && (authenticated || notExclusive)">
         <div class="d-flex flex-column align-items-center">
           <div
-            v-if="noAd"
+            v-if="noAd && !isEducation"
             class="sticker"
             :title="$t('You cannot insert advertising')"
           >{{ $t('No advertising') }}</div>
@@ -285,7 +285,10 @@ export default {
       }else{
         return this.playlist.playlistId;
       }
-    }
+    },
+    isEducation(){
+      return this.$store.state.education;
+    },
     
   },
 

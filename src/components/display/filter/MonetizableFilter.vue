@@ -1,5 +1,5 @@
 <template>
-	<div class="d-flex align-items-center">
+	<div class="d-flex align-items-center" v-if="!isEducation">
 		<div>{{$t('Advertising') + ' :'}}</div>
 		<label class="wrap">
 			<select ref="select" class="basic-select ml-2 mb-0 border c-hand" v-model="monetization" @change="onChange">
@@ -24,6 +24,12 @@ export default {
     return {
       monetization: 'UNDEFINED'
     };
+  },
+
+  computed:{
+	isEducation(){
+      return this.$store.state.education;
+    },
   },
 
   methods:{
