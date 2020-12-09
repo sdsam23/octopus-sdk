@@ -339,6 +339,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.21.14 RadioEducation.org -> Nouveau logo
  * 0.21.15 RadioEducation.org
  * 0.21.16 Recaptcha v3
+ * 0.21.17 Recaptcha v3
 
 
 

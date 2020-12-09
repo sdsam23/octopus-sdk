@@ -256,5 +256,6 @@ export default {
     'Podcast still available':"Maintenir l'épisode disponible pour les auditeurs",
     "Podcast image":"Image de l'épisode",
     "Recaptcha error":"Le Google Recaptcha ne vous reconnait pas comme un humain",
+    "Recaptcha not active":"Attention le captcha google est désactivé",
   };
   

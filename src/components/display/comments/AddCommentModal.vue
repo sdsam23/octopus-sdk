@@ -10,6 +10,7 @@
           :placeholder="$t('Your name')"
         />
         <div class="mt-1 text-danger" v-if="sendError">{{$t('Recaptcha error')}}</div>
+        <div class="mt-1 text-danger" v-if="isCaptchaTest">{{$t('Recaptcha not active')}}</div>
       </template>
       <template v-slot:default v-else>
         <div>{{$t('Send in progress')}}</div>
@@ -78,18 +79,22 @@ export default {
 
   methods: {
     async recaptcha() {
-      /* if(this.needVerify && !isCaptchaTest){ */
+      if(this.needVerify && !isCaptchaTest){
         await this.$recaptchaLoaded();
         const token = await this.$recaptcha('login');
         try {
           this.sendError = false;
-          await api.checkToken(token);
+          const ok = await api.checkToken(token);
+          if(!ok){
+            this.sendError = true;
+            return;
+          }
         } catch {
           this.sendError = true;
           return;
         }
-      /* } */
-      /* this.sendComment(); */
+      }
+      this.sendComment();
     },
     closePopup(event) {
       event.preventDefault();

@@ -12,7 +12,7 @@
     ></b-form-textarea>
     <div class="d-flex justify-content-end mt-1" v-if="textareaFocus">
       <button class="btn mr-2">{{$t('Cancel')}}</button>
-      <button class="btn btn-primary" @mousedown="requestToSend">{{placeholder}}</button>
+      <button class="btn btn-primary" @mousedown="requestToSend" :disabled="newComment.trim().length === 0">{{placeholder}}</button>
     </div>
     <AddCommentModal
       v-if="checkIdentityModal"
