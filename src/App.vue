@@ -28,6 +28,9 @@ export default {
     Footer
   },
   async created(){
+    if(document.getElementsByClassName('grecaptcha-badge')[0]){
+      document.getElementsByClassName('grecaptcha-badge')[0].style.display = "none";
+    }
     let orgaId = "";
     if (this.$route.query.productor) {
       orgaId = this.$route.query.productor;
