@@ -1,9 +1,9 @@
  <template>
     <b-card no-body class="mr-3 ml-3 rss-parameters">
       <b-card-header header-tag="header" role="tab">
-        <b-button block v-b-toggle.accordion variant="info">{{$t('Rss feed parameters')}}</b-button>
+        <b-button block v-b-toggle.rssParameters variant="info">{{$t('Rss feed parameters')}}</b-button>
       </b-card-header>
-      <b-collapse id="accordion" role="tabpanel">
+      <b-collapse id="rssParameters" role="tabpanel">
         <b-card-body>
           <b-card-text>
             <div class="d-flex align-items-center mb-2">

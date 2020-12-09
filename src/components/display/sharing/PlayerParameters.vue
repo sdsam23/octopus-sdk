@@ -1,9 +1,9 @@
  <template>
     <b-card no-body class="rss-parameters player-parameters mt-3" v-if="!playlist">
       <b-card-header header-tag="header" role="tab">
-        <b-button block v-b-toggle.accordion variant="info">{{$t('player parameters')}}</b-button>
+        <b-button block v-b-toggle.playerParameters variant="info">{{$t('player parameters')}}</b-button>
       </b-card-header>
-      <b-collapse id="accordion" role="tabpanel">
+      <b-collapse id="playerParameters" role="tabpanel">
         <b-card-body>
           <b-card-text>
             <div class="d-flex flex-column flex-grow" v-if="(!podcast || iFrameModel === 'emission' || iFrameModel === 'largeEmission' || iFrameModel === 'largeSuggestion')">
