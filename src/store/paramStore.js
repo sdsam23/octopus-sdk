@@ -48,7 +48,7 @@ var initialize = function initialize(initObject){
       state.generalParameters.buttonPlus =(typeof param.buttonPlus !== "undefined") ? param.buttonPlus : true;
       state.generalParameters.allCategories =(typeof param.allCategories !== "undefined") ? param.allCategories : [];
       state.generalParameters.isLiveTab =(typeof param.isLiveTab !== "undefined") ? param.isLiveTab : true;
-      state.generalParameters.isCaptchaTest =(typeof param.isCaptchaTest !== "undefined") ? param.isCaptchaTest : false;
+      state.generalParameters.isCaptchaTest =(typeof param.isCaptchaTest !== "undefined") ? param.isCaptchaTest : true;
     }
     if(initObject.podcastPage){
       let param = initObject.podcastPage;

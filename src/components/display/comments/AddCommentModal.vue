@@ -79,7 +79,7 @@ export default {
 
   methods: {
     async recaptcha() {
-      if(this.needVerify && !isCaptchaTest){
+      if(this.needVerify && !this.isCaptchaTest){
         await this.$recaptchaLoaded();
         const token = await this.$recaptcha('login');
         try {
