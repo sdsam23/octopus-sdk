@@ -342,6 +342,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.21.17 Recaptcha v3
  * 0.21.18 Problème b-collapse
  * 0.21.19 Recaptcha v3
+ * 0.21.20 Commentaires
 
 
 

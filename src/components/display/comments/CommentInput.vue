@@ -1,6 +1,16 @@
 <template>
   <div class="d-flex flex-column comment-input-container mt-3">
-    <b class="small-Text mt-1" v-if="knownIdentity">{{knownIdentity}}</b>
+    <b class="small-Text mt-1 c-hand" @click="changeIdentity" v-if="knownIdentity && !editName">{{knownIdentity}}</b>
+    <div class="d-flex" v-if="knownIdentity && editName">
+      <input
+        class="small-Text mt-1"
+        type="text"
+        v-model="temporaryName"
+        v-bind:class="{'border border-danger': temporaryName.length < 2}"
+      />
+      <button class="btn btn-light p-1 m-1" @click="editName = false;">{{ $t('Cancel') }}</button>
+      <button class="btn btn-primary p-1 m-1" :disabled="temporaryName.length < 2" @click="validEdit">{{ $t('Validate') }}</button>
+    </div>
     <b-form-textarea
 			ref="textarea"
       v-model="newComment"
@@ -89,6 +99,8 @@ export default {
       checkIdentityModal: false,
       postError: false,
       isOneLine: true,
+      editName: false,
+      temporaryName: "",
     };
   },
 
@@ -133,6 +145,15 @@ export default {
 
 
   methods: {
+    changeIdentity(){
+      this.temporaryName = this.knownIdentity;
+      this.editName = true;
+    },
+    validEdit(){
+      this.setCookie('comment-octopus-name', this.temporaryName);
+      this.$emit('update:knownIdentity', this.temporaryName);
+      this.editName = false;
+    },
     inputExceeded(text, font){
       this.element = document.createElement('canvas');
       this.context = this.element.getContext("2d");

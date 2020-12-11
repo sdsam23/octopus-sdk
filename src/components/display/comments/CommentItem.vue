@@ -18,6 +18,10 @@
       <img class="icon-certified" src="/img/certified.png" v-if="comment.certified" :title="$t('Certified account')"/>
 			<div class="mr-2">{{date}}</div>
       <span v-if="editRight" :class="'status-'+comment.status"></span>
+      <span v-if="!editRight && comment.status!= 'Valid'" :id="'popover-comment'+comment.comId" :class="'status-'+comment.status"></span>
+      <b-popover :target="'popover-comment'+comment.comId" triggers="hover" custom-class="wizard-help">
+        {{$t('Comment waiting')}}
+			</b-popover>
 		</div>
     <template v-if="!isEditing">
       <div >{{contentDisplay}}</div>

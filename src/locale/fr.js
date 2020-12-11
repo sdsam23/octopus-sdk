@@ -257,5 +257,6 @@ export default {
     "Podcast image":"Image de l'épisode",
     "Recaptcha error":"Le Google Recaptcha ne vous reconnait pas comme un humain",
     "Recaptcha not active":"Attention le captcha google est désactivé",
+    "Comment waiting":"Le commentaire ne sera pas visible par les autres utilisateurs tant qu'il n'aura pas été validé",
   };
   
