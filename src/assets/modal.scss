@@ -23,6 +23,7 @@
 	padding: 0 .8rem;
 	width: 100%;
 	background: white;
+	display: flex;
 	@media (max-width: 500px){
 		width: 95%;
 		margin: 2.5% !important;
@@ -48,4 +49,8 @@
 }
 .modal-footer{
 	border: 0;
+	flex-wrap: initial;
+}
+.modal-dialog, .modal-content {
+	min-height: 300px;
 }
