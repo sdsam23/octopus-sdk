@@ -5,7 +5,11 @@
         <b 
         class="recording-bg mr-1 text-light p-01"
         v-if="recordingInLive && (comment.phase ==='Live' || comment.phase ==='Prelive')">{{$t('Live')}}</b>
-        <b class="mr-2">{{comment.name}}</b>
+        <b class="mr-2" v-if="editRight || comment.status== 'Valid'">{{comment.name}}</b>
+        <b class="mr-2 text-danger" v-else :id="'popover-comment'+comment.comId">{{comment.name}}</b>
+         <b-popover :target="'popover-comment'+comment.comId" triggers="hover" custom-class="wizard-help">
+          {{$t('Comment waiting')}}
+        </b-popover>
       </template>
       <template v-else>
         <input
@@ -18,10 +22,6 @@
       <img class="icon-certified" src="/img/certified.png" v-if="comment.certified" :title="$t('Certified account')"/>
 			<div class="mr-2">{{date}}</div>
       <span v-if="editRight" :class="'status-'+comment.status"></span>
-      <span v-if="!editRight && comment.status!= 'Valid'" :id="'popover-comment'+comment.comId" :class="'status-'+comment.status"></span>
-      <b-popover :target="'popover-comment'+comment.comId" triggers="hover" custom-class="wizard-help">
-        {{$t('Comment waiting')}}
-			</b-popover>
 		</div>
     <template v-if="!isEditing">
       <div >{{contentDisplay}}</div>
@@ -215,7 +215,7 @@ export default {
         this.$emit('update:comment', updatedComment);
       }
       if(this.$refs.commentList){
-        this.$refs.commentList.addNewComment(comment);
+        this.$refs.commentList.addNewComment(comment, true);
       }
     },
     editComment(){

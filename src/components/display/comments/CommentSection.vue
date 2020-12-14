@@ -102,7 +102,7 @@ export default {
       this.reload = !this.reload;
     },
     newComment(comment){
-      this.$refs.commentList.addNewComment(comment);
+      this.$refs.commentList.addNewComment(comment, true);
     },
     receiveCommentEvent(event){
       let statusUpdated = undefined;

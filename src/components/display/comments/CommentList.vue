@@ -168,14 +168,23 @@ export default {
       }else{
         let index = this.comments.findIndex(element => element.comId === data.comment.comId);
         if(index !== -1){
-          this.comments.splice(index, 1, data.comment);
+          if(data.status !== "Valid" && !this.editRight){
+            this.comments.splice(index, 1);
+          }else{
+            this.comments.splice(index, 1, data.comment);
+          }
+        }else if(data.status === "Valid" && !this.editRight){
+          this.comments.unshift(data.comment);
         }
         if(this.comId && data.status){
           this.$emit('updateStatus', data.status);
         }
       }
     },
-    addNewComment(comment){
+    addNewComment(comment, myself = false){
+      if(!myself && !this.editRight && comment.status !=="Valid"){
+        return;
+      }
       if(!this.isFlat && comment.commentIdReferer && this.comId !== comment.commentIdReferer){
         this.$refs['comItem'+comment.commentIdReferer][0].receiveCommentEvent({type:"Create", comment: comment});
       }else{
