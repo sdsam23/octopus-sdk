@@ -6,10 +6,12 @@
         class="recording-bg mr-1 text-light p-01"
         v-if="recordingInLive && (comment.phase ==='Live' || comment.phase ==='Prelive')">{{$t('Live')}}</b>
         <b class="mr-2" v-if="editRight || comment.status== 'Valid'">{{comment.name}}</b>
-        <b class="mr-2 text-danger" v-else :id="'popover-comment'+comment.comId">{{comment.name}}</b>
-         <b-popover :target="'popover-comment'+comment.comId" triggers="hover" custom-class="wizard-help">
-          {{$t('Comment waiting')}}
-        </b-popover>
+        <template v-else>
+          <b class="mr-2 text-danger" :id="'popover-comment'+comment.comId">{{comment.name}}</b>
+          <b-popover :target="'popover-comment'+comment.comId" triggers="hover" custom-class="wizard-help">
+            {{$t('Comment waiting')}}
+          </b-popover>
+        </template>
       </template>
       <template v-else>
         <input
