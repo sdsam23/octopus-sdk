@@ -44,10 +44,10 @@
               </div>
             </div> 
           </div>
-          <div class="d-flex align-items-center flex-wrap" v-if="isPodcastNotVisible">
+          <div class="d-flex align-items-center flex-wrap" v-if="isPodcastNotVisible ||playlist">
             <div class="checkbox-saooti">  
               <input type="checkbox" class="custom-control-input" id="isVisibleCheckbox" v-model="isVisible">  
-              <label class="custom-control-label mr-2" for="isVisibleCheckbox">{{$t('Podcast still available')}}</label>  
+              <label class="custom-control-label mr-2" for="isVisibleCheckbox">{{titleStillAvailable}}</label>  
             </div>
           </div>
         </div>
@@ -56,8 +56,10 @@
         :podcast="podcast"
         :playlist="playlist"
         :iFrameModel="iFrameModel"
+        :isVisible="isVisible"
         @episodeNumbers="updateEpisodeNumber"
         @proceedReading="updateProceedReading"
+        @isVisible="updateIsVisible"
         @iFrameNumber="updateIframeNumber"
         @startTime="updateStartTime"
         />
@@ -156,6 +158,12 @@ export default {
     };
   },
   computed: {
+    titleStillAvailable(){
+      if(this.isPodcastNotVisible){
+        return this.$t('Podcast still available');
+      }
+      return this.$t('Podcasts still available');
+    },
     isLiveReadyToRecord(){
       if(this.podcast){
         return this.podcast.conferenceId && this.podcast.conferenceId !== 0 && this.podcast.processingStatus === 'READY_TO_RECORD';
@@ -328,6 +336,9 @@ export default {
     updateStartTime(value){
       this.startTime = value;
     },
+    updateIsVisible(value){
+      this.isVisible = value;
+    }
   },
 };
 </script>

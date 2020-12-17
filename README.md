@@ -346,6 +346,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.21.21 Commentaires
  * 0.21.22 Css Modal
  * 0.21.23 Popover
+ * 0.21.24 Épisodes cachés tous les miniplayers
 
 
 

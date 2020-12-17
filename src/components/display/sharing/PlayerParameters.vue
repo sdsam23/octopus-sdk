@@ -29,6 +29,10 @@
                 <input type="checkbox" class="custom-control-input" id="proceedCheck" v-model="proceedReading">  
                 <label class="custom-control-label" for="proceedCheck">{{$t('Proceed reading')}}</label>  
               </div>
+              <div class="checkbox-saooti">  
+                <input type="checkbox" class="custom-control-input" id="isVisibleCheckbox" v-model="isVisibleTemp">  
+                <label class="custom-control-label mr-2" for="isVisibleCheckbox">{{$t('Podcasts still available')}}</label>  
+              </div>
             </div>
             <!-- <div class="d-flex align-items-center flex-wrap" v-if="podcast && iFrameModel !== 'emission'">
               <div class="checkbox-saooti">  
@@ -72,7 +76,7 @@
 <script>
 
 export default {
-  props: ['podcast', 'playlist', 'iFrameModel'],
+  props: ['podcast', 'playlist', 'iFrameModel', 'isVisible'],
 
   data() {
     return {
@@ -82,6 +86,7 @@ export default {
       minutes: 0,
       secondes: 0,
       startTime: true,
+      isVisibleTemp: this.isVisible,
     };
   },
   computed:{
@@ -116,6 +121,12 @@ export default {
     },
     proceedReading(){
       this.$emit('proceedReading', this.proceedReading);
+    },
+    isVisibleTemp(){
+      this.$emit('isVisible', this.isVisibleTemp);
+    },
+    isVisible(){
+      this.isVisibleTemp = this.isVisible;
     },
     iFrameNumberPriv(){
       this.$emit('iFrameNumber', this.iFrameNumberPriv);
