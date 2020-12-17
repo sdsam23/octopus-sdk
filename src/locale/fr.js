@@ -134,7 +134,7 @@ export default {
     'In creation':'En cours de création',
     'Publish in future':'Voir aussi les épisodes masqués pour les auditeurs',
     'In error':'En erreur',
-    'Emission with episode published :':'Emission ayant au moins un épisode sorti :',
+    'Emission with episode published :':'Émission ayant au moins un épisode sorti :',
     'Sort': 'Tri',
     'Filter': 'Filtrage',
     'Sort score': 'Pertinence',
