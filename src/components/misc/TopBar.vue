@@ -62,9 +62,9 @@
                 <b-dropdown-item to="/main/priv/backoffice" class="linkSpace" v-if="!isPodcastmaker">{{ $t('My space') }}</b-dropdown-item>
                 <b-dropdown-item to="/main/priv/edit/profile" v-if="!isPodcastmaker">{{ $t('Edit my profile') }}</b-dropdown-item>
                 <b-dropdown-item to="/main/priv/edit/organisation" v-if="!isPodcastmaker && isOrganisation">{{$t('Edit my organisation')}}</b-dropdown-item>
-                <b-dropdown-divider></b-dropdown-divider>
-                <b-dropdown-item href="https://help.octopus.saooti.com/Aide/" target="_blank">{{$t('Help')}}</b-dropdown-item>
-                <b-dropdown-item href="https://help.octopus.saooti.com/" target="_blank">{{ $t('TutoMag') }}</b-dropdown-item>
+                <b-dropdown-divider v-if="!isEducation"></b-dropdown-divider>
+                <b-dropdown-item href="https://help.octopus.saooti.com/Aide/" target="_blank" v-if="!isEducation">{{$t('Help')}}</b-dropdown-item>
+                <b-dropdown-item href="https://help.octopus.saooti.com/" target="_blank" v-if="!isEducation">{{ $t('TutoMag') }}</b-dropdown-item>
                 <!-- <b-dropdown-item >{{ $t('News') }}</b-dropdown-item>
                 <b-dropdown-item >{{ $t('Known issues') }}</b-dropdown-item> -->
                 <b-dropdown-divider></b-dropdown-divider>

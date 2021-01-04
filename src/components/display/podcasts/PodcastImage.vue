@@ -238,6 +238,9 @@ export default {
             }else{
               return "";
             }
+          case "ERROR":
+						return this.$t("In error");
+          case "PUBLISHING": return this.$t("Publishing");
 					default:
 						return "";
 				}

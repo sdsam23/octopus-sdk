@@ -117,6 +117,7 @@ var initialize = function initialize(initObject){
       let param = initObject.octopusApi;
       state.octopusApi.url = (typeof param.url !== "undefined") ? param.url : "http://api.dev2.saooti.org/";
       state.octopusApi.oAuthParam = (typeof param.oAuthParam !== "undefined") ? param.oAuthParam : undefined;
+      state.octopusApi.commentsUrl = (typeof param.commentsUrl !== "undefined") ? param.commentsUrl : "http://comments.dev2.saooti.org/";
       if(state.generalParameters.podcastmaker){
         state.octopusApi.organisationId = (typeof param.organisationId !== "undefined") ? param.organisationId : undefined;
       }

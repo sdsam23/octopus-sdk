@@ -58,6 +58,18 @@
         @deleteItem="deleteLiveTerminated"
       />
     </template>
+    <template v-if="livesPublishing.length">
+      <div class="horizontal-separator"></div>
+      <p class="live-list-category">{{$t('Publishing')}}</p>
+      <LiveItem
+        class="mt-3"
+        v-for="(l, index) in livesPublishing"
+        :fetchConference="l"
+        :key="l.podcastId"
+        :index="index"
+        @deleteItem="deleteLivePublishing"
+      />
+    </template>
     <template v-if="livesError.length">
       <div class="horizontal-separator"></div>
       <p class="live-list-category">{{$t('In error')}}</p>
@@ -134,6 +146,7 @@ export default {
       livesToBe: [],
       livesTerminated: [],
       livesError: [],
+      livesPublishing: [],
     };
   },
 
@@ -184,6 +197,7 @@ export default {
       this.livesToBe = [];
       this.livesTerminated=[];
       this.livesError = [];
+      this.livesPublishing= [];
     },
     async fetchContent() {
       if(this.filterOrgaUsed){
@@ -208,6 +222,8 @@ export default {
           this.livesTerminated = dataLivesTerminated.filter((p)=>{return p!== null;});
           let dataLivesError = await studioApi.listConferences(this.$store, true, this.filterOrgaUsed, 'ERROR');
           this.livesError = dataLivesError.filter((p)=>{return p!== null;});
+          let dataLivesPublishing = await studioApi.listConferences(this.$store, true, this.filterOrgaUsed, 'PUBLISHING');
+          this.livesPublishing = dataLivesPublishing.filter((p)=>{return p!== null;});
         }
         let listIds= this.lives.concat(this.livesToBe).concat(this.livesNotStarted);
         this.$emit('initConferenceIds', listIds);
@@ -229,6 +245,9 @@ export default {
     },
     deleteLiveNotStarted(index){
       this.livesNotStarted.splice(index,1);
+    },
+    deleteLivePublishing(index){
+      this.livesPublishing.splice(index,1);
     },
     updateLiveLocal(){
       for (let index = 0; index < this.conferenceWatched.length; index++) {

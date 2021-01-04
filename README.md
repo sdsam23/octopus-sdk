@@ -348,6 +348,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.21.23 Popover
  * 0.21.24 Épisodes cachés tous les miniplayers
  * 0.21.25 locales
+ * 0.21.26 Ajout variable commentsUrl 
 
 
 
