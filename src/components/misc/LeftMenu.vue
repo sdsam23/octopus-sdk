@@ -126,7 +126,7 @@ export default {
     OrganisationChooserLight
   },
 
-  props: ["displayMenu"],
+  props: ["displayMenu", "isEducation"],
 
   mounted(){
     if(this.filterOrga){
@@ -184,9 +184,6 @@ export default {
     },
     filterOrgaLive(){
       return this.$store.state.filter.live;
-    },
-    isEducation(){
-      return this.$store.state.education;
     },
   },
 

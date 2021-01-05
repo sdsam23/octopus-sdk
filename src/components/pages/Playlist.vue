@@ -17,7 +17,12 @@
           </div>
         </div>
         <div class="d-flex flex-column share-container">
-          <SharePlayer :playlist="playlist" :organisationId='organisationId' v-if="isSharePlayer && authenticated"></SharePlayer>
+          <SharePlayer
+          :playlist="playlist"
+          :organisationId='organisationId'
+          :isEducation="isEducation"
+          v-if="isSharePlayer && authenticated">
+          </SharePlayer>
           <ShareButtons v-if="isShareButtons"></ShareButtons>
         </div>
       </div>
@@ -55,7 +60,7 @@ export default {
     this.getPlaylistDetails();
   },
 
-  props: ["playlistId"],
+  props: ["playlistId", "isEducation"],
 
   data() {
     return {

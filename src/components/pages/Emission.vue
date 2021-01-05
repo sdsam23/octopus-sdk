@@ -20,7 +20,13 @@
           <SubscribeButtons :emission="emission" v-if="isShareButtons && countLink >= 1"></SubscribeButtons>
         </div>
         <div class="d-flex flex-column share-container">
-          <SharePlayer :emission="emission" :exclusive="exclusive" :notExclusive="notExclusive" :organisationId='organisationId' v-if="isSharePlayer && (authenticated || notExclusive)"></SharePlayer>
+          <SharePlayer 
+          :emission="emission" 
+          :exclusive="exclusive" 
+          :notExclusive="notExclusive" 
+          :organisationId='organisationId' 
+          :isEducation="isEducation"
+          v-if="isSharePlayer && (authenticated || notExclusive)"></SharePlayer>
           <ShareButtons :emission="emission" :notExclusive="notExclusive" v-if="isShareButtons"></ShareButtons>
         </div>
       </div>
@@ -71,7 +77,7 @@ export default {
     this.getEmissionDetails(this.emissionId);
   },
 
-  props: ["emissionId"],
+  props: ["emissionId", "isEducation"],
 
   data() {
     return {

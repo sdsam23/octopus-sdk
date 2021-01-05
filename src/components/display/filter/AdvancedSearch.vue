@@ -9,7 +9,7 @@
   <div class="advanced-search-container" v-show="showFilters" >
 		<div class="d-flex flex-column">
 			<div class="primary-color mb-2">{{$t('Filter')}}</div>
-			<MonetizableFilter @updateMonetization='updateMonetization' :isEmission='isEmission' v-if="isMonetizableFilter"/>
+			<MonetizableFilter @updateMonetization='updateMonetization' :isEducation="isEducation" :isEmission='isEmission' v-if="isMonetizableFilter"/>
 			<div class="d-flex mt-3 align-items-center" v-if="organisationId && rubriquageDisplay">
 				<div class="checkbox-saooti flex-shrink">  
 					<input type="checkbox" class="custom-control-input" id="search-rubriquage-checkbox" v-model="isRubriquage">  
@@ -201,7 +201,7 @@ export default {
 		Datetime
 	},
 	
-	props: ['organisationId', 'isEmission', 'resetRubriquage', 'isSearchBar', 'sortCriteria'],
+	props: ['organisationId', 'isEmission', 'resetRubriquage', 'isSearchBar', 'sortCriteria', 'isEducation'],
 
   created() {
 		this.fetchTopics();

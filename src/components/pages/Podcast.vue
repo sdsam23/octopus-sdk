@@ -97,6 +97,7 @@
             :exclusive="exclusive"
             :notExclusive="notExclusive"
             :organisationId='organisationId'
+            :isEducation="isEducation"
             v-if="isSharePlayer && (authenticated || notExclusive)"
           ></SharePlayer>
           <ShareButtons :podcast="podcast" :notExclusive="notExclusive" v-if="isShareButtons"></ShareButtons>
@@ -200,7 +201,7 @@ export default {
     }
   },
 
-  props: ["podcastId", "playingPodcast", "updateStatus"],
+  props: ["podcastId", "playingPodcast", "updateStatus", "isEducation"],
 
   data() {
     return {

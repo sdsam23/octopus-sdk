@@ -12,6 +12,7 @@
       @updateSearchPattern='updateSearchPattern'
       v-if="isProductorSearch" />
     <AdvancedSearch 
+    :isEducation="isEducation"
     :isEmission='false'
     :resetRubriquage='resetRubriquage'
     :isSearchBar="isProductorSearch"
@@ -58,6 +59,8 @@ export default {
     EmissionChooser,
     AdvancedSearch
   },
+
+  props:["isEducation"],
 
   created() {
     if (this.$route.query.first) {

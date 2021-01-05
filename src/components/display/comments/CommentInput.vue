@@ -119,7 +119,7 @@ export default {
       return state.generalParameters.authenticated;
     },
     isCertified() {
-      if ((state.generalParameters.isCommment && this.organisationId === this.podcast.organisation.id) || state.generalParameters.isAdmin) {
+      if ((state.generalParameters.isCommments && this.organisationId === this.podcast.organisation.id) || state.generalParameters.isAdmin) {
         return true;
       }
       return false;

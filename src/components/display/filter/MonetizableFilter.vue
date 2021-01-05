@@ -18,18 +18,12 @@
 
 export default {
 
-	props: ['isEmission'],
+	props: ['isEmission', 'isEducation'],
 
   data() {
     return {
       monetization: 'UNDEFINED'
     };
-  },
-
-  computed:{
-	isEducation(){
-      return this.$store.state.education;
-    },
   },
 
   methods:{

@@ -129,7 +129,7 @@ import "vue-swatches/dist/vue-swatches.min.css";
 import profileApi from '@/api/profile';
 
 export default {
-  props: ["podcast", "emission", "organisationId", "exclusive", "notExclusive", "playlist"],
+  props: ["podcast", "emission", "organisationId", "exclusive", "notExclusive", "playlist", "isEducation"],
 
   components: {
     ShareModalPlayer,
@@ -294,10 +294,6 @@ export default {
         return this.playlist.playlistId;
       }
     },
-    isEducation(){
-      return this.$store.state.education;
-    },
-    
   },
 
   methods: {

@@ -5,7 +5,7 @@
       <h3 class="mt-2">{{ $t('Loading content ...') }}</h3>
     </div>
     <div class="text-danger align-self-center" v-if="error">{{$t('Comments loading error')}}</div>
-    <div class="d-flex flex-column" v-show="loaded">
+    <transition-group tag="div" name="comment-list" class="d-flex flex-column my-transition-list-comments" v-show="loaded">
       <CommentItem
         :ref="'comItem'+c.comId"
         :isFlat="isFlat"
@@ -18,7 +18,7 @@
         @deleteComment="deleteComment(c)"
         @updateComment="updateComment"
       />
-    </div>
+    </transition-group>
     <a
       class="btn btn-primary mt-2"
       :class="comId? 'align-self-start':'align-self-center'"
@@ -31,11 +31,49 @@
 </template>
 
 <style lang="scss">
+@import '../../../sass/_variables.scss';
+.my-transition-list-comments{
+  .comment-list-enter-active,
+  .comment-list-leave-active {
+    transition: 900ms cubic-bezier(0.59, 0.12, 0.34, 0.95);
+    transition-property: opacity, transform;
+    background-color: $primaryColorReallyTransparent;
+    width: 100%;
+  }
+
+  .comment-list-enter {
+    opacity: 0;
+    transform: translateX(50px) scaleY(0.5);
+    background-color: $primaryColorReallyTransparent;
+    width: 100%;
+  }
+
+  .comment-list-enter-to {
+    opacity: 1;
+    transform: translateX(0) scaleY(1);
+    background-color: $primaryColorReallyTransparent;
+    width: 100%;
+  }
+
+  .comment-list-leave-active {
+    position: absolute;
+    background-color: $primaryColorReallyTransparent;
+    width: 100%;
+  }
+
+  .comment-list-leave-to {
+    opacity: 0;
+    transform: scaleY(0);
+    transform-origin: center top;
+    background-color: $primaryColorReallyTransparent;
+  }
+}
 </style>
 
 <script>
 import {state} from "../../../store/paramStore.js";
 import octopusApi from "@saooti/octopus-api";
+const moment = require('moment');
 
 export default {
   name: 'CommentList',
@@ -174,7 +212,22 @@ export default {
             this.comments.splice(index, 1, data.comment);
           }
         }else if(data.status === "Valid" && !this.editRight){
-          this.comments.unshift(data.comment);
+          if(this.comments.length > 0){
+            let indexNewComment = -1;
+            for (let i=0; i<this.comments.length; i++) {
+              if(moment(this.comments[i].date).isBefore(moment(data.comment.date))){
+                indexNewComment = i;
+                break;
+              }
+            }
+            if(indexNewComment !== -1){
+              this.comments.splice(indexNewComment, 0, data.comment);
+            }else{
+              this.comments.push(data.comment);
+            }
+          }else{
+            this.comments.unshift(data.comment);
+          }
         }
         if(this.comId && data.status){
           this.$emit('updateStatus', data.status);

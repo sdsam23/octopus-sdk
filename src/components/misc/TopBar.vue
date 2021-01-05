@@ -298,7 +298,7 @@ export default {
     window.removeEventListener("scroll", this.handleScroll);
   },
 
-  props: ["displayMenu"],
+  props: ["displayMenu", "isEducation"],
 
   data() {
     return {
@@ -319,9 +319,6 @@ export default {
       }else{
         return "/img/logo_octopus_final.svg";
       }
-    },
-    isEducation(){
-      return this.$store.state.education;
     },
     isPodcastmaker(){
       return state.generalParameters.podcastmaker;
