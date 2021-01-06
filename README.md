@@ -350,6 +350,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.21.25 locales
  * 0.21.26 Ajout variable commentsUrl 
  * 0.21.27 Divers bug commentaires
+ * 0.21.28 Divers bug commentaires
+
 
 
 

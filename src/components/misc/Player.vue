@@ -616,9 +616,13 @@ export default {
         var hls = new Hls();
         hls.on(Hls.Events.MANIFEST_PARSED, async () =>{
           let downloadId = null;
-          downloadId = await octopusApi.requestLiveDownloadId(this.live.livePodcastId);
-          await octopusApi.markPlayingLive(this.live.livePodcastId, downloadId, "octopus", this.$store.state.authentication.organisationId);
-          this.setDownloadId(downloadId);
+          try {
+            downloadId = await octopusApi.requestLiveDownloadId(this.live.livePodcastId);
+            await octopusApi.markPlayingLive(this.live.livePodcastId, downloadId, "octopus", this.$store.state.authentication.organisationId);
+            this.setDownloadId(downloadId);
+          } catch (error) {
+            console.log("ERROR downloadId");
+          }
           this.hlsReady = true;
           hls.attachMedia(audio);
           await audio.play();

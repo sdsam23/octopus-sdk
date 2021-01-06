@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column comment-input-container mt-3">
+  <div class="d-flex flex-column comment-input-container mt-3" v-if="isPresent">
     <b class="small-Text mt-1 c-hand" @click="changeIdentity" v-if="knownIdentity && !editName">{{knownIdentity}}</b>
     <div class="d-flex" v-if="knownIdentity && editName">
       <input
@@ -105,6 +105,22 @@ export default {
   },
 
   computed:{
+    isPresent(){
+      let podcastComment = "INHERIT";
+			if(this.podcast.annotations && this.podcast.annotations.COMMENTS){
+				podcastComment = this.podcast.annotations.COMMENTS;
+			}
+			let organisationComment = "LIVE_ONLY";
+			if(this.podcast.organisation.comments){
+				organisationComment = this.podcast.organisation.comments;
+      }
+      if((podcastComment === "LIVE_ONLY" && this.podcast.processingStatus !== 'READY_TO_RECORD') || 
+      (podcastComment === "INHERIT" && organisationComment==="LIVE_ONLY" && this.podcast.processingStatus !== 'READY_TO_RECORD')){
+        return false;
+      }else{
+        return true;
+      }
+    },
     placeholder(){
       if(this.comId){
         return this.$t('Answer a comment');
@@ -172,10 +188,11 @@ export default {
 				this.setCookie('comment-octopus-name', name);
 				this.$emit('update:knownIdentity', name);
 			}
-			let timeline = 0;
-			if(this.$store.state.player.podcast && this.$store.state.player.podcast.podcastId === this.podcast.podcastId){
+      let timeline = 0;
+      if((this.$store.state.player.podcast && this.$store.state.player.podcast.podcastId === this.podcast.podcastId)||
+      (this.$store.state.player.live && this.$store.state.player.live.livePodcastId === this.podcast.podcastId)){
         timeline = Math.round((this.$store.state.player.elapsed * this.$store.state.player.total));
-        if(this.podcast.duration){
+        if(this.podcast.duration && this.$store.state.player.podcast){
           timeline = Math.round(timeline - (this.$store.state.player.total - (this.podcast.duration /1000)));
         }
         if(timeline < 0){

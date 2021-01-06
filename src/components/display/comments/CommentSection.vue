@@ -73,11 +73,13 @@ export default {
 			if(this.podcast.organisation.comments){
 				organisationComment = this.podcast.organisation.comments;
 			}
-      return (podcastComment === "YES" 
+      /* return (podcastComment === "YES" 
       ||(podcastComment === "INHERIT" && organisationComment==="YES")
       ||(podcastComment === "LIVE_ONLY" && this.podcast.processingStatus === 'READY_TO_RECORD')
       ||(podcastComment === "INHERIT" && organisationComment==="LIVE_ONLY" && this.podcast.processingStatus === 'READY_TO_RECORD')
-      ||(podcastComment === "INHERIT" && organisationComment==="LIVE_RECORD" && this.podcast.conferenceId && this.podcast.conferenceId !== 0));
+      ||(podcastComment === "INHERIT" && organisationComment==="LIVE_RECORD" && this.podcast.conferenceId && this.podcast.conferenceId !== 0)); */
+      return !(podcastComment === "NO" 
+      ||(podcastComment === "INHERIT" && organisationComment==="NO"));
     },
     knownIdentity: {
       get() {
