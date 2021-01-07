@@ -12,7 +12,7 @@
         ></div>
         <div class="player-progress-border"></div>
       </div>
-      <div class="d-flex align-items-center justify-center flex-grow pr-5 pl-5">
+      <div class="d-flex align-items-center justify-center flex-grow pr-5 pl-5" v-if="display">
         <audio
           id="audio-player"
           v-bind:src="audioUrl"
