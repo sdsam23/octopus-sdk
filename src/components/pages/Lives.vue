@@ -9,6 +9,7 @@
           <div class="align-self-start font-weight-bold mb-2">{{$t('Please chose a productor')}}</div>
           <OrganisationChooser
             :defaultanswer="$t('Please chose a productor')"
+            :all="true"
             @selected="onOrganisationSelected"/>
         </template>
     </div>

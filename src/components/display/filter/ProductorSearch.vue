@@ -5,6 +5,7 @@
 					:defaultanswer="$t('No organisation filter')"
 					@selected="onOrganisationSelected"
 					:value='organisationId'
+          :all="true"
 			/>
       <div class="checkbox-saooti m-3" v-if="!!organisationId">  
         <input type="checkbox" class="custom-control-input" id="orgaCheck" v-model="keepOrganisation" @click="onKeepOrganisation">  

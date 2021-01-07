@@ -90,7 +90,7 @@ import Multiselect from 'vue-multiselect';
 import octopusApi from "@saooti/octopus-api";
 import {state} from "../../../store/paramStore.js";
 
-const ELEMENTS_COUNT = 200;
+const ELEMENTS_COUNT = 50;
 const DEFAULT_ORGANISATION_ID = 0;
 const DEFAULT_ORGANISATION_IMAGE = '/img/emptypodcast.png';
 
@@ -125,6 +125,7 @@ export default {
     value: { default: null },
     light: {default: false},
     reset: {default:false},
+    all:{default: false}
     },
 
   mixins: [selenium],
@@ -188,13 +189,26 @@ export default {
     async onSearchOrganisation(query) {
       this.isLoading = true;
       const response = await octopusApi.fetchOrganisations( {
-          query: query,
-          first: 0,
-          size: ELEMENTS_COUNT,
-        });
-      let notNull =response.result.filter((o)=>{
+        query: query,
+        first: 0,
+        size: ELEMENTS_COUNT,
+      });
+      let orga = response.result;
+      if(this.all && !query){
+        while ((response.count <200 && orga.length < response.count) || (response.count > 200 && orga.length < 200)) {
+          const other = await octopusApi.fetchOrganisations( {
+            query: query,
+            first: orga.length,
+            size: ELEMENTS_COUNT,
+          });
+          orga=orga.concat(other.result);
+        }
+      }
+    
+      let notNull =orga.filter((o)=>{
         return o!== null;
       });
+      
       if (this.defaultanswer) {
         this.organisations = [
           getDefaultOrganistion(this.defaultanswer),
@@ -216,7 +230,7 @@ export default {
         }
       }
       this.isLoading = false;
-      this.remainingElements = Math.max(0, response.count - ELEMENTS_COUNT);
+      this.remainingElements = Math.max(0, response.count - orga.length);
     },
 
     async fetchOrganisation(){
