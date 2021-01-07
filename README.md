@@ -354,7 +354,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.21.29 Amélioration animation css
  * 0.21.30 Bug cartouchier (audioUrl undefined)
  * 0.21.31 Selecteur "Producteur" ne contient pas tous les producteurs
-
+ * 0.21.32 Player live
 
 
 

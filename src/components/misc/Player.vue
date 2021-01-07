@@ -608,7 +608,7 @@ export default {
       }
     },
 
-    async initHls(audio, hlsStreamUrl){
+    async initHls(hlsStreamUrl){
       return new Promise((resolve, reject) => {
         if (!Hls.isSupported()) {
          reject("Hls is not supported ! ");
@@ -624,6 +624,7 @@ export default {
             console.log("ERROR downloadId");
           }
           this.hlsReady = true;
+          let audio = document.getElementById('audio-player');
           hls.attachMedia(audio);
           await audio.play();
           this.onPlay();
@@ -638,10 +639,9 @@ export default {
 
     async playLive(){
       if(this.live){
-        let audio = document.getElementById('audio-player');
         let hlsStreamUrl = state.podcastPage.hlsUri+'stream/dev.'+this.live.conferenceId+'/index.m3u8';
         try{
-          await this.initHls(audio, hlsStreamUrl);
+          await this.initHls(hlsStreamUrl);
         } catch(error) {
           console.log(error);
           setTimeout(()=>{this.playLive();}, 1000);
