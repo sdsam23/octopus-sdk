@@ -35,7 +35,7 @@
 .my-transition-list-comments{
   .comment-list-enter-active,
   .comment-list-leave-active {
-    transition: 900ms cubic-bezier(0.59, 0.12, 0.34, 0.95);
+    transition: 1200ms cubic-bezier(0.59, 0.12, 0.34, 0.95);
     transition-property: opacity, transform;
     background-color: $primaryColorReallyTransparent;
     width: 100%;
