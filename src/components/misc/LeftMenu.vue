@@ -36,6 +36,7 @@
         class="linkHover pb-3 text-dark font-weight-bold">{{ $t('Playlists') }}</router-link>
         <OrganisationChooserLight
         width="auto"
+        page="leftMenu"
         :defaultanswer="$t('No organisation filter')"
         @selected="onOrganisationSelected"
         :value='organisationId'

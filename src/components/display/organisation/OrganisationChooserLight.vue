@@ -1,10 +1,10 @@
 <template>
   <div class="default-multiselect-width" :style="{ width: width }" v-if='(!value ||init) && organisation !== ""'>
-    <select id="organisation_chooser_light" class="basic-select mb-0 c-hand" v-model='actual' @change="onOrganisationSelected">
+    <select :id="'organisation_chooser_light'+page" class="basic-select mb-0 c-hand" v-model='actual' @change="onOrganisationSelected">
 			<option :value="organisation.id">{{organisation.name}}</option>
 			<option :value="-1">{{$t('No organisation filter')}}</option>
     </select>
-    <label for="organisation_chooser_light" class="d-inline" :aria-label="$t('select productor')"></label>
+    <label :for="'organisation_chooser_light'+page" class="d-inline" :aria-label="$t('select productor')"></label>
   </div>
 </template>
 
@@ -36,6 +36,7 @@ export default {
     width: { default: '100%' }, 
     value: { default: null },
     reset: {default:false},
+    page: {default: ''},
   },
 
   data() {
@@ -47,8 +48,6 @@ export default {
     return _return;
   },
 
-  computed:{
-  },
 
   methods: {
     onOrganisationSelected() {

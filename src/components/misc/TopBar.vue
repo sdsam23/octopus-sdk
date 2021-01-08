@@ -13,6 +13,7 @@
       </router-link>
       <OrganisationChooserLight
         width="auto"
+        page="topBar"
         :defaultanswer="$t('No organisation filter')"
         @selected="onOrganisationSelected"
         :value='organisationId'

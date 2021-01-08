@@ -106,20 +106,23 @@ export default {
 
   computed:{
     isPresent(){
-      let podcastComment = "INHERIT";
-			if(this.podcast.annotations && this.podcast.annotations.COMMENTS){
-				podcastComment = this.podcast.annotations.COMMENTS;
-			}
-			let organisationComment = "LIVE_ONLY";
-			if(this.podcast.organisation.comments){
-				organisationComment = this.podcast.organisation.comments;
+      if(this.podcast){
+        let podcastComment = "INHERIT";
+        if(this.podcast.annotations && this.podcast.annotations.COMMENTS){
+          podcastComment = this.podcast.annotations.COMMENTS;
+        }
+        let organisationComment = "LIVE_ONLY";
+        if(this.podcast.organisation.comments){
+          organisationComment = this.podcast.organisation.comments;
+        }
+        if((podcastComment === "LIVE_ONLY" && this.podcast.processingStatus !== 'READY_TO_RECORD') || 
+        (podcastComment === "INHERIT" && organisationComment==="LIVE_ONLY" && this.podcast.processingStatus !== 'READY_TO_RECORD')){
+          return false;
+        }else{
+          return true;
+        }
       }
-      if((podcastComment === "LIVE_ONLY" && this.podcast.processingStatus !== 'READY_TO_RECORD') || 
-      (podcastComment === "INHERIT" && organisationComment==="LIVE_ONLY" && this.podcast.processingStatus !== 'READY_TO_RECORD')){
-        return false;
-      }else{
-        return true;
-      }
+      return true;
     },
     placeholder(){
       if(this.comId){
