@@ -1,9 +1,10 @@
 <template>
   <div class="default-multiselect-width" :style="{ width: width }">
-    <label for="rubriqueChooser" class="d-inline" aria-label="select rubrique"></label>
+    <label :for="id" class="d-inline" aria-label="select rubrique"></label>
     <Multiselect
       v-model="rubrique"
-      id="rubriqueChooser"
+      :id="id"
+      class="rubriqueChooser"
       label="name"
       track-by="rubriqueId"
       :placeholder="$t('Type string to filter by rubrics')"
@@ -93,6 +94,14 @@ export default {
     }
     if(this.rubriqueArray !== undefined){
       this.initRubriqueArray(this.rubriqueArray);
+    }
+  },
+  computed:{
+    id(){
+      if(this.rubriquageId){
+        return "rubriqueChooser"+this.rubriquageId;
+      }
+      return "rubriqueChooser";
     }
   },
 
