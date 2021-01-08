@@ -21,7 +21,7 @@
       @blur="textareaFocus = false"
     ></b-form-textarea>
     <div class="d-flex justify-content-end mt-1" v-if="textareaFocus">
-      <button class="btn mr-2">{{$t('Cancel')}}</button>
+      <button class="btn mr-2" @mousedown="cancelAction">{{$t('Cancel')}}</button>
       <button class="btn btn-primary" @mousedown="requestToSend" :disabled="newComment.trim().length === 0">{{placeholder}}</button>
     </div>
     <AddCommentModal
@@ -182,6 +182,9 @@ export default {
       }else{
         this.checkIdentityModal = true;
       }
+    },
+    cancelAction(){
+      this.$emit('cancelAction');
     },
     async postComment(name){
       if(name){

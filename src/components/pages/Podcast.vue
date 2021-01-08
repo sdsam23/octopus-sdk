@@ -422,14 +422,7 @@ export default {
   watch:{
     updateStatus(){
       if(this.fetchConference && this.fetchConference !== null){
-        if(this.updateStatus !== "DEBRIEFING"){
-          this.fetchConference.status = this.updateStatus;
-        }
-        if(this.fetchConference.status === "PUBLISHING"){
-          setTimeout(()=>{
-            window.location.reload();
-          }, 3000);
-        }
+        this.fetchConference.status = this.updateStatus;
       }
     },
     podcastId(val) {

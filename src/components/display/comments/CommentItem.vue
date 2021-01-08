@@ -80,6 +80,7 @@
       :knownIdentity.sync="knownIdentity"
       :comId="comment.comId"
       :fetchConference="fetchConference"
+      @cancelAction="collapseVisible=false"
       @newComment="newComment"/>
       <CommentParentInfo
       v-if="isFlat && comment.commentIdReferer && collapseVisible"

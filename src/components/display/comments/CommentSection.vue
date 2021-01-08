@@ -15,6 +15,7 @@
     ref="commentList"
     :podcast="podcast" 
     :reload="reload" 
+    :isFlat="isLive"
     :fetchConference="fetchConference"
     @fetch="updateFetch"/>
   </div>
