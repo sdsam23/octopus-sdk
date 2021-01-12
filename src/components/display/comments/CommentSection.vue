@@ -2,7 +2,7 @@
   <div class="d-flex flex-column mt-3 module-box comment-item-container" v-if="isComments">
     <div class="d-flex align-items-center">
       <h2 class="mb-0 mr-2">{{$t("Podcast's comments")}}
-        <template v-if="loaded && totalCount > 1">{{$t("()",{nb:totalCount})}}</template>
+        <template v-if="loaded && totalCount > 0">{{$t("()",{nb:totalCount})}}</template>
       </h2>
        <button class="saooti-refresh-stud btn btn-reload primary-color" @click="reloadComments" v-if="!isLive"></button>
     </div>

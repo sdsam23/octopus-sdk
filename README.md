@@ -357,6 +357,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.21.32 Player live
  * 0.21.33 Commentaires améliorations
  * 0.21.34 Accessibility
+ * 0.21.35 Comment number
 
 
 
