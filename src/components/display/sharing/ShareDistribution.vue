@@ -111,14 +111,14 @@ export default {
         const data = await octopusApi.fetchEmission(emissionId);
         this.emission = data;
         this.loaded = true;
-        if(this.emission.annotations){
-          if(this.emission.annotations.RSS){
-            this.rssEmission = true;
-          }
-          if(this.emission.annotations.exclusive){
-            this.exclusive = this.emission.annotations.exclusive == 'true' ? true : false;
-            this.exclusive = this.exclusive && (this.organisationId !== this.emission.orga.id);
-          }
+        if(!this.emission.annotations)
+          return;
+        if(this.emission.annotations.RSS){
+          this.rssEmission = true;
+        }
+        if(this.emission.annotations.exclusive){
+          this.exclusive = this.emission.annotations.exclusive == 'true' ? true : false;
+          this.exclusive = this.exclusive && (this.organisationId !== this.emission.orga.id);
         }
       } catch {
         this.error = true;
@@ -126,11 +126,12 @@ export default {
       }
     },
     getRSS(){
-      if (this.$props.emissionId && this.$props.emissionId > 0) {
-        /* this.emissionPage=octopusApi.fetchEmissionPath(this.emissionId); */
-        this.baseRss = octopusApi.fetchRSS(this.emissionId);
-        this.rss = this.baseRss;
-      }
+      if(!this.$props.emissionId || this.$props.emissionId <= 0) 
+        return;
+      
+      /* this.emissionPage=octopusApi.fetchEmissionPath(this.emissionId); */
+      this.baseRss = octopusApi.fetchRSS(this.emissionId);
+      this.rss = this.baseRss;
     },
     onCopyRSSURL() {
       navigator.clipboard.writeText(this.rss);

@@ -79,20 +79,22 @@ export default {
 
   methods: {
     async recaptcha() {
-      if(this.needVerify && !this.isCaptchaTest){
-        await this.$recaptchaLoaded();
-        const token = await this.$recaptcha('login');
-        try {
-          this.sendError = false;
-          const ok = await api.checkToken(token);
-          if(!ok){
-            this.sendError = true;
-            return;
-          }
-        } catch {
+      if(!this.needVerify || this.isCaptchaTest){
+        this.sendComment();
+        return;
+      }
+      await this.$recaptchaLoaded();
+      const token = await this.$recaptcha('login');
+      try {
+        this.sendError = false;
+        const ok = await api.checkToken(token);
+        if(!ok){
           this.sendError = true;
           return;
         }
+      } catch {
+        this.sendError = true;
+        return;
       }
       this.sendComment();
     },

@@ -97,15 +97,12 @@ export default {
     categories() {
       if(this.filterOrga){
         return this.$store.state.categoriesOrga.filter(c => {return c.podcastOrganisationCount;});
-      }else{
-        return state.generalParameters.allCategories.filter(c => {
-          if(this.isPodcastmaker){
-            return c.podcastOrganisationCount;
-          } else{
-            return c.podcastCount;
-          }
-        });
       }
+      return state.generalParameters.allCategories.filter(c => {
+        if(this.isPodcastmaker)
+          return c.podcastOrganisationCount;
+        return c.podcastCount;
+      });
     },
     filterOrga(){
       return this.$store.state.filter.organisationId;
@@ -119,16 +116,16 @@ export default {
       this.hidenCategories = [];
       this.categories.forEach(element => {
         let el = document.getElementById("category" + element.id);
-        if (el) {
-          const parent = el.parentNode;
-          if (el.offsetLeft + el.clientWidth > parent.clientWidth - 20) {
-            this.hidenCategories.push(element);
-            if (!el.classList.contains("hid")) {
-              el.className += " hid";
-            }
-          } else {
-            el.classList.remove("hid");
-          }
+        if(!el)
+          return;
+        const parent = el.parentNode;
+        if (el.offsetLeft + el.clientWidth <= parent.clientWidth - 20) {
+          el.classList.remove("hid");
+          return;
+        }
+        this.hidenCategories.push(element);
+        if (!el.classList.contains("hid")) {
+          el.className += " hid";
         }
       });
       if (!this.hidenCategories.length) {

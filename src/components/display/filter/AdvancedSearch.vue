@@ -240,17 +240,16 @@ export default {
       return state.podcastsPage.MonetizableFilter;
 		},
 		rubriquageDisplay(){
-			if(this.rubriquageData.length !== 0){
-				let found = false;
-				for (let index = 0; index < this.rubriquageData.length; index++) {
-					if(this.rubriquageData[index].rubriques.length !== 0){
-						found = true;
-						break;
-					}
+			if(this.rubriquageData.length === 0)
+				return false;
+			let found = false;
+			for (let index = 0; index < this.rubriquageData.length; index++) {
+				if(this.rubriquageData[index].rubriques.length !== 0){
+					found = true;
+					break;
 				}
-				return found;
 			}
-			return false;
+			return found;
 		},
 		myOrganisationId(){
       return state.generalParameters.organisationId;
@@ -259,9 +258,8 @@ export default {
       return state.generalParameters.authenticated;
     },
 		organisationRight() {
-			if ((this.authenticated && this.myOrganisationId === this.organisationId) ||state.generalParameters.isAdmin) {
+			if ((this.authenticated && this.myOrganisationId === this.organisationId) ||state.generalParameters.isAdmin)
 				return true;
-			}
       return false;
 		},
 		isPodcastmaker(){
@@ -271,40 +269,38 @@ export default {
       return this.$store.state.filter.organisationId;
     },
     organisation(){
-      if(this.organisationId){
+      if(this.organisationId)
         return this.organisationId;
-      }else if(this.filterOrga){
+      if(this.filterOrga)
         return this.filterOrga;
-      }else {
-        return undefined;
-      }
+      return undefined;
 		},
 		textNotVisible(){
-			if(this.isEmission){
+			if(this.isEmission)
 				return this.$t('Consider podcasts no visible');
-			} else{
-				return this.$t('See podcasts no visible');
-			}
+			return this.$t('See podcasts no visible');
 		}
   },
 
   methods:{
 		updateFromDate(){
-			if(moment(this.fromDate).startOf('minute').toISOString() !== moment().subtract(10, "days").startOf('minute').toISOString()){
-				if(this.isFrom){
-					this.$emit('updateFromDate', this.fromDate);
-				}else{
-					this.isFrom = true;
-				}
+			if(moment(this.fromDate).startOf('minute').toISOString() === moment().subtract(10, "days").startOf('minute').toISOString())
+				return;
+
+			if(this.isFrom){
+				this.$emit('updateFromDate', this.fromDate);
+			}else{
+				this.isFrom = true;
 			}
 		},
 		updateToDate(){
-			if(moment(this.toDate).startOf('minute').toISOString() !== moment().startOf('minute').toISOString()){
-				if(this.isTo){
-					this.$emit('updateToDate', this.toDate);
-				}else{
-					this.isTo = true;
-				}
+			if(moment(this.toDate).startOf('minute').toISOString() === moment().startOf('minute').toISOString())
+				return;
+
+			if(this.isTo){
+				this.$emit('updateToDate', this.toDate);
+			}else{
+				this.isTo = true;
 			}
 		},
 		getRubriques(rubriquageId){
@@ -312,13 +308,13 @@ export default {
 			return this.rubriquageData[topicIndex].rubriques;
 		},
 		onRubriqueSelected(rubrique){
-			if(rubrique.rubriqueId !== this.rubriqueId){
-				this.rubriqueId = rubrique.rubriqueId;
-				if(this.rubriqueId === 0){
-					this.$emit('updateRubrique', undefined);
-				}else{
-					this.$emit('updateRubrique', rubrique.rubriqueId);
-				}
+			if(rubrique.rubriqueId === this.rubriqueId)
+				return;
+			this.rubriqueId = rubrique.rubriqueId;
+			if(this.rubriqueId === 0){
+				this.$emit('updateRubrique', undefined);
+			}else{
+				this.$emit('updateRubrique', rubrique.rubriqueId);
 			}
 		},
 		onRubriquageSelected(){
@@ -332,16 +328,18 @@ export default {
       this.$emit('updateMonetization', value);
 		},
 		async fetchTopics(){
-			if(this.organisation){
-				const data = await octopusApi.fetchTopics(this.organisation);
-				this.rubriquageData = data;
-				if(data.length !== 0){
-					for (let index = 0; index < this.rubriquageData.length; index++) {
-						if(this.rubriquageData[index].rubriques.length !== 0){
-							this.rubriquageId = this.rubriquageData[index].rubriquageId;
-							break;
-						}
-					}
+			if(!this.organisation)
+				return;
+
+			const data = await octopusApi.fetchTopics(this.organisation);
+			this.rubriquageData = data;
+			if(data.length === 0)
+				return;
+
+			for (let index = 0; index < this.rubriquageData.length; index++) {
+				if(this.rubriquageData[index].rubriques.length !== 0){
+					this.rubriquageId = this.rubriquageData[index].rubriquageId;
+					break;
 				}
 			}
 		},

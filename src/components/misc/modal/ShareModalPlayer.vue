@@ -89,22 +89,22 @@ export default {
       this.$emit('close');
     },
     async onCopyCode(link) {
-      if (typeof(navigator.clipboard)=='undefined') {
-        let textArea = document.createElement("textarea");
-        textArea.value = link;
-        textArea.style.position="fixed";
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        var successful = document.execCommand('copy');
-        if(successful){
-          this.$refs.snackbar.open(this.$t('Link in clipboard'));
-        }
-        document.body.removeChild(textArea)            
-      } else{
+      if (typeof(navigator.clipboard)!=='undefined') {
         await navigator.clipboard.writeText(link);
-        this.$refs.snackbar.open(this.$t('Link in clipboard'));
+        this.$refs.snackbar.open(this.$t('Data in clipboard'));
+        return;
       }
+      let textArea = document.createElement("textarea");
+      textArea.value = link;
+      textArea.style.position="fixed";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      var successful = document.execCommand('copy');
+      if(successful){
+        this.$refs.snackbar.open(this.$t('Data in clipboard'));
+      }
+      document.body.removeChild(textArea);            
     },
   },
 };

@@ -14,12 +14,13 @@ export default {
   },
 
   mounted() {
-		if(this.timeRemaining && this.timeRemaining > 0){
-			this.seconds = this.timeRemaining;
-			this.countdownTimer = setInterval(() => {
-				this.timer();
-			}, 1000);
-		}
+		if(!this.timeRemaining || this.timeRemaining <= 0)
+			return;
+
+		this.seconds = this.timeRemaining;
+		this.countdownTimer = setInterval(() => {
+			this.timer();
+		}, 1000);
   },
 
   props: ["timeRemaining"],

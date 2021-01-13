@@ -100,14 +100,14 @@ export default {
   },
 
   async created() {
-    if (this.organisationId) {
-      this.$store.commit('filterOrga', {orgaId: this.organisationId});
-      const isLive = await octopusApi.liveEnabledOrganisation(this.organisationId);
-      this.$store.commit('filterOrgaLive', isLive);
-      this.keepOrganisation = true;
-      if(!this.$route.query.productor){
-        this.$router.replace({query: {productor: this.organisationId}});
-      }
+    if(!this.organisationId)
+      return;
+    this.$store.commit('filterOrga', {orgaId: this.organisationId});
+    const isLive = await octopusApi.liveEnabledOrganisation(this.organisationId);
+    this.$store.commit('filterOrgaLive', isLive);
+    this.keepOrganisation = true;
+    if(!this.$route.query.productor){
+      this.$router.replace({query: {productor: this.organisationId}});
     }
   },
 
@@ -130,15 +130,13 @@ export default {
       return state.generalParameters.podcastmaker;
     },
     searchText(){
-      if(this.type === "emission"){
+      if(this.type === "emission")
         return this.$t('Look for emission name');
-      }else if(this.type === "participant"){
+      if(this.type === "participant")
         return this.$t('Look for participant name');
-      }else if(this.type ==="playlist"){
+      if(this.type ==="playlist")
         return this.$t('Look for playlist name');
-      }else{
-        return this.$t('Look for podcast name');
-      }
+      return this.$t('Look for podcast name');
     },
     filterOrga(){
       return this.$store.state.filter.organisationId;
@@ -171,12 +169,12 @@ export default {
         this.$store.commit('filterOrga', {orgaId: this.organisationId, imgUrl: this.imgUrl});
         const isLive = await octopusApi.liveEnabledOrganisation(this.organisationId);
         this.$store.commit('filterOrgaLive', isLive);
-      }else {
-        if(this.$route.query.productor){
-          this.$router.push({query: {productor: undefined}});
-        }
-        this.$store.commit('filterOrga', {orgaId: undefined});
+        return;
       }
+      if(this.$route.query.productor){
+        this.$router.push({query: {productor: undefined}});
+      }
+      this.$store.commit('filterOrga', {orgaId: undefined});
     }
   },
   watch:{

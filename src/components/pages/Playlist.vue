@@ -101,9 +101,8 @@ export default {
     },
 
     editRight() {
-      if ((state.generalParameters.isPlaylist && this.organisationId === this.playlist.organisation.id) || state.generalParameters.isAdmin) {
+      if ((state.generalParameters.isPlaylist && this.organisationId === this.playlist.organisation.id) || state.generalParameters.isAdmin)
         return true;
-      }
       return false;
     },
   },
@@ -130,13 +129,11 @@ export default {
     },
     urlify(text) {
       let urlRegex = /(https?:\/\/[^\s]+)/g;
-      if(text){
-        return text.replace(urlRegex, (url) =>{
-          return '<a href="' + url + '">' + url + '</a>';
-        });
-      }else{
+      if(!text)
         return '';
-      }
+      return text.replace(urlRegex, (url) =>{
+        return '<a href="' + url + '">' + url + '</a>';
+      });
     }
   }
 };

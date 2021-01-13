@@ -83,11 +83,9 @@ export default {
       return Object.keys(this.playlist.podcasts).length !== 0;
     },
     podcastsDisplay(){
-      if(this.size < this.podcastsQuery.length){
+      if(this.size < this.podcastsQuery.length)
         return this.podcastsQuery.slice(0, this.size);
-      }else{
-        return this.podcastsQuery.slice(0, this.podcasts.length);
-      }
+      return this.podcastsQuery.slice(0, this.podcasts.length);
     },
     buttonPlus(){
       return state.generalParameters.buttonPlus;
@@ -101,9 +99,8 @@ export default {
     },
 
     editRight() {
-      if ((this.authenticated && this.organisationId === this.playlist.organisation.id) || state.generalParameters.isAdmin) {
+      if ((this.authenticated && this.organisationId === this.playlist.organisation.id) || state.generalParameters.isAdmin)
         return true;
-      }
       return false;
     }
   },

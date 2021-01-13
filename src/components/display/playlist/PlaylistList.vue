@@ -72,19 +72,16 @@ export default {
       return this.$store.state.filter.organisationId;
     },
     sort(){
-      if(!this.query){
+      if(!this.query)
         return "NAME";
-      }
       return "SCORE";
     },
     organisation(){
-      if(this.organisationId){
+      if(this.organisationId)
         return this.organisationId;
-      }else if(this.filterOrga){
+      if(this.filterOrga)
         return this.filterOrga;
-      }else {
-        return undefined;
-      }
+      return undefined;
     },
   },
 

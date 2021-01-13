@@ -152,37 +152,30 @@ export default {
 
   computed: {
     filterOrgaUsed(){
-      if(this.filterOrga){
+      if(this.filterOrga)
         return this.filterOrga;
-      }else if(this.organisationId){
+      if(this.organisationId)
         return this.organisationId;
-      }else{
-        return undefined;
-      }
+      return undefined;
     },
     filterOrga(){
       return this.$store.state.filter.organisationId;
     },
     displayNextLiveMessage(){
-      if(this.lives.length === 0){
-        if(this.livesNotStarted.length > 0){
-          return this.$t('A live can start any moment');
-        }else if(this.livesToBe.length > 0){
-          return this.$t('Next live date',{date : moment(this.livesToBe[0].date).format('LLLL')});
-        }else{
-          return "";
-        }
-      }else{
+      if(this.lives.length !== 0)
         return "";
-      }
+      if(this.livesNotStarted.length > 0)
+        return this.$t('A live can start any moment');
+      if(this.livesToBe.length > 0)
+        return this.$t('Next live date',{date : moment(this.livesToBe[0].date).format('LLLL')});
+      return "";
     },
     myOrganisationId(){
       return state.generalParameters.organisationId;
     },
 		organisationRight() {
-      if (this.isRoleLive && this.myOrganisationId === this.filterOrgaUsed) {
+      if (this.isRoleLive && this.myOrganisationId === this.filterOrgaUsed)
         return true;
-      }
       return false;
     },
     isRoleLive() {
@@ -200,34 +193,37 @@ export default {
       this.livesPublishing= [];
     },
     async fetchContent() {
-      if(this.filterOrgaUsed){
-        this.loading = true;
-        this.loaded = false;
-        let dataLives = await studioApi.listConferences(this.$store, true, this.filterOrgaUsed, 'RECORDING');
-        this.lives = dataLives.filter((p)=>{return p!== null;});
-        let dataLivesToBe = await studioApi.listConferences(this.$store, true, this.filterOrgaUsed, 'PENDING');
-        let indexPast = 0;
-        for (let index = 0; index < dataLivesToBe.length; index++) {
-          if(moment(dataLivesToBe[index].date).isBefore(moment())){
-            this.livesNotStarted.push(dataLivesToBe[index])
-            indexPast = index + 1;
-          }else{
-            break;
-          }
-        }
-        let dataLivesPlanned = await studioApi.listConferences(this.$store, true, this.filterOrgaUsed, 'PLANNED');
-        this.livesToBe = dataLivesToBe.slice(indexPast).concat(dataLivesPlanned).filter((p)=>{return p!== null;});
-        if(this.organisationRight){
-          let dataLivesTerminated = await studioApi.listConferences(this.$store, true, this.filterOrgaUsed, 'DEBRIEFING');
-          this.livesTerminated = dataLivesTerminated.filter((p)=>{return p!== null;});
-          let dataLivesError = await studioApi.listConferences(this.$store, true, this.filterOrgaUsed, 'ERROR');
-          this.livesError = dataLivesError.filter((p)=>{return p!== null;});
-          let dataLivesPublishing = await studioApi.listConferences(this.$store, true, this.filterOrgaUsed, 'PUBLISHING');
-          this.livesPublishing = dataLivesPublishing.filter((p)=>{return p!== null;});
-        }
-        let listIds= this.lives.concat(this.livesToBe).concat(this.livesNotStarted);
-        this.$emit('initConferenceIds', listIds);
+      if(!this.filterOrgaUsed){
+        this.loading = false;
+        this.loaded = true;
+        return;
       }
+      this.loading = true;
+      this.loaded = false;
+      let dataLives = await studioApi.listConferences(this.$store, true, this.filterOrgaUsed, 'RECORDING');
+      this.lives = dataLives.filter((p)=>{return p!== null;});
+      let dataLivesToBe = await studioApi.listConferences(this.$store, true, this.filterOrgaUsed, 'PENDING');
+      let indexPast = 0;
+      for (let index = 0; index < dataLivesToBe.length; index++) {
+        if(moment(dataLivesToBe[index].date).isBefore(moment())){
+          this.livesNotStarted.push(dataLivesToBe[index])
+          indexPast = index + 1;
+        }else{
+          break;
+        }
+      }
+      let dataLivesPlanned = await studioApi.listConferences(this.$store, true, this.filterOrgaUsed, 'PLANNED');
+      this.livesToBe = dataLivesToBe.slice(indexPast).concat(dataLivesPlanned).filter((p)=>{return p!== null;});
+      if(this.organisationRight){
+        let dataLivesTerminated = await studioApi.listConferences(this.$store, true, this.filterOrgaUsed, 'DEBRIEFING');
+        this.livesTerminated = dataLivesTerminated.filter((p)=>{return p!== null;});
+        let dataLivesError = await studioApi.listConferences(this.$store, true, this.filterOrgaUsed, 'ERROR');
+        this.livesError = dataLivesError.filter((p)=>{return p!== null;});
+        let dataLivesPublishing = await studioApi.listConferences(this.$store, true, this.filterOrgaUsed, 'PUBLISHING');
+        this.livesPublishing = dataLivesPublishing.filter((p)=>{return p!== null;});
+      }
+      let listIds= this.lives.concat(this.livesToBe).concat(this.livesNotStarted);
+      this.$emit('initConferenceIds', listIds);
       this.loading = false;
       this.loaded = true;
     },
@@ -253,24 +249,23 @@ export default {
       for (let index = 0; index < this.conferenceWatched.length; index++) {
         const element = this.conferenceWatched[index];
         let indexLivesToBe = this.livesToBe.findIndex((el)=>el.conferenceId === element.conferenceId);
-        if(indexLivesToBe !== -1){
-          if(element.status === "RECORDING"){
-            let newConf = this.livesToBe[indexLivesToBe];
-            newConf.status = element.status;
-            this.livesToBe.splice(indexLivesToBe,1);
-            this.lives.push(newConf);
-            break;
-          }
-        }else{
+        if(indexLivesToBe === -1){
           let indexLives = this.lives.findIndex((el)=>el.conferenceId === element.conferenceId);
-          if(indexLives !== -1 && element.status === "DEBRIEFING"){
-            let newConf = this.lives[indexLives];
-            newConf.status = element.status;
-            this.lives.splice(indexLives,1);
-            this.livesTerminated.push(newConf);
-            break;
-          }
+          if(indexLives === -1 || element.status !== "DEBRIEFING")
+            continue;
+          let newConf = this.lives[indexLives];
+          newConf.status = element.status;
+          this.lives.splice(indexLives,1);
+          this.livesTerminated.push(newConf);
+          break;
         }
+        if(element.status !== "RECORDING")
+          continue;
+        let newConf = this.livesToBe[indexLivesToBe];
+        newConf.status = element.status;
+        this.livesToBe.splice(indexLivesToBe,1);
+        this.lives.push(newConf);
+        break;
       }
     }
   },

@@ -315,11 +315,9 @@ export default {
 
   computed: {
     logoUrl(){
-      if(this.isEducation){
+      if(this.isEducation)
         return "/img/logo_education.png";
-      }else{
-        return "/img/logo_octopus_final.svg";
-      }
+      return "/img/logo_octopus_final.svg";
     },
     isPodcastmaker(){
       return state.generalParameters.podcastmaker;
@@ -346,11 +344,9 @@ export default {
       return this.$store.state.filter.live;
     },
     imgUrl(){
-      if(this.$store.state.filter.imgUrl && !this.$store.state.filter.imgUrl.includes('emptypodcast')){
+      if(this.$store.state.filter.imgUrl && !this.$store.state.filter.imgUrl.includes('emptypodcast'))
         return this.$store.state.filter.imgUrl+'?dummy='+this.dummyParam;
-      }else{
-        return undefined;
-      }
+      return undefined;
     }
   },
 

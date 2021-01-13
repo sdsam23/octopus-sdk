@@ -154,15 +154,13 @@ export default {
       return state.generalParameters.authenticated;
     },
     myOrganisation(){
-      if(this.authenticated){
-        return {
-          id: this.organisationId,
-          imageUrl: this.myImage,
-          name: this.$t('Edit my organisation') + ' (' + state.organisation.name +')',
-        };
-      }else {
+      if(!this.authenticated)
         return undefined;
-      }
+      return {
+        id: this.organisationId,
+        imageUrl: this.myImage,
+        name: this.$t('Edit my organisation') + ' (' + state.organisation.name +')',
+      };
     }
   },
 
@@ -174,12 +172,13 @@ export default {
     },
 
     onClose() {
-      if (!this.organisation) {
-        this.organisation = this.defaultanswer
-          ? getDefaultOrganistion(this.defaultanswer)
-          : '';
-        this.$emit('selected', this.organisation);
-      }
+      if(this.organisation)
+        return;
+
+      this.organisation = this.defaultanswer
+        ? getDefaultOrganistion(this.defaultanswer)
+        : '';
+      this.$emit('selected', this.organisation);
     },
 
     onEmissionSelected(organisation) {

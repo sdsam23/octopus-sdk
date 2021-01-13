@@ -120,20 +120,16 @@ export default {
       return this.$store.state.filter.organisationId;
     },
     organisation(){
-      if(this.organisationId){
+      if(this.organisationId)
         return this.organisationId;
-      }else if(this.filterOrga){
+      if(this.filterOrga)
         return this.filterOrga;
-      }else {
-        return undefined;
-      }
+      return undefined;
     },
     sort(){
-      if(this.popularSort){
+      if(this.popularSort)
         return "POPULARITY";
-      }else{
-        return this.sortCriteria;
-      }
+      return this.sortCriteria;
     },
     sortText(){
       switch (this.sortCriteria) {

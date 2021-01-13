@@ -54,11 +54,9 @@ import { selenium } from '../../mixins/functions'
 import Multiselect from 'vue-multiselect';
 
 const getDefaultRubrique = defaultName => {
-  if(defaultName !== undefined){
+  if(defaultName !== undefined)
     return {name: defaultName, rubriqueId: 0};
-  } else {
-    return '';
-  }
+  return '';
 };
 
 export default {
@@ -98,9 +96,8 @@ export default {
   },
   computed:{
     id(){
-      if(this.rubriquageId){
+      if(this.rubriquageId)
         return "rubriqueChooser"+this.rubriquageId;
-      }
       return "rubriqueChooser";
     }
   },
@@ -111,30 +108,30 @@ export default {
       if(this.rubriqueArray === undefined) {
         this.rubrique = '';
       } 
-      if(this.defaultanswer !== undefined){
-        if(this.withoutRubrique){
-          this.rubriques = [getDefaultRubrique(this.defaultanswer),this.withoutItem].concat(
-            this.allRubriques
-          );
-        }else{
-          this.rubriques = [getDefaultRubrique(this.defaultanswer)].concat(
-            this.allRubriques
-          );
-        }
-      } else {
+      if(this.defaultanswer === undefined){
         this.rubriques = this.allRubriques;
+        return;
+      }
+      if(this.withoutRubrique){
+        this.rubriques = [getDefaultRubrique(this.defaultanswer),this.withoutItem].concat(
+          this.allRubriques
+        );
+      }else{
+        this.rubriques = [getDefaultRubrique(this.defaultanswer)].concat(
+          this.allRubriques
+        );
       }
     },
 
     onClose() {
-      if (!this.rubrique && this.rubriqueArray === undefined) {
-        if(this.defaultanswer !== undefined){
-          this.rubrique = getDefaultRubrique(this.defaultanswer);
-        } else{
-          this.rubrique = '';
-        }
-        this.onRubriqueSelected(this.rubrique);
+      if (this.rubrique || this.rubriqueArray !== undefined)
+        return;
+      if(this.defaultanswer !== undefined){
+        this.rubrique = getDefaultRubrique(this.defaultanswer);
+      } else{
+        this.rubrique = '';
       }
+      this.onRubriqueSelected(this.rubrique);
     },
 
     onSearchRubrique(query) {
@@ -186,13 +183,14 @@ export default {
       this.initRubriqueSelected(newVal);
     },
     rubrique(newVal) {
-      if(this.rubriqueArray !== undefined){
-        let idsArray = [];
-        newVal.forEach((el)=>{
-          idsArray.push(el.rubriqueId);
-        })
-        this.$emit('selected', idsArray);
-      }
+      if(this.rubriqueArray === undefined)
+        return;
+
+      let idsArray = [];
+      newVal.forEach((el)=>{
+        idsArray.push(el.rubriqueId);
+      })
+      this.$emit('selected', idsArray);
     },
     reset() {
       this.rubrique = getDefaultRubrique(this.defaultanswer);

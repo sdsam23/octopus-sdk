@@ -69,9 +69,8 @@ export default {
       return state.generalParameters.podcastmaker;
     },
     editRight() {
-      if (state.generalParameters.isPlaylist) {
+      if (state.generalParameters.isPlaylist)
         return true;
-      }
       return false;
     }
   },

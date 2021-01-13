@@ -163,19 +163,16 @@ export default {
       return moment(this.live.pubDate).format('X');
     },
     description() {
-      if(this.live.description){
-          return this.live.description;
-      }else {
-        return '';
-      }
+      if(this.live.description)
+        return this.live.description;
+      return '';
 		},
     myOrganisationId(){
       return state.generalParameters.organisationId;
     },
 		organisationRight() {
-			if (this.isRoleLive && this.myOrganisationId === this.live.organisation.id) {
+			if (this.isRoleLive && this.myOrganisationId === this.live.organisation.id)
 				return true;
-			}
       return false;
     },
     isRoleLive() {
@@ -183,23 +180,20 @@ export default {
     },
 	
     duration() {
-      if(this.live.duration > 1){
-				if(this.live.duration > 600000){
-          return humanizeDuration(this.live.duration, {
-            language: 'fr',
-            largest: 1,
-            round: true,
-          });
-        }else{
-          return humanizeDuration(this.live.duration, {
-            language: 'fr',
-            largest: 2,
-            round: true,
-          });
-        }
-      }else{
-        return '';
-      }
+			if(this.live.duration <= 1)
+				return '';
+			if(this.live.duration > 600000){
+				return humanizeDuration(this.live.duration, {
+					language: 'fr',
+					largest: 1,
+					round: true,
+				});
+			}
+			return humanizeDuration(this.live.duration, {
+				language: 'fr',
+				largest: 2,
+				round: true,
+			});
 		},
   },
   methods:{
@@ -209,13 +203,13 @@ export default {
       return (first + " " + last).trim();
 		},
 		async fetchPodcastData(){
-			if(this.fetchConference && this.fetchConference.podcastId){
-				try {
-					this.live = await octopusApi.fetchPodcast(this.fetchConference.podcastId);
-				} catch {
-					this.$emit('deleteItem', this.index);
-					studioApi.deleteConference(this.$store, this.fetchConference.conferenceId);
-				}
+			if(!this.fetchConference || !this.fetchConference.podcastId)
+				return;
+			try {
+				this.live = await octopusApi.fetchPodcast(this.fetchConference.podcastId);
+			} catch {
+				this.$emit('deleteItem', this.index);
+				studioApi.deleteConference(this.$store, this.fetchConference.conferenceId);
 			}
 		},
 		deleteItem(){

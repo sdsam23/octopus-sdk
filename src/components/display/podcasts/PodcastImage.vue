@@ -180,72 +180,55 @@ export default {
     },
 
     imgUrl(){
-      if(this.isLiveToBeRecorded){
+      if(this.isLiveToBeRecorded)
         return "/img/clock.png";
-      }else if(this.podcast.processingStatus === "READY" || this.fetchConference){
-        if(!this.podcast.availability.visibility && this.podcast.availability.date){
+      if(this.podcast.processingStatus === "READY" || this.fetchConference){
+        if(!this.podcast.availability.visibility && this.podcast.availability.date)
           return "/img/clock.png";
-        }else{
-          return "/img/novisible.png";
-        }
-      }else if(this.podcast.processingStatus === "PLANNED" || this.podcast.processingStatus === "PROCESSING"){
-        return '/img/hourglass.png';
-      }else if(this.podcast.processingStatus === "CANCELED"){
-        return '/img/cancelled.png';
-      }else{
-        return '/img/caution.png';
+        return "/img/novisible.png";
       }
+      if(this.podcast.processingStatus === "PLANNED" || this.podcast.processingStatus === "PROCESSING")
+        return '/img/hourglass.png';
+      if(this.podcast.processingStatus === "CANCELED")
+        return '/img/cancelled.png';
+      return '/img/caution.png';
     },
 
     textVisible(){
-      if(this.isLiveToBeRecorded){
+      if(this.isLiveToBeRecorded)
         return this.$t("Podcast linked to waiting live");
-      }else if(this.podcast.processingStatus === "READY" || this.fetchConference){
-        if(!this.podcast.availability.visibility && this.podcast.availability.date){
+      if(this.podcast.processingStatus === "READY" || this.fetchConference){
+        if(!this.podcast.availability.visibility && this.podcast.availability.date)
           return this.$t('Podcast publish in future');
-        }else{
-          return this.$t('Podcast no visible');
-        }
-      }else if(this.podcast.processingStatus === "PLANNED" || this.podcast.processingStatus === "PROCESSING"){
-        return this.$t('Podcast in process');
-      }else if(this.podcast.processingStatus === "CANCELED"){
-        return this.$t('Podcast in cancelled status');
-      }else{
-        return this.$t('Podcast in error');
+        return this.$t('Podcast no visible');
       }
+      if(this.podcast.processingStatus === "PLANNED" || this.podcast.processingStatus === "PROCESSING")
+        return this.$t('Podcast in process');
+      if(this.podcast.processingStatus === "CANCELED")
+        return this.$t('Podcast in cancelled status');
+      return this.$t('Podcast in error');
     },
 
     statusText(){
-			if(this.fetchConference){
-				switch (this.fetchConference.status) {
-          case "PLANNED":
-            return this.$t('live in few time');
-					case "PENDING":
-             if(this.isAnimatorLive){
-              return this.$t("Open studio");
-            }else{
-              return this.$t('live upcoming');
-            }
-					case "RECORDING":
-						return this.$t("In live");
-					case "DEBRIEFING":
-            if(this.isAnimatorLive){
-              if(this.podcast.processingStatus === "READY_TO_RECORD"){
-                return this.$t("Not recording");
-              }else{
-                return this.$t("Debriefing");
-              }
-            }else{
-              return "";
-            }
-          case "ERROR":
-						return this.$t("In error");
-          case "PUBLISHING": return this.$t("Publishing");
-					default:
-						return "";
-				}
-			}
-			return "";
+      if(!this.fetchConference)
+        return "";
+      switch (this.fetchConference.status) {
+        case "PLANNED": return this.$t('live in few time');
+        case "PENDING":
+          if(this.isAnimatorLive)
+            return this.$t("Open studio");
+          return this.$t('live upcoming');
+        case "RECORDING":return this.$t("In live");
+        case "DEBRIEFING":
+          if(!this.isAnimatorLive)
+            return "";
+          if(this.podcast.processingStatus === "READY_TO_RECORD")
+            return this.$t("Not recording");
+          return this.$t("Debriefing");
+        case "ERROR":return this.$t("In error");
+        case "PUBLISHING": return this.$t("Publishing");
+        default:return "";
+      }
     },
 
     recordingLive(){
@@ -263,18 +246,18 @@ export default {
 
   methods: {
     play() {
-      if(this.recordingLive){
-        this.$store.commit('playerPlayPodcast', {
-          title: this.podcast.title,
-          audioUrl:this.podcast.audioUrl,
-          duration : this.podcast.duration,
-          conferenceId: this.fetchConference.conferenceId,
-          livePodcastId: this.podcast.podcastId,
-          organisation: this.podcast.organisation.id,
-        });
-      }else{
+      if(!this.recordingLive){
         this.$store.commit('playerPlayPodcast', this.podcast);
+        return;
       }
+      this.$store.commit('playerPlayPodcast', {
+        title: this.podcast.title,
+        audioUrl:this.podcast.audioUrl,
+        duration : this.podcast.duration,
+        conferenceId: this.fetchConference.conferenceId,
+        livePodcastId: this.podcast.podcastId,
+        organisation: this.podcast.organisation.id,
+      });
     },
     showDescription(){
       if(this.isDescription){

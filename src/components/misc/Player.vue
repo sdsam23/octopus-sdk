@@ -318,15 +318,13 @@ export default {
     ...mapState({
       display: (state) => state.player.status != "STOPPED",
       playerHeight(state) {
-        if (state.player.status == "STOPPED" || this.forceHide) {
+        if (state.player.status == "STOPPED" || this.forceHide)
           return 0;
-        } else if(window.innerWidth>450 && !this.showTimeline){
+        if(window.innerWidth>450 && !this.showTimeline)
           return "5rem";
-        } else if(window.innerWidth>450 && this.showTimeline){
+        if(window.innerWidth>450 && this.showTimeline)
           return "6rem";
-        }else{
-          return "3.5rem";
-        }
+        return "3.5rem";
       },
       status: (state) => state.player.status,
       podcast: (state) => state.player.podcast,
@@ -337,11 +335,9 @@ export default {
       commentsLoaded: (state) => state.comments.loadedComments,
 
       podcastImage: (state) => {
-        if (state.player.podcast) {
+        if (state.player.podcast)
           return state.player.podcast.imageUrl;
-        } else {
-          return "";
-        }
+        return "";
       },
 
       playedTime: (state) => {
@@ -349,9 +345,8 @@ export default {
           return DurationHelper.formatDuration(
             Math.round(state.player.elapsed * state.player.total)
           );
-        } else {
-          return "--:--";
         }
+        return "--:--";
       },
 
       percentProgress: (state) => {
@@ -359,37 +354,29 @@ export default {
       },
 
       totalTime: (state) => {
-        if (state.player.elapsed > 0 && state.player.total > 0) {
+        if (state.player.elapsed > 0 && state.player.total > 0)
           return DurationHelper.formatDuration(Math.round(state.player.total));
-        } else {
-          return "--:--";
-        }
+        return "--:--";
       },
-
       totalSecondes:(state) => state.player.total,
     }),
 
     audioUrl() {
-      if (this.media) {
+      if(this.media)
         return this.media.audioUrl;
+      if(!this.podcast)
+        return "";
+      if(!this.podcast.availability.visibility)
+        return this.podcast.audioStorageUrl;
+      if(this.listenError)
+        return this.podcast.audioStorageUrl;
+      let parameters = []
+      parameters.push("origin=octopus")
+      parameters.push("cookieName=player_" + this.podcast.podcastId);
+      if( this.$store.state.authentication && this.$store.state.authentication.organisationId){
+        parameters.push("distributorId=" + this.$store.state.authentication.organisationId)
       }
-      if (this.podcast) {
-        if (!this.podcast.availability.visibility) {
-          return this.podcast.audioStorageUrl;
-        }
-        if (this.listenError) {
-          return this.podcast.audioStorageUrl;
-        }
-
-        let parameters = []
-        parameters.push("origin=octopus")
-        parameters.push("cookieName=player_" + this.podcast.podcastId);
-        if( this.$store.state.authentication && this.$store.state.authentication.organisationId){
-          parameters.push("distributorId=" + this.$store.state.authentication.organisationId)
-        }
-        return this.podcast.audioUrl +"?"+ parameters.join("&");
-      }
-      return "";
+      return this.podcast.audioUrl +"?"+ parameters.join("&");
     },
 
     podcastShareUrl() {
@@ -399,36 +386,30 @@ export default {
           params: { podcastId: this.podcast.podcastId },
           query: { productor: this.$store.state.filter.organisationId },
         };
-      } else {
-        return "";
       }
+      return "";
     },
 
     podcastTitle() {
       if (this.podcast) {
-        if (this.isEmissionName) {
+        if (this.isEmissionName)
           return this.emissionName + " - " + this.podcast.title;
-        } else {
-          return this.podcast.title;
-        }
-      } else if (this.media) {
-        return this.media.title;
-      } else if (this.live) {
-        if(!this.hlsReady) {
-          return this.live.title + " ("+this.$t("Start in a while")+")";
-        }
-        return this.live.title;
-      } else {
-        return "";
+        return this.podcast.title;
       }
+      if(this.media)
+        return this.media.title;
+      if(this.live){
+        if(!this.hlsReady)
+          return this.live.title + " ("+this.$t("Start in a while")+")";
+        return this.live.title;
+      }
+      return "";
     },
 
     emissionName() {
-      if (this.podcast) {
+      if(this.podcast)
         return this.podcast.emission.name;
-      } else {
-        return "";
-      }
+      return "";
     },
 
     organisationId(){
@@ -442,9 +423,8 @@ export default {
         (state) => state.player.status,
         (newValue) => {
           const audioPlayer = document.querySelector("#audio-player");
-          if(!audioPlayer){
+          if(!audioPlayer)
             return;
-          }
           if(this.live && !this.hlsReady){
             audioPlayer.pause();
             this.percentLiveProgress= 0;
@@ -496,13 +476,14 @@ export default {
       const x = event.clientX - rect.left; //x position within the element.
 
       const percentPosition = x / barWidth;
-      if (percentPosition * 100 < this.percentLiveProgress) {
-        const seekTime = this.$store.state.player.total * percentPosition;
-        if (this.podcast || this.live) {
-          this.notListenTime = seekTime - this.listenTime;
-        }
-        audioPlayer.currentTime = seekTime;
+      if (percentPosition * 100 >= this.percentLiveProgress)
+        return;
+
+      const seekTime = this.$store.state.player.total * percentPosition;
+      if (this.podcast || this.live) {
+        this.notListenTime = seekTime - this.listenTime;
       }
+      audioPlayer.currentTime = seekTime;
     },
 
     onTimeUpdate(event) {
@@ -521,16 +502,13 @@ export default {
           this.listenTime =   event.currentTarget.currentTime - this.notListenTime;
         }
       }
-
       const streamDuration = event.currentTarget.duration;
-      if(!streamDuration){
+      if(!streamDuration)
         return;
-      }
 
       const playerCurrentTime = event.currentTarget.currentTime;
-      if(!playerCurrentTime) {
+      if(!playerCurrentTime)
         return;
-      }
 
       if(!this.live){
         this.displayAlertBar = false;
@@ -580,32 +558,32 @@ export default {
     },
 
     loadDownloadId() {
-      if(this.podcast){
-        const matching_cookies = document.cookie.split(";")
-                                 .map((item) => {
-                                    const _return = item.trim().split("=");
-                                    return _return.map((item) => item.trim())
-                                 })
-                                 .filter((item) => {
-                                    return item[0] === "player_"+this.podcast.podcastId
-                                 })
-        if(matching_cookies.length === 1){
-          this.setDownloadId(matching_cookies[0][1])
-        }
+      if(!this.podcast)
+        return;
+      const matching_cookies = document.cookie.split(";")
+      .map((item) => {
+        const _return = item.trim().split("=");
+        return _return.map((item) => item.trim())
+      })
+      .filter((item) => {
+        return item[0] === "player_"+this.podcast.podcastId
+      });
+      if(matching_cookies.length === 1){
+        this.setDownloadId(matching_cookies[0][1])
       }
     },
 
     async endListeningProgress() {
-      if (this.getDownloadId()) {
-        await octopusApi.updatePlayerTime(
-          this.getDownloadId(),
-          Math.round(this.listenTime)
-        );
-        this.setDownloadId(null);
-        this.notListenTime = 0;
-        this.lastSend = 0;
-        this.listenTime = 0;
-      }
+      if(!this.getDownloadId())
+        return;
+      await octopusApi.updatePlayerTime(
+        this.getDownloadId(),
+        Math.round(this.listenTime)
+      );
+      this.setDownloadId(null);
+      this.notListenTime = 0;
+      this.lastSend = 0;
+      this.listenTime = 0;
     },
 
     async initHls(hlsStreamUrl){
@@ -638,21 +616,20 @@ export default {
     },
 
     async playLive(){
-      if(this.live){
-        let hlsStreamUrl = state.podcastPage.hlsUri+'stream/dev.'+this.live.conferenceId+'/index.m3u8';
-        try{
-          await this.initHls(hlsStreamUrl);
-        } catch(error) {
-          console.log(error);
-          setTimeout(()=>{this.playLive();}, 1000);
-        }
+      if(!this.live)
+        return;
+      let hlsStreamUrl = state.podcastPage.hlsUri+'stream/dev.'+this.live.conferenceId+'/index.m3u8';
+      try{
+        await this.initHls(hlsStreamUrl);
+      } catch(error) {
+        console.log(error);
+        setTimeout(()=>{this.playLive();}, 1000);
       }
     },
 
     editRight(organisation) {
-      if ((state.generalParameters.isCommments && this.organisationId === organisation) || state.generalParameters.isAdmin) {
+      if ((state.generalParameters.isCommments && this.organisationId === organisation) || state.generalParameters.isAdmin)
         return true;
-      }
       return false;
     },
 
@@ -678,23 +655,23 @@ export default {
           count = this.$store.state.comments.totalCount;
         }
       }
-      if((podcastId && this.$store.state.comments.actualPodcastId !== podcastId) || first!==0){
-        while(first === 0 || this.comments.length < count){
-          let param = {
-            first: first,
-            size: size,
-            podcastId: podcastId,
-          }
-          if(!this.editRight(organisation)){
-            param.status = "Valid";
-          }
-          const data = await octopusApi.fetchRootComments(param);
-          first += size;
-          count = data.totalElements;
-          this.comments = this.comments.concat(data.content).filter((c)=>{
-            return c!== null;
-          });
+      if((!podcastId || this.$store.state.comments.actualPodcastId === podcastId) && first===0)
+        return;
+      while(first === 0 || this.comments.length < count){
+        let param = {
+          first: first,
+          size: size,
+          podcastId: podcastId,
         }
+        if(!this.editRight(organisation)){
+          param.status = "Valid";
+        }
+        const data = await octopusApi.fetchRootComments(param);
+        first += size;
+        count = data.totalElements;
+        this.comments = this.comments.concat(data.content).filter((c)=>{
+          return c!== null;
+        });
       }
     }
   },

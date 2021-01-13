@@ -117,12 +117,12 @@ export default {
     },
 
     onClose() {
-      if (!this.emission) {
-        this.emission = this.defaultanswer
-          ? getDefaultEmission(this.defaultanswer)
-          : "";
-        this.$emit("selected", this.emission);
-      }
+      if(this.emission)
+        return;
+      this.emission = this.defaultanswer
+        ? getDefaultEmission(this.defaultanswer)
+        : "";
+      this.$emit("selected", this.emission);
     },
 
     onEmissionSelected(emission) {

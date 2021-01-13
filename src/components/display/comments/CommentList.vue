@@ -118,17 +118,14 @@ export default {
       return state.generalParameters.organisationId;
     },
     podcastId(){
-      if(this.podcast){
+      if(this.podcast)
         return this.podcast.podcastId;
-      }else{
-        return undefined;
-      }
+      return undefined;
     },
 
     editRight() {
-      if (( state.generalParameters.isCommments && ((this.podcast && this.organisationId === this.podcast.organisation.id) || (this.organisationId === this.organisation))) || state.generalParameters.isAdmin) {
+      if (( state.generalParameters.isCommments && ((this.podcast && this.organisationId === this.podcast.organisation.id) || (this.organisationId === this.organisation))) || state.generalParameters.isAdmin)
         return true;
-      }
       return false;
     },
   },
@@ -175,12 +172,12 @@ export default {
     },
 
     resetData(reset){
-      if (reset) {
-        this.comments = [];
-        this.dfirst = 0;
-        this.loading = true;
-        this.loaded = false;
-      }
+      if(!reset)
+        return;
+      this.comments = [];
+      this.dfirst = 0;
+      this.loading = true;
+      this.loaded = false;
     },
     displayMore(event) {
       event.preventDefault();
@@ -189,49 +186,49 @@ export default {
     deleteComment(comment){
       if(!this.isFlat && comment.commentIdReferer && this.comId !== comment.commentIdReferer){
         this.$refs['comItem'+comment.commentIdReferer][0].receiveCommentEvent({type:"Delete", comment: comment});
-      }else{
-        let index = this.comments.findIndex(element => element.comId === comment.comId);
-        if(index !== -1){
-          this.totalCount -=1; 
-          if(this.dfirst !==0){
-            this.dfirst -=1;
-          }
-          this.comments.splice(index, 1);
-        }
+        return;
       }
+      let index = this.comments.findIndex(element => element.comId === comment.comId);
+      if(index == -1)
+        return;
+      this.totalCount -=1; 
+      if(this.dfirst !==0){
+        this.dfirst -=1;
+      }
+      this.comments.splice(index, 1);
     },
     updateComment(data){
       if(!this.isFlat && data.comment.commentIdReferer && this.comId !== data.comment.commentIdReferer){
         this.$refs['comItem'+data.comment.commentIdReferer][0].receiveCommentEvent({...data, type:"Update"});
-      }else{
-        let index = this.comments.findIndex(element => element.comId === data.comment.comId);
-        if(index !== -1){
-          if(data.status !== "Valid" && !this.editRight){
-            this.comments.splice(index, 1);
-          }else{
-            this.comments.splice(index, 1, data.comment);
-          }
-        }else if(data.status === "Valid" && !this.editRight){
-          if(this.comments.length > 0){
-            let indexNewComment = -1;
-            for (let i=0; i<this.comments.length; i++) {
-              if(moment(this.comments[i].date).isBefore(moment(data.comment.date))){
-                indexNewComment = i;
-                break;
-              }
-            }
-            if(indexNewComment !== -1){
-              this.comments.splice(indexNewComment, 0, data.comment);
-            }else{
-              this.comments.push(data.comment);
-            }
-          }else{
-            this.comments.unshift(data.comment);
-          }
+        return;
+      }
+      let index = this.comments.findIndex(element => element.comId === data.comment.comId);
+      if(index !== -1){
+        if(data.status !== "Valid" && !this.editRight){
+          this.comments.splice(index, 1);
+        }else{
+          this.comments.splice(index, 1, data.comment);
         }
-        if(this.comId && data.status){
-          this.$emit('updateStatus', data.status);
+      }else if(data.status === "Valid" && !this.editRight){
+        if(this.comments.length > 0){
+          let indexNewComment = -1;
+          for (let i=0; i<this.comments.length; i++) {
+            if(moment(this.comments[i].date).isBefore(moment(data.comment.date))){
+              indexNewComment = i;
+              break;
+            }
+          }
+          if(indexNewComment !== -1){
+            this.comments.splice(indexNewComment, 0, data.comment);
+          }else{
+            this.comments.push(data.comment);
+          }
+        }else{
+          this.comments.unshift(data.comment);
         }
+      }
+      if(this.comId && data.status){
+        this.$emit('updateStatus', data.status);
       }
     },
     addNewComment(comment, myself = false){
@@ -240,13 +237,13 @@ export default {
       }
       if(!this.isFlat && comment.commentIdReferer && this.comId !== comment.commentIdReferer){
         this.$refs['comItem'+comment.commentIdReferer][0].receiveCommentEvent({type:"Create", comment: comment});
-      }else{
-        let index = this.comments.findIndex(element => element.comId === comment.comId);
-        if(index === -1){
-          this.totalCount +=1; 
-          this.dfirst +=1;
-          this.comments.unshift(comment);
-        }
+        return;
+      }
+      let index = this.comments.findIndex(element => element.comId === comment.comId);
+      if(index === -1){
+        this.totalCount +=1; 
+        this.dfirst +=1;
+        this.comments.unshift(comment);
       }
     }
   },

@@ -55,11 +55,9 @@ import Multiselect from 'vue-multiselect';
 import {state} from "../../../store/paramStore.js";
 
 const getDefaultCategory = defaultName => {
-  if(defaultName !== undefined){
+  if(defaultName !== undefined)
     return {name: defaultName, id: 0};
-  } else {
-    return '';
-  }
+  return '';
 };
 
 export default {
@@ -169,13 +167,14 @@ export default {
       this.initCategorySelected(newVal);
     },
     category(newVal) {
-      if(this.categoryArray !== undefined){
-        let idsArray = [];
-        newVal.forEach((el)=>{
-          idsArray.push(el.id);
-        })
-        this.$emit('selected', idsArray);
-      }
+      if(this.categoryArray === undefined)
+        return;
+
+      let idsArray = [];
+      newVal.forEach((el)=>{
+        idsArray.push(el.id);
+      })
+      this.$emit('selected', idsArray);
     }
   }
 };

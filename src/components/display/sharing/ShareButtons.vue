@@ -118,15 +118,12 @@ export default {
       return state.generalParameters.authenticated;
     },
     rssUrl() {
-      if (this.emission) {
+      if (this.emission)
         return state.generalParameters.ApiUri + "rss/emission/" + this.emission.emissionId;
-      }
-      if (this.organisationId) {
+      if (this.organisationId)
         return state.generalParameters.ApiUri + "rss/productor/" + this.organisationId;
-      }
-      if (this.participantId) {
+      if (this.participantId)
         return state.generalParameters.ApiUri + "rss/participant/" + this.participantId;
-      }
       return null;
     },
   },
@@ -139,22 +136,22 @@ export default {
       this.dataRSSSave = false;
     },
     async onCopyCode() {
-      if (typeof(navigator.clipboard)=='undefined') {
-        let textArea = document.createElement("textarea");
-        textArea.value = window.location.href;
-        textArea.style.position="fixed";
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        var successful = document.execCommand('copy');
-        if(successful){
-          this.$refs.snackbar.open(this.$t('Link in clipboard'));
-        }
-        document.body.removeChild(textArea)            
-      } else{
+      if (typeof(navigator.clipboard)!=='undefined') {
         await navigator.clipboard.writeText(window.location.href);
         this.$refs.snackbar.open(this.$t('Link in clipboard'));
+        return;
       }
+      let textArea = document.createElement("textarea");
+      textArea.value = window.location.href;
+      textArea.style.position="fixed";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      var successful = document.execCommand('copy');
+      if(successful){
+        this.$refs.snackbar.open(this.$t('Link in clipboard'));
+      }
+      document.body.removeChild(textArea);            
     },
   }
 };

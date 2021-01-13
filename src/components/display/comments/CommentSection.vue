@@ -66,24 +66,23 @@ export default {
 
   computed: {
     isComments(){
-      if(this.podcast){
-        let podcastComment = "INHERIT";
-        if(this.podcast.annotations && this.podcast.annotations.COMMENTS){
-          podcastComment = this.podcast.annotations.COMMENTS;
-        }
-        let organisationComment = "LIVE_ONLY";
-        if(this.podcast.organisation.comments){
-          organisationComment = this.podcast.organisation.comments;
-        }
-        /* return (podcastComment === "YES" 
-        ||(podcastComment === "INHERIT" && organisationComment==="YES")
-        ||(podcastComment === "LIVE_ONLY" && this.podcast.processingStatus === 'READY_TO_RECORD')
-        ||(podcastComment === "INHERIT" && organisationComment==="LIVE_ONLY" && this.podcast.processingStatus === 'READY_TO_RECORD')
-        ||(podcastComment === "INHERIT" && organisationComment==="LIVE_RECORD" && this.podcast.conferenceId && this.podcast.conferenceId !== 0)); */
-        return !(podcastComment === "NO" 
-        ||(podcastComment === "INHERIT" && organisationComment==="NO"));
+      if(!this.podcast)
+        return true;
+      let podcastComment = "INHERIT";
+      if(this.podcast.annotations && this.podcast.annotations.COMMENTS){
+        podcastComment = this.podcast.annotations.COMMENTS;
       }
-      return true;
+      let organisationComment = "LIVE_ONLY";
+      if(this.podcast.organisation.comments){
+        organisationComment = this.podcast.organisation.comments;
+      }
+      /* return (podcastComment === "YES" 
+      ||(podcastComment === "INHERIT" && organisationComment==="YES")
+      ||(podcastComment === "LIVE_ONLY" && this.podcast.processingStatus === 'READY_TO_RECORD')
+      ||(podcastComment === "INHERIT" && organisationComment==="LIVE_ONLY" && this.podcast.processingStatus === 'READY_TO_RECORD')
+      ||(podcastComment === "INHERIT" && organisationComment==="LIVE_RECORD" && this.podcast.conferenceId && this.podcast.conferenceId !== 0)); */
+      return !(podcastComment === "NO" 
+      ||(podcastComment === "INHERIT" && organisationComment==="NO"));
     },
     knownIdentity: {
       get() {

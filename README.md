@@ -359,6 +359,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.21.34 Accessibility
  * 0.21.35 Comment number
 
+ * 0.22.0 Nouveau sprint
+
 
 
 

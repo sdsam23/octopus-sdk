@@ -32,11 +32,9 @@ export default {
     },
     categories(){
       return state.generalParameters.allCategories.filter(c => {
-        if(this.isPodcastmaker){
+        if(this.isPodcastmaker)
           return c.podcastOrganisationCount;
-        } else{
-          return c.podcastCount;
-        }
+        return c.podcastCount;
       });
     },
   },

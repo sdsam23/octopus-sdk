@@ -84,36 +84,32 @@ export default {
 
   computed:{
 			emissionName(){
-				if(this.displayEmissionName){
+				if(this.displayEmissionName)
 					return `<tr><td colspan="2" style="font-size: 16px;line-height:24px;font-weight: bold;">`+this.podcast.emission.name+`</td></tr>`;
-				}else{
-					return '';
-				}
+				return '';
 			},
 			participantsName(){
-				if(this.displayParticipantsNames && this.podcast.animators){
-					let text = "";
-					this.podcast.animators.forEach(element => {
-						text +=`<table width='100%' style="width:100%;background: #f3f3f3;font-family: Arial, sans-serif;font-size: 12px;line-height: 20px;border-bottom-left-radius: 1.5em;border-bottom-right-radius: 1.5em;">
-						<tr>
-							<td width="90" rowspan="2" style="text-align:left; vertical-align: top; width: 90px;padding:0 15px 15px 10px">
-								<img width="72"  style="width: 62px;height: 62px;border-radius: 50%;background-color: #fff;" src="`+element.imageUrl+`" alt="`+this.$t('Animator image')+`">
-							</td>
-							<td height="1" style="height: 1px;text-align:left; font-size: 14px;line-height:20px;vertical-align: top;font-weight: bold;padding-top: 23px;">`+this.getName(element)+`</td>
-						</tr>`;
-						if(element.description){
-							text += `<tr>
-								<td style="height: 100%;text-align:justify;padding-bottom: 15px;padding-right: 15px; font-size: 12px;line-height:16px;vertical-align: top">
-									`+element.description+`
-								</td>
-							</tr>`;
-						}
-						text +=	`</table>`;
-					});
-					return text;
-				}else{
+				if(!this.displayParticipantsNames || !this.podcast.animators)
 					return '';
-				}
+				let text = "";
+				this.podcast.animators.forEach(element => {
+					text +=`<table width='100%' style="width:100%;background: #f3f3f3;font-family: Arial, sans-serif;font-size: 12px;line-height: 20px;border-bottom-left-radius: 1.5em;border-bottom-right-radius: 1.5em;">
+					<tr>
+						<td width="90" rowspan="2" style="text-align:left; vertical-align: top; width: 90px;padding:0 15px 15px 10px">
+							<img width="72"  style="width: 62px;height: 62px;border-radius: 50%;background-color: #fff;" src="`+element.imageUrl+`" alt="`+this.$t('Animator image')+`">
+						</td>
+						<td height="1" style="height: 1px;text-align:left; font-size: 14px;line-height:20px;vertical-align: top;font-weight: bold;padding-top: 23px;">`+this.getName(element)+`</td>
+					</tr>`;
+					if(element.description){
+						text += `<tr>
+							<td style="height: 100%;text-align:justify;padding-bottom: 15px;padding-right: 15px; font-size: 12px;line-height:16px;vertical-align: top">
+								`+element.description+`
+							</td>
+						</tr>`;
+					}
+					text +=	`</table>`;
+				});
+				return text;
 			},
       newsletterHtml(){
 				let html = `<table width='100%' style="width:100%;background:#f3f3f3;font-family: Arial, sans-serif;font-size: 12px;line-height: 20px;border-top-left-radius: 1.5em;border-top-right-radius: 1.5em;">
@@ -152,30 +148,25 @@ export default {
 				return html;
 			},
 			date() {
-				if(moment(this.podcast.pubDate).year() !== 1970){
+				if(moment(this.podcast.pubDate).year() !== 1970)
 					return moment(this.podcast.pubDate).format("D MMMM YYYY [à] HH[h]mm");
-				}else{
-					return ""
-				}
+				return ""
 			},
 			duration() {
-				if(this.podcast.duration > 1){
-					if(this.podcast.duration > 600000){
-						return humanizeDuration(this.podcast.duration, {
-							language: 'fr',
-							largest: 1,
-							round: true,
-						});
-					}else{
-						return humanizeDuration(this.podcast.duration, {
-							language: 'fr',
-							largest: 2,
-							round: true,
-						});
-					}
-				}else{
+				if(this.podcast.duration <= 1)
 					return '';
+				if(this.podcast.duration > 600000){
+					return humanizeDuration(this.podcast.duration, {
+						language: 'fr',
+						largest: 1,
+						round: true,
+					});
 				}
+				return humanizeDuration(this.podcast.duration, {
+					language: 'fr',
+					largest: 2,
+					round: true,
+				});
 			},
   },
 
@@ -195,24 +186,23 @@ export default {
 			element.target.focus();
 			element.target.select();
 		},
-		
-    async onCopyCode(link) {
-      if (typeof(navigator.clipboard)=='undefined') {
-        let textArea = document.createElement("textarea");
-        textArea.value = link;
-        textArea.style.position="fixed";
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        var successful = document.execCommand('copy');
-        if(successful){
-          this.$refs.snackbar.open(this.$t('Link in clipboard'));
-        }
-        document.body.removeChild(textArea)            
-      } else{
+		async onCopyCode(link) {
+      if (typeof(navigator.clipboard)!=='undefined') {
         await navigator.clipboard.writeText(link);
-        this.$refs.snackbar.open(this.$t('Link in clipboard'));
+        this.$refs.snackbar.open(this.$t('Data in clipboard'));
+        return;
       }
+      let textArea = document.createElement("textarea");
+      textArea.value = link;
+      textArea.style.position="fixed";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      var successful = document.execCommand('copy');
+      if(successful){
+        this.$refs.snackbar.open(this.$t('Data in clipboard'));
+      }
+      document.body.removeChild(textArea);            
     },
   },
 };

@@ -106,30 +106,26 @@ export default {
 
   computed:{
     isPresent(){
-      if(this.podcast){
-        let podcastComment = "INHERIT";
-        if(this.podcast.annotations && this.podcast.annotations.COMMENTS){
-          podcastComment = this.podcast.annotations.COMMENTS;
-        }
-        let organisationComment = "LIVE_ONLY";
-        if(this.podcast.organisation.comments){
-          organisationComment = this.podcast.organisation.comments;
-        }
-        if((podcastComment === "LIVE_ONLY" && this.podcast.processingStatus !== 'READY_TO_RECORD') || 
-        (podcastComment === "INHERIT" && organisationComment==="LIVE_ONLY" && this.podcast.processingStatus !== 'READY_TO_RECORD')){
-          return false;
-        }else{
-          return true;
-        }
+      if(!this.podcast)
+        return true;
+      let podcastComment = "INHERIT";
+      if(this.podcast.annotations && this.podcast.annotations.COMMENTS){
+        podcastComment = this.podcast.annotations.COMMENTS;
+      }
+      let organisationComment = "LIVE_ONLY";
+      if(this.podcast.organisation.comments){
+        organisationComment = this.podcast.organisation.comments;
+      }
+      if((podcastComment === "LIVE_ONLY" && this.podcast.processingStatus !== 'READY_TO_RECORD') || 
+      (podcastComment === "INHERIT" && organisationComment==="LIVE_ONLY" && this.podcast.processingStatus !== 'READY_TO_RECORD')){
+        return false;
       }
       return true;
     },
     placeholder(){
-      if(this.comId){
+      if(this.comId)
         return this.$t('Answer a comment');
-      }else{
-        return this.$t('Write a comment');
-      }
+      return this.$t('Write a comment');
     },
     organisationId(){
       return state.generalParameters.organisationId;
@@ -138,27 +134,21 @@ export default {
       return state.generalParameters.authenticated;
     },
     isCertified() {
-      if ((state.generalParameters.isCommments && this.organisationId === this.podcast.organisation.id) || state.generalParameters.isAdmin) {
+      if ((state.generalParameters.isCommments && this.organisationId === this.podcast.organisation.id) || state.generalParameters.isAdmin)
         return true;
-      }
       return false;
     },
     userId(){
-      if(this.authenticated){
+      if(this.authenticated)
         return this.$store.state.profile.userId;
-      }
       return undefined;
     },
     phase(){
-      if(this.podcast.conferenceId && this.podcast.conferenceId !== 0 && this.podcast.processingStatus === 'READY_TO_RECORD'){
-        if(this.fetchConference && (this.fetchConference.status === "PLANNED" || this.fetchConference.status === "PENDING")){
-          return "Prelive"
-        }else{
-          return "Live"
-        }
-      }else{
+      if(!this.podcast.conferenceId || this.podcast.conferenceId === 0 || this.podcast.processingStatus !== 'READY_TO_RECORD')
         return "Podcast";
-      }
+      if(this.fetchConference && (this.fetchConference.status === "PLANNED" || this.fetchConference.status === "PENDING"))
+        return "Prelive";
+      return "Live";
     },
   },
 

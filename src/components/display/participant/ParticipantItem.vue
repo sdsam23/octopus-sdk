@@ -75,11 +75,9 @@ export default {
     description() {
       let description;
       description = this.participant.description || '';
-      if (state.generalParameters.isIE11) {
+      if (state.generalParameters.isIE11)
         return description.substring(0, 50) + '...';
-      } else {
-        return description;
-      }
+      return description;
     },
 
     name() {
@@ -88,11 +86,9 @@ export default {
         ' ' +
         (this.participant.lastName || '')
       ).trim();
-      if (state.generalParameters.isIE11) {
+      if (state.generalParameters.isIE11)
         return fullName.substring(0, 50) + '...';
-      } else {
-        return fullName;
-      }
+      return fullName;
     },
 
     organisationId(){
@@ -104,9 +100,8 @@ export default {
     },
 
     editRight() {
-      if ((this.authenticated && this.organisationId === this.participant.orga.id) || state.generalParameters.isAdmin) {
+      if ((this.authenticated && this.organisationId === this.participant.orga.id) || state.generalParameters.isAdmin)
         return true;
-      }
       return false;
     }
   },

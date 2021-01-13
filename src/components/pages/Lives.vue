@@ -53,9 +53,8 @@ export default {
 
   computed:{
     liveRight() {
-      if (this.isRoleLive && this.live) {
+      if (this.isRoleLive && this.live)
         return true;
-      }
       return false;
     },
     isRoleLive() {

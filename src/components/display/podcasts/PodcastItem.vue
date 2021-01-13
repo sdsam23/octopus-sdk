@@ -144,23 +144,17 @@ export default {
     },
 
     description() {
-      if(this.podcast.description){
-        if(this.podcast.description.length > 230){
-          return this.podcast.description.substring(0, 230) + '...';
-        } else {
-          return this.podcast.description;
-        }
-      }else {
+      if(!this.podcast.description)
         return null;
-      }
+      if(this.podcast.description.length > 230)
+        return this.podcast.description.substring(0, 230) + '...';
+      return this.podcast.description;
     },
 
     title() {
-      if (state.generalParameters.isIE11) {
+      if (state.generalParameters.isIE11)
         return this.podcast.title.substring(0, 50) + '...';
-      } else {
-        return this.podcast.title;
-      }
+      return this.podcast.title;
     },
     organisationId(){
       return state.generalParameters.organisationId;
@@ -169,49 +163,46 @@ export default {
       return state.generalParameters.authenticated;
     },
     editRight() {
-      if ((this.authenticated && this.organisationId === this.podcast.organisation.id) || state.generalParameters.isAdmin) {
+      if ((this.authenticated && this.organisationId === this.podcast.organisation.id) || state.generalParameters.isAdmin)
         return true;
-      }
       return false;
     },
 
     duration() {
-      if(this.podcast.duration > 1){
-        if(this.podcast.duration > 600000){
-          return humanizeDuration(this.podcast.duration, {
-            language: 'shortFr',
-            largest: 1,
-            round: true,
-            languages: {
-              shortFr: {
-                y: () => "années",
-                mo: () => "mois",
-                w: () => "semaines",
-                d: () => "jours",
-                h: () => "h",
-                m: () => "min",
-                s: () => "sec",
-                ms: () => "ms",
-              },
-            },
-          });
-        }else{
-          return humanizeDuration(this.podcast.duration, {
-            language: 'shortFr',
-            largest: 2,
-            round: true,
-            languages: {
-              shortFr: {
-                m: () => "min",
-                s: () => "sec",
-                ms: () => "ms",
-              },
-            },
-          });
-        }
-      }else{
+      if(this.podcast.duration <= 1)
         return '';
+
+      if(this.podcast.duration > 600000){
+        return humanizeDuration(this.podcast.duration, {
+          language: 'shortFr',
+          largest: 1,
+          round: true,
+          languages: {
+            shortFr: {
+              y: () => "années",
+              mo: () => "mois",
+              w: () => "semaines",
+              d: () => "jours",
+              h: () => "h",
+              m: () => "min",
+              s: () => "sec",
+              ms: () => "ms",
+            },
+          },
+        });
       }
+      return humanizeDuration(this.podcast.duration, {
+        language: 'shortFr',
+        largest: 2,
+        round: true,
+        languages: {
+          shortFr: {
+            m: () => "min",
+            s: () => "sec",
+            ms: () => "ms",
+          },
+        },
+      });
     },
   },
   methods:{

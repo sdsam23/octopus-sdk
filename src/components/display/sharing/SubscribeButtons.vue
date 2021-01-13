@@ -76,12 +76,11 @@ export default {
 
   methods: {
     externaliseLinks(link){
-      if(link){
-        link = link.trim();
-        if(!link.startsWith('http') && !link.startsWith('//')){
-          return '//' + link;
-        }
-      }
+      if(!link)
+        return link;
+      link = link.trim();
+      if(!link.startsWith('http') && !link.startsWith('//'))
+        return '//' + link;
       return link;
     },
   }

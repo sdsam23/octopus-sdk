@@ -72,11 +72,9 @@ export default {
 
   computed: {
     query() {
-      if (this.rawQuery && this.rawQuery.length >= 3) {
+      if (this.rawQuery && this.rawQuery.length >= 3)
         return this.rawQuery;
-      } else {
-        return '';
-      }
+      return '';
     },
     hideBar(){
       return state.searchPage.hideBar;

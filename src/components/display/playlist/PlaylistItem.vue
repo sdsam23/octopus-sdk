@@ -53,19 +53,15 @@ export default {
     description() {
       let description;
       description = this.playlist.description || '';
-      if (state.generalParameters.isIE11) {
+      if (state.generalParameters.isIE11)
         return description.substring(0, 50) + '...';
-      } else {
-        return description;
-      }
+      return description;
     },
 
     name() {
-      if (state.generalParameters.isIE11) {
+      if (state.generalParameters.isIE11)
         return this.playlist.title.substring(0, 50) + '...';
-      } else {
-        return this.playlist.title;
-      }
+      return this.playlist.title;
     },
 
     organisationId(){
@@ -73,9 +69,8 @@ export default {
     },
 
     editRight() {
-      if ((state.generalParameters.isPlaylist && this.organisationId === this.playlist.organisation.id )|| state.generalParameters.isAdmin) {
+      if ((state.generalParameters.isPlaylist && this.organisationId === this.playlist.organisation.id )|| state.generalParameters.isAdmin)
         return true;
-      }
       return false;
     },
     activePlaylist(){

@@ -183,21 +183,21 @@ export default {
 
   async mounted() {
     await this.getPodcastDetails(this.podcastId);
-    if(this.isLiveReadyToRecord){
-      if(this.isOctopusAndAnimator){
-        let data = await studioApi.getConference(this.$store, this.podcast.conferenceId);
-        if(data.data !== ""){
-          this.fetchConference = data.data;
-        }else{
-          this.fetchConference = "null";
-        }
+    if(!this.isLiveReadyToRecord)
+      return;
+    if(this.isOctopusAndAnimator){
+      let data = await studioApi.getConference(this.$store, this.podcast.conferenceId);
+      if(data.data !== ""){
+        this.fetchConference = data.data;
       }else{
-        let data = await studioApi.getRealConferenceStatus(this.$store, this.podcast.conferenceId);
-        this.fetchConference = {status : data.data, conferenceId: this.podcast.conferenceId};
+        this.fetchConference = "null";
       }
-      if(this.fetchConference !== "null" && this.fetchConference.status !=="PUBLISHING" && this.fetchConference.status !=="DEBRIEFING"){
-        this.$emit('initConferenceId',this.podcast.conferenceId);
-      }
+    }else{
+      let data = await studioApi.getRealConferenceStatus(this.$store, this.podcast.conferenceId);
+      this.fetchConference = {status : data.data, conferenceId: this.podcast.conferenceId};
+    }
+    if(this.fetchConference !== "null" && this.fetchConference.status !=="PUBLISHING" && this.fetchConference.status !=="DEBRIEFING"){
+      this.$emit('initConferenceId',this.podcast.conferenceId);
     }
   },
 
@@ -256,59 +256,50 @@ export default {
         this.podcast.emission.iabIds.length
       ) {
         return this.podcast.emission.iabIds[0];
-      } else {
-        return 0;
       }
+      return 0;
     },
 
     categories() {
-      if (typeof this.podcast !== "undefined") {
-        return this.allCategories
-          .filter(item => {
-            return  this.podcast.emission.iabIds && this.podcast.emission.iabIds.indexOf(item.id) !== -1;
-          })
-          .sort((a, b) => {
-            if (a.id === this.emissionMainCategory) return -1;
-            if (b.id === this.emissionMainCategory) return 1;
-            return 0;
-          });
-      } else {
+      if (typeof this.podcast === "undefined")
         return "";
-      }
+      return this.allCategories
+        .filter(item => {
+          return  this.podcast.emission.iabIds && this.podcast.emission.iabIds.indexOf(item.id) !== -1;
+        })
+        .sort((a, b) => {
+          if (a.id === this.emissionMainCategory) return -1;
+          if (b.id === this.emissionMainCategory) return 1;
+          return 0;
+        });
     },
 
     date() {
-      if(moment(this.podcast.pubDate).year() !== 1970){
+      if(moment(this.podcast.pubDate).year() !== 1970)
         return moment(this.podcast.pubDate).format("D MMMM YYYY [à] HH[h]mm");
-      }else{
-        return ""
-      }
+      return ""
     },
 
     duration() {
-      if(this.podcast.duration > 1){
-        if(this.podcast.duration > 600000){
-          return humanizeDuration(this.podcast.duration, {
-            language: 'fr',
-            largest: 1,
-            round: true,
-          });
-        }else{
-          return humanizeDuration(this.podcast.duration, {
-            language: 'fr',
-            largest: 2,
-            round: true,
-          });
-        }
-      }else{
+      if(this.podcast.duration <= 1)
         return '';
+      if(this.podcast.duration > 600000){
+        return humanizeDuration(this.podcast.duration, {
+          language: 'fr',
+          largest: 1,
+          round: true,
+        });
       }
+      return humanizeDuration(this.podcast.duration, {
+        language: 'fr',
+        largest: 2,
+        round: true,
+      });
     },
 
     editRight() {
-      if ((this.authenticated && this.organisationId === this.podcast.organisation.id) || state.generalParameters.isAdmin) {
+      if ((this.authenticated && this.organisationId === this.podcast.organisation.id) || state.generalParameters.isAdmin)
         return true;
-      }
       return false;
     },
     isReady(){
@@ -347,11 +338,9 @@ export default {
       return !this.isPodcastmaker && this.editRight && state.generalParameters.isRoleLive;
     },
     titlePage(){
-      if(this.isLiveReadyToRecord){
+      if(this.isLiveReadyToRecord)
         return this.$t('Live episode');
-      }else{
-        return this.$t('Episode');
-      }
+      return this.$t('Episode');
     },
     timeRemaining(){
       return moment(this.podcast.pubDate).diff(moment(), 'seconds');
@@ -400,13 +389,11 @@ export default {
 
     urlify(text) {
       let urlRegex = /(https?:\/\/[^\s]+)/g;
-      if(text){
-        return text.replace(urlRegex, (url) =>{
-          return '<a href="' + url + '">' + url + '</a>';
-        });
-      }else{
+      if(!text)
         return '';
-      }
+      return text.replace(urlRegex, (url) =>{
+        return '<a href="' + url + '">' + url + '</a>';
+      });
     },
     removeDeleted() {
       if(window.history.length > 1){

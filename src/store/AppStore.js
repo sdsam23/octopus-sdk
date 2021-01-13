@@ -6,7 +6,11 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    education: false,
+    general:{
+      metaTitle: "Octopus by Saooti",
+      education: false,
+      logoUrl:"/img/logo_octopus.png",
+    },
 		player: {
       status: 'STOPPED', //STOPPED, LOADING, PLAYING, PAUSED
       podcast: undefined,

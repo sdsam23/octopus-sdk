@@ -108,11 +108,9 @@ export default {
 
   computed: {
     query() {
-      if (this.searchPattern.length >= 3) {
+      if (this.searchPattern.length >= 3)
         return this.searchPattern;
-      } else {
-        return '';
-      }
+      return '';
     },
   },
 

@@ -164,32 +164,31 @@ export default {
 
     displayNext() {
       this.direction = 1;
-      if (this.nextAvailable) {
-        if (
-          this.first - (this.index + this.size) < 2 &&
-          this.allEmissions.length < this.totalCount
-        ) {
-          this.fetchNext();
-        }
-        this.index += 1;
+      if(!this.nextAvailable)
+        return;
+      if(this.first - (this.index + this.size) < 2 &&this.allEmissions.length < this.totalCount) {
+        this.fetchNext();
       }
+      this.index += 1;
     },
 
     handleResize() {
-      if (this.$el) {
-        if (window.innerWidth <= PHONE_WIDTH) {
-          this.size = 10;
-        } else if(this.overflowScroll) {
-          this.size = 20;
-        } else{
-          const width = this.$el.offsetWidth;
-          let sixteen = domHelper.convertRemToPixels(13.7);
-          if(this.itemSize){
-            sixteen = domHelper.convertRemToPixels(this.itemSize + .7);
-          }
-          this.size = Math.floor(width / sixteen);
-        }
+      if(!this.$el)
+        return;
+      if (window.innerWidth <= PHONE_WIDTH) {
+        this.size = 10;
+        return;
       }
+      if(this.overflowScroll) {
+        this.size = 20;
+        return;
+      }
+      const width = this.$el.offsetWidth;
+      let sixteen = domHelper.convertRemToPixels(13.7);
+      if(this.itemSize){
+        sixteen = domHelper.convertRemToPixels(this.itemSize + .7);
+      }
+      this.size = Math.floor(width / sixteen);
     },
 
     reset() {
@@ -210,19 +209,15 @@ export default {
       this.rubriques = data.rubriques; 
     },
     rubriquesId(emission){
-      if(this.displayRubriquage && emission.rubriqueIds && emission.rubriqueIds.length !== 0 && this.rubriques && this.rubriques.length){
-        let rubrique = this.rubriques.find(element => element.rubriqueId === emission.rubriqueIds[0]);
-        return rubrique.name;
-      }else{
+      if(!this.displayRubriquage || !emission.rubriqueIds || emission.rubriqueIds.length === 0 || !this.rubriques || !this.rubriques.length)
         return undefined;
-      }
+      let rubrique = this.rubriques.find(element => element.rubriqueId === emission.rubriqueIds[0]);
+      return rubrique.name;
     },
     mainRubriquage(emission){
-      if(emission.rubriqueIds && emission.rubriqueIds[0] === state.emissionsPage.mainRubrique){
+      if(emission.rubriqueIds && emission.rubriqueIds[0] === state.emissionsPage.mainRubrique)
         return "partenaireRubrique";
-      }else{
-        return "";
-      }
+      return "";
     },
   },
 };

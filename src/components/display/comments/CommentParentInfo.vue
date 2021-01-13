@@ -44,12 +44,10 @@ export default {
   },
 
   computed: {
-	date() {
-      if(this.comment.date){
+    date() {
+      if(this.comment.date)
         return moment(this.comment.date).format("D MMMM YYYY HH[h]mm");
-      }else{
-        return ""
-      }
+      return ""
     },
     limitContent(){
       if(!this.comment.content) return '';
@@ -57,18 +55,14 @@ export default {
       return this.comment.content.substring(0, 300 )+ '...';
     },
     readMore(){
-      if(this.summary){
+      if(this.summary)
         return this.$t('Read more');
-      }else{
-        return this.$t('Read less');
-      }
+      return this.$t('Read less');
     },
     contentDisplay(){
-      if(this.summary){
+      if(this.summary)
         return this.limitContent;
-      }else{
-        return this.comment.content;
-      }
+      return this.comment.content;
     },
   },
 

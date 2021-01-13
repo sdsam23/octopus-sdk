@@ -159,17 +159,14 @@ export default {
   },
   computed: {
     titleStillAvailable(){
-      if(this.isPodcastNotVisible){
+      if(this.isPodcastNotVisible)
         return this.$t('Podcast still available');
-      }
       return this.$t('Podcasts still available');
     },
     isLiveReadyToRecord(){
-      if(this.podcast){
+      if(this.podcast)
         return this.podcast.conferenceId && this.podcast.conferenceId !== 0 && this.podcast.processingStatus === 'READY_TO_RECORD';
-      }else{
-        return false;
-      }
+      return false;
     },
     noAd() {
       if (
@@ -181,9 +178,8 @@ export default {
           this.podcast.emission.monetisable === "NO")
       ) {
         return true;
-      } else {
-        return false;
       }
+      return false;
     },
     authenticated() {
       return state.generalParameters.authenticated;
@@ -238,9 +234,9 @@ export default {
     iFrameHeight() {
       switch (this.iFrameModel) {
         case 'large':
-          if(this.podcast){
+          if(this.podcast)
             return '180px';
-          } else if(this.episodeNumbers==='number'){
+          if(this.episodeNumbers==='number'){
             switch(this.iFrameNumber){
               case "1": return '185px';
               case "2": return '240px';
@@ -249,31 +245,26 @@ export default {
               case "5": return '390px';
               default: return '435px';
             }
-          }else{
-            return '435px';
           }
+          return '435px';
        case 'largeEmission':
         case 'largeSuggestion':
-          if(this.episodeNumbers==='number'){
-            switch(this.iFrameNumber){
-              case "1": return '260px';
-              case "2": return '315px';
-              case "3": return '365px';
-              case "4": return '420px';
-              case "5": return '465px';
-              default: return '510px';
-            }
-          }else{
+          if(this.episodeNumbers!=='number')
             return '510px';
+          switch(this.iFrameNumber){
+            case "1": return '260px';
+            case "2": return '315px';
+            case "3": return '365px';
+            case "4": return '420px';
+            case "5": return '465px';
+            default: return '510px';
           }
         case "emission":
           return "530px";
         default:
-          if (this.podcast) {
+          if (this.podcast)
             return "520px";
-          } else {
-            return "530px";
-          }
+          return "530px";
       }
     },
 
@@ -286,38 +277,36 @@ export default {
     },
 
     dataTitle(){
-      if(this.podcast){
+      if(this.podcast)
         return this.podcast.podcastId;
-      }else if (this.emission){
+      if (this.emission)
         return this.emission.emissionId;
-      }else{
-        return this.playlist.playlistId;
-      }
+      return this.playlist.playlistId;
     },
   },
 
   methods: {
     async initColor(){
+      if(!this.authenticated)
+        return;
       let orgaId = undefined;
-      if(this.authenticated){
-        if(this.podcast){
-          orgaId= this.podcast.organisation.id;
-        }else if(this.playlist){
-          orgaId= this.playlist.organisation.id;
-        }else{
-          orgaId= this.emission.orga.id;
-        }
-        const data = await profileApi.fetchOrganisationAttibutes(this.$store, orgaId);
-        if(data.hasOwnProperty('COLOR')) {
-          this.color = data.COLOR;
-        } else {
-          this.color = "#40a372";
-        }
-        if(data.hasOwnProperty('THEME')) {
-          this.theme = data.THEME;
-        } else {
-          this.theme = "#ffffff";
-        }
+      if(this.podcast){
+        orgaId= this.podcast.organisation.id;
+      }else if(this.playlist){
+        orgaId= this.playlist.organisation.id;
+      }else{
+        orgaId= this.emission.orga.id;
+      }
+      const data = await profileApi.fetchOrganisationAttibutes(this.$store, orgaId);
+      if(data.hasOwnProperty('COLOR')) {
+        this.color = data.COLOR;
+      } else {
+        this.color = "#40a372";
+      }
+      if(data.hasOwnProperty('THEME')) {
+        this.theme = data.THEME;
+      } else {
+        this.theme = "#ffffff";
       }
     },
     updateEpisodeNumber(value){

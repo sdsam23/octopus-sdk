@@ -138,13 +138,11 @@ export default {
       return this.$store.state.filter.organisationId;
     },
     organisation(){
-      if(this.organisationId){
+      if(this.organisationId)
         return this.organisationId;
-      }else if(this.filterOrga){
+      if(this.filterOrga)
         return this.filterOrga;
-      }else {
-        return undefined;
-      }
+      return undefined;
     },
   },
 
@@ -203,19 +201,15 @@ export default {
       this.rubriques = data.rubriques; 
     },
     mainRubriquage(emission){
-      if(emission.rubriqueIds && emission.rubriqueIds[0] === state.emissionsPage.mainRubrique){
+      if(emission.rubriqueIds && emission.rubriqueIds[0] === state.emissionsPage.mainRubrique)
         return "partenaireRubrique";
-      }else{
-        return "";
-      }
+      return "";
     },
     rubriquesId(emission){
-      if(this.displayRubriquage && emission.rubriqueIds && emission.rubriqueIds.length !== 0 && this.rubriques && this.rubriques.length){
-        let rubrique = this.rubriques.find(element => element.rubriqueId === emission.rubriqueIds[0]);
-        return rubrique.name;
-      }else{
+      if(!this.displayRubriquage || !emission.rubriqueIds || emission.rubriqueIds.length === 0 || !this.rubriques || !this.rubriques.length)
         return undefined;
-      }
+      let rubrique = this.rubriques.find(element => element.rubriqueId === emission.rubriqueIds[0]);
+      return rubrique.name;
     },
   },
 

@@ -174,20 +174,16 @@ export default {
       return this.$store.state.filter.organisationId;
     },
     organisation(){
-      if(this.organisationId){
+      if(this.organisationId)
         return this.organisationId;
-      }else if(this.filterOrga){
+      if(this.filterOrga)
         return this.filterOrga;
-      }else {
-        return undefined;
-      }
+      return undefined;
     },
     refTo(){
-      if(this.href){
+      if(this.href)
         return this.href;
-      }else{
-        return { name: 'category', params: {iabId:this.iabId}, query:{productor: this.$store.state.filter.organisationId }};
-      }
+      return { name: 'category', params: {iabId:this.iabId}, query:{productor: this.$store.state.filter.organisationId }};
     },
     previousAvailable() {
       return this.index > 0;
@@ -236,43 +232,45 @@ export default {
 
     displayNext() {
       this.direction = 1;
-      if (this.nextAvailable) {
-        if (
-          this.first - (this.index + this.size) < 2 &&
-          this.allPodcasts.length < this.totalCount
-        ) {
-          this.fetchNext();
-        }
-        this.index += 1;
+      if(!this.nextAvailable)
+        return;
+      if (
+        this.first - (this.index + this.size) < 2 &&
+        this.allPodcasts.length < this.totalCount
+      ) {
+        this.fetchNext();
       }
+      this.index += 1;
     },
 
     handleResize() {
-      if (this.$el) {
-        if (window.innerWidth <= PHONE_WIDTH) {
-          this.size = 10;
-        } else {
-          const width = this.$el.offsetWidth;
-          const sixteen = domHelper.convertRemToPixels(13.7);
-          this.size = Math.floor(width / sixteen);
-        }
+      if(!this.$el)
+        return;
+      if (window.innerWidth <= PHONE_WIDTH) {
+        this.size = 10;
+        return;
       }
+      const width = this.$el.offsetWidth;
+      const sixteen = domHelper.convertRemToPixels(13.7);
+      this.size = Math.floor(width / sixteen);
     },
 
     sortPopular() {
-      if (!this.popularSort) {
-        this.popularSort = true;
-        this.reset();
-        this.fetchNext();
-      }
+      if(this.popularSort)
+        return;
+
+      this.popularSort = true;
+      this.reset();
+      this.fetchNext();
     },
 
     sortChrono() {
-      if (this.popularSort) {
-        this.popularSort = false;
-        this.reset();
-        this.fetchNext();
-      }
+      if(!this.popularSort)
+        return;
+      
+      this.popularSort = false;
+      this.reset();
+      this.fetchNext();
     },
 
     reset() {

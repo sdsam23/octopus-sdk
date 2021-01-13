@@ -139,9 +139,8 @@ export default {
     },
 
     editRight() {
-      if ((this.authenticated && this.organisationId === this.emission.orga.id) ||state.generalParameters.isAdmin ) {
+      if ((this.authenticated && this.organisationId === this.emission.orga.id) ||state.generalParameters.isAdmin )
         return true;
-      }
       return false;
     },
     countLink(){
@@ -173,19 +172,19 @@ export default {
         this.emission = data;
         this.$emit('emissionTitle', this.name);
         this.loaded = true;
-        if (this.emission.annotations) {
-          if (this.emission.annotations.RSS) {
-            this.rssEmission = true;
-          }
-          if (this.emission.annotations.exclusive) {
-            this.exclusive =
-              this.emission.annotations.exclusive == "true" ? true : false;
-            this.exclusive =
-              this.exclusive && this.organisationId !== this.emission.orga.id;
-          }
-          if (this.emission.annotations.notExclusive) {
-            this.notExclusive = this.emission.annotations.notExclusive == "true" ? true : false;
-          }
+        if(!this.emission.annotations)
+          return;
+        if (this.emission.annotations.RSS) {
+          this.rssEmission = true;
+        }
+        if (this.emission.annotations.exclusive) {
+          this.exclusive =
+            this.emission.annotations.exclusive == "true" ? true : false;
+          this.exclusive =
+            this.exclusive && this.organisationId !== this.emission.orga.id;
+        }
+        if (this.emission.annotations.notExclusive) {
+          this.notExclusive = this.emission.annotations.notExclusive == "true" ? true : false;
         }
       } catch {
         this.error = true;
@@ -198,9 +197,8 @@ export default {
         return text.replace(urlRegex, (url) =>{
           return '<a href="' + url + '">' + url + '</a>';
         });
-      }else{
-        return '';
       }
+      return '';
     },
     fetch(/* podcasts */){
       // Interdire supression si podcast en process

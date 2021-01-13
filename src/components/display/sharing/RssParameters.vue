@@ -73,36 +73,36 @@ export default {
   },
   computed:{
     rss(){
-        let rss = this.rssLink;
-        if(this.episodeBefore || this.episodeAfter){
-          rss += '?';
-          if(this.episodeBefore){
-            rss += 'minAge=';
-            if(this.numberEpisodeBefore<=1){
-              rss += '1';
-            }else{
-              rss += this.numberEpisodeBefore;
-            }
-            if(this.typeEpisodeBefore === 'h'){
-              rss += 'h';
-            }
-            if(this.episodeAfter){
-              rss += '&'
-            }
-          }
-          if(this.episodeAfter){
-            rss += 'maxAge=';
-            if(this.numberEpisodeAfter<=1){
-              rss += '1';
-            }else{
-              rss += this.numberEpisodeAfter;
-            }
-            if(this.typeEpisodeAfter === 'h'){
-              rss += 'h';
-            }
-          }
-        }
-        return rss;
+			let rss = this.rssLink;
+			if(!this.episodeBefore && !this.episodeAfter)
+				return rss;
+			rss += '?';
+			if(this.episodeBefore){
+				rss += 'minAge=';
+				if(this.numberEpisodeBefore<=1){
+					rss += '1';
+				}else{
+					rss += this.numberEpisodeBefore;
+				}
+				if(this.typeEpisodeBefore === 'h'){
+					rss += 'h';
+				}
+				if(this.episodeAfter){
+					rss += '&'
+				}
+			}
+			if(this.episodeAfter){
+				rss += 'maxAge=';
+				if(this.numberEpisodeAfter<=1){
+					rss += '1';
+				}else{
+					rss += this.numberEpisodeAfter;
+				}
+				if(this.typeEpisodeAfter === 'h'){
+					rss += 'h';
+				}
+			}
+      return rss;
     }
   },
 
