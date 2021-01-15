@@ -40,7 +40,7 @@ export default {
     } else if (this.$store.state.filter.organisationId) {
       this.$data.organisationId = this.$store.state.filter.organisationId;
     }
-    if(!this.$store.state.organisation.attributes['live.active']){
+    if(this.$store.state.organisation && this.$store.state.organisation.attributes &&!this.$store.state.organisation.attributes['live.active']){
       this.live=false;
     }
   },

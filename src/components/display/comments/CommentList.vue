@@ -204,12 +204,14 @@ export default {
       }
       let index = this.comments.findIndex(element => element.comId === data.comment.comId);
       if(index !== -1){
-        if(data.status !== "Valid" && !this.editRight){
+        if(data.status !== "Valid" && (!this.editRight || (this.status && this.status !== data.status))){
           this.comments.splice(index, 1);
         }else{
           this.comments.splice(index, 1, data.comment);
         }
-      }else if(data.status === "Valid" && !this.editRight){
+      }else if(this.status === data.comment.status){
+        this.comments.unshift(data.comment);
+      }else if(data.status === "Valid" /* && !this.editRight */){
         if(this.comments.length > 0){
           let indexNewComment = -1;
           for (let i=0; i<this.comments.length; i++) {
@@ -219,11 +221,15 @@ export default {
             }
           }
           if(indexNewComment !== -1){
-            this.comments.splice(indexNewComment, 0, data.comment);
-          }else{
+            if(!this.status || this.status === data.status){
+              this.comments.splice(indexNewComment, 0, data.comment);
+            }else{
+              this.comments.splice(indexNewComment, 1);
+            }
+          }else if(!this.status || this.status === data.status){
             this.comments.push(data.comment);
           }
-        }else{
+        }else if(!this.status || this.status === data.status){
           this.comments.unshift(data.comment);
         }
       }
@@ -243,7 +249,9 @@ export default {
       if(index === -1){
         this.totalCount +=1; 
         this.dfirst +=1;
-        this.comments.unshift(comment);
+        if(!this.status || this.status === comment.status){
+          this.comments.unshift(comment);
+        }
       }
     }
   },
