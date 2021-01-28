@@ -73,14 +73,9 @@
                       class="mr-5"
                       v-if="podcast.annotations && podcast.annotations.RSS"
                     >{{ $t('From RSS') }}</div>
-                    <div class="alert-text" v-if="!podcast.availability.visibility">
-                      <img src="/img/caution.png" class="icon-caution"/>
-                      {{ $t('Podcast is not visible for listeners') }}
-                    </div>
-                    <div class="alert-text" v-if="podcast.processingStatus === 'ERROR'">
-                      <img src="/img/caution.png" class="icon-caution"/>
-                      {{ $t('Podcast in ERROR, please contact Saooti') }}
-                    </div>
+                    <ErrorMessage :message="$t('Podcast is not visible for listeners')" v-if="!podcast.availability.visibility"/>
+                    <ErrorMessage :message="$t('Podcast in ERROR, please contact Saooti')" v-if="podcast.processingStatus === 'ERROR'"/>
+                    <ErrorMessage :message="$t('Podcast not validated')" v-if="podcastNotValid"/>
                   </div>
                   <ShareButtons :podcast="podcast" :bigRound='true' :audioUrl="podcast.audioUrl" v-if="isDownloadButton"></ShareButtons>
                 </div>
@@ -164,6 +159,7 @@ import Countdown from '../display/live/CountDown.vue';
 import octopusApi from "@saooti/octopus-api";
 import studioApi from '@/api/studio';
 import {state} from "../../store/paramStore.js";
+import ErrorMessage from "../misc/ErrorMessage.vue";
 const moment = require("moment");
 const humanizeDuration = require("humanize-duration");
 
@@ -178,7 +174,8 @@ export default {
     SubscribeButtons,
     RecordingItemButton,
     Countdown,
-    CommentSection
+    CommentSection,
+    ErrorMessage
   },
 
   async mounted() {
@@ -344,8 +341,12 @@ export default {
     },
     timeRemaining(){
       return moment(this.podcast.pubDate).diff(moment(), 'seconds');
-    }
-    
+    },
+    podcastNotValid(){
+      if(this.podcast && this.podcast.availability && false===this.podcast.availability.valid)
+        return true;
+      return false;
+    },
   },
 
   methods: {

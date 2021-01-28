@@ -79,8 +79,14 @@
 			</div>
 			<div class="d-flex flex-column mt-3" v-if="organisation && organisationRight && !isPodcastmaker">
 				<div class="checkbox-saooti flex-shrink">  
-					<input type="checkbox" class="custom-control-input" id="search-future-checkbox" v-model="isNotVisible">  
+					<input type="checkbox" class="custom-control-input" id="search-future-checkbox" v-model="isNotVisible" :disabled="isCheckboxNotValidate && isNotValidate">  
 					<label class="custom-control-label" for="search-future-checkbox">{{ textNotVisible }}</label>  
+				</div>
+			</div>
+			<div class="d-flex flex-column mt-3" v-if="isCheckboxNotValidate">
+				<div class="checkbox-saooti flex-shrink">  
+					<input type="checkbox" class="custom-control-input" id="search-not-validate-checkbox" v-model="isNotValidate">  
+					<label class="custom-control-label" for="search-not-validate-checkbox">{{ textNotValidate }}</label>  
 				</div>
 			</div>
 		</div>
@@ -209,7 +215,7 @@ export default {
 	
 	mounted(){
 		if(this.organisation && this.organisationRight && !this.isEmission){
-				this.isNotVisible = true;
+			this.isNotVisible = true;
 		}
 		this.sort = this.sortCriteria;
 	},
@@ -229,6 +235,7 @@ export default {
 			fromDate: moment().subtract(10, "days").toISOString(),
 			toDate: moment().toISOString(),
 			isNotVisible: false,
+			isNotValidate:false,
 			showFilters : false,
 			reset: false,
 			sort: '',
@@ -256,7 +263,13 @@ export default {
     },
     authenticated(){
       return state.generalParameters.authenticated;
-    },
+		},
+		isProduction(){
+			return state.generalParameters.isProduction;
+		},
+		isContribution(){
+			return state.generalParameters.isContribution;
+		},
 		organisationRight() {
 			if ((this.authenticated && this.myOrganisationId === this.organisationId) ||state.generalParameters.isAdmin)
 				return true;
@@ -279,6 +292,14 @@ export default {
 			if(this.isEmission)
 				return this.$t('Consider podcasts no visible');
 			return this.$t('See podcasts no visible');
+		},
+		isCheckboxNotValidate(){
+			return this.organisation && this.organisationRight && this.isContribution && !this.isPodcastmaker && !this.isEmission && this.isNotVisible;
+		},
+		textNotValidate(){
+			if(this.isProduction)
+				return this.$t('Display all podcasts to validate');
+			return this.$t('Display my podcasts to validate');
 		}
   },
 
@@ -383,6 +404,9 @@ export default {
 		},
 		isNotVisible(newVal){
 			this.$emit('includeHidden', newVal);
+		},
+		isNotValidate(newVal){
+			this.$emit('notValid', newVal);
 		},
 		sortCriteria(){
 			this.sort = this.sortCriteria;

@@ -82,7 +82,8 @@ export default {
     includeHidden:{default:false},
     showCount:{default:false},
     noRubrique:{default:true},
-    sortCriteria:{default:undefined}
+    sortCriteria:{default:undefined},
+    notValid:{default:false},
   },
 
   components: {
@@ -114,7 +115,7 @@ export default {
     changed(){
       return `${this.first}|${this.size}|${this.organisation}|${this.emissionId}|${this.sortCriteria}|${this.sort}
       ${this.iabId}|${this.participantId}|${this.query}|${this.monetization}|${this.popularSort}|
-      ${this.rubriqueId}|${this.rubriquageId}|${this.before}|${this.after}|${this.includeHidden}|${this.noRubrique}`;
+      ${this.rubriqueId}|${this.rubriquageId}|${this.before}|${this.after}|${this.includeHidden}|${this.noRubrique}|${this.notValid}`;
     },
     filterOrga(){
       return this.$store.state.filter.organisationId;
@@ -139,6 +140,9 @@ export default {
         default:return this.$t('sort by date');
       }
     },
+    isProduction(){
+			return state.generalParameters.isProduction;
+		},
   },
 
   methods: {
@@ -163,7 +167,11 @@ export default {
         rubriquageId: this.rubriquageId,
         before: this.before,
         after: this.after,
-        noRubrique: this.noRubrique
+        noRubrique: this.noRubrique,
+        valid: !this.notValid
+      }
+      if(this.notValid && !this.isProduction){
+        param.publisherId = this.$store.state.profile.userId;
       }
       if(this.includeHidden){
         param.includeHidden = this.includeHidden;

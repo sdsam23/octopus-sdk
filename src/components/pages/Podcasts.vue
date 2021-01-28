@@ -24,6 +24,7 @@
     @updateToDate='updateToDate'
     @updateSortCriteria='updateSortCriteria'
     @includeHidden='updateHidden'
+    @notValid="updateNotValid"
     :organisationId='organisationId'/>
     <PodcastList 
     :showCount="true"
@@ -39,7 +40,8 @@
     :after='fromDate'
     :sortCriteria="sortCriteria"
     :includeHidden='includeHidden'
-    :noRubrique='noRubrique'/>
+    :noRubrique='noRubrique'
+    :notValid="notValid"/>
   </div>
 </template>
 <style lang="scss">
@@ -96,6 +98,7 @@ export default {
       includeHidden : false,
       noRubrique: true,
       sortCriteria : 'DATE',
+      notValid: false,
     };
   },
 
@@ -158,6 +161,9 @@ export default {
     },
     updateMonetization(value){
       this.monetization = value;
+    },
+    updateNotValid(value){
+      this.notValid = value
     },
     emissionSelected(emission){
       if (emission && emission.emissionId) {

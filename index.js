@@ -19,6 +19,7 @@ import Snackbar from "./src/components/misc/Snackbar.vue";
 import TopBar from "./src/components/misc/TopBar.vue";
 import HomeDropdown from "./src/components/misc/HomeDropdown.vue";
 import MessageModal from "./src/components/misc/modal/MessageModal.vue";
+import ErrorMessage from "./src/components/misc/ErrorMessage.vue";
 //Display
 import CategoryChooser from "./src/components/display/categories/CategoryChooser.vue";
 import CategoryList from "./src/components/display/categories/CategoryList.vue";
@@ -83,7 +84,8 @@ const components = {
     MessageModal,
     CommentList,
     CommentInput,
-    HomeDropdown
+    HomeDropdown,
+    ErrorMessage
 }
 
 export default components;
@@ -122,5 +124,6 @@ export {
     MessageModal,
     CommentList,
     CommentInput,
-    HomeDropdown
+    HomeDropdown,
+    ErrorMessage
 };

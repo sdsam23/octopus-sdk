@@ -4,15 +4,24 @@
     :style="{ 'background-image': 'url(\'' + podcast.imageUrl +  '\')' }"
     v-if="podcast"
   >
-  <div class="live-image-status" :class="fetchConference && fetchConference!=='null' ? fetchConference.status.toLowerCase()+'-bg' : ''" v-if="fetchConference">{{statusText}}</div>
-  <div class="live-image-status recording-bg" v-if="isRecordedInLive">{{"Enregistré en live"}}</div>
-  <template v-if="podcast && (podcast.availability.visibility  && (podcast.processingStatus === 'READY_TO_RECORD' || podcast.processingStatus === 'READY'))&& !isLiveToBeRecorded">
-    <div class="podcast-image-play-button" v-on:click="play" v-if="hidePlay || recordingLive">
-      <div class="icon-container">
+    <div class="live-image-status" :class="fetchConference && fetchConference!=='null' ? fetchConference.status.toLowerCase()+'-bg' : ''" v-if="fetchConference">{{statusText}}</div>
+    <div class="live-image-status recording-bg" v-if="isRecordedInLive">{{"Enregistré en live"}}</div>
+    <div 
+      class="podcast-image-play-button" 
+      :click="play" 
+      v-if="hidePlay || recordingLive"
+      :class="classicPodcastPlay?'':'transparent-background'"
+    >
+      <div class="icon-container" v-if="!isLiveToBeRecorded">
         <div
           :aria-label="$t('Play')"
           class="saooti-play2-bounty primary-color"
           v-show="!playingPodcast"
+        ></div>
+        <div
+          class="special-icon-play-button"
+          :class="iconName"
+          v-if="!classicPodcastPlay"
         ></div>
         <div class="bloc-paddle" v-show="playingPodcast">
           <span class="paddle1 primary-color"></span>
@@ -20,25 +29,19 @@
           <span class="paddle3 primary-color"></span>
         </div>
       </div>
+      <div class="icon-container error-icon" v-else>
+        <div
+          :aria-label="textVisible"
+          class="big-icon-error"
+          :class="iconName"
+        ></div>
+      </div>
+      <div class="small-Text mt-3 font-weight-bolder" v-if="!classicPodcastPlay">{{textVisible}}</div>
     </div>
     <div class="background-icon saooti-arrow-up2" :aria-label="$t('Show description')"
     v-if="!isDescription && displayDescription && isMobile" @click="showDescription"></div>
     <div class="background-icon saooti-arrow-down2" :aria-label="$t('Hide description')"
     v-if="isDescription && displayDescription && isMobile" @click="showDescription"></div>
-  </template>
-  <template v-else>
-    <div class="d-flex flex-column w-100 h-100 justify-content-center align-items-center transparent-background"
-    :class="podcast.processingStatus === 'READY' ? 'c-hand':''" @click="play"
-    >
-      <img
-        :src="imgUrl"
-        class="no-visible-img"
-        v-if="imgUrl"
-      />
-      <div class="no-visible-img d-flex justify-content-center align-items-center" v-else><div class="spinner-border"></div></div>
-      <div class="small-Text mt-2 font-weight-bold">{{textVisible}}</div>
-    </div>
-  </template>
   </div>
 </template>
 
@@ -49,6 +52,20 @@
   border-radius: 50%;
   padding: 0.7em;
   background: rgba(0,0,0,.31);
+}
+.special-icon-play-button{
+    width: 30px;
+    height: 30px;
+    background-color: #ffd663;
+    border-radius: 50%;
+    position: absolute;
+    right: 4.5rem;
+    top: 6rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .transparent-background{
   background-color: rgba(255,255,255, .5);
@@ -63,6 +80,7 @@
   right: 0;
   bottom: 0;
   cursor: pointer;
+  flex-direction: column;
 
   .icon-container {
     background: #00000050;
@@ -73,14 +91,23 @@
     align-items: center;
     justify-content: center;
 
-    &:hover {
-      background: #00000030;;
+    &.error-icon{
+      background: #00000050 !important;
+      cursor: default !important;
     }
 
-    > .saooti-play2-bounty {
+    &:hover {
+      background: #00000030;
+    }
+
+    > .saooti-play2-bounty{
       font-size: 2em;
       position: relative;
       right: -0.2rem;
+    }
+    .big-icon-error{
+      font-size: 2em;
+      position: relative;
     }
     z-index: 2;
   }
@@ -178,26 +205,31 @@ export default {
     isLiveToBeRecorded(){
       return this.fetchConference === undefined && this.podcast.conferenceId !== undefined && this.podcast.processingStatus === "READY_TO_RECORD";
     },
-
-    imgUrl(){
+    classicPodcastPlay(){
+      return this.podcast && (this.podcast.availability.visibility && false!==this.podcast.availability.valid && (this.podcast.processingStatus === 'READY_TO_RECORD' || this.podcast.processingStatus === 'READY'))&& !this.isLiveToBeRecorded;
+    },
+    iconName(){
       if(this.isLiveToBeRecorded)
-        return "/img/clock.png";
+        return "saooti-clock";
       if(this.podcast.processingStatus === "READY" || this.fetchConference){
+        if(false!==this.podcast.availability.valid)
+          return "saooti-checkmark"
         if(!this.podcast.availability.visibility && this.podcast.availability.date)
-          return "/img/clock.png";
-        return "/img/novisible.png";
+          return "saooti-clock";
+        return "saooti-eye-blocked";
       }
       if(this.podcast.processingStatus === "PLANNED" || this.podcast.processingStatus === "PROCESSING")
-        return '/img/hourglass.png';
+        return 'saooti-hourglass';
       if(this.podcast.processingStatus === "CANCELED")
-        return '/img/cancelled.png';
-      return '/img/caution.png';
+        return 'saooti-cancel-circle';
+      return 'saooti-warning';
     },
-
     textVisible(){
       if(this.isLiveToBeRecorded)
         return this.$t("Podcast linked to waiting live");
       if(this.podcast.processingStatus === "READY" || this.fetchConference){
+        if(false!==this.podcast.availability.valid)
+          return this.$t('Podcast to validate');
         if(!this.podcast.availability.visibility && this.podcast.availability.date)
           return this.$t('Podcast publish in future');
         return this.$t('Podcast no visible');
@@ -233,8 +265,8 @@ export default {
 
     recordingLive(){
       return this.fetchConference &&
-             this.fetchConference!=='null' &&
-             (this.fetchConference.status === 'RECORDING' || this.fetchConference.status === 'PENDING');
+          this.fetchConference!=='null' &&
+          (this.fetchConference.status === 'RECORDING' || this.fetchConference.status === 'PENDING');
     }
   },
 
@@ -246,6 +278,9 @@ export default {
 
   methods: {
     play() {
+      if(this.isLiveToBeRecorded){
+        return;
+      }
       if(!this.recordingLive){
         this.$store.commit('playerPlayPodcast', this.podcast);
         return;

@@ -11,7 +11,7 @@
 		v-if="authenticated"
 		>
 		<b-dropdown-text>
-				<router-link to="/main/priv/upload" v-if="isProduction && !isPodcastmaker" class="align-self-center w-100 mb-2">
+				<router-link to="/main/priv/upload" v-if="isContribution && !isPodcastmaker" class="align-self-center w-100 mb-2">
 				<button class="btn btn-primary w-100">{{ $t('Upload') }}</button>
 				</router-link>
 				<template @click="displayMenuPhone(true)">
@@ -121,8 +121,8 @@ export default {
     isOrganisation(){
       return state.generalParameters.isOrganisation;
     },
-    isProduction(){
-      return state.generalParameters.isProduction;
+    isContribution(){
+      return state.generalParameters.isContribution;
     },
   },
 

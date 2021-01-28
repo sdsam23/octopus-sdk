@@ -260,5 +260,9 @@ export default {
     "Recaptcha error":"Le Google Recaptcha ne vous reconnait pas comme un humain",
     "Recaptcha not active":"Attention le captcha google est désactivé",
     "Comment waiting":"Le commentaire ne sera pas visible par les autres utilisateurs tant qu'il n'aura pas été validé",
+    "Display all podcasts to validate":"Afficher tous les épisodes à valider",
+    "Display my podcasts to validate":"Afficher mes épisodes à valider",
+    "Podcast not validated":"L'épisode n'est pas validé",
+    "Podcast to validate":"Épisode à valider",
   };
   
