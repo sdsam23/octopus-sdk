@@ -278,7 +278,6 @@ export default {
 
   methods: {
     play() {
-      debugger;
       if(this.isLiveToBeRecorded){
         return;
       }
