@@ -365,7 +365,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.22.5 Home dropdown component
  * 0.22.6 Merge Fabien
 
- * 0.23.0 Début contribution
+ * 0.23.0 - 0.23.1 Début contribution
 
 
 

@@ -8,7 +8,7 @@
     <div class="live-image-status recording-bg" v-if="isRecordedInLive">{{"Enregistré en live"}}</div>
     <div 
       class="podcast-image-play-button" 
-      :click="play" 
+      v-on:click="play" 
       v-if="hidePlay || recordingLive"
       :class="classicPodcastPlay?'':'transparent-background'"
     >
@@ -278,6 +278,7 @@ export default {
 
   methods: {
     play() {
+      debugger;
       if(this.isLiveToBeRecorded){
         return;
       }

@@ -1,9 +1,10 @@
 <template>
   <div class="w-100" :style="{ width: width }">
-    <label for="categoryChooser" class="d-inline" aria-label="select category"></label>
+    <label :for="id" class="d-inline" aria-label="select category"></label>
     <Multiselect
       v-model="category"
-      id="categoryChooser"
+      :disabled="isDisabled"
+      :id="id"
       label="name"
       track-by="id"
       :placeholder="$t('Type string to filter by categories')"
@@ -71,12 +72,18 @@ export default {
     categorySelected: {default: undefined},
     multiple: {default: false},
     categoryArray: {default: undefined},
-    displayAllCategories: {default: false}
+    displayAllCategories: {default: false},
+    isDisabled: {default: false}
   },
 
   computed: {
     allCategories(){
       return state.generalParameters.allCategories.sort((a,b) => (a.name > b.name) ? 1 : -1);
+    },
+     id(){
+      if(this.multiple)
+        return "categoryChooser"+this.multiple;
+      return "categoryChooser";
     }
   },
 

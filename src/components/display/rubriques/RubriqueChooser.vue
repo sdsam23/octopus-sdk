@@ -4,6 +4,7 @@
     <Multiselect
       v-model="rubrique"
       :id="id"
+      :disabled="isDisabled"
       class="rubriqueChooser"
       label="name"
       track-by="rubriqueId"
@@ -73,7 +74,8 @@ export default {
     rubriquageId: {default:undefined},
     allRubriques: {default: []},
     reset: {default: false},
-    withoutRubrique: {default:false}
+    withoutRubrique: {default:false},
+    isDisabled: {default: false}
   },
   mixins: [selenium],
 
