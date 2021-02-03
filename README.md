@@ -368,6 +368,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.22.9 Count emission, playlists, participants when not display
  
  * 0.23.0 - 0.23.2 Début contribution
+ * 0.23.3 Participant popup
 
 
 
