@@ -109,7 +109,7 @@ export default {
   methods: {
     clearAll() {
       this.$refs.multiselectRef.$refs.search.setAttribute("autocomplete", "off");
-      if(this.categoryArray === undefined) {
+      if(undefined === this.categoryArray) {
         this.category = '';
       }
       if(this.categorySelected !== undefined || this.categoryArray !== undefined || this.displayAllCategories){
@@ -127,7 +127,7 @@ export default {
     },
 
     onClose() {
-      if (!this.category && this.categoryArray === undefined) {
+      if (!this.category && undefined === this.categoryArray) {
         this.category = getDefaultCategory(this.defaultanswer);
         this.onEmissionSelected(this.category);
       }
@@ -138,7 +138,7 @@ export default {
       let list = [getDefaultCategory(this.defaultanswer)].concat(
         this.totalCategories
       );
-      if(this.defaultanswer === undefined){
+      if(undefined === this.defaultanswer){
         list = this.totalCategories;
       } 
       this.categories = list.filter(item => {
@@ -150,7 +150,7 @@ export default {
     onEmissionSelected(category) {
       if(this.categorySelected !== undefined){
         this.$emit('update:categorySelected', category.id);
-      } else if(this.categoryArray === undefined){
+      } else if(undefined === this.categoryArray){
         this.$emit('selected', category);
       }
     },
@@ -174,7 +174,7 @@ export default {
       this.initCategorySelected(newVal);
     },
     category(newVal) {
-      if(this.categoryArray === undefined)
+      if(undefined === this.categoryArray)
         return;
 
       let idsArray = [];

@@ -4,7 +4,7 @@
       <template v-if="!isEditing">
         <b 
         class="recording-bg mr-1 text-light p-01"
-        v-if="recordingInLive && (comment.phase ==='Live' || comment.phase ==='Prelive')">{{$t('Live')}}</b>
+        v-if="recordingInLive && ('Live' === comment.phase|| 'Prelive' === comment.phase)">{{$t('Live')}}</b>
         <b class="mr-2" v-if="editRight || comment.status== 'Valid'">{{comment.name}}</b>
         <template v-else>
           <b class="mr-2 text-danger" :id="'popover-comment'+comment.comId">{{comment.name}}</b>
@@ -37,14 +37,14 @@
       />
       <div class="d-flex justify-content-end">
         <button class="btn btn-light m-1" @click="isEditing = false;">{{ $t('Cancel') }}</button>
-        <button class="btn btn-primary m-1" :disabled="temporaryContent.length ===0 || temporaryName.length < 2" @click="validEdit">{{ $t('Validate') }}</button>
+        <button class="btn btn-primary m-1" :disabled="0 === temporaryContent.length || temporaryName.length < 2" @click="validEdit">{{ $t('Validate') }}</button>
       </div>
     </template>
 		<div class="d-flex align-items-center mt-1">
 			<button 
       @click="answerComment"
       class="btn btn-answer primary-color mr-2"
-      v-if="comment.commentIdReferer ===null && comment.status ==='Valid'">{{$t('To answer')}}</button>
+      v-if="null === comment.commentIdReferer && 'Valid' === comment.status">{{$t('To answer')}}</button>
       <div 
         v-b-toggle="'answers-comment-'+comment.comId"
         class="primary-color c-hand d-flex align-items-center small-Text input-no-outline"
@@ -184,7 +184,7 @@ export default {
       },
     },
     recordingInLive(){
-      return this.podcast && this.podcast.conferenceId && this.podcast.conferenceId !== 0 && this.podcast.processingStatus === 'READY';
+      return this.podcast && this.podcast.conferenceId && this.podcast.conferenceId !== 0 && 'READY' === this.podcast.processingStatus;
     }
   },
 
@@ -202,10 +202,10 @@ export default {
       this.$emit('updateComment', data);
     },
     newComment(comment, fromEvent = false){
-      if(this.fetchConference === undefined || fromEvent){
+      if(undefined === this.fetchConference || fromEvent){
         let updatedComment = this.comment;
         updatedComment.relatedComments += 1;
-        if(comment.status === "Valid"){
+        if("Valid" === comment.status){
           updatedComment.relatedValidComments += 1;
         }
         this.$emit('update:comment', updatedComment);
@@ -231,7 +231,7 @@ export default {
     },
     updateStatus(data){
       let updatedComment = this.comment;
-      if(data === "Valid"){
+      if("Valid" === data){
         updatedComment.relatedValidComments += 1;
       }else{
         updatedComment.relatedValidComments -= 1;
@@ -246,9 +246,9 @@ export default {
           this.$refs.commentList.updateComment({comment:event.comment});
         }else{
           let updatedComment = this.comment;
-          if(event.status === "Invalid"){
+          if("Invalid" === event.status){
             updatedComment.relatedValidComments -= 1;
-          }else if(event.status === "Valid"){
+          }else if("Valid" === event.status){
             updatedComment.relatedValidComments += 1;
           }
           this.$emit('update:comment', updatedComment);
@@ -260,7 +260,7 @@ export default {
         }else{
           let updatedComment = this.comment;
           updatedComment.relatedComments -= 1;
-          if(event.comment.status === "Valid"){
+          if("Valid" === event.comment.status){
             updatedComment.relatedValidComments -= 1;
           }
           this.$emit('update:comment', updatedComment);

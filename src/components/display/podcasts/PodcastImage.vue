@@ -206,13 +206,13 @@ export default {
       return this.fetchConference === undefined && this.podcast.conferenceId !== undefined && this.podcast.processingStatus === "READY_TO_RECORD";
     },
     classicPodcastPlay(){
-      return this.podcast && (this.podcast.availability.visibility && false!==this.podcast.availability.valid && (this.podcast.processingStatus === 'READY_TO_RECORD' || this.podcast.processingStatus === 'READY'))&& !this.isLiveToBeRecorded;
+      return this.podcast && (false!==this.podcast.valid && (this.podcast.processingStatus === 'READY_TO_RECORD' || this.podcast.processingStatus === 'READY'))&& !this.isLiveToBeRecorded;
     },
     iconName(){
       if(this.isLiveToBeRecorded)
         return "saooti-clock";
       if(this.podcast.processingStatus === "READY" || this.fetchConference){
-        if(false!==this.podcast.availability.valid)
+        if(false==this.podcast.valid)
           return "saooti-checkmark"
         if(!this.podcast.availability.visibility && this.podcast.availability.date)
           return "saooti-clock";
@@ -228,7 +228,7 @@ export default {
       if(this.isLiveToBeRecorded)
         return this.$t("Podcast linked to waiting live");
       if(this.podcast.processingStatus === "READY" || this.fetchConference){
-        if(false!==this.podcast.availability.valid)
+        if(false==this.podcast.valid)
           return this.$t('Podcast to validate');
         if(!this.podcast.availability.visibility && this.podcast.availability.date)
           return this.$t('Podcast publish in future');

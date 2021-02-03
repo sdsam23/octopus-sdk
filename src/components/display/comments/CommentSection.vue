@@ -76,10 +76,10 @@ export default {
       if(this.podcast.organisation.comments){
         organisationComment = this.podcast.organisation.comments;
       }
-      return !(podcastComment === "NO" 
-      ||(podcastComment === "INHERIT" && organisationComment==="NO")
-      ||(podcastComment === "LIVE_RECORD" && this.podcast.processingStatus !== 'READY_TO_RECORD')
-      ||(podcastComment === "INHERIT" && organisationComment==="LIVE_ONLY" && !this.podcast.conferenceId && this.podcast.conferenceId !== 0));
+      return !("NO" === podcastComment 
+      ||("INHERIT" === podcastComment && "NO" === organisationComment)
+      ||("LIVE_RECORD" === podcastComment && 'READY_TO_RECORD' !== this.podcast.processingStatus)
+      ||("INHERIT" === podcastComment && "LIVE_ONLY"===organisationComment && !this.podcast.conferenceId && 0 !== this.podcast.conferenceId));
     },
     knownIdentity: {
       get() {

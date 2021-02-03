@@ -4,7 +4,7 @@
 			<span class="saooti-edit-bounty"></span>
 		</button>
 		<button class="btn btn-circle primary-color mr-1" aria-label="valid"
-		v-if="comment.status === 'Pending' || comment.status === 'Invalid'" @click="validComment">
+		v-if="'Pending' === comment.status || comment.status === 'Invalid'" @click="validComment">
 			<span class="saooti-valid-stud"></span>
 		</button>
 		<button class="btn btn-circle primary-color mr-1" aria-label="invalid"

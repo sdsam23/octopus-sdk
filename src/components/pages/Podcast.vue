@@ -12,7 +12,7 @@
           @deleteItem="removeDeleted"
           v-if="!!fetchConference && isLiveReadyToRecord && !isNotRecorded && isOctopusAndAnimator"
           ></RecordingItemButton>
-          <EditBox :podcast="podcast" v-else-if="editRight && isEditBox" :isReady='isReady'></EditBox>
+          <EditBox :podcast="podcast" v-else-if="editRight && isEditBox" :isReady='isReady' @validatePodcast="updatePodcast"></EditBox>
           <div class="module-box">
             <h2 class="text-uppercase font-weight-bold title-page-podcast" v-if="!isOuestFrance">{{ this.podcast.title }}</h2>
             <router-link 
@@ -343,13 +343,16 @@ export default {
       return moment(this.podcast.pubDate).diff(moment(), 'seconds');
     },
     podcastNotValid(){
-      if(this.podcast && this.podcast.availability && false===this.podcast.availability.valid)
+      if(this.podcast && this.podcast.availability && false===this.podcast.valid)
         return true;
       return false;
     },
   },
 
   methods: {
+    updatePodcast(podcastUpdated){
+      this.podcast = podcastUpdated;
+    },
     async getPodcastDetails(podcastId) {
       try {
         let data = await octopusApi.fetchPodcast(podcastId);

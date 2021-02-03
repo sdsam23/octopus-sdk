@@ -22,7 +22,7 @@
     ></b-form-textarea>
     <div class="d-flex justify-content-end mt-1" v-if="textareaFocus">
       <button class="btn mr-2" @mousedown="cancelAction">{{$t('Cancel')}}</button>
-      <button class="btn btn-primary" @mousedown="requestToSend" :disabled="newComment.trim().length === 0">{{placeholder}}</button>
+      <button class="btn btn-primary" @mousedown="requestToSend" :disabled="0 === newComment.trim().length">{{placeholder}}</button>
     </div>
     <AddCommentModal
       v-if="checkIdentityModal"
@@ -116,8 +116,8 @@ export default {
       if(this.podcast.organisation.comments){
         organisationComment = this.podcast.organisation.comments;
       }
-      if((podcastComment === "LIVE_ONLY" && this.podcast.processingStatus !== 'READY_TO_RECORD') || 
-      (podcastComment === "INHERIT" && organisationComment==="LIVE_ONLY" && this.podcast.processingStatus !== 'READY_TO_RECORD')){
+      if(("LIVE_ONLY" === podcastComment && 'READY_TO_RECORD' !== this.podcast.processingStatus) || 
+      ("INHERIT" === podcastComment && "LIVE_ONLY" === organisationComment && 'READY_TO_RECORD' !== this.podcast.processingStatus)){
         return false;
       }
       return true;
@@ -144,9 +144,9 @@ export default {
       return undefined;
     },
     phase(){
-      if(!this.podcast.conferenceId || this.podcast.conferenceId === 0 || this.podcast.processingStatus !== 'READY_TO_RECORD')
+      if(!this.podcast.conferenceId || 0 === this.podcast.conferenceId || 'READY_TO_RECORD' !== this.podcast.processingStatus)
         return "Podcast";
-      if(this.fetchConference && (this.fetchConference.status === "PLANNED" || this.fetchConference.status === "PENDING"))
+      if(this.fetchConference && ("PLANNED" === this.fetchConference.status || "PENDING" === this.fetchConference.status))
         return "Prelive";
       return "Live";
     },
@@ -196,7 +196,7 @@ export default {
         }
       }
       let sendName = this.knownIdentity;
-      if(sendName === null && name){
+      if(null === sendName && name){
         sendName = name;
       }
       let comment = {

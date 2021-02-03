@@ -150,7 +150,7 @@ export default {
           if(!this.editRight){
             param.status = "Valid";
           }
-          if(this.podcastId === undefined){
+          if(undefined === this.podcastId){
             param.organisationId = this.organisation;
           }
           if(!this.isFlat){
@@ -215,7 +215,7 @@ export default {
         }
       }else if(this.status === data.comment.status){
         this.comments.unshift(data.comment);
-      }else if(data.status === "Valid" /* && !this.editRight */){
+      }else if("Valid" === data.status /* && !this.editRight */){
         if(this.comments.length > 0){
           let indexNewComment = -1;
           for (let i=0; i<this.comments.length; i++) {
@@ -250,7 +250,7 @@ export default {
         return;
       }
       let index = this.comments.findIndex(element => element.comId === comment.comId);
-      if(index === -1){
+      if(-1 === index){
         this.totalCount +=1; 
         this.dfirst +=1;
         if(!this.status || this.status === comment.status){
