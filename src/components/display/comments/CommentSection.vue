@@ -90,7 +90,7 @@ export default {
       },
     },
     isLive(){
-      return this.fetchConference && this.fetchConference !== "null" && this.fetchConference.status !=="PUBLISHING" && this.fetchConference.status !=="DEBRIEFING";
+      return this.fetchConference && "null" !== this.fetchConference && "PUBLISHING" !== this.fetchConference.status&& "DEBRIEFING" !==this.fetchConference.status;
     }
   },
 

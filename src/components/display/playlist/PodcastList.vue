@@ -80,7 +80,7 @@ export default {
 
   computed: {
     notEmptyPlaylist(){
-      return Object.keys(this.playlist.podcasts).length !== 0;
+      return 0 !== Object.keys(this.playlist.podcasts).length;
     },
     podcastsDisplay(){
       if(this.size < this.podcastsQuery.length)
@@ -117,7 +117,7 @@ export default {
       this.podcasts = content;
       if(!this.editRight){
         this.podcasts = this.podcasts.filter((p)=>{
-          return p!== null && (!p.availability || p.availability.visibility === true);
+          return null !== p && (!p.availability || true === p.availability.visibility);
         });
       }
       
@@ -134,7 +134,7 @@ export default {
   },
   watch:{
     searchPattern(){
-      if(this.searchPattern !== ""){
+      if("" !== this.searchPattern){
         this.podcastsQuery = this.podcasts.filter((el)=>{
           return el.title.toLowerCase().includes(this.searchPattern.toLowerCase());
         });

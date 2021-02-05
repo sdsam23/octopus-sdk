@@ -185,7 +185,7 @@ export default {
         first: 0,
         size: 0,
         });
-      if(data.count === 0){
+      if(0 === data.count){
         this.activeEmission = false;
       }
       if(this.editRight || this.activeEmission){

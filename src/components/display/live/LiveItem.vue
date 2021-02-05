@@ -8,7 +8,7 @@
 		<router-link :to="{ name: 'podcast', params: {podcastId:live.podcastId}, query:{productor: $store.state.filter.organisationId}}">
 			<PodcastImage
 				class="mr-3"
-				:class="fetchConference && fetchConference != 'null' && fetchConference.status ? fetchConference.status.toLowerCase()+'-shadow' : ''"
+				:class="fetchConference && 'null' !== fetchConference && fetchConference.status ? fetchConference.status.toLowerCase()+'-shadow' : ''"
 				v-bind:podcast="live" 
 				:hidePlay='false'
 				:playingPodcast='false'

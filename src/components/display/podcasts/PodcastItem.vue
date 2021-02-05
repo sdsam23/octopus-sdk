@@ -12,7 +12,7 @@
     <div class='d-contents' @mouseenter="showDescription" @mouseleave="hideDescription">
       <div class="d-flex justify-content-between flex-wrap text-secondary mb-3">
         <div class="mr-3 small-Text">{{ date }}</div>
-        <div class="small-Text" v-if="duration.length !== 0"><!-- <span class="saooti-clock3"></span> -->{{ duration }}</div>
+        <div class="small-Text" v-if="0 !== duration.length"><!-- <span class="saooti-clock3"></span> -->{{ duration }}</div>
       </div>
       <AnimatorsItem v-bind:animators="podcast.animators"/>
       <router-link

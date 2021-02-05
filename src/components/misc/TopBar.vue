@@ -7,7 +7,7 @@
       <router-link 
       :to="{ name: 'home', query:{productor: $store.state.filter.organisationId}}">
         <div class="top-bar-logo m-3" v-on:click="onDisplayMenu(true)">
-          <img :src="logoUrl" :alt="$t('Logo of main page')" :class="isEducation? 'educationLogo':''" v-if="!filterOrga || imgUrl === undefined" />
+          <img :src="logoUrl" :alt="$t('Logo of main page')" :class="isEducation? 'educationLogo':''" v-if="!filterOrga || undefined === imgUrl" />
           <img :src="imgUrl" :alt="$t('Logo of main page')" v-else/>
         </div>
       </router-link>
@@ -276,7 +276,7 @@ export default {
     },
 
     onDisplayMenu(param) {
-      if(param === true){
+      if(true === param){
         this.$emit('update:displayMenu', false);
       } else{
         this.$emit('update:displayMenu', !this.displayMenu);

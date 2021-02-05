@@ -89,11 +89,11 @@ export default {
         this.dfirst = 0;
       }
       this.lives = this.lives.concat(data.result).filter((l)=>{
-        return l!== null;
+        return null !== l;
       });
       this.dfirst += this.dsize;
       this.totalCount = data.count;
-      if(this.lives.length !== 0){
+      if(0 !== this.lives.length){
         this.notEmpty = true;
       }
       this.inFetching=false;

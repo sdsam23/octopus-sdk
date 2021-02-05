@@ -116,10 +116,10 @@ export default {
       this.loaded = true;
       this.displayCount = data.count;
       this.playlists = this.playlists.concat(data.result).filter((e)=>{
-        if(e===null){
+        if(null === e){
           this.displayCount--;
         }
-        return e!== null;
+        return null !== e;
       });
       this.dfirst += this.dsize;
       this.totalCount = data.count;

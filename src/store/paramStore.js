@@ -34,98 +34,98 @@ var initialize = function initialize(initObject){
   return new Promise((resolve, reject) => {
     if(initObject.generalParameters){
       let param = initObject.generalParameters;
-      state.generalParameters.organisationId = (typeof param.organisationId !== "undefined") ? param.organisationId : null;
-      state.generalParameters.authenticated = (typeof param.authenticated !== "undefined") ? param.authenticated : true;
-      state.generalParameters.isAdmin =(typeof param.isAdmin !== "undefined") ? param.isAdmin : false;
-      state.generalParameters.isRoleLive =(typeof param.isRoleLive !== "undefined") ? param.isRoleLive : true;
-      state.generalParameters.isCommments =(typeof param.isCommments !== "undefined") ? param.isCommments : true;
-      state.generalParameters.isOrganisation =(typeof param.isOrganisation !== "undefined") ? param.isOrganisation : true;
-      state.generalParameters.isPlaylist =(typeof param.isPlaylist !== "undefined") ? param.isPlaylist : false;
-      state.generalParameters.isProduction =(typeof param.isProduction !== "undefined") ? param.isProduction : true;
-      state.generalParameters.isContribution =(typeof param.isContribution !== "undefined") ? param.isContribution : true;
-      state.generalParameters.ApiUri = (typeof param.ApiUri !== "undefined") ? param.ApiUri : 'https://api.dev2.saooti.org/';
-      state.generalParameters.isIE11 = (typeof param.isIE11 !== "undefined") ? param.isIE11 : false;
-      state.generalParameters.podcastmaker =(typeof param.podcastmaker !== "undefined") ? param.podcastmaker : false;
-      state.generalParameters.buttonPlus =(typeof param.buttonPlus !== "undefined") ? param.buttonPlus : true;
-      state.generalParameters.allCategories =(typeof param.allCategories !== "undefined") ? param.allCategories : [];
-      state.generalParameters.isLiveTab =(typeof param.isLiveTab !== "undefined") ? param.isLiveTab : true;
-      state.generalParameters.isCaptchaTest =(typeof param.isCaptchaTest !== "undefined") ? param.isCaptchaTest : true;
+      state.generalParameters.organisationId = ("undefined" !== typeof param.organisationId) ? param.organisationId : null;
+      state.generalParameters.authenticated = ("undefined" !== typeof param.authenticated) ? param.authenticated : true;
+      state.generalParameters.isAdmin =("undefined" !== typeof param.isAdmin) ? param.isAdmin : false;
+      state.generalParameters.isRoleLive =("undefined" !== typeof param.isRoleLive) ? param.isRoleLive : true;
+      state.generalParameters.isCommments =("undefined" !== typeof param.isCommments) ? param.isCommments : true;
+      state.generalParameters.isOrganisation =("undefined" !== typeof param.isOrganisation) ? param.isOrganisation : true;
+      state.generalParameters.isPlaylist =("undefined" !== typeof param.isPlaylist) ? param.isPlaylist : false;
+      state.generalParameters.isProduction =("undefined" !== typeof param.isProduction) ? param.isProduction : true;
+      state.generalParameters.isContribution =("undefined" !== typeof param.isContribution) ? param.isContribution : true;
+      state.generalParameters.ApiUri = ("undefined" !== typeof param.ApiUri) ? param.ApiUri : 'https://api.dev2.saooti.org/';
+      state.generalParameters.isIE11 = ("undefined" !== typeof param.isIE11) ? param.isIE11 : false;
+      state.generalParameters.podcastmaker =("undefined" !== typeof param.podcastmaker) ? param.podcastmaker : false;
+      state.generalParameters.buttonPlus =("undefined" !== typeof param.buttonPlus) ? param.buttonPlus : true;
+      state.generalParameters.allCategories =("undefined" !== typeof param.allCategories) ? param.allCategories : [];
+      state.generalParameters.isLiveTab =("undefined" !== typeof param.isLiveTab) ? param.isLiveTab : true;
+      state.generalParameters.isCaptchaTest =("undefined" !== typeof param.isCaptchaTest) ? param.isCaptchaTest : true;
     }
     if(initObject.podcastPage){
       let param = initObject.podcastPage;
-      state.podcastPage.EditBox = (typeof param.EditBox !== "undefined") ? param.EditBox : false;
-      state.podcastPage.SharePlayer = (typeof param.SharePlayer !== "undefined") ? param.SharePlayer : true;
-      state.podcastPage.ShareButtons = (typeof param.ShareButtons !== "undefined") ? param.ShareButtons : true;
-      state.podcastPage.ShareDistribution = (typeof param.ShareDistribution !== "undefined")? param.ShareDistribution : true;
-      state.podcastPage.MiniplayerUri = (typeof param.MiniplayerUri !== "undefined") ? param.MiniplayerUri : 'https://player.staging.saooti.org/';
-      state.podcastPage.ouestFranceStyle = (typeof param.ouestFranceStyle !== "undefined") ? param.ouestFranceStyle : false;
-      state.podcastPage.tagList= (typeof param.tagList !== "undefined") ? param.tagList : false;
-      state.podcastPage.downloadButton= (typeof param.downloadButton !== "undefined") ? param.downloadButton : false;
-      state.podcastPage.hlsUri = (typeof param.hlsUri !== "undefined") ? param.hlsUri : 'https://hls.staging.saooti.org/';
+      state.podcastPage.EditBox = ("undefined" !== typeof param.EditBox) ? param.EditBox : false;
+      state.podcastPage.SharePlayer = ("undefined" !== typeof param.SharePlayer) ? param.SharePlayer : true;
+      state.podcastPage.ShareButtons = ("undefined" !== typeof param.ShareButtons) ? param.ShareButtons : true;
+      state.podcastPage.ShareDistribution = ("undefined" !== typeof param.ShareDistribution)? param.ShareDistribution : true;
+      state.podcastPage.MiniplayerUri = ("undefined" !== typeof param.MiniplayerUri) ? param.MiniplayerUri : 'https://player.staging.saooti.org/';
+      state.podcastPage.ouestFranceStyle = ("undefined" !== typeof param.ouestFranceStyle) ? param.ouestFranceStyle : false;
+      state.podcastPage.tagList= ("undefined" !== typeof param.tagList) ? param.tagList : false;
+      state.podcastPage.downloadButton= ("undefined" !== typeof param.downloadButton) ? param.downloadButton : false;
+      state.podcastPage.hlsUri = ("undefined" !== typeof param.hlsUri) ? param.hlsUri : 'https://hls.staging.saooti.org/';
     }
     if(initObject.podcastsPage){
       let param = initObject.podcastsPage;
-      state.podcastsPage.ProductorSearch = (typeof param.ProductorSearch !== "undefined") ? param.ProductorSearch : true;
-      state.podcastsPage.MonetizableFilter = (typeof param.MonetizableFilter !== "undefined") ? param.MonetizableFilter : true;
-      state.podcastsPage.podcastShadow = (typeof param.podcastShadow !== "undefined") ? param.podcastShadow : true;
-      state.podcastsPage.podcastBorderBottom = (typeof param.podcastBorderBottom !== "undefined") ? param.podcastBorderBottom : false;
-      state.podcastsPage.titlePage = (typeof param.titlePage !== "undefined") ? param.titlePage : undefined;
-      state.podcastsPage.emissionChooser = (typeof param.emissionChooser !== "undefined") ? param.emissionChooser : false;
+      state.podcastsPage.ProductorSearch = ("undefined" !== typeof param.ProductorSearch) ? param.ProductorSearch : true;
+      state.podcastsPage.MonetizableFilter = ("undefined" !== typeof param.MonetizableFilter) ? param.MonetizableFilter : true;
+      state.podcastsPage.podcastShadow = ("undefined" !== typeof param.podcastShadow) ? param.podcastShadow : true;
+      state.podcastsPage.podcastBorderBottom = ("undefined" !== typeof param.podcastBorderBottom) ? param.podcastBorderBottom : false;
+      state.podcastsPage.titlePage = ("undefined" !== typeof param.titlePage) ? param.titlePage : undefined;
+      state.podcastsPage.emissionChooser = ("undefined" !== typeof param.emissionChooser) ? param.emissionChooser : false;
     }
     if(initObject.emissionsPage){
       let param = initObject.emissionsPage;
-      state.emissionsPage.smallItems = (typeof param.smallItems !== "undefined") ? param.smallItems : false;
-      state.emissionsPage.lightItems = (typeof param.lightItems !== "undefined") ? param.lightItems : false;
-      state.emissionsPage.titlePage = (typeof param.titlePage !== "undefined") ? param.titlePage : undefined;
-      state.emissionsPage.itemPlayer = (typeof param.itemPlayer !== "undefined") ? param.itemPlayer : false;
-      state.emissionsPage.rubriquage = (typeof param.rubriquage !== "undefined") ? param.rubriquage : undefined;
-      state.emissionsPage.mainRubrique = (typeof param.mainRubrique !== "undefined") ? param.mainRubrique : undefined;
-      state.emissionsPage.buttonMore = (typeof param.buttonMore !== "undefined") ? param.buttonMore : false;
-      state.emissionsPage.overflowScroll = (typeof param.overflowScroll !== "undefined") ? param.overflowScroll : false;
+      state.emissionsPage.smallItems = ("undefined" !== typeof param.smallItems) ? param.smallItems : false;
+      state.emissionsPage.lightItems = ("undefined" !== typeof param.lightItems) ? param.lightItems : false;
+      state.emissionsPage.titlePage = ("undefined" !== typeof param.titlePage) ? param.titlePage : undefined;
+      state.emissionsPage.itemPlayer = ("undefined" !== typeof param.itemPlayer) ? param.itemPlayer : false;
+      state.emissionsPage.rubriquage = ("undefined" !== typeof param.rubriquage) ? param.rubriquage : undefined;
+      state.emissionsPage.mainRubrique = ("undefined" !== typeof param.mainRubrique) ? param.mainRubrique : undefined;
+      state.emissionsPage.buttonMore = ("undefined" !== typeof param.buttonMore) ? param.buttonMore : false;
+      state.emissionsPage.overflowScroll = ("undefined" !== typeof param.overflowScroll) ? param.overflowScroll : false;
     }
     if(initObject.emissionPage){
       let param = initObject.emissionPage;
-      state.emissionPage.ouestFranceStyle = (typeof param.ouestFranceStyle !== "undefined") ? param.ouestFranceStyle : false;
-      state.emissionPage.rssButton = (typeof param.rssButton !== "undefined") ? param.rssButton : false;
+      state.emissionPage.ouestFranceStyle = ("undefined" !== typeof param.ouestFranceStyle) ? param.ouestFranceStyle : false;
+      state.emissionPage.rssButton = ("undefined" !== typeof param.rssButton) ? param.rssButton : false;
     }
     if(initObject.intervenantPage){
       let param = initObject.intervenantPage;
-      state.intervenantPage.lightStyle = (typeof param.lightStyle !== "undefined") ? param.lightStyle : false;
-      state.intervenantPage.rssButton = (typeof param.rssButton !== "undefined") ? param.rssButton : false;
+      state.intervenantPage.lightStyle = ("undefined" !== typeof param.lightStyle) ? param.lightStyle : false;
+      state.intervenantPage.rssButton = ("undefined" !== typeof param.rssButton) ? param.rssButton : false;
     }
     if(initObject.searchPage){
       let param = initObject.searchPage;
-      state.searchPage.hideBar = (typeof param.hideBar !== "undefined") ? param.hideBar : false;
+      state.searchPage.hideBar = ("undefined" !== typeof param.hideBar) ? param.hideBar : false;
     }
     if(initObject.player){
       let param = initObject.player;
-      state.player.image = (typeof param.image !== "undefined") ? param.image : true;
-      state.player.emissionName = (typeof param.emissionName !== "undefined") ? param.emissionName : false;
-      state.player.clock = (typeof param.clock !== "undefined") ? param.clock : false;
-      state.player.barTop = (typeof param.barTop !== "undefined") ? param.barTop : false;
+      state.player.image = ("undefined" !== typeof param.image) ? param.image : true;
+      state.player.emissionName = ("undefined" !== typeof param.emissionName) ? param.emissionName : false;
+      state.player.clock = ("undefined" !== typeof param.clock) ? param.clock : false;
+      state.player.barTop = ("undefined" !== typeof param.barTop) ? param.barTop : false;
     }
     if(initObject.organisation){
       let param = initObject.organisation;
-      state.organisation.imageUrl = (typeof param.imageUrl !== "undefined") ? param.imageUrl : '/img/emptypodcast.png';
-      state.organisation.name = (typeof param.name !== "undefined") ? param.name : 'Saooti';
-      state.organisation.userName = (typeof param.userName !== "undefined") ? param.userName : '';
+      state.organisation.imageUrl = ("undefined" !== typeof param.imageUrl) ? param.imageUrl : '/img/emptypodcast.png';
+      state.organisation.name = ("undefined" !== typeof param.name) ? param.name : 'Saooti';
+      state.organisation.userName = ("undefined" !== typeof param.userName) ? param.userName : '';
     }
     if(initObject.footer){
       let param = initObject.footer;
-      state.footer.contactLink = (typeof param.contactLink !== "undefined") ? param.contactLink : undefined;
+      state.footer.contactLink = ("undefined" !== typeof param.contactLink) ? param.contactLink : undefined;
     }
     if(initObject.octopusApi){
       let param = initObject.octopusApi;
-      state.octopusApi.url = (typeof param.url !== "undefined") ? param.url : "http://api.staging.saooti.org/";
-      state.octopusApi.oAuthParam = (typeof param.oAuthParam !== "undefined") ? param.oAuthParam : undefined;
-      state.octopusApi.commentsUrl = (typeof param.commentsUrl !== "undefined") ? param.commentsUrl : "http://comments.staging.saooti.org/";
+      state.octopusApi.url = ("undefined" !== typeof param.url) ? param.url : "http://api.staging.saooti.org/";
+      state.octopusApi.oAuthParam = ("undefined" !== typeof param.oAuthParam) ? param.oAuthParam : undefined;
+      state.octopusApi.commentsUrl = ("undefined" !== typeof param.commentsUrl) ? param.commentsUrl : "http://comments.staging.saooti.org/";
       if(state.generalParameters.podcastmaker){
-        state.octopusApi.organisationId = (typeof param.organisationId !== "undefined") ? param.organisationId : undefined;
+        state.octopusApi.organisationId = ("undefined" !== typeof param.organisationId) ? param.organisationId : undefined;
       }
       let error = octopusApi.initialize(state.octopusApi);
       if(error){
         reject();
-      } else if(state.generalParameters.allCategories.length === 0){
+      } else if(0 === state.generalParameters.allCategories.length){
         octopusApi.fetchCategories({ lang: 'fr' }).then((data)=>{
           state.generalParameters.allCategories = data;
           resolve();

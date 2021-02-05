@@ -14,7 +14,7 @@
             <span id="LINK">{{rss}}</span>
             <input type="button" :value="$t('Copy')" class="btn btn-primary" @click="onCopyLINK()" :aria-label="$t('Copy')" />
           </p>
-          <RssParameters :rssLink="link" :paramRSS.sync='rss'  v-if="link !== ''"/>
+          <RssParameters :rssLink="link" :paramRSS.sync='rss'  v-if="'' !== link"/>
         </div>
         <div class="modal-footer" v-if="validatetext">
           <button class="btn btn-primary" @click="onValid">

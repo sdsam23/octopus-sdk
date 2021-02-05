@@ -1,8 +1,8 @@
 <template>
-  <div class="d-flex flex-column p-3 list-episode" v-if="loading ||(!loading && allPodcasts.length !== 0)">
+  <div class="d-flex flex-column p-3 list-episode" v-if="loading ||(!loading && 0 !== allPodcasts.length)">
     <h2>{{ title }}</h2>
     <div class="d-flex justify-content-between">
-      <div class="d-flex" v-if="requirePopularSort === undefined">
+      <div class="d-flex" v-if="undefined === requirePopularSort">
         <button
           class="btn btn-underline"
           @click="sortPopular()"
@@ -133,10 +133,10 @@ export default {
   },
 
   created() {
-    if(this.requirePopularSort !== undefined){
+    if(undefined !== this.requirePopularSort){
       this.popularSort = this.requirePopularSort;
     }
-    if(this.isArrow !== undefined){
+    if(undefined !== this.isArrow){
       this.isArrow = true;
     }
     window.addEventListener("resize", this.handleResize);
@@ -214,7 +214,7 @@ export default {
         let nexEl = data.result.pop();
         this.preloadImage(nexEl.imageUrl);
       }
-      this.allPodcasts = this.allPodcasts.concat(data.result.filter(pod => pod !== null));
+      this.allPodcasts = this.allPodcasts.concat(data.result.filter(pod => null !== pod));
       if(this.allPodcasts.length <= 3){
         this.alignLeft = true;
       }else{

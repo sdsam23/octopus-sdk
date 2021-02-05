@@ -5,7 +5,7 @@
       <span class="primary-color">{{rss}}</span>
       <input type="button" :value="$t('Copy')" class="btn btn-primary" @click="onCopyRSSURL()" :aria-label="$t('Copy')" />
     </p>
-    <RssParameters :rssLink="baseRss" :paramRSS.sync='rss'  v-if="baseRss !== ''"/>
+    <RssParameters :rssLink="baseRss" :paramRSS.sync='rss'  v-if="'' !== baseRss"/>
     <div class="sharing-distribution-container">
       <router-link v-bind:to="'/main/priv/distribution/deezer/' + emissionId" class="text-dark">
         <span class="saooti-deezer"/>Deezer
@@ -117,7 +117,7 @@ export default {
           this.rssEmission = true;
         }
         if(this.emission.annotations.exclusive){
-          this.exclusive = this.emission.annotations.exclusive == 'true' ? true : false;
+          this.exclusive = 'true' === this.emission.annotations.exclusive ? true : false;
           this.exclusive = this.exclusive && (this.organisationId !== this.emission.orga.id);
         }
       } catch {

@@ -1,6 +1,6 @@
 <template>
   <div class="page-box">
-    <h1 v-if="titlePage === undefined">{{ $t('All emissions') }}</h1>
+    <h1 v-if="undefined === titlePage">{{ $t('All emissions') }}</h1>
     <h1 v-else>{{ titlePage }}</h1>
     <ProductorSearch 
       :organisationId.sync='organisationId' 
@@ -119,7 +119,7 @@ export default {
       this.fromDate = value;
     },
     updateRubriquage(value){
-      if(value !== -1){
+      if(-1 !== value){
         this.rubriquageId = value;
         this.noRubrique = false;
       }else{
@@ -129,7 +129,7 @@ export default {
       this.rubriqueId = undefined;
     },
     updateRubrique(value){
-      if(value !== -1){
+      if(-1 !== value){
         this.rubriqueId = value;
         this.noRubrique = false;
       }else{
@@ -143,7 +143,7 @@ export default {
       this.organisationId = value;
     },
     updateSearchPattern(value){
-      if(value !== ""){
+      if("" !== value){
         this.sortEmission = "SCORE";
       }else{
         this.sortEmission = "LAST_PODCAST_DESC";

@@ -192,10 +192,10 @@ export default {
       this.loaded = true;
       this.displayCount = data.count;
       this.emissions = this.emissions.concat(data.result).filter((e)=>{
-        if(e===null){
+        if(null === e){
           this.displayCount--;
         }
-        return e!== null;
+        return null !==e;
       });
       this.dfirst += this.dsize;
       this.totalCount = data.count;
@@ -216,7 +216,7 @@ export default {
       return "";
     },
     rubriquesId(emission){
-      if(!this.displayRubriquage || !emission.rubriqueIds || emission.rubriqueIds.length === 0 || !this.rubriques || !this.rubriques.length)
+      if(!this.displayRubriquage || !emission.rubriqueIds || 0 === emission.rubriqueIds.length || !this.rubriques || !this.rubriques.length)
         return undefined;
       let rubrique = this.rubriques.find(element => element.rubriqueId === emission.rubriqueIds[0]);
       return rubrique.name;

@@ -1,5 +1,5 @@
 <template>
-    <div v-if="tagList !== undefined">
+    <div v-if="undefined !== tagList">
       <ul class='d-flex flex-wrap'>
         <li class='tagListElement' v-for="tag in tagList" :key="tag">
           <router-link 

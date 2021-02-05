@@ -81,7 +81,7 @@ export default {
       return false;
     },
     activePlaylist(){
-      return Object.keys(this.playlist.podcasts).length !== 0;
+      return 0 !== Object.keys(this.playlist.podcasts).length;
     }
   },
 

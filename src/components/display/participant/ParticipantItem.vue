@@ -112,7 +112,7 @@ export default {
         first:0,
         size:0,
       });
-      if(data.count === 0){
+      if(0 === data.count){
         this.activeParticipant = false;
       }
       if(this.participant &&(this.editRight || this.activeParticipant)){

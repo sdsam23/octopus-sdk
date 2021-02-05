@@ -18,7 +18,7 @@
             <div class="font-weight-bold text-ellipsis">{{p.title}}</div>
             <div class="two-line-clamp" v-html="p.description">{{p.description}}</div>
             </router-link>
-            <div class="play-button-box bg-secondary" @click="play(p)" v-if="$store.state.player.podcast !== p ||($store.state.player.podcast === p && $store.state.player.status === 'PAUSED')">
+            <div class="play-button-box bg-secondary" @click="play(p)" v-if="$store.state.player.podcast !== p ||($store.state.player.podcast === p && 'PAUSED' === $store.state.player.status)">
                 <div class="text-light saooti-play2-bounty" :aria-label="$t('Play')"></div>
             </div>
             <div class="play-button-box bg-secondary" @click="pause(p)" v-else>
@@ -116,7 +116,7 @@ export default {
         emissionId: this.emission.emissionId,
         size: nb
       });
-      if(data.count === 0){
+      if(0 === data.count){
         this.activeEmission = false;
       }
       this.podcasts=data.result;

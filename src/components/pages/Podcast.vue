@@ -24,7 +24,7 @@
             <div class="mb-5 mt-3 d-flex">
               <div class="w-100">
               <PodcastImage
-                :class="[!isOuestFrance && !isLiveReadyToRecord ? 'shadow-element':'',isLiveReadyToRecord && fetchConference && fetchConference != 'null' && fetchConference.status ? fetchConference.status.toLowerCase()+'-shadow' : '']"
+                :class="[!isOuestFrance && !isLiveReadyToRecord ? 'shadow-element':'',isLiveReadyToRecord && fetchConference && 'null' !== fetchConference && fetchConference.status ? fetchConference.status.toLowerCase()+'-shadow' : '']"
                 class="mr-3" 
                 v-bind:podcast="podcast" 
                 :hidePlay='!isLiveReadyToRecord'
@@ -34,7 +34,7 @@
                 :isAnimatorLive="isOctopusAndAnimator"/>
                 <h3 v-if="isOuestFrance">{{ this.podcast.title }}</h3>
                 <div class="date-text-zone" :class="isLiveReady?'justify-content-between':''">
-                  <div :class="!isLiveReady?'mr-5':''" v-if="!isOuestFrance && date.length !==0">{{ date }}</div>
+                  <div :class="!isLiveReady?'mr-5':''" v-if="!isOuestFrance && 0 !== date.length">{{ date }}</div>
                   <div class="ml-2 mr-2"><span class="saooti-clock3" v-if="isOuestFrance"></span>{{ $t('Duration', { duration: duration }) }}</div>
                   <div class="text-danger" v-if="isLiveReady">{{$t('Episode record in live')}}</div>
                 </div>
@@ -75,7 +75,7 @@
                       v-if="podcast.annotations && podcast.annotations.RSS"
                     >{{ $t('From RSS') }}</div>
                     <ErrorMessage :message="$t('Podcast is not visible for listeners')" v-if="!podcast.availability.visibility"/>
-                    <ErrorMessage :message="$t('Podcast in ERROR, please contact Saooti')" v-if="podcast.processingStatus === 'ERROR'"/>
+                    <ErrorMessage :message="$t('Podcast in ERROR, please contact Saooti')" v-if="'ERROR' === podcast.processingStatus"/>
                     <ErrorMessage :message="$t('Podcast not validated')" v-if="podcastNotValid"/>
                   </div>
                   <ShareButtons :podcast="podcast" :bigRound='true' :audioUrl="podcast.audioUrl" v-if="isDownloadButton"></ShareButtons>
@@ -185,7 +185,7 @@ export default {
       return;
     if(this.isOctopusAndAnimator){
       let data = await studioApi.getConference(this.$store, this.podcast.conferenceId);
-      if(data.data !== ""){
+      if("" !== data.data){
         this.fetchConference = data.data;
       }else{
         this.fetchConference = "null";
@@ -194,7 +194,7 @@ export default {
       let data = await studioApi.getRealConferenceStatus(this.$store, this.podcast.conferenceId);
       this.fetchConference = {status : data.data, conferenceId: this.podcast.conferenceId};
     }
-    if(this.fetchConference !== "null" && this.fetchConference.status !=="PUBLISHING" && this.fetchConference.status !=="DEBRIEFING"){
+    if("null" !== this.fetchConference && "PUBLISHING" !== this.fetchConference.status && "DEBRIEFING" !==this.fetchConference.status){
       this.$emit('initConferenceId',this.podcast.conferenceId);
     }
   },
@@ -259,11 +259,11 @@ export default {
     },
 
     categories() {
-      if (typeof this.podcast === "undefined")
+      if ("undefined" === typeof this.podcast)
         return "";
       return this.allCategories
         .filter(item => {
-          return  this.podcast.emission.iabIds && this.podcast.emission.iabIds.indexOf(item.id) !== -1;
+          return  this.podcast.emission.iabIds && -1 !== this.podcast.emission.iabIds.indexOf(item.id);
         })
         .sort((a, b) => {
           if (a.id === this.emissionMainCategory) return -1;
@@ -273,7 +273,7 @@ export default {
     },
 
     date() {
-      if(moment(this.podcast.pubDate).year() !== 1970)
+      if(1970 !== moment(this.podcast.pubDate).year())
         return moment(this.podcast.pubDate).format("D MMMM YYYY [à] HH[h]mm");
       return ""
     },
@@ -311,26 +311,26 @@ export default {
     countLink(){
       let count = 0;
       if(this.podcast.emission && this.podcast.emission.annotations){
-        if (this.podcast.emission.annotations.applePodcast !== undefined) count++;
-        if (this.podcast.emission.annotations.deezer !== undefined) count++;
-        if (this.podcast.emission.annotations.spotify !== undefined) count++;
-        if (this.podcast.emission.annotations.tunein !== undefined) count++;
-        if (this.podcast.emission.annotations.tootak !== undefined) count++;
-        if (this.podcast.emission.annotations.radioline !== undefined) count++;
+        if (undefined !== this.podcast.emission.annotations.applePodcast) count++;
+        if (undefined !== this.podcast.emission.annotations.deezer) count++;
+        if (undefined !== this.podcast.emission.annotations.spotify) count++;
+        if (undefined !== this.podcast.emission.annotations.tunein) count++;
+        if (undefined !== this.podcast.emission.annotations.tootak) count++;
+        if (undefined !== this.podcast.emission.annotations.radioline) count++;
       }
       return count;
     },
     isLiveReadyToRecord(){
-      return this.podcast.conferenceId && this.podcast.conferenceId !== 0 && this.podcast.processingStatus === 'READY_TO_RECORD';
+      return this.podcast.conferenceId && 0 !== this.podcast.conferenceId && 'READY_TO_RECORD' === this.podcast.processingStatus;
     },
     isLiveReady(){
-      return this.podcast.conferenceId && this.podcast.conferenceId !== 0 && this.podcast.processingStatus === 'READY';
+      return this.podcast.conferenceId && 0 !== this.podcast.conferenceId && 'READY' === this.podcast.processingStatus;
     },
     isCounter(){
-      return this.isLiveReadyToRecord && this.fetchConference && (this.fetchConference.status === 'PLANNED' ||this.fetchConference.status === 'PENDING');
+      return this.isLiveReadyToRecord && this.fetchConference && ('PLANNED' === this.fetchConference.status ||'PENDING' === this.fetchConference.status);
     },
     isNotRecorded(){
-      return this.isLiveReadyToRecord && this.fetchConference && this.fetchConference.status === 'DEBRIEFING';
+      return this.isLiveReadyToRecord && this.fetchConference && 'DEBRIEFING' === this.fetchConference.status;
     },
     isOctopusAndAnimator(){
       return !this.isPodcastmaker && this.editRight && state.generalParameters.isRoleLive;
@@ -364,7 +364,7 @@ export default {
           this.podcast.emission.annotations.exclusive
         ) {
           this.exclusive =
-            this.podcast.emission.annotations.exclusive == "true"
+            "true" === this.podcast.emission.annotations.exclusive
               ? true
               : false;
           this.exclusive =
@@ -372,9 +372,9 @@ export default {
             this.organisationId !== this.podcast.organisation.id;
         }
         if (this.podcast.emission.annotations && this.podcast.emission.annotations.notExclusive) {
-          this.notExclusive = this.podcast.emission.annotations.notExclusive == "true" ? true : false;
+          this.notExclusive = "true" === this.podcast.emission.annotations.notExclusive ? true : false;
         }
-        if(!this.podcast.availability.visibility && !this.editRight && this.podcast.processingStatus !== "READY_TO_RECORD"){
+        if(!this.podcast.availability.visibility && !this.editRight && "READY_TO_RECORD" !== this.podcast.processingStatus){
           this.error= true;
         }
         this.loaded = true;
@@ -413,7 +413,7 @@ export default {
   }, 
   watch:{
     updateStatus(){
-      if(this.fetchConference && this.fetchConference !== null){
+      if(this.fetchConference && null !== this.fetchConference){
         this.fetchConference.status = this.updateStatus;
       }
     },

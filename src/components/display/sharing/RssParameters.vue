@@ -84,7 +84,7 @@ export default {
 				}else{
 					rss += this.numberEpisodeBefore;
 				}
-				if(this.typeEpisodeBefore === 'h'){
+				if('h' === this.typeEpisodeBefore){
 					rss += 'h';
 				}
 				if(this.episodeAfter){
@@ -98,7 +98,7 @@ export default {
 				}else{
 					rss += this.numberEpisodeAfter;
 				}
-				if(this.typeEpisodeAfter === 'h'){
+				if('h' === this.typeEpisodeAfter){
 					rss += 'h';
 				}
 			}

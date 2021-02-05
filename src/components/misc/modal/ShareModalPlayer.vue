@@ -89,7 +89,7 @@ export default {
       this.$emit('close');
     },
     async onCopyCode(link) {
-      if (typeof(navigator.clipboard)!=='undefined') {
+      if ('undefined' !== typeof(navigator.clipboard)) {
         await navigator.clipboard.writeText(link);
         this.$refs.snackbar.open(this.$t('Data in clipboard'));
         return;

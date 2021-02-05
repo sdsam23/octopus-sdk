@@ -73,7 +73,7 @@ export default new Vuex.Store({
         //Do nothing
         return;
       }
-      if(podcast.conferenceId && (!podcast.podcastId || podcast.processingStatus !== "READY")){
+      if(podcast.conferenceId && (!podcast.podcastId || "READY" !== podcast.processingStatus)){
         state.player = {
           status: 'LOADING', //STOPPED, LOADING, PLAYING, PAUSED
           podcast: undefined,

@@ -115,10 +115,10 @@ export default {
       this.loaded = true;
       this.displayCount = data.count;
       this.participants = this.participants.concat(data.result).filter((p)=>{
-        if(p===null){
+        if(null === p){
           this.displayCount--;
         }
-        return p!== null;
+        return null !== p;
       });
       this.dfirst += this.dsize;
       this.totalCount = data.count;

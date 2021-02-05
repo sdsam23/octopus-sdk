@@ -108,7 +108,7 @@ export default {
   },
 
   async created() {
-    if(this.authenticated && this.$store.state.organisation.imageUrl === undefined){
+    if(this.authenticated && undefined === this.$store.state.organisation.imageUrl){
       const data = await octopusApi.fetchOrganisation(this.organisationId)
       this.myImage = data.imageUrl;
     }
@@ -205,7 +205,7 @@ export default {
       }
     
       let notNull =orga.filter((o)=>{
-        return o!== null;
+        return null !== o;
       });
       
       if (this.defaultanswer) {
@@ -216,7 +216,7 @@ export default {
         this.organisations = notNull;
       }
       if(this.myOrganisation){
-        if(query === undefined){
+        if(undefined === query){
           this.organisations = this.organisations.filter(obj => {
             return obj.id !== this.organisationId;
           });
@@ -233,7 +233,7 @@ export default {
     },
 
     async fetchOrganisation(){
-      if(this.organisations.length ===0){
+      if(0 === this.organisations.length){
         this.onSearchOrganisation();
       }
       const data = await octopusApi.fetchOrganisation(this.value);

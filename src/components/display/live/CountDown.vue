@@ -49,7 +49,7 @@ export default {
 			this.remainingSeconds = this.seconds % 60;
 			
 			/* this.$refs.countdown.innerHTML = this.pad(days) + ":" + this.pad(hours) + ":" + this.pad(minutes) + ":" + this.pad(remainingSeconds); */
-			if (this.seconds == 0) {
+			if (0 === this.seconds) {
 				clearInterval(this.countdownTimer);
 				this.countdownTimer = undefined;
 			} else {

@@ -56,7 +56,7 @@ import Multiselect from 'vue-multiselect';
 import {state} from "../../../store/paramStore.js";
 
 const getDefaultCategory = defaultName => {
-  if(defaultName !== undefined)
+  if(undefined !== defaultName)
     return {name: defaultName, id: 0};
   return '';
 };
@@ -98,10 +98,10 @@ export default {
   },
 
   mounted() {
-    if(this.categorySelected !== undefined){
+    if(undefined !== this.categorySelected){
       this.initCategorySelected(this.categorySelected);
     }
-    if(this.categoryArray !== undefined){
+    if(undefined !== this.categoryArray){
       this.initCategoryArray(this.categoryArray);
     }
   },
@@ -112,12 +112,12 @@ export default {
       if(undefined === this.categoryArray) {
         this.category = '';
       }
-      if(this.categorySelected !== undefined || this.categoryArray !== undefined || this.displayAllCategories){
+      if(undefined !== this.categorySelected || undefined !== this.categoryArray || this.displayAllCategories){
         this.totalCategories = this.allCategories;
       } else {
         this.totalCategories = this.allCategories.filter(c => {return c.podcastCount;});
       }
-      if(this.defaultanswer !== undefined){
+      if(undefined !== this.defaultanswer){
         this.categories = [getDefaultCategory(this.defaultanswer)].concat(
           this.totalCategories
         );
@@ -148,7 +148,7 @@ export default {
     },
 
     onEmissionSelected(category) {
-      if(this.categorySelected !== undefined){
+      if(undefined !== this.categorySelected){
         this.$emit('update:categorySelected', category.id);
       } else if(undefined === this.categoryArray){
         this.$emit('selected', category);

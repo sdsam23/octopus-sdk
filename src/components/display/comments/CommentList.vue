@@ -165,7 +165,7 @@ export default {
         this.loaded = true;
         this.totalCount = data.totalElements;
         this.comments = this.comments.concat(data.content).filter((c)=>{
-          return c!== null;
+          return null !== c;
         });
         this.dfirst += this.dsize;
       } catch (error) {
@@ -193,10 +193,10 @@ export default {
         return;
       }
       let index = this.comments.findIndex(element => element.comId === comment.comId);
-      if(index == -1)
+      if(-1 === index)
         return;
       this.totalCount -=1; 
-      if(this.dfirst !==0){
+      if(0 !== this.dfirst){
         this.dfirst -=1;
       }
       this.comments.splice(index, 1);
@@ -207,8 +207,8 @@ export default {
         return;
       }
       let index = this.comments.findIndex(element => element.comId === data.comment.comId);
-      if(index !== -1){
-        if(data.status !== "Valid" && (!this.editRight ||(this.status && this.status !== data.status))){
+      if(-1 !== index){
+        if("Valid" !== data.status && (!this.editRight ||(this.status && this.status !== data.status))){
           this.comments.splice(index, 1);
         }else{
           this.comments.splice(index, 1, data.comment);
@@ -224,7 +224,7 @@ export default {
               break;
             }
           }
-          if(indexNewComment !== -1){
+          if(-1 !== indexNewComment){
             if(!this.status || this.status === data.status){
               this.comments.splice(indexNewComment, 0, data.comment);
             }else{
@@ -242,7 +242,7 @@ export default {
       }
     },
     addNewComment(comment, myself = false){
-      if(!myself && !this.editRight && comment.status !=="Valid"){
+      if(!myself && !this.editRight && "Valid" !== comment.status){
         return;
       }
       if(!this.isFlat && comment.commentIdReferer && this.comId !== comment.commentIdReferer){

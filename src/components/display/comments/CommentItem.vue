@@ -184,7 +184,7 @@ export default {
       },
     },
     recordingInLive(){
-      return this.podcast && this.podcast.conferenceId && this.podcast.conferenceId !== 0 && 'READY' === this.podcast.processingStatus;
+      return this.podcast && this.podcast.conferenceId && 0 !== this.podcast.conferenceId && 'READY' === this.podcast.processingStatus;
     }
   },
 
@@ -215,10 +215,10 @@ export default {
       }
     },
     editComment(){
-      if(this.comment.name && this.comment.name !== null){
+      if(this.comment.name && null !== this.comment.name){
         this.temporaryName = this.comment.name;
       }
-      if(this.comment.content && this.comment.content !== null){
+      if(this.comment.content && null !== this.comment.content){
         this.temporaryContent = this.comment.content;
       } 
       this.isEditing=true;

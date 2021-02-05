@@ -21,14 +21,14 @@
 							<option :value="-1" class="primary-dark">{{$t('Without topic')}}</option>
 							<option 
 								v-for="rubriquage in rubriquageData" 
-								v-show="rubriquage.rubriques.length !== 0"
+								v-show="0 !== rubriquage.rubriques.length"
 								:key="rubriquage.rubriquageId" 
 								:value="rubriquage.rubriquageId"
 							>{{rubriquage.title}}</option>
 						</select>
 						<div class="saooti-arrow_down octopus-arrow-down-2 classic-select"></div>
 					</label>
-					<template v-if="rubriquageId && rubriquageId !== -1">
+					<template v-if="rubriquageId && -1 !== rubriquageId">
 						<div class="ml-3 flex-shrink">{{$t('By rubric')}}</div>
 						<RubriqueChooser 
 							class="ml-2"
@@ -247,11 +247,11 @@ export default {
       return state.podcastsPage.MonetizableFilter;
 		},
 		rubriquageDisplay(){
-			if(this.rubriquageData.length === 0)
+			if(0 === this.rubriquageData.length)
 				return false;
 			let found = false;
 			for (let index = 0; index < this.rubriquageData.length; index++) {
-				if(this.rubriquageData[index].rubriques.length !== 0){
+				if(0 !== this.rubriquageData[index].rubriques.length){
 					found = true;
 					break;
 				}
@@ -332,7 +332,7 @@ export default {
 			if(rubrique.rubriqueId === this.rubriqueId)
 				return;
 			this.rubriqueId = rubrique.rubriqueId;
-			if(this.rubriqueId === 0){
+			if(0 === this.rubriqueId){
 				this.$emit('updateRubrique', undefined);
 			}else{
 				this.$emit('updateRubrique', rubrique.rubriqueId);
@@ -354,11 +354,11 @@ export default {
 
 			const data = await octopusApi.fetchTopics(this.organisation);
 			this.rubriquageData = data;
-			if(data.length === 0)
+			if(0 === data.length)
 				return;
 
 			for (let index = 0; index < this.rubriquageData.length; index++) {
-				if(this.rubriquageData[index].rubriques.length !== 0){
+				if(0 !== this.rubriquageData[index].rubriques.length){
 					this.rubriquageId = this.rubriquageData[index].rubriquageId;
 					break;
 				}

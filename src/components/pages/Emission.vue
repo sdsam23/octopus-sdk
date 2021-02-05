@@ -146,12 +146,12 @@ export default {
     countLink(){
       let count = 0;
       if(this.emission && this.emission.annotations){
-        if (this.emission.annotations.applePodcast !== undefined) count++;
-        if (this.emission.annotations.deezer !== undefined) count++;
-        if (this.emission.annotations.spotify !== undefined) count++;
-        if (this.emission.annotations.tunein !== undefined) count++;
-        if (this.emission.annotations.tootak !== undefined) count++;
-        if (this.emission.annotations.radioline !== undefined) count++;
+        if (undefined !== this.emission.annotations.applePodcast) count++;
+        if (undefined !== this.emission.annotations.deezer) count++;
+        if (undefined !== this.emission.annotations.spotify) count++;
+        if (undefined !== this.emission.annotations.tunein) count++;
+        if (undefined !== this.emission.annotations.tootak) count++;
+        if (undefined !== this.emission.annotations.radioline) count++;
       }
       return count;
     },
@@ -179,12 +179,12 @@ export default {
         }
         if (this.emission.annotations.exclusive) {
           this.exclusive =
-            this.emission.annotations.exclusive == "true" ? true : false;
+            "true" === this.emission.annotations.exclusive ? true : false;
           this.exclusive =
             this.exclusive && this.organisationId !== this.emission.orga.id;
         }
         if (this.emission.annotations.notExclusive) {
-          this.notExclusive = this.emission.annotations.notExclusive == "true" ? true : false;
+          this.notExclusive = "true" === this.emission.annotations.notExclusive ? true : false;
         }
       } catch {
         this.error = true;

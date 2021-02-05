@@ -130,11 +130,11 @@ export default {
       return state.generalParameters.podcastmaker;
     },
     searchText(){
-      if(this.type === "emission")
+      if("emission" === this.type)
         return this.$t('Look for emission name');
-      if(this.type === "participant")
+      if("participant" === this.type)
         return this.$t('Look for participant name');
-      if(this.type ==="playlist")
+      if("playlist" === this.type)
         return this.$t('Look for playlist name');
       return this.$t('Look for podcast name');
     },

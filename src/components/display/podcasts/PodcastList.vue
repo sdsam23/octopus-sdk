@@ -196,12 +196,12 @@ export default {
       this.loading = false;
       this.loaded = true;
       this.podcasts = this.podcasts.concat(data.result).filter((p)=>{
-        return p!== null;
+        return null !== p;
       });
       this.$emit('fetch', this.podcasts);
       this.dfirst += this.dsize;
       this.totalCount = data.count;
-      if(this.podcasts.length === 0){
+      if(0 === this.podcasts.length){
         this.$emit('emptyList');
       }
       this.inFetching=false;

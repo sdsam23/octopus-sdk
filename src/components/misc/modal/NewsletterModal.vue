@@ -148,7 +148,7 @@ export default {
 				return html;
 			},
 			date() {
-				if(moment(this.podcast.pubDate).year() !== 1970)
+				if(1970 !== moment(this.podcast.pubDate).year())
 					return moment(this.podcast.pubDate).format("D MMMM YYYY [à] HH[h]mm");
 				return ""
 			},
@@ -187,7 +187,7 @@ export default {
 			element.target.select();
 		},
 		async onCopyCode(link) {
-      if (typeof(navigator.clipboard)!=='undefined') {
+      if ('undefined' !== typeof(navigator.clipboard)) {
         await navigator.clipboard.writeText(link);
         this.$refs.snackbar.open(this.$t('Data in clipboard'));
         return;

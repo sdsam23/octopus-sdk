@@ -136,7 +136,7 @@ export default {
       this.dataRSSSave = false;
     },
     async onCopyCode() {
-      if (typeof(navigator.clipboard)!=='undefined') {
+      if ('undefined' !== typeof(navigator.clipboard)) {
         await navigator.clipboard.writeText(window.location.href);
         this.$refs.snackbar.open(this.$t('Link in clipboard'));
         return;

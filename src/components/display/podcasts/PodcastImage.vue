@@ -4,7 +4,7 @@
     :style="{ 'background-image': 'url(\'' + podcast.imageUrl +  '\')' }"
     v-if="podcast"
   >
-    <div class="live-image-status" :class="fetchConference && fetchConference!=='null' ? fetchConference.status.toLowerCase()+'-bg' : ''" v-if="fetchConference">{{statusText}}</div>
+    <div class="live-image-status" :class="fetchConference && 'null' !== fetchConference ? fetchConference.status.toLowerCase()+'-bg' : ''" v-if="fetchConference">{{statusText}}</div>
     <div class="live-image-status recording-bg" v-if="isRecordedInLive">{{"Enregistré en live"}}</div>
     <div 
       class="podcast-image-play-button" 
@@ -188,8 +188,8 @@ export default {
       playingPodcast(state) {
         return (
           (state.player.podcast &&
-          state.player.podcast.podcastId == this.podcast.podcastId) || 
-          (this.fetchConference && this.fetchConference!=='null' && state.player.live && state.player.live.conferenceId === this.fetchConference.conferenceId)
+          state.player.podcast.podcastId === this.podcast.podcastId) || 
+          (this.fetchConference && 'null' !== this.fetchConference && state.player.live && state.player.live.conferenceId === this.fetchConference.conferenceId)
         );
       },
     }),
@@ -199,44 +199,44 @@ export default {
     },
 
     isRecordedInLive(){
-      return this.fetchConference === undefined && this.podcast.conferenceId !== undefined && this.podcast.processingStatus !== "READY_TO_RECORD";
+      return undefined === this.fetchConference && undefined !== this.podcast.conferenceId && "READY_TO_RECORD" !== this.podcast.processingStatus;
     },
 
     isLiveToBeRecorded(){
-      return this.fetchConference === undefined && this.podcast.conferenceId !== undefined && this.podcast.processingStatus === "READY_TO_RECORD";
+      return undefined === this.fetchConference && undefined !== this.podcast.conferenceId && "READY_TO_RECORD" === this.podcast.processingStatus;
     },
     classicPodcastPlay(){
-      return this.podcast && (false!==this.podcast.valid && (this.podcast.processingStatus === 'READY_TO_RECORD' || this.podcast.processingStatus === 'READY'))&& !this.isLiveToBeRecorded;
+      return this.podcast && (false !== this.podcast.valid && ('READY_TO_RECORD' === this.podcast.processingStatus || 'READY' === this.podcast.processingStatus))&& !this.isLiveToBeRecorded;
     },
     iconName(){
       if(this.isLiveToBeRecorded)
         return "saooti-clock";
-      if(this.podcast.processingStatus === "READY" || this.fetchConference){
+      if("READY" === this.podcast.processingStatus || this.fetchConference){
         if(false==this.podcast.valid)
           return "saooti-checkmark"
         if(!this.podcast.availability.visibility && this.podcast.availability.date)
           return "saooti-clock";
         return "saooti-eye-blocked";
       }
-      if(this.podcast.processingStatus === "PLANNED" || this.podcast.processingStatus === "PROCESSING")
+      if("PLANNED" === this.podcast.processingStatus || "PROCESSING" === this.podcast.processingStatus)
         return 'saooti-hourglass';
-      if(this.podcast.processingStatus === "CANCELED")
+      if("CANCELED" === this.podcast.processingStatus)
         return 'saooti-cancel-circle';
       return 'saooti-warning';
     },
     textVisible(){
       if(this.isLiveToBeRecorded)
         return this.$t("Podcast linked to waiting live");
-      if(this.podcast.processingStatus === "READY" || this.fetchConference){
+      if("READY" === this.podcast.processingStatus || this.fetchConference){
         if(false==this.podcast.valid)
           return this.$t('Podcast to validate');
         if(!this.podcast.availability.visibility && this.podcast.availability.date)
           return this.$t('Podcast publish in future');
         return this.$t('Podcast no visible');
       }
-      if(this.podcast.processingStatus === "PLANNED" || this.podcast.processingStatus === "PROCESSING")
+      if("PLANNED" === this.podcast.processingStatus || "PROCESSING" === this.podcast.processingStatus)
         return this.$t('Podcast in process');
-      if(this.podcast.processingStatus === "CANCELED")
+      if("CANCELED" === this.podcast.processingStatus)
         return this.$t('Podcast in cancelled status');
       return this.$t('Podcast in error');
     },
@@ -254,7 +254,7 @@ export default {
         case "DEBRIEFING":
           if(!this.isAnimatorLive)
             return "";
-          if(this.podcast.processingStatus === "READY_TO_RECORD")
+          if("READY_TO_RECORD" === this.podcast.processingStatus)
             return this.$t("Not recording");
           return this.$t("Debriefing");
         case "ERROR":return this.$t("In error");
@@ -265,8 +265,8 @@ export default {
 
     recordingLive(){
       return this.fetchConference &&
-          this.fetchConference!=='null' &&
-          (this.fetchConference.status === 'RECORDING' || this.fetchConference.status === 'PENDING');
+          'null' !== this.fetchConference&&
+          ('RECORDING' === this.fetchConference.status || 'PENDING' === this.fetchConference.status);
     }
   },
 
@@ -306,7 +306,7 @@ export default {
 
   watch:{
     arrowDirection(newValue){
-      if(newValue === 'up'){
+      if('up' === newValue){
         this.isDescription = true;
         this.showDescription();
       }else{

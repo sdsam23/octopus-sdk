@@ -45,7 +45,7 @@ export default {
       const matchCategories = this.categories.filter(
         c => c.id === iabId
       );
-      if (matchCategories.length !== 1)
+      if (1 !== matchCategories.length)
         return '';
       this.title = matchCategories[0]['name'];
     },

@@ -136,9 +136,9 @@ export default {
         first: 0,
         size: ELEMENTS_COUNT,
       };
-      if(this.distributedBy !== undefined){
+      if(undefined !== this.distributedBy){
         standardParam = {...standardParam, distributedBy: this.distributedBy};
-      } else if(this.organisationDistributedBy !== undefined){
+      } else if(undefined !== this.organisationDistributedBy){
         standardParam = {...standardParam, distributedBy: this.organisationDistributedBy, organisationId: this.organisationId};
       } else {
         standardParam = {...standardParam, organisationId: this.organisationId};

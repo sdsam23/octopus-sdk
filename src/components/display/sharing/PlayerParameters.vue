@@ -6,13 +6,13 @@
       <b-collapse id="playerParameters" role="tabpanel">
         <b-card-body>
           <b-card-text>
-            <div class="d-flex flex-column flex-grow" v-if="(!podcast || iFrameModel === 'emission' || iFrameModel === 'largeEmission' || iFrameModel === 'largeSuggestion')">
-              <div class="d-flex align-items-center w-100 flex-wrap mt-1" v-if="!podcast || iFrameModel === 'emission' || iFrameModel === 'largeEmission'">
+            <div class="d-flex flex-column flex-grow" v-if="(!podcast || isEmission || isLargeEmission || isLargeSuggestion)">
+              <div class="d-flex align-items-center w-100 flex-wrap mt-1" v-if="!podcast || isEmission || isLargeEmission">
                 <b-form-radio v-model="episodeNumbers" name="episodeNumbers" value="all" ></b-form-radio>
                 <span class="flex-shrink">{{ $t('Show every episode') }}</span>
               </div>
-              <div class="d-flex align-items-center flex-wrap" :class="!podcast || iFrameModel === 'emission' || iFrameModel === 'largeEmission'? '':'mt-3'">
-                <b-form-radio v-model="episodeNumbers" name="episodeNumbers" value="number" v-if="!podcast || iFrameModel === 'emission' || iFrameModel === 'largeEmission'"></b-form-radio>
+              <div class="d-flex align-items-center flex-wrap" :class="!podcast ||isEmission || isLargeEmission? '':'mt-3'">
+                <b-form-radio v-model="episodeNumbers" name="episodeNumbers" value="number" v-if="!podcast || isEmission || isLargeEmission"></b-form-radio>
                 <span class="flex-shrink">{{ $t('Show') }}</span>
                 <input
                   id="number-input"
@@ -101,6 +101,15 @@ export default {
         }
       }
     },
+    isEmission(){
+      return 'emission' === this.iFrameModel;
+    },
+    isLargeEmission(){
+      return 'largeEmission' === this.iFrameModel;
+    },
+    isLargeSuggestion(){
+      return 'largeSuggestion' === this.iFrameModel;
+    }
   },
 
   methods:{

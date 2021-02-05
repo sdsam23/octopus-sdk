@@ -162,7 +162,7 @@ export default {
       return this.$store.state.filter.organisationId;
     },
     displayNextLiveMessage(){
-      if(this.lives.length !== 0)
+      if(0 !== this.lives.length)
         return "";
       if(this.livesNotStarted.length > 0)
         return this.$t('A live can start any moment');
@@ -201,7 +201,7 @@ export default {
       this.loading = true;
       this.loaded = false;
       let dataLives = await studioApi.listConferences(this.$store, true, this.filterOrgaUsed, 'RECORDING');
-      this.lives = dataLives.filter((p)=>{return p!== null;});
+      this.lives = dataLives.filter((p)=>{return null !== p;});
       let dataLivesToBe = await studioApi.listConferences(this.$store, true, this.filterOrgaUsed, 'PENDING');
       let indexPast = 0;
       for (let index = 0; index < dataLivesToBe.length; index++) {
@@ -213,14 +213,14 @@ export default {
         }
       }
       let dataLivesPlanned = await studioApi.listConferences(this.$store, true, this.filterOrgaUsed, 'PLANNED');
-      this.livesToBe = dataLivesToBe.slice(indexPast).concat(dataLivesPlanned).filter((p)=>{return p!== null;});
+      this.livesToBe = dataLivesToBe.slice(indexPast).concat(dataLivesPlanned).filter((p)=>{return null !== p;});
       if(this.organisationRight){
         let dataLivesTerminated = await studioApi.listConferences(this.$store, true, this.filterOrgaUsed, 'DEBRIEFING');
-        this.livesTerminated = dataLivesTerminated.filter((p)=>{return p!== null;});
+        this.livesTerminated = dataLivesTerminated.filter((p)=>{return null !== p;});
         let dataLivesError = await studioApi.listConferences(this.$store, true, this.filterOrgaUsed, 'ERROR');
-        this.livesError = dataLivesError.filter((p)=>{return p!== null;});
+        this.livesError = dataLivesError.filter((p)=>{return null !== p;});
         let dataLivesPublishing = await studioApi.listConferences(this.$store, true, this.filterOrgaUsed, 'PUBLISHING');
-        this.livesPublishing = dataLivesPublishing.filter((p)=>{return p!== null;});
+        this.livesPublishing = dataLivesPublishing.filter((p)=>{return null !== p;});
       }
       let listIds= this.lives.concat(this.livesToBe).concat(this.livesNotStarted);
       this.$emit('initConferenceIds', listIds);
@@ -249,9 +249,9 @@ export default {
       for (let index = 0; index < this.conferenceWatched.length; index++) {
         const element = this.conferenceWatched[index];
         let indexLivesToBe = this.livesToBe.findIndex((el)=>el.conferenceId === element.conferenceId);
-        if(indexLivesToBe === -1){
+        if(-1 === indexLivesToBe){
           let indexLives = this.lives.findIndex((el)=>el.conferenceId === element.conferenceId);
-          if(indexLives === -1 || element.status !== "DEBRIEFING")
+          if(-1 === indexLives || "DEBRIEFING" !== element.status)
             continue;
           let newConf = this.lives[indexLives];
           newConf.status = element.status;
@@ -259,7 +259,7 @@ export default {
           this.livesTerminated.push(newConf);
           break;
         }
-        if(element.status !== "RECORDING")
+        if("RECORDING" !== element.status)
           continue;
         let newConf = this.livesToBe[indexLivesToBe];
         newConf.status = element.status;

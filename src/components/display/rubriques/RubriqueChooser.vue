@@ -55,7 +55,7 @@ import { selenium } from '../../mixins/functions'
 import Multiselect from 'vue-multiselect';
 
 const getDefaultRubrique = defaultName => {
-  if(defaultName !== undefined)
+  if(undefined !== defaultName)
     return {name: defaultName, rubriqueId: 0};
   return '';
 };
@@ -89,10 +89,10 @@ export default {
   },
 
   mounted() {
-    if(this.rubriqueSelected !== undefined){
+    if(undefined !== this.rubriqueSelected){
       this.initRubriqueSelected(this.rubriqueSelected);
     }
-    if(this.rubriqueArray !== undefined){
+    if(undefined !== this.rubriqueArray){
       this.initRubriqueArray(this.rubriqueArray);
     }
   },
@@ -107,10 +107,10 @@ export default {
   methods: {
     clearAll() {
       this.$refs.multiselectRef.$refs.search.setAttribute("autocomplete", "off");
-      if(this.rubriqueArray === undefined) {
+      if(undefined === this.rubriqueArray) {
         this.rubrique = '';
       } 
-      if(this.defaultanswer === undefined){
+      if(undefined === this.defaultanswer){
         this.rubriques = this.allRubriques;
         return;
       }
@@ -126,9 +126,9 @@ export default {
     },
 
     onClose() {
-      if (this.rubrique || this.rubriqueArray !== undefined)
+      if (this.rubrique || undefined !== this.rubriqueArray)
         return;
-      if(this.defaultanswer !== undefined){
+      if(undefined !== this.defaultanswer){
         this.rubrique = getDefaultRubrique(this.defaultanswer);
       } else{
         this.rubrique = '';
@@ -139,7 +139,7 @@ export default {
     onSearchRubrique(query) {
       this.isLoading = true;
       let list;
-      if(this.defaultanswer !== undefined){
+      if(undefined !== this.defaultanswer){
         if(this.withoutRubrique){
           list = [getDefaultRubrique(this.defaultanswer), this.withoutItem].concat(
             this.allRubriques
@@ -159,9 +159,9 @@ export default {
     },
 
     onRubriqueSelected(rubrique) {
-      if(this.rubriqueSelected !== undefined){
+      if(undefined !== this.rubriqueSelected){
         this.$emit('update:rubrique', rubrique.rubriqueId);
-      } else if(this.rubriqueArray === undefined){
+      } else if(undefined === this.rubriqueArray){
         this.$emit('selected', rubrique);
       }
     },
@@ -185,7 +185,7 @@ export default {
       this.initRubriqueSelected(newVal);
     },
     rubrique(newVal) {
-      if(this.rubriqueArray === undefined)
+      if(undefined === this.rubriqueArray)
         return;
 
       let idsArray = [];

@@ -42,8 +42,8 @@
           v-if="!playerError"
           class="play-button-box"
           v-bind:class="{
-          'primary-bg': status != 'LOADING',
-          'text-light': status != 'LOADING',
+          'primary-bg': !isLoading,
+          'text-light': !isLoading,
         }"
           @click="switchPausePlay"
         >
@@ -51,15 +51,15 @@
             class="text-light"
             :aria-label="$t('Play')"
             v-bind:class="{
-            saooti: status == 'PLAYING' || status == 'PAUSED',
-            'saooti-play2-bounty': status == 'PAUSED',
-            'saooti-pause-bounty': status == 'PLAYING',
-            loading: status == 'LOADING',
+            saooti: isPlaying || isPaused,
+            'saooti-play2-bounty': isPaused,
+            'saooti-pause-bounty': isPlaying,
+            loading: isLoading,
           }"
           ></div>
         </div>
         <div
-          v-if="(status=== 'PLAYING' || status=== 'PAUSED')&& (media|| isStop)"
+          v-if="(isPlaying || isPaused)&& (media|| isStop)"
           class="play-button-box primary-bg text-light"
           @click="stopPlayer"
         >
@@ -111,7 +111,7 @@
         </div>
         <div 
         class="timeline-button"
-        v-if="comments.length !== 0"
+        v-if="0 !== comments.length"
         @click="showTimeline = !showTimeline"
         >
           <div class="saooti-arrow_down saooti-arrow_down-margin" :class="showTimeline?'':'arrow-transform'"></div>
@@ -303,6 +303,15 @@ export default {
   },
 
   computed: {
+    isPlaying(){
+      return 'PLAYING' === this.status;
+    },
+    isPaused(){
+      return 'PAUSED' === this.status;
+    },
+    isLoading(){
+      return 'LOADING' === this.status;
+    },
     isImage() {
       return state.player.image;
     },
@@ -316,9 +325,9 @@ export default {
       return state.player.barTop;
     },
     ...mapState({
-      display: (state) => state.player.status != "STOPPED",
+      display: (state) => "STOPPED" !== state.player.status,
       playerHeight(state) {
-        if (state.player.status == "STOPPED" || this.forceHide)
+        if ("STOPPED" === state.player.status || this.forceHide)
           return 0;
         if(window.innerWidth>450 && !this.showTimeline)
           return "5rem";
@@ -431,7 +440,7 @@ export default {
             this.durationLivePosition= 0;
             return;
           }
-          if (newValue === "PAUSED") {
+          if ("PAUSED" === newValue) {
             audioPlayer.pause();
           } else {
             audioPlayer.play();
@@ -493,8 +502,8 @@ export default {
         }
         if (
           this.live &&
-          this.listenTime === 0 &&
-          event.currentTarget.currentTime !== 0
+          0 === this.listenTime &&
+          0 !== event.currentTarget.currentTime
         ) {
           this.notListenTime = event.currentTarget.currentTime;
           this.listenTime = 1;
@@ -566,9 +575,9 @@ export default {
         return _return.map((item) => item.trim())
       })
       .filter((item) => {
-        return item[0] === "player_"+this.podcast.podcastId
+        return "player_"+this.podcast.podcastId === item[0]
       });
-      if(matching_cookies.length === 1){
+      if(1 === matching_cookies.length){
         this.setDownloadId(matching_cookies[0][1])
       }
     },
@@ -655,9 +664,9 @@ export default {
           count = this.$store.state.comments.totalCount;
         }
       }
-      if((!podcastId || this.$store.state.comments.actualPodcastId === podcastId) && first===0)
+      if((!podcastId || this.$store.state.comments.actualPodcastId === podcastId) && 0 === first)
         return;
-      while(first === 0 || this.comments.length < count){
+      while(0 === first || this.comments.length < count){
         let param = {
           first: first,
           size: size,
@@ -670,7 +679,7 @@ export default {
         first += size;
         count = data.totalElements;
         this.comments = this.comments.concat(data.content).filter((c)=>{
-          return c!== null;
+          return null !== c;
         });
       }
     }
@@ -686,7 +695,7 @@ export default {
     },
 
     playerHeight(newVal) {
-      this.$emit("hide", newVal === 0 ? true : false);
+      this.$emit("hide", 0 === newVal ? true : false);
     },
 
     podcast() {

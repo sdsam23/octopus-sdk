@@ -1,5 +1,5 @@
 <template>
-  <div class="default-multiselect-width" :style="{ width: width }" v-if='(!value ||init) && organisation !== ""'>
+  <div class="default-multiselect-width" :style="{ width: width }" v-if='(!value ||init) && "" !== organisation'>
     <select :id="'organisation_chooser_light'+page" class="basic-select mb-0 c-hand" v-model='actual' @change="onOrganisationSelected">
 			<option :value="organisation.id">{{organisation.name}}</option>
 			<option :value="-1">{{$t('No organisation filter')}}</option>
@@ -51,7 +51,7 @@ export default {
 
   methods: {
     onOrganisationSelected() {
-			if(this.actual === -1){
+			if(-1 === this.actual){
 				this.$emit('selected', undefined);
 			}else{
 				this.$emit('selected', this.organisation);

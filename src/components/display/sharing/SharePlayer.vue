@@ -52,7 +52,7 @@
           </div>
         </div>
         <PlayerParameters
-        v-if="(!podcast || iFrameModel === 'emission' || iFrameModel === 'largeEmission' || iFrameModel === 'largeSuggestion')"
+        v-if="(!podcast || isEmission || isLargeEmission || isLargeSuggestion)"
         :podcast="podcast"
         :playlist="playlist"
         :iFrameModel="iFrameModel"
@@ -158,6 +158,15 @@ export default {
     };
   },
   computed: {
+    isEmission(){
+      return 'emission' === this.iFrameModel;
+    },
+    isLargeEmission(){
+      return 'largeEmission' === this.iFrameModel;
+    },
+    isLargeSuggestion(){
+      return 'largeSuggestion' === this.iFrameModel;
+    },
     titleStillAvailable(){
       if(this.isPodcastNotVisible)
         return this.$t('Podcast still available');
@@ -165,17 +174,17 @@ export default {
     },
     isLiveReadyToRecord(){
       if(this.podcast)
-        return this.podcast.conferenceId && this.podcast.conferenceId !== 0 && this.podcast.processingStatus === 'READY_TO_RECORD';
+        return this.podcast.conferenceId && 0 !== this.podcast.conferenceId && this.podcast.processingStatus === 'READY_TO_RECORD';
       return false;
     },
     noAd() {
       if (
         (this.podcast &&
           this.podcast.organisation.id !== this.organisationId &&
-          this.podcast.monetisable === "NO") ||
+          "NO" === this.podcast.monetisable) ||
         (this.podcast &&
-          this.podcast.monetisable === "UNDEFINED" &&
-          this.podcast.emission.monetisable === "NO")
+          "UNDEFINED" === this.podcast.monetisable &&
+          "NO" === this.podcast.emission.monetisable)
       ) {
         return true;
       }
@@ -187,28 +196,25 @@ export default {
     iFrameSrc() {
       let url = "";
       let iFrameNumber = "/"+this.iFrameNumber;
-      if((!this.podcast || this.iFrameModel === "emission" || this.iFrameModel === "largeEmission") && this.episodeNumbers === "all"){
+      if((!this.podcast ||this.isEmission || this.isLargeEmission) && "all" === this.episodeNumbers){
         iFrameNumber = "/0";
       }
       if (!this.podcast && !this.playlist) {
-        if (this.iFrameModel === "default") {
+        if ("default" === this.iFrameModel) {
           url = `${state.podcastPage.MiniplayerUri}miniplayer/emission/${this.emission.emissionId}${iFrameNumber}`;
         } else {
           url = `${state.podcastPage.MiniplayerUri}miniplayer/emissionLarge/${this.emission.emissionId}${iFrameNumber}`;
         }
       }else if(this.playlist){
-        if (this.iFrameModel === "default") {
+        if ("default" === this.iFrameModel) {
           url = `${state.podcastPage.MiniplayerUri}miniplayer/playlist/${this.playlist.playlistId}`;
         } else {
           url = `${state.podcastPage.MiniplayerUri}miniplayer/playlistLarge/${this.playlist.playlistId}`;
         }
       }else {
-        if (
-          this.iFrameModel === "emission" ||
-          this.iFrameModel === "largeEmission"
-        ) {
+        if (this.isEmission || this.isLargeEmission) {
           url = `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.emission.emissionId}${iFrameNumber}/${this.podcast.podcastId}`;
-        } else if (this.iFrameModel === "largeSuggestion") {
+        } else if (this.isLargeSuggestion) {
           url = `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.podcast.podcastId}${iFrameNumber}`;
         } else {
           url = `${state.podcastPage.MiniplayerUri}miniplayer/${this.iFrameModel}/${this.podcast.podcastId}`;
@@ -236,7 +242,7 @@ export default {
         case 'large':
           if(this.podcast)
             return '180px';
-          if(this.episodeNumbers==='number'){
+          if('number' === this.episodeNumbers){
             switch(this.iFrameNumber){
               case "1": return '185px';
               case "2": return '240px';
@@ -249,7 +255,7 @@ export default {
           return '435px';
        case 'largeEmission':
         case 'largeSuggestion':
-          if(this.episodeNumbers!=='number')
+          if('number' !== this.episodeNumbers)
             return '510px';
           switch(this.iFrameNumber){
             case "1": return '260px';
@@ -273,7 +279,7 @@ export default {
     },
 
     isPodcastNotVisible(){
-      return this.podcast && !this.podcast.availability.visibility && (this.iFrameModel === "default" ||this.iFrameModel === "large");
+      return this.podcast && !this.podcast.availability.visibility && ("default" === this.iFrameModel ||"large" === this.iFrameModel);
     },
 
     dataTitle(){
