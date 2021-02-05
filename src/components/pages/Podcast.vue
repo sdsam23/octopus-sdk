@@ -10,6 +10,7 @@
           :podcast="podcast" :live="true" 
           :recording="fetchConference" 
           @deleteItem="removeDeleted"
+          @validatePodcast="updatePodcast"
           v-if="!!fetchConference && isLiveReadyToRecord && !isNotRecorded && isOctopusAndAnimator"
           ></RecordingItemButton>
           <EditBox :podcast="podcast" v-else-if="editRight && isEditBox" :isReady='isReady' @validatePodcast="updatePodcast"></EditBox>

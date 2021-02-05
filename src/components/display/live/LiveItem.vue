@@ -43,6 +43,7 @@
 			:recording="fetchConference" 
 			:podcast="live" 
 			@deleteItem="deleteItem"
+			@validatePodcast="updatePodcast"
 			v-if="fetchConference && organisationRight && isEditBox"
 			></RecordingItemButton>
 		</div>
@@ -197,6 +198,9 @@ export default {
 		},
   },
   methods:{
+		updatePodcast(podcastUpdated){
+      this.live = podcastUpdated;
+    },
 		getName(person) {
       const first = person.firstName || "";
       const last = person.lastName || "";

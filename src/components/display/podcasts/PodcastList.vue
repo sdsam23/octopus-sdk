@@ -170,7 +170,7 @@ export default {
         before: this.before,
         after: this.after,
         noRubrique: this.noRubrique,
-        valid: !this.notValid
+        validity: !this.notValid
       }
       if(this.notValid && !this.isProduction){
         param.publisherId = this.$store.state.profile.userId;
