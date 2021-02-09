@@ -83,7 +83,7 @@ export default {
     showCount:{default:false},
     noRubrique:{default:true},
     sortCriteria:{default:undefined},
-    notValid:{default:false},
+    notValid:{default:undefined},
   },
 
   components: {
@@ -169,8 +169,10 @@ export default {
         rubriquageId: this.rubriquageId,
         before: this.before,
         after: this.after,
-        noRubrique: this.noRubrique,
-        validity: !this.notValid
+        noRubrique: this.noRubrique
+      }
+      if(undefined !== this.notValid){
+        param.validity = !this.notValid;
       }
       if(this.notValid && !this.isProduction){
         param.publisherId = this.$store.state.profile.userId;

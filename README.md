@@ -370,6 +370,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.23.0 - 0.23.4 Début contribution
  * 0.23.3 Participant popup
  * 0.23.6 Changer "Mon espace" en "Administration"
+ * 0.23.7 Contribution
 
 
 
