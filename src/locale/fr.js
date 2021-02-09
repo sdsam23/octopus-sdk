@@ -17,7 +17,7 @@ export default {
   
     'See my statistics': "Rapport d'audience",
     'Edit / Delete episodes': 'Mes épisodes',
-    'Welcome in the Backoffice': 'Mon espace',
+    'Welcome in the Backoffice': 'Administration',
     'Please set an animator': 'Merci de sélectionner ou de créer un animateur.',
     'Term of use': "Conditions Générales d'Utilisation",
     'Producted by : ': 'Produit par : ',
@@ -46,7 +46,7 @@ export default {
     'No podcast match your query':
       'Aucun épisode ne correspond à votre recherche',
     'Please type at least three characters': 'Saisir au moins trois caractères',
-    'My space': 'Mon espace',
+    'My space': 'Administration',
     'All participants': 'Tous les intervenants',
     'All productors': 'Tous les producteurs',
     'All emissions': 'Toutes les émissions',
