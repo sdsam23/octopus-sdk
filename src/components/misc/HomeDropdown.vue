@@ -41,7 +41,7 @@
 		padding-bottom: 0.4rem;
 		width: 140px;
 		text-align: left;
-		padding-left: 25px;
+		padding-left: 15px;
 		margin-right: 30px;
 	}
 
