@@ -374,7 +374,7 @@ export default {
         if (this.podcast.emission.annotations && this.podcast.emission.annotations.notExclusive) {
           this.notExclusive = "true" === this.podcast.emission.annotations.notExclusive ? true : false;
         }
-        if(!this.podcast.availability.visibility && !this.editRight && "READY_TO_RECORD" !== this.podcast.processingStatus){
+        if((!this.podcast.availability.visibility || "READY_TO_RECORD" !== this.podcast.processingStatus || false===this.podcast.valid) && !this.editRight){
           this.error= true;
         }
         this.loaded = true;
