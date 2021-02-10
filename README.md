@@ -366,7 +366,10 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.22.6 Merge Fabien
  * 0.22.8 Click rapide "see more"
  * 0.22.9 Count emission, playlists, participants when not display
- 
+ * 0.22.10 Rubriquage filter
+ * 0.22.11 Update participant 
+ * 0.22.12 Multiselect default value
+
  * 0.23.0 - 0.23.4 Début contribution
  * 0.23.3 Participant popup
  * 0.23.6 Changer "Mon espace" en "Administration"

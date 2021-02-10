@@ -96,7 +96,7 @@ export default {
       toDate: undefined,
       resetRubriquage: false,
       includeHidden : false,
-      noRubrique: true,
+      noRubrique: undefined,
       sortCriteria : 'DATE',
       notValid: false,
     };
@@ -130,25 +130,29 @@ export default {
     updateRubriquage(value){
       if(-1 !== value){
         this.rubriquageId = value;
-        this.noRubrique = false;
       }else{
         this.rubriquageId = undefined;
-        this.noRubrique = true;
       }
+      this.noRubrique = undefined;
       this.rubriqueId = undefined;
     },
     updateRubrique(value){
       if(-1 !== value){
-        this.rubriqueId = value;
-        this.noRubrique = false;
-      }else{
         this.noRubrique = true;
+        this.rubriqueId = undefined;
+      }else if(value === 0){
+        this.rubriqueId = undefined;
+        this.noRubrique = undefined;
+      }else{
+        this.rubriqueId = value;
+        this.noRubrique = undefined;
       }
     },
     updateOrganisationId(value){
       this.resetRubriquage = !this.resetRubriquage;
       this.rubriquageId = undefined;
       this.rubriqueId= undefined;
+      this.noRubrique = undefined;
       this.organisationId = value;
     },
     updateSearchPattern(value){
