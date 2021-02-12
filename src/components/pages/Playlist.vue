@@ -12,7 +12,7 @@
                 :src="imageUrl" 
                 :alt="$t('Playlist name image', { name: name })" 
                 class="img-box shadow-element float-left mr-3 mb-3"
-                /><p v-html="urlify(description)"></p>
+                /><p class="html-wysiwyg-content" v-html="urlify(description)"></p>
             </div>
           </div>
         </div>
@@ -47,6 +47,7 @@ import SharePlayer from '../display/sharing/SharePlayer.vue';
 import PodcastList from "../display/playlist/PodcastList.vue";
 import octopusApi from "@saooti/octopus-api";
 import {state} from "../../store/paramStore.js";
+import { displayMethods } from '../mixins/functions'
 
 export default {
   components: {
@@ -55,6 +56,7 @@ export default {
     PodcastList,
     SharePlayer
   },
+  mixins: [displayMethods],
 
   mounted() {
     this.getPlaylistDetails();
@@ -127,14 +129,6 @@ export default {
         this.loaded = true;
       }
     },
-    urlify(text) {
-      let urlRegex = /(https?:\/\/[^\s]+)/g;
-      if(!text)
-        return '';
-      return text.replace(urlRegex, (url) =>{
-        return '<a href="' + url + '">' + url + '</a>';
-      });
-    }
   }
 };
 </script>

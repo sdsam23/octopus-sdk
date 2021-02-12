@@ -8,7 +8,9 @@
       @hideDescription="hideDescription"
       @showDescription="showDescription"
     />
-    <div class='description-podcast-item' v-if="hover && description" v-html="description">{{description}}</div>
+    <div :id="'description-podcast-container-'+podcast.podcastId" class="description-podcast-item html-wysiwyg-content"  v-show="hover && description">
+      <div :id="'description-podcast-'+podcast.podcastId" v-html="description"></div>
+    </div>
     <div class='d-contents' @mouseenter="showDescription" @mouseleave="hideDescription">
       <div class="d-flex justify-content-between flex-wrap text-secondary mb-3">
         <div class="mr-3 small-Text">{{ date }}</div>
@@ -78,6 +80,18 @@
     position: absolute;
     width: 13rem;
     word-break: break-word;
+      &.after-podcast-description:after{
+        content: "...";
+        position: absolute;
+        padding-left: 1rem;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        font-size: 1rem;
+        font-weight: bolder;
+        text-align: center;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff 40%);
+      }
   }
   .producer-podcast-item{
     margin: 0.2rem 0.5rem 0.5rem;
@@ -106,6 +120,12 @@ export default {
   components: {
     AnimatorsItem,
     PodcastImage,
+  },
+
+  mounted(){
+    if(document.getElementById('description-podcast-'+this.podcast.podcastId).clientHeight > document.getElementById('description-podcast-container-'+this.podcast.podcastId).clientHeight){
+      document.getElementById('description-podcast-container-'+this.podcast.podcastId).classList.add("after-podcast-description");
+    }
   },
   
   data() {
@@ -146,8 +166,6 @@ export default {
     description() {
       if(!this.podcast.description)
         return null;
-      if(this.podcast.description.length > 230)
-        return this.podcast.description.substring(0, 230) + '...';
       return this.podcast.description;
     },
 

@@ -305,6 +305,24 @@ a.linkHover:hover{
     border-radius: 50%;
   }
 }
+.html-wysiwyg-content{
+  h1,h2,h3{
+    margin: 0 0 0.5em 0 !important;
+  }
+  h1{
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  h2{
+    font-size: 1.1rem;
+  }
+  h3{
+    font-size: 1rem;
+  }
+  p, ol, ul{
+    margin-bottom: 0.2rem;
+  }
+}
 @media (max-width: 450px) {
   .module-box .img-box {
     margin: 0.5rem auto !important;

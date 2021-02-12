@@ -16,7 +16,9 @@
       class="text-dark">
         <div class="emission-name" v-if="!lightItems">
         <img class="icon-caution" src="/img/caution.png" v-if="!activeEmission && !isPodcastmaker && editRight" :title="$t('Emission have not podcasts')"/>{{ name }}</div>
-        <div class="emission-description" :class="lightItems?'emission-small-description':''" v-html="description">{{ description }}</div>
+        <div :id="'description-emission-container-'+emission.emissionId" class="emission-description html-wysiwyg-content" :class="lightItems?'emission-small-description':''" >
+          <div :id="'description-emission-'+emission.emissionId" v-html="urlify(description)"></div>
+        </div>
       </router-link>
       <div class="flex-grow"></div>
       <router-link 
@@ -72,16 +74,26 @@
   }
 
   .emission-description{
-    font-weight: 500;
     overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 7;
-    -webkit-box-orient: vertical;
-    white-space: pre-wrap;
-    font-size: 0.8em;
     margin-top: 0.5em;
     word-break: break-word;
+    max-height: 7rem;
+    position:relative;
+    &.after-emission-description:after{
+      content: "...";
+      position: absolute;
+      padding-left: 1rem;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      font-size: 1rem;
+      font-weight: bolder;
+      text-align: center;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff 40%);
+    }
   }
+
+
   .emission-small-description{
     -webkit-line-clamp: 2;
     border-top: 1px solid #ddd;
@@ -121,13 +133,21 @@ button.btn.btn-primary.share-btn.m-3 {
 <script>
 import {state} from "../../../store/paramStore.js";
 import octopusApi from "@saooti/octopus-api";
+import { displayMethods } from '../../mixins/functions';
 export default {
   name: 'EmissionItem',
 
   props: ['emission'],
 
+  mixins: [displayMethods],
+
   created(){
     this.hasPodcast();
+  },
+  mounted(){
+    if(document.getElementById('description-emission-'+this.emission.emissionId).clientHeight > document.getElementById('description-emission-container-'+this.emission.emissionId).clientHeight){
+      document.getElementById('description-emission-container-'+this.emission.emissionId).classList.add("after-emission-description");
+    }
   },
 
   data() {

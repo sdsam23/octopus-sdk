@@ -7,7 +7,7 @@
       <div class="img-box no-border-round" :style="{ 'background-image': 'url(\'' + emission.imageUrl +'?dummy='+dummyParam+ '\')' }"></div>
       <div class="d-flex flex-column p-2">
           <div class="font-weight-bold text-uppercase text-ellipsis">{{emission.name}}</div>
-          <div class="text-ellipsis" v-html="emission.description">{{emission.description}}</div>
+          <div class="text-ellipsis html-wysiwyg-content" v-html="urlify(emission.description)"></div>
       </div>
     </router-link>
     <div class="border-top emission-item-border-color p-2 secondary-bg d-flex" v-for="p in podcasts" :key="p.podcastId">
@@ -16,7 +16,7 @@
             :to="{ name: 'podcast', params: {podcastId:p.podcastId}, query:{productor: $store.state.filter.organisationId}}"
             class="d-flex flex-column define-width text-dark">
             <div class="font-weight-bold text-ellipsis">{{p.title}}</div>
-            <div class="two-line-clamp" v-html="p.description">{{p.description}}</div>
+            <div class="two-line-clamp html-wysiwyg-content" v-html="urlify(p.description)"></div>
             </router-link>
             <div class="play-button-box bg-secondary" @click="play(p)" v-if="$store.state.player.podcast !== p ||($store.state.player.podcast === p && 'PAUSED' === $store.state.player.status)">
                 <div class="text-light saooti-play2-bounty" :aria-label="$t('Play')"></div>
@@ -81,10 +81,13 @@
 <script>
 import octopusApi from "@saooti/octopus-api";
 import {state} from "../../../store/paramStore.js";
+import { displayMethods } from '../../mixins/functions'
 export default {
   name: 'EmissionPlayerItem',
 
   props: ['emission', "nbPodcasts", "rubriqueName"],
+
+  mixins: [displayMethods],
 
   created(){
     this.loadPodcasts();

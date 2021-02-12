@@ -13,7 +13,7 @@
                 :src="imageUrl" 
                 :alt="$t('Emission name image', { name: name })" 
                 class="img-box shadow-element float-left mr-3 mb-3"
-                v-if="!isOuestFrance"/><p v-html="urlify(description)"></p>
+                v-if="!isOuestFrance"/><p class="html-wysiwyg-content" v-html="urlify(description)"></p>
             </div>
             <ShareButtons :emission="emission" :bigRound='true' v-if="isRssButton"></ShareButtons>
           </div>
@@ -60,6 +60,7 @@ import PodcastList from '../display/podcasts/PodcastList.vue';
 import LiveHorizontalList from '../display/live/LiveHorizontalList.vue';
 import octopusApi from "@saooti/octopus-api";
 import {state} from "../../store/paramStore.js";
+import { displayMethods } from '../mixins/functions'
 
 export default {
   components: {
@@ -72,6 +73,8 @@ export default {
     SubscribeButtons,
     LiveHorizontalList,
   },
+
+  mixins: [displayMethods],
 
   mounted() {
     this.getEmissionDetails(this.emissionId);
@@ -190,15 +193,6 @@ export default {
         this.error = true;
         this.loaded = true;
       }
-    },
-    urlify(text) {
-      let urlRegex = /(https?:\/\/[^\s]+)/g;
-      if(text){
-        return text.replace(urlRegex, (url) =>{
-          return '<a href="' + url + '">' + url + '</a>';
-        });
-      }
-      return '';
     },
     fetch(/* podcasts */){
       // Interdire supression si podcast en process

@@ -38,7 +38,7 @@
                   <div class="ml-2 mr-2"><span class="saooti-clock3" v-if="isOuestFrance"></span>{{ $t('Duration', { duration: duration }) }}</div>
                   <div class="text-danger" v-if="isLiveReady">{{$t('Episode record in live')}}</div>
                 </div>
-                <div class="descriptionText" v-html="urlify(this.podcast.description)"></div>
+                <div class="descriptionText html-wysiwyg-content" v-html="urlify(this.podcast.description)"></div>
                 <div class="mt-3 mb-3">
                   <div class="comma" v-if="podcast.animators">{{ $t('Animated by : ') }}
                     <router-link
@@ -163,6 +163,7 @@ import {state} from "../../store/paramStore.js";
 import ErrorMessage from "../misc/ErrorMessage.vue";
 const moment = require("moment");
 const humanizeDuration = require("humanize-duration");
+import { displayMethods } from '../mixins/functions';
 
 export default {
   components: {
@@ -178,6 +179,8 @@ export default {
     CommentSection,
     ErrorMessage
   },
+
+  mixins: [displayMethods],
 
   async mounted() {
     await this.getPodcastDetails(this.podcastId);
@@ -374,7 +377,7 @@ export default {
         if (this.podcast.emission.annotations && this.podcast.emission.annotations.notExclusive) {
           this.notExclusive = "true" === this.podcast.emission.annotations.notExclusive ? true : false;
         }
-        if((!this.podcast.availability.visibility || "READY_TO_RECORD" !== this.podcast.processingStatus || false===this.podcast.valid) && !this.editRight){
+        if((!this.podcast.availability.visibility || "READY_TO_RECORD" !== this.podcast.processingStatus ||false===this.podcast.valid) && !this.editRight){
           this.error= true;
         }
         this.loaded = true;
@@ -390,15 +393,6 @@ export default {
     },
     playPodcast(podcast){
       this.$emit('playPodcast', podcast);
-    },
-
-    urlify(text) {
-      let urlRegex = /(https?:\/\/[^\s]+)/g;
-      if(!text)
-        return '';
-      return text.replace(urlRegex, (url) =>{
-        return '<a href="' + url + '">' + url + '</a>';
-      });
     },
     removeDeleted() {
       if(window.history.length > 1){

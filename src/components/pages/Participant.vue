@@ -5,7 +5,7 @@
       <div class="d-flex w-100 flex-column align-items-center justify-content-center">
         <div class="img-box-circle mb-3" :style="{'background-image': 'url(\'' + participant.imageUrl+ '\')', }"></div>
         <h2 class="text-capitalize">{{ name }}</h2>
-        <div class="h6 participant-desc" v-html="description">{{ description }}</div>
+        <div class="h6 participant-desc html-wysiwyg-content" v-html="urlify(description)"></div>
         <div class="d-flex justify-content-center" v-if="isRssButton">
           <a class="btn btn-bigRound" :title="$t('Subscribe to this participant')" :aria-label="$t('Subscribe to this participant')" :href="rssUrl" target="_blank">
             <div class="saooti-rss-bounty"></div>
@@ -52,6 +52,7 @@ import octopusApi from "@saooti/octopus-api";
 import PodcastFilterList from '../display/podcasts/PodcastFilterList.vue';
 import PodcastList from '../display/podcasts/PodcastList.vue';
 import {state} from "../../store/paramStore.js";
+import { displayMethods } from '../mixins/functions'
 
 export default {
   components: {
@@ -60,6 +61,8 @@ export default {
     EditBox,
     PodcastList
   },
+
+  mixins: [displayMethods],
 
   mounted() {
     this.getParticipantDetails();

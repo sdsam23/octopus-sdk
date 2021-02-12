@@ -22,7 +22,9 @@
 			<router-link class="link-info text-truncate"
         :to="{ name: 'emission', params: {emissionId:live.emission.emissionId}, query:{productor: $store.state.filter.organisationId}}"
 				>{{live.emission.name}}</router-link>
-			<div class="four-line-clamp" v-if="description" v-html="description">{{description}}</div>
+			<div :id="'description-live-container-'+live.podcastId" class="live-description-container html-wysiwyg-content">
+          <div :id="'description-live-'+live.podcastId" v-html="urlify(description)"></div>
+      </div>
 			<div class="comma" v-if="live.animators">{{ $t('Animated by : ') }}
 				<router-link
 					:aria-label="$t('Participant')"
@@ -68,16 +70,23 @@
 	color: white;
 	text-transform: uppercase;
 }
-.four-line-clamp{
-	display: block;
-	max-width: 100%;
-	height: 100px;
-	font-size: 16px;
-	line-height: 1.5;
-	-webkit-line-clamp: 4;
-	-webkit-box-orient: vertical;
+.live-description-container{
 	overflow: hidden;
-	text-overflow: ellipsis;
+    margin-top: 0.5em;
+    word-break: break-word;
+    max-height: 6rem;
+    position:relative;
+	&.after-live-description:after{
+		content: "...";
+		position: absolute;
+		padding-left: 1rem;
+		right: 0;
+		bottom: 0;
+		width: 100%;
+		font-size: 1rem;
+		font-weight: bolder;
+		background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #f3f3f3 40%);
+    }
 }
 .live-special-width{
 	width: 0;
@@ -126,11 +135,13 @@ import studioApi from '@/api/studio';
 import RecordingItemButton from "@/components/display/studio/RecordingItemButton.vue";
 const moment = require('moment');
 const humanizeDuration = require('humanize-duration');
+import { displayMethods } from '../../mixins/functions';
 
 export default {
   name: 'LiveItem',
 
   props: ['fetchConference', 'index'],
+  mixins: [displayMethods],
 
   components: {
 		RecordingItemButton,
@@ -140,7 +151,7 @@ export default {
 	async created(){
 		this.fetchPodcastData();
 	},
-  
+
   data() {
     return {
 			live: undefined,
@@ -216,9 +227,21 @@ export default {
 				studioApi.deleteConference(this.$store, this.fetchConference.conferenceId);
 			}
 		},
+		handleDescription(){
+			this.$nextTick(() => {
+				if(document.getElementById('description-live-'+this.live.podcastId).clientHeight > document.getElementById('description-live-container-'+this.live.podcastId).clientHeight){
+					document.getElementById('description-live-container-'+this.live.podcastId).classList.add("after-live-description");
+				}
+			});
+		},
 		deleteItem(){
 			this.$emit('deleteItem', this.index);
 		}
-  }
+  },
+	watch:{
+		live(){
+			this.handleDescription();
+		}
+	}
 };
 </script>

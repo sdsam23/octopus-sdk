@@ -25,3 +25,16 @@ export const cookies = {
 		}
 	}
 }
+
+export const displayMethods = {
+	methods: {
+		urlify(text) {
+			let urlRegex = /(https?:\/\/[^\s]+)/g;
+			if(!text)
+			return '';
+			return text.replace(urlRegex, (url) =>{
+				return '<a href="' + url + '">' + url + '</a>';
+			});
+		},
+	}
+}

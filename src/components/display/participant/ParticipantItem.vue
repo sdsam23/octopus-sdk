@@ -11,7 +11,9 @@
     class="text-dark mt-3">
       <div class="participant-name">
       <img src="/img/caution.png" class="icon-caution" v-if="!activeParticipant && !isPodcastmaker && editRight" :title="$t('Participant have not podcasts')"/>{{ name }}</div>
-      <div class="description-fade" :class="description? '': 'description-fade-hid'" v-html="description">{{ description }}</div>
+      <div :id="'description-participant-container-'+participant.participantId" class="participant-description html-wysiwyg-content">
+        <div :id="'description-participant-'+participant.participantId" v-html="urlify(description)"></div>
+      </div>
     </router-link>
     <router-link 
     :to="{ name: 'productor', params: {productorId:participant.orga.id}, query:{productor: $store.state.filter.organisationId}}"
@@ -35,6 +37,26 @@
     font-weight: 600;
     text-align: center;
   }
+
+  .participant-description{
+    overflow: hidden;
+    margin-top: 0.5em;
+    word-break: break-word;
+    max-height: 4rem;
+    position:relative;
+    &.after-participant-description:after{
+      content: "...";
+      position: absolute;
+      padding-left: 1rem;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      font-size: 1rem;
+      font-weight: bolder;
+      text-align: center;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #f3f3f3 40%);
+    }
+  }
  
   .participant-producer {
     font-weight: 300;
@@ -52,13 +74,21 @@
 <script>
 import octopusApi from "@saooti/octopus-api";
 import {state} from "../../../store/paramStore.js";
+import { displayMethods } from '../../mixins/functions';
 export default {
   name: 'ParticpantItem',
 
   props: ['participant'],
 
+  mixins: [displayMethods],
+
   created(){
     this.hasPodcast();
+  },
+  mounted(){
+    if(document.getElementById('description-participant-'+this.participant.participantId).clientHeight > document.getElementById('description-participant-container-'+this.participant.participantId).clientHeight){
+      document.getElementById('description-participant-container-'+this.participant.participantId).classList.add("after-participant-description");
+    }
   },
 
   data() {

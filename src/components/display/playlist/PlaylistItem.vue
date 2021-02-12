@@ -12,7 +12,9 @@
       class="text-dark">
         <div class="emission-name">
         <img class="icon-caution" src="/img/caution.png" v-if="!activePlaylist && !isPodcastmaker" :title="$t('Playlist have not podcasts')"/>{{ name }}</div>
-        <div class="emission-description" v-html="description">{{ description }}</div>
+        <div :id="'description-playlist-container-'+playlist.playlistId" class="emission-description html-wysiwyg-content" >
+          <div :id="'description-playlist-'+playlist.playlistId" v-html="urlify(description)"></div>
+        </div>
       </router-link>
       <div class="flex-grow"></div>
       <router-link 
@@ -29,13 +31,19 @@
 
 <script>
 import {state} from "../../../store/paramStore.js";
+import { displayMethods } from '../../mixins/functions';
 /* import octopusApi from "@saooti/octopus-api"; */
 export default {
   name: 'PlaylistItem',
 
   props: ['playlist'],
 
+  mixins: [displayMethods],
+
   mounted(){
+    if(document.getElementById('description-playlist-'+this.playlist.playlistId).clientHeight > document.getElementById('description-playlist-container-'+this.playlist.playlistId).clientHeight){
+      document.getElementById('description-playlist-container-'+this.playlist.playlistId).classList.add("after-emission-description");
+    }
     if(this.editRight || this.activePlaylist){
       return;
     }

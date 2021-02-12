@@ -57,11 +57,11 @@ var initialize = function initialize(initObject){
       state.podcastPage.SharePlayer = ("undefined" !== typeof param.SharePlayer) ? param.SharePlayer : true;
       state.podcastPage.ShareButtons = ("undefined" !== typeof param.ShareButtons) ? param.ShareButtons : true;
       state.podcastPage.ShareDistribution = ("undefined" !== typeof param.ShareDistribution)? param.ShareDistribution : true;
-      state.podcastPage.MiniplayerUri = ("undefined" !== typeof param.MiniplayerUri) ? param.MiniplayerUri : 'https://player.staging.saooti.org/';
+      state.podcastPage.MiniplayerUri = ("undefined" !== typeof param.MiniplayerUri) ? param.MiniplayerUri : 'https://player.dev2.saooti.org/';
       state.podcastPage.ouestFranceStyle = ("undefined" !== typeof param.ouestFranceStyle) ? param.ouestFranceStyle : false;
       state.podcastPage.tagList= ("undefined" !== typeof param.tagList) ? param.tagList : false;
       state.podcastPage.downloadButton= ("undefined" !== typeof param.downloadButton) ? param.downloadButton : false;
-      state.podcastPage.hlsUri = ("undefined" !== typeof param.hlsUri) ? param.hlsUri : 'https://hls.staging.saooti.org/';
+      state.podcastPage.hlsUri = ("undefined" !== typeof param.hlsUri) ? param.hlsUri : 'https://hls.dev2.saooti.org/';
     }
     if(initObject.podcastsPage){
       let param = initObject.podcastsPage;
@@ -116,9 +116,9 @@ var initialize = function initialize(initObject){
     }
     if(initObject.octopusApi){
       let param = initObject.octopusApi;
-      state.octopusApi.url = ("undefined" !== typeof param.url) ? param.url : "http://api.staging.saooti.org/";
+      state.octopusApi.url = ("undefined" !== typeof param.url) ? param.url : "http://api.dev2.saooti.org/";
       state.octopusApi.oAuthParam = ("undefined" !== typeof param.oAuthParam) ? param.oAuthParam : undefined;
-      state.octopusApi.commentsUrl = ("undefined" !== typeof param.commentsUrl) ? param.commentsUrl : "http://comments.staging.saooti.org/";
+      state.octopusApi.commentsUrl = ("undefined" !== typeof param.commentsUrl) ? param.commentsUrl : "http://comments.dev2.saooti.org/";
       if(state.generalParameters.podcastmaker){
         state.octopusApi.organisationId = ("undefined" !== typeof param.organisationId) ? param.organisationId : undefined;
       }
