@@ -26,7 +26,7 @@
       <span v-if="editRight" :class="'status-'+comment.status"></span>
 		</div>
     <template v-if="!isEditing">
-      <div >{{contentDisplay}}</div>
+      <div v-html="urlify(contentDisplay)"></div>
       <a class="c-hand font-italic" v-if="comment.content.length > 300" @click="summary = !summary">{{readMore}}</a>
     </template>
     <template v-else>
@@ -120,11 +120,14 @@ import CommentList from "./CommentList.vue"
 import CommentParentInfo from "./CommentParentInfo.vue"
 import EditCommentBox from "@/components/display/edit/EditCommentBox.vue";
 import {state} from "../../../store/paramStore.js";
+import { displayMethods } from '../../mixins/functions';
 const moment = require('moment');
 export default {
   name: 'CommentItem',
 
   props:  ["comment", "podcast", "fetchConference", "organisation", 'isFlat'],
+
+  mixins: [displayMethods],
 
   components:{
     CommentList,
