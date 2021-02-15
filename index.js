@@ -49,6 +49,7 @@ import CommentInput from "./src/components/display/comments/CommentInput.vue";
 //mixins
 import {selenium} from "./src/components/mixins/functions.js";
 import {cookies} from "./src/components/mixins/functions.js";
+import {displayMethods} from "./src/components/mixins/functions.js";
 
 const components = {
     Lives,
@@ -85,7 +86,8 @@ const components = {
     CommentList,
     CommentInput,
     HomeDropdown,
-    ErrorMessage
+    ErrorMessage,
+    displayMethods
 }
 
 export default components;
@@ -125,5 +127,6 @@ export {
     CommentList,
     CommentInput,
     HomeDropdown,
-    ErrorMessage
+    ErrorMessage,
+    displayMethods
 };
