@@ -8,7 +8,7 @@
       @hideDescription="hideDescription"
       @showDescription="showDescription"
     />
-    <div :id="'description-podcast-container-'+podcast.podcastId" class="description-podcast-item html-wysiwyg-content"  v-show="hover && description">
+    <div :id="'description-podcast-container-'+podcast.podcastId" class="description-podcast-item html-wysiwyg-content" :class="[hover && description? 'visible':'invisible', isDescriptionBig?'after-podcast-description':'']">
       <div :id="'description-podcast-'+podcast.podcastId" v-html="description"></div>
     </div>
     <div class='d-contents' @mouseenter="showDescription" @mouseleave="hideDescription">
@@ -124,7 +124,7 @@ export default {
 
   mounted(){
     if(document.getElementById('description-podcast-'+this.podcast.podcastId).clientHeight > document.getElementById('description-podcast-container-'+this.podcast.podcastId).clientHeight){
-      document.getElementById('description-podcast-container-'+this.podcast.podcastId).classList.add("after-podcast-description");
+      this.isDescriptionBig = true;
     }
   },
   
@@ -132,6 +132,7 @@ export default {
     return {
       hover : false,
       arrowDirection: 'up',
+      isDescriptionBig: false
     };
   },
 

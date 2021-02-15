@@ -376,6 +376,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.23.8 Contribution
 
  * 0.24.0 Nouveau sprint
+ * 0.24.1 Description subset Html
 
 
 
