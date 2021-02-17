@@ -27,7 +27,7 @@
         <span class="saooti-rss-bounty" v-if="!bigRound"></span>
         <div class="saooti-rss-bounty" v-else></div>
       </a>
-      <a target="_blank" :class="[bigRound?'btn btn-bigRound':'btn btn-rss share-btn mb-2', verticalDisplay? '' :'mr-2 ml-2']" aria-label="copy" @click="onCopyCode">
+      <a target="_blank" :class="[bigRound?'btn btn-bigRound':'btn btn-rss share-btn mb-2', verticalDisplay? '' :'mr-2 ml-2']" aria-label="copy" @click="onCopyCode(window.location.href, true)">
         <span class="saooti-link" v-if="!bigRound"></span>
         <div class="saooti-link" v-else></div>
       </a>
@@ -80,6 +80,7 @@ import {state} from "../../../store/paramStore.js";
 import ClipboardModal from '../../misc/modal/ClipboardModal.vue';
 import NewsletterModal from '../../misc/modal/NewsletterModal.vue';
 import Snackbar from '../../misc/Snackbar.vue';
+import { displayMethods } from '../../mixins/functions';
 export default {
   props: [
     "podcast",
@@ -96,6 +97,8 @@ export default {
     NewsletterModal,
     Snackbar
   },
+
+  mixins: [displayMethods],
 
   mounted(){
   },
@@ -134,24 +137,6 @@ export default {
     },
     closeModal() {
       this.dataRSSSave = false;
-    },
-    async onCopyCode() {
-      if ('undefined' !== typeof(navigator.clipboard)) {
-        await navigator.clipboard.writeText(window.location.href);
-        this.$refs.snackbar.open(this.$t('Link in clipboard'));
-        return;
-      }
-      let textArea = document.createElement("textarea");
-      textArea.value = window.location.href;
-      textArea.style.position="fixed";
-      document.body.appendChild(textArea);
-      textArea.focus();
-      textArea.select();
-      var successful = document.execCommand('copy');
-      if(successful){
-        this.$refs.snackbar.open(this.$t('Link in clipboard'));
-      }
-      document.body.removeChild(textArea);            
     },
   }
 };

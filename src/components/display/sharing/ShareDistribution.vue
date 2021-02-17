@@ -3,7 +3,7 @@
   <h3>{{$t('Distribute')}}</h3>
     <p class="sharing-distribution-container">{{$t('Rss feed:')}}
       <span class="primary-color">{{rss}}</span>
-      <input type="button" :value="$t('Copy')" class="btn btn-primary" @click="onCopyRSSURL()" :aria-label="$t('Copy')" />
+      <input type="button" :value="$t('Copy')" class="btn btn-primary" @click="onCopyCode(rss, true, true)" :aria-label="$t('Copy')" />
     </p>
     <RssParameters :rssLink="baseRss" :paramRSS.sync='rss'  v-if="'' !== baseRss"/>
     <div class="sharing-distribution-container">
@@ -81,6 +81,7 @@
 import octopusApi from "@saooti/octopus-api";
 import Snackbar from '../../misc/Snackbar.vue';
 import RssParameters from './RssParameters.vue';
+import { displayMethods } from '../../mixins/functions';
 
 export default {
 
@@ -95,6 +96,8 @@ export default {
   },
 
   props: ['emissionId'],
+
+  mixins: [displayMethods],
 
   data() {
     return {
@@ -132,10 +135,6 @@ export default {
       /* this.emissionPage=octopusApi.fetchEmissionPath(this.emissionId); */
       this.baseRss = octopusApi.fetchRSS(this.emissionId);
       this.rss = this.baseRss;
-    },
-    onCopyRSSURL() {
-      navigator.clipboard.writeText(this.rss);
-      this.$refs.snackbar.open(this.$t('Link in clipboard'));
     }
   },
 };

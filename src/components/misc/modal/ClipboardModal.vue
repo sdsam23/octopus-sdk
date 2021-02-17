@@ -12,7 +12,7 @@
           <p class="d-flex justify-content-between align-items-center">
             {{$t('Rss feed:')}}
             <span id="LINK">{{rss}}</span>
-            <input type="button" :value="$t('Copy')" class="btn btn-primary" @click="onCopyLINK()" :aria-label="$t('Copy')" />
+            <input type="button" :value="$t('Copy')" class="btn btn-primary" @click="onCopyCode(rss, false)" :aria-label="$t('Copy')" />
           </p>
           <RssParameters :rssLink="link" :paramRSS.sync='rss'  v-if="'' !== link"/>
         </div>
@@ -31,12 +31,15 @@
 
 <script>
 import RssParameters from '../../display/sharing/RssParameters.vue';
+import { displayMethods } from '../../mixins/functions';
 export default {
   name: 'ClipboardModal',
 
   components:{
     RssParameters
   },
+
+  mixins: [displayMethods],
 
   props: ['title', 'active', 'closable', 'validatetext','link'],
 
@@ -59,9 +62,6 @@ export default {
     onValid() {
       this.$emit('validate');
     },
-    onCopyLINK() {
-      navigator.clipboard.writeText(this.rss);
-    }
   },
 };
 </script>

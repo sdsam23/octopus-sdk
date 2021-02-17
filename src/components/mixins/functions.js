@@ -36,5 +36,34 @@ export const displayMethods = {
 				return '<a href="' + url + '" target="_blank">' + url + '</a>';
 			});
 		},
+		async onCopyCode(link,isSnackbar= true, isLink=false) {
+			if ('undefined' !== typeof(navigator.clipboard)) {
+				await navigator.clipboard.writeText(link);
+				if(!isSnackbar){
+					return;
+				}
+				if(isLink){
+					this.$refs.snackbar.open(this.$t('Link in clipboard'));
+				}else{
+					this.$refs.snackbar.open(this.$t('Data in clipboard'));
+				}
+				return;
+			}
+			let textArea = document.createElement("textarea");
+			textArea.value = link;
+			textArea.style.position="fixed";
+			document.body.appendChild(textArea);
+			textArea.focus();
+			textArea.select();
+			var successful = document.execCommand('copy');
+			if(successful && isSnackbar){
+				if(isLink){
+					this.$refs.snackbar.open(this.$t('Link in clipboard'));
+				}else{
+					this.$refs.snackbar.open(this.$t('Data in clipboard'));
+				}
+			}
+			document.body.removeChild(textArea);            
+		},
 	}
 }

@@ -380,6 +380,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.24.1 Description subset Html
  * 0.24.2 Merge 23
  * 0.24.5 Proteger les commentaires
+ * 0.24.6 Fonction copyCode
 
 
 

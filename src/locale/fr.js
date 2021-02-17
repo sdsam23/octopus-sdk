@@ -99,6 +99,7 @@ export default {
     "Productor doesn't exist" : "Le producteur demandé n'existe pas",
     'Create an account': "Inscription",
     'Link in clipboard':'Lien collé dans le presse-papier',
+    'Data in clipboard':'Données collées dans le presse-papier',
     'check this box if you want to keep this filter for the rest of your visit':"Cochez cette case si vous souhaitez conserver ce filtre pour la suite de votre visite",
     'No advertising': "Pas de publicité",
     'You cannot insert advertising': "Vous ne pouvez pas insérer de publicité sur cet épisode",

@@ -70,6 +70,7 @@
 </style>
 <script>
 import Snackbar from '../Snackbar.vue';
+import { displayMethods } from '../../mixins/functions';
 export default {
   name: 'ShareModalPlayer',
 
@@ -79,6 +80,8 @@ export default {
     Snackbar, 
   },
 
+  mixins: [displayMethods],
+
   mounted(){
     this.$bvModal.show('share-modal');
   },
@@ -87,24 +90,6 @@ export default {
     closePopup(event) {
       event.preventDefault();
       this.$emit('close');
-    },
-    async onCopyCode(link) {
-      if ('undefined' !== typeof(navigator.clipboard)) {
-        await navigator.clipboard.writeText(link);
-        this.$refs.snackbar.open(this.$t('Data in clipboard'));
-        return;
-      }
-      let textArea = document.createElement("textarea");
-      textArea.value = link;
-      textArea.style.position="fixed";
-      document.body.appendChild(textArea);
-      textArea.focus();
-      textArea.select();
-      var successful = document.execCommand('copy');
-      if(successful){
-        this.$refs.snackbar.open(this.$t('Data in clipboard'));
-      }
-      document.body.removeChild(textArea);            
     },
   },
 };

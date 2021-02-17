@@ -59,10 +59,12 @@ import Snackbar from '../../misc/Snackbar.vue';
 const moment = require("moment");
 import Swatches from "vue-swatches";
 const humanizeDuration = require("humanize-duration");
+import { displayMethods } from '../../mixins/functions';
 export default {
   name: 'NewsletterModal',
 
   props: ['podcast'],
+  mixins: [displayMethods],
 
   components:{
 		Snackbar, 
@@ -186,24 +188,6 @@ export default {
 			element.target.focus();
 			element.target.select();
 		},
-		async onCopyCode(link) {
-      if ('undefined' !== typeof(navigator.clipboard)) {
-        await navigator.clipboard.writeText(link);
-        this.$refs.snackbar.open(this.$t('Data in clipboard'));
-        return;
-      }
-      let textArea = document.createElement("textarea");
-      textArea.value = link;
-      textArea.style.position="fixed";
-      document.body.appendChild(textArea);
-      textArea.focus();
-      textArea.select();
-      var successful = document.execCommand('copy');
-      if(successful){
-        this.$refs.snackbar.open(this.$t('Data in clipboard'));
-      }
-      document.body.removeChild(textArea);            
-    },
   },
 };
 </script>
