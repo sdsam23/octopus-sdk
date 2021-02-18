@@ -28,6 +28,19 @@
       <router-link v-bind:to="'/main/priv/distribution/spotify/' + emissionId" class="text-dark">
         <span class="saooti-spotify"/>Spotify
       </router-link>
+      
+      <router-link v-bind:to="'/main/priv/distribution/PocketCasts/' + emissionId" class="text-dark">
+        <span class="saooti-pocket-casts"/>Pocket Casts
+      </router-link>
+      <router-link v-bind:to="'/main/priv/distribution/PodcastAddict/' + emissionId" class="text-dark">
+        <span class="saooti-podcast-addict"/>Podcast Addict
+      </router-link>
+      <router-link v-bind:to="'/main/priv/distribution/Stitcher/' + emissionId" class="text-dark">
+        <span class="saooti-stitcher-logo"/>Stitcher
+      </router-link>
+      <router-link v-bind:to="'/main/priv/distribution/PlayerFM/' + emissionId" class="text-dark">
+        <span class="saooti-playerfm"/>PlayerFM
+      </router-link>
     </div>
     <Snackbar ref="snackbar" position="bottom-left"></Snackbar>
   </div>
