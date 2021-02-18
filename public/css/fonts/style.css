@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'saooti-ui';
-  src:url('/css/fonts/saooti-ui.eot?v2fm9q');
-  src:url('/css/fonts/saooti-ui.eot?v2fm9q#iefix') format('embedded-opentype'),
-      url('/css/fonts/saooti-ui.ttf?v2fm9q') format('truetype'),
-      url('/css/fonts/saooti-ui.woff?v2fm9q') format('woff'),
-      url('/css/fonts/saooti-ui.svg?v2fm9q#saooti-ui') format('svg');
+  src:url('/css/fonts/saooti-ui.eot?x8no1z');
+  src:url('/css/fonts/saooti-ui.eot?x8no1z#iefix') format('embedded-opentype'),
+      url('/css/fonts/saooti-ui.ttf?x8no1z') format('truetype'),
+      url('/css/fonts/saooti-ui.woff?x8no1z') format('woff'),
+      url('/css/fonts/saooti-ui.svg?x8no1z#saooti-ui') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -13,7 +13,7 @@
 [class^="saooti-"], [class*=" saooti-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'saooti-ui' !important;
-  speak: none;
+  speak: never;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -35,6 +35,144 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.saooti-filter-distrib:before {
+  content: "\ea9d";
+}
+.saooti-podcast-addict .path1:before {
+  content: "\ea9e";
+  color: rgb(244, 132, 45);
+}
+.saooti-podcast-addict .path2:before {
+  content: "\ea9f";
+  margin-left: -0.9970703125em;
+  color: rgb(255, 255, 255);
+}
+.saooti-playerfm:before {
+  content: "\eaa0";
+  color: #bb202a;
+}
+.saooti-pocket-casts .path1:before {
+  content: "\eaa1";
+  color: rgb(244, 62, 55);
+}
+.saooti-pocket-casts .path2:before {
+  content: "\eaa2";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.saooti-stitcher-logo .path1:before {
+  content: "\eaa3";
+  color: rgb(0, 0, 0);
+}
+.saooti-stitcher-logo .path2:before {
+  content: "\eaa4";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.saooti-stitcher-logo .path3:before {
+  content: "\eaa5";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.saooti-stitcher-logo .path4:before {
+  content: "\eaa6";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.saooti-stitcher-logo .path5:before {
+  content: "\eaa7";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.saooti-stitcher-logo .path6:before {
+  content: "\eaa8";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.saooti-stitcher-logo .path7:before {
+  content: "\eaa9";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.saooti-stitcher-logo .path8:before {
+  content: "\eaaa";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.saooti-stitcher-logo .path9:before {
+  content: "\eaab";
+  margin-left: -1em;
+  color: rgb(53, 144, 197);
+}
+.saooti-stitcher-logo .path10:before {
+  content: "\eaac";
+  margin-left: -1em;
+  color: rgb(53, 144, 197);
+}
+.saooti-stitcher-logo .path11:before {
+  content: "\eaad";
+  margin-left: -1em;
+  color: rgb(197, 56, 39);
+}
+.saooti-stitcher-logo .path12:before {
+  content: "\eaae";
+  margin-left: -1em;
+  color: rgb(197, 56, 39);
+}
+.saooti-stitcher-logo .path13:before {
+  content: "\eaaf";
+  margin-left: -1em;
+  color: rgb(236, 139, 36);
+}
+.saooti-stitcher-logo .path14:before {
+  content: "\eab0";
+  margin-left: -1em;
+  color: rgb(236, 139, 36);
+}
+.saooti-stitcher-logo .path15:before {
+  content: "\eab1";
+  margin-left: -1em;
+  color: rgb(251, 198, 24);
+}
+.saooti-stitcher-logo .path16:before {
+  content: "\eab2";
+  margin-left: -1em;
+  color: rgb(251, 198, 24);
+}
+.saooti-stitcher-logo .path17:before {
+  content: "\eab3";
+  margin-left: -1em;
+  color: rgb(97, 34, 104);
+}
+.saooti-stitcher-logo .path18:before {
+  content: "\eab4";
+  margin-left: -1em;
+  color: rgb(97, 34, 104);
+}
+.saooti-user-octopus:before {
+  content: "\ea9b";
+}
+.saooti-audionow:before {
+  content: "\ea9c";
+}
+.saooti-listening:before {
+  content: "\ea9a";
+}
+.saooti-google-play-badge:before {
+  content: "\ea99";
+}
+.saooti-appstore-badge:before {
+  content: "\ea98";
+}
+.saooti-scroll-down:before {
+  content: "\ea97";
+}
+.saooti-cartouche:before {
+  content: "\e920";
+}
+.saooti-mic-off:before {
+  content: "\ea96";
+}
 .saooti-apple:before {
   content: "\ea8e";
   color: #999;
@@ -834,9 +972,6 @@
 }
 .saooti-bubbles4:before {
   content: "\e91f";
-}
-.saooti-user:before {
-  content: "\e920";
 }
 .saooti-users:before {
   content: "\e921";
