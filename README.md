@@ -382,6 +382,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.24.5 Proteger les commentaires
  * 0.24.6 Fonction copyCode
  * 0.24.7 Merge Jimmy
+ * 0.24.8 Début distribution
 
 
 
