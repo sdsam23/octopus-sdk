@@ -5,7 +5,7 @@
       <span class="primary-color">{{rss}}</span>
       <input type="button" :value="$t('Copy')" class="btn btn-primary" @click="onCopyCode(rss, true, true)" :aria-label="$t('Copy')" />
     </p>
-    <RssParameters :rssLink="baseRss" :paramRSS.sync='rss'  v-if="'' !== baseRss"/>
+    <RssSection :emission="emission" v-if="emission"/>
     <div class="sharing-distribution-container">
       <router-link v-bind:to="'/main/priv/distribution/deezer/' + emissionId" class="text-dark">
         <span class="saooti-deezer"/>Deezer
@@ -93,14 +93,14 @@
 <script>
 import octopusApi from "@saooti/octopus-api";
 import Snackbar from '../../misc/Snackbar.vue';
-import RssParameters from './RssParameters.vue';
+import RssSection from "@/components/display/aggregator/RssSection.vue";
 import { displayMethods } from '../../mixins/functions';
 
 export default {
 
   components:{
     Snackbar,
-    RssParameters
+    RssSection
   },
 
   mounted() {

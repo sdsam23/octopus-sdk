@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="modal-content" v-bind:class="{ active: active }">
+    <div v-bind:class="{ active: active }">
       <div class="modal-container">
         <div class="modal-header">
           <div class="modal-title h5">{{ title }}</div>
@@ -14,7 +14,7 @@
             <span id="LINK">{{rss}}</span>
             <input type="button" :value="$t('Copy')" class="btn btn-primary" @click="onCopyCode(rss, false)" :aria-label="$t('Copy')" />
           </p>
-          <RssParameters :rssLink="link" :paramRSS.sync='rss'  v-if="'' !== link"/>
+          <RssSection :emission="emission" v-if="emission"/>
         </div>
         <div class="modal-footer" v-if="validatetext">
           <button class="btn btn-primary" @click="onValid">
@@ -30,18 +30,18 @@
 </style>
 
 <script>
-import RssParameters from '../../display/sharing/RssParameters.vue';
+import RssSection from "@/components/display/aggregator/RssSection.vue";
 import { displayMethods } from '../../mixins/functions';
 export default {
   name: 'ClipboardModal',
 
   components:{
-    RssParameters
+    RssSection
   },
 
   mixins: [displayMethods],
 
-  props: ['title', 'active', 'closable', 'validatetext','link'],
+  props: ['title', 'active', 'closable', 'validatetext','link', "emission"],
 
   created(){
     this.rss = this.link;

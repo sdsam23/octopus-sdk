@@ -41,6 +41,7 @@
       :closable="true"
       @close="closeModal()"
       :link="rssUrl"
+      :emission="emission"
       :title="$t('RSS Link')"
     />
     <NewsletterModal
