@@ -1,5 +1,5 @@
  <template>
-    <b-card no-body class="rss-parameters player-parameters mt-3" v-if="!playlist">
+    <b-card no-body class="player-parameters mt-3" v-if="!playlist">
       <b-card-header header-tag="header" role="tab">
         <b-button block v-b-toggle.playerParameters variant="info">{{$t('player parameters')}}</b-button>
       </b-card-header>
@@ -62,16 +62,31 @@
     </b-card>
 </template>
 <style lang="scss">
-.player-parameters.card .card-body{
-  padding: 0.25rem;
-  .custom-control{
-    padding-left: 0;
+.player-parameters.card{
+  border: 0;
+  .btn {
+		border-radius: 0;
+	}
+  .card-header {
+    border: 0;
+    background-color: #fafafa;
+    padding :0;
   }
-  input[type=number]{
-    padding-left:10px;
-    text-align:center;
+  .card-body{
+    padding: 0.25rem;
+    border: 0.05rem solid #eee;
+    background-color: #fafafa;
+    .custom-control{
+      padding-left: 0;
+    }
+    input[type=number]{
+      padding-left:10px;
+      text-align:center;
+       width: 90px;
+    }
   }
 }
+
 </style>
 <script>
 

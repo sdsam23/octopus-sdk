@@ -30,7 +30,7 @@
       </router-link>
       
       <router-link v-bind:to="'/main/priv/distribution/PocketCasts/' + emissionId" class="text-dark">
-        <span class="saooti-pocket-casts"/>Pocket Casts
+        <span class="saooti-pocket-casts"></span>Pocket Casts
       </router-link>
       <router-link v-bind:to="'/main/priv/distribution/PodcastAddict/' + emissionId" class="text-dark">
         <span class="saooti-podcast-addict"/>Podcast Addict
@@ -51,11 +51,12 @@
   border: 0.05rem solid #dee2e6;
   border-radius: 0.3rem;
   padding: 0.4rem;
-  margin: 0.2rem 1rem;
+  margin: 0.2rem 1rem 0.2rem 0;
   display: flex;
   font-weight: 500;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   .saooti-tunin{
     color: #36b4a7;
   }

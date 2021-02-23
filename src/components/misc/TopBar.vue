@@ -132,7 +132,7 @@
         align-items: center;
         display: flex;
         img {
-          height: 2rem;
+          height: 2.5rem;
           width: auto;
         }
       }
