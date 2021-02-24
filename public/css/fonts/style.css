@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'saooti-ui';
-  src:url('/css/fonts/saooti-ui.eot?qhrdn9');
-  src:url('/css/fonts/saooti-ui.eot?qhrdn9#iefix') format('embedded-opentype'),
-      url('/css/fonts/saooti-ui.ttf?qhrdn9') format('truetype'),
-      url('/css/fonts/saooti-ui.woff?qhrdn9') format('woff'),
-      url('/css/fonts/saooti-ui.svg?qhrdn9#saooti-ui') format('svg');
+  src:url('/css/fonts/saooti-ui.eot?9lgnyg');
+  src:url('/css/fonts/saooti-ui.eot?9lgnyg#iefix') format('embedded-opentype'),
+      url('/css/fonts/saooti-ui.ttf?9lgnyg') format('truetype'),
+      url('/css/fonts/saooti-ui.woff?9lgnyg') format('woff'),
+      url('/css/fonts/saooti-ui.svg?9lgnyg#saooti-ui') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -36,94 +36,187 @@
 }
 
 .saooti-podcast-republic:before {
-  content: "\ea9f";
+  content: "\ea91";
+  color: rgb(92, 133, 221);
 }
-.saooti-overcast:before {
-  content: "\eaa1";
+.saooti-Overcast:before {
+  content: "\eab8";
+  color: #fc7e0f;
+}
+.saooti-Google-Home .path1:before {
+  content: "\eab9";
+  color: rgb(236, 80, 67);
+}
+.saooti-Google-Home .path2:before {
+  content: "\eaba";
+  margin-left: -1em;
+  color: rgb(69, 134, 247);
+}
+.saooti-Google-Home .path3:before {
+  content: "\eabb";
+  margin-left: -1em;
+  color: rgb(253, 192, 13);
+}
+.saooti-Google-Home .path4:before {
+  content: "\eabc";
+  margin-left: -1em;
+  color: rgb(59, 171, 89);
 }
 .saooti-google-podcasts .path1:before {
-  content: "\eaa4";
+  content: "\eabd";
   color: rgb(0, 102, 217);
 }
 .saooti-google-podcasts .path2:before {
-  content: "\eaa5";
+  content: "\eabe";
   margin-left: -1em;
   color: rgb(66, 133, 244);
 }
 .saooti-google-podcasts .path3:before {
-  content: "\eaa6";
+  content: "\eabf";
   margin-left: -1em;
   color: rgb(234, 67, 53);
 }
 .saooti-google-podcasts .path4:before {
-  content: "\eaa7";
+  content: "\eac0";
   margin-left: -1em;
   color: rgb(52, 168, 83);
 }
 .saooti-google-podcasts .path5:before {
-  content: "\eaa8";
+  content: "\eac1";
   margin-left: -1em;
   color: rgb(250, 185, 8);
 }
 .saooti-google-podcasts .path6:before {
-  content: "\eaa9";
+  content: "\eac2";
   margin-left: -1em;
   color: rgb(52, 168, 83);
 }
 .saooti-google-podcasts .path7:before {
-  content: "\eaaa";
+  content: "\eac3";
   margin-left: -1em;
   color: rgb(250, 185, 8);
 }
-.saooti-google-home .path1:before {
-  content: "\eaab";
-  color: rgb(255, 255, 255);
-}
-.saooti-google-home .path2:before {
-  content: "\eaac";
-  margin-left: -1em;
-  color: rgb(255, 255, 255);
-}
-.saooti-google-home .path3:before {
-  content: "\eaad";
-  margin-left: -1em;
-  color: rgb(236, 80, 67);
-}
-.saooti-google-home .path4:before {
-  content: "\eaae";
-  margin-left: -1em;
-  color: rgb(69, 134, 247);
-}
-.saooti-google-home .path5:before {
-  content: "\eaaf";
-  margin-left: -1em;
-  color: rgb(253, 192, 13);
-}
-.saooti-google-home .path6:before {
-  content: "\eab0";
-  margin-left: -1em;
-  color: rgb(59, 171, 89);
-}
-.saooti-stitcher-logo:before {
+.saooti-filter-distrib:before {
   content: "\ea9d";
 }
-.saooti-pocket-casts:before {
-  content: "\ea9e";
-}
 .saooti-podcast-addict:before {
-  content: "\eaa0";
+  content: "\ea9e";
+  color: rgb(244, 132, 45);
+}
+.saooti-podcast-addict:after {
+  content: "\ea9f";
+  margin-left: -0.9970703125em;
+  color: rgb(255, 255, 255);
 }
 .saooti-playerfm:before {
-  content: "\eaa2";
+  content: "\eaa0";
+  color: #bb202a;
 }
-.saooti-filter-distrib:before {
+.saooti-pocket-casts:before {
+  content: "\eaa1";
+  color: rgb(244, 62, 55);
+}
+.saooti-pocket-casts:after {
+  content: "\eaa2";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.saooti-stitcher-logo .path1:before {
   content: "\eaa3";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.saooti-stitcher-logo .path2:before {
+  content: "\eaa4";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.saooti-stitcher-logo .path3:before {
+  content: "\eaa5";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.saooti-stitcher-logo .path4:before {
+  content: "\eaa6";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.saooti-stitcher-logo .path5:before {
+  content: "\eaa7";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.saooti-stitcher-logo .path6:before {
+  content: "\eaa8";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.saooti-stitcher-logo .path7:before {
+  content: "\eaa9";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.saooti-stitcher-logo .path8:before {
+  content: "\eaaa";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.saooti-stitcher-logo .path9:before {
+  content: "\eaab";
+  margin-left: -1em;
+  color: rgb(53, 144, 197);
+}
+.saooti-stitcher-logo .path10:before {
+  content: "\eaac";
+  margin-left: -1em;
+  color: rgb(53, 144, 197);
+}
+.saooti-stitcher-logo .path11:before {
+  content: "\eaad";
+  margin-left: -1em;
+  color: rgb(197, 56, 39);
+}
+.saooti-stitcher-logo .path12:before {
+  content: "\eaae";
+  margin-left: -1em;
+  color: rgb(197, 56, 39);
+}
+.saooti-stitcher-logo .path13:before {
+  content: "\eaaf";
+  margin-left: -1em;
+  color: rgb(236, 139, 36);
+}
+.saooti-stitcher-logo .path14:before {
+  content: "\eab0";
+  margin-left: -1em;
+  color: rgb(236, 139, 36);
+}
+.saooti-stitcher-logo .path15:before {
+  content: "\eab1";
+  margin-left: -1em;
+  color: rgb(251, 198, 24);
+}
+.saooti-stitcher-logo .path16:before {
+  content: "\eab2";
+  margin-left: -1em;
+  color: rgb(251, 198, 24);
+}
+.saooti-stitcher-logo .path17:before {
+  content: "\eab3";
+  margin-left: -1em;
+  color: rgb(97, 34, 104);
+}
+.saooti-stitcher-logo .path18:before {
+  content: "\eab4";
+  margin-left: -1em;
+  color: rgb(97, 34, 104);
 }
 .saooti-user-octopus:before {
   content: "\ea9b";
 }
 .saooti-audionow:before {
-  content: "\ea9c";
+  content: "\eacb";
+  color: rgb(217, 16, 62);
 }
 .saooti-listening:before {
   content: "\ea9a";
@@ -145,27 +238,31 @@
 }
 .saooti-apple:before {
   content: "\ea8e";
+  color: #999;
 }
 .saooti-deezer:before {
   content: "\ea8f";
+  color: #00c7f2;
 }
 .saooti-podcast-octopus:before {
   content: "\ea95";
+  color: #93c;
 }
 .saooti-spotify:before {
   content: "\ea90";
-}
-.saooti-deezer1:before {
-  content: "\ea91";
+  color: #1ed760;
 }
 .saooti-tootak:before {
   content: "\ea92";
+  color: #ff4d53;
 }
 .saooti-radioline:before {
   content: "\ea93";
+  color: rgb(22, 120, 189);
 }
 .saooti-tunin:before {
   content: "\ea94";
+  color: #36b4a7;
 }
 .saooti-instagram2:before {
   content: "\ea8c";

@@ -17,7 +17,7 @@
         <span class="saooti-tunin"/>TuneIn
       </router-link>
       <router-link v-bind:to="'/main/priv/distribution/audioNow/' + emissionId" class="text-dark">
-        <span class="saooti-audionow"/>Audio Now
+        <span class="saooti-audionow"></span> Now
       </router-link>
       <router-link v-bind:to="'/main/priv/distribution/tootak/' + emissionId" class="text-dark">
         <span class="saooti-tootak"/>Tootak
@@ -36,7 +36,26 @@
         <span class="saooti-podcast-addict"/>Podcast Addict
       </router-link>
       <router-link v-bind:to="'/main/priv/distribution/Stitcher/' + emissionId" class="text-dark">
-        <span class="saooti-stitcher-logo"/>Stitcher
+        <span class="saooti-stitcher-logo">
+          <div class="path1"></div>
+          <div class="path2"></div>
+          <div class="path3"></div>
+          <div class="path4"></div>
+          <div class="path5"></div>
+          <div class="path6"></div>
+          <div class="path7"></div>
+          <div class="path8"></div>
+          <div class="path9"></div>
+          <div class="path10"></div>
+          <div class="path11"></div>
+          <div class="path12"></div>
+          <div class="path13"></div>
+          <div class="path14"></div>
+          <div class="path15"></div>
+          <div class="path16"></div>
+          <div class="path17"></div>
+          <div class="path18"></div>
+        </span>Stitcher
       </router-link>
       <router-link v-bind:to="'/main/priv/distribution/PlayerFM/' + emissionId" class="text-dark">
         <span class="saooti-playerfm"/>PlayerFM
@@ -57,6 +76,17 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+  .saooti-stitcher-logo{
+    font-size: 1.7rem;
+    position: relative;
+    width: 25px;
+    height: 20px;
+    div{
+      position: absolute;
+      top: -7px;
+      right: 0;
+    }
+  }
   .saooti-tunin{
     color: #36b4a7;
   }
