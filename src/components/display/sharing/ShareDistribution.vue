@@ -2,7 +2,7 @@
   <div class="module-box">
   <h3>{{$t('Distribute')}}</h3>
     <p class="sharing-distribution-container">{{$t('Rss feed:')}}
-      <span class="primary-color">{{rss}}</span>
+      <span class="primary-color text-break">{{rss}}</span>
       <input type="button" :value="$t('Copy')" class="btn btn-primary" @click="onCopyCode(rss, true, true)" :aria-label="$t('Copy')" />
     </p>
     <RssSection :emission="emission" v-if="emission"/>
