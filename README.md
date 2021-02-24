@@ -377,6 +377,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.23.9 Afficher podcast
  * 0.23.10 Divers bugs
  * 0.23.11 Recherche avancée
+ * 0.23.12 Data selenium
  
  * 0.24.0 Nouveau sprint
  * 0.24.1 Description subset Html
@@ -385,6 +386,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.24.6 Fonction copyCode
  * 0.24.7 Merge Jimmy
  * 0.24.8 - 0.24.10 Début distribution
+
 
 
 
