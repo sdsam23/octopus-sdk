@@ -20,7 +20,7 @@
 						</div>
 						<div class=" d-flex justify-content-between align-items-center mt-3 mb-2">
 							<h4 class="mb-0">{{$t('HTML Code')}}</h4>
-							<input type="button" :value="$t('Copy')" class="btn btn-primary" @click="onCopyCode(newsletterHtml)" :aria-label="$t('Copy')" />
+							<input type="button" :value="$t('Copy')" class="btn btn-primary" @click="onCopyCode(newsletterHtml, $refs.snackbar)" :aria-label="$t('Copy')" />
 						</div>
 						<textarea id="newsletter_code_textarea" v-model="newsletterHtml" @click="selectAll" readonly></textarea>
 						<label for="newsletter_code_textarea" :aria-label="$t('HTML Code')"></label>

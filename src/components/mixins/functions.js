@@ -36,16 +36,19 @@ export const displayMethods = {
 				return '<a href="' + url + '" target="_blank">' + url + '</a>';
 			});
 		},
-		async onCopyCode(link,isSnackbar= true, isLink=false) {
+		async onCopyCode(link,ref,isSnackbar= true, isLink=false) {
 			if ('undefined' !== typeof(navigator.clipboard)) {
 				await navigator.clipboard.writeText(link);
 				if(!isSnackbar){
 					return;
 				}
+				if(undefined === ref){
+					return;
+				}
 				if(isLink){
-					this.$refs.snackbar.open(this.$t('Link in clipboard'));
+					ref.open(this.$t('Link in clipboard'));
 				}else{
-					this.$refs.snackbar.open(this.$t('Data in clipboard'));
+					ref.open(this.$t('Data in clipboard'));
 				}
 				return;
 			}
@@ -56,14 +59,17 @@ export const displayMethods = {
 			textArea.focus();
 			textArea.select();
 			var successful = document.execCommand('copy');
+			document.body.removeChild(textArea);   
+			if(undefined === ref){
+				return;
+			}
 			if(successful && isSnackbar){
 				if(isLink){
-					this.$refs.snackbar.open(this.$t('Link in clipboard'));
+					ref.open(this.$t('Link in clipboard'));
 				}else{
-					this.$refs.snackbar.open(this.$t('Data in clipboard'));
+					ref.open(this.$t('Data in clipboard'));
 				}
-			}
-			document.body.removeChild(textArea);            
+			}     
 		},
 	}
 }

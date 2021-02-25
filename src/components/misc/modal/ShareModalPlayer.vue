@@ -5,15 +5,15 @@
         <b-tabs content-class="p-2 share-modal-border">
           <b-tab :title="$t('Embed link')" class="tab-pane" active>
             <p>{{embedLink}}</p>
-            <div class='saooti-copy' @click="onCopyCode(embedLink)"></div>
+            <div class='saooti-copy' @click="onCopyCode(embedLink, $refs.snackbar)"></div>
           </b-tab>
           <b-tab :title="$t('Embedly link')" class="tab-pane">
             <p>{{embedlyLink}}</p>
-            <div class='saooti-copy' @click="onCopyCode(embedlyLink)"></div>
+            <div class='saooti-copy' @click="onCopyCode(embedlyLink, $refs.snackbar)"></div>
           </b-tab>
           <b-tab :title="$t('Direct link')" class="tab-pane" v-if="directLink">
             <p>{{directLink.audioUrl}}</p>
-            <div class='saooti-copy' @click="onCopyCode(directLink.audioUrl)"></div>
+            <div class='saooti-copy' @click="onCopyCode(directLink.audioUrl, $refs.snackbar)"></div>
           </b-tab>
         </b-tabs>
       </template>
