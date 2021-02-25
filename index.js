@@ -87,7 +87,7 @@ const components = {
     CommentInput,
     HomeDropdown,
     ErrorMessage,
-    displayMethods
+    displayMethods,
 }
 
 export default components;
@@ -128,5 +128,5 @@ export {
     CommentInput,
     HomeDropdown,
     ErrorMessage,
-    displayMethods
+    displayMethods,
 };
