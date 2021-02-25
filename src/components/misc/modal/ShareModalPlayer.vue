@@ -5,15 +5,15 @@
         <b-tabs content-class="p-2 share-modal-border">
           <b-tab :title="$t('Embed link')" class="tab-pane" active>
             <p>{{embedLink}}</p>
-            <div class='saooti-copy' @click="onCopyCode(embedLink, $refs.snackbar)"></div>
+            <div class='saooti-copy' @click="onCopyCode(embedLink, snackbarRef)"></div>
           </b-tab>
           <b-tab :title="$t('Embedly link')" class="tab-pane">
             <p>{{embedlyLink}}</p>
-            <div class='saooti-copy' @click="onCopyCode(embedlyLink, $refs.snackbar)"></div>
+            <div class='saooti-copy' @click="onCopyCode(embedlyLink, snackbarRef)"></div>
           </b-tab>
           <b-tab :title="$t('Direct link')" class="tab-pane" v-if="directLink">
             <p>{{directLink.audioUrl}}</p>
-            <div class='saooti-copy' @click="onCopyCode(directLink.audioUrl, $refs.snackbar)"></div>
+            <div class='saooti-copy' @click="onCopyCode(directLink.audioUrl, snackbarRef)"></div>
           </b-tab>
         </b-tabs>
       </template>
@@ -84,6 +84,11 @@ export default {
 
   mounted(){
     this.$bvModal.show('share-modal');
+  },
+  computed:{
+    snackbarRef(){
+      return this.$refs.snackbar;
+    },
   },
 
   methods: {

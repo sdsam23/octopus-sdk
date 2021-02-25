@@ -27,7 +27,7 @@
         <span class="saooti-rss-bounty" v-if="!bigRound"></span>
         <div class="saooti-rss-bounty" v-else></div>
       </a>
-      <a target="_blank" :class="[bigRound?'btn btn-bigRound':'btn btn-rss share-btn mb-2', verticalDisplay? '' :'mr-2 ml-2']" aria-label="copy" @click="onCopyCode(window.location.href,$refs.snackbar, true)">
+      <a target="_blank" :class="[bigRound?'btn btn-bigRound':'btn btn-rss share-btn mb-2', verticalDisplay? '' :'mr-2 ml-2']" aria-label="copy" @click="onCopyCode(window.location.href,snackbarRef, true)">
         <span class="saooti-link" v-if="!bigRound"></span>
         <div class="saooti-link" v-else></div>
       </a>
@@ -115,6 +115,9 @@ export default {
   },
 
   computed: {
+    snackbarRef(){
+      return this.$refs.snackbar;
+    },
     verticalDisplay(){
       return !this.authenticated && !this.participantId && !this.organisationId && !this.notExclusive;
     },

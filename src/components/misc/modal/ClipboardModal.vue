@@ -12,7 +12,7 @@
           <p class="d-flex justify-content-between align-items-center">
             {{$t('Rss feed:')}}
             <span id="LINK">{{rss}}</span>
-            <input type="button" :value="$t('Copy')" class="btn btn-primary" @click="onCopyCode(rss, false)" :aria-label="$t('Copy')" />
+            <input type="button" :value="$t('Copy')" class="btn btn-primary" @click="onCopyCode(rss,undefined, false)" :aria-label="$t('Copy')" />
           </p>
           <RssSection :emission="emission" v-if="emission"/>
         </div>
