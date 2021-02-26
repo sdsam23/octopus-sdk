@@ -7,7 +7,10 @@
       <div class="img-box no-border-round" :style="{ 'background-image': 'url(\'' + emission.imageUrl +'?dummy='+dummyParam+ '\')' }"></div>
       <div class="d-flex flex-column p-2">
           <div class="font-weight-bold text-uppercase text-ellipsis">{{emission.name}}</div>
-          <div class="text-ellipsis html-wysiwyg-content" v-html="urlify(emission.description)"></div>
+          <div :id="'description-emission-container-'+emission.emissionId" class="emission-description html-wysiwyg-content">
+            <div :id="'description-emission-'+emission.emissionId" v-html="urlify(emission.description)"></div>
+          </div>
+          <!-- <div class="text-ellipsis html-wysiwyg-content" v-html="urlify(emission.description)"></div> -->
       </div>
     </router-link>
     <div class="border-top emission-item-border-color p-2 secondary-bg d-flex" v-for="p in podcasts" :key="p.podcastId">
@@ -16,7 +19,9 @@
             :to="{ name: 'podcast', params: {podcastId:p.podcastId}, query:{productor: $store.state.filter.organisationId}}"
             class="d-flex flex-column define-width text-dark">
             <div class="font-weight-bold text-ellipsis">{{p.title}}</div>
-            <div class="two-line-clamp html-wysiwyg-content" v-html="urlify(p.description)"></div>
+            <div :id="'description-podcast-container-'+p.podcastId" class="emission-description html-wysiwyg-content">
+              <div :id="'description-podcast-'+p.podcastId" v-html="urlify(p.description)"></div>
+            </div>
             </router-link>
             <div class="play-button-box bg-secondary" @click="play(p)" v-if="$store.state.player.podcast !== p ||($store.state.player.podcast === p && 'PAUSED' === $store.state.player.status)">
                 <div class="text-light saooti-play2-bounty" :aria-label="$t('Play')"></div>
@@ -53,6 +58,25 @@
   height: min-content;
   border-radius: 0.8rem;
   overflow: hidden;
+  .emission-description{
+    overflow: hidden;
+    margin-top: 0.5em;
+    word-break: break-word;
+    max-height: 3.5rem;
+    position:relative;
+    &.after-emission-description:after{
+      content: "...";
+      position: absolute;
+      padding-left: 1rem;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      font-size: 1rem;
+      font-weight: bolder;
+      text-align: center;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff 40%);
+    }
+  }
   .define-width{
     width: 9rem;
   }
@@ -92,6 +116,11 @@ export default {
   created(){
     this.loadPodcasts();
   },
+  mounted(){
+    if(document.getElementById('description-emission-'+this.emission.emissionId).clientHeight > document.getElementById('description-emission-container-'+this.emission.emissionId).clientHeight){
+      document.getElementById('description-emission-container-'+this.emission.emissionId).classList.add("after-emission-description");
+    }
+  },
 
   data() {
     return {
@@ -123,6 +152,13 @@ export default {
         this.activeEmission = false;
       }
       this.podcasts=data.result;
+      this.$nextTick(() => {
+        for (let index = 0; index < this.podcasts.length; index++) {
+          if(document.getElementById('description-podcast-'+this.podcasts[index].podcastId).clientHeight > document.getElementById('description-podcast-container-'+this.podcasts[index].podcastId).clientHeight){
+            document.getElementById('description-podcast-container-'+this.podcasts[index].podcastId).classList.add("after-emission-description");
+          }
+        }
+      });
       if(this.editRight || this.activeEmission){
         return;
       }
