@@ -117,7 +117,7 @@ export default {
     this.loadPodcasts();
   },
   mounted(){
-    if(document.getElementById('description-emission-'+this.emission.emissionId).clientHeight > document.getElementById('description-emission-container-'+this.emission.emissionId).clientHeight){
+    if(null!==document.getElementById('description-emission-'+this.emission.emissionId) && document.getElementById('description-emission-'+this.emission.emissionId).clientHeight > document.getElementById('description-emission-container-'+this.emission.emissionId).clientHeight){
       document.getElementById('description-emission-container-'+this.emission.emissionId).classList.add("after-emission-description");
     }
   },
@@ -154,7 +154,7 @@ export default {
       this.podcasts=data.result;
       this.$nextTick(() => {
         for (let index = 0; index < this.podcasts.length; index++) {
-          if(document.getElementById('description-podcast-'+this.podcasts[index].podcastId).clientHeight > document.getElementById('description-podcast-container-'+this.podcasts[index].podcastId).clientHeight){
+          if(null!==document.getElementById('description-podcast-'+this.podcasts[index].podcastId) && document.getElementById('description-podcast-'+this.podcasts[index].podcastId).clientHeight > document.getElementById('description-podcast-container-'+this.podcasts[index].podcastId).clientHeight){
             document.getElementById('description-podcast-container-'+this.podcasts[index].podcastId).classList.add("after-emission-description");
           }
         }
