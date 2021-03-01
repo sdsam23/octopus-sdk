@@ -43,21 +43,21 @@
         {{ $t('No elements found. Consider changing the search query.') }}
       </span>
       <div class="position-relative" slot="caret">
-        <span class="saooti-arrow_down octopus-arrow-down-2 octopus-arrow-down-top"></span>
+        <span
+          class="saooti-arrow_down octopus-arrow-down-2 octopus-arrow-down-top"
+        ></span>
       </div>
     </Multiselect>
   </div>
 </template>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
 <script>
 import Multiselect from 'vue-multiselect';
-import {state} from "../../../store/paramStore.js";
+import { state } from '../../../store/paramStore.js';
 
 const getDefaultCategory = defaultName => {
-  if(undefined !== defaultName)
-    return {name: defaultName, id: 0};
+  if (undefined !== defaultName) return { name: defaultName, id: 0 };
   return '';
 };
 
@@ -66,25 +66,26 @@ export default {
     Multiselect,
   },
 
-  props: { 
+  props: {
     width: { default: '100%' },
     defaultanswer: { default: undefined },
-    categorySelected: {default: undefined},
-    multiple: {default: false},
-    categoryArray: {default: undefined},
-    displayAllCategories: {default: false},
-    isDisabled: {default: false}
+    categorySelected: { default: undefined },
+    multiple: { default: false },
+    categoryArray: { default: undefined },
+    displayAllCategories: { default: false },
+    isDisabled: { default: false },
   },
 
   computed: {
-    allCategories(){
-      return state.generalParameters.allCategories.sort((a,b) => (a.name > b.name) ? 1 : -1);
+    allCategories() {
+      return state.generalParameters.allCategories.sort((a, b) =>
+        a.name > b.name ? 1 : -1
+      );
     },
-     id(){
-      if(this.multiple)
-        return "categoryChooser"+this.multiple;
-      return "categoryChooser";
-    }
+    id() {
+      if (this.multiple) return 'categoryChooser' + this.multiple;
+      return 'categoryChooser';
+    },
   },
 
   data() {
@@ -98,26 +99,35 @@ export default {
   },
 
   mounted() {
-    if(undefined !== this.categorySelected){
+    if (undefined !== this.categorySelected) {
       this.initCategorySelected(this.categorySelected);
     }
-    if(undefined !== this.categoryArray){
+    if (undefined !== this.categoryArray) {
       this.initCategoryArray(this.categoryArray);
     }
   },
 
   methods: {
     clearAll() {
-      this.$refs.multiselectRef.$refs.search.setAttribute("autocomplete", "off");
-      if(undefined === this.categoryArray) {
+      this.$refs.multiselectRef.$refs.search.setAttribute(
+        'autocomplete',
+        'off'
+      );
+      if (undefined === this.categoryArray) {
         this.category = '';
       }
-      if(undefined !== this.categorySelected || undefined !== this.categoryArray || this.displayAllCategories){
+      if (
+        undefined !== this.categorySelected ||
+        undefined !== this.categoryArray ||
+        this.displayAllCategories
+      ) {
         this.totalCategories = this.allCategories;
       } else {
-        this.totalCategories = this.allCategories.filter(c => {return c.podcastCount;});
+        this.totalCategories = this.allCategories.filter(c => {
+          return c.podcastCount;
+        });
       }
-      if(undefined !== this.defaultanswer){
+      if (undefined !== this.defaultanswer) {
         this.categories = [getDefaultCategory(this.defaultanswer)].concat(
           this.totalCategories
         );
@@ -138,9 +148,9 @@ export default {
       let list = [getDefaultCategory(this.defaultanswer)].concat(
         this.totalCategories
       );
-      if(undefined === this.defaultanswer){
+      if (undefined === this.defaultanswer) {
         list = this.totalCategories;
-      } 
+      }
       this.categories = list.filter(item => {
         return item.name.toUpperCase().includes(query.toUpperCase());
       });
@@ -148,41 +158,40 @@ export default {
     },
 
     onEmissionSelected(category) {
-      if(undefined !== this.categorySelected){
+      if (undefined !== this.categorySelected) {
         this.$emit('update:categorySelected', category.id);
-      } else if(undefined === this.categoryArray){
+      } else if (undefined === this.categoryArray) {
         this.$emit('selected', category);
       }
     },
-    initCategorySelected(val){
-      this.category = state.generalParameters.allCategories.find((el)=>{
+    initCategorySelected(val) {
+      this.category = state.generalParameters.allCategories.find(el => {
         return el.id === val;
       });
     },
-    initCategoryArray(val){
-      this.category = [];
+    initCategoryArray(val) {
+      this.category.length = 0;
       val.forEach(element => {
-        let item =  state.generalParameters.allCategories.find((el)=>{
+        let item = state.generalParameters.allCategories.find(el => {
           return el.id === element;
-        })
+        });
         this.category.push(item);
-      }); 
-    }
+      });
+    },
   },
-  watch:{
+  watch: {
     categorySelected(newVal) {
       this.initCategorySelected(newVal);
     },
     category(newVal) {
-      if(undefined === this.categoryArray)
-        return;
+      if (undefined === this.categoryArray) return;
 
       let idsArray = [];
-      newVal.forEach((el)=>{
+      newVal.forEach(el => {
         idsArray.push(el.id);
-      })
+      });
       this.$emit('selected', idsArray);
-    }
-  }
+    },
+  },
 };
 </script>

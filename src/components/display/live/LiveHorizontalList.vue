@@ -8,30 +8,31 @@
         v-bind:key="l.podcastId"
       />
     </ul>
-    <button class="btn" :class="buttonPlus? 'btn-linkPlus mt-3': 'btn-more'" 
-    @click="displayMore" 
-    v-show="!allFetched" 
-    :disabled="inFetching"
-    :aria-label="$t('See more')"
+    <button
+      class="btn"
+      :class="buttonPlus ? 'btn-linkPlus mt-3' : 'btn-more'"
+      @click="displayMore"
+      v-show="!allFetched"
+      :disabled="inFetching"
+      :aria-label="$t('See more')"
     >
-      <template v-if="buttonPlus">{{$t('See more')}}</template>
+      <template v-if="buttonPlus">{{ $t('See more') }}</template>
       <div class="saooti-plus"></div>
     </button>
   </div>
 </template>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
 
 <script>
-import octopusApi from "@saooti/octopus-api";
+import octopusApi from '@saooti/octopus-api';
 import PodcastItem from '../podcasts/PodcastItem.vue';
-import {state} from "../../../store/paramStore.js";
+import { state } from '../../../store/paramStore.js';
 
 export default {
   name: 'LiveHorizontalList',
 
-  props:  {
+  props: {
     first: { default: 0 },
     size: { default: 12 },
     emissionId: { default: undefined },
@@ -60,16 +61,16 @@ export default {
     allFetched() {
       return this.dfirst >= this.totalCount;
     },
-    buttonPlus(){
+    buttonPlus() {
       return state.generalParameters.buttonPlus;
     },
   },
 
   methods: {
     async fetchContent(reset) {
-      this.inFetching=true;
+      this.inFetching = true;
       if (reset) {
-        this.lives = [];
+        this.lives.length = 0;
         this.dfirst = 0;
         this.notEmpty = false;
       }
@@ -78,25 +79,25 @@ export default {
         size: this.dsize,
         emissionId: this.emissionId,
         sort: 'DATE',
-      }
-        const data = await octopusApi.fetchLives(param);
-        this.afterFetching(reset, data);
+      };
+      const data = await octopusApi.fetchLives(param);
+      this.afterFetching(reset, data);
     },
 
-    afterFetching(reset, data){
+    afterFetching(reset, data) {
       if (reset) {
-        this.lives = [];
+        this.lives.length = 0;
         this.dfirst = 0;
       }
-      this.lives = this.lives.concat(data.result).filter((l)=>{
+      this.lives = this.lives.concat(data.result).filter(l => {
         return null !== l;
       });
       this.dfirst += this.dsize;
       this.totalCount = data.count;
-      if(0 !== this.lives.length){
+      if (0 !== this.lives.length) {
         this.notEmpty = true;
       }
-      this.inFetching=false;
+      this.inFetching = false;
     },
 
     displayMore(event) {

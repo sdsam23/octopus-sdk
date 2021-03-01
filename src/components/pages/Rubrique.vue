@@ -5,12 +5,11 @@
   </div>
 </template>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
 
 <script>
 // @ is an alias to /src
-import octopusApi from "@saooti/octopus-api";
+import octopusApi from '@saooti/octopus-api';
 import PodcastList from '../display/podcasts/PodcastList.vue';
 
 export default {
@@ -30,9 +29,7 @@ export default {
     };
   },
 
-  computed: {
-  },
-
+  computed: {},
 
   methods: {
     async extractTitle() {
@@ -46,6 +43,5 @@ export default {
       this.extractTitle(val);
     },
   },
-
 };
 </script>

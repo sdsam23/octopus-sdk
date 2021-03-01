@@ -1,49 +1,111 @@
 <template>
-  <li class="emission-player-container shadow-element" v-if="activeEmission ||editRight">
-    <router-link 
-    :to="{ name: 'emission', params: {emissionId:emission.emissionId}, query:{productor: $store.state.filter.organisationId}}"
-    class="d-flex flex-column text-dark">
-      <div class="emissionPlayerItem-info" v-if="rubriqueName">{{rubriqueName}}</div>
-      <div class="img-box no-border-round" :style="{ 'background-image': 'url(\'' + emission.imageUrl +'?dummy='+dummyParam+ '\')' }"></div>
+  <li
+    class="emission-player-container shadow-element"
+    v-if="activeEmission || editRight"
+  >
+    <router-link
+      :to="{
+        name: 'emission',
+        params: { emissionId: emission.emissionId },
+        query: { productor: $store.state.filter.organisationId },
+      }"
+      class="d-flex flex-column text-dark"
+    >
+      <div class="emissionPlayerItem-info" v-if="rubriqueName">
+        {{ rubriqueName }}
+      </div>
+      <div
+        class="img-box no-border-round"
+        :style="{
+          'background-image':
+            'url(\'' + emission.imageUrl + '?dummy=' + dummyParam + '\')',
+        }"
+      ></div>
       <div class="d-flex flex-column p-2">
-          <div class="font-weight-bold text-uppercase text-ellipsis">{{emission.name}}</div>
-          <div :id="'description-emission-container-'+emission.emissionId" class="emission-description html-wysiwyg-content">
-            <div :id="'description-emission-'+emission.emissionId" v-html="urlify(emission.description)"></div>
-          </div>
-          <!-- <div class="text-ellipsis html-wysiwyg-content" v-html="urlify(emission.description)"></div> -->
+        <div class="font-weight-bold text-uppercase text-ellipsis">
+          {{ emission.name }}
+        </div>
+        <div
+          :id="'description-emission-container-' + emission.emissionId"
+          class="emission-description html-wysiwyg-content"
+        >
+          <div
+            :id="'description-emission-' + emission.emissionId"
+            v-html="urlify(emission.description)"
+          ></div>
+        </div>
+        <!-- <div class="text-ellipsis html-wysiwyg-content" v-html="urlify(emission.description)"></div> -->
       </div>
     </router-link>
-    <div class="border-top emission-item-border-color p-2 secondary-bg d-flex" v-for="p in podcasts" :key="p.podcastId">
-        <div class="d-flex justify-content-between flex-grow">
-            <router-link 
-            :to="{ name: 'podcast', params: {podcastId:p.podcastId}, query:{productor: $store.state.filter.organisationId}}"
-            class="d-flex flex-column define-width text-dark">
-            <div class="font-weight-bold text-ellipsis">{{p.title}}</div>
-            <div :id="'description-podcast-container-'+p.podcastId" class="emission-description html-wysiwyg-content">
-              <div :id="'description-podcast-'+p.podcastId" v-html="urlify(p.description)"></div>
-            </div>
-            </router-link>
-            <div class="play-button-box bg-secondary" @click="play(p)" v-if="$store.state.player.podcast !== p ||($store.state.player.podcast === p && 'PAUSED' === $store.state.player.status)">
-                <div class="text-light saooti-play2-bounty" :aria-label="$t('Play')"></div>
-            </div>
-            <div class="play-button-box bg-secondary" @click="pause(p)" v-else>
-                <div class="text-light saooti-pause-bounty" :aria-label="$t('Pause')"></div>
-            </div>
+    <div
+      class="border-top emission-item-border-color p-2 secondary-bg d-flex"
+      v-for="p in podcasts"
+      :key="p.podcastId"
+    >
+      <div class="d-flex justify-content-between flex-grow">
+        <router-link
+          :to="{
+            name: 'podcast',
+            params: { podcastId: p.podcastId },
+            query: { productor: $store.state.filter.organisationId },
+          }"
+          class="d-flex flex-column define-width text-dark"
+        >
+          <div class="font-weight-bold text-ellipsis">{{ p.title }}</div>
+          <div
+            :id="'description-podcast-container-' + p.podcastId"
+            class="emission-description html-wysiwyg-content"
+          >
+            <div
+              :id="'description-podcast-' + p.podcastId"
+              v-html="urlify(p.description)"
+            ></div>
+          </div>
+        </router-link>
+        <div
+          class="play-button-box bg-secondary"
+          @click="play(p)"
+          v-if="
+            $store.state.player.podcast !== p ||
+              ($store.state.player.podcast === p &&
+                'PAUSED' === $store.state.player.status)
+          "
+        >
+          <div
+            class="text-light saooti-play2-bounty"
+            :aria-label="$t('Play')"
+          ></div>
         </div>
+        <div class="play-button-box bg-secondary" @click="pause(p)" v-else>
+          <div
+            class="text-light saooti-pause-bounty"
+            :aria-label="$t('Pause')"
+          ></div>
+        </div>
+      </div>
     </div>
-    <div class="border-top emission-item-border-color p-2 secondary-bg d-flex justify-content-center" v-if="buttonMore && podcasts.length === nbPodcasts">
-      <router-link 
-      :to="{ name: 'emission', params: {emissionId:emission.emissionId}, query:{productor: $store.state.filter.organisationId}}"
-      class="btn">{{$t('More episodes')}}</router-link>
+    <div
+      class="border-top emission-item-border-color p-2 secondary-bg d-flex justify-content-center"
+      v-if="buttonMore && podcasts.length === nbPodcasts"
+    >
+      <router-link
+        :to="{
+          name: 'emission',
+          params: { emissionId: emission.emissionId },
+          query: { productor: $store.state.filter.organisationId },
+        }"
+        class="btn"
+        >{{ $t('More episodes') }}</router-link
+      >
     </div>
   </li>
 </template>
 
 <style lang="scss">
-.no-border-round{
-    border-radius: 0;
+.no-border-round {
+  border-radius: 0;
 }
-.text-ellipsis{
+.text-ellipsis {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -58,14 +120,14 @@
   height: min-content;
   border-radius: 0.8rem;
   overflow: hidden;
-  .emission-description{
+  .emission-description {
     overflow: hidden;
     margin-top: 0.5em;
     word-break: break-word;
     max-height: 3.5rem;
-    position:relative;
-    &.after-emission-description:after{
-      content: "...";
+    position: relative;
+    &.after-emission-description:after {
+      content: '...';
       position: absolute;
       padding-left: 1rem;
       right: 0;
@@ -77,16 +139,16 @@
       background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff 40%);
     }
   }
-  .define-width{
+  .define-width {
     width: 9rem;
   }
-  @media (max-width: 960px){
-    .d-flex:not(.flex-column){
+  @media (max-width: 960px) {
+    .d-flex:not(.flex-column) {
       flex-wrap: nowrap;
     }
   }
 }
-.two-line-clamp{
+.two-line-clamp {
   display: block;
   max-width: 100%;
   height: 29px;
@@ -97,81 +159,102 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.emission-item-border-color{
+.emission-item-border-color {
   border-color: #ddd;
 }
 </style>
 
 <script>
-import octopusApi from "@saooti/octopus-api";
-import {state} from "../../../store/paramStore.js";
-import { displayMethods } from '../../mixins/functions'
+import octopusApi from '@saooti/octopus-api';
+import { state } from '../../../store/paramStore.js';
+import { displayMethods } from '../../mixins/functions';
 export default {
   name: 'EmissionPlayerItem',
 
-  props: ['emission', "nbPodcasts", "rubriqueName"],
+  props: ['emission', 'nbPodcasts', 'rubriqueName'],
 
   mixins: [displayMethods],
 
-  created(){
+  created() {
     this.loadPodcasts();
   },
-  mounted(){
-    if(null!==document.getElementById('description-emission-'+this.emission.emissionId) && document.getElementById('description-emission-'+this.emission.emissionId).clientHeight > document.getElementById('description-emission-container-'+this.emission.emissionId).clientHeight){
-      document.getElementById('description-emission-container-'+this.emission.emissionId).classList.add("after-emission-description");
+  mounted() {
+    let emissionDesc = document.getElementById(
+      'description-emission-' + this.emission.emissionId
+    );
+    let emissionDescContainer = document.getElementById(
+      'description-emission-container-' + this.emission.emissionId
+    );
+    if (
+      null !== emissionDesc &&
+      emissionDesc.clientHeight > emissionDescContainer.clientHeight
+    ) {
+      emissionDescContainer.classList.add('after-emission-description');
     }
   },
 
   data() {
     return {
       activeEmission: true,
-      podcasts : [],
-      dummyParam : new Date().getTime().toString(),
+      podcasts: [],
+      dummyParam: new Date().getTime().toString(),
     };
   },
 
   computed: {
-    buttonMore(){
+    buttonMore() {
       return state.emissionsPage.buttonMore;
     },
     editRight() {
-      if ((this.authenticated && this.organisationId === this.emission.orga.id) ||state.generalParameters.isAdmin)
+      if (
+        (this.authenticated && this.organisationId === this.emission.orga.id) ||
+        state.generalParameters.isAdmin
+      )
         return true;
       return false;
-    }
+    },
   },
 
-   methods:{
-    async loadPodcasts(){
-      let nb = this.nbPodcasts? this.nbPodcasts: 2;
+  methods: {
+    async loadPodcasts() {
+      let nb = this.nbPodcasts ? this.nbPodcasts : 2;
       const data = await octopusApi.fetchPodcasts({
         emissionId: this.emission.emissionId,
-        size: nb
+        size: nb,
       });
-      if(0 === data.count){
+      if (0 === data.count) {
         this.activeEmission = false;
       }
-      this.podcasts=data.result;
+      this.podcasts = data.result;
       this.$nextTick(() => {
-        for (let index = 0; index < this.podcasts.length; index++) {
-          if(null!==document.getElementById('description-podcast-'+this.podcasts[index].podcastId) && document.getElementById('description-podcast-'+this.podcasts[index].podcastId).clientHeight > document.getElementById('description-podcast-container-'+this.podcasts[index].podcastId).clientHeight){
-            document.getElementById('description-podcast-container-'+this.podcasts[index].podcastId).classList.add("after-emission-description");
+        for (let index = 0, len = this.podcasts.length; index < len; index++) {
+          let podcastDesc = document.getElementById(
+            'description-podcast-' + this.podcasts[index].podcastId
+          );
+          let podcastDescContainer = document.getElementById(
+            'description-podcast-container-' + this.podcasts[index].podcastId
+          );
+          if (
+            null !== podcastDesc &&
+            podcastDesc.clientHeight > podcastDescContainer.clientHeight
+          ) {
+            podcastDescContainer.classList.add('after-emission-description');
           }
         }
       });
-      if(this.editRight || this.activeEmission){
+      if (this.editRight || this.activeEmission) {
         return;
       }
-      this.$emit("emissionNotVisible");
+      this.$emit('emissionNotVisible');
     },
-    play(podcast){
-      if(podcast === this.$store.state.player.podcast){
+    play(podcast) {
+      if (podcast === this.$store.state.player.podcast) {
         this.$store.commit('playerPause', false);
-      } else{
+      } else {
         this.$store.commit('playerPlayPodcast', podcast);
       }
     },
-    pause(){
+    pause() {
       this.$store.commit('playerPause', true);
     },
   },

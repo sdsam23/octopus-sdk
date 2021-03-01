@@ -1,13 +1,9 @@
 <template>
-  <div>
-  </div>
+  <div></div>
 </template>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
 
 <script>
-
-export default {
-};
+export default {};
 </script>

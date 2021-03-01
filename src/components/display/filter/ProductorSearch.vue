@@ -1,30 +1,47 @@
 <template>
-	<div class="d-flex align-items-center">
-			<div class="filter-organisation-chooser" v-if="!isPodcastmaker && !filterOrga">
-			<OrganisationChooser
-					:defaultanswer="$t('No organisation filter')"
-					@selected="onOrganisationSelected"
-					:value='organisationId'
-          :all="true"
-			/>
-      <div class="checkbox-saooti m-3" v-if="!!organisationId">  
-        <input type="checkbox" class="custom-control-input" id="orgaCheck" v-model="keepOrganisation" @click="onKeepOrganisation">  
-        <label class="custom-control-label" for="orgaCheck"></label>  
+  <div class="d-flex align-items-center">
+    <div
+      class="filter-organisation-chooser"
+      v-if="!isPodcastmaker && !filterOrga"
+    >
+      <OrganisationChooser
+        :defaultanswer="$t('No organisation filter')"
+        @selected="onOrganisationSelected"
+        :value="organisationId"
+        :all="true"
+      />
+      <div class="checkbox-saooti m-3" v-if="!!organisationId">
+        <input
+          type="checkbox"
+          class="custom-control-input"
+          id="orgaCheck"
+          v-model="keepOrganisation"
+          @click="onKeepOrganisation"
+        />
+        <label class="custom-control-label" for="orgaCheck"></label>
       </div>
-			<div class="filter-speech-bubble" v-if="showBubble">{{$t('check this box if you want to keep this filter for the rest of your visit')}}</div>
-			</div>
-			<div class="d-flex align-items-center flex-grow">
-			<label for="search" class="d-inline" :aria-label="$t('Search')"></label>
-			<input
+      <div class="filter-speech-bubble" v-if="showBubble">
+        {{
+          $t(
+            'check this box if you want to keep this filter for the rest of your visit'
+          )
+        }}
+      </div>
+    </div>
+    <div class="d-flex align-items-center flex-grow">
+      <label for="search" class="d-inline" :aria-label="$t('Search')"></label>
+      <input
         id="search"
-        class='filter-search-input input-no-outline'
-				:placeholder="searchText"
-				:value="searchPattern"
+        class="filter-search-input input-no-outline"
+        :placeholder="searchText"
+        :value="searchPattern"
         ref="search"
-        v-on:input="(event)=> this.$emit('updateSearchPattern', event.target.value)"
-			/>
-			</div>
-	</div>
+        v-on:input="
+          event => this.$emit('updateSearchPattern', event.target.value)
+        "
+      />
+    </div>
+  </div>
 </template>
 <style lang="scss">
 @import '../../../sass/_variables.scss';
@@ -32,8 +49,8 @@
 .filter-speech-bubble {
   position: absolute;
   background: $octopus-primary-color;
-  border-radius: .4em;
-  width:10rem;
+  border-radius: 0.4em;
+  width: 10rem;
   right: 4rem;
   padding: 5px;
   -webkit-animation: fadein 1s;
@@ -60,18 +77,30 @@
   animation: fadein 1s;
 }
 @keyframes fadein {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 @-moz-keyframes fadein {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 @-webkit-keyframes fadein {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
-.filter-organisation-chooser{
+.filter-organisation-chooser {
   display: flex;
   align-items: center;
   flex-grow: 1;
@@ -85,34 +114,35 @@
 <script>
 // @ is an alias to /src
 import OrganisationChooser from '../organisation/OrganisationChooser.vue';
-import {state} from "../../../store/paramStore.js";
-import octopusApi from "@saooti/octopus-api";
+import { state } from '../../../store/paramStore.js';
+import octopusApi from '@saooti/octopus-api';
 
 export default {
   components: {
-    OrganisationChooser
-	},
-  
-  props:  {
+    OrganisationChooser,
+  },
+
+  props: {
     organisationId: { default: undefined },
-    searchPattern: { default: "" },
+    searchPattern: { default: '' },
     type: { default: 'podcast' },
   },
 
   async created() {
-    if(!this.organisationId)
-      return;
-    this.$store.commit('filterOrga', {orgaId: this.organisationId});
-    const isLive = await octopusApi.liveEnabledOrganisation(this.organisationId);
+    if (!this.organisationId) return;
+    this.$store.commit('filterOrga', { orgaId: this.organisationId });
+    const isLive = await octopusApi.liveEnabledOrganisation(
+      this.organisationId
+    );
     this.$store.commit('filterOrgaLive', isLive);
     this.keepOrganisation = true;
-    if(!this.$route.query.productor){
-      this.$router.replace({query: {productor: this.organisationId}});
+    if (!this.$route.query.productor) {
+      this.$router.replace({ query: { productor: this.organisationId } });
     }
   },
 
-  mounted(){
-    if(this.$refs.search){
+  mounted() {
+    if (this.$refs.search) {
       this.$refs.search.focus();
     }
   },
@@ -125,67 +155,73 @@ export default {
     };
   },
 
-  computed:{
-    isPodcastmaker(){
+  computed: {
+    isPodcastmaker() {
       return state.generalParameters.podcastmaker;
     },
-    searchText(){
-      if("emission" === this.type)
-        return this.$t('Look for emission name');
-      if("participant" === this.type)
+    searchText() {
+      if ('emission' === this.type) return this.$t('Look for emission name');
+      if ('participant' === this.type)
         return this.$t('Look for participant name');
-      if("playlist" === this.type)
-        return this.$t('Look for playlist name');
+      if ('playlist' === this.type) return this.$t('Look for playlist name');
       return this.$t('Look for podcast name');
     },
-    filterOrga(){
+    filterOrga() {
       return this.$store.state.filter.organisationId;
-    }
+    },
   },
 
-  methods:{
+  methods: {
     onOrganisationSelected(organisation) {
-      if(this.$route.query.productor){
-        this.$router.push({query: {productor: undefined}});
+      if (this.$route.query.productor) {
+        this.$router.push({ query: { productor: undefined } });
       }
       this.imgUrl = organisation.imageUrl;
-      this.$store.commit('filterOrga', {orgaId: undefined, imgUrl: this.imgUrl});
+      this.$store.commit('filterOrga', {
+        orgaId: undefined,
+        imgUrl: this.imgUrl,
+      });
       this.keepOrganisation = false;
       if (organisation && organisation.id) {
-        this.showBubble=true;
-        setTimeout(()=>{
-          this.showBubble=false;
+        this.showBubble = true;
+        setTimeout(() => {
+          this.showBubble = false;
         }, 6000);
         this.$emit('updateOrganisationId', organisation.id);
       } else {
         this.$emit('updateOrganisationId', undefined);
       }
     },
-    async onKeepOrganisation(){
-      if(!this.keepOrganisation){
-        if(this.$route.query.productor !== this.organisationId){
-          this.$router.push({query: {productor: this.organisationId}});
+    async onKeepOrganisation() {
+      if (!this.keepOrganisation) {
+        if (this.$route.query.productor !== this.organisationId) {
+          this.$router.push({ query: { productor: this.organisationId } });
         }
-        this.$store.commit('filterOrga', {orgaId: this.organisationId, imgUrl: this.imgUrl});
-        const isLive = await octopusApi.liveEnabledOrganisation(this.organisationId);
+        this.$store.commit('filterOrga', {
+          orgaId: this.organisationId,
+          imgUrl: this.imgUrl,
+        });
+        const isLive = await octopusApi.liveEnabledOrganisation(
+          this.organisationId
+        );
         this.$store.commit('filterOrgaLive', isLive);
         return;
       }
-      if(this.$route.query.productor){
-        this.$router.push({query: {productor: undefined}});
+      if (this.$route.query.productor) {
+        this.$router.push({ query: { productor: undefined } });
       }
-      this.$store.commit('filterOrga', {orgaId: undefined});
-    }
+      this.$store.commit('filterOrga', { orgaId: undefined });
+    },
   },
-  watch:{
-    filterOrga(){
-      if(this.filterOrga){
-        this.keepOrganisation=true;
+  watch: {
+    filterOrga() {
+      if (this.filterOrga) {
+        this.keepOrganisation = true;
         this.$emit('updateOrganisationId', this.filterOrga);
-      } else{
-        this.keepOrganisation=false;
+      } else {
+        this.keepOrganisation = false;
       }
     },
-  }
+  },
 };
 </script>

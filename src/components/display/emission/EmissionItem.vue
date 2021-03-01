@@ -1,30 +1,76 @@
 <template>
-  <li class="mt-3" :class="lightItems? 'noList emission-light-max-size':'emission-item-container shadow-element'" v-if="activeEmission ||editRight">
-    <router-link 
-    :to="{ name: 'emission', params: {emissionId:emission.emissionId}, query:{productor: $store.state.filter.organisationId}}"
-    :aria-label="$t('Emission')"
-    class="text-dark">
-      <div class="img-box" :style="{ 'background-image': 'url(\'' + emission.imageUrl + '\')' }" v-if="!lightItems"></div>
+  <li
+    class="mt-3"
+    :class="
+      lightItems
+        ? 'noList emission-light-max-size'
+        : 'emission-item-container shadow-element'
+    "
+    v-if="activeEmission || editRight"
+  >
+    <router-link
+      :to="{
+        name: 'emission',
+        params: { emissionId: emission.emissionId },
+        query: { productor: $store.state.filter.organisationId },
+      }"
+      :aria-label="$t('Emission')"
+      class="text-dark"
+    >
+      <div
+        class="img-box"
+        :style="{ 'background-image': 'url(\'' + emission.imageUrl + '\')' }"
+        v-if="!lightItems"
+      ></div>
       <div class="d-flex" v-else>
-        <div class="img-box-light flex-shrink" :style="{ 'background-image': 'url(\'' + emission.imageUrl +'\')' }"></div>
+        <div
+          class="img-box-light flex-shrink"
+          :style="{ 'background-image': 'url(\'' + emission.imageUrl + '\')' }"
+        ></div>
         <div class="emission-light-title">{{ name }}</div>
       </div>
     </router-link>
-    <div class="emission-item-text" :class="lightItems?'p-0':''">
-      <router-link 
-      :to="{ name: 'emission', params: {emissionId:emission.emissionId}, query:{productor: $store.state.filter.organisationId}}"
-      class="text-dark">
+    <div class="emission-item-text" :class="lightItems ? 'p-0' : ''">
+      <router-link
+        :to="{
+          name: 'emission',
+          params: { emissionId: emission.emissionId },
+          query: { productor: $store.state.filter.organisationId },
+        }"
+        class="text-dark"
+      >
         <div class="emission-name" v-if="!lightItems">
-        <img class="icon-caution" src="/img/caution.png" v-if="!activeEmission && !isPodcastmaker && editRight" :title="$t('Emission have not podcasts')"/>{{ name }}</div>
-        <div :id="'description-emission-container-'+emission.emissionId" class="emission-description html-wysiwyg-content" :class="lightItems?'emission-small-description':''" >
-          <div :id="'description-emission-'+emission.emissionId" v-html="urlify(description)"></div>
+          <img
+            class="icon-caution"
+            src="/img/caution.png"
+            v-if="!activeEmission && !isPodcastmaker && editRight"
+            :title="$t('Emission have not podcasts')"
+          />{{ name }}
+        </div>
+        <div
+          :id="'description-emission-container-' + emission.emissionId"
+          class="emission-description html-wysiwyg-content"
+          :class="lightItems ? 'emission-small-description' : ''"
+        >
+          <div
+            :id="'description-emission-' + emission.emissionId"
+            v-html="urlify(description)"
+          ></div>
         </div>
       </router-link>
       <div class="flex-grow"></div>
-      <router-link 
-      :to="{ name: 'productor', params: {productorId:emission.orga.id}, query:{productor: $store.state.filter.organisationId}}"
-      class="text-dark" v-if="!isPodcastmaker">
-        <div class="emission-producer primary-color">© {{ emission.orga.name }}</div>
+      <router-link
+        :to="{
+          name: 'productor',
+          params: { productorId: emission.orga.id },
+          query: { productor: $store.state.filter.organisationId },
+        }"
+        class="text-dark"
+        v-if="!isPodcastmaker"
+      >
+        <div class="emission-producer primary-color">
+          © {{ emission.orga.name }}
+        </div>
       </router-link>
     </div>
   </li>
@@ -42,28 +88,28 @@
     border-radius: 2rem !important;
   }
 }
-.emission-light-max-size{
+.emission-light-max-size {
   width: 300px;
   border-bottom: 1px solid #ddd;
 }
-.emission-light-title{
+.emission-light-title {
   color: #333 !important;
   align-self: flex-end;
   text-transform: none;
   font-size: 1.5em;
   font-weight: normal;
   white-space: nowrap;
-  overflow: hidden; 
+  overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.emission-item-text{
+.emission-item-text {
   padding: 1rem;
   display: flex;
   flex-direction: column;
   max-height: 13rem;
 
-  .emission-name{
+  .emission-name {
     font-size: 0.9rem;
     font-weight: 600;
     overflow: hidden;
@@ -73,14 +119,14 @@
     word-break: break-word;
   }
 
-  .emission-description{
+  .emission-description {
     overflow: hidden;
     margin-top: 0.5em;
     word-break: break-word;
     max-height: 7rem;
-    position:relative;
-    &.after-emission-description:after{
-      content: "...";
+    position: relative;
+    &.after-emission-description:after {
+      content: '...';
       position: absolute;
       padding-left: 1rem;
       right: 0;
@@ -93,14 +139,13 @@
     }
   }
 
-
-  .emission-small-description{
+  .emission-small-description {
     -webkit-line-clamp: 2;
     border-top: 1px solid #ddd;
     word-break: break-word;
   }
 
-  .emission-producer{
+  .emission-producer {
     font-weight: 300;
     font-size: 0.6rem;
   }
@@ -124,7 +169,7 @@ button.btn.btn-primary.share-btn.m-3 {
 }
 
 @media (max-width: 450px) {
-.emission-item-text {
+  .emission-item-text {
     padding: 0.5rem 0;
     text-align: center;
   }
@@ -132,8 +177,8 @@ button.btn.btn-primary.share-btn.m-3 {
 </style>
 
 <script>
-import {state} from "../../../store/paramStore.js";
-import octopusApi from "@saooti/octopus-api";
+import { state } from '../../../store/paramStore.js';
+import octopusApi from '@saooti/octopus-api';
 import { displayMethods } from '../../mixins/functions';
 export default {
   name: 'EmissionItem',
@@ -142,12 +187,21 @@ export default {
 
   mixins: [displayMethods],
 
-  created(){
+  created() {
     this.hasPodcast();
   },
-  mounted(){
-    if(document.getElementById('description-emission-'+this.emission.emissionId).clientHeight > document.getElementById('description-emission-container-'+this.emission.emissionId).clientHeight){
-      document.getElementById('description-emission-container-'+this.emission.emissionId).classList.add("after-emission-description");
+  mounted() {
+    let emissionDesc = document.getElementById(
+      'description-emission-' + this.emission.emissionId
+    );
+    let emissionDescContainer = document.getElementById(
+      'description-emission-container-' + this.emission.emissionId
+    );
+    if (
+      null !== emissionDesc &&
+      emissionDesc.clientHeight > emissionDescContainer.clientHeight
+    ) {
+      emissionDescContainer.classList.add('after-emission-description');
     }
   },
 
@@ -158,7 +212,7 @@ export default {
   },
 
   computed: {
-    isPodcastmaker(){
+    isPodcastmaker() {
       return state.generalParameters.podcastmaker;
     },
 
@@ -166,7 +220,7 @@ export default {
       return '' + this.emission.publisher.organisation.name;
     },
 
-    lightItems(){
+    lightItems() {
       return state.emissionsPage.lightItems;
     },
 
@@ -184,36 +238,39 @@ export default {
       return this.emission.name;
     },
 
-    organisationId(){
+    organisationId() {
       return state.generalParameters.organisationId;
     },
 
-    authenticated(){
+    authenticated() {
       return state.generalParameters.authenticated;
     },
 
     editRight() {
-      if ((this.authenticated && this.organisationId === this.emission.orga.id) ||state.generalParameters.isAdmin)
+      if (
+        (this.authenticated && this.organisationId === this.emission.orga.id) ||
+        state.generalParameters.isAdmin
+      )
         return true;
       return false;
-    }
+    },
   },
 
-   methods:{
-    async hasPodcast(){
+  methods: {
+    async hasPodcast() {
       const data = await octopusApi.fetchPodcasts({
         emissionId: this.emission.emissionId,
         first: 0,
         size: 0,
-        });
-      if(0 === data.count){
+      });
+      if (0 === data.count) {
         this.activeEmission = false;
       }
-      if(this.editRight || this.activeEmission){
+      if (this.editRight || this.activeEmission) {
         return;
       }
-      this.$emit("emissionNotVisible");
-    }
+      this.$emit('emissionNotVisible');
+    },
   },
 };
 </script>

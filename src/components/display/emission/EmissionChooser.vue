@@ -1,6 +1,14 @@
 <template>
-  <div class="default-multiselect-width" :class="{'multiselect-hide-arrow' : !displayArrow }" :style="{ width: width }">
-    <label for="emissionChooser" class="d-inline" aria-label="select emission"></label>
+  <div
+    class="default-multiselect-width"
+    :class="{ 'multiselect-hide-arrow': !displayArrow }"
+    :style="{ width: width }"
+  >
+    <label
+      for="emissionChooser"
+      class="d-inline"
+      aria-label="select emission"
+    ></label>
     <Multiselect
       v-model="emission"
       id="emissionChooser"
@@ -42,7 +50,9 @@
           <span class="option__title">{{ props.option.name }}</span>
         </div>
       </template>
-      <span slot="noResult">{{ $t('No elements found. Consider changing the search query.') }}</span>
+      <span slot="noResult">{{
+        $t('No elements found. Consider changing the search query.')
+      }}</span>
       <template slot="afterList">
         <div v-if="remainingElements" class="multiselect-remaining-elements">
           {{
@@ -55,20 +65,22 @@
       </template>
       <template slot="noOptions">{{ $t('List is empty') }}</template>
       <div class="position-relative" slot="caret">
-        <span class="saooti-arrow_down octopus-arrow-down-2 octopus-arrow-down-top"></span>
+        <span
+          class="saooti-arrow_down octopus-arrow-down-2 octopus-arrow-down-top"
+        ></span>
       </div>
     </Multiselect>
   </div>
 </template>
 
 <style lang="scss">
-.default-multiselect-width{
+.default-multiselect-width {
   width: 100%;
 }
 </style>
 <script>
-import Multiselect from "vue-multiselect";
-import octopusApi from "@saooti/octopus-api";
+import Multiselect from 'vue-multiselect';
+import octopusApi from '@saooti/octopus-api';
 
 const ELEMENTS_COUNT = 50;
 const DEFAULT_EMISSION_ID = 0;
@@ -76,57 +88,59 @@ const DEFAULT_EMISSION_ID = 0;
 const getDefaultEmission = defaultName => {
   return {
     name: defaultName,
-    id: DEFAULT_EMISSION_ID
+    id: DEFAULT_EMISSION_ID,
   };
 };
 
 export default {
   components: {
-    Multiselect
+    Multiselect,
   },
 
   props: {
-    width: { default: "100%" },
+    width: { default: '100%' },
     defaultanswer: { default: false },
     organisationId: { default: undefined },
     emissionChosen: { default: undefined },
     displayArrow: { default: true },
-    distributedBy: {default:undefined},
-    organisationDistributedBy: {default:undefined},
-    reset: {default: false},
+    distributedBy: { default: undefined },
+    organisationDistributedBy: { default: undefined },
+    reset: { default: false },
   },
 
   data() {
     let _return = {
-      emission: "",
+      emission: '',
       emissions: [],
       remainingElements: 0,
-      isLoading: false
+      isLoading: false,
     };
     if (this.defaultanswer) {
-      _return["emission"] = getDefaultEmission(this.defaultanswer);
+      _return['emission'] = getDefaultEmission(this.defaultanswer);
     }
     return _return;
   },
 
   methods: {
     onOpen() {
-      this.$refs.multiselectRef.$refs.search.setAttribute("autocomplete", "off");
+      this.$refs.multiselectRef.$refs.search.setAttribute(
+        'autocomplete',
+        'off'
+      );
       this.clearAll();
       this.onSearchEmission();
     },
 
     onClose() {
-      if(this.emission)
-        return;
+      if (this.emission) return;
       this.emission = this.defaultanswer
         ? getDefaultEmission(this.defaultanswer)
-        : "";
-      this.$emit("selected", this.emission);
+        : '';
+      this.$emit('selected', this.emission);
     },
 
     onEmissionSelected(emission) {
-      this.$emit("selected", emission);
+      this.$emit('selected', emission);
     },
 
     async onSearchEmission(query) {
@@ -136,12 +150,19 @@ export default {
         first: 0,
         size: ELEMENTS_COUNT,
       };
-      if(undefined !== this.distributedBy){
-        standardParam = {...standardParam, distributedBy: this.distributedBy};
-      } else if(undefined !== this.organisationDistributedBy){
-        standardParam = {...standardParam, distributedBy: this.organisationDistributedBy, organisationId: this.organisationId};
+      if (undefined !== this.distributedBy) {
+        standardParam = { ...standardParam, distributedBy: this.distributedBy };
+      } else if (undefined !== this.organisationDistributedBy) {
+        standardParam = {
+          ...standardParam,
+          distributedBy: this.organisationDistributedBy,
+          organisationId: this.organisationId,
+        };
       } else {
-        standardParam = {...standardParam, organisationId: this.organisationId};
+        standardParam = {
+          ...standardParam,
+          organisationId: this.organisationId,
+        };
       }
       const response = await octopusApi.fetchEmissions(standardParam);
       if (this.defaultanswer) {
@@ -156,9 +177,9 @@ export default {
     },
 
     clearAll() {
-      this.emission = "";
-      this.emissions = [];
-    }
+      this.emission = '';
+      this.emissions.length = 0;
+    },
   },
   watch: {
     emissionChosen(newVal) {
@@ -167,6 +188,6 @@ export default {
     reset() {
       this.emission = getDefaultEmission(this.defaultanswer);
     },
-  }
+  },
 };
 </script>

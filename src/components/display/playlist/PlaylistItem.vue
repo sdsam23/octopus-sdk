@@ -1,36 +1,74 @@
 <template>
-  <li class="mt-3 emission-item-container shadow-element" v-if="editRight || activePlaylist">
-    <router-link 
-    :to="{ name: 'playlist', params: {playlistId:playlist.playlistId}, query:{productor: $store.state.filter.organisationId}}"
-    :aria-label="$t('Playlist')"
-    class="text-dark">
-      <div class="img-box" :style="{ 'background-image': 'url(\'' + playlist.imageUrl +'?dummy='+dummyParam+ '\')' }"></div>
+  <li
+    class="mt-3 emission-item-container shadow-element"
+    v-if="editRight || activePlaylist"
+  >
+    <router-link
+      :to="{
+        name: 'playlist',
+        params: { playlistId: playlist.playlistId },
+        query: { productor: $store.state.filter.organisationId },
+      }"
+      :aria-label="$t('Playlist')"
+      class="text-dark"
+    >
+      <div
+        class="img-box"
+        :style="{
+          'background-image':
+            'url(\'' + playlist.imageUrl + '?dummy=' + dummyParam + '\')',
+        }"
+      ></div>
     </router-link>
     <div class="emission-item-text">
-      <router-link 
-      :to="{ name: 'playlist', params: {playlistId:playlist.playlistId}, query:{productor: $store.state.filter.organisationId}}"
-      class="text-dark">
+      <router-link
+        :to="{
+          name: 'playlist',
+          params: { playlistId: playlist.playlistId },
+          query: { productor: $store.state.filter.organisationId },
+        }"
+        class="text-dark"
+      >
         <div class="emission-name">
-        <img class="icon-caution" src="/img/caution.png" v-if="!activePlaylist && !isPodcastmaker" :title="$t('Playlist have not podcasts')"/>{{ name }}</div>
-        <div :id="'description-playlist-container-'+playlist.playlistId" class="emission-description html-wysiwyg-content" >
-          <div :id="'description-playlist-'+playlist.playlistId" v-html="urlify(description)"></div>
+          <img
+            class="icon-caution"
+            src="/img/caution.png"
+            v-if="!activePlaylist && !isPodcastmaker"
+            :title="$t('Playlist have not podcasts')"
+          />{{ name }}
+        </div>
+        <div
+          :id="'description-playlist-container-' + playlist.playlistId"
+          class="emission-description html-wysiwyg-content"
+        >
+          <div
+            :id="'description-playlist-' + playlist.playlistId"
+            v-html="urlify(description)"
+          ></div>
         </div>
       </router-link>
       <div class="flex-grow"></div>
-      <router-link 
-      :to="{ name: 'productor', params: {productorId:playlist.organisation.id}, query:{productor: $store.state.filter.organisationId}}"
-      class="text-dark" v-if="!isPodcastmaker && playlist.organisation">
-        <div class="emission-producer primary-color">© {{ playlist.organisation.name }}</div>
+      <router-link
+        :to="{
+          name: 'productor',
+          params: { productorId: playlist.organisation.id },
+          query: { productor: $store.state.filter.organisationId },
+        }"
+        class="text-dark"
+        v-if="!isPodcastmaker && playlist.organisation"
+      >
+        <div class="emission-producer primary-color">
+          © {{ playlist.organisation.name }}
+        </div>
       </router-link>
     </div>
   </li>
 </template>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
 
 <script>
-import {state} from "../../../store/paramStore.js";
+import { state } from '../../../store/paramStore.js';
 import { displayMethods } from '../../mixins/functions';
 /* import octopusApi from "@saooti/octopus-api"; */
 export default {
@@ -40,24 +78,33 @@ export default {
 
   mixins: [displayMethods],
 
-  mounted(){
-    if(document.getElementById('description-playlist-'+this.playlist.playlistId).clientHeight > document.getElementById('description-playlist-container-'+this.playlist.playlistId).clientHeight){
-      document.getElementById('description-playlist-container-'+this.playlist.playlistId).classList.add("after-emission-description");
+  mounted() {
+    let playlistDesc = document.getElementById(
+      'description-playlist-' + this.playlist.playlistId
+    );
+    let playlistDescContainer = document.getElementById(
+      'description-playlist-container-' + this.playlist.playlistId
+    );
+    if (
+      null !== playlistDesc &&
+      playlistDesc.clientHeight > playlistDescContainer.clientHeight
+    ) {
+      playlistDescContainer.classList.add('after-emission-description');
     }
-    if(this.editRight || this.activePlaylist){
+    if (this.editRight || this.activePlaylist) {
       return;
     }
-    this.$emit("playlistNotVisible");
+    this.$emit('playlistNotVisible');
   },
 
   data() {
     return {
-      dummyParam : new Date().getTime().toString(),
+      dummyParam: new Date().getTime().toString(),
     };
   },
 
   computed: {
-    isPodcastmaker(){
+    isPodcastmaker() {
       return state.generalParameters.podcastmaker;
     },
 
@@ -79,21 +126,24 @@ export default {
       return this.playlist.title;
     },
 
-    organisationId(){
+    organisationId() {
       return state.generalParameters.organisationId;
     },
 
     editRight() {
-      if ((state.generalParameters.isPlaylist && this.organisationId === this.playlist.organisation.id )|| state.generalParameters.isAdmin)
+      if (
+        (state.generalParameters.isPlaylist &&
+          this.organisationId === this.playlist.organisation.id) ||
+        state.generalParameters.isAdmin
+      )
         return true;
       return false;
     },
-    activePlaylist(){
+    activePlaylist() {
       return 0 !== Object.keys(this.playlist.podcasts).length;
-    }
+    },
   },
 
-   methods:{
-  },
+  methods: {},
 };
 </script>

@@ -1,5 +1,11 @@
 <template>
-  <b-modal id="message-modal" @close="closePopup" @hide="closePopup"  @cancel="closePopup" :title="title">
+  <b-modal
+    id="message-modal"
+    @close="closePopup"
+    @hide="closePopup"
+    @cancel="closePopup"
+    :title="title"
+  >
     <template v-slot:modal-header-close v-if="!closable">
       <span></span>
     </template>
@@ -10,7 +16,11 @@
       <button v-if="canceltext" class="btn btn-light m-1" @click="onCancel">
         {{ canceltext }}
       </button>
-      <button v-if="thirdText" class="btn btn-primary m-1" @click="onThirdAction">
+      <button
+        v-if="thirdText"
+        class="btn btn-primary m-1"
+        @click="onThirdAction"
+      >
         {{ thirdText }}
       </button>
       <button class="btn btn-primary m-1" @click="onValid">
@@ -23,15 +33,22 @@
   </b-modal>
 </template>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
 <script>
 export default {
   name: 'MessageModal',
 
-  props: ['title', 'active', 'closable', 'message', 'validatetext','canceltext', 'thirdText'],
+  props: [
+    'title',
+    'active',
+    'closable',
+    'message',
+    'validatetext',
+    'canceltext',
+    'thirdText',
+  ],
 
-  mounted(){
+  mounted() {
     this.$bvModal.show('message-modal');
   },
 
@@ -46,9 +63,9 @@ export default {
     onCancel() {
       this.$emit('cancel');
     },
-    onThirdAction(){
+    onThirdAction() {
       this.$emit('thirdEvent');
-    }
+    },
   },
 };
 </script>

@@ -1,25 +1,42 @@
 <template>
-  <div class="d-flex flex-column p-3 list-episode" v-if="loading ||(!loading && 0 !== allPodcasts.length)">
+  <div
+    class="d-flex flex-column p-3 list-episode"
+    v-if="loading || (!loading && 0 !== allPodcasts.length)"
+  >
     <h2>{{ title }}</h2>
     <div class="d-flex justify-content-between">
       <div class="d-flex" v-if="undefined === requirePopularSort">
         <button
           class="btn btn-underline"
           @click="sortPopular()"
-          :class="{ 'active': popularSort }"
-        >{{ $t('Most popular') }}</button>
+          :class="{ active: popularSort }"
+        >
+          {{ $t('Most popular') }}
+        </button>
         <button
           class="btn btn-underline"
           @click="sortChrono()"
-          :class="{ 'active': !popularSort }"
-        >{{ $t('Last added') }}</button>
+          :class="{ active: !popularSort }"
+        >
+          {{ $t('Last added') }}
+        </button>
       </div>
       <div v-else></div>
       <div class="hide-phone" v-if="!isArrow">
-        <button class="btn btn-arrow" @click="displayPrevious()" :class="{ disabled: !previousAvailable }" :aria-label="$t('Display previous')">
+        <button
+          class="btn btn-arrow"
+          @click="displayPrevious()"
+          :class="{ disabled: !previousAvailable }"
+          :aria-label="$t('Display previous')"
+        >
           <div class="saooti-arrow-left2"></div>
         </button>
-        <button class="btn btn-arrow" @click="displayNext()" :class="{ disabled: !nextAvailable }" :aria-label="$t('Display next')">
+        <button
+          class="btn btn-arrow"
+          @click="displayNext()"
+          :class="{ disabled: !nextAvailable }"
+          :aria-label="$t('Display next')"
+        >
           <div class="saooti-arrow-right2"></div>
         </button>
       </div>
@@ -28,20 +45,37 @@
       <div class="spinner-border mr-3"></div>
       <h3 class="mt-2">{{ $t('Loading podcasts ...') }}</h3>
     </div>
-    <transition-group :name="transitionName" class="podcast-list-inline" tag="ul" v-show="loaded" :class="[alignLeft? 'justify-content-start':'']">
-      <PodcastItem class="flex-shrink item-phone-margin" v-bind:podcast="p" v-for="p in podcasts" v-bind:key="p.podcastId" :class="[alignLeft? 'mr-3':'']"/>
+    <transition-group
+      :name="transitionName"
+      class="podcast-list-inline"
+      tag="ul"
+      v-show="loaded"
+      :class="[alignLeft ? 'justify-content-start' : '']"
+    >
+      <PodcastItem
+        class="flex-shrink item-phone-margin"
+        v-bind:podcast="p"
+        v-for="p in podcasts"
+        v-bind:key="p.podcastId"
+        :class="[alignLeft ? 'mr-3' : '']"
+      />
     </transition-group>
-    <router-link class="btn btn-link" :class="buttonPlus? 'btn-linkPlus': ''" :to="refTo">{{buttonText}}<div class="saooti-plus" v-if="buttonPlus"></div></router-link>
+    <router-link
+      class="btn btn-link"
+      :class="buttonPlus ? 'btn-linkPlus' : ''"
+      :to="refTo"
+      >{{ buttonText }}
+      <div class="saooti-plus" v-if="buttonPlus"></div
+    ></router-link>
   </div>
 </template>
 
 <style lang="scss">
-
 .list-episode {
   padding: 2rem 0rem 1rem !important;
-    @media (max-width: 450px) {
-  padding: 0.5rem 0rem 1rem !important;
-}
+  @media (max-width: 450px) {
+    padding: 0.5rem 0rem 1rem !important;
+  }
   h2 {
     margin-bottom: 1rem;
   }
@@ -55,7 +89,7 @@
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-between;
-  display: grid	;
+  display: grid;
   grid-auto-flow: column;
   grid-gap: 1rem;
   grid-row: 1;
@@ -89,61 +123,61 @@
 }
 /** PHONES*/
 @media (max-width: 960px) {
-  .podcast-list-inline{
+  .podcast-list-inline {
     display: flex;
     flex-wrap: nowrap;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
-    padding-bottom:1rem;
+    padding-bottom: 1rem;
     width: 100%;
-    .item-phone-margin{
-      margin: 0 0.5rem !important
+    .item-phone-margin {
+      margin: 0 0.5rem !important;
     }
   }
 }
 </style>
 
 <script>
-import octopusApi from "@saooti/octopus-api";
-import domHelper from "../../../helper/dom";
-import PodcastItem from "./PodcastItem.vue";
+import octopusApi from '@saooti/octopus-api';
+import domHelper from '../../../helper/dom';
+import PodcastItem from './PodcastItem.vue';
 
 const PHONE_WIDTH = 960;
 
 export default {
-  name: "PodcastInlineList",
+  name: 'PodcastInlineList',
 
   props: [
-    "organisationId",
-    "emissionId",
-    "iabId",
-    "title",
-    "href",
-    "buttonText",
-    "requirePopularSort",
-    "isArrow",
-    "buttonPlus",
-    "rubriqueId",
-    "rubriquageId"
+    'organisationId',
+    'emissionId',
+    'iabId',
+    'title',
+    'href',
+    'buttonText',
+    'requirePopularSort',
+    'isArrow',
+    'buttonPlus',
+    'rubriqueId',
+    'rubriquageId',
   ],
 
   components: {
-    PodcastItem
+    PodcastItem,
   },
 
   created() {
-    if(undefined !== this.requirePopularSort){
+    if (undefined !== this.requirePopularSort) {
       this.popularSort = this.requirePopularSort;
     }
-    if(undefined !== this.isArrow){
+    if (undefined !== this.isArrow) {
       this.isArrow = true;
     }
-    window.addEventListener("resize", this.handleResize);
+    window.addEventListener('resize', this.handleResize);
   },
 
   destroyed() {
-    window.removeEventListener("resize", this.handleResize);
+    window.removeEventListener('resize', this.handleResize);
   },
 
   mounted() {
@@ -162,7 +196,7 @@ export default {
       popularSort: true,
       allPodcasts: [],
       direction: 1,
-      alignLeft : false,
+      alignLeft: false,
     };
   },
 
@@ -170,20 +204,21 @@ export default {
     podcasts() {
       return this.allPodcasts.slice(this.index, this.index + this.size);
     },
-    filterOrga(){
+    filterOrga() {
       return this.$store.state.filter.organisationId;
     },
-    organisation(){
-      if(this.organisationId)
-        return this.organisationId;
-      if(this.filterOrga)
-        return this.filterOrga;
+    organisation() {
+      if (this.organisationId) return this.organisationId;
+      if (this.filterOrga) return this.filterOrga;
       return undefined;
     },
-    refTo(){
-      if(this.href)
-        return this.href;
-      return { name: 'category', params: {iabId:this.iabId}, query:{productor: this.$store.state.filter.organisationId }};
+    refTo() {
+      if (this.href) return this.href;
+      return {
+        name: 'category',
+        params: { iabId: this.iabId },
+        query: { productor: this.$store.state.filter.organisationId },
+      };
     },
     previousAvailable() {
       return this.index > 0;
@@ -192,7 +227,7 @@ export default {
       return this.index + this.size < this.totalCount;
     },
     transitionName: ({ direction }) =>
-      direction > 0 ? "out-left" : "out-right"
+      direction > 0 ? 'out-left' : 'out-right',
   },
 
   methods: {
@@ -205,7 +240,7 @@ export default {
         iabId: this.iabId,
         rubriqueId: this.rubriqueId,
         rubriquageId: this.rubriquageId,
-        sort: this.popularSort ? "POPULARITY" : "DATE"
+        sort: this.popularSort ? 'POPULARITY' : 'DATE',
       });
       this.loading = false;
       this.loaded = true;
@@ -214,10 +249,12 @@ export default {
         let nexEl = data.result.pop();
         this.preloadImage(nexEl.imageUrl);
       }
-      this.allPodcasts = this.allPodcasts.concat(data.result.filter(pod => null !== pod));
-      if(this.allPodcasts.length <= 3){
+      this.allPodcasts = this.allPodcasts.concat(
+        data.result.filter(pod => null !== pod)
+      );
+      if (this.allPodcasts.length <= 3) {
         this.alignLeft = true;
-      }else{
+      } else {
         this.alignLeft = false;
       }
       this.first += this.size;
@@ -232,8 +269,7 @@ export default {
 
     displayNext() {
       this.direction = 1;
-      if(!this.nextAvailable)
-        return;
+      if (!this.nextAvailable) return;
       if (
         this.first - (this.index + this.size) < 2 &&
         this.allPodcasts.length < this.totalCount
@@ -244,8 +280,7 @@ export default {
     },
 
     handleResize() {
-      if(!this.$el)
-        return;
+      if (!this.$el) return;
       if (window.innerWidth <= PHONE_WIDTH) {
         this.size = 10;
         return;
@@ -256,8 +291,7 @@ export default {
     },
 
     sortPopular() {
-      if(this.popularSort)
-        return;
+      if (this.popularSort) return;
 
       this.popularSort = true;
       this.reset();
@@ -265,9 +299,8 @@ export default {
     },
 
     sortChrono() {
-      if(!this.popularSort)
-        return;
-      
+      if (!this.popularSort) return;
+
       this.popularSort = false;
       this.reset();
       this.fetchNext();
@@ -279,13 +312,13 @@ export default {
       this.index = 0;
       this.first = 0;
       this.totalCount = 0;
-      this.allPodcasts = [];
+      this.allPodcasts.length = 0;
     },
 
     preloadImage(url) {
       let img = new Image();
       img.src = url;
-    }
+    },
   },
 
   watch: {
@@ -293,25 +326,25 @@ export default {
       handler() {
         this.reset();
         this.fetchNext();
-      }
+      },
     },
     organisationId: {
       handler() {
         this.reset();
         this.fetchNext();
-      }
+      },
     },
     filterOrga: {
       handler() {
         this.reset();
         this.fetchNext();
-      }
+      },
     },
     iabId: {
       handler() {
         this.reset();
         this.fetchNext();
-      }
+      },
     },
     rubriqueId: {
       handler() {
@@ -325,6 +358,6 @@ export default {
         this.fetchNext();
       },
     },
-  }
+  },
 };
 </script>

@@ -1,40 +1,82 @@
- <template>
-    <b-card no-body class="player-parameters mt-3" v-if="!playlist">
-      <b-card-header header-tag="header" role="tab">
-        <b-button block v-b-toggle.playerParameters variant="info">{{$t('player parameters')}}</b-button>
-      </b-card-header>
-      <b-collapse id="playerParameters" role="tabpanel">
-        <b-card-body>
-          <b-card-text>
-            <div class="d-flex flex-column flex-grow" v-if="(!podcast || isEmission || isLargeEmission || isLargeSuggestion)">
-              <div class="d-flex align-items-center w-100 flex-wrap mt-1" v-if="!podcast || isEmission || isLargeEmission">
-                <b-form-radio v-model="episodeNumbers" name="episodeNumbers" value="all" ></b-form-radio>
-                <span class="flex-shrink">{{ $t('Show every episode') }}</span>
-              </div>
-              <div class="d-flex align-items-center flex-wrap" :class="!podcast ||isEmission || isLargeEmission? '':'mt-3'">
-                <b-form-radio v-model="episodeNumbers" name="episodeNumbers" value="number" v-if="!podcast || isEmission || isLargeEmission"></b-form-radio>
-                <span class="flex-shrink">{{ $t('Show') }}</span>
-                <input
-                  id="number-input"
-                  type="number"
-                  v-model="iFrameNumber"
-                  min="1"
-                  max="50"
-                  class="input-share-player input-no-outline text-center m-2"
-                />
-                <label for="number-input" class="d-inline" :aria-label="$t('Number of player podcasts')"></label>
-                <span class="flex-shrink">{{ $t('Last podcasts') }}</span>
-              </div>
-              <div class="checkbox-saooti">  
-                <input type="checkbox" class="custom-control-input" id="proceedCheck" v-model="proceedReading">  
-                <label class="custom-control-label" for="proceedCheck">{{$t('Proceed reading')}}</label>  
-              </div>
-              <div class="checkbox-saooti">  
-                <input type="checkbox" class="custom-control-input" id="isVisibleCheckbox" v-model="isVisibleTemp">  
-                <label class="custom-control-label mr-2" for="isVisibleCheckbox">{{$t('Podcasts still available')}}</label>  
-              </div>
+<template>
+  <b-card no-body class="player-parameters mt-3" v-if="!playlist">
+    <b-card-header header-tag="header" role="tab">
+      <b-button block v-b-toggle.playerParameters variant="info">{{
+        $t('player parameters')
+      }}</b-button>
+    </b-card-header>
+    <b-collapse id="playerParameters" role="tabpanel">
+      <b-card-body>
+        <b-card-text>
+          <div
+            class="d-flex flex-column flex-grow"
+            v-if="
+              !podcast || isEmission || isLargeEmission || isLargeSuggestion
+            "
+          >
+            <div
+              class="d-flex align-items-center w-100 flex-wrap mt-1"
+              v-if="!podcast || isEmission || isLargeEmission"
+            >
+              <b-form-radio
+                v-model="episodeNumbers"
+                name="episodeNumbers"
+                value="all"
+              ></b-form-radio>
+              <span class="flex-shrink">{{ $t('Show every episode') }}</span>
             </div>
-            <!-- <div class="d-flex align-items-center flex-wrap" v-if="podcast && iFrameModel !== 'emission'">
+            <div
+              class="d-flex align-items-center flex-wrap"
+              :class="!podcast || isEmission || isLargeEmission ? '' : 'mt-3'"
+            >
+              <b-form-radio
+                v-model="episodeNumbers"
+                name="episodeNumbers"
+                value="number"
+                v-if="!podcast || isEmission || isLargeEmission"
+              ></b-form-radio>
+              <span class="flex-shrink">{{ $t('Show') }}</span>
+              <input
+                id="number-input"
+                type="number"
+                v-model="iFrameNumber"
+                min="1"
+                max="50"
+                class="input-share-player input-no-outline text-center m-2"
+              />
+              <label
+                for="number-input"
+                class="d-inline"
+                :aria-label="$t('Number of player podcasts')"
+              ></label>
+              <span class="flex-shrink">{{ $t('Last podcasts') }}</span>
+            </div>
+            <div class="checkbox-saooti">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="proceedCheck"
+                v-model="proceedReading"
+              />
+              <label class="custom-control-label" for="proceedCheck">{{
+                $t('Proceed reading')
+              }}</label>
+            </div>
+            <div class="checkbox-saooti">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="isVisibleCheckbox"
+                v-model="isVisibleTemp"
+              />
+              <label
+                class="custom-control-label mr-2"
+                for="isVisibleCheckbox"
+                >{{ $t('Podcasts still available') }}</label
+              >
+            </div>
+          </div>
+          <!-- <div class="d-flex align-items-center flex-wrap" v-if="podcast && iFrameModel !== 'emission'">
               <div class="checkbox-saooti">  
                 <input type="checkbox" class="custom-control-input" id="startTime" v-model="startTime">  
                 <label class="custom-control-label mr-2" for="startTime">{{$t('Start at')}}</label>  
@@ -56,40 +98,38 @@
                 class="input-share-player input-no-outline" 
                 @change="onDurationChange"/>
             </div> -->
-          </b-card-text>
-        </b-card-body>
-      </b-collapse>
-    </b-card>
+        </b-card-text>
+      </b-card-body>
+    </b-collapse>
+  </b-card>
 </template>
 <style lang="scss">
-.player-parameters.card{
+.player-parameters.card {
   border: 0;
   .btn {
-		border-radius: 0;
-	}
+    border-radius: 0;
+  }
   .card-header {
     border: 0;
     background-color: #fafafa;
-    padding :0;
+    padding: 0;
   }
-  .card-body{
+  .card-body {
     padding: 0.25rem;
     border: 0.05rem solid #eee;
     background-color: #fafafa;
-    .custom-control{
+    .custom-control {
       padding-left: 0;
     }
-    input[type=number]{
-      padding-left:10px;
-      text-align:center;
-       width: 90px;
+    input[type='number'] {
+      padding-left: 10px;
+      text-align: center;
+      width: 90px;
     }
   }
 }
-
 </style>
 <script>
-
 export default {
   props: ['podcast', 'playlist', 'iFrameModel', 'isVisible'],
 
@@ -97,14 +137,14 @@ export default {
     return {
       proceedReading: true,
       episodeNumbers: 'number',
-      iFrameNumberPriv: "3",
+      iFrameNumberPriv: '3',
       minutes: 0,
       secondes: 0,
       startTime: true,
       isVisibleTemp: this.isVisible,
     };
   },
-  computed:{
+  computed: {
     iFrameNumber: {
       get() {
         return this.iFrameNumberPriv;
@@ -114,47 +154,47 @@ export default {
         if (!isNaN(val) && val >= 1 && val <= 50) {
           this.iFrameNumberPriv = value;
         }
-      }
+      },
     },
-    isEmission(){
+    isEmission() {
       return 'emission' === this.iFrameModel;
     },
-    isLargeEmission(){
+    isLargeEmission() {
       return 'largeEmission' === this.iFrameModel;
     },
-    isLargeSuggestion(){
+    isLargeSuggestion() {
       return 'largeSuggestion' === this.iFrameModel;
-    }
+    },
   },
 
-  methods:{
-    onDurationChange(){
-      if(this.startTime){
+  methods: {
+    onDurationChange() {
+      if (this.startTime) {
         let minutes = parseInt(this.$refs.minutesRef.value, 10);
         let secondes = parseInt(this.$refs.secondesRef.value, 10);
-        this.$emit('startTime', (minutes * 60) + secondes);
-      }else{
+        this.$emit('startTime', minutes * 60 + secondes);
+      } else {
         this.$emit('startTime', 0);
       }
-    }
+    },
   },
 
-  watch:{
-    episodeNumbers(){
+  watch: {
+    episodeNumbers() {
       this.$emit('episodeNumbers', this.episodeNumbers);
     },
-    proceedReading(){
+    proceedReading() {
       this.$emit('proceedReading', this.proceedReading);
     },
-    isVisibleTemp(){
+    isVisibleTemp() {
       this.$emit('isVisible', this.isVisibleTemp);
     },
-    isVisible(){
+    isVisible() {
       this.isVisibleTemp = this.isVisible;
     },
-    iFrameNumberPriv(){
+    iFrameNumberPriv() {
       this.$emit('iFrameNumber', this.iFrameNumberPriv);
-    }
-  }
+    },
+  },
 };
 </script>

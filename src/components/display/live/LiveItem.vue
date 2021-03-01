@@ -1,138 +1,190 @@
 <template>
   <div class="d-flex w-100" v-if="live">
-		<router-link class="live-date-box" :to="{ name: 'podcast', params: {podcastId:live.podcastId}, query:{productor: $store.state.filter.organisationId}}">
-			<div class="font-weight-bold">{{date}}</div>
-			<div class="font-weight-bold">{{hours}}</div>
-			<div class="font-size-smaller">{{ $t('Duration', { duration: duration }) }}</div>
-    </router-link>
-		<router-link :to="{ name: 'podcast', params: {podcastId:live.podcastId}, query:{productor: $store.state.filter.organisationId}}">
-			<PodcastImage
-				class="mr-3"
-				:class="fetchConference && 'null' !== fetchConference && fetchConference.status ? fetchConference.status.toLowerCase()+'-shadow' : ''"
-				v-bind:podcast="live" 
-				:hidePlay='false'
-				:playingPodcast='false'
-				:fetchConference="fetchConference"
-				:isAnimatorLive="organisationRight"/>
-		</router-link>
-		<div class="d-flex flex-column live-special-width">
-			<router-link class="text-uppercase link-info text-truncate"
-			:to="{ name: 'podcast', params: {podcastId:live.podcastId}, query:{productor: $store.state.filter.organisationId}}"
-			>{{live.title}}</router-link>
-			<router-link class="link-info text-truncate"
-        :to="{ name: 'emission', params: {emissionId:live.emission.emissionId}, query:{productor: $store.state.filter.organisationId}}"
-				>{{live.emission.name}}</router-link>
-			<div :id="'description-live-container-'+live.podcastId" class="live-description-container html-wysiwyg-content">
-          <div :id="'description-live-'+live.podcastId" v-html="urlify(description)"></div>
+    <router-link
+      class="live-date-box"
+      :to="{
+        name: 'podcast',
+        params: { podcastId: live.podcastId },
+        query: { productor: $store.state.filter.organisationId },
+      }"
+    >
+      <div class="font-weight-bold">{{ date }}</div>
+      <div class="font-weight-bold">{{ hours }}</div>
+      <div class="font-size-smaller">
+        {{ $t('Duration', { duration: duration }) }}
       </div>
-			<div class="comma" v-if="live.animators">{{ $t('Animated by : ') }}
-				<router-link
-					:aria-label="$t('Participant')"
-					class="link-info"
-					v-for="animator in live.animators"
-					v-bind:key="animator.participantId"
-					:to="{ name: 'participant', params: {participantId: animator.participantId}, query:{productor: $store.state.filter.organisationId}}"
-				>{{ getName(animator) }}</router-link>
-			</div>
-			<div v-if="!isPodcastmaker">{{ $t('Producted by : ') }}
-				<router-link
-					class="link-info"
-					:to="{ name: 'productor', params: {productorId:live.organisation.id}, query:{productor: $store.state.filter.organisationId}}"
-				>{{ live.organisation.name }}</router-link>
-			</div>
-			<RecordingItemButton 
-			:live="true" 
-			:recording="fetchConference" 
-			:podcast="live" 
-			@deleteItem="deleteItem"
-			@validatePodcast="updatePodcast"
-			v-if="fetchConference && organisationRight && isEditBox"
-			></RecordingItemButton>
-		</div>
+    </router-link>
+    <router-link
+      :to="{
+        name: 'podcast',
+        params: { podcastId: live.podcastId },
+        query: { productor: $store.state.filter.organisationId },
+      }"
+    >
+      <PodcastImage
+        class="mr-3"
+        :class="
+          fetchConference &&
+          'null' !== fetchConference &&
+          fetchConference.status
+            ? fetchConference.status.toLowerCase() + '-shadow'
+            : ''
+        "
+        v-bind:podcast="live"
+        :hidePlay="false"
+        :playingPodcast="false"
+        :fetchConference="fetchConference"
+        :isAnimatorLive="organisationRight"
+      />
+    </router-link>
+    <div class="d-flex flex-column live-special-width">
+      <router-link
+        class="text-uppercase link-info text-truncate"
+        :to="{
+          name: 'podcast',
+          params: { podcastId: live.podcastId },
+          query: { productor: $store.state.filter.organisationId },
+        }"
+        >{{ live.title }}</router-link
+      >
+      <router-link
+        class="link-info text-truncate"
+        :to="{
+          name: 'emission',
+          params: { emissionId: live.emission.emissionId },
+          query: { productor: $store.state.filter.organisationId },
+        }"
+        >{{ live.emission.name }}</router-link
+      >
+      <div
+        :id="'description-live-container-' + live.podcastId"
+        class="live-description-container html-wysiwyg-content"
+      >
+        <div
+          :id="'description-live-' + live.podcastId"
+          v-html="urlify(description)"
+        ></div>
+      </div>
+      <div class="comma" v-if="live.animators">
+        {{ $t('Animated by : ') }}
+        <router-link
+          :aria-label="$t('Participant')"
+          class="link-info"
+          v-for="animator in live.animators"
+          v-bind:key="animator.participantId"
+          :to="{
+            name: 'participant',
+            params: { participantId: animator.participantId },
+            query: { productor: $store.state.filter.organisationId },
+          }"
+          >{{ getName(animator) }}</router-link
+        >
+      </div>
+      <div v-if="!isPodcastmaker">
+        {{ $t('Producted by : ') }}
+        <router-link
+          class="link-info"
+          :to="{
+            name: 'productor',
+            params: { productorId: live.organisation.id },
+            query: { productor: $store.state.filter.organisationId },
+          }"
+          >{{ live.organisation.name }}</router-link
+        >
+      </div>
+      <RecordingItemButton
+        :live="true"
+        :recording="fetchConference"
+        :podcast="live"
+        @deleteItem="deleteItem"
+        @validatePodcast="updatePodcast"
+        v-if="fetchConference && organisationRight && isEditBox"
+      ></RecordingItemButton>
+    </div>
   </div>
 </template>
 
 <style lang="scss">
-.live-date-box{
-	width : 200px;
-	display: flex;
-	flex-shrink: 0;
-	flex-direction: column;
+.live-date-box {
+  width: 200px;
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
 }
-.font-size-smaller{
-	font-size: smaller;
+.font-size-smaller {
+  font-size: smaller;
 }
-.live-image-status{
-	text-align: center;
-	width: 100%;
-	font-size: 0.6rem;
-    padding: 0.2rem 0;
-	color: white;
-	text-transform: uppercase;
+.live-image-status {
+  text-align: center;
+  width: 100%;
+  font-size: 0.6rem;
+  padding: 0.2rem 0;
+  color: white;
+  text-transform: uppercase;
 }
-.live-description-container{
-	overflow: hidden;
-    margin-top: 0.5em;
-    word-break: break-word;
-    max-height: 6rem;
-    position:relative;
-	&.after-live-description:after{
-		content: "...";
-		position: absolute;
-		padding-left: 1rem;
-		right: 0;
-		bottom: 0;
-		width: 100%;
-		font-size: 1rem;
-		font-weight: bolder;
-		background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #f3f3f3 40%);
-    }
+.live-description-container {
+  overflow: hidden;
+  margin-top: 0.5em;
+  word-break: break-word;
+  max-height: 6rem;
+  position: relative;
+  &.after-live-description:after {
+    content: '...';
+    position: absolute;
+    padding-left: 1rem;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: bolder;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #f3f3f3 40%);
+  }
 }
-.live-special-width{
-	width: 0;
+.live-special-width {
+  width: 0;
   flex-grow: 1;
 }
 .planned-bg {
-	background: #f09653;
+  background: #f09653;
 }
 .pending-bg {
-	background: #f1643e;
+  background: #f1643e;
 }
 .recording-bg {
-	background: #f34a4a;
+  background: #f34a4a;
 }
 .debriefing-bg {
-	background: #6ec66e;
+  background: #6ec66e;
 }
 .done-bg {
-	background: #679fe9;
+  background: #679fe9;
 }
 .publishing-bg {
-	background: #7d7d7d;
+  background: #7d7d7d;
 }
 .planned-shadow {
-	box-shadow: 0px 12px 48px 6px rgba(240, 151, 83, 0.2);
+  box-shadow: 0px 12px 48px 6px rgba(240, 151, 83, 0.2);
 }
 .pending-shadow {
-	box-shadow: 0px 12px 48px 6px rgba(241, 101, 62, 0.2);
+  box-shadow: 0px 12px 48px 6px rgba(241, 101, 62, 0.2);
 }
 .recording-shadow {
-	box-shadow: 0px 12px 48px 6px rgba(243, 74, 74, 0.2);
+  box-shadow: 0px 12px 48px 6px rgba(243, 74, 74, 0.2);
 }
 .debriefing-shadow {
-	box-shadow: 0px 12px 48px 6px rgba(110, 198, 110, 0.2);
+  box-shadow: 0px 12px 48px 6px rgba(110, 198, 110, 0.2);
 }
 .publishing-shadow {
-	box-shadow: 0px 12px 48px 6px rgba(125,125,125, 0.2);
+  box-shadow: 0px 12px 48px 6px rgba(125, 125, 125, 0.2);
 }
 </style>
 
 <script>
-import {state} from "../../../store/paramStore.js";
-import octopusApi from "@saooti/octopus-api";
-import PodcastImage from "../podcasts/PodcastImage.vue";
+import { state } from '../../../store/paramStore.js';
+import octopusApi from '@saooti/octopus-api';
+import PodcastImage from '../podcasts/PodcastImage.vue';
 import studioApi from '@/api/studio';
-import RecordingItemButton from "@/components/display/studio/RecordingItemButton.vue";
+import RecordingItemButton from '@/components/display/studio/RecordingItemButton.vue';
 const moment = require('moment');
 const humanizeDuration = require('humanize-duration');
 import { displayMethods } from '../../mixins/functions';
@@ -144,104 +196,118 @@ export default {
   mixins: [displayMethods],
 
   components: {
-		RecordingItemButton,
-		PodcastImage
-	},
+    RecordingItemButton,
+    PodcastImage,
+  },
 
-	async created(){
-		this.fetchPodcastData();
-	},
+  async created() {
+    this.fetchPodcastData();
+  },
 
   data() {
     return {
-			live: undefined,
+      live: undefined,
     };
   },
 
   computed: {
-		isEditBox(){
+    isEditBox() {
       return state.podcastPage.EditBox;
     },
-    isPodcastmaker(){
+    isPodcastmaker() {
       return state.generalParameters.podcastmaker;
     },
     hours() {
       return moment(this.live.pubDate).format('À HH[H]mm');
-		},
-		date() {
+    },
+    date() {
       return moment(this.live.pubDate).format('D/MM/YYYY');
     },
-    displayDate(){
+    displayDate() {
       return moment(this.live.pubDate).format('X');
     },
     description() {
-      if(this.live.description)
-        return this.live.description;
+      if (this.live.description) return this.live.description;
       return '';
-		},
-    myOrganisationId(){
+    },
+    myOrganisationId() {
       return state.generalParameters.organisationId;
     },
-		organisationRight() {
-			if (this.isRoleLive && this.myOrganisationId === this.live.organisation.id)
-				return true;
+    organisationRight() {
+      if (
+        this.isRoleLive &&
+        this.myOrganisationId === this.live.organisation.id
+      )
+        return true;
       return false;
     },
     isRoleLive() {
       return state.generalParameters.isRoleLive;
     },
-	
+
     duration() {
-			if(this.live.duration <= 1)
-				return '';
-			if(this.live.duration > 600000){
-				return humanizeDuration(this.live.duration, {
-					language: 'fr',
-					largest: 1,
-					round: true,
-				});
-			}
-			return humanizeDuration(this.live.duration, {
-				language: 'fr',
-				largest: 2,
-				round: true,
-			});
-		},
+      if (this.live.duration <= 1) return '';
+      if (this.live.duration > 600000) {
+        return humanizeDuration(this.live.duration, {
+          language: 'fr',
+          largest: 1,
+          round: true,
+        });
+      }
+      return humanizeDuration(this.live.duration, {
+        language: 'fr',
+        largest: 2,
+        round: true,
+      });
+    },
   },
-  methods:{
-		updatePodcast(podcastUpdated){
+  methods: {
+    updatePodcast(podcastUpdated) {
       this.live = podcastUpdated;
     },
-		getName(person) {
-      const first = person.firstName || "";
-      const last = person.lastName || "";
-      return (first + " " + last).trim();
-		},
-		async fetchPodcastData(){
-			if(!this.fetchConference || !this.fetchConference.podcastId)
-				return;
-			try {
-				this.live = await octopusApi.fetchPodcast(this.fetchConference.podcastId);
-			} catch {
-				this.$emit('deleteItem', this.index);
-				studioApi.deleteConference(this.$store, this.fetchConference.conferenceId);
-			}
-		},
-		handleDescription(){
-			this.$nextTick(() => {
-				if(document.getElementById('description-live-'+this.live.podcastId).clientHeight > document.getElementById('description-live-container-'+this.live.podcastId).clientHeight){
-					document.getElementById('description-live-container-'+this.live.podcastId).classList.add("after-live-description");
-				}
-			});
-		},
-		deleteItem(){
-			this.$emit('deleteItem', this.index);
-		}
+    getName(person) {
+      const first = person.firstName || '';
+      const last = person.lastName || '';
+      return (first + ' ' + last).trim();
+    },
+    async fetchPodcastData() {
+      if (!this.fetchConference || !this.fetchConference.podcastId) return;
+      try {
+        this.live = await octopusApi.fetchPodcast(
+          this.fetchConference.podcastId
+        );
+      } catch {
+        this.$emit('deleteItem', this.index);
+        studioApi.deleteConference(
+          this.$store,
+          this.fetchConference.conferenceId
+        );
+      }
+    },
+    handleDescription() {
+      this.$nextTick(() => {
+        let liveDesc = document.getElementById(
+          'description-live-' + this.live.podcastId
+        );
+        let liveDescContainer = document.getElementById(
+          'description-live-container-' + this.live.podcastId
+        );
+        if (
+          null !== liveDesc &&
+          liveDesc.clientHeight > liveDescContainer.clientHeight
+        ) {
+          liveDescContainer.classList.add('after-live-description');
+        }
+      });
+    },
+    deleteItem() {
+      this.$emit('deleteItem', this.index);
+    },
   },
-	watch:{
-		live(){
-			this.handleDescription();
-		}
-	}
+  watch: {
+    live() {
+      this.handleDescription();
+    },
+  },
 };
 </script>

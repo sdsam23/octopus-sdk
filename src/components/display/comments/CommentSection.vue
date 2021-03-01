@@ -1,29 +1,41 @@
 <template>
-  <div class="d-flex flex-column mt-3 module-box comment-item-container" v-if="isComments">
+  <div
+    class="d-flex flex-column mt-3 module-box comment-item-container"
+    v-if="isComments"
+  >
     <div class="d-flex align-items-center">
-      <h2 class="mb-0 mr-2">{{$t("Podcast's comments")}}
-        <template v-if="loaded && totalCount > 0">{{$t("()",{nb:totalCount})}}</template>
+      <h2 class="mb-0 mr-2">
+        {{ $t("Podcast's comments") }}
+        <template v-if="loaded && totalCount > 0">{{
+          $t('()', { nb: totalCount })
+        }}</template>
       </h2>
-       <button class="saooti-refresh-stud btn btn-reload primary-color" @click="reloadComments" v-if="!isLive"></button>
+      <button
+        class="saooti-refresh-stud btn btn-reload primary-color"
+        @click="reloadComments"
+        v-if="!isLive"
+      ></button>
     </div>
     <CommentInput
-    :podcast="podcast"
-    :knownIdentity.sync="knownIdentity"
-    :fetchConference="fetchConference"
-    @newComment="newComment"/>
-    <CommentList 
-    ref="commentList"
-    :podcast="podcast" 
-    :reload="reload" 
-    :isFlat="isLive"
-    :fetchConference="fetchConference"
-    @fetch="updateFetch"/>
+      :podcast="podcast"
+      :knownIdentity.sync="knownIdentity"
+      :fetchConference="fetchConference"
+      @newComment="newComment"
+    />
+    <CommentList
+      ref="commentList"
+      :podcast="podcast"
+      :reload="reload"
+      :isFlat="isLive"
+      :fetchConference="fetchConference"
+      @fetch="updateFetch"
+    />
   </div>
 </template>
 
 <style lang="scss">
 @import '../../../sass/_variables.scss';
-.btn-reload{
+.btn-reload {
   width: 40px;
   height: 40px;
   padding: 0;
@@ -33,23 +45,23 @@
 </style>
 
 <script>
-import CommentList from "./CommentList.vue"
+import CommentList from './CommentList.vue';
 import CommentInput from './CommentInput.vue';
-import { cookies } from '../../mixins/functions'
+import { cookies } from '../../mixins/functions';
 
 export default {
   name: 'CommentSection',
 
-  props:  {
-    podcast: {default:undefined},
-    fetchConference: {default:undefined},
+  props: {
+    podcast: { default: undefined },
+    fetchConference: { default: undefined },
   },
 
   mixins: [cookies],
 
   components: {
     CommentList,
-    CommentInput
+    CommentInput,
   },
 
   created() {
@@ -59,66 +71,89 @@ export default {
   data() {
     return {
       totalCount: 0,
-      loaded : false,
+      loaded: false,
       reload: false,
     };
   },
 
   computed: {
-    isComments(){
-      if(!this.podcast)
-        return true;
-      let podcastComment = "INHERIT";
-      if(this.podcast.annotations && this.podcast.annotations.COMMENTS){
+    isComments() {
+      if (!this.podcast) return true;
+      let podcastComment = 'INHERIT';
+      if (this.podcast.annotations && this.podcast.annotations.COMMENTS) {
         podcastComment = this.podcast.annotations.COMMENTS;
       }
-      let organisationComment = "LIVE_ONLY";
-      if(this.podcast.organisation.comments){
+      let organisationComment = 'LIVE_ONLY';
+      if (this.podcast.organisation.comments) {
         organisationComment = this.podcast.organisation.comments;
       }
-      return !("NO" === podcastComment 
-      ||("INHERIT" === podcastComment && "NO" === organisationComment)
-      ||("LIVE_RECORD" === podcastComment && 'READY_TO_RECORD' !== this.podcast.processingStatus)
-      ||("INHERIT" === podcastComment && "LIVE_ONLY"===organisationComment && !this.podcast.conferenceId && 0 !== this.podcast.conferenceId));
+      return !(
+        'NO' === podcastComment ||
+        ('INHERIT' === podcastComment && 'NO' === organisationComment) ||
+        ('LIVE_RECORD' === podcastComment &&
+          'READY_TO_RECORD' !== this.podcast.processingStatus) ||
+        ('INHERIT' === podcastComment &&
+          'LIVE_ONLY' === organisationComment &&
+          !this.podcast.conferenceId &&
+          0 !== this.podcast.conferenceId)
+      );
     },
     knownIdentity: {
       get() {
-        return this.$store.state.comments.knownIdentity
+        return this.$store.state.comments.knownIdentity;
       },
       set(value) {
         this.$store.commit('setCommentIdentity', value);
       },
     },
-    isLive(){
-      return this.fetchConference && "null" !== this.fetchConference && "PUBLISHING" !== this.fetchConference.status&& "DEBRIEFING" !==this.fetchConference.status;
-    }
+    isLive() {
+      return (
+        this.fetchConference &&
+        'null' !== this.fetchConference &&
+        'PUBLISHING' !== this.fetchConference.status &&
+        'DEBRIEFING' !== this.fetchConference.status
+      );
+    },
   },
 
   methods: {
-    updateFetch(value){
+    updateFetch(value) {
       this.loaded = true;
-      this.$store.commit('setCommentLoaded', {...value,podcastId:this.podcast.podcastId});
+      this.$store.commit('setCommentLoaded', {
+        ...value,
+        podcastId: this.podcast.podcastId,
+      });
       this.totalCount = value.count;
     },
-    reloadComments(){
+    reloadComments() {
       this.reload = !this.reload;
     },
-    newComment(comment){
+    newComment(comment) {
       this.$refs.commentList.addNewComment(comment, true);
     },
-    receiveCommentEvent(event){
+    receiveCommentEvent(event) {
       let statusUpdated = undefined;
       switch (event.type) {
-        case "Create": this.$refs.commentList.addNewComment(event.comment); break;
-        case "Update":
-          if(event.comment.status !== event.oldStatus) {
-            statusUpdated=event.comment.status;
+        case 'Create':
+          this.$refs.commentList.addNewComment(event.comment);
+          break;
+        case 'Update':
+          if (event.comment.status !== event.oldStatus) {
+            statusUpdated = event.comment.status;
           }
-          this.$refs.commentList.updateComment({comment:event.comment, status: statusUpdated}); break;
-        case "Delete": this.$refs.commentList.deleteComment(event.comment); break;
-        default: console.log('Event not handle');break;
+          this.$refs.commentList.updateComment({
+            comment: event.comment,
+            status: statusUpdated,
+          });
+          break;
+        case 'Delete':
+          this.$refs.commentList.deleteComment(event.comment);
+          break;
+        default:
+          console.log('Event not handle');
+          break;
       }
-    }
+    },
   },
 };
 </script>

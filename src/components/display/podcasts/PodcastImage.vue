@@ -1,16 +1,28 @@
 <template>
   <div
     class="img-box d-flex flex-column justify-content-start align-items-start position-relative justify rounded-lg flex-shrink float-left"
-    :style="{ 'background-image': 'url(\'' + podcast.imageUrl +  '\')' }"
+    :style="{ 'background-image': 'url(\'' + podcast.imageUrl + '\')' }"
     v-if="podcast"
   >
-    <div class="live-image-status" :class="fetchConference && 'null' !== fetchConference ? fetchConference.status.toLowerCase()+'-bg' : ''" v-if="fetchConference">{{statusText}}</div>
-    <div class="live-image-status recording-bg" v-if="isRecordedInLive">{{"Enregistré en live"}}</div>
-    <div 
-      class="podcast-image-play-button" 
-      v-on:click="play" 
+    <div
+      class="live-image-status"
+      :class="
+        fetchConference && 'null' !== fetchConference
+          ? fetchConference.status.toLowerCase() + '-bg'
+          : ''
+      "
+      v-if="fetchConference"
+    >
+      {{ statusText }}
+    </div>
+    <div class="live-image-status recording-bg" v-if="isRecordedInLive">
+      {{ 'Enregistré en live' }}
+    </div>
+    <div
+      class="podcast-image-play-button"
+      v-on:click="play"
       v-if="hidePlay || recordingLive"
-      :class="classicPodcastPlay?'':'transparent-background'"
+      :class="classicPodcastPlay ? '' : 'transparent-background'"
     >
       <div class="icon-container" v-if="!isLiveToBeRecorded">
         <div
@@ -36,39 +48,52 @@
           :class="iconName"
         ></div>
       </div>
-      <div class="small-Text mt-3 font-weight-bolder" v-if="!classicPodcastPlay">{{textVisible}}</div>
+      <div
+        class="small-Text mt-3 font-weight-bolder"
+        v-if="!classicPodcastPlay"
+      >
+        {{ textVisible }}
+      </div>
     </div>
-    <div class="background-icon saooti-arrow-up2" :aria-label="$t('Show description')"
-    v-if="!isDescription && displayDescription && isMobile" @click="showDescription"></div>
-    <div class="background-icon saooti-arrow-down2" :aria-label="$t('Hide description')"
-    v-if="isDescription && displayDescription && isMobile" @click="showDescription"></div>
+    <div
+      class="background-icon saooti-arrow-up2"
+      :aria-label="$t('Show description')"
+      v-if="!isDescription && displayDescription && isMobile"
+      @click="showDescription"
+    ></div>
+    <div
+      class="background-icon saooti-arrow-down2"
+      :aria-label="$t('Hide description')"
+      v-if="isDescription && displayDescription && isMobile"
+      @click="showDescription"
+    ></div>
   </div>
 </template>
 
 <style lang="scss">
-.no-visible-img{
+.no-visible-img {
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
   padding: 0.7em;
-  background: rgba(0,0,0,.31);
+  background: rgba(0, 0, 0, 0.31);
 }
-.special-icon-play-button{
-    width: 30px;
-    height: 30px;
-    background-color: #ffd663;
-    border-radius: 50%;
-    position: absolute;
-    right: 4.5rem;
-    top: 6rem;
-    font-size: 0.9rem;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.special-icon-play-button {
+  width: 30px;
+  height: 30px;
+  background-color: #ffd663;
+  border-radius: 50%;
+  position: absolute;
+  right: 4.5rem;
+  top: 6rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.transparent-background{
-  background-color: rgba(255,255,255, .5);
+.transparent-background {
+  background-color: rgba(255, 255, 255, 0.5);
 }
 .podcast-image-play-button {
   position: absolute;
@@ -91,7 +116,7 @@
     align-items: center;
     justify-content: center;
 
-    &.error-icon{
+    &.error-icon {
       background: #00000050 !important;
       cursor: default !important;
     }
@@ -100,12 +125,12 @@
       background: #00000030;
     }
 
-    > .saooti-play2-bounty{
+    > .saooti-play2-bounty {
       font-size: 2em;
       position: relative;
       right: -0.2rem;
     }
-    .big-icon-error{
+    .big-icon-error {
       font-size: 2em;
       position: relative;
     }
@@ -148,7 +173,7 @@
     animation-iteration-count: infinite;
     animation-direction: alternate;
   }
-    @keyframes slidein {
+  @keyframes slidein {
     0% {
       height: 0;
     }
@@ -182,142 +207,178 @@ import { mapState } from 'vuex';
 export default {
   name: 'PodcastImage',
 
-  props: ['podcast', 'hidePlay', 'displayDescription', 'arrowDirection', "fetchConference", "isAnimatorLive"],
+  props: [
+    'podcast',
+    'hidePlay',
+    'displayDescription',
+    'arrowDirection',
+    'fetchConference',
+    'isAnimatorLive',
+  ],
   computed: {
     ...mapState({
       playingPodcast(state) {
         return (
           (state.player.podcast &&
-          state.player.podcast.podcastId === this.podcast.podcastId) || 
-          (this.fetchConference && 'null' !== this.fetchConference && state.player.live && state.player.live.conferenceId === this.fetchConference.conferenceId)
+            state.player.podcast.podcastId === this.podcast.podcastId) ||
+          (this.fetchConference &&
+            'null' !== this.fetchConference &&
+            state.player.live &&
+            state.player.live.conferenceId ===
+              this.fetchConference.conferenceId)
         );
       },
     }),
 
-    isMobile(){
-      return window.matchMedia( "(hover: none)" ).matches;
+    isMobile() {
+      return window.matchMedia('(hover: none)').matches;
     },
 
-    isRecordedInLive(){
-      return undefined === this.fetchConference && undefined !== this.podcast.conferenceId && "READY_TO_RECORD" !== this.podcast.processingStatus;
+    isRecordedInLive() {
+      return (
+        undefined === this.fetchConference &&
+        undefined !== this.podcast.conferenceId &&
+        'READY_TO_RECORD' !== this.podcast.processingStatus
+      );
     },
 
-    isLiveToBeRecorded(){
-      return undefined === this.fetchConference && undefined !== this.podcast.conferenceId && "READY_TO_RECORD" === this.podcast.processingStatus;
+    isLiveToBeRecorded() {
+      return (
+        undefined === this.fetchConference &&
+        undefined !== this.podcast.conferenceId &&
+        'READY_TO_RECORD' === this.podcast.processingStatus
+      );
     },
-    classicPodcastPlay(){
-      return this.podcast && (
+    classicPodcastPlay() {
+      return (
+        this.podcast &&
         false !== this.podcast.valid &&
-        ('READY_TO_RECORD' === this.podcast.processingStatus || 'READY' === this.podcast.processingStatus)) &&
-        !this.isLiveToBeRecorded && 
-        this.podcast.availability.visibility;
+          ('READY_TO_RECORD' === this.podcast.processingStatus ||
+            'READY' === this.podcast.processingStatus) &&
+        !this.isLiveToBeRecorded &&
+        this.podcast.availability.visibility
+      );
     },
-    iconName(){
-      if(this.isLiveToBeRecorded)
-        return "saooti-clock";
-      if("READY" === this.podcast.processingStatus || this.fetchConference){
-        if(false==this.podcast.valid)
-          return "saooti-checkmark"
-        if(!this.podcast.availability.visibility && this.podcast.availability.date)
-          return "saooti-clock";
-        return "saooti-eye-blocked";
+    iconName() {
+      if (this.isLiveToBeRecorded) return 'saooti-clock';
+      if ('READY' === this.podcast.processingStatus || this.fetchConference) {
+        if (false == this.podcast.valid) return 'saooti-checkmark';
+        if (
+          !this.podcast.availability.visibility &&
+          this.podcast.availability.date
+        )
+          return 'saooti-clock';
+        return 'saooti-eye-blocked';
       }
-      if("PLANNED" === this.podcast.processingStatus || "PROCESSING" === this.podcast.processingStatus)
+      if (
+        'PLANNED' === this.podcast.processingStatus ||
+        'PROCESSING' === this.podcast.processingStatus
+      )
         return 'saooti-hourglass';
-      if("CANCELED" === this.podcast.processingStatus)
+      if ('CANCELED' === this.podcast.processingStatus)
         return 'saooti-cancel-circle';
       return 'saooti-warning';
     },
-    textVisible(){
-      if(this.isLiveToBeRecorded)
-        return this.$t("Podcast linked to waiting live");
-      if("READY" === this.podcast.processingStatus || this.fetchConference){
-        if(false==this.podcast.valid)
-          return this.$t('Podcast to validate');
-        if(!this.podcast.availability.visibility && this.podcast.availability.date)
+    textVisible() {
+      if (this.isLiveToBeRecorded)
+        return this.$t('Podcast linked to waiting live');
+      if ('READY' === this.podcast.processingStatus || this.fetchConference) {
+        if (false == this.podcast.valid) return this.$t('Podcast to validate');
+        if (
+          !this.podcast.availability.visibility &&
+          this.podcast.availability.date
+        )
           return this.$t('Podcast publish in future');
         return this.$t('Podcast no visible');
       }
-      if("PLANNED" === this.podcast.processingStatus || "PROCESSING" === this.podcast.processingStatus)
+      if (
+        'PLANNED' === this.podcast.processingStatus ||
+        'PROCESSING' === this.podcast.processingStatus
+      )
         return this.$t('Podcast in process');
-      if("CANCELED" === this.podcast.processingStatus)
+      if ('CANCELED' === this.podcast.processingStatus)
         return this.$t('Podcast in cancelled status');
       return this.$t('Podcast in error');
     },
 
-    statusText(){
-      if(!this.fetchConference)
-        return "";
+    statusText() {
+      if (!this.fetchConference) return '';
       switch (this.fetchConference.status) {
-        case "PLANNED": return this.$t('live in few time');
-        case "PENDING":
-          if(this.isAnimatorLive)
-            return this.$t("Open studio");
+        case 'PLANNED':
+          return this.$t('live in few time');
+        case 'PENDING':
+          if (this.isAnimatorLive) return this.$t('Open studio');
           return this.$t('live upcoming');
-        case "RECORDING":return this.$t("In live");
-        case "DEBRIEFING":
-          if(!this.isAnimatorLive)
-            return "";
-          if("READY_TO_RECORD" === this.podcast.processingStatus)
-            return this.$t("Not recording");
-          return this.$t("Debriefing");
-        case "ERROR":return this.$t("In error");
-        case "PUBLISHING": return this.$t("Publishing");
-        default:return "";
+        case 'RECORDING':
+          return this.$t('In live');
+        case 'DEBRIEFING':
+          if (!this.isAnimatorLive) return '';
+          if ('READY_TO_RECORD' === this.podcast.processingStatus)
+            return this.$t('Not recording');
+          return this.$t('Debriefing');
+        case 'ERROR':
+          return this.$t('In error');
+        case 'PUBLISHING':
+          return this.$t('Publishing');
+        default:
+          return '';
       }
     },
 
-    recordingLive(){
-      return this.fetchConference &&
-          'null' !== this.fetchConference&&
-          ('RECORDING' === this.fetchConference.status || 'PENDING' === this.fetchConference.status);
-    }
+    recordingLive() {
+      return (
+        this.fetchConference &&
+        'null' !== this.fetchConference &&
+        ('RECORDING' === this.fetchConference.status ||
+          'PENDING' === this.fetchConference.status)
+      );
+    },
   },
 
   data() {
     return {
-      isDescription : false,
+      isDescription: false,
     };
   },
 
   methods: {
     play() {
-      if(this.isLiveToBeRecorded){
+      if (this.isLiveToBeRecorded) {
         return;
       }
-      if(!this.recordingLive){
+      if (!this.recordingLive) {
         this.$store.commit('playerPlayPodcast', this.podcast);
         return;
       }
       this.$store.commit('playerPlayPodcast', {
         title: this.podcast.title,
-        audioUrl:this.podcast.audioUrl,
-        duration : this.podcast.duration,
+        audioUrl: this.podcast.audioUrl,
+        duration: this.podcast.duration,
         conferenceId: this.fetchConference.conferenceId,
         livePodcastId: this.podcast.podcastId,
         organisation: this.podcast.organisation.id,
       });
     },
-    showDescription(){
-      if(this.isDescription){
+    showDescription() {
+      if (this.isDescription) {
         this.$emit('hideDescription');
-      }else {
-         this.$emit('showDescription');
+      } else {
+        this.$emit('showDescription');
       }
       this.isDescription = !this.isDescription;
-    }
+    },
   },
 
-  watch:{
-    arrowDirection(newValue){
-      if('up' === newValue){
+  watch: {
+    arrowDirection(newValue) {
+      if ('up' === newValue) {
         this.isDescription = true;
         this.showDescription();
-      }else{
+      } else {
         this.isDescription = false;
         this.showDescription();
       }
-    }
-  }
+    },
+  },
 };
 </script>

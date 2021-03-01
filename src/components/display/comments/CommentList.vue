@@ -4,10 +4,17 @@
       <div class="spinner-border mr-3"></div>
       <h3 class="mt-2">{{ $t('Loading content ...') }}</h3>
     </div>
-    <div class="text-danger align-self-center" v-if="error">{{$t('Comments loading error')}}</div>
-    <transition-group tag="div" name="comment-list" class="d-flex flex-column my-transition-list-comments" v-show="loaded">
+    <div class="text-danger align-self-center" v-if="error">
+      {{ $t('Comments loading error') }}
+    </div>
+    <transition-group
+      tag="div"
+      name="comment-list"
+      class="d-flex flex-column my-transition-list-comments"
+      v-show="loaded"
+    >
       <CommentItem
-        :ref="'comItem'+c.comId"
+        :ref="'comItem' + c.comId"
         :isFlat="isFlat"
         :comment.sync="c"
         :podcast="podcast"
@@ -21,19 +28,20 @@
     </transition-group>
     <button
       class="btn btn-primary mt-2"
-      :class="comId? 'align-self-start':'align-self-center'"
+      :class="comId ? 'align-self-start' : 'align-self-center'"
       @click="displayMore"
       :disabled="inFetching"
       v-show="!allFetched && loaded"
       :aria-label="$t('See more comments')"
-    >{{$t('See more comments')}}
+    >
+      {{ $t('See more comments') }}
     </button>
   </div>
 </template>
 
 <style lang="scss">
 @import '../../../sass/_variables.scss';
-.my-transition-list-comments{
+.my-transition-list-comments {
   .comment-list-enter-active,
   .comment-list-leave-active {
     transition: 1200ms cubic-bezier(0.59, 0.12, 0.34, 0.95);
@@ -72,27 +80,27 @@
 </style>
 
 <script>
-import {state} from "../../../store/paramStore.js";
-import octopusApi from "@saooti/octopus-api";
+import { state } from '../../../store/paramStore.js';
+import octopusApi from '@saooti/octopus-api';
 const moment = require('moment');
 
 export default {
   name: 'CommentList',
 
-  props:  {
+  props: {
     first: { default: 0 },
     size: { default: 50 },
-    podcast: {default:undefined},
-    comId: {default:undefined},
-    reload:{default:false},
-    fetchConference:{default:undefined},
-    organisation:{default:undefined},
-    status:{default:undefined},
-    isFlat:{default:false},
+    podcast: { default: undefined },
+    comId: { default: undefined },
+    reload: { default: false },
+    fetchConference: { default: undefined },
+    organisation: { default: undefined },
+    status: { default: undefined },
+    isFlat: { default: false },
   },
 
   components: {
-    CommentItem: () => import('./CommentItem.vue')
+    CommentItem: () => import('./CommentItem.vue'),
   },
 
   created() {
@@ -103,7 +111,7 @@ export default {
     return {
       loading: true,
       loaded: true,
-      error:false,
+      error: false,
       dfirst: this.$props.first,
       dsize: this.$props.size,
       totalCount: 0,
@@ -116,17 +124,22 @@ export default {
     allFetched() {
       return this.dfirst >= this.totalCount;
     },
-    organisationId(){
+    organisationId() {
       return state.generalParameters.organisationId;
     },
-    podcastId(){
-      if(this.podcast)
-        return this.podcast.podcastId;
+    podcastId() {
+      if (this.podcast) return this.podcast.podcastId;
       return undefined;
     },
 
     editRight() {
-      if (( state.generalParameters.isCommments && ((this.podcast && this.organisationId === this.podcast.organisation.id) || (this.organisationId === this.organisation))) || state.generalParameters.isAdmin)
+      if (
+        (state.generalParameters.isCommments &&
+          ((this.podcast &&
+            this.organisationId === this.podcast.organisation.id) ||
+            this.organisationId === this.organisation)) ||
+        state.generalParameters.isAdmin
+      )
         return true;
       return false;
     },
@@ -134,37 +147,37 @@ export default {
 
   methods: {
     async fetchContent(reset) {
-      this.inFetching=true;
+      this.inFetching = true;
       this.resetData(reset);
-      let data; 
+      let data;
       try {
-        if(this.comId){
+        if (this.comId) {
           data = await octopusApi.fetchCommentAnswers(this.comId);
-        }else{
+        } else {
           let param = {
             first: this.dfirst,
             size: this.dsize,
             podcastId: this.podcastId,
-            status:this.status,
+            status: this.status,
+          };
+          if (!this.editRight) {
+            param.status = 'Valid';
           }
-          if(!this.editRight){
-            param.status = "Valid";
-          }
-          if(undefined === this.podcastId){
+          if (undefined === this.podcastId) {
             param.organisationId = this.organisation;
           }
-          if(!this.isFlat){
+          if (!this.isFlat) {
             data = await octopusApi.fetchRootComments(param);
-          }else{
+          } else {
             data = await octopusApi.fetchComments(param);
           }
         }
-        
+
         this.resetData(reset);
         this.loading = false;
         this.loaded = true;
         this.totalCount = data.totalElements;
-        this.comments = this.comments.concat(data.content).filter((c)=>{
+        this.comments = this.comments.concat(data.content).filter(c => {
           return null !== c;
         });
         this.dfirst += this.dsize;
@@ -172,13 +185,12 @@ export default {
         this.loading = false;
         this.error = true;
       }
-      this.inFetching=false;
+      this.inFetching = false;
     },
 
-    resetData(reset){
-      if(!reset)
-        return;
-      this.comments = [];
+    resetData(reset) {
+      if (!reset) return;
+      this.comments.length = 0;
       this.dfirst = 0;
       this.loading = true;
       this.loaded = false;
@@ -187,89 +199,117 @@ export default {
       event.preventDefault();
       this.fetchContent(false);
     },
-    deleteComment(comment){
-      if(!this.isFlat && comment.commentIdReferer && this.comId !== comment.commentIdReferer){
-        this.$refs['comItem'+comment.commentIdReferer][0].receiveCommentEvent({type:"Delete", comment: comment});
+    deleteComment(comment) {
+      if (
+        !this.isFlat &&
+        comment.commentIdReferer &&
+        this.comId !== comment.commentIdReferer
+      ) {
+        this.$refs[
+          'comItem' + comment.commentIdReferer
+        ][0].receiveCommentEvent({ type: 'Delete', comment: comment });
         return;
       }
-      let index = this.comments.findIndex(element => element.comId === comment.comId);
-      if(-1 === index)
-        return;
-      this.totalCount -=1; 
-      if(0 !== this.dfirst){
-        this.dfirst -=1;
+      let index = this.comments.findIndex(
+        element => element.comId === comment.comId
+      );
+      if (-1 === index) return;
+      this.totalCount -= 1;
+      if (0 !== this.dfirst) {
+        this.dfirst -= 1;
       }
       this.comments.splice(index, 1);
     },
-    updateComment(data){
-      if(!this.isFlat && data.comment.commentIdReferer && this.comId !== data.comment.commentIdReferer){
-        this.$refs['comItem'+data.comment.commentIdReferer][0].receiveCommentEvent({...data, type:"Update"});
+    updateComment(data) {
+      if (
+        !this.isFlat &&
+        data.comment.commentIdReferer &&
+        this.comId !== data.comment.commentIdReferer
+      ) {
+        this.$refs[
+          'comItem' + data.comment.commentIdReferer
+        ][0].receiveCommentEvent({ ...data, type: 'Update' });
         return;
       }
-      let index = this.comments.findIndex(element => element.comId === data.comment.comId);
-      if(-1 !== index){
-        if("Valid" !== data.status && (!this.editRight ||(this.status && this.status !== data.status))){
+      let index = this.comments.findIndex(
+        element => element.comId === data.comment.comId
+      );
+      if (-1 !== index) {
+        if (
+          'Valid' !== data.status &&
+          (!this.editRight || (this.status && this.status !== data.status))
+        ) {
           this.comments.splice(index, 1);
-        }else{
+        } else {
           this.comments.splice(index, 1, data.comment);
         }
-      }else if(this.status === data.comment.status){
+      } else if (this.status === data.comment.status) {
         this.comments.unshift(data.comment);
-      }else if("Valid" === data.status /* && !this.editRight */){
-        if(this.comments.length > 0){
+      } else if ('Valid' === data.status /* && !this.editRight */) {
+        if (this.comments.length > 0) {
           let indexNewComment = -1;
-          for (let i=0; i<this.comments.length; i++) {
-            if(moment(this.comments[i].date).isBefore(moment(data.comment.date))){
+          for (let i = 0, len = this.comments.length; i < len; i++) {
+            if (
+              moment(this.comments[i].date).isBefore(moment(data.comment.date))
+            ) {
               indexNewComment = i;
               break;
             }
           }
-          if(-1 !== indexNewComment){
-            if(!this.status || this.status === data.status){
+          if (-1 !== indexNewComment) {
+            if (!this.status || this.status === data.status) {
               this.comments.splice(indexNewComment, 0, data.comment);
-            }else{
+            } else {
               this.comments.splice(indexNewComment, 1);
             }
-          }else if(!this.status || this.status === data.status){
+          } else if (!this.status || this.status === data.status) {
             this.comments.push(data.comment);
           }
-        }else if(!this.status || this.status === data.status){
+        } else if (!this.status || this.status === data.status) {
           this.comments.unshift(data.comment);
         }
       }
-      if(this.comId && data.status){
+      if (this.comId && data.status) {
         this.$emit('updateStatus', data.status);
       }
     },
-    addNewComment(comment, myself = false){
-      if(!myself && !this.editRight && "Valid" !== comment.status){
+    addNewComment(comment, myself = false) {
+      if (!myself && !this.editRight && 'Valid' !== comment.status) {
         return;
       }
-      if(!this.isFlat && comment.commentIdReferer && this.comId !== comment.commentIdReferer){
-        this.$refs['comItem'+comment.commentIdReferer][0].receiveCommentEvent({type:"Create", comment: comment});
+      if (
+        !this.isFlat &&
+        comment.commentIdReferer &&
+        this.comId !== comment.commentIdReferer
+      ) {
+        this.$refs[
+          'comItem' + comment.commentIdReferer
+        ][0].receiveCommentEvent({ type: 'Create', comment: comment });
         return;
       }
-      let index = this.comments.findIndex(element => element.comId === comment.comId);
-      if(-1 === index){
-        this.totalCount +=1; 
-        this.dfirst +=1;
-        if(!this.status || this.status === comment.status){
+      let index = this.comments.findIndex(
+        element => element.comId === comment.comId
+      );
+      if (-1 === index) {
+        this.totalCount += 1;
+        this.dfirst += 1;
+        if (!this.status || this.status === comment.status) {
           this.comments.unshift(comment);
         }
       }
-    }
+    },
   },
 
   watch: {
-    reload(){
+    reload() {
       this.fetchContent(true);
     },
-    status(){
+    status() {
       this.fetchContent(true);
     },
-    comments(){
-      this.$emit("fetch", {count:this.totalCount, comments:this.comments});
-    }
+    comments() {
+      this.$emit('fetch', { count: this.totalCount, comments: this.comments });
+    },
   },
 };
 </script>

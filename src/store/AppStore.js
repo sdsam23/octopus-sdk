@@ -6,95 +6,102 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    general:{
-      metaTitle: "Octopus by Saooti",
+    general: {
+      metaTitle: 'Octopus by Saooti',
       education: false,
-      logoUrl:"/img/logo_octopus.png",
+      logoUrl: '/img/logo_octopus.png',
     },
-		player: {
+    player: {
       status: 'STOPPED', //STOPPED, LOADING, PLAYING, PAUSED
       podcast: undefined,
       volume: 1, //From 0 to 1
       elapsed: 0, //From 0 to 1
       total: 0,
-      media : undefined,
+      media: undefined,
       live: undefined,
       stop: undefined,
     },
-    authentication:{
-      isAuthenticated : true,
+    authentication: {
+      isAuthenticated: true,
       role: [],
     },
     profile: {
-      imageUrl:"https://s3.eu-west-3.amazonaws.com/saooti.lebook/da5d40f6-101c-4566-929f-70a7b202e505/0390fc31-1856-42fa-a440-55aa4cf498ab",
+      imageUrl:
+        'https://s3.eu-west-3.amazonaws.com/saooti.lebook/da5d40f6-101c-4566-929f-70a7b202e505/0390fc31-1856-42fa-a440-55aa4cf498ab',
     },
-    filter:{
+    filter: {
       organisationId: undefined,
       imgUrl: undefined,
       live: false,
     },
     categories: [],
     categoriesOrga: [],
-    organisation:{
+    organisation: {
       imageUrl: undefined,
-      attributes:{
-        'live.active':false,
-      }
+      attributes: {
+        'live.active': false,
+      },
     },
-    comments:{
-      knownIdentity : null,
+    comments: {
+      knownIdentity: null,
       actualPodcastId: undefined,
-      loadedComments:[],
-      totalCount:0,
-    }
+      loadedComments: [],
+      totalCount: 0,
+    },
   },
 
   getters: {},
   mutations: {
-		playerPlayPodcast(state, podcast) {
+    playerPlayPodcast(state, podcast) {
       if (!podcast) {
         state.player = {
           status: 'STOPPED', //STOPPED, LOADING, PLAYING, PAUSED
           podcast: undefined,
           media: undefined,
-          live:undefined,
+          live: undefined,
           elapsed: 0,
         };
-        if(podcast.isStop){
+        if (podcast.isStop) {
           state.player.stop = true;
         }
         return;
       }
       if (
-          (state.player.podcast && (state.player.podcast.podcastId === podcast.podcastId)) ||
-          (state.player.media && (state.player.media.mediaId === podcast.mediaId)) ||
-          (state.player.live && (state.player.live.conferenceId === podcast.conferenceId))
+        (state.player.podcast &&
+          state.player.podcast.podcastId === podcast.podcastId) ||
+        (state.player.media &&
+          state.player.media.mediaId === podcast.mediaId) ||
+        (state.player.live &&
+          state.player.live.conferenceId === podcast.conferenceId)
       ) {
         //Do nothing
         return;
       }
-      if(podcast.conferenceId && (!podcast.podcastId || "READY" !== podcast.processingStatus)){
+      if (
+        podcast.conferenceId &&
+        (!podcast.podcastId || 'READY' !== podcast.processingStatus)
+      ) {
         state.player = {
           status: 'LOADING', //STOPPED, LOADING, PLAYING, PAUSED
           podcast: undefined,
           media: undefined,
-          live:podcast,
+          live: podcast,
           elapsed: 0,
         };
-      }else if(podcast.podcastId){
+      } else if (podcast.podcastId) {
         state.player = {
           status: 'LOADING', //STOPPED, LOADING, PLAYING, PAUSED
           podcast: podcast,
           media: undefined,
-          live:undefined,
+          live: undefined,
           elapsed: 0,
         };
-       }else if(podcast.mediaId){
+      } else if (podcast.mediaId) {
         state.player = {
           status: 'LOADING', //STOPPED, LOADING, PLAYING, PAUSED
           podcast: undefined,
           media: podcast,
-          live:undefined,
+          live: undefined,
           elapsed: 0,
         };
       }
@@ -122,12 +129,12 @@ export default new Vuex.Store({
 
     filterOrga(state, filter) {
       state.filter.organisationId = filter.orgaId;
-      if(filter.imgUrl || !filter.orgaId){
+      if (filter.imgUrl || !filter.orgaId) {
         state.filter.imgUrl = filter.imgUrl;
       }
     },
 
-    filterOrgaLive(state, isLive){
+    filterOrgaLive(state, isLive) {
       state.filter.live = isLive;
     },
 
@@ -138,13 +145,13 @@ export default new Vuex.Store({
     categoriesOrgaSet(state, categories) {
       state.categoriesOrga = categories;
     },
-    setCommentIdentity(state, identity){
+    setCommentIdentity(state, identity) {
       state.comments.knownIdentity = identity;
     },
-    setCommentLoaded(state, data){
+    setCommentLoaded(state, data) {
       state.comments.actualPodcastId = data.podcastId;
       state.comments.loadedComments = data.comments;
       state.comments.totalCount = data.count;
-    }
+    },
   },
 });

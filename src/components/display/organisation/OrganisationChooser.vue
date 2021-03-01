@@ -1,6 +1,15 @@
 <template>
-  <div class="default-multiselect-width" :style="{ width: width }" :class="{'multiselect-hide-arrow' : !displayArrow }" v-if='!value ||init'>
-    <label for="organisationChooser" class="d-inline" aria-label="select productor"></label>
+  <div
+    class="default-multiselect-width"
+    :style="{ width: width }"
+    :class="{ 'multiselect-hide-arrow': !displayArrow }"
+    v-if="!value || init"
+  >
+    <label
+      for="organisationChooser"
+      class="d-inline"
+      aria-label="select productor"
+    ></label>
     <Multiselect
       v-model="organisation"
       id="organisationChooser"
@@ -24,7 +33,7 @@
       @open="onOpen"
       @close="onClose"
       @select="onEmissionSelected"
-      :class="{'light-multiselect' : stats}"
+      :class="{ 'light-multiselect': stats }"
     >
       <template slot="clear" slot-scope="props">
         <div
@@ -41,20 +50,25 @@
             :src="props.option.imageUrl"
             :alt="props.option.name"
           />
-          <span class="option__title" :class="{'descriptionText' : light}">
+          <span class="option__title" :class="{ descriptionText: light }">
             {{ props.option.name }}
           </span>
         </div>
       </template>
       <template slot="option" slot-scope="props">
-        <div class="multiselect-octopus-proposition" :data-selenium='"organisation-chooser-"+seleniumFormat(props.option.name)'>
+        <div
+          class="multiselect-octopus-proposition"
+          :data-selenium="
+            'organisation-chooser-' + seleniumFormat(props.option.name)
+          "
+        >
           <img
             v-if="!light"
             class="option__image"
             :src="props.option.imageUrl"
             :alt="props.option.name"
           />
-          <span class="option__title" :class="{'descriptionText' : light}">
+          <span class="option__title" :class="{ descriptionText: light }">
             {{ props.option.name }}
           </span>
         </div>
@@ -73,22 +87,23 @@
         </div>
       </template>
       <template slot="noOptions">{{ $t('List is empty') }}</template>
-      <div class="position-relative" slot="caret" v-if='!light'>
-        <span class="saooti-arrow_down octopus-arrow-down-2" :class="{'octopus-arrow-down-top' : stats}"></span>
+      <div class="position-relative" slot="caret" v-if="!light">
+        <span
+          class="saooti-arrow_down octopus-arrow-down-2"
+          :class="{ 'octopus-arrow-down-top': stats }"
+        ></span>
       </div>
     </Multiselect>
   </div>
 </template>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>
 
 <script>
-import { selenium } from '../../mixins/functions'
+import { selenium } from '../../mixins/functions';
 import Multiselect from 'vue-multiselect';
-import octopusApi from "@saooti/octopus-api";
-import {state} from "../../../store/paramStore.js";
+import octopusApi from '@saooti/octopus-api';
+import { state } from '../../../store/paramStore.js';
 
 const ELEMENTS_COUNT = 50;
 const DEFAULT_ORGANISATION_ID = 0;
@@ -108,25 +123,28 @@ export default {
   },
 
   async created() {
-    if(this.authenticated && undefined === this.$store.state.organisation.imageUrl){
-      const data = await octopusApi.fetchOrganisation(this.organisationId)
+    if (
+      this.authenticated &&
+      undefined === this.$store.state.organisation.imageUrl
+    ) {
+      const data = await octopusApi.fetchOrganisation(this.organisationId);
       this.myImage = data.imageUrl;
     }
-    if(this.value){
+    if (this.value) {
       this.fetchOrganisation();
     }
   },
 
-  props: { 
-    width: { default: '100%' }, 
-    defaultanswer: { default: false }, 
-    stats : {default: false},
+  props: {
+    width: { default: '100%' },
+    defaultanswer: { default: false },
+    stats: { default: false },
     displayArrow: { default: true },
     value: { default: null },
-    light: {default: false},
-    reset: {default:false},
-    all:{default: false}
-    },
+    light: { default: false },
+    reset: { default: false },
+    all: { default: false },
+  },
 
   mixins: [selenium],
 
@@ -137,7 +155,7 @@ export default {
       remainingElements: 0,
       isLoading: false,
       init: false,
-      myImage: state.organisation.imageUrl
+      myImage: state.organisation.imageUrl,
     };
     if (this.defaultanswer) {
       _return['organisation'] = getDefaultOrganistion(this.defaultanswer);
@@ -145,35 +163,39 @@ export default {
     return _return;
   },
 
-  computed:{
-
-    organisationId(){
+  computed: {
+    organisationId() {
       return state.generalParameters.organisationId;
     },
-    authenticated(){
+    authenticated() {
       return state.generalParameters.authenticated;
     },
-    myOrganisation(){
-      if(!this.authenticated)
-        return undefined;
+    myOrganisation() {
+      if (!this.authenticated) return undefined;
       return {
         id: this.organisationId,
         imageUrl: this.myImage,
-        name: this.$t('Edit my organisation') + ' (' + state.organisation.name +')',
+        name:
+          this.$t('Edit my organisation') +
+          ' (' +
+          state.organisation.name +
+          ')',
       };
-    }
+    },
   },
 
   methods: {
     onOpen() {
-      this.$refs.multiselectRef.$refs.search.setAttribute("autocomplete", "off");
+      this.$refs.multiselectRef.$refs.search.setAttribute(
+        'autocomplete',
+        'off'
+      );
       this.clearAll();
       this.onSearchOrganisation();
     },
 
     onClose() {
-      if(this.organisation)
-        return;
+      if (this.organisation) return;
 
       this.organisation = this.defaultanswer
         ? getDefaultOrganistion(this.defaultanswer)
@@ -187,44 +209,49 @@ export default {
 
     async onSearchOrganisation(query) {
       this.isLoading = true;
-      const response = await octopusApi.fetchOrganisations( {
+      const response = await octopusApi.fetchOrganisations({
         query: query,
         first: 0,
         size: ELEMENTS_COUNT,
       });
       let orga = response.result;
-      if(this.all && !query){
-        while ((response.count <200 && orga.length < response.count) || (response.count > 200 && orga.length < 200)) {
-          const other = await octopusApi.fetchOrganisations( {
+      if (this.all && !query) {
+        while (
+          (response.count < 200 && orga.length < response.count) ||
+          (response.count > 200 && orga.length < 200)
+        ) {
+          const other = await octopusApi.fetchOrganisations({
             query: query,
             first: orga.length,
             size: ELEMENTS_COUNT,
           });
-          orga=orga.concat(other.result);
+          orga = orga.concat(other.result);
         }
       }
-    
-      let notNull =orga.filter((o)=>{
+
+      let notNull = orga.filter(o => {
         return null !== o;
       });
-      
+
       if (this.defaultanswer) {
-        this.organisations = [
-          getDefaultOrganistion(this.defaultanswer),
-        ].concat(notNull);
+        this.organisations = [getDefaultOrganistion(this.defaultanswer)].concat(
+          notNull
+        );
       } else {
         this.organisations = notNull;
       }
-      if(this.myOrganisation){
-        if(undefined === query){
+      if (this.myOrganisation) {
+        if (undefined === query) {
           this.organisations = this.organisations.filter(obj => {
             return obj.id !== this.organisationId;
           });
           this.organisations.splice(1, 0, this.myOrganisation);
         } else {
-          let foundIndex = this.organisations.findIndex(obj => obj.id === this.organisationId);
-          if(foundIndex){
-          this.organisations[foundIndex] = this.myOrganisation; 
+          let foundIndex = this.organisations.findIndex(
+            obj => obj.id === this.organisationId
+          );
+          if (foundIndex) {
+            this.organisations[foundIndex] = this.myOrganisation;
           }
         }
       }
@@ -232,8 +259,8 @@ export default {
       this.remainingElements = Math.max(0, response.count - orga.length);
     },
 
-    async fetchOrganisation(){
-      if(0 === this.organisations.length){
+    async fetchOrganisation() {
+      if (0 === this.organisations.length) {
         this.onSearchOrganisation();
       }
       const data = await octopusApi.fetchOrganisation(this.value);
@@ -243,21 +270,21 @@ export default {
 
     clearAll() {
       this.organisation = '';
-      this.organisations = [];
+      this.organisations.length = 0;
     },
   },
 
-  watch:{
-    value(newVal){
-      if(!this.init || newVal){
+  watch: {
+    value(newVal) {
+      if (!this.init || newVal) {
         this.fetchOrganisation();
       }
     },
-    reset(){
+    reset() {
       this.organisation = this.defaultanswer
         ? getDefaultOrganistion(this.defaultanswer)
         : '';
-    }
-  }
+    },
+  },
 };
 </script>

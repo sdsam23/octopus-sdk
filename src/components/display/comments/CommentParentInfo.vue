@@ -6,38 +6,46 @@
     </div>
     <div v-else>
       <div class="d-flex small-Text">
-        <b class="mr-2">{{comment.name}}</b>
-				<img class="icon-certified" src="/img/certified.png" v-if="comment.certified" :title="$t('Certified account')"/>
-				<div class="mr-2">{{date}}</div>
-			</div>
-      <div >{{contentDisplay}}</div>
-      <a class="c-hand font-italic" v-if="comment.content.length > 300" @click="summary = !summary">{{readMore}}</a>
+        <b class="mr-2">{{ comment.name }}</b>
+        <img
+          class="icon-certified"
+          src="/img/certified.png"
+          v-if="comment.certified"
+          :title="$t('Certified account')"
+        />
+        <div class="mr-2">{{ date }}</div>
       </div>
+      <div>{{ contentDisplay }}</div>
+      <a
+        class="c-hand font-italic"
+        v-if="comment.content.length > 300"
+        @click="summary = !summary"
+        >{{ readMore }}</a
+      >
+    </div>
   </div>
 </template>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
 
 <script>
-import octopusApi from "@saooti/octopus-api";
+import octopusApi from '@saooti/octopus-api';
 const moment = require('moment');
 export default {
   name: 'CommentParentInfo',
 
-  props:  ["comId"],
+  props: ['comId'],
 
-  components:{
-  },
+  components: {},
 
-  async created(){
-		this.comment = await octopusApi.fetchComment(this.comId);
-		this.loading = false;
+  async created() {
+    this.comment = await octopusApi.fetchComment(this.comId);
+    this.loading = false;
   },
 
   data() {
     return {
-			loading: true,
+      loading: true,
       summary: true,
       comment: undefined,
     };
@@ -45,33 +53,27 @@ export default {
 
   computed: {
     date() {
-      if(this.comment.date)
-        return moment(this.comment.date).format("D MMMM YYYY HH[h]mm");
-      return ""
+      if (this.comment.date)
+        return moment(this.comment.date).format('D MMMM YYYY HH[h]mm');
+      return '';
     },
-    limitContent(){
-      if(!this.comment.content) return '';
-      if(this.comment.content.length <= 300) return this.comment.content;
-      return this.comment.content.substring(0, 300 )+ '...';
+    limitContent() {
+      if (!this.comment.content) return '';
+      if (this.comment.content.length <= 300) return this.comment.content;
+      return this.comment.content.substring(0, 300) + '...';
     },
-    readMore(){
-      if(this.summary)
-        return this.$t('Read more');
+    readMore() {
+      if (this.summary) return this.$t('Read more');
       return this.$t('Read less');
     },
-    contentDisplay(){
-      if(this.summary)
-        return this.limitContent;
+    contentDisplay() {
+      if (this.summary) return this.limitContent;
       return this.comment.content;
     },
   },
 
+  methods: {},
 
-  methods: {
-  
-  },
-
-  watch: {
-  },
+  watch: {},
 };
 </script>

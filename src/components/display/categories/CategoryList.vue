@@ -2,12 +2,17 @@
   <div class="d-inline-flex w-100 mb-3 pl-3 pr-3 hide-phone category-list">
     <div class="category-list-container" id="category-list-container">
       <router-link
-        :id="'category'+category.id"
-        :to="{ name: 'category', params: {iabId:category.id}, query:{productor: filterOrga}}"
+        :id="'category' + category.id"
+        :to="{
+          name: 'category',
+          params: { iabId: category.id },
+          query: { productor: filterOrga },
+        }"
         class="category-item text-dark secondary-bg"
         v-for="category in categories"
         v-bind:key="category.id"
-      >{{ category.name }}</router-link>
+        >{{ category.name }}</router-link
+      >
     </div>
     <b-dropdown
       v-show="hidenCategories.length"
@@ -21,11 +26,16 @@
       </template>
       <template>
         <b-dropdown-item
-          :to="{ name: 'category', params: {iabId:category.id}, query:{productor: filterOrga}}"
+          :to="{
+            name: 'category',
+            params: { iabId: category.id },
+            query: { productor: filterOrga },
+          }"
           v-for="category in hidenCategories"
           v-bind:key="category.id"
           class="mr-3"
-        >{{ category.name }}</b-dropdown-item>
+          >{{ category.name }}</b-dropdown-item
+        >
       </template>
     </b-dropdown>
   </div>
@@ -70,78 +80,78 @@
 }
 </style>
 <script>
-import octopusApi from "@saooti/octopus-api";
-import { state } from "../../../store/paramStore.js";
+import octopusApi from '@saooti/octopus-api';
+import { state } from '../../../store/paramStore.js';
 
 export default {
-  name: "CategoryList",
+  name: 'CategoryList',
 
   mounted() {
-    window.addEventListener("resize", this.resizeWindow);
+    window.addEventListener('resize', this.resizeWindow);
     this.resizeWindow();
-    if(this.filterOrga){
+    if (this.filterOrga) {
       this.fetchCategories(this.filterOrga);
     }
   },
 
   data() {
     return {
-      hidenCategories: []
+      hidenCategories: [],
     };
   },
 
   computed: {
-     isPodcastmaker(){
+    isPodcastmaker() {
       return state.generalParameters.podcastmaker;
     },
     categories() {
-      if(this.filterOrga){
-        return this.$store.state.categoriesOrga.filter(c => {return c.podcastOrganisationCount;});
+      if (this.filterOrga) {
+        return this.$store.state.categoriesOrga.filter(c => {
+          return c.podcastOrganisationCount;
+        });
       }
       return state.generalParameters.allCategories.filter(c => {
-        if(this.isPodcastmaker)
-          return c.podcastOrganisationCount;
+        if (this.isPodcastmaker) return c.podcastOrganisationCount;
         return c.podcastCount;
       });
     },
-    filterOrga(){
+    filterOrga() {
       return this.$store.state.filter.organisationId;
-    }
+    },
   },
 
   methods: {
     resizeWindow() {
-      document.getElementById("category-list-container").style.justifyContent =
-        "flex-start";
-      this.hidenCategories = [];
+      let categoryList = document.getElementById('category-list-container');
+      categoryList.style.justifyContent = 'flex-start';
+      this.hidenCategories.length = 0;
       this.categories.forEach(element => {
-        let el = document.getElementById("category" + element.id);
-        if(!el)
-          return;
+        let el = document.getElementById('category' + element.id);
+        if (!el) return;
         const parent = el.parentNode;
         if (el.offsetLeft + el.clientWidth <= parent.clientWidth - 20) {
-          el.classList.remove("hid");
+          el.classList.remove('hid');
           return;
         }
         this.hidenCategories.push(element);
-        if (!el.classList.contains("hid")) {
-          el.className += " hid";
+        if (!el.classList.contains('hid')) {
+          el.className += ' hid';
         }
       });
       if (!this.hidenCategories.length) {
-        document.getElementById(
-          "category-list-container"
-        ).style.justifyContent = "center";
+        categoryList.style.justifyContent = 'center';
       }
     },
-    async fetchCategories(organisationId){
-      const data = await octopusApi.fetchCategoriesOrga(organisationId, { lang: 'fr'});
+    async fetchCategories(organisationId) {
+      const data = await octopusApi.fetchCategoriesOrga(organisationId, {
+        lang: 'fr',
+      });
       this.$store.commit('categoriesOrgaSet', data);
-    }
+    },
   },
 
   beforeDestroy() {
-    window.removeEventListener("resize", this.resizeWindow);
+    window.removeEventListener('resize', this.resizeWindow);
   },
 
   watch: {
@@ -150,11 +160,11 @@ export default {
         this.resizeWindow();
       });
     },
-    filterOrga(newVal){
-      if(newVal){
+    filterOrga(newVal) {
+      if (newVal) {
         this.fetchCategories(newVal);
       }
-    }
-  }
+    },
+  },
 };
 </script>

@@ -1,19 +1,34 @@
 <template>
   <div>
-    <b-modal id="share-modal" @close="closePopup" @hide="closePopup"  @cancel="closePopup"  :title="$t('Share the player')">
+    <b-modal
+      id="share-modal"
+      @close="closePopup"
+      @hide="closePopup"
+      @cancel="closePopup"
+      :title="$t('Share the player')"
+    >
       <template v-slot:default>
         <b-tabs content-class="p-2 share-modal-border">
           <b-tab :title="$t('Embed link')" class="tab-pane" active>
-            <p>{{embedLink}}</p>
-            <div class='saooti-copy' @click="onCopyCode(embedLink, snackbarRef)"></div>
+            <p>{{ embedLink }}</p>
+            <div
+              class="saooti-copy"
+              @click="onCopyCode(embedLink, snackbarRef)"
+            ></div>
           </b-tab>
           <b-tab :title="$t('Embedly link')" class="tab-pane">
-            <p>{{embedlyLink}}</p>
-            <div class='saooti-copy' @click="onCopyCode(embedlyLink, snackbarRef)"></div>
+            <p>{{ embedlyLink }}</p>
+            <div
+              class="saooti-copy"
+              @click="onCopyCode(embedlyLink, snackbarRef)"
+            ></div>
           </b-tab>
           <b-tab :title="$t('Direct link')" class="tab-pane" v-if="directLink">
-            <p>{{directLink.audioUrl}}</p>
-            <div class='saooti-copy' @click="onCopyCode(directLink.audioUrl, snackbarRef)"></div>
+            <p>{{ directLink.audioUrl }}</p>
+            <div
+              class="saooti-copy"
+              @click="onCopyCode(directLink.audioUrl, snackbarRef)"
+            ></div>
           </b-tab>
         </b-tabs>
       </template>
@@ -28,13 +43,13 @@
 </template>
 
 <style lang="scss">
-.share-modal-border{
+.share-modal-border {
   border-right: solid 1px rgb(222, 226, 230);
   border-left: solid 1px rgb(222, 226, 230);
   border-bottom: solid 1px rgb(222, 226, 230);
   background-color: #f8fafc;
-  p{
-    margin-top : 0.5rem;
+  p {
+    margin-top: 0.5rem;
     margin-bottom: 0.5rem;
     overflow-wrap: break-word;
     word-wrap: break-word;
@@ -48,8 +63,8 @@
     margin-right: 0.5rem;
   }
 }
-.nav-tabs{
-  .nav-item{
+.nav-tabs {
+  .nav-item {
     border-right: solid 1px rgb(222, 226, 230);
     border-left: solid 1px rgb(222, 226, 230);
     border-top: solid 1px rgb(222, 226, 230);
@@ -57,12 +72,12 @@
     border-top-right-radius: 0.25rem;
   }
 }
-.tab-content{
-  .tab-pane.active{
+.tab-content {
+  .tab-pane.active {
     display: flex;
     justify-content: space-between;
   }
-  .saooti-copy{
+  .saooti-copy {
     cursor: pointer;
     align-self: center;
   }
@@ -76,17 +91,17 @@ export default {
 
   props: ['embedLink', 'embedlyLink', 'directLink'],
 
-  components:{
-    Snackbar, 
+  components: {
+    Snackbar,
   },
 
   mixins: [displayMethods],
 
-  mounted(){
+  mounted() {
     this.$bvModal.show('share-modal');
   },
-  computed:{
-    snackbarRef(){
+  computed: {
+    snackbarRef() {
       return this.$refs.snackbar;
     },
   },

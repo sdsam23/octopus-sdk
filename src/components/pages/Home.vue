@@ -9,12 +9,11 @@
     />
   </div>
 </template>
-<style lang="scss">
-</style>
+<style lang="scss"></style>
 
 <script>
 import PodcastInlineList from '../display/podcasts/PodcastInlineList.vue';
-import {state} from "../../store/paramStore.js";
+import { state } from '../../store/paramStore.js';
 
 export default {
   name: 'home',
@@ -23,17 +22,15 @@ export default {
     PodcastInlineList,
   },
 
-  mounted(){
-  },
+  mounted() {},
 
   computed: {
-    isPodcastmaker(){
+    isPodcastmaker() {
       return state.generalParameters.podcastmaker;
     },
-    categories(){
+    categories() {
       return state.generalParameters.allCategories.filter(c => {
-        if(this.isPodcastmaker)
-          return c.podcastOrganisationCount;
+        if (this.isPodcastmaker) return c.podcastOrganisationCount;
         return c.podcastCount;
       });
     },

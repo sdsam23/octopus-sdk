@@ -1,22 +1,22 @@
 <template>
   <div class="snack-bar-wrap" :style="style.wrap">
-    <template v-for="(msg,i) in msgs">
-      <div :key="i"
-           class="snack-bar"
-           :style="style.bar(msg.color)"
-           @click="pop(i)"
-           v-html="msg.msg.message||msg.msg">
-      </div>
-      <br :key="i+'1'">
+    <template v-for="(msg, i) in msgs">
+      <div
+        :key="i"
+        class="snack-bar"
+        :style="style.bar(msg.color)"
+        @click="pop(i)"
+        v-html="msg.msg.message || msg.msg"
+      ></div>
+      <br :key="i + '1'" />
     </template>
   </div>
 </template>
 
 <script>
-
 const getStyle = (baseSize, position) => {
-  const c = f => `calc(${f} * ${baseSize})`
-  const { pos, textAlign } = position
+  const c = f => `calc(${f} * ${baseSize})`;
+  const { pos, textAlign } = position;
   return {
     wrap: {
       position: 'fixed',
@@ -45,8 +45,8 @@ const getStyle = (baseSize, position) => {
       pointerEvents: 'all',
       userSelect: 'none',
     }),
-  }
-}
+  };
+};
 export default {
   name: 'Snackbar',
   props: {
@@ -57,7 +57,7 @@ export default {
           info: '#3DBD7D',
           error: '#FA7377',
           warn: '#FF6600',
-        }
+        };
       },
       type: Object,
     },
@@ -69,62 +69,64 @@ export default {
   data() {
     return {
       msgs: [],
-			holdTime:3000,
-			baseSize: '5rem',
-    }
+      holdTime: 3000,
+      baseSize: '5rem',
+    };
   },
   computed: {
     $_position() {
-      const [p, textAlign] = this.position.toString().split('-')
+      const [p, textAlign] = this.position.toString().split('-');
       return {
         pos: ['top', 'bottom'].includes(p) ? p : 'top',
-        textAlign: ['left', 'center', 'right'].includes(textAlign) ? textAlign : 'center',
-      }
+        textAlign: ['left', 'center', 'right'].includes(textAlign)
+          ? textAlign
+          : 'center',
+      };
     },
     style() {
-      return getStyle(this.baseSize, this.$_position)
+      return getStyle(this.baseSize, this.$_position);
     },
   },
   methods: {
     info(msg) {
-      const color = this.colors.info
-      this.open({ color, msg }, false)
-      return true
+      const color = this.colors.info;
+      this.open({ color, msg }, false);
+      return true;
     },
     error(msg) {
-      const color = this.colors.error
-      this.open({ color, msg }, false)
-      return false
+      const color = this.colors.error;
+      this.open({ color, msg }, false);
+      return false;
     },
     warn(msg) {
-      const color = this.colors.warn
-      this.open({ color, msg }, false)
-      return true
+      const color = this.colors.warn;
+      this.open({ color, msg }, false);
+      return true;
     },
     open(message, isOpen = true) {
-      let msg
-      let color
+      let msg;
+      let color;
       if (!isOpen) {
-        ({ color } = message)
-        msg = message.msg
+        ({ color } = message);
+        msg = message.msg;
       } else {
-        color = this.colors.open
-        msg = message
+        color = this.colors.open;
+        msg = message;
       }
       const msgObj = {
         color,
         msg,
         timer: setTimeout(this.pop, this.holdTime),
-      }
-      
-      this.msgs.push(msgObj)
-      
-      return true
+      };
+
+      this.msgs.push(msgObj);
+
+      return true;
     },
     pop(i = 0) {
-      if (this.msgs[i]) clearTimeout(this.msgs[i].timer)
-      this.msgs.splice(i, 1)
+      if (this.msgs[i]) clearTimeout(this.msgs[i].timer);
+      this.msgs.splice(i, 1);
     },
   },
-}
+};
 </script>

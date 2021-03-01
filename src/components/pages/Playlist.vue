@@ -4,29 +4,35 @@
       <h1>{{ $t('Playlist') }}</h1>
       <div class="d-flex">
         <div class="d-flex flex-column flex-grow">
-          <EditBox :playlist='playlist' :isReady='isReady' v-if="editRight && isEditBox"></EditBox>
+          <EditBox
+            :playlist="playlist"
+            :isReady="isReady"
+            v-if="editRight && isEditBox"
+          ></EditBox>
           <div class="module-box">
             <h2>{{ name }}</h2>
             <div class="mb-5 mt-3 descriptionText">
-              <img 
-                :src="imageUrl" 
-                :alt="$t('Playlist name image', { name: name })" 
+              <img
+                :src="imageUrl"
+                :alt="$t('Playlist name image', { name: name })"
                 class="img-box shadow-element float-left mr-3 mb-3"
-                /><p class="html-wysiwyg-content" v-html="urlify(description)"></p>
+              />
+              <p class="html-wysiwyg-content" v-html="urlify(description)"></p>
             </div>
           </div>
         </div>
         <div class="d-flex flex-column share-container">
           <SharePlayer
-          :playlist="playlist"
-          :organisationId='organisationId'
-          :isEducation="isEducation"
-          v-if="isSharePlayer && authenticated">
+            :playlist="playlist"
+            :organisationId="organisationId"
+            :isEducation="isEducation"
+            v-if="isSharePlayer && authenticated"
+          >
           </SharePlayer>
           <ShareButtons v-if="isShareButtons"></ShareButtons>
         </div>
       </div>
-      <PodcastList :playlist="playlist"/>
+      <PodcastList :playlist="playlist" />
     </div>
     <div class="d-flex justify-content-center" v-if="!loaded">
       <div class="spinner-border mr-3"></div>
@@ -37,24 +43,23 @@
     </div>
   </div>
 </template>
-<style lang="scss">
-</style>
+<style lang="scss"></style>
 <script>
 // @ is an alias to /src
-import EditBox from "@/components/display/edit/EditBox.vue";
-import ShareButtons from "../display/sharing/ShareButtons.vue";
+import EditBox from '@/components/display/edit/EditBox.vue';
+import ShareButtons from '../display/sharing/ShareButtons.vue';
 import SharePlayer from '../display/sharing/SharePlayer.vue';
-import PodcastList from "../display/playlist/PodcastList.vue";
-import octopusApi from "@saooti/octopus-api";
-import {state} from "../../store/paramStore.js";
-import { displayMethods } from '../mixins/functions'
+import PodcastList from '../display/playlist/PodcastList.vue';
+import octopusApi from '@saooti/octopus-api';
+import { state } from '../../store/paramStore.js';
+import { displayMethods } from '../mixins/functions';
 
 export default {
   components: {
     ShareButtons,
     EditBox,
     PodcastList,
-    SharePlayer
+    SharePlayer,
   },
   mixins: [displayMethods],
 
@@ -62,7 +67,7 @@ export default {
     this.getPlaylistDetails();
   },
 
-  props: ["playlistId", "isEducation"],
+  props: ['playlistId', 'isEducation'],
 
   data() {
     return {
@@ -74,36 +79,40 @@ export default {
   },
 
   computed: {
-    organisationId(){
+    organisationId() {
       return state.generalParameters.organisationId;
     },
-    authenticated(){
+    authenticated() {
       return state.generalParameters.authenticated;
     },
-    isEditBox(){
+    isEditBox() {
       return state.podcastPage.EditBox;
     },
-    isShareButtons(){
+    isShareButtons() {
       return state.podcastPage.ShareButtons;
     },
-    isSharePlayer(){
+    isSharePlayer() {
       return state.podcastPage.SharePlayer;
     },
     name() {
-      return this.playlist ? this.playlist.title : "";
+      return this.playlist ? this.playlist.title : '';
     },
 
     imageUrl() {
       let dummy = new Date().getTime().toString();
-      return this.playlist ? this.playlist.imageUrl+'?dummy='+dummy : "";
+      return this.playlist ? this.playlist.imageUrl + '?dummy=' + dummy : '';
     },
 
     description() {
-      return this.playlist ? this.playlist.description : "";
+      return this.playlist ? this.playlist.description : '';
     },
 
     editRight() {
-      if ((state.generalParameters.isPlaylist && this.organisationId === this.playlist.organisation.id) || state.generalParameters.isAdmin)
+      if (
+        (state.generalParameters.isPlaylist &&
+          this.organisationId === this.playlist.organisation.id) ||
+        state.generalParameters.isAdmin
+      )
         return true;
       return false;
     },
@@ -114,7 +123,7 @@ export default {
       this.loaded = false;
       this.error = false;
       this.getPlaylistDetails(val);
-    }
+    },
   },
 
   methods: {
@@ -129,6 +138,6 @@ export default {
         this.loaded = true;
       }
     },
-  }
+  },
 };
 </script>

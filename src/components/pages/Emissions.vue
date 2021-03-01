@@ -2,27 +2,29 @@
   <div class="page-box">
     <h1 v-if="undefined === titlePage">{{ $t('All emissions') }}</h1>
     <h1 v-else>{{ titlePage }}</h1>
-    <ProductorSearch 
-      :organisationId.sync='organisationId' 
-      :searchPattern='searchPattern'
-      type='emission'
-      @updateOrganisationId='updateOrganisationId'
-      @updateSearchPattern='updateSearchPattern'
-      v-if="isProductorSearch"/>
-      <AdvancedSearch 
+    <ProductorSearch
+      :organisationId.sync="organisationId"
+      :searchPattern="searchPattern"
+      type="emission"
+      @updateOrganisationId="updateOrganisationId"
+      @updateSearchPattern="updateSearchPattern"
+      v-if="isProductorSearch"
+    />
+    <AdvancedSearch
       :isEducation="isEducation"
-      :resetRubriquage='resetRubriquage'
-      :isEmission='true'
+      :resetRubriquage="resetRubriquage"
+      :isEmission="true"
       :isSearchBar="isProductorSearch"
       :sortCriteria="sortEmission"
-      @updateRubriquage='updateRubriquage'
-      @updateRubrique='updateRubrique'
-      @updateMonetization='updateMonetization' 
-      @updateFromDate='updateFromDate'
-      @updateToDate='updateToDate'
-      @updateSortCriteria='updateSortEmission'
-      @includeHidden='updateHidden'
-      :organisationId='organisationId'/>
+      @updateRubriquage="updateRubriquage"
+      @updateRubrique="updateRubrique"
+      @updateMonetization="updateMonetization"
+      @updateFromDate="updateFromDate"
+      @updateToDate="updateToDate"
+      @updateSortCriteria="updateSortEmission"
+      @includeHidden="updateHidden"
+      :organisationId="organisationId"
+    />
     <EmissionList
       :showCount="true"
       :first="first"
@@ -30,47 +32,46 @@
       :query="searchPattern"
       :organisationId="organisationId"
       :monetization="monetization"
-      :rubriqueId='rubriqueId'
-      :rubriquageId='rubriquageId'
-      :before='toDate'
-      :after='fromDate'
-      :sort='sortEmission'
-      :noRubrique='noRubrique'
-      :includeHidden='includeHidden'
+      :rubriqueId="rubriqueId"
+      :rubriquageId="rubriquageId"
+      :before="toDate"
+      :after="fromDate"
+      :sort="sortEmission"
+      :noRubrique="noRubrique"
+      :includeHidden="includeHidden"
     />
   </div>
 </template>
-<style lang="scss">
-</style>
+<style lang="scss"></style>
 <script>
 // @ is an alias to /src
 import EmissionList from '../display/emission/EmissionList.vue';
 import ProductorSearch from '../display/filter/ProductorSearch.vue';
 import AdvancedSearch from '../display/filter/AdvancedSearch.vue';
-import {state} from "../../store/paramStore.js";
+import { state } from '../../store/paramStore.js';
 
 export default {
   components: {
     ProductorSearch,
     EmissionList,
-    AdvancedSearch
+    AdvancedSearch,
   },
 
-  props:["isEducation"],
+  props: ['isEducation'],
 
   created() {
     if (this.$route.query.first) {
-      this.$data.first = this.$route.query.first;
+      this.first = this.$route.query.first;
     } else {
-      this.$data.first = 0;
+      this.first = 0;
     }
     if (this.$route.query.size) {
-      this.$data.size = this.$route.query.size;
+      this.size = this.$route.query.size;
     } else {
-      this.$data.size = 12;
+      this.size = 12;
     }
     if (this.$route.query.productor) {
-      this.$data.organisationId = this.$route.query.productor;
+      this.organisationId = this.$route.query.productor;
     }
   },
 
@@ -87,76 +88,76 @@ export default {
       fromDate: undefined,
       toDate: undefined,
       resetRubriquage: false,
-      includeHidden : false,
-      sortEmission : 'LAST_PODCAST_DESC',
+      includeHidden: false,
+      sortEmission: 'LAST_PODCAST_DESC',
       noRubrique: undefined,
     };
   },
 
-  computed:{
-    isProductorSearch(){
+  computed: {
+    isProductorSearch() {
       return state.podcastsPage.ProductorSearch;
     },
-    isMonetizableFilter(){
+    isMonetizableFilter() {
       return state.podcastsPage.MonetizableFilter;
     },
-    titlePage(){
+    titlePage() {
       return state.emissionsPage.titlePage;
     },
   },
 
-  methods:{
-    updateHidden(value){
+  methods: {
+    updateHidden(value) {
       this.includeHidden = value;
     },
-    updateSortEmission(value){
+    updateSortEmission(value) {
       this.sortEmission = value;
     },
-    updateToDate(value){
+    updateToDate(value) {
       this.toDate = value;
     },
-    updateFromDate(value){
+    updateFromDate(value) {
       this.fromDate = value;
     },
-    updateRubriquage(value){
-      if(-1 !== value){
+    updateRubriquage(value) {
+      if (-1 !== value) {
         this.rubriquageId = value;
-      }else{
+      } else {
         this.rubriquageId = undefined;
       }
       this.noRubrique = undefined;
       this.rubriqueId = undefined;
     },
-    updateRubrique(value){
-      if(-1 === value){
+    updateRubrique(value) {
+      if (-1 === value) {
         this.noRubrique = true;
         this.rubriqueId = undefined;
-      }else if(0 === value){
+      } else if (0 === value) {
         this.rubriqueId = undefined;
         this.noRubrique = undefined;
-      }else{
+      } else {
         this.rubriqueId = value;
         this.noRubrique = undefined;
       }
     },
-    updateOrganisationId(value){
+    updateOrganisationId(value) {
       this.resetRubriquage = !this.resetRubriquage;
       this.rubriquageId = undefined;
-      this.rubriqueId= undefined;
+      this.rubriqueId = undefined;
       this.noRubrique = undefined;
       this.organisationId = value;
     },
-    updateSearchPattern(value){
-      if("" !== value){
-        this.sortEmission = "SCORE";
-      }else{
-        this.sortEmission = "LAST_PODCAST_DESC";
+    updateSearchPattern(value) {
+      if ('' !== value) {
+        this.sortEmission = 'SCORE';
+      } else {
+        this.sortEmission = 'LAST_PODCAST_DESC';
       }
-      this.searchPattern =value;
+      this.searchPattern = value;
     },
-    updateMonetization(value){
+    updateMonetization(value) {
       this.monetization = value;
-    }
+    },
   },
 };
 </script>

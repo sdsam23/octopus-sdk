@@ -4,7 +4,14 @@
       <div class="spinner-border mr-3"></div>
       <h3 class="mt-2">{{ $t('Loading participants ...') }}</h3>
     </div>
-    <div v-if="showCount && loaded && participants.length > 1" class="text-secondary mb-2">{{$t('Number participants',{nb :displayCount}) + $t('sort by score')}}</div>
+    <div
+      v-if="showCount && loaded && participants.length > 1"
+      class="text-secondary mb-2"
+    >
+      {{
+        $t('Number participants', { nb: displayCount }) + $t('sort by score')
+      }}
+    </div>
     <ul class="participant-list" v-show="loaded">
       <ParticipantItem
         v-bind:participant="p"
@@ -51,7 +58,7 @@
 </style>
 
 <script>
-import octopusApi from "@saooti/octopus-api";
+import octopusApi from '@saooti/octopus-api';
 import ParticipantItem from './ParticipantItem.vue';
 
 export default {
@@ -74,7 +81,7 @@ export default {
       dfirst: this.$props.first,
       dsize: this.$props.size,
       totalCount: 0,
-      displayCount:0,
+      displayCount: 0,
       participants: [],
       inFetching: false,
     };
@@ -84,23 +91,21 @@ export default {
     allFetched() {
       return this.dfirst >= this.totalCount;
     },
-    filterOrga(){
+    filterOrga() {
       return this.$store.state.filter.organisationId;
     },
-    organisation(){
-      if(this.organisationId)
-        return this.organisationId;
-      if(this.filterOrga)
-        return this.filterOrga;
+    organisation() {
+      if (this.organisationId) return this.organisationId;
+      if (this.filterOrga) return this.filterOrga;
       return undefined;
     },
   },
 
   methods: {
     async fetchContent(reset) {
-      this.inFetching=true;
+      this.inFetching = true;
       if (reset) {
-        this.participants = [];
+        this.participants.length = 0;
         this.dfirst = 0;
         this.loading = true;
         this.loaded = false;
@@ -114,15 +119,15 @@ export default {
       this.loading = false;
       this.loaded = true;
       this.displayCount = data.count;
-      this.participants = this.participants.concat(data.result).filter((p)=>{
-        if(null === p){
+      this.participants = this.participants.concat(data.result).filter(p => {
+        if (null === p) {
           this.displayCount--;
         }
         return null !== p;
       });
       this.dfirst += this.dsize;
       this.totalCount = data.count;
-      this.inFetching=false;
+      this.inFetching = false;
     },
 
     displayMore(event) {

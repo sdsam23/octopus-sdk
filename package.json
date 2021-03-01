@@ -1,6 +1,6 @@
 {
   "name": "@saooti/octopus-sdk",
-  "version": "0.24.16",
+  "version": "0.24.17",
   "description": "Javascript SDK for using octopus",
   "main": "./dist/octopus.common.js",
   "private": false,
@@ -18,6 +18,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
+    "prettify": "prettier --single-quote --trailing-comma es5 --write src/**/**/**/*.{js,vue}",
+    "prettifile": "prettier --single-quote --trailing-comma es5 --write",
     "build_bundle": "vue-cli-service build --target lib --name octopus ./index.js"
   },
   "dependencies": {

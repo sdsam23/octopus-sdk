@@ -2,18 +2,42 @@
   <div>
     <div class="page-box" v-if="loaded && !error">
       <h1 v-if="!lightStyle">{{ $t('Animator') }}</h1>
-      <div class="d-flex w-100 flex-column align-items-center justify-content-center">
-        <div class="img-box-circle mb-3" :style="{'background-image': 'url(\'' + participant.imageUrl+ '\')', }"></div>
+      <div
+        class="d-flex w-100 flex-column align-items-center justify-content-center"
+      >
+        <div
+          class="img-box-circle mb-3"
+          :style="{
+            'background-image': 'url(\'' + participant.imageUrl + '\')',
+          }"
+        ></div>
         <h2 class="text-capitalize">{{ name }}</h2>
-        <div class="h6 participant-desc html-wysiwyg-content" v-html="urlify(description)"></div>
+        <div
+          class="h6 participant-desc html-wysiwyg-content"
+          v-html="urlify(description)"
+        ></div>
         <div class="d-flex justify-content-center" v-if="isRssButton">
-          <a class="btn btn-bigRound" :title="$t('Subscribe to this participant')" :aria-label="$t('Subscribe to this participant')" :href="rssUrl" target="_blank">
+          <a
+            class="btn btn-bigRound"
+            :title="$t('Subscribe to this participant')"
+            :aria-label="$t('Subscribe to this participant')"
+            :href="rssUrl"
+            target="_blank"
+          >
             <div class="saooti-rss-bounty"></div>
           </a>
         </div>
         <div class="d-flex">
-          <EditBox :participant='participant' v-if="editRight && isEditBox" @participantUpdate="updateParticipant" class="flex-grow-1"></EditBox>
-          <ShareButtons :participantId="participantId" v-if="isShareButtons"></ShareButtons>
+          <EditBox
+            :participant="participant"
+            v-if="editRight && isEditBox"
+            @participantUpdate="updateParticipant"
+            class="flex-grow-1"
+          ></EditBox>
+          <ShareButtons
+            :participantId="participantId"
+            v-if="isShareButtons"
+          ></ShareButtons>
         </div>
       </div>
       <PodcastFilterList
@@ -23,7 +47,13 @@
         :reload="reload"
         v-if="!lightStyle"
       />
-      <PodcastList :first="0" :size="15" :participantId="participantId" :reload="reload" v-else/>
+      <PodcastList
+        :first="0"
+        :size="15"
+        :participantId="participantId"
+        :reload="reload"
+        v-else
+      />
     </div>
     <div class="d-flex justify-content-center" v-if="!loaded">
       <div class="spinner-border mr-3"></div>
@@ -37,29 +67,29 @@
 
 <style lang="scss">
 @media (min-width: 950px) {
-.participant-desc {
-      max-width: 50%;
+  .participant-desc {
+    max-width: 50%;
     line-height: 1.5em;
-}
+  }
 }
 </style>
 
 <script>
 // @ is an alias to /src
-import EditBox from "@/components/display/edit/EditBox.vue";
-import ShareButtons from "../display/sharing/ShareButtons.vue";
-import octopusApi from "@saooti/octopus-api";
+import EditBox from '@/components/display/edit/EditBox.vue';
+import ShareButtons from '../display/sharing/ShareButtons.vue';
+import octopusApi from '@saooti/octopus-api';
 import PodcastFilterList from '../display/podcasts/PodcastFilterList.vue';
 import PodcastList from '../display/podcasts/PodcastList.vue';
-import {state} from "../../store/paramStore.js";
-import { displayMethods } from '../mixins/functions'
+import { state } from '../../store/paramStore.js';
+import { displayMethods } from '../mixins/functions';
 
 export default {
   components: {
     ShareButtons,
     PodcastFilterList,
     EditBox,
-    PodcastList
+    PodcastList,
   },
 
   mixins: [displayMethods],
@@ -80,26 +110,28 @@ export default {
   },
 
   computed: {
-    organisationId(){
+    organisationId() {
       return state.generalParameters.organisationId;
     },
-    authenticated(){
+    authenticated() {
       return state.generalParameters.authenticated;
     },
-    isEditBox(){
+    isEditBox() {
       return state.podcastPage.EditBox;
     },
-    isShareButtons(){
+    isShareButtons() {
       return state.podcastPage.ShareButtons;
     },
-    lightStyle(){
+    lightStyle() {
       return state.intervenantPage.lightStyle;
     },
-    isRssButton(){
+    isRssButton() {
       return state.intervenantPage.rssButton;
     },
-    rssUrl(){
-      return state.generalParameters.ApiUri + 'rss/participant/' + this.participantId;
+    rssUrl() {
+      return (
+        state.generalParameters.ApiUri + 'rss/participant/' + this.participantId
+      );
     },
     description() {
       let description;
@@ -120,10 +152,14 @@ export default {
       return fullName;
     },
     editRight() {
-      if ((this.authenticated && this.organisationId === this.participant.orga.id) ||state.generalParameters.isAdmin)
+      if (
+        (this.authenticated &&
+          this.organisationId === this.participant.orga.id) ||
+        state.generalParameters.isAdmin
+      )
         return true;
       return false;
-    }
+    },
   },
 
   methods: {
@@ -139,15 +175,15 @@ export default {
         this.loaded = true;
       }
     },
-    updateParticipant(participant){
+    updateParticipant(participant) {
       this.participant = participant;
       this.$emit('participantTitle', this.name);
-    }
+    },
   },
-  watch:{
-    participant(){
+  watch: {
+    participant() {
       this.reload = !this.reload;
-    }
-  }
+    },
+  },
 };
 </script>

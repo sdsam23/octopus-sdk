@@ -4,7 +4,9 @@
       <div class="spinner-border mr-3"></div>
       <h3 class="mt-2">{{ $t('Loading content ...') }}</h3>
     </div>
-    <div v-if="loaded && playlists.length > 1" class="text-secondary mb-2">{{$t('Number playlists',{nb :displayCount})+ $t('sort by score')}}</div>
+    <div v-if="loaded && playlists.length > 1" class="text-secondary mb-2">
+      {{ $t('Number playlists', { nb: displayCount }) + $t('sort by score') }}
+    </div>
     <ul class="emission-list twoEmissions">
       <PlaylistItem
         v-bind:playlist="p"
@@ -15,25 +17,24 @@
     </ul>
     <button
       class="btn"
-      :class="buttonPlus? 'btn-linkPlus': 'btn-more'"
+      :class="buttonPlus ? 'btn-linkPlus' : 'btn-more'"
       @click="displayMore"
       v-show="!allFetched && loaded"
       :disabled="inFetching"
       :aria-label="$t('See more')"
     >
-      <template v-if="buttonPlus">{{$t('See more')}}</template>
+      <template v-if="buttonPlus">{{ $t('See more') }}</template>
       <div class="saooti-plus"></div>
     </button>
   </div>
 </template>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
 
 <script>
-import octopusApi from "@saooti/octopus-api";
+import octopusApi from '@saooti/octopus-api';
 import PlaylistItem from './PlaylistItem.vue';
-import {state} from "../../../store/paramStore.js";
+import { state } from '../../../store/paramStore.js';
 
 export default {
   name: 'PlaylistList',
@@ -41,7 +42,7 @@ export default {
   props: ['first', 'size', 'query', 'organisationId'],
 
   components: {
-    PlaylistItem
+    PlaylistItem,
   },
 
   mounted() {
@@ -55,7 +56,7 @@ export default {
       dfirst: this.$props.first,
       dsize: this.$props.size,
       totalCount: 0,
-      displayCount:0,
+      displayCount: 0,
       playlists: [],
       inFetching: false,
     };
@@ -65,32 +66,29 @@ export default {
     allFetched() {
       return this.dfirst >= this.totalCount;
     },
-    buttonPlus(){
+    buttonPlus() {
       return state.generalParameters.buttonPlus;
     },
-    changed(){
+    changed() {
       return `${this.first}|${this.size}|${this.organisationId}|${this.query}`;
     },
-    filterOrga(){
+    filterOrga() {
       return this.$store.state.filter.organisationId;
     },
-    sort(){
-      if(!this.query)
-        return "NAME";
-      return "SCORE";
+    sort() {
+      if (!this.query) return 'NAME';
+      return 'SCORE';
     },
-    organisation(){
-      if(this.organisationId)
-        return this.organisationId;
-      if(this.filterOrga)
-        return this.filterOrga;
+    organisation() {
+      if (this.organisationId) return this.organisationId;
+      if (this.filterOrga) return this.filterOrga;
       return undefined;
     },
   },
 
   methods: {
     async fetchContent(reset) {
-      this.inFetching=true;
+      this.inFetching = true;
       if (reset) {
         this.dfirst = 0;
         this.loading = true;
@@ -101,29 +99,29 @@ export default {
         size: this.dsize,
         query: this.query,
         organisationId: this.organisation,
-        sort: this.sort
-      }
+        sort: this.sort,
+      };
       const data = await octopusApi.fetchPlaylists(param);
       this.afterFetching(reset, data);
     },
-    
-    afterFetching(reset, data){
+
+    afterFetching(reset, data) {
       if (reset) {
-        this.playlists = [];
+        this.playlists.length = 0;
         this.dfirst = 0;
       }
       this.loading = false;
       this.loaded = true;
       this.displayCount = data.count;
-      this.playlists = this.playlists.concat(data.result).filter((e)=>{
-        if(null === e){
+      this.playlists = this.playlists.concat(data.result).filter(e => {
+        if (null === e) {
           this.displayCount--;
         }
         return null !== e;
       });
       this.dfirst += this.dsize;
       this.totalCount = data.count;
-      this.inFetching=false;
+      this.inFetching = false;
     },
 
     displayMore(event) {
@@ -133,8 +131,8 @@ export default {
   },
 
   watch: {
-    changed:{
-       handler() {
+    changed: {
+      handler() {
         this.fetchContent(true);
       },
     },

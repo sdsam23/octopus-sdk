@@ -1,41 +1,78 @@
- <template>
+<template>
   <div class="module-box">
-  <h3>{{$t('Distribute')}}</h3>
-    <p class="sharing-distribution-container">{{$t('Rss feed:')}}
-      <span class="primary-color text-break">{{rss}}</span>
-      <input type="button" :value="$t('Copy')" class="btn btn-primary" @click="onCopyCode(rss,snackbarRef, true, true)" :aria-label="$t('Copy')" />
+    <h3>{{ $t('Distribute') }}</h3>
+    <p class="sharing-distribution-container">
+      {{ $t('Rss feed:') }}
+      <span class="primary-color text-break">{{ rss }}</span>
+      <input
+        type="button"
+        :value="$t('Copy')"
+        class="btn btn-primary"
+        @click="onCopyCode(rss, snackbarRef, true, true)"
+        :aria-label="$t('Copy')"
+      />
     </p>
-    <RssSection :emission="emission" v-if="emission"/>
+    <RssSection :emission="emission" v-if="emission" />
     <div class="sharing-distribution-container">
-      <router-link v-bind:to="'/main/priv/distribution/deezer/' + emissionId" class="text-dark">
-        <span class="saooti-deezer"/>Deezer
+      <router-link
+        v-bind:to="'/main/priv/distribution/deezer/' + emissionId"
+        class="text-dark"
+      >
+        <span class="saooti-deezer" />Deezer
       </router-link>
-      <router-link v-bind:to="'/main/priv/distribution/apple/' + emissionId" class="text-dark">
-        <span class="saooti-apple"/>Apple Podcast / iTunes
+      <router-link
+        v-bind:to="'/main/priv/distribution/apple/' + emissionId"
+        class="text-dark"
+      >
+        <span class="saooti-apple" />Apple Podcast / iTunes
       </router-link>
-      <router-link v-bind:to="'/main/priv/distribution/tuneIn/' + emissionId" class="text-dark">
-        <span class="saooti-tunin"/>TuneIn
+      <router-link
+        v-bind:to="'/main/priv/distribution/tuneIn/' + emissionId"
+        class="text-dark"
+      >
+        <span class="saooti-tunin" />TuneIn
       </router-link>
-      <router-link v-bind:to="'/main/priv/distribution/audioNow/' + emissionId" class="text-dark">
+      <router-link
+        v-bind:to="'/main/priv/distribution/audioNow/' + emissionId"
+        class="text-dark"
+      >
         <span class="saooti-audionow"></span> Now
       </router-link>
-      <router-link v-bind:to="'/main/priv/distribution/tootak/' + emissionId" class="text-dark">
-        <span class="saooti-tootak"/>Tootak
+      <router-link
+        v-bind:to="'/main/priv/distribution/tootak/' + emissionId"
+        class="text-dark"
+      >
+        <span class="saooti-tootak" />Tootak
       </router-link>
-      <router-link v-bind:to="'/main/priv/distribution/radioline/' + emissionId" class="text-dark">
-        <span class="saooti-radioline"/>Radioline
+      <router-link
+        v-bind:to="'/main/priv/distribution/radioline/' + emissionId"
+        class="text-dark"
+      >
+        <span class="saooti-radioline" />Radioline
       </router-link>
-      <router-link v-bind:to="'/main/priv/distribution/spotify/' + emissionId" class="text-dark">
-        <span class="saooti-spotify"/>Spotify
+      <router-link
+        v-bind:to="'/main/priv/distribution/spotify/' + emissionId"
+        class="text-dark"
+      >
+        <span class="saooti-spotify" />Spotify
       </router-link>
-      
-      <router-link v-bind:to="'/main/priv/distribution/PocketCasts/' + emissionId" class="text-dark">
+
+      <router-link
+        v-bind:to="'/main/priv/distribution/PocketCasts/' + emissionId"
+        class="text-dark"
+      >
         <span class="saooti-pocket-casts"></span>Pocket Casts
       </router-link>
-      <router-link v-bind:to="'/main/priv/distribution/PodcastAddict/' + emissionId" class="text-dark">
-        <span class="saooti-podcast-addict"/>Podcast Addict
+      <router-link
+        v-bind:to="'/main/priv/distribution/PodcastAddict/' + emissionId"
+        class="text-dark"
+      >
+        <span class="saooti-podcast-addict" />Podcast Addict
       </router-link>
-      <router-link v-bind:to="'/main/priv/distribution/Stitcher/' + emissionId" class="text-dark">
+      <router-link
+        v-bind:to="'/main/priv/distribution/Stitcher/' + emissionId"
+        class="text-dark"
+      >
         <span class="saooti-stitcher-logo">
           <div class="path1"></div>
           <div class="path2"></div>
@@ -54,18 +91,20 @@
           <div class="path15"></div>
           <div class="path16"></div>
           <div class="path17"></div>
-          <div class="path18"></div>
-        </span>Stitcher
+          <div class="path18"></div> </span
+        >Stitcher
       </router-link>
-      <router-link v-bind:to="'/main/priv/distribution/PlayerFM/' + emissionId" class="text-dark">
-        <span class="saooti-playerfm"/>PlayerFM
+      <router-link
+        v-bind:to="'/main/priv/distribution/PlayerFM/' + emissionId"
+        class="text-dark"
+      >
+        <span class="saooti-playerfm" />PlayerFM
       </router-link>
     </div>
     <Snackbar ref="snackbar" position="bottom-left"></Snackbar>
   </div>
 </template>
 <style lang="scss">
-
 .sharing-distribution-container {
   border: 0.05rem solid #dee2e6;
   border-radius: 0.3rem;
@@ -76,24 +115,24 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  .saooti-stitcher-logo{
+  .saooti-stitcher-logo {
     font-size: 1.7rem;
     position: relative;
     width: 25px;
     height: 20px;
-    div{
+    div {
       position: absolute;
       top: -7px;
       right: 0;
     }
   }
-  .saooti-tunin{
+  .saooti-tunin {
     color: #36b4a7;
   }
-  .saooti-radioline{
+  .saooti-radioline {
     color: #2273b9;
   }
-  .saooti-tootak{
+  .saooti-tootak {
     color: #ff4d53;
   }
   a {
@@ -115,23 +154,22 @@
     margin: 0.2rem 0.5rem;
   }
   @media (max-width: 450px) {
-    .primary-color{
+    .primary-color {
       display: none;
     }
   }
 }
 </style>
 <script>
-import octopusApi from "@saooti/octopus-api";
+import octopusApi from '@saooti/octopus-api';
 import Snackbar from '../../misc/Snackbar.vue';
-import RssSection from "@/components/display/aggregator/RssSection.vue";
+import RssSection from '@/components/display/aggregator/RssSection.vue';
 import { displayMethods } from '../../mixins/functions';
 
 export default {
-
-  components:{
+  components: {
     Snackbar,
-    RssSection
+    RssSection,
   },
 
   mounted() {
@@ -147,13 +185,13 @@ export default {
     return {
       emission: undefined,
       error: false,
-      baseRss: "",
-      rss: "",
+      baseRss: '',
+      rss: '',
     };
   },
 
-  computed:{
-    snackbarRef(){
+  computed: {
+    snackbarRef() {
       return this.$refs.snackbar;
     },
   },
@@ -164,28 +202,28 @@ export default {
         const data = await octopusApi.fetchEmission(emissionId);
         this.emission = data;
         this.loaded = true;
-        if(!this.emission.annotations)
-          return;
-        if(this.emission.annotations.RSS){
+        if (!this.emission.annotations) return;
+        if (this.emission.annotations.RSS) {
           this.rssEmission = true;
         }
-        if(this.emission.annotations.exclusive){
-          this.exclusive = 'true' === this.emission.annotations.exclusive ? true : false;
-          this.exclusive = this.exclusive && (this.organisationId !== this.emission.orga.id);
+        if (this.emission.annotations.exclusive) {
+          this.exclusive =
+            'true' === this.emission.annotations.exclusive ? true : false;
+          this.exclusive =
+            this.exclusive && this.organisationId !== this.emission.orga.id;
         }
       } catch {
         this.error = true;
         this.loaded = true;
       }
     },
-    getRSS(){
-      if(!this.$props.emissionId || this.$props.emissionId <= 0) 
-        return;
-      
+    getRSS() {
+      if (!this.$props.emissionId || this.$props.emissionId <= 0) return;
+
       /* this.emissionPage=octopusApi.fetchEmissionPath(this.emissionId); */
       this.baseRss = octopusApi.fetchRSS(this.emissionId);
       this.rss = this.baseRss;
-    }
+    },
   },
 };
 </script>

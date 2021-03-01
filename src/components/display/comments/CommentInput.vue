@@ -1,38 +1,59 @@
 <template>
   <div class="d-flex flex-column comment-input-container mt-3" v-if="isPresent">
-    <b class="small-Text mt-1 c-hand" @click="changeIdentity" v-if="knownIdentity && !editName">{{knownIdentity}}</b>
+    <b
+      class="small-Text mt-1 c-hand"
+      @click="changeIdentity"
+      v-if="knownIdentity && !editName"
+      >{{ knownIdentity }}</b
+    >
     <div class="d-flex" v-if="knownIdentity && editName">
       <input
         class="small-Text mt-1"
         type="text"
         v-model="temporaryName"
-        v-bind:class="{'border border-danger': temporaryName.length < 2}"
+        v-bind:class="{ 'border border-danger': temporaryName.length < 2 }"
       />
-      <button class="btn btn-light p-1 m-1" @click="editName = false;">{{ $t('Cancel') }}</button>
-      <button class="btn btn-primary p-1 m-1" :disabled="temporaryName.length < 2" @click="validEdit">{{ $t('Validate') }}</button>
+      <button class="btn btn-light p-1 m-1" @click="editName = false">
+        {{ $t('Cancel') }}
+      </button>
+      <button
+        class="btn btn-primary p-1 m-1"
+        :disabled="temporaryName.length < 2"
+        @click="validEdit"
+      >
+        {{ $t('Validate') }}
+      </button>
     </div>
     <b-form-textarea
-			ref="textarea"
+      ref="textarea"
       v-model="newComment"
       :placeholder="placeholder"
       max-rows="10"
-      :class="{short:isOneLine && !newComment.includes('\n')}"
+      :class="{ short: isOneLine && !newComment.includes('\n') }"
       @focus="textareaFocus = true"
       @blur="textareaFocus = false"
     ></b-form-textarea>
     <div class="d-flex justify-content-end mt-1" v-if="textareaFocus">
-      <button class="btn mr-2" @mousedown="cancelAction">{{$t('Cancel')}}</button>
-      <button class="btn btn-primary" @mousedown="requestToSend" :disabled="0 === newComment.trim().length">{{placeholder}}</button>
+      <button class="btn mr-2" @mousedown="cancelAction">
+        {{ $t('Cancel') }}
+      </button>
+      <button
+        class="btn btn-primary"
+        @mousedown="requestToSend"
+        :disabled="0 === newComment.trim().length"
+      >
+        {{ placeholder }}
+      </button>
     </div>
     <AddCommentModal
       v-if="checkIdentityModal"
       @validate="postComment"
-      @close="checkIdentityModal=false"
+      @close="checkIdentityModal = false"
     />
     <MessageModal
       v-if="postError"
-      @close="postError=false"
-      @validate="postError=false"
+      @close="postError = false"
+      @validate="postError = false"
       :validatetext="$t('Close')"
       :title="$t('Error')"
       :message="$t('Error occurs while post your comment...')"
@@ -42,14 +63,14 @@
 
 <style lang="scss">
 @import '../../../sass/_variables.scss';
-.comment-input-container{
+.comment-input-container {
   textarea::placeholder {
-    color: $octopus-primary-color;  
+    color: $octopus-primary-color;
   }
-  textarea:focus::placeholder{
-    color: black; 
+  textarea:focus::placeholder {
+    color: black;
   }
-  textarea{
+  textarea {
     border-top: 0;
     border-right: 0;
     border-left: 0;
@@ -63,140 +84,163 @@
     max-height: 38px;
   }
 }
-
 </style>
 
 <script>
 import AddCommentModal from './AddCommentModal.vue';
 import MessageModal from '../../misc/modal/MessageModal.vue';
-import octopusApi from "@saooti/octopus-api";
+import octopusApi from '@saooti/octopus-api';
 import commentApi from '@/api/comments';
-import { cookies } from '../../mixins/functions'
-import {state} from "../../../store/paramStore.js";
+import { cookies } from '../../mixins/functions';
+import { state } from '../../../store/paramStore.js';
 
 export default {
   name: 'CommentInput',
 
-  props:  {
-    podcast: {default:undefined},
-		knownIdentity:{default: null},
-		focus:{default:false},
-    comId:{default:undefined},
-    fetchConference:{default:undefined},
-	},
-	
-	mixins: [cookies],
+  props: {
+    podcast: { default: undefined },
+    knownIdentity: { default: null },
+    focus: { default: false },
+    comId: { default: undefined },
+    fetchConference: { default: undefined },
+  },
+
+  mixins: [cookies],
 
   components: {
     AddCommentModal,
-    MessageModal
+    MessageModal,
   },
 
   data() {
     return {
-      newComment:"",
+      newComment: '',
       textareaFocus: false,
       checkIdentityModal: false,
       postError: false,
       isOneLine: true,
       editName: false,
-      temporaryName: "",
+      temporaryName: '',
     };
   },
 
-  computed:{
-    isPresent(){
-      if(!this.podcast)
-        return true;
-      let podcastComment = "INHERIT";
-      if(this.podcast.annotations && this.podcast.annotations.COMMENTS){
+  computed: {
+    isPresent() {
+      if (!this.podcast) return true;
+      let podcastComment = 'INHERIT';
+      if (this.podcast.annotations && this.podcast.annotations.COMMENTS) {
         podcastComment = this.podcast.annotations.COMMENTS;
       }
-      let organisationComment = "LIVE_ONLY";
-      if(this.podcast.organisation.comments){
+      let organisationComment = 'LIVE_ONLY';
+      if (this.podcast.organisation.comments) {
         organisationComment = this.podcast.organisation.comments;
       }
-      if(("LIVE_ONLY" === podcastComment && 'READY_TO_RECORD' !== this.podcast.processingStatus) || 
-      ("INHERIT" === podcastComment && "LIVE_ONLY" === organisationComment && 'READY_TO_RECORD' !== this.podcast.processingStatus)){
+      if (
+        ('LIVE_ONLY' === podcastComment &&
+          'READY_TO_RECORD' !== this.podcast.processingStatus) ||
+        ('INHERIT' === podcastComment &&
+          'LIVE_ONLY' === organisationComment &&
+          'READY_TO_RECORD' !== this.podcast.processingStatus)
+      ) {
         return false;
       }
       return true;
     },
-    placeholder(){
-      if(this.comId)
-        return this.$t('Answer a comment');
+    placeholder() {
+      if (this.comId) return this.$t('Answer a comment');
       return this.$t('Write a comment');
     },
-    organisationId(){
+    organisationId() {
       return state.generalParameters.organisationId;
     },
-    authenticated(){
+    authenticated() {
       return state.generalParameters.authenticated;
     },
     isCertified() {
-      if ((state.generalParameters.isCommments && this.organisationId === this.podcast.organisation.id) || state.generalParameters.isAdmin)
+      if (
+        (state.generalParameters.isCommments &&
+          this.organisationId === this.podcast.organisation.id) ||
+        state.generalParameters.isAdmin
+      )
         return true;
       return false;
     },
-    userId(){
-      if(this.authenticated)
-        return this.$store.state.profile.userId;
+    userId() {
+      if (this.authenticated) return this.$store.state.profile.userId;
       return undefined;
     },
-    phase(){
-      if(!this.podcast.conferenceId || 0 === this.podcast.conferenceId || 'READY_TO_RECORD' !== this.podcast.processingStatus)
-        return "Podcast";
-      if(this.fetchConference && ("PLANNED" === this.fetchConference.status || "PENDING" === this.fetchConference.status))
-        return "Prelive";
-      return "Live";
+    phase() {
+      if (
+        !this.podcast.conferenceId ||
+        0 === this.podcast.conferenceId ||
+        'READY_TO_RECORD' !== this.podcast.processingStatus
+      )
+        return 'Podcast';
+      if (
+        this.fetchConference &&
+        ('PLANNED' === this.fetchConference.status ||
+          'PENDING' === this.fetchConference.status)
+      )
+        return 'Prelive';
+      return 'Live';
     },
   },
 
-
   methods: {
-    changeIdentity(){
+    changeIdentity() {
       this.temporaryName = this.knownIdentity;
       this.editName = true;
     },
-    validEdit(){
+    validEdit() {
       this.setCookie('comment-octopus-name', this.temporaryName);
       this.$emit('update:knownIdentity', this.temporaryName);
       this.editName = false;
     },
-    inputExceeded(text, font){
+    inputExceeded(text, font) {
       this.element = document.createElement('canvas');
-      this.context = this.element.getContext("2d");
+      this.context = this.element.getContext('2d');
       this.context.font = font;
       return this.context.measureText(text).width;
     },
-    requestToSend(){
-      if(this.knownIdentity){
+    requestToSend() {
+      if (this.knownIdentity) {
         this.postComment();
-      }else{
+      } else {
         this.checkIdentityModal = true;
       }
     },
-    cancelAction(){
+    cancelAction() {
       this.$emit('cancelAction');
     },
-    async postComment(name){
-      if(name){
-				this.setCookie('comment-octopus-name', name);
-				this.$emit('update:knownIdentity', name);
-			}
+    async postComment(name) {
+      if (name) {
+        this.setCookie('comment-octopus-name', name);
+        this.$emit('update:knownIdentity', name);
+      }
       let timeline = 0;
-      if((this.$store.state.player.podcast && this.$store.state.player.podcast.podcastId === this.podcast.podcastId)||
-      (this.$store.state.player.live && this.$store.state.player.live.livePodcastId === this.podcast.podcastId)){
-        timeline = Math.round((this.$store.state.player.elapsed * this.$store.state.player.total));
-        if(this.podcast.duration && this.$store.state.player.podcast){
-          timeline = Math.round(timeline - (this.$store.state.player.total - (this.podcast.duration /1000)));
+      if (
+        (this.$store.state.player.podcast &&
+          this.$store.state.player.podcast.podcastId ===
+            this.podcast.podcastId) ||
+        (this.$store.state.player.live &&
+          this.$store.state.player.live.livePodcastId ===
+            this.podcast.podcastId)
+      ) {
+        timeline = Math.round(
+          this.$store.state.player.elapsed * this.$store.state.player.total
+        );
+        if (this.podcast.duration && this.$store.state.player.podcast) {
+          timeline = Math.round(
+            timeline -
+              (this.$store.state.player.total - this.podcast.duration / 1000)
+          );
         }
-        if(timeline < 0){
+        if (timeline < 0) {
           timeline = 0;
         }
       }
       let sendName = this.knownIdentity;
-      if(null === sendName && name){
+      if (null === sendName && name) {
         sendName = name;
       }
       let comment = {
@@ -204,41 +248,48 @@ export default {
         name: sendName,
         podcastId: this.podcast.podcastId,
         timeline: timeline,
-				organisationId: this.podcast.organisation.id,
+        organisationId: this.podcast.organisation.id,
         commentIdReferer: this.comId,
         certified: this.isCertified,
         userId: this.userId,
         phase: this.phase,
-      }
+      };
       try {
         let data;
-        if(this.isCertified){
-          comment.status = "Valid";
-          data = await commentApi.postComment(this.$store,comment);
-        }else{
+        if (this.isCertified) {
+          comment.status = 'Valid';
+          data = await commentApi.postComment(this.$store, comment);
+        } else {
           data = await octopusApi.postComment(comment);
         }
         this.$emit('newComment', data);
-        this.newComment = "";
+        this.newComment = '';
         this.checkIdentityModal = false;
       } catch (error) {
         this.checkIdentityModal = false;
         this.postError = true;
       }
-    }
+    },
   },
 
   watch: {
-    textareaFocus(){
+    textareaFocus() {
       this.newComment = this.newComment.trim();
-		},
-		focus(){
-			this.$refs.textarea.focus();
     },
-    newComment(){
-      let padding = 1.5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
-      this.isOneLine = (this.$refs.textarea.$el.clientWidth - this.inputExceeded(this.newComment, "18px Montserrat, sans-serif, Helvetica Neue")) > (padding);
-    }
+    focus() {
+      this.$refs.textarea.focus();
+    },
+    newComment() {
+      let padding =
+        1.5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
+      this.isOneLine =
+        this.$refs.textarea.$el.clientWidth -
+          this.inputExceeded(
+            this.newComment,
+            '18px Montserrat, sans-serif, Helvetica Neue'
+          ) >
+        padding;
+    },
   },
 };
 </script>

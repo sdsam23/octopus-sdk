@@ -1,17 +1,21 @@
 <template>
   <div class="page-box">
     <h1>{{ title }}</h1>
-    <PodcastList :first="first" :size="size" :iabId="iabId" :organisationId='filterOrga' />
+    <PodcastList
+      :first="first"
+      :size="size"
+      :iabId="iabId"
+      :organisationId="filterOrga"
+    />
   </div>
 </template>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
 
 <script>
 // @ is an alias to /src
 import PodcastList from '../display/podcasts/PodcastList.vue';
-import {state} from "../../store/paramStore.js";
+import { state } from '../../store/paramStore.js';
 
 export default {
   components: {
@@ -31,22 +35,18 @@ export default {
   },
 
   computed: {
-    categories(){
+    categories() {
       return state.generalParameters.allCategories;
     },
-    filterOrga(){
+    filterOrga() {
       return this.$store.state.filter.organisationId;
-    }
+    },
   },
-
 
   methods: {
     extractTitle(iabId) {
-      const matchCategories = this.categories.filter(
-        c => c.id === iabId
-      );
-      if (1 !== matchCategories.length)
-        return '';
+      const matchCategories = this.categories.filter(c => c.id === iabId);
+      if (1 !== matchCategories.length) return '';
       this.title = matchCategories[0]['name'];
     },
   },
@@ -56,6 +56,5 @@ export default {
       this.extractTitle(val);
     },
   },
-
 };
 </script>

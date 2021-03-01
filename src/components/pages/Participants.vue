@@ -1,12 +1,13 @@
 <template>
   <div class="page-box">
     <h1>{{ $t('All participants') }}</h1>
-    <ProductorSearch 
-      :organisationId='organisationId'
-      :searchPattern='searchPattern'
-      type='participant'
-      @updateOrganisationId='updateOrganisationId'
-      @updateSearchPattern='updateSearchPattern' />
+    <ProductorSearch
+      :organisationId="organisationId"
+      :searchPattern="searchPattern"
+      type="participant"
+      @updateOrganisationId="updateOrganisationId"
+      @updateSearchPattern="updateSearchPattern"
+    />
     <ParticipantList
       :showCount="true"
       :first="first"
@@ -16,8 +17,7 @@
     />
   </div>
 </template>
-<style lang="scss">
-</style>
+<style lang="scss"></style>
 <script>
 // @ is an alias to /src
 import ParticipantList from '../display/participant/ParticipantList.vue';
@@ -32,19 +32,19 @@ export default {
 
   created() {
     if (this.$route.query.first) {
-      this.$data.first = this.$route.query.first;
+      this.first = this.$route.query.first;
     } else {
-      this.$data.first = 0;
+      this.first = 0;
     }
     if (this.$route.query.size) {
-      this.$data.size = this.$route.query.size;
+      this.size = this.$route.query.size;
     } else {
-      this.$data.size = 12;
+      this.size = 12;
     }
-     if (this.$route.query.productor) {
-      this.$data.organisationId = this.$route.query.productor;
+    if (this.$route.query.productor) {
+      this.organisationId = this.$route.query.productor;
     } else if (this.$store.state.filter.organisationId) {
-      this.$data.organisationId = this.$store.state.filter.organisationId;
+      this.organisationId = this.$store.state.filter.organisationId;
     }
   },
 
@@ -57,14 +57,13 @@ export default {
     };
   },
 
-  methods:{
-    updateOrganisationId(value){
+  methods: {
+    updateOrganisationId(value) {
       this.organisationId = value;
     },
-    updateSearchPattern(value){
-      this.searchPattern =value;
-    }
-  }
-
+    updateSearchPattern(value) {
+      this.searchPattern = value;
+    },
+  },
 };
 </script>
