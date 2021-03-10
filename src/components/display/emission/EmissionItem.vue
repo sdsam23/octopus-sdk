@@ -176,9 +176,9 @@ button.btn.btn-primary.share-btn.m-3 {
 }
 </style>
 
-<script>
+<script lang="ts">
 import { state } from '../../../store/paramStore.js';
-import octopusApi from '@saooti/octopus-api';
+const octopusApi = require('@saooti/octopus-api');
 import { displayMethods } from '../../mixins/functions';
 export default {
   name: 'EmissionItem',

@@ -7,9 +7,9 @@
 
 <style lang="scss"></style>
 
-<script>
+<script lang="ts">
 // @ is an alias to /src
-import octopusApi from '@saooti/octopus-api';
+const octopusApi = require('@saooti/octopus-api');
 import PodcastList from '../display/podcasts/PodcastList.vue';
 
 export default {

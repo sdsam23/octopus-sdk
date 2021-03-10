@@ -115,10 +115,10 @@
 }
 </style>
 
-<script>
+<script lang="ts">
 import studioApi from '@/api/studio';
 import LiveItem from './LiveItem.vue';
-import octopusApi from '@saooti/octopus-api';
+const octopusApi = require('@saooti/octopus-api');
 const moment = require('moment');
 import { state } from '../../../store/paramStore.js';
 

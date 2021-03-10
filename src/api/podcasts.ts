@@ -1,4 +1,4 @@
-import octopusApi from '@saooti/octopus-api';
+const octopusApi = require('@saooti/octopus-api');
 export default {
   fetchPodcastsAdmin(store, parameters) {
     console.log(store);

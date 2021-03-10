@@ -44,7 +44,7 @@
 }
 </style>
 
-<script>
+<script lang="ts">
 import CommentList from './CommentList.vue';
 import CommentInput from './CommentInput.vue';
 import { cookies } from '../../mixins/functions';

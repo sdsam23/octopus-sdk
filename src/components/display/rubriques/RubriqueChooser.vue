@@ -56,7 +56,7 @@
 </template>
 
 <style lang="scss"></style>
-<script>
+<script lang="ts">
 import { selenium } from '../../mixins/functions';
 import Multiselect from 'vue-multiselect';
 

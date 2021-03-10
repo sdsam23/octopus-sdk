@@ -1,25 +1,25 @@
-import octopusApi from '@saooti/octopus-api';
+const octopusApi = require('@saooti/octopus-api');
 
 var state = {
-  generalParameters: {},
+  generalParameters: {} as any,
   filter: {
-    organisationId: undefined,
-  },
-  podcastPage: {},
-  podcastsPage: {},
-  emissionsPage: {},
-  emissionPage: {},
-  intervenantPage: {},
-  searchPage: {},
-  player: {},
-  footer: {},
-  organisation: {},
-  octopusApi: {},
-  oAuthParam: {},
+    organisationId: undefined as any,
+  } as any,
+  podcastPage: {} as any,
+  podcastsPage: {} as any,
+  emissionsPage: {} as any,
+  emissionPage: {} as any,
+  intervenantPage: {} as any,
+  searchPage: {} as any,
+  player: {} as any,
+  footer: {} as any,
+  organisation: {} as any,
+  octopusApi: {}as any,
+  oAuthParam: {} as any,
 };
 
-var initialize = function initialize(initObject) {
-  return new Promise((resolve, reject) => {
+var initialize = function initialize(initObject: any) {
+  return new Promise<void>((resolve, reject) => {
     if (initObject.generalParameters) {
       let param = initObject.generalParameters;
       state.generalParameters.organisationId =
@@ -49,7 +49,7 @@ var initialize = function initialize(initObject) {
       state.generalParameters.ApiUri =
         'undefined' !== typeof param.ApiUri
           ? param.ApiUri
-          : 'https://api.dev2.saooti.org/';
+          : 'https://api.staging.saooti.org/';
       state.generalParameters.isIE11 =
         'undefined' !== typeof param.isIE11 ? param.isIE11 : false;
       state.generalParameters.podcastmaker =
@@ -78,7 +78,7 @@ var initialize = function initialize(initObject) {
       state.podcastPage.MiniplayerUri =
         'undefined' !== typeof param.MiniplayerUri
           ? param.MiniplayerUri
-          : 'https://player.dev2.saooti.org/';
+          : 'https://player.staging.saooti.org/';
       state.podcastPage.ouestFranceStyle =
         'undefined' !== typeof param.ouestFranceStyle
           ? param.ouestFranceStyle
@@ -92,7 +92,7 @@ var initialize = function initialize(initObject) {
       state.podcastPage.hlsUri =
         'undefined' !== typeof param.hlsUri
           ? param.hlsUri
-          : 'https://hls.dev2.saooti.org/';
+          : 'https://hls.staging.saooti.org/';
     }
     if (initObject.podcastsPage) {
       let param = initObject.podcastsPage;
@@ -195,13 +195,13 @@ var initialize = function initialize(initObject) {
       state.octopusApi.url =
         'undefined' !== typeof param.url
           ? param.url
-          : 'http://api.dev2.saooti.org/';
+          : 'http://api.staging.saooti.org/';
       state.octopusApi.oAuthParam =
         'undefined' !== typeof param.oAuthParam ? param.oAuthParam : undefined;
       state.octopusApi.commentsUrl =
         'undefined' !== typeof param.commentsUrl
           ? param.commentsUrl
-          : 'http://comments.dev2.saooti.org/';
+          : 'http://comments.staging.saooti.org/';
       if (state.generalParameters.podcastmaker) {
         state.octopusApi.organisationId =
           'undefined' !== typeof param.organisationId
@@ -212,7 +212,7 @@ var initialize = function initialize(initObject) {
       if (error) {
         reject();
       } else if (0 === state.generalParameters.allCategories.length) {
-        octopusApi.fetchCategories({ lang: 'fr' }).then(data => {
+        octopusApi.fetchCategories({ lang: 'fr' }).then((data: any) => {
           state.generalParameters.allCategories = data;
           resolve();
         });

@@ -154,10 +154,10 @@
   }
 }
 </style>
-<script>
+<script lang="ts">
 import OrganisationChooserLight from '../display/organisation/OrganisationChooserLight.vue';
 import { state } from '../../store/paramStore.js';
-import octopusApi from '@saooti/octopus-api';
+const octopusApi = require('@saooti/octopus-api');
 
 export default {
   name: 'LeftMenu',

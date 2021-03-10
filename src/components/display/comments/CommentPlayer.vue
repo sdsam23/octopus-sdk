@@ -55,7 +55,7 @@
 }
 </style>
 
-<script>
+<script lang="ts">
 import { selenium } from '../../mixins/functions';
 export default {
   name: 'CommentPlayer',

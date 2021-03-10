@@ -28,8 +28,8 @@
 
 <style lang="scss"></style>
 
-<script>
-import octopusApi from '@saooti/octopus-api';
+<script lang="ts">
+const octopusApi = require('@saooti/octopus-api');
 const moment = require('moment');
 export default {
   name: 'CommentParentInfo',

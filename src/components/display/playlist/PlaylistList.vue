@@ -31,8 +31,8 @@
 
 <style lang="scss"></style>
 
-<script>
-import octopusApi from '@saooti/octopus-api';
+<script lang="ts">
+const octopusApi = require('@saooti/octopus-api');
 import PlaylistItem from './PlaylistItem.vue';
 import { state } from '../../../store/paramStore.js';
 

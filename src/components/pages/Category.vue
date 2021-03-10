@@ -12,7 +12,7 @@
 
 <style lang="scss"></style>
 
-<script>
+<script lang="ts">
 // @ is an alias to /src
 import PodcastList from '../display/podcasts/PodcastList.vue';
 import { state } from '../../store/paramStore.js';

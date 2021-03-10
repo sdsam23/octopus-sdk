@@ -140,7 +140,7 @@
 }
 </style>
 
-<script>
+<script lang="ts">
 import AnimatorsItem from './AnimatorsItem.vue';
 import PodcastImage from './PodcastImage.vue';
 import { state } from '../../../store/paramStore.js';

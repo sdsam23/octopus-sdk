@@ -13,7 +13,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 const getStyle = (baseSize, position) => {
   const c = f => `calc(${f} * ${baseSize})`;
   const { pos, textAlign } = position;

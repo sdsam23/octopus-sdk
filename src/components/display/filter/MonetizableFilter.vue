@@ -20,7 +20,7 @@
   </div>
 </template>
 <style lang="scss"></style>
-<script>
+<script lang="ts">
 export default {
   props: ['isEmission', 'isEducation'],
 

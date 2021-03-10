@@ -15,7 +15,7 @@ Vue.config.productionTip = false;
 
 //Gestion de l'i18n
 Vue.use(VueI18n);
-let messages = I18nResources;
+let messages:any = I18nResources;
 if (store.state.general.education) {
   messages = {
     fr: { ...I18nResources.fr, ...I18nResources.educationfr },

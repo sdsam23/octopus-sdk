@@ -83,7 +83,7 @@
   }
 }
 </style>
-<script>
+<script lang="ts">
 import Snackbar from '../Snackbar.vue';
 import { displayMethods } from '../../mixins/functions';
 export default {

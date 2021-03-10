@@ -40,7 +40,7 @@
 
 <style lang="scss" scoped></style>
 
-<script>
+<script lang="ts">
 import RssSection from '@/components/display/aggregator/RssSection.vue';
 import { displayMethods } from '../../mixins/functions';
 export default {

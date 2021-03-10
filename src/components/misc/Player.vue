@@ -282,12 +282,12 @@
 }
 </style>
 
-<script>
+<script lang="ts">
 import { mapState } from 'vuex';
 import { state } from '../../store/paramStore.js';
 import DurationHelper from '../../helper/duration';
 import CommentPlayer from '../display/comments/CommentPlayer.vue';
-import octopusApi from '@saooti/octopus-api';
+const octopusApi = require('@saooti/octopus-api');
 import Hls from 'hls.js';
 const moment = require('moment');
 //const axios = require("axios");

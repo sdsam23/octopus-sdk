@@ -99,10 +99,10 @@
 
 <style lang="scss"></style>
 
-<script>
+<script lang="ts">
 import { selenium } from '../../mixins/functions';
 import Multiselect from 'vue-multiselect';
-import octopusApi from '@saooti/octopus-api';
+const octopusApi = require('@saooti/octopus-api');
 import { state } from '../../../store/paramStore.js';
 
 const ELEMENTS_COUNT = 50;

@@ -161,7 +161,7 @@
 }
 </style>
 
-<script>
+<script lang="ts">
 import CommentInput from './CommentInput.vue';
 import CommentList from './CommentList.vue';
 import CommentParentInfo from './CommentParentInfo.vue';

@@ -179,9 +179,9 @@
 }
 </style>
 
-<script>
+<script lang="ts">
 import { state } from '../../../store/paramStore.js';
-import octopusApi from '@saooti/octopus-api';
+const octopusApi = require('@saooti/octopus-api');
 import PodcastImage from '../podcasts/PodcastImage.vue';
 import studioApi from '@/api/studio';
 import RecordingItemButton from '@/components/display/studio/RecordingItemButton.vue';

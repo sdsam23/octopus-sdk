@@ -161,7 +161,7 @@
 }
 </style>
 
-<script>
+<script lang="ts">
 import { state } from '../../../store/paramStore.js';
 import ClipboardModal from '../../misc/modal/ClipboardModal.vue';
 import NewsletterModal from '../../misc/modal/NewsletterModal.vue';

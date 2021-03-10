@@ -73,8 +73,8 @@
 }
 </style>
 
-<script>
-import octopusApi from '@saooti/octopus-api';
+<script lang="ts">
+const octopusApi = require('@saooti/octopus-api');
 import domHelper from '../../../helper/dom';
 import EmissionPlayerItem from './EmissionPlayerItem.vue';
 import { state } from '../../../store/paramStore.js';

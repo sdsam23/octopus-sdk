@@ -52,7 +52,7 @@
 </template>
 
 <style lang="scss"></style>
-<script>
+<script lang="ts">
 import Multiselect from 'vue-multiselect';
 import { state } from '../../../store/paramStore.js';
 

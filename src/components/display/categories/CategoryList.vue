@@ -79,8 +79,8 @@
   font-size: 0.5rem;
 }
 </style>
-<script>
-import octopusApi from '@saooti/octopus-api';
+<script lang="ts">
+const octopusApi = require('@saooti/octopus-api');
 import { state } from '../../../store/paramStore.js';
 
 export default {

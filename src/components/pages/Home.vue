@@ -11,7 +11,7 @@
 </template>
 <style lang="scss"></style>
 
-<script>
+<script lang="ts">
 import PodcastInlineList from '../display/podcasts/PodcastInlineList.vue';
 import { state } from '../../store/paramStore.js';
 

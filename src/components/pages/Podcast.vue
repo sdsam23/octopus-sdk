@@ -259,7 +259,7 @@
   }
 }
 </style>
-<script>
+<script lang="ts">
 // @ is an alias to /src
 import RecordingItemButton from '@/components/display/studio/RecordingItemButton.vue';
 import EditBox from '@/components/display/edit/EditBox.vue';
@@ -271,7 +271,7 @@ import CommentSection from '../display/comments/CommentSection.vue';
 import TagList from '../display/podcasts/TagList.vue';
 import SubscribeButtons from '../display/sharing/SubscribeButtons.vue';
 import Countdown from '../display/live/CountDown.vue';
-import octopusApi from '@saooti/octopus-api';
+const octopusApi = require('@saooti/octopus-api');
 import studioApi from '@/api/studio';
 import { state } from '../../store/paramStore.js';
 import ErrorMessage from '../misc/ErrorMessage.vue';

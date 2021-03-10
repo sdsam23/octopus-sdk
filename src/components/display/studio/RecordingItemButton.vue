@@ -4,6 +4,6 @@
 
 <style lang="scss"></style>
 
-<script>
+<script lang="ts">
 export default {};
 </script>

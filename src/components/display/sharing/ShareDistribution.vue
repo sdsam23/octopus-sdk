@@ -160,8 +160,8 @@
   }
 }
 </style>
-<script>
-import octopusApi from '@saooti/octopus-api';
+<script lang="ts">
+const octopusApi = require('@saooti/octopus-api');
 import Snackbar from '../../misc/Snackbar.vue';
 import RssSection from '@/components/display/aggregator/RssSection.vue';
 import { displayMethods } from '../../mixins/functions';

@@ -87,8 +87,8 @@
 }
 </style>
 
-<script>
-import octopusApi from '@saooti/octopus-api';
+<script lang="ts">
+const octopusApi = require('@saooti/octopus-api');
 import emissionApi from '@/api/emissions';
 import EmissionItem from './EmissionItem.vue';
 import EmissionPlayerItem from './EmissionPlayerItem.vue';

@@ -82,7 +82,7 @@
   </div>
 </template>
 <style lang="scss"></style>
-<script>
+<script lang="ts">
 // @ is an alias to /src
 import EditBox from '@/components/display/edit/EditBox.vue';
 import SharePlayer from '../display/sharing/SharePlayer.vue';
@@ -92,7 +92,7 @@ import ShareDistribution from '../display/sharing/ShareDistribution.vue';
 import PodcastFilterList from '../display/podcasts/PodcastFilterList.vue';
 import PodcastList from '../display/podcasts/PodcastList.vue';
 import LiveHorizontalList from '../display/live/LiveHorizontalList.vue';
-import octopusApi from '@saooti/octopus-api';
+const octopusApi = require('@saooti/octopus-api');
 import { state } from '../../store/paramStore.js';
 import { displayMethods } from '../mixins/functions';
 

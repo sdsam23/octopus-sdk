@@ -99,7 +99,7 @@
   }
 }
 </style>
-<script>
+<script lang="ts">
 import Snackbar from '../../misc/Snackbar.vue';
 const moment = require('moment');
 import Swatches from 'vue-swatches';

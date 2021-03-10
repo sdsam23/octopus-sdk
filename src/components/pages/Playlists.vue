@@ -26,7 +26,7 @@
   </div>
 </template>
 <style lang="scss"></style>
-<script>
+<script lang="ts">
 // @ is an alias to /src
 import PlaylistList from '../display/playlist/PlaylistList.vue';
 import ProductorSearch from '../display/filter/ProductorSearch.vue';

@@ -111,11 +111,11 @@
   }
 }
 </style>
-<script>
+<script lang="ts">
 // @ is an alias to /src
 import OrganisationChooser from '../organisation/OrganisationChooser.vue';
 import { state } from '../../../store/paramStore.js';
-import octopusApi from '@saooti/octopus-api';
+const octopusApi = require('@saooti/octopus-api');
 
 export default {
   components: {

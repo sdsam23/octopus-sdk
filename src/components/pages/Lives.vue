@@ -25,7 +25,7 @@
   </div>
 </template>
 <style lang="scss"></style>
-<script>
+<script lang="ts">
 // @ is an alias to /src
 import { state } from '../../store/paramStore.js';
 import LiveList from '../display/live/LiveList.vue';

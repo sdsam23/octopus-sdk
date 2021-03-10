@@ -132,7 +132,7 @@
 }
 </style>
 
-<script>
+<script lang="ts">
 import Player from './Player.vue';
 import { state } from '../../store/paramStore.js';
 

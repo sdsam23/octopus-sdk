@@ -86,10 +86,10 @@
 }
 </style>
 
-<script>
+<script lang="ts">
 import AddCommentModal from './AddCommentModal.vue';
 import MessageModal from '../../misc/modal/MessageModal.vue';
-import octopusApi from '@saooti/octopus-api';
+const octopusApi = require('@saooti/octopus-api');
 import commentApi from '@/api/comments';
 import { cookies } from '../../mixins/functions';
 import { state } from '../../../store/paramStore.js';

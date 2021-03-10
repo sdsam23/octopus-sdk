@@ -47,7 +47,7 @@
 </template>
 
 <style lang="scss"></style>
-<script>
+<script lang="ts">
 import { VueReCaptcha } from 'vue-recaptcha-v3';
 import { state } from '../../../store/paramStore.js';
 import api from '@/api/initialize';

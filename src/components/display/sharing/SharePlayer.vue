@@ -200,7 +200,7 @@
 }
 </style>
 
-<script>
+<script lang="ts">
 import ShareModalPlayer from '../../misc/modal/ShareModalPlayer.vue';
 import PlayerParameters from './PlayerParameters.vue';
 import { state } from '../../../store/paramStore.js';

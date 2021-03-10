@@ -249,11 +249,11 @@
 }
 </style>
 
-<script>
+<script lang="ts">
 import { state } from '../../store/paramStore.js';
 import OrganisationChooserLight from '../display/organisation/OrganisationChooserLight.vue';
 import HomeDropdown from './HomeDropdown.vue';
-import octopusApi from '@saooti/octopus-api';
+const octopusApi = require('@saooti/octopus-api');
 
 export default {
   name: 'TopBar',

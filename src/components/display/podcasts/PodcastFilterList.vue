@@ -69,7 +69,7 @@
 }
 </style>
 
-<script>
+<script lang="ts">
 // @ is an alias to /src
 import CategoryChooser from '../categories/CategoryChooser.vue';
 import PodcastList from './PodcastList.vue';

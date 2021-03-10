@@ -135,7 +135,7 @@
 }
 </style>
 
-<script>
+<script lang="ts">
 import { state } from '../../store/paramStore.js';
 
 export default {

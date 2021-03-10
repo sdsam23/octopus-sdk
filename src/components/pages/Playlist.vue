@@ -44,13 +44,13 @@
   </div>
 </template>
 <style lang="scss"></style>
-<script>
+<script lang="ts">
 // @ is an alias to /src
 import EditBox from '@/components/display/edit/EditBox.vue';
 import ShareButtons from '../display/sharing/ShareButtons.vue';
 import SharePlayer from '../display/sharing/SharePlayer.vue';
 import PodcastList from '../display/playlist/PodcastList.vue';
-import octopusApi from '@saooti/octopus-api';
+const octopusApi = require('@saooti/octopus-api');
 import { state } from '../../store/paramStore.js';
 import { displayMethods } from '../mixins/functions';
 

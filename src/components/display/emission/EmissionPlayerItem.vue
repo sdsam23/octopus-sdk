@@ -164,8 +164,8 @@
 }
 </style>
 
-<script>
-import octopusApi from '@saooti/octopus-api';
+<script lang="ts">
+const octopusApi = require('@saooti/octopus-api');
 import { state } from '../../../store/paramStore.js';
 import { displayMethods } from '../../mixins/functions';
 export default {
