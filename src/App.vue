@@ -29,16 +29,16 @@ export default Vue.extend({
   },
   data() {
     return {
-      displayMenu: false,
+      displayMenu: false as boolean,
     };
   },
   async created() {
-    let captcha:any = document.getElementsByClassName('grecaptcha-badge')[0];
+    let captcha = (document.getElementsByClassName('grecaptcha-badge')[0] as HTMLElement);
     if (captcha) {
       captcha.style.display = 'none';
     }
-    let orgaId :any = '';
-    if (this.$route.query.productor) {
+    let orgaId : string = '';
+    if (this.$route.query.productor && 'string'===typeof this.$route.query.productor) {
       orgaId = this.$route.query.productor;
     } else {
       orgaId = state.generalParameters.authenticated;

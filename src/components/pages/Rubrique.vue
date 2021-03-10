@@ -1,7 +1,7 @@
 <template>
   <div class="page-box">
     <h1>{{ title }}</h1>
-    <PodcastList :first="first" :size="size" :rubriqueId="rubriqueId" />
+    <PodcastList :first="firstRoute" :size="sizeRoute" :rubriqueId="rubriqueId" />
   </div>
 </template>
 
@@ -18,17 +18,19 @@ export default Vue.extend({
     PodcastList,
   },
 
-  props: ['first', 'size', 'rubriqueId'],
+  props: ['firstRoute', 'sizeRoute', 'rubriqueId'],
+
+  data() {
+    return {
+      title: '' as string,
+    };
+  },
 
   mounted() {
     this.extractTitle();
   },
 
-  data() {
-    return {
-      title: '',
-    };
-  },
+  
   computed: {},
   methods: {
     async extractTitle() {

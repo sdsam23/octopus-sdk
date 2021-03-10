@@ -10,13 +10,13 @@ export const selenium = Vue.extend({
 export const cookies = Vue.extend(
 {
   methods: {
-    setCookie(name: any, value: any) {
+    setCookie(name: string, value: string) {
       var date = new Date();
       date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
       var expires = '; expires=' + date.toUTCString();
       document.cookie = name + '=' + (value || '') + expires + '; path=/';
     },
-    getCookie(name: any) {
+    getCookie(name: string) {
       var nameEQ = name + '=';
       var ca = document.cookie.split(';');
       for (var i = 0; i < ca.length; i++) {

@@ -144,19 +144,19 @@ export default Vue.extend({
   },
 
   computed: {
-    isPodcastmaker() {
+    isPodcastmaker():boolean {
       return state.generalParameters.podcastmaker;
     },
-    isBarTop() {
+    isBarTop():boolean {
       return state.player.barTop;
     },
-    isContactLink() {
+    isContactLink():string {
       return state.footer.contactLink;
     },
   },
 
   methods: {
-    showBlackBorder(hide: any) {
+    showBlackBorder(hide: boolean) {
       if (hide) {
         document.getElementById('footer')!.classList.remove('border-round');
       } else if (!this.isBarTop) {

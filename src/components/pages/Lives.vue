@@ -32,6 +32,7 @@ import LiveList from '../display/live/LiveList.vue';
 import OrganisationChooser from '../display/organisation/OrganisationChooser.vue';
 
 import Vue from 'vue';
+import { Organisation } from '@/store/class/organisation';
 export default Vue.extend({
   components: {
     LiveList,
@@ -40,10 +41,16 @@ export default Vue.extend({
   props: {
     conferenceWatched: { default: [] },
     organisationId: { default: undefined as any },
+    productor:{default:undefined as string|undefined}
+  },
+  data() {
+    return {
+      live: true as boolean,
+    };
   },
   created() {
-    if (this.$route.query.productor) {
-      this.$emit('update:organisationId',this.$route.query.productor);
+    if (this.productor) {
+      this.$emit('update:organisationId',this.productor);
     } else if (this.$store.state.filter.organisationId) {
       this.$emit('update:organisationId',this.$store.state.filter.organisationId);
     }
@@ -55,20 +62,16 @@ export default Vue.extend({
       this.live = false;
     }
   },
-  data() {
-    return {
-      live: true,
-    };
-  },
+  
   computed: {
-    liveRight() {
+    liveRight():boolean {
       if (this.isRoleLive && this.live) return true;
       return false;
     },
-    isRoleLive() {
+    isRoleLive():boolean {
       return state.generalParameters.isRoleLive;
     },
-    filterOrga():any {
+    filterOrga():string {
       return this.$store.state.filter.organisationId;
     },
   },
@@ -76,7 +79,7 @@ export default Vue.extend({
     initConferenceIds(listIds: any) {
       this.$emit('initConferenceIds', listIds);
     },
-    onOrganisationSelected(organisation: any) {
+    onOrganisationSelected(organisation: Organisation|undefined) {
       if (organisation && organisation.id) {
         this.$emit('update:organisationId', organisation.id);
       } else {

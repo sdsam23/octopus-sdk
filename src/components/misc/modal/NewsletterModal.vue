@@ -106,6 +106,7 @@ const moment = require('moment');
 import Swatches from 'vue-swatches';
 const humanizeDuration = require('humanize-duration');
 import { displayMethods } from '../../mixins/functions';
+import { Participant } from '@/store/class/participant';
 export default displayMethods.extend({
   name: 'NewsletterModal',
 
@@ -116,22 +117,20 @@ export default displayMethods.extend({
     Swatches,
   },
 
+  data() {
+    return {
+      displayParticipantsNames: true as boolean,
+      displayEmissionName: true as boolean,
+      color: '#40a372' as string,
+      dummyParam: new Date().getTime().toString() as string,
+    };
+  },
+
   mounted() {
     this.$bvModal.show('newsletter-modal');
   },
-
-  data() {
-    return {
-      displayParticipantsNames: true,
-      displayEmissionName: true,
-      color: '#40a372',
-      dummyParam: new Date().getTime().toString(),
-    };
-  },
+ 
   computed: {
-    snackbarRef():any {
-      return this.$refs.snackbar;
-    },
     emissionName():string {
       if (this.displayEmissionName)
         return (
@@ -141,7 +140,7 @@ export default displayMethods.extend({
         );
       return '';
     },
-    participantsName() {
+    participantsName():string {
       if (!this.displayParticipantsNames || !this.podcast.animators) return '';
       let text = [''];
       this.podcast.animators.forEach((element:any) => {
@@ -269,17 +268,17 @@ export default displayMethods.extend({
       event.preventDefault();
       this.$emit('close');
     },
-    getName(person:any) {
+    getName(person:Participant) {
       const first = person.firstName || '';
       const last = person.lastName || '';
       return (first + ' ' + last).trim();
     },
-    selectAll(element: any) {
-      element.target.focus();
-      element.target.select();
+    selectAll(element: Event) {
+      (element.target! as HTMLInputElement).focus();
+      (element.target! as HTMLInputElement).select();
     },
     afterCopy(){
-      this.snackbarRef.open(this.$t('Data in clipboard'));
+      (this.$refs.snackbar as any).open(this.$t('Data in clipboard'));
     }
   },
 });

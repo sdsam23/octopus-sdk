@@ -149,30 +149,30 @@ export default Vue.extend({
   },
 
   computed: {
-    isPodcastmaker() {
+    isPodcastmaker():boolean {
       return state.generalParameters.podcastmaker;
     },
     authenticated():boolean {
       return this.$store.state.authentication.isAuthenticated;
     },
-    isOrganisation() {
+    isOrganisation():boolean {
       return state.generalParameters.isOrganisation;
     },
-    isContribution() {
+    isContribution():boolean {
       return state.generalParameters.isContribution;
     },
   },
 
 
   methods: {
-    displayMenuPhone(hidden: any) {
+    displayMenuPhone(hidden: boolean) {
       if (hidden) {
         (this.$refs.menu as HTMLElement).className='menu hid';
       } else {
         (this.$refs.menu as HTMLElement).className='menu';
       }
     },
-    goToUrl(url: any) {
+    goToUrl(url: string) {
       if (this.authenticated) {
         this.$router.push(url);
       }

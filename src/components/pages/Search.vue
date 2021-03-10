@@ -67,27 +67,30 @@ export default Vue.extend({
   components: {
     PodcastList,
   },
+  props:['query'],
+  
+  data() {
+    return {
+      rawQuery: '' as string,
+      noResult: false as boolean,
+    };
+  },
 
   mounted() {
-    if (this.$route.query.query) {
-      this.rawQuery = this.$route.query.query;
+    if (this.query) {
+      this.rawQuery = this.query;
     }
     if (this.$refs.search) {
       (this.$refs.search as HTMLElement).focus();
     }
   },
-  data() {
-    return {
-      rawQuery: '' as any,
-      noResult: false,
-    };
-  },
+  
   computed: {
     query():string {
       if (this.rawQuery && this.rawQuery.length >= 3) return this.rawQuery;
       return '';
     },
-    hideBar():any {
+    hideBar():boolean {
       return state.searchPage.hideBar;
     },
   },
@@ -104,7 +107,7 @@ export default Vue.extend({
     },
   },
   watch: {
-    '$route.query.query': {
+    query: {
         handler(search:any) {
           this.rawQuery = search;
         },

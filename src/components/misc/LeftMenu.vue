@@ -169,17 +169,19 @@ export default Vue.extend({
 
   props: ['displayMenu', 'isEducation'],
 
+  data() {
+    return {
+      organisationId: undefined as string|undefined,
+      reset: false as boolean,
+    };
+  },
+
   mounted() {
     if (this.filterOrga) {
       this.organisationId = this.filterOrga;
     }
   },
-  data() {
-    return {
-      organisationId: undefined as any,
-      reset: false,
-    };
-  },
+  
   methods: {
     onMenuClick() {
       this.$emit('update:displayMenu', false);

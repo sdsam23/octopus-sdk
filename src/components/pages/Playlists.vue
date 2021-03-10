@@ -38,46 +38,45 @@ export default Vue.extend({
     ProductorSearch,
     PlaylistList,
   },
+  props: ['firstRoute', 'sizeRoute', 'productor'],
+
+  data() {
+    return {
+      first: 0 as number,
+      size: 12 as number,
+      searchPattern: '' as string,
+      organisationId: undefined as string | undefined,
+    };
+  },
 
   created() {
-    if (this.$route.query.first) {
-      this.first = this.$route.query.first;
-    } else {
-      this.first = 0;
+    if (this.firstRoute) {
+      this.first = this.firstRoute;
     }
-    if (this.$route.query.size) {
-      this.size = this.$route.query.size;
-    } else {
-      this.size = 12;
+    if (this.sizeRoute) {
+      this.size = this.sizeRoute;
     }
-    if (this.$route.query.productor) {
-      this.organisationId = this.$route.query.productor;
+    if (this.productor) {
+      this.organisationId = this.productor;
     } else if (this.$store.state.filter.organisationId) {
       this.organisationId = this.$store.state.filter.organisationId;
     }
   },
-  data() {
-    return {
-      first: undefined as any,
-      size: undefined as any,
-      searchPattern: '',
-      organisationId: undefined as any,
-    };
-  },
+  
   computed: {
-    isProductorSearch() {
+    isProductorSearch():boolean {
       return state.podcastsPage.ProductorSearch;
     },
-    isPodcastmaker() {
+    isPodcastmaker():boolean {
       return state.generalParameters.podcastmaker;
     },
-    editRight() {
+    editRight():boolean {
       if (state.generalParameters.isPlaylist) return true;
       return false;
     },
   },
   methods: {
-    updateOrganisationId(value: any) {
+    updateOrganisationId(value: string) {
       this.organisationId = value;
     },
     updateSearchPattern(value: string) {

@@ -52,14 +52,14 @@ export default displayMethods.extend({
 
   props: ['title', 'active', 'closable', 'validatetext', 'link', 'emission'],
 
-  created() {
-    this.rss = this.link;
-  },
-
   data() {
     return {
-      rss: '',
+      rss: '' as string,
     };
+  },
+
+  created() {
+    this.rss = this.link;
   },
 
   methods: {

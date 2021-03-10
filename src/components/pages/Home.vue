@@ -24,10 +24,10 @@ export default Vue.extend({
   },
   mounted() {},
   computed: {
-    isPodcastmaker() {
+    isPodcastmaker():boolean {
       return state.generalParameters.podcastmaker;
     },
-    categories() {
+    categories():any {
       return state.generalParameters.allCategories.filter((c:any) => {
         if (this.isPodcastmaker) return c.podcastOrganisationCount;
         return c.podcastCount;

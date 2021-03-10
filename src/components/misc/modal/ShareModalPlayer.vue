@@ -13,14 +13,14 @@
             <p>{{ embedLink }}</p>
             <div
               class="saooti-copy"
-              @click="onCopyCode(embedLink, snackbarRef)"
+              @click="onCopyCode(embedLink, afterCopy)"
             ></div>
           </b-tab>
           <b-tab :title="$t('Embedly link')" class="tab-pane">
             <p>{{ embedlyLink }}</p>
             <div
               class="saooti-copy"
-              @click="onCopyCode(embedlyLink, snackbarRef)"
+              @click="onCopyCode(embedlyLink, afterCopy)"
             ></div>
           </b-tab>
           <b-tab :title="$t('Direct link')" class="tab-pane" v-if="directLink">
@@ -98,17 +98,14 @@ export default displayMethods.extend({
   mounted() {
     this.$bvModal.show('share-modal');
   },
-  computed: {
-    snackbarRef() {
-      return this.$refs.snackbar;
-    },
-  },
-
   methods: {
     closePopup(event: { preventDefault: () => void; }) {
       event.preventDefault();
       this.$emit('close');
     },
+    afterCopy(){
+      (this.$refs.snackbar as any).open(this.$t('Data in clipboard'));
+    }
   },
 });
 </script>

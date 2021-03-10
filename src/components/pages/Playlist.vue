@@ -53,7 +53,7 @@ import PodcastList from '../display/playlist/PodcastList.vue';
 const octopusApi = require('@saooti/octopus-api');
 import { state } from '../../store/paramStore';
 import { displayMethods } from '../mixins/functions';
-
+import { Playlist } from '@/store/class/playlist';
 export default displayMethods.extend({
   components: {
     ShareButtons,
@@ -63,32 +63,33 @@ export default displayMethods.extend({
   },
   props: ['playlistId', 'isEducation'],
 
+  data() {
+    return {
+      loaded: false as boolean,
+      playlist: undefined as Playlist | undefined,
+      error: false as boolean,
+      isReady: true as boolean,
+    };
+  },
+
   mounted() {
     this.getPlaylistDetails();
   },
   
-  data() {
-    return {
-      loaded: false,
-      playlist: undefined as any,
-      error: false,
-      isReady: true,
-    };
-  },
   computed: {
-    organisationId() {
+    organisationId():string {
       return state.generalParameters.organisationId;
     },
     authenticated():boolean {
       return state.generalParameters.authenticated;
     },
-    isEditBox() {
+    isEditBox():boolean {
       return state.podcastPage.EditBox;
     },
-    isShareButtons() {
+    isShareButtons():boolean {
       return state.podcastPage.ShareButtons;
     },
-    isSharePlayer() {
+    isSharePlayer():boolean {
       return state.podcastPage.SharePlayer;
     },
     name():string {
@@ -101,10 +102,10 @@ export default displayMethods.extend({
     description():string {
       return this.playlist ? this.playlist.description : '';
     },
-    editRight() {
+    editRight():boolean {
       if (
         (state.generalParameters.isPlaylist &&
-          this.organisationId === this.playlist.organisation.id) ||
+          this.organisationId === this.playlist!.organisation.id) ||
         state.generalParameters.isAdmin
       )
         return true;
@@ -123,7 +124,7 @@ export default displayMethods.extend({
       try {
         const data = await octopusApi.fetchPlaylist(this.playlistId);
         this.playlist = data;
-        this.$emit('playlistTitle', this.playlist.title);
+        this.$emit('playlistTitle', this.playlist!.title);
         this.loaded = true;
       } catch {
         this.error = true;

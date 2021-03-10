@@ -70,6 +70,7 @@ import AdvancedSearch from '../display/filter/AdvancedSearch.vue';
 import EmissionChooser from '../display/emission/EmissionChooser.vue';
 
 import Vue from 'vue';
+import { Emission } from '@/store/class/emission';
 export default Vue.extend({
   components: {
     PodcastList,
@@ -78,21 +79,37 @@ export default Vue.extend({
     AdvancedSearch,
   },
 
-  props: ['isEducation'],
+  props: ['isEducation', 'firstRoute', 'sizeRoute', 'productor'],
 
-    created() {
-    if (this.$route.query.first) {
-      this.first = this.$route.query.first;
-    } else {
-      this.first = 0;
+  data() {
+    return {
+      first: 0 as number,
+      size: 49 as number,
+      searchPattern: '' as string,
+      organisationId: undefined as string|undefined,
+      monetization: 'UNDEFINED' as string, // UNDEFINED, YES, NO
+      rubriquageId: undefined as number|undefined,
+      rubriqueId: undefined as number|undefined,
+      emissionId: undefined as number|undefined,
+      fromDate: undefined as string|undefined,
+      toDate: undefined as string|undefined,
+      resetRubriquage: false as boolean,
+      includeHidden: false as boolean,
+      noRubrique: undefined as boolean|undefined,
+      sortCriteria: 'DATE' as string, // SCORE, DATE, POPULARITY, NAME, LAST_PODCAST_DESC
+      notValid: false as boolean,
+    };
+  },
+
+  created() {
+    if (this.firstRoute) {
+      this.first = this.firstRoute;
     }
-    if (this.$route.query.size) {
-      this.size = this.$route.query.size;
-    } else {
-      this.size = 49;
+    if (this.sizeRoute) {
+      this.size = this.sizeRoute;
     }
-    if (this.$route.query.productor) {
-      this.organisationId = this.$route.query.productor;
+    if (this.productor) {
+      this.organisationId = this.productor;
     } else if (this.$store.state.filter.organisationId) {
       this.organisationId = this.$store.state.filter.organisationId;
     }
@@ -100,33 +117,15 @@ export default Vue.extend({
       this.includeHidden = true;
     }
   },
-  data() {
-    return {
-      first: undefined as any,
-      size: undefined as any,
-      searchPattern: '',
-      organisationId: undefined as any,
-      monetization: undefined as any,
-      rubriquageId: undefined as any,
-      rubriqueId: undefined as any,
-      emissionId: undefined as any,
-      fromDate: undefined as any,
-      toDate: undefined as any,
-      resetRubriquage: false,
-      includeHidden: false,
-      noRubrique: undefined as any,
-      sortCriteria: 'DATE',
-      notValid: false,
-    };
-  },
+  
   computed: {
     authenticated():boolean {
       return state.generalParameters.authenticated;
     },
-    myOrganisationId() {
+    myOrganisationId():string {
       return state.generalParameters.organisationId;
     },
-    organisationRight() {
+    organisationRight():boolean {
       if (
         (this.authenticated && this.myOrganisationId === this.organisationId) ||
         state.generalParameters.isAdmin
@@ -134,21 +133,21 @@ export default Vue.extend({
         return true;
       return false;
     },
-    filterOrga():any {
+    filterOrga():string|undefined {
       return this.$store.state.filter.organisationId;
     },
-    organisation():any {
+    organisation():string|undefined {
       if (this.organisationId) return this.organisationId;
       if (this.filterOrga) return this.filterOrga;
       return undefined;
     },
-    isProductorSearch() {
+    isProductorSearch():boolean {
       return state.podcastsPage.ProductorSearch;
     },
-    titlePage() {
+    titlePage():string|undefined {
       return state.podcastsPage.titlePage;
     },
-    isEmissionChooser() {
+    isEmissionChooser():boolean {
       return state.podcastsPage.emissionChooser;
     },
   },
@@ -159,10 +158,10 @@ export default Vue.extend({
     updateHidden(value: boolean) {
       this.includeHidden = value;
     },
-    updateToDate(value: any) {
+    updateToDate(value: string) {
       this.toDate = value;
     },
-    updateFromDate(value: any) {
+    updateFromDate(value: string) {
       this.fromDate = value;
     },
     updateRubriquage(value: number) {
@@ -186,7 +185,7 @@ export default Vue.extend({
         this.noRubrique = undefined;
       }
     },
-    updateOrganisationId(value: any) {
+    updateOrganisationId(value: string) {
       this.resetRubriquage = !this.resetRubriquage;
       this.rubriquageId = undefined;
       this.rubriqueId = undefined;
@@ -201,13 +200,13 @@ export default Vue.extend({
       }
       this.searchPattern = value;
     },
-    updateMonetization(value: any) {
+    updateMonetization(value: string) {
       this.monetization = value;
     },
     updateNotValid(value: boolean) {
       this.notValid = value;
     },
-    emissionSelected(emission: { emissionId: any; }) {
+    emissionSelected(emission: Emission) {
       if (emission && emission.emissionId) {
         this.emissionId = emission.emissionId;
       } else {

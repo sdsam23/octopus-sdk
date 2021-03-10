@@ -1,85 +1,31 @@
-export interface Emission{
-    emissionId: number|undefined,
-    name: string | undefined,
-    description: string | undefined,
-    imageUrl: string | undefined,
-    iabIds: any,
-    orga: Organisation,
-    rubriqueIds: any,
-    monetisable: string,
-    annotations?:any
-}
-export interface Organisation {
-    id: string | undefined,
-    name?: string | undefined,
-    imageUrl?: string | undefined,
-    description?: string | undefined,
-    monetisable?: string | undefined,
-    location?: any,
-    comments?: string | undefined,
-    attributes?: any,
-    SOUNDCAST_IDENTIFIER?: string | undefined,
-    SEPA?: string | undefined,
-    SIRET?: string | undefined,
-}
-export interface Podcast{
-    podcastId:number,
-    audioUrl: string | undefined,
-    imageUrl: string | undefined,
-    animators: any,
-    guests: any,
-    emission: Emission,
-    title: string | undefined,
-    description: string |undefined,
-    tags: any,
-    availability: any,
-    email: string | undefined,
-    processorId: string | undefined,
-    monetisable: string,
-    comments: string,
-    organisation: Organisation,
-    saveOrganisationRubriquage: any,
-    pubDate: string | undefined,
-    conferenceId: number,
-    duration: number,
-    annotations: any,
-    createdAt?: any,
-    rubriqueIds?:any,
-}
+import { Emission } from "./class/emission"
+import { Media } from "./class/media"
+import { Organisation } from "./class/organisation"
+import { Player } from "./class/player"
+import { Podcast } from "./class/podcast"
+
 export function emptyPodcastData(): Podcast{
     return {
         podcastId:0,
         audioUrl: undefined as any,
+        audioStorageUrl: undefined as any,
         imageUrl: undefined as any,
         animators: [] as any,
         guests: [] as any,
-        emission: {
-        emissionId: undefined as any,
-        name: undefined as any,
-        description: undefined as any,
-        imageUrl: undefined as any,
-        iabIds: undefined as any,
-        orga: {
-            id: undefined as any,
-        },
-        rubriqueIds: [] as any,
-        monetisable: 'UNDEFINED',
-        },
+        emission: emptyEmissionData(),
         title: undefined as any,
         description: undefined as any,
         tags: [] as any,
         availability: {
-        visibility: true,
-        date: undefined as any,
+          visibility: true,
+          date: undefined as any,
         },
-        email: undefined as any,
-        processorId: undefined as any,
         monetisable: 'UNDEFINED',
         comments: 'inherit',
         organisation: {
-            id: undefined as any,
+          id: '' as any,
+          name: ''
         },
-        saveOrganisationRubriquage: undefined as any,
         pubDate: undefined as any,
         conferenceId: 0,
         duration: 0,
@@ -95,27 +41,18 @@ export function emptyPodcastData(): Podcast{
         imageUrl: undefined as any,
         iabIds: undefined as any,
         orga: {
-        id: undefined as any,
+          id: '' as any,
+          name: ''
         },
         rubriqueIds: [] as any,
         monetisable: 'UNDEFINED',
     }
   }
+
   export interface General {
     metaTitle: string,
     education: Boolean,
     logoUrl: string,
-  }
-
-  export interface Player{
-    status: string, //STOPPED, LOADING, PLAYING, PAUSED
-    podcast: any,
-    volume?: number, //From 0 to 1
-    elapsed?: number, //From 0 to 1
-    total?: number,
-    media: any,
-    live: any,
-    stop?: any,
   }
 
   export interface Authentication{
@@ -124,15 +61,6 @@ export function emptyPodcastData(): Podcast{
     organisationId: string | undefined,
     organisationName: string | undefined,
     role: Array<string>,
-  }
-  export interface Media{
-    file: any,
-    organisationId: string | undefined,
-    titre: string | undefined,
-    annee: string | undefined,
-    type: string | undefined,
-    artiste: string | undefined,
-    album: string | undefined,
   }
 
   export interface Filter{
@@ -318,13 +246,9 @@ export function emptyPodcastData(): Podcast{
             expiration:undefined
           },
           media: {
-            file: undefined as any,
-            organisationId: undefined as any,
-            titre: undefined as any,
-            annee: undefined as any,
-            type: undefined as any,
-            artiste: undefined as any,
-            album: undefined as any,
+            mediaId: 0,
+            organisationId: '',
+            title: '',
           },
       
           profile: {
@@ -338,7 +262,7 @@ export function emptyPodcastData(): Podcast{
           },
       
           organisation: {
-              id:undefined,
+            id:'',
             name: undefined as any,
             imageUrl: undefined as any,
             description: undefined as any,
@@ -348,9 +272,6 @@ export function emptyPodcastData(): Podcast{
             attributes: {
               RSS_CONTACT: undefined as any,
             },
-            SOUNDCAST_IDENTIFIER: undefined as any,
-            SEPA: undefined as any,
-            SIRET: undefined as any,
           },
       
           categories: [] as any,

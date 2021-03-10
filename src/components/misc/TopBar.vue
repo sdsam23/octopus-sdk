@@ -23,7 +23,7 @@
             :src="logoUrl"
             :alt="$t('Logo of main page')"
             :class="isEducation ? 'educationLogo' : ''"
-            v-if="!filterOrga || undefined === imgUrl"
+            v-if="!filterOrga || '' === imgUrl"
           />
           <img :src="imgUrl" :alt="$t('Logo of main page')" v-else />
         </div>
@@ -256,12 +256,27 @@ import HomeDropdown from './HomeDropdown.vue';
 const octopusApi = require('@saooti/octopus-api');
 
 import Vue from 'vue';
+import { Organisation } from '@/store/class/organisation';
 export default Vue.extend({
   name: 'TopBar',
 
   components: {
     OrganisationChooserLight,
     HomeDropdown,
+  },
+
+  props: ['displayMenu', 'isEducation'],
+
+  data() {
+    return {
+      scrolled: false as boolean,
+      oldScrollY: 0 as number,
+      minScroll: 0 as number,
+      organisationId: undefined as string | undefined,
+      reset: false as boolean,
+      init: false as boolean,
+      dummyParam: new Date().getTime().toString() as string,
+    };
   },
 
   mounted() {
@@ -271,47 +286,36 @@ export default Vue.extend({
     this.init = true;
     window.addEventListener('scroll', this.handleScroll);
   },
+
   beforeDestroy() {
     window.removeEventListener('scroll', this.handleScroll);
   },
 
-  props: ['displayMenu', 'isEducation'],
-
-  data() {
-    return {
-      scrolled: false,
-      oldScrollY: 0,
-      minScroll: 0,
-      organisationId: undefined as any,
-      reset: false,
-      init: false,
-      dummyParam: new Date().getTime().toString(),
-    };
-  },
+ 
   computed: {
-    logoUrl() {
+    logoUrl():string {
       if (this.isEducation) return '/img/logo_education.png';
       return '/img/logo_octopus_final.svg';
     },
-    isPodcastmaker() {
+    isPodcastmaker():boolean {
       return state.generalParameters.podcastmaker;
     },
-    isLiveTab() {
+    isLiveTab():boolean {
       return state.generalParameters.isLiveTab;
     },
-    filterOrga():any {
+    filterOrga():string {
       return this.$store.state.filter.organisationId;
     },
-    filterOrgaLive():any {
+    filterOrgaLive():string {
       return this.$store.state.filter.live;
     },
-    imgUrl():any {
+    imgUrl():string {
       if (
         this.$store.state.filter.imgUrl &&
         !this.$store.state.filter.imgUrl.includes('emptypodcast')
       )
         return this.$store.state.filter.imgUrl + '?dummy=' + this.dummyParam;
-      return undefined;
+      return '';
     },
   },
   methods: {
@@ -346,7 +350,7 @@ export default Vue.extend({
         this.$emit('update:displayMenu', !this.displayMenu);
       }
     },
-    async onOrganisationSelected(organisation: any) {
+    async onOrganisationSelected(organisation: Organisation | undefined) {
       if (organisation && organisation.id) {
         if (this.$route.query.productor !== organisation.id) {
           this.$router.push({ query: { productor: organisation.id } });

@@ -2,8 +2,8 @@
   <div class="page-box">
     <h1>{{ title }}</h1>
     <PodcastList
-      :first="first"
-      :size="size"
+      :first="firstRoute"
+      :size="sizeRoute"
       :iabId="iabId"
       :organisationId="filterOrga"
     />
@@ -23,36 +23,36 @@ export default Vue.extend({
     PodcastList,
   },
 
-  props: ['first', 'size', 'iabId'],
-
-  mounted() {
-    this.extractTitle(this.iabId);
-  },
+  props: ['firstRoute', 'sizeRoute', 'iabId'],
 
   data() {
     return {
-      title: '',
+      title: '' as string,
     };
   },
 
+  mounted() {
+    this.extractTitle();
+  },
+
   computed: {
-    categories() {
+    categories():any {
       return state.generalParameters.allCategories;
     },
-    filterOrga():any {
+    filterOrga():string {
       return this.$store.state.filter.organisationId;
     },
   },
   methods: {
-    extractTitle(iabId: any) {
-      const matchCategories = this.categories.filter((c: any) => c.id === iabId);
+    extractTitle() {
+      const matchCategories = this.categories.filter((c: any) => c.id === this.iabId);
       if (1 !== matchCategories.length) return '';
       this.title = matchCategories[0]['name'];
     },
   },
   watch: {
-    iabId(val) {
-      this.extractTitle(val);
+    iabId() {
+      this.extractTitle();
     },
   },
 });

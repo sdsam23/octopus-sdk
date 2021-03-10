@@ -95,6 +95,7 @@ import LiveHorizontalList from '../display/live/LiveHorizontalList.vue';
 const octopusApi = require('@saooti/octopus-api');
 import { state } from '../../store/paramStore';
 import { displayMethods } from '../mixins/functions';
+import { Emission } from '@/store/class/emission';
 
 export default displayMethods.extend({
   components: {
@@ -107,54 +108,53 @@ export default displayMethods.extend({
     SubscribeButtons,
     LiveHorizontalList,
   },
-
-  mounted() {
-    this.getEmissionDetails(this.emissionId);
-  },
-
   props: ['emissionId', 'isEducation'],
 
-  
   data() {
     return {
-      loaded: false,
-      title: '',
-      emission: undefined as any,
-      error: false,
-      rssEmission: false,
-      exclusive: false,
-      notExclusive: false,
-      isReady: true,
-      dummyParam: new Date().getTime().toString(),
-      fetchLive: true,
+      loaded: false as boolean,
+      title: '' as string,
+      emission: undefined as Emission | undefined,
+      error: false as boolean,
+      rssEmission: false as boolean,
+      exclusive: false as boolean,
+      notExclusive: false as boolean,
+      isReady: true as boolean,
+      dummyParam: new Date().getTime().toString() as string,
+      fetchLive: true as boolean,
     };
   },
+
+  mounted() {
+    this.getEmissionDetails();
+  },
+  
   computed: {
-    organisationId() {
+    organisationId():string {
       return state.generalParameters.organisationId;
     },
     authenticated():boolean {
       return state.generalParameters.authenticated;
     },
-    isEditBox() {
+    isEditBox():boolean {
       return state.podcastPage.EditBox;
     },
-    isShareButtons() {
+    isShareButtons():boolean {
       return state.podcastPage.ShareButtons;
     },
-    isSharePlayer() {
+    isSharePlayer():boolean {
       return state.podcastPage.SharePlayer;
     },
-    isShareDistribution() {
+    isShareDistribution():boolean {
       return state.podcastPage.ShareDistribution;
     },
-    isOuestFrance() {
+    isOuestFrance():boolean {
       return state.emissionPage.ouestFranceStyle;
     },
-    isRssButton() {
+    isRssButton():boolean {
       return state.emissionPage.rssButton;
     },
-    isPodcastmaker() {
+    isPodcastmaker():boolean {
       return state.generalParameters.podcastmaker;
     },
     rssUrl():string {
@@ -171,15 +171,15 @@ export default displayMethods.extend({
     description():string {
       return this.emission ? this.emission.description : '';
     },
-    editRight() {
+    editRight():boolean {
       if (
-        (this.authenticated && this.organisationId === this.emission.orga.id) ||
+        (this.authenticated && this.organisationId === this.emission!.orga.id) ||
         state.generalParameters.isAdmin
       )
         return true;
       return false;
     },
-    countLink() {
+    countLink():number {
       let count = 0;
       if (this.emission && this.emission.annotations) {
         if (undefined !== this.emission.annotations.applePodcast) count++;
@@ -193,32 +193,32 @@ export default displayMethods.extend({
     },
   },
   watch: {
-    emissionId(val) {
+    emissionId() {
       this.loaded = false;
       this.error = false;
-      this.getEmissionDetails(val);
+      this.getEmissionDetails();
     },
   },
   methods: {
-    async getEmissionDetails(emissionId:number) {
+    async getEmissionDetails() {
       try {
-        const data = await octopusApi.fetchEmission(emissionId);
+        const data = await octopusApi.fetchEmission(this.emissionId);
         this.emission = data;
         this.$emit('emissionTitle', this.name);
         this.loaded = true;
-        if (!this.emission.annotations) return;
-        if (this.emission.annotations.RSS) {
+        if (!this.emission!.annotations) return;
+        if (this.emission!.annotations.RSS) {
           this.rssEmission = true;
         }
-        if (this.emission.annotations.exclusive) {
+        if (this.emission!.annotations.exclusive) {
           this.exclusive =
-            'true' === this.emission.annotations.exclusive ? true : false;
+            'true' === this.emission!.annotations.exclusive ? true : false;
           this.exclusive =
-            this.exclusive && this.organisationId !== this.emission.orga.id;
+            this.exclusive && this.organisationId !== this.emission!.orga.id;
         }
-        if (this.emission.annotations.notExclusive) {
+        if (this.emission!.annotations.notExclusive) {
           this.notExclusive =
-            'true' === this.emission.annotations.notExclusive ? true : false;
+            'true' === this.emission!.annotations.notExclusive ? true : false;
         }
       } catch {
         this.error = true;

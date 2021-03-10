@@ -75,8 +75,8 @@ const routes:any = [
       name: 'emission',
       component: EmissionPage,
       props: (route:any) => ({
-        first: parseInt(route.query.first, 10) || 0,
-        size: parseInt(route.query.size, 10) || 12,
+        firstRoute: parseInt(route.query.first, 10) || 0,
+        sizeRoute: parseInt(route.query.size, 10) || 12,
         emissionId: parseInt(route.params.emissionId, 10),
         productor: route.params.productor,
       }),
@@ -95,8 +95,8 @@ const routes:any = [
       name: 'participant',
       component: ParticipantPage,
       props: (route:any) => ({
-        first: parseInt(route.query.first, 10) || 0,
-        size: parseInt(route.query.size, 10) || 12,
+        firstRoute: parseInt(route.query.first, 10) || 0,
+        sizeRoute: parseInt(route.query.size, 10) || 12,
         participantId: parseInt(route.params.participantId, 10),
         productor: route.params.productor,
       }),
@@ -106,8 +106,8 @@ const routes:any = [
       name: 'category',
       component: CategoryPage,
       props: (route:any) => ({
-        first: parseInt(route.query.first, 10) || 0,
-        size: parseInt(route.query.size, 10) || 12,
+        firstRoute: parseInt(route.query.first, 10) || 0,
+        sizeRoute: parseInt(route.query.size, 10) || 12,
         iabId: parseInt(route.params.iabId, 10),
         productor: route.params.productor,
       }),
@@ -117,8 +117,8 @@ const routes:any = [
       name: 'rubrique',
       component: RubriquePage,
       props: (route:any) => ({
-        first: parseInt(route.query.first, 10) || 0,
-        size: parseInt(route.query.size, 10) || 12,
+        firstRoute: parseInt(route.query.first, 10) || 0,
+        sizeRoute: parseInt(route.query.size, 10) || 12,
         rubriqueId: parseInt(route.params.rubriqueId, 10),
         productor: route.params.productor,
       }),

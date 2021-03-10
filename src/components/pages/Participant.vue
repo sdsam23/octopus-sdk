@@ -83,6 +83,7 @@ import PodcastFilterList from '../display/podcasts/PodcastFilterList.vue';
 import PodcastList from '../display/podcasts/PodcastList.vue';
 import { state } from '../../store/paramStore';
 import { displayMethods } from '../mixins/functions';
+import { Participant } from '@/store/class/participant';
 
 export default displayMethods.extend({
   components: {
@@ -91,64 +92,63 @@ export default displayMethods.extend({
     EditBox,
     PodcastList,
   },
-
-  mounted() {
-    this.getParticipantDetails();
-  },
   props: ['participantId'],
   data() {
     return {
-      loaded: false,
-      participant: undefined as any,
-      error: false,
-      reload: false,
+      loaded: false as boolean,
+      participant: undefined as Participant|undefined,
+      error: false as boolean,
+      reload: false as boolean,
     };
   },
+  mounted() {
+    this.getParticipantDetails();
+  },
   computed: {
-    organisationId() {
+    organisationId():string {
       return state.generalParameters.organisationId;
     },
     authenticated():boolean {
       return state.generalParameters.authenticated;
     },
-    isEditBox() {
+    isEditBox():boolean {
       return state.podcastPage.EditBox;
     },
-    isShareButtons() {
+    isShareButtons():boolean {
       return state.podcastPage.ShareButtons;
     },
-    lightStyle() {
+    lightStyle():boolean {
       return state.intervenantPage.lightStyle;
     },
-    isRssButton() {
+    isRssButton():boolean {
       return state.intervenantPage.rssButton;
     },
-    rssUrl():any {
+    rssUrl():string {
       return (
         state.generalParameters.ApiUri + 'rss/participant/' + this.participantId
       );
     },
     description():string {
       let description;
-      description = this.participant.description || '';
+      description = this.participant!.description || '';
       if (state.generalParameters.isIE11)
         return description.substring(0, 50) + '...';
       return description;
     },
     name():string {
       const fullName = (
-        (this.participant.firstName || '') +
+        (this.participant!.firstName || '') +
         ' ' +
-        (this.participant.lastName || '')
+        (this.participant!.lastName || '')
       ).trim();
       if (state.generalParameters.isIE11)
         return fullName.substring(0, 50) + '...';
       return fullName;
     },
-    editRight() {
+    editRight():boolean {
       if (
         (this.authenticated &&
-          this.organisationId === this.participant.orga.id) ||
+          this.organisationId === this.participant!.orga.id) ||
         state.generalParameters.isAdmin
       )
         return true;
@@ -168,7 +168,7 @@ export default displayMethods.extend({
         this.loaded = true;
       }
     },
-    updateParticipant(participant:any) {
+    updateParticipant(participant:Participant) {
       this.participant = participant;
       this.$emit('participantTitle', this.name);
     },

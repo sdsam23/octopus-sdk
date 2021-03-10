@@ -291,13 +291,33 @@ const octopusApi = require('@saooti/octopus-api');
 import Hls from 'hls.js';
 const moment = require('moment');
 //const axios = require("axios");
-
+import { CommentPodcast } from '@/store/class/comment';
 import Vue from 'vue';
+import { StoreState } from '@/store/typeAppStore';
 export default Vue.extend({
   name: 'Player',
 
   components: {
     CommentPlayer,
+  },
+
+  data() {
+    return {
+      forceHide: false as boolean,
+      actualTime: '' as string,
+      listenTime: 0 as number,
+      notListenTime: 0 as number,
+      lastSend: 0 as number,
+      downloadId: null as any,
+      playerError: false as boolean,
+      listenError: false as boolean,
+      percentLiveProgress: 0 as number,
+      durationLivePosition: 0 as Number,
+      displayAlertBar: false as boolean,
+      hlsReady: false as boolean,
+      comments: [] as Array<CommentPodcast>,
+      showTimeline: false as boolean,
+    };
   },
 
   mounted() {
@@ -310,24 +330,7 @@ export default Vue.extend({
     window.addEventListener('beforeunload', this.endListeningProgress);
     this.watchPlayerStatus();
   },
-  data() {
-    return {
-      forceHide: false,
-      actualTime: '',
-      listenTime: 0,
-      notListenTime: 0,
-      lastSend: 0,
-      downloadId: null,
-      playerError: false,
-      listenError: false,
-      percentLiveProgress: 0,
-      durationLivePosition: 0,
-      displayAlertBar: false,
-      hlsReady: false,
-      comments: [] as any,
-      showTimeline: false,
-    };
-  },
+  
   computed: {
     isPlaying():boolean {
       return 'PLAYING' === this.status;
@@ -338,56 +341,56 @@ export default Vue.extend({
     isLoading():boolean {
       return 'LOADING' === this.status;
     },
-    isImage() {
+    isImage():string {
       return state.player.image;
     },
-    isEmissionName() {
+    isEmissionName():string {
       return state.player.emissionName;
     },
-    isClock() {
+    isClock():boolean {
       return state.player.clock;
     },
-    isBarTop() {
+    isBarTop():boolean {
       return state.player.barTop;
     },
     ...mapState({
-      display: (state:any) => 'STOPPED' !== state.player.status,
-      playerHeight(state:any) {
+      display: (state:StoreState) => 'STOPPED' !== state.player.status,
+      playerHeight(state:StoreState) {
         if ('STOPPED' === state.player.status || this.forceHide) return 0;
         if (window.innerWidth > 450 && !this.showTimeline) return '5rem';
         if (window.innerWidth > 450 && this.showTimeline) return '6rem';
         return '3.5rem';
       },
-      status: (state:any) => state.player.status,
-      podcast: (state:any) => state.player.podcast,
-      media: (state:any) => state.player.media,
-      live: (state:any) => state.player.live,
-      volume: (state:any) => state.player.volume,
-      isStop: (state:any) => state.player.stop,
-      commentsLoaded: (state:any) => state.comments.loadedComments,
-      podcastImage: (state:any) => {
+      status: (state:StoreState) => state.player.status,
+      podcast: (state:StoreState) => state.player.podcast,
+      media: (state:StoreState) => state.player.media,
+      live: (state:StoreState) => state.player.live,
+      volume: (state:StoreState) => state.player.volume,
+      isStop: (state:StoreState) => state.player.stop,
+      commentsLoaded: (state:StoreState) => state.comments.loadedComments,
+      podcastImage: (state:StoreState) => {
         if (state.player.podcast) return state.player.podcast.imageUrl;
         return '';
       },
-      playedTime: (state:any) => {
-        if (state.player.elapsed > 0 && state.player.total > 0) {
+      playedTime: (state:StoreState) => {
+        if (state.player.elapsed! > 0 && state.player.total! > 0) {
           return DurationHelper.formatDuration(
-            Math.round(state.player.elapsed * state.player.total)
+            Math.round(state.player.elapsed! * state.player.total!)
           );
         }
         return '--:--';
       },
-      percentProgress: (state:any) => {
-        return state.player.elapsed * 100;
+      percentProgress: (state:StoreState) => {
+        return state.player.elapsed! * 100;
       },
-      totalTime: (state:any) => {
-        if (state.player.elapsed > 0 && state.player.total > 0)
-          return DurationHelper.formatDuration(Math.round(state.player.total));
+      totalTime: (state:StoreState) => {
+        if (state.player.elapsed! > 0 && state.player.total! > 0)
+          return DurationHelper.formatDuration(Math.round(state.player.total!));
         return '--:--';
       },
-      totalSecondes: (state:any) => state.player.total,
+      totalSecondes: (state:StoreState) => state.player.total,
     }),
-    audioUrl():any {
+    audioUrl():string {
       if (this.media) return this.media.audioUrl;
       if (!this.podcast) return '';
       if (!this.podcast.availability.visibility)
@@ -434,15 +437,15 @@ export default Vue.extend({
       if (this.podcast) return this.podcast.emission.name;
       return '';
     },
-    organisationId() {
+    organisationId():string {
       return state.generalParameters.organisationId;
     },
   },
   methods: {
     watchPlayerStatus() {
       this.$store.watch(
-        (state:any) => state.player.status,
-        (newValue:any) => {
+        (state:StoreState) => state.player.status,
+        (newValue:string) => {
           const audioPlayer:any = document.querySelector('#audio-player');
           if (!audioPlayer) return;
           if (this.live && !this.hlsReady) {
@@ -460,15 +463,11 @@ export default Vue.extend({
       );
     },
     getDownloadId() {
-      //TODO 
-      return undefined;
-      /* return this._downloadId; */
+      return this.downloadId;
     },
     setDownloadId(newValue?: any) {
       this.endListeningProgress();
-      //TODO 
-      console.log(newValue);
-      /* this._downloadId = newValue; */
+      this.downloadId = newValue;
     },
     onError() {
       if (this.podcast && !this.listenError) {
@@ -575,7 +574,7 @@ export default Vue.extend({
           return _return.map(item => item.trim());
         })
         .filter(item => {
-          return 'player_' + this.podcast.podcastId === item[0];
+          return 'player_' + this.podcast!.podcastId === item[0];
         });
       if (1 === matching_cookies.length) {
         this.setDownloadId(matching_cookies[0][1]);
@@ -702,7 +701,7 @@ export default Vue.extend({
         const data = await octopusApi.fetchRootComments(param);
         first += size;
         count = data.totalElements;
-        this.comments = this.comments.concat(data.content).filter((c: null) => {
+        this.comments = this.comments.concat(data.content).filter((c: CommentPodcast) => {
           return null !== c;
         });
       }

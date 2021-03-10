@@ -278,6 +278,7 @@ import ErrorMessage from '../misc/ErrorMessage.vue';
 const moment = require('moment');
 const humanizeDuration = require('humanize-duration');
 import { displayMethods } from '../mixins/functions';
+import { Podcast } from '@/store/class/podcast';
 export default displayMethods.extend({
   components: {
     PodcastInlineList,
@@ -293,28 +294,33 @@ export default displayMethods.extend({
     ErrorMessage,
   },
   props: ['podcastId', 'playingPodcast', 'updateStatus', 'isEducation'],
+
+  data() {
+    return {
+      loaded: false as boolean,
+      podcast: undefined as Podcast|undefined,
+      error: false as boolean,
+      exclusive: false as boolean,
+      notExclusive: false as boolean,
+      fetchConference: undefined as any,
+    };
+  },
   
   async mounted() {
     await this.getPodcastDetails(this.podcastId);
     if (!this.isLiveReadyToRecord) return;
     if (this.isOctopusAndAnimator) {
-      let data:any = await studioApi.getConference(
-        this.$store,
-        this.podcast.conferenceId
-      );
+      let data : any = await studioApi.getConference(this.$store,this.podcast!.conferenceId);
       if ('' !== data.data) {
         this.fetchConference = data.data;
       } else {
         this.fetchConference = 'null';
       }
     } else {
-      let data:any = await studioApi.getRealConferenceStatus(
-        this.$store,
-        this.podcast.conferenceId
-      );
+      let data:any = await studioApi.getRealConferenceStatus(this.$store,this.podcast!.conferenceId);
       this.fetchConference = {
         status: data.data,
-        conferenceId: this.podcast.conferenceId,
+        conferenceId: this.podcast!.conferenceId,
       };
     }
     if (
@@ -322,61 +328,52 @@ export default displayMethods.extend({
       'PUBLISHING' !== this.fetchConference.status &&
       'DEBRIEFING' !== this.fetchConference.status
     ) {
-      this.$emit('initConferenceId', this.podcast.conferenceId);
+      this.$emit('initConferenceId', this.podcast!.conferenceId);
     }
   },
-  data() {
-    return {
-      loaded: false,
-      podcast: undefined as any,
-      error: false,
-      exclusive: false,
-      notExclusive: false,
-      fetchConference: undefined as any,
-    };
-  },
+  
   computed: {
-    isPodcastmaker() {
+    isPodcastmaker():boolean {
       return state.generalParameters.podcastmaker;
     },
-    isEditBox() {
+    isEditBox():boolean {
       return state.podcastPage.EditBox;
     },
-    isShareButtons() {
+    isShareButtons():boolean {
       return state.podcastPage.ShareButtons;
     },
-    isSharePlayer() {
+    isSharePlayer():boolean {
       return state.podcastPage.SharePlayer;
     },
-    allCategories() {
+    allCategories():any {
       return state.generalParameters.allCategories;
     },
-    organisationId() {
+    organisationId():string {
       return state.generalParameters.organisationId;
     },
     authenticated():boolean {
       return state.generalParameters.authenticated;
     },
-    isOuestFrance() {
+    isOuestFrance():boolean {
       return state.podcastPage.ouestFranceStyle;
     },
-    isTagList() {
+    isTagList():boolean {
       return state.podcastPage.tagList;
     },
-    isDownloadButton() {
+    isDownloadButton():boolean {
       return state.podcastPage.downloadButton;
     },
-    emissionMainCategory():any {
+    emissionMainCategory():number {
       if (
-        this.podcast.emission.annotations &&
-        this.podcast.emission.annotations.mainIabId
+        this.podcast!.emission.annotations &&
+        this.podcast!.emission.annotations.mainIabId
       ) {
-        return parseInt(this.podcast.emission.annotations.mainIabId, 10);
+        return parseInt(this.podcast!.emission.annotations.mainIabId, 10);
       } else if (
-        this.podcast.emission.iabIds &&
-        this.podcast.emission.iabIds.length
+        this.podcast!.emission.iabIds &&
+        this.podcast!.emission.iabIds.length
       ) {
-        return this.podcast.emission.iabIds[0];
+        return this.podcast!.emission.iabIds[0];
       }
       return 0;
     },
@@ -385,8 +382,8 @@ export default displayMethods.extend({
       return this.allCategories
         .filter((item:any) => {
           return (
-            this.podcast.emission.iabIds &&
-            -1 !== this.podcast.emission.iabIds.indexOf(item.id)
+            this.podcast!.emission.iabIds &&
+            -1 !== this.podcast!.emission.iabIds.indexOf(item.id)
           );
         })
         .sort((a:any, b:any) => {
@@ -396,35 +393,35 @@ export default displayMethods.extend({
         });
     },
     date():string {
-      if (1970 !== moment(this.podcast.pubDate).year())
-        return moment(this.podcast.pubDate).format('D MMMM YYYY [à] HH[h]mm');
+      if (1970 !== moment(this.podcast!.pubDate).year())
+        return moment(this.podcast!.pubDate).format('D MMMM YYYY [à] HH[h]mm');
       return '';
     },
     duration():string {
-      if (this.podcast.duration <= 1) return '';
-      if (this.podcast.duration > 600000) {
-        return humanizeDuration(this.podcast.duration, {
+      if (this.podcast!.duration <= 1) return '';
+      if (this.podcast!.duration > 600000) {
+        return humanizeDuration(this.podcast!.duration, {
           language: 'fr',
           largest: 1,
           round: true,
         });
       }
-      return humanizeDuration(this.podcast.duration, {
+      return humanizeDuration(this.podcast!.duration, {
         language: 'fr',
         largest: 2,
         round: true,
       });
     },
-    editRight() {
+    editRight():boolean {
       if (
         (this.authenticated &&
-          this.organisationId === this.podcast.organisation.id) ||
+          this.organisationId === this.podcast!.organisation.id) ||
         state.generalParameters.isAdmin
       )
         return true;
       return false;
     },
-    isReady() {
+    isReady():boolean {
       /* if(this.podcast && this.podcast.processingStatus !== "PLANNED" && this.podcast.processingStatus !== "PROCESSING"){
         return true;
       }else{
@@ -432,31 +429,27 @@ export default displayMethods.extend({
       } */
       return true;
     },
-    countLink() {
+    countLink():number {
       let count = 0;
-      if (this.podcast.emission && this.podcast.emission.annotations) {
-        if (undefined !== this.podcast.emission.annotations.applePodcast)
+      if (this.podcast!.emission && this.podcast!.emission.annotations) {
+        if (undefined !== this.podcast!.emission.annotations.applePodcast)
           count++;
-        if (undefined !== this.podcast.emission.annotations.deezer) count++;
-        if (undefined !== this.podcast.emission.annotations.spotify) count++;
-        if (undefined !== this.podcast.emission.annotations.tunein) count++;
-        if (undefined !== this.podcast.emission.annotations.tootak) count++;
-        if (undefined !== this.podcast.emission.annotations.radioline) count++;
+        if (undefined !== this.podcast!.emission.annotations.deezer) count++;
+        if (undefined !== this.podcast!.emission.annotations.spotify) count++;
+        if (undefined !== this.podcast!.emission.annotations.tunein) count++;
+        if (undefined !== this.podcast!.emission.annotations.tootak) count++;
+        if (undefined !== this.podcast!.emission.annotations.radioline) count++;
       }
       return count;
     },
     isLiveReadyToRecord():boolean {
-      return (
-        this.podcast.conferenceId &&
-        0 !== this.podcast.conferenceId &&
-        'READY_TO_RECORD' === this.podcast.processingStatus
-      );
+      return (undefined!==this.podcast!.conferenceId && 0 !== this.podcast!.conferenceId && 'READY_TO_RECORD' === this.podcast!.processingStatus);
     },
     isLiveReady():boolean {
       return (
-        this.podcast.conferenceId &&
-        0 !== this.podcast.conferenceId &&
-        'READY' === this.podcast.processingStatus
+        undefined!==this.podcast!.conferenceId &&
+        0 !== this.podcast!.conferenceId &&
+        'READY' === this.podcast!.processingStatus
       );
     },
     isCounter():boolean {
@@ -481,58 +474,58 @@ export default displayMethods.extend({
         state.generalParameters.isRoleLive
       );
     },
-    titlePage():any {
-      if (this.isLiveReadyToRecord) return this.$t('Live episode');
-      return this.$t('Episode');
+    titlePage():string {
+      if (this.isLiveReadyToRecord) return this.$t('Live episode').toString();
+      return this.$t('Episode').toString();
     },
     timeRemaining():string {
-      return moment(this.podcast.pubDate).diff(moment(), 'seconds');
+      return moment(this.podcast!.pubDate).diff(moment(), 'seconds');
     },
-    podcastNotValid() {
+    podcastNotValid():boolean {
       if (
         this.podcast &&
         this.podcast.availability &&
-        false === this.podcast.valid
+        false === this.podcast!.valid
       )
         return true;
       return false;
     },
   },
   methods: {
-    updatePodcast(podcastUpdated: any) {
+    updatePodcast(podcastUpdated: Podcast) {
       this.podcast = podcastUpdated;
     },
-    async getPodcastDetails(podcastId: any) {
+    async getPodcastDetails(podcastId: number) {
       try {
         let data = await octopusApi.fetchPodcast(podcastId);
         this.podcast = data;
-        this.$emit('podcastTitle', this.podcast.title);
+        this.$emit('podcastTitle', this.podcast!.title);
         if (
-          this.podcast.emission.annotations &&
-          this.podcast.emission.annotations.exclusive
+          this.podcast!.emission.annotations &&
+          this.podcast!.emission.annotations.exclusive
         ) {
           this.exclusive =
-            'true' === this.podcast.emission.annotations.exclusive
+            'true' === this.podcast!.emission.annotations.exclusive
               ? true
               : false;
           this.exclusive =
             this.exclusive &&
-            this.organisationId !== this.podcast.organisation.id;
+            this.organisationId !== this.podcast!.organisation.id;
         }
         if (
-          this.podcast.emission.annotations &&
-          this.podcast.emission.annotations.notExclusive
+          this.podcast!.emission.annotations &&
+          this.podcast!.emission.annotations.notExclusive
         ) {
           this.notExclusive =
-            'true' === this.podcast.emission.annotations.notExclusive
+            'true' === this.podcast!.emission.annotations.notExclusive
               ? true
               : false;
         }
         if (
-          (!this.podcast.availability.visibility ||
-            ('READY_TO_RECORD' !== this.podcast.processingStatus &&
-              'READY' !== this.podcast.processingStatus) ||
-            false === this.podcast.valid) &&
+          (!this.podcast!.availability.visibility ||
+            ('READY_TO_RECORD' !== this.podcast!.processingStatus &&
+              'READY' !== this.podcast!.processingStatus) ||
+            false === this.podcast!.valid) &&
           !this.editRight
         ) {
           this.error = true;
@@ -543,12 +536,12 @@ export default displayMethods.extend({
         this.loaded = true;
       }
     },
-    getName(person: { firstName: string; lastName: string; }) {
+    getName(person: any) {
       const first = person.firstName || '';
       const last = person.lastName || '';
       return (first + ' ' + last).trim();
     },
-    playPodcast(podcast: any) {
+    playPodcast(podcast: Podcast) {
       this.$emit('playPodcast', podcast);
     },
     removeDeleted() {

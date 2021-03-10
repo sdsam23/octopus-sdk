@@ -58,49 +58,47 @@ export default Vue.extend({
     AdvancedSearch,
   },
 
-  props: ['isEducation'],
+  props: ['isEducation','firstRoute', 'sizeRoute', 'productor'],
 
-  created() {
-    if (this.$route.query.first) {
-      this.first = this.$route.query.first;
-    } else {
-      this.first = 0;
-    }
-    if (this.$route.query.size) {
-      this.size = this.$route.query.size;
-    } else {
-      this.size = 12;
-    }
-    if (this.$route.query.productor) {
-      this.organisationId = this.$route.query.productor;
-    }
-  },
   data() {
     return {
-      first: undefined as any,
-      size: undefined as any,
-      searchPattern: '',
-      organisationId: undefined as any,
-      monetization: undefined as any,
-      rubriquageId: undefined as any,
-      rubriqueId: undefined as any,
-      emissionId: undefined as any,
-      fromDate: undefined as any,
-      toDate: undefined as any,
-      resetRubriquage: false,
-      includeHidden: false,
-      sortEmission: 'LAST_PODCAST_DESC',
-      noRubrique: undefined as any,
+      first: 0 as number,
+      size: 12 as number,
+      searchPattern: '' as string,
+      organisationId: undefined as string | undefined,
+      monetization: 'UNDEFINED' as string, // UNDEFINED, YES, NO
+      rubriquageId: undefined as number | undefined,
+      rubriqueId: undefined as number | undefined,
+      emissionId: undefined as number | undefined,
+      fromDate: undefined as string | undefined,
+      toDate: undefined as string | undefined,
+      resetRubriquage: false as boolean,
+      includeHidden: false as boolean,
+      sortEmission: 'LAST_PODCAST_DESC' as string, //  SCORE, DATE, POPULARITY, NAME, LAST_PODCAST_DESC
+      noRubrique: undefined as boolean | undefined,
     };
   },
+
+  created() {
+    if (this.firstRoute) {
+      this.first = this.firstRoute;
+    }
+    if (this.sizeRoute) {
+      this.size = this.sizeRoute;
+    }
+    if (this.productor) {
+      this.organisationId = this.productor;
+    }
+  },
+  
   computed: {
-    isProductorSearch() {
+    isProductorSearch():boolean {
       return state.podcastsPage.ProductorSearch;
     },
-    isMonetizableFilter() {
+    isMonetizableFilter():boolean {
       return state.podcastsPage.MonetizableFilter;
     },
-    titlePage() {
+    titlePage():string|undefined {
       return state.emissionsPage.titlePage;
     },
   },
@@ -111,10 +109,10 @@ export default Vue.extend({
     updateSortEmission(value: string) {
       this.sortEmission = value;
     },
-    updateToDate(value: any) {
+    updateToDate(value: string) {
       this.toDate = value;
     },
-    updateFromDate(value: any) {
+    updateFromDate(value: string) {
       this.fromDate = value;
     },
     updateRubriquage(value: number) {
@@ -138,7 +136,7 @@ export default Vue.extend({
         this.noRubrique = undefined;
       }
     },
-    updateOrganisationId(value: any) {
+    updateOrganisationId(value: string | undefined) {
       this.resetRubriquage = !this.resetRubriquage;
       this.rubriquageId = undefined;
       this.rubriqueId = undefined;
@@ -153,7 +151,7 @@ export default Vue.extend({
       }
       this.searchPattern = value;
     },
-    updateMonetization(value: any) {
+    updateMonetization(value: string) {
       this.monetization = value;
     },
   },
