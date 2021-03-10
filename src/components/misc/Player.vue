@@ -309,7 +309,6 @@ export default {
     window.addEventListener('beforeunload', this.endListeningProgress);
     this.watchPlayerStatus();
   },
-
   data() {
     return {
       forceHide: false,
@@ -324,19 +323,18 @@ export default {
       durationLivePosition: 0,
       displayAlertBar: false,
       hlsReady: false,
-      comments: [],
+      comments: [] as any,
       showTimeline: false,
     };
   },
-
   computed: {
-    isPlaying() {
+    isPlaying():boolean {
       return 'PLAYING' === this.status;
     },
-    isPaused() {
+    isPaused():boolean {
       return 'PAUSED' === this.status;
     },
-    isLoading() {
+    isLoading():boolean {
       return 'LOADING' === this.status;
     },
     isImage() {
@@ -352,27 +350,25 @@ export default {
       return state.player.barTop;
     },
     ...mapState({
-      display: state => 'STOPPED' !== state.player.status,
-      playerHeight(state) {
+      display: (state:any) => 'STOPPED' !== state.player.status,
+      playerHeight(state:any) {
         if ('STOPPED' === state.player.status || this.forceHide) return 0;
         if (window.innerWidth > 450 && !this.showTimeline) return '5rem';
         if (window.innerWidth > 450 && this.showTimeline) return '6rem';
         return '3.5rem';
       },
-      status: state => state.player.status,
-      podcast: state => state.player.podcast,
-      media: state => state.player.media,
-      live: state => state.player.live,
-      volume: state => state.player.volume,
-      isStop: state => state.player.stop,
-      commentsLoaded: state => state.comments.loadedComments,
-
-      podcastImage: state => {
+      status: (state:any) => state.player.status,
+      podcast: (state:any) => state.player.podcast,
+      media: (state:any) => state.player.media,
+      live: (state:any) => state.player.live,
+      volume: (state:any) => state.player.volume,
+      isStop: (state:any) => state.player.stop,
+      commentsLoaded: (state:any) => state.comments.loadedComments,
+      podcastImage: (state:any) => {
         if (state.player.podcast) return state.player.podcast.imageUrl;
         return '';
       },
-
-      playedTime: state => {
+      playedTime: (state:any) => {
         if (state.player.elapsed > 0 && state.player.total > 0) {
           return DurationHelper.formatDuration(
             Math.round(state.player.elapsed * state.player.total)
@@ -380,20 +376,17 @@ export default {
         }
         return '--:--';
       },
-
-      percentProgress: state => {
+      percentProgress: (state:any) => {
         return state.player.elapsed * 100;
       },
-
-      totalTime: state => {
+      totalTime: (state:any) => {
         if (state.player.elapsed > 0 && state.player.total > 0)
           return DurationHelper.formatDuration(Math.round(state.player.total));
         return '--:--';
       },
-      totalSecondes: state => state.player.total,
+      totalSecondes: (state:any) => state.player.total,
     }),
-
-    audioUrl() {
+    audioUrl():any {
       if (this.media) return this.media.audioUrl;
       if (!this.podcast) return '';
       if (!this.podcast.availability.visibility)
@@ -412,8 +405,7 @@ export default {
       }
       return this.podcast.audioUrl + '?' + parameters.join('&');
     },
-
-    podcastShareUrl() {
+    podcastShareUrl():any {
       if (this.podcast) {
         return {
           name: 'podcast',
@@ -423,8 +415,7 @@ export default {
       }
       return '';
     },
-
-    podcastTitle() {
+    podcastTitle():string {
       if (this.podcast) {
         if (this.isEmissionName)
           return this.emissionName + ' - ' + this.podcast.title;
@@ -438,23 +429,20 @@ export default {
       }
       return '';
     },
-
-    emissionName() {
+    emissionName():string {
       if (this.podcast) return this.podcast.emission.name;
       return '';
     },
-
     organisationId() {
       return state.generalParameters.organisationId;
     },
   },
-
   methods: {
     watchPlayerStatus() {
       this.$store.watch(
-        state => state.player.status,
-        newValue => {
-          const audioPlayer = document.querySelector('#audio-player');
+        (state:any) => state.player.status,
+        (newValue:any) => {
+          const audioPlayer:any = document.querySelector('#audio-player');
           if (!audioPlayer) return;
           if (this.live && !this.hlsReady) {
             audioPlayer.pause();
@@ -471,14 +459,16 @@ export default {
       );
     },
     getDownloadId() {
-      return this._downloadId;
+      //TODO 
+      return undefined;
+      /* return this._downloadId; */
     },
-
-    setDownloadId(newValue) {
+    setDownloadId(newValue?: any) {
       this.endListeningProgress();
-      this._downloadId = newValue;
+      //TODO 
+      console.log(newValue);
+      /* this._downloadId = newValue; */
     },
-
     onError() {
       if (this.podcast && !this.listenError) {
         this.listenError = true;
@@ -486,37 +476,31 @@ export default {
         this.playerError = true;
       }
     },
-
     switchPausePlay() {
-      const audioPlayer = document.querySelector('#audio-player');
+      const audioPlayer:any = document.querySelector('#audio-player');
       if (audioPlayer.paused) {
         this.onPlay();
       } else {
         this.onPause();
       }
     },
-
     stopPlayer() {
       this.$store.commit('playerPlayPodcast');
     },
-
-    seekTo(event) {
-      const audioPlayer = document.querySelector('#audio-player');
+    seekTo(event: { currentTarget: { getBoundingClientRect: () => any; clientWidth: any; }; clientX: number; }) {
+      const audioPlayer:any = document.querySelector('#audio-player');
       const rect = event.currentTarget.getBoundingClientRect();
       const barWidth = event.currentTarget.clientWidth;
       const x = event.clientX - rect.left; //x position within the element.
-
       const percentPosition = x / barWidth;
       if (percentPosition * 100 >= this.percentLiveProgress) return;
-
-      const seekTime = this.$store.state.player.total * percentPosition;
+      const seekTime = this.$store.state.player.total! * percentPosition;
       if (this.podcast || this.live) {
         this.notListenTime = seekTime - this.listenTime;
       }
       audioPlayer.currentTime = seekTime;
     },
-
-    onTimeUpdate(event) {
+    onTimeUpdate(event: { currentTarget: { currentTime: number; duration: any; }; }) {
       if (this.podcast || this.live) {
         if (!this.getDownloadId()) {
           this.loadDownloadId();
@@ -535,10 +519,8 @@ export default {
       }
       const streamDuration = event.currentTarget.duration;
       if (!streamDuration) return;
-
       const playerCurrentTime = event.currentTarget.currentTime;
       if (!playerCurrentTime) return;
-
       if (!this.live) {
         this.displayAlertBar = false;
         this.percentLiveProgress = 100;
@@ -546,7 +528,6 @@ export default {
         this.$store.commit('playerElapsed', playerCurrentTime / streamDuration);
         return;
       }
-
       const scheduledDuration = this.live.duration / 1000;
       if (scheduledDuration > streamDuration) {
         this.displayAlertBar = false;
@@ -564,31 +545,26 @@ export default {
         this.$store.commit('playerElapsed', playerCurrentTime / streamDuration);
       }
     },
-
     onPlay() {
       this.$store.commit('playerPause', false);
     },
-
     onPause() {
       this.$store.commit('playerPause', true);
     },
-
     onFinished() {
       this.setDownloadId(null);
       if (this.live) {
-        let audio = document.getElementById('audio-player');
+        let audio:any = document.getElementById('audio-player');
         audio.src = '';
       }
       this.forceHide = true;
     },
-
     onHidden() {
       if (this.forceHide) {
         this.$store.commit('playerPlayPodcast');
         this.forceHide = false;
       }
     },
-
     loadDownloadId() {
       if (!this.podcast) return;
       const matching_cookies = document.cookie
@@ -604,7 +580,6 @@ export default {
         this.setDownloadId(matching_cookies[0][1]);
       }
     },
-
     async endListeningProgress() {
       if (!this.getDownloadId()) return;
       await octopusApi.updatePlayerTime(
@@ -616,9 +591,8 @@ export default {
       this.lastSend = 0;
       this.listenTime = 0;
     },
-
-    async initHls(hlsStreamUrl) {
-      return new Promise((resolve, reject) => {
+    async initHls(hlsStreamUrl: string) {
+      return new Promise<void>((resolve, reject) => {
         if (!Hls.isSupported()) {
           reject('Hls is not supported ! ');
         }
@@ -640,7 +614,7 @@ export default {
             console.log('ERROR downloadId');
           }
           this.hlsReady = true;
-          let audio = document.getElementById('audio-player');
+          let audio:any = document.getElementById('audio-player');
           hls.attachMedia(audio);
           await audio.play();
           this.onPlay();
@@ -652,7 +626,6 @@ export default {
         hls.loadSource(hlsStreamUrl);
       });
     },
-
     async playLive() {
       if (!this.live) return;
       let hlsStreamUrl =
@@ -669,8 +642,7 @@ export default {
         }, 1000);
       }
     },
-
-    editRight(organisation) {
+    editRight(organisation: any) {
       if (
         (state.generalParameters.isCommments &&
           this.organisationId === organisation) ||
@@ -679,7 +651,6 @@ export default {
         return true;
       return false;
     },
-
     async initComments(refresh = false) {
       let podcastId, organisation;
       if (this.podcast) {
@@ -719,7 +690,7 @@ export default {
       )
         return;
       while (0 === first || this.comments.length < count) {
-        let param = {
+        let param:any = {
           first: first,
           size: size,
           podcastId: podcastId,
@@ -730,13 +701,12 @@ export default {
         const data = await octopusApi.fetchRootComments(param);
         first += size;
         count = data.totalElements;
-        this.comments = this.comments.concat(data.content).filter(c => {
+        this.comments = this.comments.concat(data.content).filter((c: null) => {
           return null !== c;
         });
       }
     },
   },
-
   watch: {
     async live() {
       this.hlsReady = false;
@@ -745,17 +715,14 @@ export default {
       await this.playLive();
       this.initComments();
     },
-
     playerHeight(newVal) {
       this.$emit('hide', 0 === newVal ? true : false);
     },
-
     podcast() {
       this.setDownloadId(null);
       this.listenError = false;
       this.initComments();
     },
-
     async listenTime(newVal) {
       if (!this.podcast && !this.live) {
         //Nothing can be done there is no listen time
@@ -775,7 +742,6 @@ export default {
         Math.round(newVal)
       );
     },
-
     commentsLoaded() {
       this.initComments(true);
     },

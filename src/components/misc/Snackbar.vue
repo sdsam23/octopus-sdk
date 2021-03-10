@@ -14,8 +14,8 @@
 </template>
 
 <script lang="ts">
-const getStyle = (baseSize, position) => {
-  const c = f => `calc(${f} * ${baseSize})`;
+const getStyle = (baseSize: string, position: any) => {
+  const c = (f: number) => `calc(${f} * ${baseSize})`;
   const { pos, textAlign } = position;
   return {
     wrap: {
@@ -28,7 +28,7 @@ const getStyle = (baseSize, position) => {
       pointerEvents: 'none',
       textAlign,
     },
-    bar: bg => ({
+    bar: (bg: any) => ({
       display: 'inline-block',
       width: 'auto',
       minWidth: baseSize,
@@ -68,7 +68,7 @@ export default {
   },
   data() {
     return {
-      msgs: [],
+      msgs: [] as any,
       holdTime: 3000,
       baseSize: '5rem',
     };
@@ -83,27 +83,27 @@ export default {
           : 'center',
       };
     },
-    style() {
+    style():any {
       return getStyle(this.baseSize, this.$_position);
     },
   },
   methods: {
-    info(msg) {
+    info(msg: any) {
       const color = this.colors.info;
       this.open({ color, msg }, false);
       return true;
     },
-    error(msg) {
+    error(msg: any) {
       const color = this.colors.error;
       this.open({ color, msg }, false);
       return false;
     },
-    warn(msg) {
+    warn(msg: any) {
       const color = this.colors.warn;
       this.open({ color, msg }, false);
       return true;
     },
-    open(message, isOpen = true) {
+    open(message: { color?: any; msg?: any; }, isOpen = true) {
       let msg;
       let color;
       if (!isOpen) {

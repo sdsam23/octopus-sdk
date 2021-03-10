@@ -78,11 +78,11 @@ export default {
 
   mixins: [displayMethods],
 
-  mounted() {
+   mounted() {
     let playlistDesc = document.getElementById(
       'description-playlist-' + this.playlist.playlistId
     );
-    let playlistDescContainer = document.getElementById(
+    let playlistDescContainer:any = document.getElementById(
       'description-playlist-container-' + this.playlist.playlistId
     );
     if (
@@ -96,40 +96,33 @@ export default {
     }
     this.$emit('playlistNotVisible');
   },
-
   data() {
     return {
       dummyParam: new Date().getTime().toString(),
     };
   },
-
   computed: {
     isPodcastmaker() {
       return state.generalParameters.podcastmaker;
     },
-
-    organisation() {
+    organisation():string {
       return '' + this.playlist.publisher.organisation.name;
     },
-
-    description() {
+    description():string {
       let description;
       description = this.playlist.description || '';
       if (state.generalParameters.isIE11)
         return description.substring(0, 50) + '...';
       return description;
     },
-
-    name() {
+    name():string {
       if (state.generalParameters.isIE11)
         return this.playlist.title.substring(0, 50) + '...';
       return this.playlist.title;
     },
-
     organisationId() {
       return state.generalParameters.organisationId;
     },
-
     editRight() {
       if (
         (state.generalParameters.isPlaylist &&
@@ -139,11 +132,10 @@ export default {
         return true;
       return false;
     },
-    activePlaylist() {
+    activePlaylist():boolean {
       return 0 !== Object.keys(this.playlist.podcasts).length;
     },
   },
-
   methods: {},
 };
 </script>

@@ -102,6 +102,7 @@
 <script lang="ts">
 import Snackbar from '../../misc/Snackbar.vue';
 const moment = require('moment');
+//@ts-ignore
 import Swatches from 'vue-swatches';
 const humanizeDuration = require('humanize-duration');
 import { displayMethods } from '../../mixins/functions';
@@ -128,12 +129,11 @@ export default {
       dummyParam: new Date().getTime().toString(),
     };
   },
-
   computed: {
-    snackbarRef() {
+    snackbarRef():any {
       return this.$refs.snackbar;
     },
-    emissionName() {
+    emissionName():string {
       if (this.displayEmissionName)
         return (
           `<tr><td colspan="2" style="font-size: 16px;line-height:24px;font-weight: bold;">` +
@@ -145,7 +145,7 @@ export default {
     participantsName() {
       if (!this.displayParticipantsNames || !this.podcast.animators) return '';
       let text = [''];
-      this.podcast.animators.forEach(element => {
+      this.podcast.animators.forEach((element:any) => {
         text.push(
           `<table width='100%' style="width:100%;background: #f3f3f3;font-family: Arial, sans-serif;font-size: 12px;line-height: 20px;border-bottom-left-radius: 1.5em;border-bottom-right-radius: 1.5em;">
 					<tr>
@@ -176,7 +176,7 @@ export default {
       });
       return text.join('');
     },
-    newsletterHtml() {
+    newsletterHtml():string {
       let html = [
         `<table width='100%' style="width:100%;background:#f3f3f3;font-family: Arial, sans-serif;font-size: 12px;line-height: 20px;border-top-left-radius: 1.5em;border-top-right-radius: 1.5em;">
 		<tr>
@@ -244,12 +244,12 @@ export default {
       );
       return html.join('');
     },
-    date() {
+    date():string {
       if (1970 !== moment(this.podcast.pubDate).year())
         return moment(this.podcast.pubDate).format('D MMMM YYYY [à] HH[h]mm');
       return '';
     },
-    duration() {
+    duration():string {
       if (this.podcast.duration <= 1) return '';
       if (this.podcast.duration > 600000) {
         return humanizeDuration(this.podcast.duration, {
@@ -265,23 +265,23 @@ export default {
       });
     },
   },
-
   methods: {
-    closePopup(event) {
+    closePopup(event: { preventDefault: () => void; }) {
       event.preventDefault();
       this.$emit('close');
     },
-
-    getName(person) {
+    getName(person:any) {
       const first = person.firstName || '';
       const last = person.lastName || '';
       return (first + ' ' + last).trim();
     },
-
-    selectAll(element) {
+    selectAll(element: any) {
       element.target.focus();
       element.target.select();
     },
+    afterCopy(){
+      this.snackbarRef.open(this.$t('Data in clipboard'));
+    }
   },
 };
 </script>

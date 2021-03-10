@@ -161,7 +161,7 @@ export default {
     let podcastDesc = document.getElementById(
       'description-podcast-' + this.podcast.podcastId
     );
-    let podcastDescContainer = document.getElementById(
+    let podcastDescContainer:any = document.getElementById(
       'description-podcast-container-' + this.podcast.podcastId
     );
     if (
@@ -171,7 +171,6 @@ export default {
       this.isDescriptionBig = true;
     }
   },
-
   data() {
     return {
       hover: false,
@@ -179,7 +178,6 @@ export default {
       isDescriptionBig: false,
     };
   },
-
   computed: {
     isPodcastmaker() {
       return state.generalParameters.podcastmaker;
@@ -190,30 +188,28 @@ export default {
     podcastBorderBottom() {
       return state.podcastsPage.podcastBorderBottom;
     },
-    date() {
+    date():string {
       return moment(this.podcast.pubDate).format('D/MM/YYYY [à] HH[h]mm');
     },
-    displayDate() {
+    displayDate():string {
       return moment(this.podcast.pubDate).format('X');
     },
     category() {
       const catIds = this.podcast.emission.iabIds;
       return state.generalParameters.allCategories
-        .filter(c => {
+        .filter((c:any) => {
           return catIds.includes(c.id);
         })
-        .map(c => {
+        .map((c:any) => {
           return c.name;
         })
         .join(', ');
     },
-
-    description() {
+    description():any {
       if (!this.podcast.description) return null;
       return this.podcast.description;
     },
-
-    title() {
+    title():string {
       if (state.generalParameters.isIE11)
         return this.podcast.title.substring(0, 50) + '...';
       return this.podcast.title;
@@ -221,7 +217,7 @@ export default {
     organisationId() {
       return state.generalParameters.organisationId;
     },
-    authenticated() {
+    authenticated():boolean {
       return state.generalParameters.authenticated;
     },
     editRight() {
@@ -233,10 +229,8 @@ export default {
         return true;
       return false;
     },
-
-    duration() {
+    duration():string {
       if (this.podcast.duration <= 1) return '';
-
       if (this.podcast.duration > 600000) {
         return humanizeDuration(this.podcast.duration, {
           language: 'shortFr',

@@ -124,7 +124,7 @@ export default {
   computed: {},
 
   methods: {
-    externaliseLinks(link) {
+    externaliseLinks(link?:string) {
       if (!link) return link;
       link = link.trim();
       if (!link.startsWith('http') && !link.startsWith('//'))

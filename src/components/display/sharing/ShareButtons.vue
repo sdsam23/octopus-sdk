@@ -199,10 +199,10 @@ export default {
   },
 
   computed: {
-    snackbarRef() {
+    snackbarRef():any {
       return this.$refs.snackbar;
     },
-    verticalDisplay() {
+    verticalDisplay():boolean {
       return (
         !this.authenticated &&
         !this.participantId &&
@@ -210,10 +210,10 @@ export default {
         !this.notExclusive
       );
     },
-    authenticated() {
+    authenticated():boolean {
       return state.generalParameters.authenticated;
     },
-    rssUrl() {
+    rssUrl():any {
       if (this.emission)
         return (
           state.generalParameters.ApiUri +
@@ -235,7 +235,6 @@ export default {
       return null;
     },
   },
-
   methods: {
     openPopup() {
       this.dataRSSSave = !this.dataRSSSave;
@@ -243,6 +242,9 @@ export default {
     closeModal() {
       this.dataRSSSave = false;
     },
+    afterCopy(){
+      this.snackbarRef.open(this.$t('Link in clipboard'));
+    }
   },
 };
 </script>

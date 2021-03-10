@@ -72,33 +72,30 @@ export default {
   props: {
     first: { default: 0 },
     size: { default: 5 },
-    organisationId: { default: undefined },
-    emissionId: { default: undefined },
-    iabId: { default: undefined },
-    participantId: { default: undefined },
-    query: { default: undefined },
-    monetization: { default: undefined },
+    organisationId: { default: undefined as any },
+    emissionId: { default: undefined as any },
+    iabId: { default: undefined as any },
+    participantId: { default: undefined as any },
+    query: { default: undefined as any },
+    monetization: { default: undefined as any },
     popularSort: { default: false },
     reload: { default: false },
-    rubriqueId: { default: undefined },
-    rubriquageId: { default: undefined },
-    before: { default: undefined },
-    after: { default: undefined },
+    rubriqueId: { default: undefined as any },
+    rubriquageId: { default: undefined as any },
+    before: { default: undefined as any },
+    after: { default: undefined as any },
     includeHidden: { default: false },
     showCount: { default: false },
-    noRubrique: { default: undefined },
-    sortCriteria: { default: undefined },
-    notValid: { default: undefined },
+    noRubrique: { default: undefined as any },
+    sortCriteria: { default: undefined as any },
+    notValid: { default: undefined as any },
   },
-
   components: {
     PodcastItem,
   },
-
   created() {
     this.fetchContent(true);
   },
-
   data() {
     return {
       loading: true,
@@ -106,36 +103,35 @@ export default {
       dfirst: this.$props.first,
       dsize: this.$props.size,
       totalCount: 0,
-      podcasts: [],
+      podcasts: [] as any,
       inFetching: false,
     };
   },
-
   computed: {
-    allFetched() {
+    allFetched():boolean {
       return this.dfirst >= this.totalCount;
     },
     buttonPlus() {
       return state.generalParameters.buttonPlus;
     },
-    changed() {
+    changed():any {
       return `${this.first}|${this.size}|${this.organisation}|${this.emissionId}|${this.sortCriteria}|${this.sort}
       ${this.iabId}|${this.participantId}|${this.query}|${this.monetization}|${this.popularSort}|
       ${this.rubriqueId}|${this.rubriquageId}|${this.before}|${this.after}|${this.includeHidden}|${this.noRubrique}|${this.notValid}`;
     },
-    filterOrga() {
+    filterOrga():any {
       return this.$store.state.filter.organisationId;
     },
-    organisation() {
+    organisation():any {
       if (this.organisationId) return this.organisationId;
       if (this.filterOrga) return this.filterOrga;
       return undefined;
     },
-    sort() {
+    sort():string {
       if (this.popularSort) return 'POPULARITY';
       return this.sortCriteria;
     },
-    sortText() {
+    sortText():any {
       switch (this.sortCriteria) {
         case 'SCORE':
           return this.$t('sort by score');
@@ -151,9 +147,8 @@ export default {
       return state.generalParameters.isProduction;
     },
   },
-
   methods: {
-    async fetchContent(reset) {
+    async fetchContent(reset: boolean) {
       this.inFetching = true;
       if (reset) {
         this.podcasts.length = 0;
@@ -161,7 +156,7 @@ export default {
         this.loading = true;
         this.loaded = false;
       }
-      let param = {
+      let param:any = {
         first: this.dfirst,
         size: this.dsize,
         organisationId: this.organisation,
@@ -192,8 +187,7 @@ export default {
         this.afterFetching(reset, data);
       }
     },
-
-    afterFetching(reset, data) {
+    afterFetching(reset: any, data: any) {
       if (reset) {
         this.podcasts.length = 0;
         this.dfirst = 0;
@@ -202,7 +196,7 @@ export default {
       }
       this.loading = false;
       this.loaded = true;
-      this.podcasts = this.podcasts.concat(data.result).filter(p => {
+      this.podcasts = this.podcasts.concat(data.result).filter((p: null) => {
         return null !== p;
       });
       this.$emit('fetch', this.podcasts);
@@ -213,13 +207,11 @@ export default {
       }
       this.inFetching = false;
     },
-
-    displayMore(event) {
+    displayMore(event: { preventDefault: () => void; }) {
       event.preventDefault();
       this.fetchContent(false);
     },
   },
-
   watch: {
     changed: {
       handler() {

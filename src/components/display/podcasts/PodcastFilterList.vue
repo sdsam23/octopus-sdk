@@ -83,13 +83,9 @@ export default {
   created() {
     if (this.$route.query.first) {
       this.first = this.$route.query.first;
-    } else {
-      this.first = 0;
     }
     if (this.$route.query.size) {
       this.size = this.$route.query.size;
-    } else {
-      this.size = 12;
     }
   },
 
@@ -103,36 +99,33 @@ export default {
     'editRight',
   ],
 
-  data() {
+   data() {
     return {
-      first: undefined,
-      size: undefined,
+      first: 0 as any,
+      size: 12 as any,
       searchPattern: '',
-      iabId: undefined,
+      iabId: undefined as any,
       reloadList: false,
     };
   },
-
   computed: {
-    query() {
+    query():string {
       if (this.searchPattern.length >= 3) return this.searchPattern;
       return '';
     },
   },
-
   methods: {
-    onCategorySelected(category) {
+    onCategorySelected(category:any) {
       if (category && category.id) {
         this.iabId = category.id;
       } else {
         this.iabId = undefined;
       }
     },
-    fetch(podcasts) {
+    fetch(podcasts:any) {
       this.$emit('fetch', podcasts);
     },
   },
-
   watch: {
     reload() {
       this.reloadList = !this.reloadList;

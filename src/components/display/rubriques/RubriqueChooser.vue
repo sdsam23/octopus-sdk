@@ -60,7 +60,7 @@
 import { selenium } from '../../mixins/functions';
 import Multiselect from 'vue-multiselect';
 
-const getDefaultRubrique = defaultName => {
+const getDefaultRubrique = (defaultName: any) => {
   if (undefined !== defaultName) return { name: defaultName, rubriqueId: 0 };
   return '';
 };
@@ -72,27 +72,25 @@ export default {
 
   props: {
     width: { default: '100%' },
-    defaultanswer: { default: undefined },
-    rubriqueSelected: { default: undefined },
+    defaultanswer: { default: undefined as any },
+    rubriqueSelected: { default: undefined as any },
     multiple: { default: false },
-    rubriqueArray: { default: undefined },
-    rubriquageId: { default: undefined },
+    rubriqueArray: { default: undefined as any },
+    rubriquageId: { default: undefined as any },
     allRubriques: { default: [] },
     reset: { default: false },
     withoutRubrique: { default: false },
     isDisabled: { default: false },
   },
   mixins: [selenium],
-
   data() {
     return {
-      rubriques: [],
-      rubrique: getDefaultRubrique(this.defaultanswer),
+      rubriques: [] as any,
+      rubrique: getDefaultRubrique(this.defaultanswer) as any,
       isLoading: false,
       withoutItem: { name: this.$t('Without rubric'), rubriqueId: -1 },
     };
   },
-
   mounted() {
     if (undefined !== this.rubriqueSelected) {
       this.initRubriqueSelected(this.rubriqueSelected);
@@ -102,15 +100,14 @@ export default {
     }
   },
   computed: {
-    id() {
+    id():string {
       if (this.rubriquageId) return 'rubriqueChooser' + this.rubriquageId;
       return 'rubriqueChooser';
     },
   },
-
   methods: {
     clearAll() {
-      this.$refs.multiselectRef.$refs.search.setAttribute(
+      (this.$refs.multiselect as any).$refs.search.setAttribute(
         'autocomplete',
         'off'
       );
@@ -132,7 +129,6 @@ export default {
         );
       }
     },
-
     onClose() {
       if (this.rubrique || undefined !== this.rubriqueArray) return;
       if (undefined !== this.defaultanswer) {
@@ -142,8 +138,7 @@ export default {
       }
       this.onRubriqueSelected(this.rubrique);
     },
-
-    onSearchRubrique(query) {
+    onSearchRubrique(query: string) {
       this.isLoading = true;
       let list;
       if (undefined !== this.defaultanswer) {
@@ -160,28 +155,27 @@ export default {
       } else {
         list = this.allRubriques;
       }
-      this.rubriques = list.filter(item => {
+      this.rubriques = list.filter((item:any) => {
         return item.name.toUpperCase().includes(query.toUpperCase());
       });
       this.isLoading = false;
     },
-
-    onRubriqueSelected(rubrique) {
+    onRubriqueSelected(rubrique:any) {
       if (undefined !== this.rubriqueSelected) {
         this.$emit('update:rubrique', rubrique.rubriqueId);
       } else if (undefined === this.rubriqueArray) {
         this.$emit('selected', rubrique);
       }
     },
-    initRubriqueSelected(val) {
-      this.rubrique = this.allRubriques.find(el => {
+    initRubriqueSelected(val: any) {
+      this.rubrique = this.allRubriques.find((el:any) => {
         return el.rubriqueId === val;
       });
     },
-    initRubriqueArray(val) {
+    initRubriqueArray(val: any[]) {
       this.rubrique.length = 0;
-      val.forEach(element => {
-        let item = this.allRubriques.find(el => {
+      val.forEach((element: any) => {
+        let item = this.allRubriques.find((el:any) => {
           return el.rubriqueId === element;
         });
         this.rubrique.push(item);
@@ -194,9 +188,8 @@ export default {
     },
     rubrique(newVal) {
       if (undefined === this.rubriqueArray) return;
-
-      let idsArray = [];
-      newVal.forEach(el => {
+      let idsArray: any[] = [];
+      newVal.forEach((el: { rubriqueId: any; }) => {
         idsArray.push(el.rubriqueId);
       });
       this.$emit('selected', idsArray);

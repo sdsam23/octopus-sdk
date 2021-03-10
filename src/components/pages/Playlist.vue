@@ -62,27 +62,25 @@ export default {
     SharePlayer,
   },
   mixins: [displayMethods],
+  props: ['playlistId', 'isEducation'],
 
   mounted() {
     this.getPlaylistDetails();
   },
-
-  props: ['playlistId', 'isEducation'],
-
+  
   data() {
     return {
       loaded: false,
-      playlist: undefined,
+      playlist: undefined as any,
       error: false,
       isReady: true,
     };
   },
-
   computed: {
     organisationId() {
       return state.generalParameters.organisationId;
     },
-    authenticated() {
+    authenticated():boolean {
       return state.generalParameters.authenticated;
     },
     isEditBox() {
@@ -94,19 +92,16 @@ export default {
     isSharePlayer() {
       return state.podcastPage.SharePlayer;
     },
-    name() {
+    name():string {
       return this.playlist ? this.playlist.title : '';
     },
-
-    imageUrl() {
+    imageUrl():string {
       let dummy = new Date().getTime().toString();
       return this.playlist ? this.playlist.imageUrl + '?dummy=' + dummy : '';
     },
-
-    description() {
+    description():string {
       return this.playlist ? this.playlist.description : '';
     },
-
     editRight() {
       if (
         (state.generalParameters.isPlaylist &&
@@ -117,15 +112,13 @@ export default {
       return false;
     },
   },
-
   watch: {
-    playlistId(val) {
+    playlistId() {
       this.loaded = false;
       this.error = false;
-      this.getPlaylistDetails(val);
+      this.getPlaylistDetails();
     },
   },
-
   methods: {
     async getPlaylistDetails() {
       try {

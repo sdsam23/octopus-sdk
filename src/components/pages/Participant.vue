@@ -97,23 +97,20 @@ export default {
   mounted() {
     this.getParticipantDetails();
   },
-
   props: ['participantId'],
-
   data() {
     return {
       loaded: false,
-      participant: undefined,
+      participant: undefined as any,
       error: false,
       reload: false,
     };
   },
-
   computed: {
     organisationId() {
       return state.generalParameters.organisationId;
     },
-    authenticated() {
+    authenticated():boolean {
       return state.generalParameters.authenticated;
     },
     isEditBox() {
@@ -128,20 +125,19 @@ export default {
     isRssButton() {
       return state.intervenantPage.rssButton;
     },
-    rssUrl() {
+    rssUrl():any {
       return (
         state.generalParameters.ApiUri + 'rss/participant/' + this.participantId
       );
     },
-    description() {
+    description():string {
       let description;
       description = this.participant.description || '';
       if (state.generalParameters.isIE11)
         return description.substring(0, 50) + '...';
       return description;
     },
-
-    name() {
+    name():string {
       const fullName = (
         (this.participant.firstName || '') +
         ' ' +
@@ -161,7 +157,6 @@ export default {
       return false;
     },
   },
-
   methods: {
     async getParticipantDetails() {
       this.loaded = false;
@@ -175,7 +170,7 @@ export default {
         this.loaded = true;
       }
     },
-    updateParticipant(participant) {
+    updateParticipant(participant:any) {
       this.participant = participant;
       this.$emit('participantTitle', this.name);
     },

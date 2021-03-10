@@ -145,30 +145,28 @@ export default {
       this.loaded = true;
     }
   },
-
   data() {
     return {
       loading: true,
       loaded: true,
-      lives: [],
-      livesNotStarted: [],
-      livesToBe: [],
-      livesTerminated: [],
-      livesError: [],
-      livesPublishing: [],
+      lives: [] as any,
+      livesNotStarted: [] as any,
+      livesToBe: [] as any,
+      livesTerminated: [] as any,
+      livesError: [] as any,
+      livesPublishing: [] as any,
     };
   },
-
   computed: {
-    filterOrgaUsed() {
+    filterOrgaUsed():any {
       if (this.filterOrga) return this.filterOrga;
       if (this.organisationId) return this.organisationId;
       return undefined;
     },
-    filterOrga() {
+    filterOrga():any {
       return this.$store.state.filter.organisationId;
     },
-    displayNextLiveMessage() {
+    displayNextLiveMessage():any {
       if (0 !== this.lives.length) return '';
       if (this.livesNotStarted.length > 0)
         return this.$t('A live can start any moment');
@@ -190,7 +188,6 @@ export default {
       return state.generalParameters.isRoleLive;
     },
   },
-
   methods: {
     initArrays() {
       this.lives.length = 0;
@@ -208,16 +205,16 @@ export default {
       }
       this.loading = true;
       this.loaded = false;
-      let dataLives = await studioApi.listConferences(
+      let dataLives:any = await studioApi.listConferences(
         this.$store,
         true,
         this.filterOrgaUsed,
         'RECORDING'
       );
-      this.lives = dataLives.filter(p => {
+      this.lives = dataLives.filter((p:any) => {
         return null !== p;
       });
-      let dataLivesToBe = await studioApi.listConferences(
+      let dataLivesToBe:any = await studioApi.listConferences(
         this.$store,
         true,
         this.filterOrgaUsed,
@@ -241,35 +238,35 @@ export default {
       this.livesToBe = dataLivesToBe
         .slice(indexPast)
         .concat(dataLivesPlanned)
-        .filter(p => {
+        .filter((p: null) => {
           return null !== p;
         });
       if (this.organisationRight) {
-        let dataLivesTerminated = await studioApi.listConferences(
+        let dataLivesTerminated:any = await studioApi.listConferences(
           this.$store,
           true,
           this.filterOrgaUsed,
           'DEBRIEFING'
         );
-        this.livesTerminated = dataLivesTerminated.filter(p => {
+        this.livesTerminated = dataLivesTerminated.filter((p:any) => {
           return null !== p;
         });
-        let dataLivesError = await studioApi.listConferences(
+        let dataLivesError:any = await studioApi.listConferences(
           this.$store,
           true,
           this.filterOrgaUsed,
           'ERROR'
         );
-        this.livesError = dataLivesError.filter(p => {
+        this.livesError = dataLivesError.filter((p:any) => {
           return null !== p;
         });
-        let dataLivesPublishing = await studioApi.listConferences(
+        let dataLivesPublishing:any = await studioApi.listConferences(
           this.$store,
           true,
           this.filterOrgaUsed,
           'PUBLISHING'
         );
-        this.livesPublishing = dataLivesPublishing.filter(p => {
+        this.livesPublishing = dataLivesPublishing.filter((p:any) => {
           return null !== p;
         });
       }
@@ -280,22 +277,22 @@ export default {
       this.loading = false;
       this.loaded = true;
     },
-    deleteLive(index) {
+    deleteLive(index: any) {
       this.lives.splice(index, 1);
     },
-    deleteLiveToBe(index) {
+    deleteLiveToBe(index: any) {
       this.livesToBe.splice(index, 1);
     },
-    deleteLiveTerminated(index) {
+    deleteLiveTerminated(index: any) {
       this.livesTerminated.splice(index, 1);
     },
-    deleteLiveError(index) {
+    deleteLiveError(index: any) {
       this.livesError.splice(index, 1);
     },
-    deleteLiveNotStarted(index) {
+    deleteLiveNotStarted(index: any) {
       this.livesNotStarted.splice(index, 1);
     },
-    deleteLivePublishing(index) {
+    deleteLivePublishing(index: any) {
       this.livesPublishing.splice(index, 1);
     },
     updateLiveLocal() {
@@ -304,13 +301,13 @@ export default {
         index < len;
         index++
       ) {
-        const element = this.conferenceWatched[index];
+        const element:any = this.conferenceWatched[index];
         let indexLivesToBe = this.livesToBe.findIndex(
-          el => el.conferenceId === element.conferenceId
+          (          el: { conferenceId: any; }) => el.conferenceId === element.conferenceId
         );
         if (-1 === indexLivesToBe) {
           let indexLives = this.lives.findIndex(
-            el => el.conferenceId === element.conferenceId
+            (            el: { conferenceId: any; }) => el.conferenceId === element.conferenceId
           );
           if (-1 === indexLives || 'DEBRIEFING' !== element.status) continue;
           let newConf = this.lives[indexLives];
@@ -328,7 +325,6 @@ export default {
       }
     },
   },
-
   watch: {
     async organisationId() {
       this.initArrays();
@@ -342,7 +338,7 @@ export default {
         this.loaded = true;
       }
     },
-    filterOrga() {
+    filterOrga():any {
       this.initArrays();
       this.fetchContent();
     },

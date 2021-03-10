@@ -123,11 +123,10 @@ export default {
   },
 
   props: {
-    organisationId: { default: undefined },
+    organisationId: { default: undefined as any },
     searchPattern: { default: '' },
     type: { default: 'podcast' },
   },
-
   async created() {
     if (!this.organisationId) return;
     this.$store.commit('filterOrga', { orgaId: this.organisationId });
@@ -140,45 +139,41 @@ export default {
       this.$router.replace({ query: { productor: this.organisationId } });
     }
   },
-
   mounted() {
     if (this.$refs.search) {
-      this.$refs.search.focus();
+      (this.$refs.search as HTMLElement).focus();
     }
   },
-
   data() {
     return {
       keepOrganisation: false,
       showBubble: false,
-      imgUrl: undefined,
+      imgUrl: undefined as any,
     };
   },
-
   computed: {
     isPodcastmaker() {
       return state.generalParameters.podcastmaker;
     },
-    searchText() {
+    searchText():any {
       if ('emission' === this.type) return this.$t('Look for emission name');
       if ('participant' === this.type)
         return this.$t('Look for participant name');
       if ('playlist' === this.type) return this.$t('Look for playlist name');
       return this.$t('Look for podcast name');
     },
-    filterOrga() {
+    filterOrga():any {
       return this.$store.state.filter.organisationId;
     },
   },
-
   methods: {
-    onOrganisationSelected(organisation) {
+    onOrganisationSelected(organisation: any) {
       if (this.$route.query.productor) {
         this.$router.push({ query: { productor: undefined } });
       }
       this.imgUrl = organisation.imageUrl;
       this.$store.commit('filterOrga', {
-        orgaId: undefined,
+        orgaId: undefined as any,
         imgUrl: this.imgUrl,
       });
       this.keepOrganisation = false;
@@ -214,7 +209,7 @@ export default {
     },
   },
   watch: {
-    filterOrga() {
+    filterOrga():any {
       if (this.filterOrga) {
         this.keepOrganisation = true;
         this.$emit('updateOrganisationId', this.filterOrga);

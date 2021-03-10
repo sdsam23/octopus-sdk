@@ -133,14 +133,13 @@ export default {
       dsize: this.$props.size,
       totalCount: 0,
       displayCount: 0,
-      emissions: [],
-      rubriques: undefined,
+      emissions: [] as any,
+      rubriques: undefined as any,
       inFetching: false,
     };
   },
-
   computed: {
-    allFetched() {
+    allFetched():boolean {
       return this.dfirst >= this.totalCount;
     },
     buttonPlus() {
@@ -155,11 +154,11 @@ export default {
     displayRubriquage() {
       return state.emissionsPage.rubriquage;
     },
-    changed() {
+    changed():any {
       return `${this.first}|${this.size}|${this.organisationId}|${this.query}|${this.monetization}|${this.includeHidden}
       ${this.rubriqueId}|${this.rubriquageId}|${this.before}|${this.after}|${this.sort}|${this.noRubrique}`;
     },
-    sortText() {
+    sortText():any {
       switch (this.sort) {
         case 'SCORE':
           return this.$t('sort by score');
@@ -171,18 +170,17 @@ export default {
           return this.$t('sort by date');
       }
     },
-    filterOrga() {
+    filterOrga():any {
       return this.$store.state.filter.organisationId;
     },
-    organisation() {
+    organisation():any {
       if (this.organisationId) return this.organisationId;
       if (this.filterOrga) return this.filterOrga;
       return undefined;
     },
   },
-
   methods: {
-    async fetchContent(reset) {
+    async fetchContent(reset: boolean) {
       this.inFetching = true;
       if (reset) {
         this.emissions.length = 0;
@@ -190,7 +188,7 @@ export default {
         this.loading = true;
         this.loaded = false;
       }
-      let param = {
+      let param:any = {
         first: this.dfirst,
         size: this.dsize,
         query: this.query,
@@ -212,8 +210,7 @@ export default {
         this.afterFetching(reset, data);
       }
     },
-
-    afterFetching(reset, data) {
+    afterFetching(reset: any, data: any) {
       if (reset) {
         this.emissions.length = 0;
         this.dfirst = 0;
@@ -221,7 +218,7 @@ export default {
       this.loading = false;
       this.loaded = true;
       this.displayCount = data.count;
-      this.emissions = this.emissions.concat(data.result).filter(e => {
+      this.emissions = this.emissions.concat(data.result).filter((e:any) => {
         if (null === e) {
           this.displayCount--;
         }
@@ -231,8 +228,7 @@ export default {
       this.totalCount = data.count;
       this.inFetching = false;
     },
-
-    displayMore(event) {
+    displayMore(event: { preventDefault: () => void; }) {
       event.preventDefault();
       this.fetchContent(false);
     },
@@ -240,7 +236,7 @@ export default {
       const data = await octopusApi.fetchTopic(this.displayRubriquage);
       this.rubriques = data.rubriques;
     },
-    mainRubriquage(emission) {
+    mainRubriquage(emission: { rubriqueIds: any[]; }) {
       if (
         emission.rubriqueIds &&
         emission.rubriqueIds[0] === state.emissionsPage.mainRubrique
@@ -248,7 +244,7 @@ export default {
         return 'partenaireRubrique';
       return '';
     },
-    rubriquesId(emission) {
+    rubriquesId(emission: { rubriqueIds: string|any[]; }) {
       if (
         !this.displayRubriquage ||
         !emission.rubriqueIds ||
@@ -258,12 +254,11 @@ export default {
       )
         return undefined;
       let rubrique = this.rubriques.find(
-        element => element.rubriqueId === emission.rubriqueIds[0]
+        (        element: { rubriqueId: any; }) => element.rubriqueId === emission.rubriqueIds[0]
       );
       return rubrique.name;
     },
   },
-
   watch: {
     changed: {
       handler() {

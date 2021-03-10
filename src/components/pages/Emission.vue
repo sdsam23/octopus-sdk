@@ -116,11 +116,12 @@ export default {
 
   props: ['emissionId', 'isEducation'],
 
+  
   data() {
     return {
       loaded: false,
       title: '',
-      emission: undefined,
+      emission: undefined as any,
       error: false,
       rssEmission: false,
       exclusive: false,
@@ -130,15 +131,13 @@ export default {
       fetchLive: true,
     };
   },
-
   computed: {
     organisationId() {
       return state.generalParameters.organisationId;
     },
-    authenticated() {
+    authenticated():boolean {
       return state.generalParameters.authenticated;
     },
-
     isEditBox() {
       return state.podcastPage.EditBox;
     },
@@ -160,23 +159,20 @@ export default {
     isPodcastmaker() {
       return state.generalParameters.podcastmaker;
     },
-    rssUrl() {
+    rssUrl():string {
       return state.generalParameters.ApiUri + 'rss/emission/' + this.emissionId;
     },
-    name() {
+    name():string {
       return this.emission ? this.emission.name : '';
     },
-
-    imageUrl() {
+    imageUrl():string {
       return this.emission
         ? this.emission.imageUrl + '?dummy=' + this.dummyParam
         : '';
     },
-
-    description() {
+    description():string {
       return this.emission ? this.emission.description : '';
     },
-
     editRight() {
       if (
         (this.authenticated && this.organisationId === this.emission.orga.id) ||
@@ -198,7 +194,6 @@ export default {
       return count;
     },
   },
-
   watch: {
     emissionId(val) {
       this.loaded = false;
@@ -206,9 +201,8 @@ export default {
       this.getEmissionDetails(val);
     },
   },
-
   methods: {
-    async getEmissionDetails(emissionId) {
+    async getEmissionDetails(emissionId:number) {
       try {
         const data = await octopusApi.fetchEmission(emissionId);
         this.emission = data;

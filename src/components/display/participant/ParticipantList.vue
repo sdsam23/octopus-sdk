@@ -74,7 +74,7 @@ export default {
     this.fetchContent(true);
   },
 
-  data() {
+   data() {
     return {
       loading: true,
       loaded: true,
@@ -82,27 +82,25 @@ export default {
       dsize: this.$props.size,
       totalCount: 0,
       displayCount: 0,
-      participants: [],
+      participants: [] as any,
       inFetching: false,
     };
   },
-
   computed: {
-    allFetched() {
+    allFetched():boolean {
       return this.dfirst >= this.totalCount;
     },
-    filterOrga() {
+    filterOrga():any {
       return this.$store.state.filter.organisationId;
     },
-    organisation() {
+    organisation():any {
       if (this.organisationId) return this.organisationId;
       if (this.filterOrga) return this.filterOrga;
       return undefined;
     },
   },
-
   methods: {
-    async fetchContent(reset) {
+    async fetchContent(reset: boolean) {
       this.inFetching = true;
       if (reset) {
         this.participants.length = 0;
@@ -119,7 +117,7 @@ export default {
       this.loading = false;
       this.loaded = true;
       this.displayCount = data.count;
-      this.participants = this.participants.concat(data.result).filter(p => {
+      this.participants = this.participants.concat(data.result).filter((p: null) => {
         if (null === p) {
           this.displayCount--;
         }
@@ -129,13 +127,11 @@ export default {
       this.totalCount = data.count;
       this.inFetching = false;
     },
-
-    displayMore(event) {
+    displayMore(event: { preventDefault: () => void; }) {
       event.preventDefault();
       this.fetchContent(false);
     },
   },
-
   watch: {
     query: {
       handler() {

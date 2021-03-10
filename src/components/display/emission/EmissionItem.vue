@@ -194,7 +194,7 @@ export default {
     let emissionDesc = document.getElementById(
       'description-emission-' + this.emission.emissionId
     );
-    let emissionDescContainer = document.getElementById(
+    let emissionDescContainer:any = document.getElementById(
       'description-emission-container-' + this.emission.emissionId
     );
     if (
@@ -204,48 +204,39 @@ export default {
       emissionDescContainer.classList.add('after-emission-description');
     }
   },
-
   data() {
     return {
       activeEmission: true,
     };
   },
-
   computed: {
     isPodcastmaker() {
       return state.generalParameters.podcastmaker;
     },
-
-    organisation() {
+    organisation():string {
       return '' + this.emission.publisher.organisation.name;
     },
-
     lightItems() {
       return state.emissionsPage.lightItems;
     },
-
-    description() {
+    description():string {
       let description;
       description = this.emission.description || '';
       if (state.generalParameters.isIE11)
         return description.substring(0, 50) + '...';
       return description;
     },
-
-    name() {
+    name():string {
       if (state.generalParameters.isIE11)
         return this.emission.name.substring(0, 50) + '...';
       return this.emission.name;
     },
-
     organisationId() {
       return state.generalParameters.organisationId;
     },
-
-    authenticated() {
+    authenticated():boolean {
       return state.generalParameters.authenticated;
     },
-
     editRight() {
       if (
         (this.authenticated && this.organisationId === this.emission.orga.id) ||
@@ -255,7 +246,6 @@ export default {
       return false;
     },
   },
-
   methods: {
     async hasPodcast() {
       const data = await octopusApi.fetchPodcasts({

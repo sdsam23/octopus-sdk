@@ -16,11 +16,11 @@
       <CommentItem
         :ref="'comItem' + c.comId"
         :isFlat="isFlat"
-        :comment.sync="c"
+        :comment.sync="comments[indexCom]"
         :podcast="podcast"
         :fetchConference="fetchConference"
         :organisation="organisation"
-        v-for="c in comments"
+        v-for="(c, indexCom) in comments"
         :key="c.comId"
         @deleteComment="deleteComment(c)"
         @updateComment="updateComment"

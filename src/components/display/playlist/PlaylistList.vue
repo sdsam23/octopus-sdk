@@ -57,37 +57,35 @@ export default {
       dsize: this.$props.size,
       totalCount: 0,
       displayCount: 0,
-      playlists: [],
+      playlists: [] as any,
       inFetching: false,
     };
   },
-
   computed: {
-    allFetched() {
+    allFetched():boolean {
       return this.dfirst >= this.totalCount;
     },
     buttonPlus() {
       return state.generalParameters.buttonPlus;
     },
-    changed() {
+    changed():any {
       return `${this.first}|${this.size}|${this.organisationId}|${this.query}`;
     },
-    filterOrga() {
+    filterOrga():any {
       return this.$store.state.filter.organisationId;
     },
     sort() {
       if (!this.query) return 'NAME';
       return 'SCORE';
     },
-    organisation() {
+    organisation():any {
       if (this.organisationId) return this.organisationId;
       if (this.filterOrga) return this.filterOrga;
       return undefined;
     },
   },
-
   methods: {
-    async fetchContent(reset) {
+    async fetchContent(reset: boolean) {
       this.inFetching = true;
       if (reset) {
         this.dfirst = 0;
@@ -104,8 +102,7 @@ export default {
       const data = await octopusApi.fetchPlaylists(param);
       this.afterFetching(reset, data);
     },
-
-    afterFetching(reset, data) {
+    afterFetching(reset: any, data:any) {
       if (reset) {
         this.playlists.length = 0;
         this.dfirst = 0;
@@ -113,7 +110,7 @@ export default {
       this.loading = false;
       this.loaded = true;
       this.displayCount = data.count;
-      this.playlists = this.playlists.concat(data.result).filter(e => {
+      this.playlists = this.playlists.concat(data.result).filter((e: null) => {
         if (null === e) {
           this.displayCount--;
         }
@@ -123,13 +120,11 @@ export default {
       this.totalCount = data.count;
       this.inFetching = false;
     },
-
-    displayMore(event) {
+    displayMore(event: { preventDefault: () => void; }) {
       event.preventDefault();
       this.fetchContent(false);
     },
   },
-
   watch: {
     changed: {
       handler() {

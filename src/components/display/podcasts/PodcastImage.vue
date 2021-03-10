@@ -217,7 +217,7 @@ export default {
   ],
   computed: {
     ...mapState({
-      playingPodcast(state) {
+      playingPodcast(state:any) {
         return (
           (state.player.podcast &&
             state.player.podcast.podcastId === this.podcast.podcastId) ||
@@ -229,27 +229,24 @@ export default {
         );
       },
     }),
-
     isMobile() {
       return window.matchMedia('(hover: none)').matches;
     },
-
-    isRecordedInLive() {
+    isRecordedInLive():boolean {
       return (
         undefined === this.fetchConference &&
         undefined !== this.podcast.conferenceId &&
         'READY_TO_RECORD' !== this.podcast.processingStatus
       );
     },
-
-    isLiveToBeRecorded() {
+    isLiveToBeRecorded():boolean {
       return (
         undefined === this.fetchConference &&
         undefined !== this.podcast.conferenceId &&
         'READY_TO_RECORD' === this.podcast.processingStatus
       );
     },
-    classicPodcastPlay() {
+    classicPodcastPlay():boolean {
       return (
         this.podcast &&
         false !== this.podcast.valid &&
@@ -279,7 +276,7 @@ export default {
         return 'saooti-cancel-circle';
       return 'saooti-warning';
     },
-    textVisible() {
+    textVisible():any {
       if (this.isLiveToBeRecorded)
         return this.$t('Podcast linked to waiting live');
       if ('READY' === this.podcast.processingStatus || this.fetchConference) {
@@ -300,8 +297,7 @@ export default {
         return this.$t('Podcast in cancelled status');
       return this.$t('Podcast in error');
     },
-
-    statusText() {
+    statusText():any {
       if (!this.fetchConference) return '';
       switch (this.fetchConference.status) {
         case 'PLANNED':
@@ -324,8 +320,7 @@ export default {
           return '';
       }
     },
-
-    recordingLive() {
+    recordingLive():boolean {
       return (
         this.fetchConference &&
         'null' !== this.fetchConference &&
@@ -334,13 +329,11 @@ export default {
       );
     },
   },
-
   data() {
     return {
       isDescription: false,
     };
   },
-
   methods: {
     play() {
       if (this.isLiveToBeRecorded) {
@@ -368,7 +361,6 @@ export default {
       this.isDescription = !this.isDescription;
     },
   },
-
   watch: {
     arrowDirection(newValue) {
       if ('up' === newValue) {

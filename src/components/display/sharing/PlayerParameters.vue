@@ -146,39 +146,37 @@ export default {
   },
   computed: {
     iFrameNumber: {
-      get() {
+      get(): any {
         return this.iFrameNumberPriv;
       },
-      set(value) {
+      set(value:any) {
         let val = parseInt(value, 10);
         if (!isNaN(val) && val >= 1 && val <= 50) {
           this.iFrameNumberPriv = value;
         }
       },
     },
-    isEmission() {
+    isEmission():boolean {
       return 'emission' === this.iFrameModel;
     },
-    isLargeEmission() {
+    isLargeEmission():boolean {
       return 'largeEmission' === this.iFrameModel;
     },
-    isLargeSuggestion() {
+    isLargeSuggestion():boolean {
       return 'largeSuggestion' === this.iFrameModel;
     },
   },
-
   methods: {
     onDurationChange() {
       if (this.startTime) {
-        let minutes = parseInt(this.$refs.minutesRef.value, 10);
-        let secondes = parseInt(this.$refs.secondesRef.value, 10);
+        let minutes = parseInt((this.$refs.minutesRef as any).value, 10);
+        let secondes = parseInt((this.$refs.secondesRef as any).value, 10);
         this.$emit('startTime', minutes * 60 + secondes);
       } else {
         this.$emit('startTime', 0);
       }
     },
   },
-
   watch: {
     episodeNumbers() {
       this.$emit('episodeNumbers', this.episodeNumbers);

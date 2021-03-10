@@ -38,14 +38,13 @@ export default {
   },
   props: {
     conferenceWatched: { default: [] },
-    organisationId: { default: undefined },
+    organisationId: { default: undefined as any },
   },
-
   created() {
     if (this.$route.query.productor) {
-      this.organisationId = this.$route.query.productor;
+      this.$emit('update:organisationId',this.$route.query.productor);
     } else if (this.$store.state.filter.organisationId) {
-      this.organisationId = this.$store.state.filter.organisationId;
+      this.$emit('update:organisationId',this.$store.state.filter.organisationId);
     }
     if (
       this.$store.state.organisation &&
@@ -55,13 +54,11 @@ export default {
       this.live = false;
     }
   },
-
   data() {
     return {
       live: true,
     };
   },
-
   computed: {
     liveRight() {
       if (this.isRoleLive && this.live) return true;
@@ -70,16 +67,15 @@ export default {
     isRoleLive() {
       return state.generalParameters.isRoleLive;
     },
-    filterOrga() {
+    filterOrga():any {
       return this.$store.state.filter.organisationId;
     },
   },
-
   methods: {
-    initConferenceIds(listIds) {
+    initConferenceIds(listIds: any) {
       this.$emit('initConferenceIds', listIds);
     },
-    onOrganisationSelected(organisation) {
+    onOrganisationSelected(organisation: any) {
       if (organisation && organisation.id) {
         this.$emit('update:organisationId', organisation.id);
       } else {

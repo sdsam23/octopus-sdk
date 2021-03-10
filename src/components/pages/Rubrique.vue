@@ -28,19 +28,16 @@ export default {
       title: '',
     };
   },
-
   computed: {},
-
   methods: {
     async extractTitle() {
       const data = await octopusApi.fetchRubric(this.rubriqueId);
       this.title = data.name;
     },
   },
-
   watch: {
-    rubriqueId(val) {
-      this.extractTitle(val);
+    rubriqueId() {
+      this.extractTitle();
     },
   },
 };

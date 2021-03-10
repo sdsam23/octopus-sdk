@@ -151,7 +151,7 @@ export default {
     isPodcastmaker() {
       return state.generalParameters.podcastmaker;
     },
-    authenticated() {
+    authenticated():boolean {
       return this.$store.state.authentication.isAuthenticated;
     },
     isOrganisation() {
@@ -162,15 +162,16 @@ export default {
     },
   },
 
+
   methods: {
-    displayMenuPhone(hidden) {
+    displayMenuPhone(hidden: any) {
       if (hidden) {
-        this.$refs.menu.className = 'menu hid';
+        (this.$refs.menu as HTMLElement).className='menu hid';
       } else {
-        this.$refs.menu.className = 'menu';
+        (this.$refs.menu as HTMLElement).className='menu';
       }
     },
-    goToUrl(url) {
+    goToUrl(url: any) {
       if (this.authenticated) {
         this.$router.push(url);
       }

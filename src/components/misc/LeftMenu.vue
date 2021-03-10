@@ -173,19 +173,17 @@ export default {
       this.organisationId = this.filterOrga;
     }
   },
-
   data() {
     return {
-      organisationId: undefined,
+      organisationId: undefined as any,
       reset: false,
     };
   },
-
   methods: {
     onMenuClick() {
       this.$emit('update:displayMenu', false);
     },
-    async onOrganisationSelected(organisation) {
+    async onOrganisationSelected(organisation: any) {
       if (organisation && organisation.id) {
         if (this.$route.query.productor !== organisation.id) {
           this.$router.push({ query: { productor: organisation.id } });
@@ -206,13 +204,12 @@ export default {
       }
     },
   },
-
   computed: {
     isLiveTab() {
       return state.generalParameters.isLiveTab;
     },
     categories() {
-      return state.generalParameters.allCategories.filter(c => {
+      return state.generalParameters.allCategories.filter((c: { podcastOrganisationCount: any; podcastCount: any; }) => {
         if (this.isPodcastmaker) return c.podcastOrganisationCount;
         return c.podcastCount;
       });
@@ -220,14 +217,13 @@ export default {
     isPodcastmaker() {
       return state.generalParameters.podcastmaker;
     },
-    filterOrga() {
+    filterOrga():any {
       return this.$store.state.filter.organisationId;
     },
-    filterOrgaLive() {
+    filterOrgaLive():any {
       return this.$store.state.filter.live;
     },
   },
-
   watch: {
     filterOrga(newVal) {
       if (newVal) {

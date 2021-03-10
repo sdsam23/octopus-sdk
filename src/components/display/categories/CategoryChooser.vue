@@ -56,7 +56,7 @@
 import Multiselect from 'vue-multiselect';
 import { state } from '../../../store/paramStore.js';
 
-const getDefaultCategory = defaultName => {
+const getDefaultCategory = (defaultName: any) => {
   if (undefined !== defaultName) return { name: defaultName, id: 0 };
   return '';
 };
@@ -66,38 +66,35 @@ export default {
     Multiselect,
   },
 
-  props: {
+   props: {
     width: { default: '100%' },
-    defaultanswer: { default: undefined },
-    categorySelected: { default: undefined },
+    defaultanswer: { default: undefined as any },
+    categorySelected: { default: undefined as any },
     multiple: { default: false },
-    categoryArray: { default: undefined },
+    categoryArray: { default: undefined as any },
     displayAllCategories: { default: false },
     isDisabled: { default: false },
   },
-
   computed: {
     allCategories() {
-      return state.generalParameters.allCategories.sort((a, b) =>
+      return state.generalParameters.allCategories.sort((a:any, b:any) =>
         a.name > b.name ? 1 : -1
       );
     },
-    id() {
+    id():string {
       if (this.multiple) return 'categoryChooser' + this.multiple;
       return 'categoryChooser';
     },
   },
-
   data() {
     return {
-      categories: [],
-      category: getDefaultCategory(this.defaultanswer),
+      categories: [] as any,
+      category: getDefaultCategory(this.defaultanswer) as any,
       isLoading: false,
-      totalCategories: undefined,
+      totalCategories: undefined as any,
       init: true,
     };
   },
-
   mounted() {
     if (undefined !== this.categorySelected) {
       this.initCategorySelected(this.categorySelected);
@@ -106,10 +103,9 @@ export default {
       this.initCategoryArray(this.categoryArray);
     }
   },
-
   methods: {
     clearAll() {
-      this.$refs.multiselectRef.$refs.search.setAttribute(
+      (this.$refs.multiselect as any).$refs.search.setAttribute(
         'autocomplete',
         'off'
       );
@@ -123,7 +119,7 @@ export default {
       ) {
         this.totalCategories = this.allCategories;
       } else {
-        this.totalCategories = this.allCategories.filter(c => {
+        this.totalCategories = this.allCategories.filter((c: { podcastCount: any; }) => {
           return c.podcastCount;
         });
       }
@@ -135,15 +131,13 @@ export default {
         this.categories = this.totalCategories;
       }
     },
-
     onClose() {
       if (!this.category && undefined === this.categoryArray) {
         this.category = getDefaultCategory(this.defaultanswer);
         this.onEmissionSelected(this.category);
       }
     },
-
-    onSearchCategory(query) {
+    onSearchCategory(query: string) {
       this.isLoading = true;
       let list = [getDefaultCategory(this.defaultanswer)].concat(
         this.totalCategories
@@ -151,28 +145,27 @@ export default {
       if (undefined === this.defaultanswer) {
         list = this.totalCategories;
       }
-      this.categories = list.filter(item => {
+      this.categories = list.filter((item:any) => {
         return item.name.toUpperCase().includes(query.toUpperCase());
       });
       this.isLoading = false;
     },
-
-    onEmissionSelected(category) {
+    onEmissionSelected(category: any) {
       if (undefined !== this.categorySelected) {
         this.$emit('update:categorySelected', category.id);
       } else if (undefined === this.categoryArray) {
         this.$emit('selected', category);
       }
     },
-    initCategorySelected(val) {
-      this.category = state.generalParameters.allCategories.find(el => {
+    initCategorySelected(val: any) {
+      this.category = state.generalParameters.allCategories.find((el: { id: any; }) => {
         return el.id === val;
       });
     },
-    initCategoryArray(val) {
+    initCategoryArray(val: any[]) {
       this.category.length = 0;
-      val.forEach(element => {
-        let item = state.generalParameters.allCategories.find(el => {
+      val.forEach((element: any) => {
+        let item = state.generalParameters.allCategories.find((el: { id: any; }) => {
           return el.id === element;
         });
         this.category.push(item);
@@ -185,9 +178,8 @@ export default {
     },
     category(newVal) {
       if (undefined === this.categoryArray) return;
-
-      let idsArray = [];
-      newVal.forEach(el => {
+      let idsArray: any[] = [];
+      newVal.forEach((el: { id: any; }) => {
         idsArray.push(el.id);
       });
       this.$emit('selected', idsArray);

@@ -79,7 +79,7 @@ export default {
 
   props: ['isEducation'],
 
-  created() {
+    created() {
     if (this.$route.query.first) {
       this.first = this.$route.query.first;
     } else {
@@ -99,29 +99,27 @@ export default {
       this.includeHidden = true;
     }
   },
-
   data() {
     return {
-      first: undefined,
-      size: undefined,
+      first: undefined as any,
+      size: undefined as any,
       searchPattern: '',
-      organisationId: undefined,
-      monetization: undefined,
-      rubriquageId: undefined,
-      rubriqueId: undefined,
-      emissionId: undefined,
-      fromDate: undefined,
-      toDate: undefined,
+      organisationId: undefined as any,
+      monetization: undefined as any,
+      rubriquageId: undefined as any,
+      rubriqueId: undefined as any,
+      emissionId: undefined as any,
+      fromDate: undefined as any,
+      toDate: undefined as any,
       resetRubriquage: false,
       includeHidden: false,
-      noRubrique: undefined,
+      noRubrique: undefined as any,
       sortCriteria: 'DATE',
       notValid: false,
     };
   },
-
   computed: {
-    authenticated() {
+    authenticated():boolean {
       return state.generalParameters.authenticated;
     },
     myOrganisationId() {
@@ -135,10 +133,10 @@ export default {
         return true;
       return false;
     },
-    filterOrga() {
+    filterOrga():any {
       return this.$store.state.filter.organisationId;
     },
-    organisation() {
+    organisation():any {
       if (this.organisationId) return this.organisationId;
       if (this.filterOrga) return this.filterOrga;
       return undefined;
@@ -153,21 +151,20 @@ export default {
       return state.podcastsPage.emissionChooser;
     },
   },
-
   methods: {
-    updateSortCriteria(value) {
+    updateSortCriteria(value: string) {
       this.sortCriteria = value;
     },
-    updateHidden(value) {
+    updateHidden(value: boolean) {
       this.includeHidden = value;
     },
-    updateToDate(value) {
+    updateToDate(value: any) {
       this.toDate = value;
     },
-    updateFromDate(value) {
+    updateFromDate(value: any) {
       this.fromDate = value;
     },
-    updateRubriquage(value) {
+    updateRubriquage(value: number) {
       if (-1 !== value) {
         this.rubriquageId = value;
       } else {
@@ -176,7 +173,7 @@ export default {
       this.noRubrique = undefined;
       this.rubriqueId = undefined;
     },
-    updateRubrique(value) {
+    updateRubrique(value: number) {
       if (-1 === value) {
         this.noRubrique = true;
         this.rubriqueId = undefined;
@@ -188,14 +185,14 @@ export default {
         this.noRubrique = undefined;
       }
     },
-    updateOrganisationId(value) {
+    updateOrganisationId(value: any) {
       this.resetRubriquage = !this.resetRubriquage;
       this.rubriquageId = undefined;
       this.rubriqueId = undefined;
       this.noRubrique = undefined;
       this.organisationId = value;
     },
-    updateSearchPattern(value) {
+    updateSearchPattern(value: string) {
       if ('' !== value) {
         this.sortCriteria = 'SCORE';
       } else {
@@ -203,13 +200,13 @@ export default {
       }
       this.searchPattern = value;
     },
-    updateMonetization(value) {
+    updateMonetization(value: any) {
       this.monetization = value;
     },
-    updateNotValid(value) {
+    updateNotValid(value: boolean) {
       this.notValid = value;
     },
-    emissionSelected(emission) {
+    emissionSelected(emission: { emissionId: any; }) {
       if (emission && emission.emissionId) {
         this.emissionId = emission.emissionId;
       } else {

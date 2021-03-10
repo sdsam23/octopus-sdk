@@ -109,7 +109,7 @@ const ELEMENTS_COUNT = 50;
 const DEFAULT_ORGANISATION_ID = 0;
 const DEFAULT_ORGANISATION_IMAGE = '/img/emptypodcast.png';
 
-const getDefaultOrganistion = defaultName => {
+const getDefaultOrganistion = (defaultName: any) => {
   return {
     name: defaultName,
     id: DEFAULT_ORGANISATION_ID,
@@ -134,7 +134,6 @@ export default {
       this.fetchOrganisation();
     }
   },
-
   props: {
     width: { default: '100%' },
     defaultanswer: { default: false },
@@ -145,13 +144,11 @@ export default {
     reset: { default: false },
     all: { default: false },
   },
-
   mixins: [selenium],
-
   data() {
-    let _return = {
+    let _return:any = {
       organisation: '',
-      organisations: [],
+      organisations: [] as any,
       remainingElements: 0,
       isLoading: false,
       init: false,
@@ -162,15 +159,14 @@ export default {
     }
     return _return;
   },
-
   computed: {
     organisationId() {
       return state.generalParameters.organisationId;
     },
-    authenticated() {
+    authenticated():boolean {
       return state.generalParameters.authenticated;
     },
-    myOrganisation() {
+    myOrganisation():any {
       if (!this.authenticated) return undefined;
       return {
         id: this.organisationId,
@@ -183,7 +179,6 @@ export default {
       };
     },
   },
-
   methods: {
     onOpen() {
       this.$refs.multiselectRef.$refs.search.setAttribute(
@@ -193,21 +188,17 @@ export default {
       this.clearAll();
       this.onSearchOrganisation();
     },
-
     onClose() {
       if (this.organisation) return;
-
       this.organisation = this.defaultanswer
         ? getDefaultOrganistion(this.defaultanswer)
         : '';
       this.$emit('selected', this.organisation);
     },
-
-    onEmissionSelected(organisation) {
+    onEmissionSelected(organisation: any) {
       this.$emit('selected', organisation);
     },
-
-    async onSearchOrganisation(query) {
+    async onSearchOrganisation(query: undefined) {
       this.isLoading = true;
       const response = await octopusApi.fetchOrganisations({
         query: query,
@@ -228,11 +219,9 @@ export default {
           orga = orga.concat(other.result);
         }
       }
-
-      let notNull = orga.filter(o => {
+      let notNull = orga.filter((o: null) => {
         return null !== o;
       });
-
       if (this.defaultanswer) {
         this.organisations = [getDefaultOrganistion(this.defaultanswer)].concat(
           notNull
@@ -242,13 +231,13 @@ export default {
       }
       if (this.myOrganisation) {
         if (undefined === query) {
-          this.organisations = this.organisations.filter(obj => {
+          this.organisations = this.organisations.filter((obj: { id: any; }) => {
             return obj.id !== this.organisationId;
           });
           this.organisations.splice(1, 0, this.myOrganisation);
         } else {
           let foundIndex = this.organisations.findIndex(
-            obj => obj.id === this.organisationId
+            (            obj: { id: any; }) => obj.id === this.organisationId
           );
           if (foundIndex) {
             this.organisations[foundIndex] = this.myOrganisation;
@@ -258,7 +247,6 @@ export default {
       this.isLoading = false;
       this.remainingElements = Math.max(0, response.count - orga.length);
     },
-
     async fetchOrganisation() {
       if (0 === this.organisations.length) {
         this.onSearchOrganisation();
@@ -267,13 +255,11 @@ export default {
       this.organisation = data;
       this.init = true;
     },
-
     clearAll() {
       this.organisation = '';
       this.organisations.length = 0;
     },
   },
-
   watch: {
     value(newVal) {
       if (!this.init || newVal) {

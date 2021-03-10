@@ -85,7 +85,7 @@ const octopusApi = require('@saooti/octopus-api');
 const ELEMENTS_COUNT = 50;
 const DEFAULT_EMISSION_ID = 0;
 
-const getDefaultEmission = defaultName => {
+const getDefaultEmission = (defaultName: any) => {
   return {
     name: defaultName,
     id: DEFAULT_EMISSION_ID,
@@ -109,7 +109,7 @@ export default {
   },
 
   data() {
-    let _return = {
+    let _return:any = {
       emission: '',
       emissions: [],
       remainingElements: 0,
@@ -121,7 +121,7 @@ export default {
     return _return;
   },
 
-  methods: {
+   methods: {
     onOpen() {
       this.$refs.multiselectRef.$refs.search.setAttribute(
         'autocomplete',
@@ -130,7 +130,6 @@ export default {
       this.clearAll();
       this.onSearchEmission();
     },
-
     onClose() {
       if (this.emission) return;
       this.emission = this.defaultanswer
@@ -138,14 +137,12 @@ export default {
         : '';
       this.$emit('selected', this.emission);
     },
-
-    onEmissionSelected(emission) {
+    onEmissionSelected(emission: any) {
       this.$emit('selected', emission);
     },
-
-    async onSearchEmission(query) {
+    async onSearchEmission(query: undefined) {
       this.isLoading = true;
-      let standardParam = {
+      let standardParam:any = {
         query: query,
         first: 0,
         size: ELEMENTS_COUNT,
@@ -175,7 +172,6 @@ export default {
       this.isLoading = false;
       this.remainingElements = Math.max(0, response.count - ELEMENTS_COUNT);
     },
-
     clearAll() {
       this.emission = '';
       this.emissions.length = 0;

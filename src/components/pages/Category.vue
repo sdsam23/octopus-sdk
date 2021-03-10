@@ -38,19 +38,17 @@ export default {
     categories() {
       return state.generalParameters.allCategories;
     },
-    filterOrga() {
+    filterOrga():any {
       return this.$store.state.filter.organisationId;
     },
   },
-
   methods: {
-    extractTitle(iabId) {
-      const matchCategories = this.categories.filter(c => c.id === iabId);
+    extractTitle(iabId: any) {
+      const matchCategories = this.categories.filter((c: any) => c.id === iabId);
       if (1 !== matchCategories.length) return '';
       this.title = matchCategories[0]['name'];
     },
   },
-
   watch: {
     iabId(val) {
       this.extractTitle(val);

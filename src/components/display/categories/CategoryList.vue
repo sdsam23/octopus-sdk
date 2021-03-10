@@ -94,41 +94,39 @@ export default {
     }
   },
 
-  data() {
+   data() {
     return {
-      hidenCategories: [],
+      hidenCategories: [] as any,
     };
   },
-
   computed: {
     isPodcastmaker() {
       return state.generalParameters.podcastmaker;
     },
     categories() {
       if (this.filterOrga) {
-        return this.$store.state.categoriesOrga.filter(c => {
+        return this.$store.state.categoriesOrga.filter((c:any) => {
           return c.podcastOrganisationCount;
         });
       }
-      return state.generalParameters.allCategories.filter(c => {
+      return state.generalParameters.allCategories.filter((c:any) => {
         if (this.isPodcastmaker) return c.podcastOrganisationCount;
         return c.podcastCount;
       });
     },
-    filterOrga() {
+    filterOrga():any {
       return this.$store.state.filter.organisationId;
     },
   },
-
   methods: {
     resizeWindow() {
       let categoryList = document.getElementById('category-list-container');
-      categoryList.style.justifyContent = 'flex-start';
+      categoryList!.style.justifyContent = 'flex-start';
       this.hidenCategories.length = 0;
-      this.categories.forEach(element => {
+      this.categories.forEach((element:any) => {
         let el = document.getElementById('category' + element.id);
         if (!el) return;
-        const parent = el.parentNode;
+        const parent:any = el.parentNode;
         if (el.offsetLeft + el.clientWidth <= parent.clientWidth - 20) {
           el.classList.remove('hid');
           return;
@@ -139,21 +137,19 @@ export default {
         }
       });
       if (!this.hidenCategories.length) {
-        categoryList.style.justifyContent = 'center';
+        categoryList!.style.justifyContent = 'center';
       }
     },
-    async fetchCategories(organisationId) {
+    async fetchCategories(organisationId:string) {
       const data = await octopusApi.fetchCategoriesOrga(organisationId, {
         lang: 'fr',
       });
       this.$store.commit('categoriesOrgaSet', data);
     },
   },
-
   beforeDestroy() {
     window.removeEventListener('resize', this.resizeWindow);
   },
-
   watch: {
     categories() {
       this.$nextTick(() => {

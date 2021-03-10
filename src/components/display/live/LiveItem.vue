@@ -204,12 +204,11 @@ export default {
     this.fetchPodcastData();
   },
 
-  data() {
+   data() {
     return {
-      live: undefined,
+      live: undefined as any,
     };
   },
-
   computed: {
     isEditBox() {
       return state.podcastPage.EditBox;
@@ -217,16 +216,16 @@ export default {
     isPodcastmaker() {
       return state.generalParameters.podcastmaker;
     },
-    hours() {
+    hours():string {
       return moment(this.live.pubDate).format('À HH[H]mm');
     },
-    date() {
+    date():string {
       return moment(this.live.pubDate).format('D/MM/YYYY');
     },
-    displayDate() {
+    displayDate():string {
       return moment(this.live.pubDate).format('X');
     },
-    description() {
+    description():string {
       if (this.live.description) return this.live.description;
       return '';
     },
@@ -244,8 +243,7 @@ export default {
     isRoleLive() {
       return state.generalParameters.isRoleLive;
     },
-
-    duration() {
+    duration():string {
       if (this.live.duration <= 1) return '';
       if (this.live.duration > 600000) {
         return humanizeDuration(this.live.duration, {
@@ -262,10 +260,10 @@ export default {
     },
   },
   methods: {
-    updatePodcast(podcastUpdated) {
+    updatePodcast(podcastUpdated: any) {
       this.live = podcastUpdated;
     },
-    getName(person) {
+    getName(person: any) {
       const first = person.firstName || '';
       const last = person.lastName || '';
       return (first + ' ' + last).trim();
@@ -284,12 +282,12 @@ export default {
         );
       }
     },
-    handleDescription() {
+    async handleDescription() {
       this.$nextTick(() => {
         let liveDesc = document.getElementById(
           'description-live-' + this.live.podcastId
         );
-        let liveDescContainer = document.getElementById(
+        let liveDescContainer:any = document.getElementById(
           'description-live-container-' + this.live.podcastId
         );
         if (

@@ -21,15 +21,13 @@ export default {
   components: {
     PodcastInlineList,
   },
-
   mounted() {},
-
   computed: {
     isPodcastmaker() {
       return state.generalParameters.podcastmaker;
     },
     categories() {
-      return state.generalParameters.allCategories.filter(c => {
+      return state.generalParameters.allCategories.filter((c:any) => {
         if (this.isPodcastmaker) return c.podcastOrganisationCount;
         return c.podcastCount;
       });

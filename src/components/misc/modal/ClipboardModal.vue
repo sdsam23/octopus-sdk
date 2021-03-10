@@ -65,7 +65,7 @@ export default {
   },
 
   methods: {
-    closePopup(event) {
+    closePopup(event: { preventDefault: () => void; }) {
       event.preventDefault();
       this.$emit('close');
     },

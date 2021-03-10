@@ -129,7 +129,7 @@ export default {
     let participantDesc = document.getElementById(
       'description-participant-' + this.participant.participantId
     );
-    let participantDescContainer = document.getElementById(
+    let participantDescContainer:any = document.getElementById(
       'description-participant-container-' + this.participant.participantId
     );
     if (
@@ -139,27 +139,23 @@ export default {
       participantDescContainer.classList.add('after-participant-description');
     }
   },
-
   data() {
     return {
       activeParticipant: true,
     };
   },
-
   computed: {
     isPodcastmaker() {
       return state.generalParameters.podcastmaker;
     },
-
-    description() {
+    description():string {
       let description;
       description = this.participant.description || '';
       if (state.generalParameters.isIE11)
         return description.substring(0, 50) + '...';
       return description;
     },
-
-    name() {
+    name():string {
       const fullName = (
         (this.participant.firstName || '') +
         ' ' +
@@ -169,15 +165,12 @@ export default {
         return fullName.substring(0, 50) + '...';
       return fullName;
     },
-
     organisationId() {
       return state.generalParameters.organisationId;
     },
-
-    authenticated() {
+    authenticated():boolean {
       return state.generalParameters.authenticated;
     },
-
     editRight() {
       if (
         (this.authenticated &&

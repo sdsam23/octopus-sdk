@@ -68,24 +68,22 @@ export default {
     PodcastList,
   },
 
-  mounted() {
+ mounted() {
     if (this.$route.query.query) {
       this.rawQuery = this.$route.query.query;
     }
     if (this.$refs.search) {
-      this.$refs.search.focus();
+      (this.$refs.search as HTMLElement).focus();
     }
   },
-
   data() {
     return {
-      rawQuery: '',
+      rawQuery: '' as any,
       noResult: false,
     };
   },
-
   computed: {
-    query() {
+    query():string {
       if (this.rawQuery && this.rawQuery.length >= 3) return this.rawQuery;
       return '';
     },
@@ -93,7 +91,6 @@ export default {
       return state.searchPage.hideBar;
     },
   },
-
   methods: {
     onListEmpty() {
       if (this.hideBar) {
@@ -106,7 +103,6 @@ export default {
       }
     },
   },
-
   watch: {
     '$route.query.query': {
       handler(search) {

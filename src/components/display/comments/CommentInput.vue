@@ -124,7 +124,7 @@ export default {
     };
   },
 
-  computed: {
+   computed: {
     isPresent() {
       if (!this.podcast) return true;
       let podcastComment = 'INHERIT';
@@ -146,14 +146,14 @@ export default {
       }
       return true;
     },
-    placeholder() {
+    placeholder():string {
       if (this.comId) return this.$t('Answer a comment');
       return this.$t('Write a comment');
     },
     organisationId() {
       return state.generalParameters.organisationId;
     },
-    authenticated() {
+    authenticated():boolean {
       return state.generalParameters.authenticated;
     },
     isCertified() {
@@ -165,7 +165,7 @@ export default {
         return true;
       return false;
     },
-    userId() {
+    userId():any {
       if (this.authenticated) return this.$store.state.profile.userId;
       return undefined;
     },
@@ -185,7 +185,6 @@ export default {
       return 'Live';
     },
   },
-
   methods: {
     changeIdentity() {
       this.temporaryName = this.knownIdentity;
@@ -196,11 +195,11 @@ export default {
       this.$emit('update:knownIdentity', this.temporaryName);
       this.editName = false;
     },
-    inputExceeded(text, font) {
-      this.element = document.createElement('canvas');
-      this.context = this.element.getContext('2d');
-      this.context.font = font;
-      return this.context.measureText(text).width;
+    inputExceeded(text: string, font: string) {
+      let element = document.createElement('canvas');
+      let context = element.getContext('2d');
+      context!.font = font;
+      return context!.measureText(text).width;
     },
     requestToSend() {
       if (this.knownIdentity) {
@@ -212,7 +211,7 @@ export default {
     cancelAction() {
       this.$emit('cancelAction');
     },
-    async postComment(name) {
+    async postComment(name?: string) {
       if (name) {
         this.setCookie('comment-octopus-name', name);
         this.$emit('update:knownIdentity', name);
@@ -227,12 +226,12 @@ export default {
             this.podcast.podcastId)
       ) {
         timeline = Math.round(
-          this.$store.state.player.elapsed * this.$store.state.player.total
+          this.$store.state.player.elapsed! * this.$store.state.player.total!
         );
         if (this.podcast.duration && this.$store.state.player.podcast) {
           timeline = Math.round(
             timeline -
-              (this.$store.state.player.total - this.podcast.duration / 1000)
+              (this.$store.state.player.total! - this.podcast.duration / 1000)
           );
         }
         if (timeline < 0) {
@@ -243,7 +242,7 @@ export default {
       if (null === sendName && name) {
         sendName = name;
       }
-      let comment = {
+      let comment:any = {
         content: this.newComment,
         name: sendName,
         podcastId: this.podcast.podcastId,
@@ -271,19 +270,18 @@ export default {
       }
     },
   },
-
   watch: {
     textareaFocus() {
       this.newComment = this.newComment.trim();
     },
     focus() {
-      this.$refs.textarea.focus();
+      (this.$refs.textarea as HTMLElement).focus();
     },
     newComment() {
       let padding =
         1.5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
       this.isOneLine =
-        this.$refs.textarea.$el.clientWidth -
+        (this.$refs.textarea as any).$el.clientWidth -
           this.inputExceeded(
             this.newComment,
             '18px Montserrat, sans-serif, Helvetica Neue'

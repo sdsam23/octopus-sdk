@@ -165,7 +165,7 @@ export default {
   components: {
     PodcastItem,
   },
-
+  
   created() {
     if (undefined !== this.requirePopularSort) {
       this.popularSort = this.requirePopularSort;
@@ -194,25 +194,24 @@ export default {
       size: 5,
       totalCount: 0,
       popularSort: true,
-      allPodcasts: [],
+      allPodcasts: [] as any,
       direction: 1,
       alignLeft: false,
     };
   },
-
   computed: {
-    podcasts() {
+    podcasts():any {
       return this.allPodcasts.slice(this.index, this.index + this.size);
     },
-    filterOrga() {
+    filterOrga():any {
       return this.$store.state.filter.organisationId;
     },
-    organisation() {
+    organisation():any {
       if (this.organisationId) return this.organisationId;
       if (this.filterOrga) return this.filterOrga;
       return undefined;
     },
-    refTo() {
+    refTo():any {
       if (this.href) return this.href;
       return {
         name: 'category',
@@ -220,16 +219,15 @@ export default {
         query: { productor: this.$store.state.filter.organisationId },
       };
     },
-    previousAvailable() {
+    previousAvailable():boolean {
       return this.index > 0;
     },
-    nextAvailable() {
+    nextAvailable():boolean {
       return this.index + this.size < this.totalCount;
     },
-    transitionName: ({ direction }) =>
+    transitionName: ({ direction }:any) =>
       direction > 0 ? 'out-left' : 'out-right',
   },
-
   methods: {
     async fetchNext() {
       const data = await octopusApi.fetchPodcasts({
@@ -250,7 +248,7 @@ export default {
         this.preloadImage(nexEl.imageUrl);
       }
       this.allPodcasts = this.allPodcasts.concat(
-        data.result.filter(pod => null !== pod)
+        data.result.filter((pod:any) => null !== pod)
       );
       if (this.allPodcasts.length <= 3) {
         this.alignLeft = true;
@@ -259,14 +257,12 @@ export default {
       }
       this.first += this.size;
     },
-
     displayPrevious() {
       this.direction = -1;
       if (this.previousAvailable) {
         this.index -= 1;
       }
     },
-
     displayNext() {
       this.direction = 1;
       if (!this.nextAvailable) return;
@@ -278,7 +274,6 @@ export default {
       }
       this.index += 1;
     },
-
     handleResize() {
       if (!this.$el) return;
       if (window.innerWidth <= PHONE_WIDTH) {
@@ -289,23 +284,18 @@ export default {
       const sixteen = domHelper.convertRemToPixels(13.7);
       this.size = Math.floor(width / sixteen);
     },
-
     sortPopular() {
       if (this.popularSort) return;
-
       this.popularSort = true;
       this.reset();
       this.fetchNext();
     },
-
     sortChrono() {
       if (!this.popularSort) return;
-
       this.popularSort = false;
       this.reset();
       this.fetchNext();
     },
-
     reset() {
       this.loading = true;
       this.loaded = true;
@@ -314,13 +304,11 @@ export default {
       this.totalCount = 0;
       this.allPodcasts.length = 0;
     },
-
-    preloadImage(url) {
+    preloadImage(url:string) {
       let img = new Image();
       img.src = url;
     },
   },
-
   watch: {
     emissionId: {
       handler() {

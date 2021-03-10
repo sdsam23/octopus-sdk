@@ -68,15 +68,13 @@ export default {
 
   data() {
     return {
-      commentDisplay: [],
-      displayContent: undefined,
+      commentDisplay: [] as any,
+      displayContent: undefined as any,
     };
   },
-
   computed: {},
-
   methods: {
-    percentPosition(time) {
+    percentPosition(time: number) {
       let realDuration = this.totalTime;
       if (
         this.$store.state.player.podcast &&

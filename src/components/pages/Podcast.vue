@@ -293,9 +293,21 @@ export default {
     CommentSection,
     ErrorMessage,
   },
+  props: ['podcastId', 'playingPodcast', 'updateStatus', 'isEducation'],
+  
+  data() {
+    return {
+      loaded: false,
+      podcast: undefined as any,
+      error: false,
+      exclusive: false,
+      notExclusive: false,
+      fetchConference: undefined as any,
+    };
+  },
 
   mixins: [displayMethods],
-
+ 
   async mounted() {
     await this.getPodcastDetails(this.podcastId);
     if (!this.isLiveReadyToRecord) return;
@@ -327,20 +339,7 @@ export default {
       this.$emit('initConferenceId', this.podcast.conferenceId);
     }
   },
-
-  props: ['podcastId', 'playingPodcast', 'updateStatus', 'isEducation'],
-
-  data() {
-    return {
-      loaded: false,
-      podcast: undefined,
-      error: false,
-      exclusive: false,
-      notExclusive: false,
-      fetchConference: undefined,
-    };
-  },
-
+  
   computed: {
     isPodcastmaker() {
       return state.generalParameters.podcastmaker;
@@ -360,7 +359,7 @@ export default {
     organisationId() {
       return state.generalParameters.organisationId;
     },
-    authenticated() {
+    authenticated():boolean {
       return state.generalParameters.authenticated;
     },
     isOuestFrance() {
@@ -372,7 +371,7 @@ export default {
     isDownloadButton() {
       return state.podcastPage.downloadButton;
     },
-    emissionMainCategory() {
+    emissionMainCategory():any {
       if (
         this.podcast.emission.annotations &&
         this.podcast.emission.annotations.mainIabId
@@ -386,30 +385,27 @@ export default {
       }
       return 0;
     },
-
-    categories() {
+    categories():any {
       if ('undefined' === typeof this.podcast) return '';
       return this.allCategories
-        .filter(item => {
+        .filter((item:any) => {
           return (
             this.podcast.emission.iabIds &&
             -1 !== this.podcast.emission.iabIds.indexOf(item.id)
           );
         })
-        .sort((a, b) => {
+        .sort((a:any, b:any) => {
           if (a.id === this.emissionMainCategory) return -1;
           if (b.id === this.emissionMainCategory) return 1;
           return 0;
         });
     },
-
-    date() {
+    date():string {
       if (1970 !== moment(this.podcast.pubDate).year())
         return moment(this.podcast.pubDate).format('D MMMM YYYY [à] HH[h]mm');
       return '';
     },
-
-    duration() {
+    duration():string {
       if (this.podcast.duration <= 1) return '';
       if (this.podcast.duration > 600000) {
         return humanizeDuration(this.podcast.duration, {
@@ -424,7 +420,6 @@ export default {
         round: true,
       });
     },
-
     editRight() {
       if (
         (this.authenticated &&
@@ -455,21 +450,21 @@ export default {
       }
       return count;
     },
-    isLiveReadyToRecord() {
+    isLiveReadyToRecord():boolean {
       return (
         this.podcast.conferenceId &&
         0 !== this.podcast.conferenceId &&
         'READY_TO_RECORD' === this.podcast.processingStatus
       );
     },
-    isLiveReady() {
+    isLiveReady():boolean {
       return (
         this.podcast.conferenceId &&
         0 !== this.podcast.conferenceId &&
         'READY' === this.podcast.processingStatus
       );
     },
-    isCounter() {
+    isCounter():boolean {
       return (
         this.isLiveReadyToRecord &&
         this.fetchConference &&
@@ -477,7 +472,7 @@ export default {
           'PENDING' === this.fetchConference.status)
       );
     },
-    isNotRecorded() {
+    isNotRecorded():boolean {
       return (
         this.isLiveReadyToRecord &&
         this.fetchConference &&
@@ -491,11 +486,11 @@ export default {
         state.generalParameters.isRoleLive
       );
     },
-    titlePage() {
+    titlePage():string {
       if (this.isLiveReadyToRecord) return this.$t('Live episode');
       return this.$t('Episode');
     },
-    timeRemaining() {
+    timeRemaining():string {
       return moment(this.podcast.pubDate).diff(moment(), 'seconds');
     },
     podcastNotValid() {
@@ -508,12 +503,11 @@ export default {
       return false;
     },
   },
-
   methods: {
-    updatePodcast(podcastUpdated) {
+    updatePodcast(podcastUpdated: any) {
       this.podcast = podcastUpdated;
     },
-    async getPodcastDetails(podcastId) {
+    async getPodcastDetails(podcastId: any) {
       try {
         let data = await octopusApi.fetchPodcast(podcastId);
         this.podcast = data;
@@ -554,12 +548,12 @@ export default {
         this.loaded = true;
       }
     },
-    getName(person) {
+    getName(person: { firstName: string; lastName: string; }) {
       const first = person.firstName || '';
       const last = person.lastName || '';
       return (first + ' ' + last).trim();
     },
-    playPodcast(podcast) {
+    playPodcast(podcast: any) {
       this.$emit('playPodcast', podcast);
     },
     removeDeleted() {
@@ -569,8 +563,8 @@ export default {
         this.$router.push('/');
       }
     },
-    receiveCommentEvent(event) {
-      this.$refs.commentSection.receiveCommentEvent(event);
+    receiveCommentEvent(event: any) {
+      this.commentSection.receiveCommentEvent(event);
     },
   },
   watch: {

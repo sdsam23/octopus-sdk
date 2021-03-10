@@ -30,7 +30,7 @@ export default {
     ParticipantList,
   },
 
-  created() {
+   created() {
     if (this.$route.query.first) {
       this.first = this.$route.query.first;
     } else {
@@ -47,21 +47,19 @@ export default {
       this.organisationId = this.$store.state.filter.organisationId;
     }
   },
-
   data() {
     return {
-      first: undefined,
-      size: undefined,
+      first: undefined as any,
+      size: undefined as any,
       searchPattern: '',
-      organisationId: undefined,
+      organisationId: undefined as any,
     };
   },
-
   methods: {
-    updateOrganisationId(value) {
+    updateOrganisationId(value: any) {
       this.organisationId = value;
     },
-    updateSearchPattern(value) {
+    updateSearchPattern(value: string) {
       this.searchPattern = value;
     },
   },

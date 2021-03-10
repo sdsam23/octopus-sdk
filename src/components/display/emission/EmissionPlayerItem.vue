@@ -178,11 +178,11 @@ export default {
   created() {
     this.loadPodcasts();
   },
-  mounted() {
+   mounted() {
     let emissionDesc = document.getElementById(
       'description-emission-' + this.emission.emissionId
     );
-    let emissionDescContainer = document.getElementById(
+    let emissionDescContainer:any = document.getElementById(
       'description-emission-container-' + this.emission.emissionId
     );
     if (
@@ -192,20 +192,24 @@ export default {
       emissionDescContainer.classList.add('after-emission-description');
     }
   },
-
   data() {
     return {
       activeEmission: true,
-      podcasts: [],
+      podcasts: [] as any,
       dummyParam: new Date().getTime().toString(),
     };
   },
-
   computed: {
     buttonMore() {
       return state.emissionsPage.buttonMore;
     },
-    editRight() {
+    authenticated():boolean {
+      return this.$store.state.authentication.isAuthenticated;
+    },
+    organisationId() {
+      return state.generalParameters.organisationId;
+    },
+    editRight():boolean {
       if (
         (this.authenticated && this.organisationId === this.emission.orga.id) ||
         state.generalParameters.isAdmin
@@ -214,7 +218,6 @@ export default {
       return false;
     },
   },
-
   methods: {
     async loadPodcasts() {
       let nb = this.nbPodcasts ? this.nbPodcasts : 2;
@@ -227,27 +230,27 @@ export default {
       }
       this.podcasts = data.result;
       this.$nextTick(() => {
-        for (let index = 0, len = this.podcasts.length; index < len; index++) {
-          let podcastDesc = document.getElementById(
-            'description-podcast-' + this.podcasts[index].podcastId
-          );
-          let podcastDescContainer = document.getElementById(
-            'description-podcast-container-' + this.podcasts[index].podcastId
-          );
-          if (
-            null !== podcastDesc &&
-            podcastDesc.clientHeight > podcastDescContainer.clientHeight
-          ) {
-            podcastDescContainer.classList.add('after-emission-description');
-          }
+      for (let index = 0, len = this.podcasts.length; index < len; index++) {
+        let podcastDesc = document.getElementById(
+          'description-podcast-' + this.podcasts[index].podcastId
+        );
+        let podcastDescContainer:any = document.getElementById(
+          'description-podcast-container-' + this.podcasts[index].podcastId
+        );
+        if (
+          null !== podcastDesc &&
+          podcastDesc.clientHeight > podcastDescContainer.clientHeight
+        ) {
+          podcastDescContainer.classList.add('after-emission-description');
         }
+      }
       });
       if (this.editRight || this.activeEmission) {
         return;
       }
       this.$emit('emissionNotVisible');
     },
-    play(podcast) {
+    play(podcast: any) {
       if (podcast === this.$store.state.player.podcast) {
         this.$store.commit('playerPause', false);
       } else {

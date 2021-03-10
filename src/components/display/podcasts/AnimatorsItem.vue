@@ -47,8 +47,8 @@ export default {
     };
   },
 
-  methods: {
-    getAnimatorName(animator) {
+   methods: {
+    getAnimatorName(animator:any) {
       const first = animator.firstName || '';
       const last = animator.lastName || '';
       return (first + ' ' + last).trim();

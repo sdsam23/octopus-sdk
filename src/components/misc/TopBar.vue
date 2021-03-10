@@ -281,13 +281,12 @@ export default {
       scrolled: false,
       oldScrollY: 0,
       minScroll: 0,
-      organisationId: undefined,
+      organisationId: undefined as any,
       reset: false,
       init: false,
       dummyParam: new Date().getTime().toString(),
     };
   },
-
   computed: {
     logoUrl() {
       if (this.isEducation) return '/img/logo_education.png';
@@ -299,13 +298,13 @@ export default {
     isLiveTab() {
       return state.generalParameters.isLiveTab;
     },
-    filterOrga() {
+    filterOrga():any {
       return this.$store.state.filter.organisationId;
     },
-    filterOrgaLive() {
+    filterOrgaLive():any {
       return this.$store.state.filter.live;
     },
-    imgUrl() {
+    imgUrl():any {
       if (
         this.$store.state.filter.imgUrl &&
         !this.$store.state.filter.imgUrl.includes('emptypodcast')
@@ -314,7 +313,6 @@ export default {
       return undefined;
     },
   },
-
   methods: {
     handleScroll() {
       if (
@@ -340,16 +338,14 @@ export default {
         this.$emit('update:displayMenu', false);
       }
     },
-
-    onDisplayMenu(param) {
+    onDisplayMenu(param: boolean) {
       if (true === param) {
         this.$emit('update:displayMenu', false);
       } else {
         this.$emit('update:displayMenu', !this.displayMenu);
       }
     },
-
-    async onOrganisationSelected(organisation) {
+    async onOrganisationSelected(organisation: any) {
       if (organisation && organisation.id) {
         if (this.$route.query.productor !== organisation.id) {
           this.$router.push({ query: { productor: organisation.id } });
@@ -371,7 +367,6 @@ export default {
       }
     },
   },
-
   watch: {
     filterOrga(newVal) {
       if (newVal) {
