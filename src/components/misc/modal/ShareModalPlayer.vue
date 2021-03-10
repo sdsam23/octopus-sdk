@@ -86,8 +86,7 @@
 <script lang="ts">
 import Snackbar from '../Snackbar.vue';
 import { displayMethods } from '../../mixins/functions';
-import Vue from 'vue';
-export default Vue.extend({
+export default displayMethods.extend({
   name: 'ShareModalPlayer',
 
   props: ['embedLink', 'embedlyLink', 'directLink'],
@@ -95,8 +94,6 @@ export default Vue.extend({
   components: {
     Snackbar,
   },
-
-  mixins: [displayMethods],
 
   mounted() {
     this.$bvModal.show('share-modal');
@@ -113,5 +110,5 @@ export default Vue.extend({
       this.$emit('close');
     },
   },
-};
+});
 </script>

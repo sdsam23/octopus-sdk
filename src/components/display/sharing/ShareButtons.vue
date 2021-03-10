@@ -162,13 +162,12 @@
 </style>
 
 <script lang="ts">
-import { state } from '../../../store/paramStore.js';
+import { state } from '../../../store/paramStore';
 import ClipboardModal from '../../misc/modal/ClipboardModal.vue';
 import NewsletterModal from '../../misc/modal/NewsletterModal.vue';
 import Snackbar from '../../misc/Snackbar.vue';
 import { displayMethods } from '../../mixins/functions';
-import Vue from 'vue';
-export default Vue.extend({
+export default displayMethods.extend({
   props: [
     'podcast',
     'emission',
@@ -184,8 +183,6 @@ export default Vue.extend({
     NewsletterModal,
     Snackbar,
   },
-
-  mixins: [displayMethods],
 
   mounted() {},
 
@@ -247,5 +244,5 @@ export default Vue.extend({
       this.snackbarRef.open(this.$t('Link in clipboard'));
     }
   },
-};
+});
 </script>

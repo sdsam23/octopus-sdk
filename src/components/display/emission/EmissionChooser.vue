@@ -186,5 +186,5 @@ export default Vue.extend({
       this.emission = getDefaultEmission(this.defaultanswer);
     },
   },
-};
+});
 </script>

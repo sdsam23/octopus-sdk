@@ -203,7 +203,7 @@
 <script lang="ts">
 import ShareModalPlayer from '../../misc/modal/ShareModalPlayer.vue';
 import PlayerParameters from './PlayerParameters.vue';
-import { state } from '../../../store/paramStore.js';
+import { state } from '../../../store/paramStore';
 //@ts-ignore
 import Swatches from 'vue-swatches';
 import 'vue-swatches/dist/vue-swatches.min.css';
@@ -449,5 +449,5 @@ export default Vue.extend({
       this.isVisible = value;
     },
   },
-};
+});
 </script>

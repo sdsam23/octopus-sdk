@@ -92,7 +92,7 @@ const octopusApi = require('@saooti/octopus-api');
 import emissionApi from '@/api/emissions';
 import EmissionItem from './EmissionItem.vue';
 import EmissionPlayerItem from './EmissionPlayerItem.vue';
-import { state } from '../../../store/paramStore.js';
+import { state } from '../../../store/paramStore';
 
 import Vue from 'vue';
 export default Vue.extend({
@@ -267,5 +267,5 @@ export default Vue.extend({
       },
     },
   },
-};
+});
 </script>

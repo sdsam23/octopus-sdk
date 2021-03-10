@@ -166,15 +166,13 @@ import CommentInput from './CommentInput.vue';
 import CommentList from './CommentList.vue';
 import CommentParentInfo from './CommentParentInfo.vue';
 import EditCommentBox from '@/components/display/edit/EditCommentBox.vue';
-import { state } from '../../../store/paramStore.js';
+import { state } from '../../../store/paramStore';
 import { displayMethods } from '../../mixins/functions';
 const moment = require('moment');
 
-import Vue from 'vue';
-export default Vue.extend({
+export default displayMethods.extend({
   name: 'CommentItem',
   props: ['comment', 'podcast', 'fetchConference', 'organisation', 'isFlat'],
-  mixins: [displayMethods],
   components: {
     CommentList,
     CommentInput,
@@ -326,5 +324,5 @@ export default Vue.extend({
     },
   },
   watch: {},
-};
+});
 </script>

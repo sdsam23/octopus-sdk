@@ -103,7 +103,7 @@
 import { selenium } from '../../mixins/functions';
 import Multiselect from 'vue-multiselect';
 const octopusApi = require('@saooti/octopus-api');
-import { state } from '../../../store/paramStore.js';
+import { state } from '../../../store/paramStore';
 
 const ELEMENTS_COUNT = 50;
 const DEFAULT_ORGANISATION_ID = 0;
@@ -117,8 +117,7 @@ const getDefaultOrganistion = (defaultName: any) => {
   };
 };
 
-import Vue from 'vue';
-export default Vue.extend({
+export default selenium.extend({
   components: {
     Multiselect,
   },
@@ -145,7 +144,6 @@ export default Vue.extend({
     reset: { default: false },
     all: { default: false },
   },
-  mixins: [selenium],
   data() {
     let _return:any = {
       organisation: '',
@@ -273,5 +271,5 @@ export default Vue.extend({
         : '';
     },
   },
-};
+});
 </script>

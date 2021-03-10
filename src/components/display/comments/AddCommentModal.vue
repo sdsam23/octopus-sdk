@@ -49,19 +49,18 @@
 <style lang="scss"></style>
 <script lang="ts">
 import { VueReCaptcha } from 'vue-recaptcha-v3';
-import { state } from '../../../store/paramStore.js';
+import { state } from '../../../store/paramStore';
 import api from '@/api/initialize';
 import Vue from 'vue';
 Vue.use(VueReCaptcha, { siteKey: '6LfyP_4ZAAAAAPODj8nov2LvosIwcX0GYeBSungh' });
-import Vue from 'vue';
 export default Vue.extend({
   name: 'AddCommentModal',
 
   props: [],
 
   mounted() {
-    document.getElementsByClassName('grecaptcha-badge')[0].style.display =
-      'block';
+    let captcha:any = document.getElementsByClassName('grecaptcha-badge')[0];
+    captcha.style.display ='block';
     if (this.authenticated) {
       this.name = (
         (this.$store.state.profile.firstname || '') +
@@ -74,8 +73,8 @@ export default Vue.extend({
   },
 
   destroyed() {
-    document.getElementsByClassName('grecaptcha-badge')[0].style.display =
-      'none';
+    let captcha:any = document.getElementsByClassName('grecaptcha-badge')[0];
+    captcha.style.display ='none';
   },
 
   data() {
@@ -126,5 +125,5 @@ export default Vue.extend({
       this.$emit('validate', this.name);
     },
   },
-};
+});
 </script>

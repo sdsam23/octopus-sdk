@@ -43,15 +43,12 @@
 <script lang="ts">
 import RssSection from '@/components/display/aggregator/RssSection.vue';
 import { displayMethods } from '../../mixins/functions';
-import Vue from 'vue';
-export default Vue.extend({
+export default displayMethods.extend({
   name: 'ClipboardModal',
 
   components: {
     RssSection,
   },
-
-  mixins: [displayMethods],
 
   props: ['title', 'active', 'closable', 'validatetext', 'link', 'emission'],
 
@@ -75,5 +72,5 @@ export default Vue.extend({
       this.$emit('validate');
     },
   },
-};
+});
 </script>

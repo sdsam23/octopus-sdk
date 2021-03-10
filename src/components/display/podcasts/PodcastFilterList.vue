@@ -132,5 +132,5 @@ export default Vue.extend({
       this.reloadList = !this.reloadList;
     },
   },
-};
+});
 </script>

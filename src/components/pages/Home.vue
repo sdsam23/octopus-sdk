@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import PodcastInlineList from '../display/podcasts/PodcastInlineList.vue';
-import { state } from '../../store/paramStore.js';
+import { state } from '../../store/paramStore';
 
 import Vue from 'vue';
 export default Vue.extend({
@@ -34,5 +34,5 @@ export default Vue.extend({
       });
     },
   },
-};
+});
 </script>

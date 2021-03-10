@@ -180,7 +180,7 @@
 </style>
 
 <script lang="ts">
-import { state } from '../../../store/paramStore.js';
+import { state } from '../../../store/paramStore';
 const octopusApi = require('@saooti/octopus-api');
 import PodcastImage from '../podcasts/PodcastImage.vue';
 import studioApi from '@/api/studio';
@@ -189,12 +189,10 @@ const moment = require('moment');
 const humanizeDuration = require('humanize-duration');
 import { displayMethods } from '../../mixins/functions';
 
-import Vue from 'vue';
-export default Vue.extend({
+export default displayMethods.extend({
   name: 'LiveItem',
 
   props: ['fetchConference', 'index'],
-  mixins: [displayMethods],
 
   components: {
     RecordingItemButton,
@@ -308,5 +306,5 @@ export default Vue.extend({
       this.handleDescription();
     },
   },
-};
+});
 </script>

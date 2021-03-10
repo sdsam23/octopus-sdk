@@ -1,12 +1,12 @@
 
 import Vue from "vue";
-export const selenium = {
+export const selenium = Vue.extend({
   methods: {
     seleniumFormat(string: string) {
       return string.toLowerCase().replace(/\s/g, '');
     },
   },
-};
+});
 export const cookies = Vue.extend(
 {
   methods: {
@@ -30,7 +30,7 @@ export const cookies = Vue.extend(
   },
 });
 
-export const displayMethods = {
+export const displayMethods =Vue.extend({
   methods: {
     urlify(text: string) {
       let urlRegex = /(https?:\/\/[^\s]+)/g;
@@ -55,4 +55,4 @@ export const displayMethods = {
       return callback();
     },
   },
-};
+});

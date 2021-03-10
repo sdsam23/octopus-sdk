@@ -54,7 +54,7 @@
 <style lang="scss"></style>
 <script lang="ts">
 import Multiselect from 'vue-multiselect';
-import { state } from '../../../store/paramStore.js';
+import { state } from '../../../store/paramStore';
 
 const getDefaultCategory = (defaultName: any) => {
   if (undefined !== defaultName) return { name: defaultName, id: 0 };
@@ -186,5 +186,5 @@ export default Vue.extend({
       this.$emit('selected', idsArray);
     },
   },
-};
+});
 </script>

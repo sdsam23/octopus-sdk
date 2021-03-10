@@ -195,5 +195,5 @@ export default Vue.extend({
       this.$emit('iFrameNumber', this.iFrameNumberPriv);
     },
   },
-};
+});
 </script>

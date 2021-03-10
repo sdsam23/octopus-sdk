@@ -166,15 +166,12 @@
 
 <script lang="ts">
 const octopusApi = require('@saooti/octopus-api');
-import { state } from '../../../store/paramStore.js';
+import { state } from '../../../store/paramStore';
 import { displayMethods } from '../../mixins/functions';
-import Vue from 'vue';
-export default Vue.extend({
+export default displayMethods.extend({
   name: 'EmissionPlayerItem',
 
   props: ['emission', 'nbPodcasts', 'rubriqueName'],
-
-  mixins: [displayMethods],
 
   created() {
     this.loadPodcasts();
@@ -262,5 +259,5 @@ export default Vue.extend({
       this.$store.commit('playerPause', true);
     },
   },
-};
+});
 </script>

@@ -68,16 +68,13 @@
 <style lang="scss"></style>
 
 <script lang="ts">
-import { state } from '../../../store/paramStore.js';
+import { state } from '../../../store/paramStore';
 import { displayMethods } from '../../mixins/functions';
-/* import octopusApi from "@saooti/octopus-api"; */
-import Vue from 'vue';
-export default Vue.extend({
+export default displayMethods.extend({
   name: 'PlaylistItem',
 
   props: ['playlist'],
 
-  mixins: [displayMethods],
 
    mounted() {
     let playlistDesc = document.getElementById(
@@ -138,5 +135,5 @@ export default Vue.extend({
     },
   },
   methods: {},
-};
+});
 </script>

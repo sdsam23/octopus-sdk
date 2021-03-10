@@ -44,5 +44,5 @@ export default Vue.extend({
   props: ['tagList'],
 
   methods: {},
-};
+});
 </script>

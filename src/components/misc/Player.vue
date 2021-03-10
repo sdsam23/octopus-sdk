@@ -284,7 +284,7 @@
 
 <script lang="ts">
 import { mapState } from 'vuex';
-import { state } from '../../store/paramStore.js';
+import { state } from '../../store/paramStore';
 import DurationHelper from '../../helper/duration';
 import CommentPlayer from '../display/comments/CommentPlayer.vue';
 const octopusApi = require('@saooti/octopus-api');
@@ -747,5 +747,5 @@ export default Vue.extend({
       this.initComments(true);
     },
   },
-};
+});
 </script>

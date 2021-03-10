@@ -65,8 +65,7 @@ const getDefaultRubrique = (defaultName: any) => {
   return '';
 };
 
-import Vue from 'vue';
-export default Vue.extend({
+export default selenium.extend({
   components: {
     Multiselect,
   },
@@ -83,7 +82,6 @@ export default Vue.extend({
     withoutRubrique: { default: false },
     isDisabled: { default: false },
   },
-  mixins: [selenium],
   data() {
     return {
       rubriques: [] as any,
@@ -199,5 +197,5 @@ export default Vue.extend({
       this.rubrique = getDefaultRubrique(this.defaultanswer);
     },
   },
-};
+});
 </script>

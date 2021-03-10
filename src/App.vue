@@ -16,7 +16,7 @@ import LeftMenu from '@/components/misc/LeftMenu.vue';
 import Footer from '@/components/misc/Footer.vue';
 import CategoryList from '@/components/display/categories/CategoryList.vue';
 const octopusApi = require('@saooti/octopus-api');
-import { state } from './store/paramStore.js';
+import { state } from './store/paramStore';
 
 import Vue from 'vue';
 export default Vue.extend({
@@ -51,5 +51,5 @@ export default Vue.extend({
     const isLive = await octopusApi.liveEnabledOrganisation(orgaId);
     this.$store.commit('filterOrgaLive', isLive);
   },
-};
+});
 </script>

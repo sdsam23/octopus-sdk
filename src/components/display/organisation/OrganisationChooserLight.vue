@@ -87,5 +87,5 @@ export default Vue.extend({
       this.actual = -1;
     },
   },
-};
+});
 </script>

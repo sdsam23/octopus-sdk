@@ -93,11 +93,10 @@ import PodcastFilterList from '../display/podcasts/PodcastFilterList.vue';
 import PodcastList from '../display/podcasts/PodcastList.vue';
 import LiveHorizontalList from '../display/live/LiveHorizontalList.vue';
 const octopusApi = require('@saooti/octopus-api');
-import { state } from '../../store/paramStore.js';
+import { state } from '../../store/paramStore';
 import { displayMethods } from '../mixins/functions';
 
-import Vue from 'vue';
-export default Vue.extend({
+export default displayMethods.extend({
   components: {
     PodcastFilterList,
     SharePlayer,
@@ -108,8 +107,6 @@ export default Vue.extend({
     SubscribeButtons,
     LiveHorizontalList,
   },
-
-  mixins: [displayMethods],
 
   mounted() {
     this.getEmissionDetails(this.emissionId);
@@ -236,5 +233,5 @@ export default Vue.extend({
       } */
     },
   },
-};
+});
 </script>

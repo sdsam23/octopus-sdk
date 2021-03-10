@@ -271,7 +271,7 @@
 import MonetizableFilter from './MonetizableFilter.vue';
 import RubriqueChooser from '../rubriques/RubriqueChooser.vue';
 import { Datetime } from 'vue-datetime';
-import { state } from '../../../store/paramStore.js';
+import { state } from '../../../store/paramStore';
 const octopusApi = require('@saooti/octopus-api');
 const moment = require('moment');
 
@@ -519,5 +519,5 @@ export default Vue.extend({
       this.sort = this.sortCriteria;
     },
   },
-};
+});
 </script>

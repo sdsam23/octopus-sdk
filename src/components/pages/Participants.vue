@@ -64,5 +64,5 @@ export default Vue.extend({
       this.searchPattern = value;
     },
   },
-};
+});
 </script>

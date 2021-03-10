@@ -25,5 +25,5 @@ export default Vue.extend({
   name: 'ErrorMessage',
 
   props: ['message'],
-};
+});
 </script>

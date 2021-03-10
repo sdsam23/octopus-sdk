@@ -81,7 +81,7 @@
 </style>
 <script lang="ts">
 const octopusApi = require('@saooti/octopus-api');
-import { state } from '../../../store/paramStore.js';
+import { state } from '../../../store/paramStore';
 
 import Vue from 'vue';
 export default Vue.extend({
@@ -163,5 +163,5 @@ export default Vue.extend({
       }
     },
   },
-};
+});
 </script>

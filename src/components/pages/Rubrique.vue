@@ -41,5 +41,5 @@ export default Vue.extend({
       this.extractTitle();
     },
   },
-};
+});
 </script>

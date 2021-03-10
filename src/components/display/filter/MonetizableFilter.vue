@@ -36,5 +36,5 @@ export default Vue.extend({
       this.$emit('updateMonetization', this.monetization);
     },
   },
-};
+});
 </script>

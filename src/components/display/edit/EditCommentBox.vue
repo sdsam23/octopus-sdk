@@ -61,5 +61,5 @@ export default Vue.extend({
     invalidComment() {},
     deleteComment() {},
   },
-};
+});
 </script>

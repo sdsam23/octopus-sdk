@@ -129,5 +129,5 @@ export default Vue.extend({
       this.msgs.splice(i, 1);
     },
   },
-};
+});
 </script>

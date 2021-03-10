@@ -27,7 +27,7 @@
 <style lang="scss"></style>
 <script lang="ts">
 // @ is an alias to /src
-import { state } from '../../store/paramStore.js';
+import { state } from '../../store/paramStore';
 import LiveList from '../display/live/LiveList.vue';
 import OrganisationChooser from '../display/organisation/OrganisationChooser.vue';
 
@@ -84,5 +84,5 @@ export default Vue.extend({
       }
     },
   },
-};
+});
 </script>

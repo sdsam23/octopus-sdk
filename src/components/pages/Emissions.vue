@@ -48,7 +48,7 @@
 import EmissionList from '../display/emission/EmissionList.vue';
 import ProductorSearch from '../display/filter/ProductorSearch.vue';
 import AdvancedSearch from '../display/filter/AdvancedSearch.vue';
-import { state } from '../../store/paramStore.js';
+import { state } from '../../store/paramStore';
 
 import Vue from 'vue';
 export default Vue.extend({
@@ -157,5 +157,5 @@ export default Vue.extend({
       this.monetization = value;
     },
   },
-};
+});
 </script>

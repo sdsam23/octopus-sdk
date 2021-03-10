@@ -59,5 +59,5 @@ export default Vue.extend({
       return n < 10 ? '0' + n : n;
     },
   },
-};
+});
 </script>

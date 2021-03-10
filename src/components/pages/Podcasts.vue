@@ -64,7 +64,7 @@
 <script lang="ts">
 // @ is an alias to /src
 import PodcastList from '../display/podcasts/PodcastList.vue';
-import { state } from '../../store/paramStore.js';
+import { state } from '../../store/paramStore';
 import ProductorSearch from '../display/filter/ProductorSearch.vue';
 import AdvancedSearch from '../display/filter/AdvancedSearch.vue';
 import EmissionChooser from '../display/emission/EmissionChooser.vue';
@@ -215,5 +215,5 @@ export default Vue.extend({
       }
     },
   },
-};
+});
 </script>

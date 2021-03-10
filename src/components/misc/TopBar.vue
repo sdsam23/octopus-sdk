@@ -250,7 +250,7 @@
 </style>
 
 <script lang="ts">
-import { state } from '../../store/paramStore.js';
+import { state } from '../../store/paramStore';
 import OrganisationChooserLight from '../display/organisation/OrganisationChooserLight.vue';
 import HomeDropdown from './HomeDropdown.vue';
 const octopusApi = require('@saooti/octopus-api');
@@ -377,5 +377,5 @@ export default Vue.extend({
       }
     },
   },
-};
+});
 </script>

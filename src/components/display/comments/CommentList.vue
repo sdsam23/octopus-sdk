@@ -80,7 +80,7 @@
 </style>
 
 <script lang="ts">
-import { state } from '../../../store/paramStore.js';
+import { state } from '../../../store/paramStore';
 const octopusApi = require('@saooti/octopus-api');
 const moment = require('moment');
 
@@ -303,5 +303,5 @@ export default Vue.extend({
       this.$emit('fetch', { count: this.totalCount, comments: this.comments });
     },
   },
-};
+});
 </script>

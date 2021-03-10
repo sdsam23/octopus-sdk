@@ -133,5 +133,5 @@ export default Vue.extend({
       return link;
     },
   },
-};
+});
 </script>

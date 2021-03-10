@@ -166,8 +166,7 @@ import Snackbar from '../../misc/Snackbar.vue';
 import RssSection from '@/components/display/aggregator/RssSection.vue';
 import { displayMethods } from '../../mixins/functions';
 
-import Vue from 'vue';
-export default Vue.extend({
+export default displayMethods.extend({
   components: {
     Snackbar,
     RssSection,
@@ -179,8 +178,6 @@ export default Vue.extend({
   },
 
   props: ['emissionId'],
-
-  mixins: [displayMethods],
 
   data() {
     return {
@@ -213,5 +210,5 @@ export default Vue.extend({
       this.snackbarRef.open(this.$t('Link in clipboard'));
     }
   },
-};
+});
 </script>

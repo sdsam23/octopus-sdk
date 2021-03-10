@@ -177,16 +177,14 @@ button.btn.btn-primary.share-btn.m-3 {
 </style>
 
 <script lang="ts">
-import { state } from '../../../store/paramStore.js';
+import { state } from '../../../store/paramStore';
 const octopusApi = require('@saooti/octopus-api');
 import { displayMethods } from '../../mixins/functions';
-import Vue from 'vue';
-export default Vue.extend({
+export default displayMethods.extend({
   name: 'EmissionItem',
 
   props: ['emission'],
 
-  mixins: [displayMethods],
 
   created() {
     this.hasPodcast();
@@ -263,5 +261,5 @@ export default Vue.extend({
       this.$emit('emissionNotVisible');
     },
   },
-};
+});
 </script>

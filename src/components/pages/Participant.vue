@@ -81,19 +81,16 @@ import ShareButtons from '../display/sharing/ShareButtons.vue';
 const octopusApi = require('@saooti/octopus-api');
 import PodcastFilterList from '../display/podcasts/PodcastFilterList.vue';
 import PodcastList from '../display/podcasts/PodcastList.vue';
-import { state } from '../../store/paramStore.js';
+import { state } from '../../store/paramStore';
 import { displayMethods } from '../mixins/functions';
 
-import Vue from 'vue';
-export default Vue.extend({
+export default displayMethods.extend({
   components: {
     ShareButtons,
     PodcastFilterList,
     EditBox,
     PodcastList,
   },
-
-  mixins: [displayMethods],
 
   mounted() {
     this.getParticipantDetails();
@@ -181,5 +178,5 @@ export default Vue.extend({
       this.reload = !this.reload;
     },
   },
-};
+});
 </script>

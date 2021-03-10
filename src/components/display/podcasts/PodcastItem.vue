@@ -143,7 +143,7 @@
 <script lang="ts">
 import AnimatorsItem from './AnimatorsItem.vue';
 import PodcastImage from './PodcastImage.vue';
-import { state } from '../../../store/paramStore.js';
+import { state } from '../../../store/paramStore';
 const moment = require('moment');
 const humanizeDuration = require('humanize-duration');
 
@@ -275,5 +275,5 @@ export default Vue.extend({
       this.hover = false;
     },
   },
-};
+});
 </script>

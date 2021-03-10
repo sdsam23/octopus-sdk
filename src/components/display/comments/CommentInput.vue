@@ -92,7 +92,7 @@ import MessageModal from '../../misc/modal/MessageModal.vue';
 const octopusApi = require('@saooti/octopus-api');
 import commentApi from '@/api/comments';
 import { cookies } from '../../mixins/functions';
-import { state } from '../../../store/paramStore.js';
+import { state } from '../../../store/paramStore';
 
 export default cookies.extend({
   name: 'CommentInput',

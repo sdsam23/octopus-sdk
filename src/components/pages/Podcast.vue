@@ -273,14 +273,12 @@ import SubscribeButtons from '../display/sharing/SubscribeButtons.vue';
 import Countdown from '../display/live/CountDown.vue';
 const octopusApi = require('@saooti/octopus-api');
 import studioApi from '@/api/studio';
-import { state } from '../../store/paramStore.js';
+import { state } from '../../store/paramStore';
 import ErrorMessage from '../misc/ErrorMessage.vue';
 const moment = require('moment');
 const humanizeDuration = require('humanize-duration');
 import { displayMethods } from '../mixins/functions';
-
-import Vue from 'vue';
-export default Vue.extend({
+export default displayMethods.extend({
   components: {
     PodcastInlineList,
     PodcastImage,
@@ -576,5 +574,5 @@ export default Vue.extend({
       this.getPodcastDetails(val);
     },
   },
-};
+});
 </script>

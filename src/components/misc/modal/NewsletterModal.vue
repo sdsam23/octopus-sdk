@@ -106,12 +106,10 @@ const moment = require('moment');
 import Swatches from 'vue-swatches';
 const humanizeDuration = require('humanize-duration');
 import { displayMethods } from '../../mixins/functions';
-import Vue from 'vue';
-export default Vue.extend({
+export default displayMethods.extend({
   name: 'NewsletterModal',
 
   props: ['podcast'],
-  mixins: [displayMethods],
 
   components: {
     Snackbar,
@@ -284,5 +282,5 @@ export default Vue.extend({
       this.snackbarRef.open(this.$t('Data in clipboard'));
     }
   },
-};
+});
 </script>

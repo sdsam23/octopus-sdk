@@ -55,5 +55,5 @@ export default Vue.extend({
       return (first + ' ' + last).trim();
     },
   },
-};
+});
 </script>

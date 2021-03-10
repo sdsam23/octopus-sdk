@@ -15,7 +15,7 @@
 <script lang="ts">
 // @ is an alias to /src
 import PodcastList from '../display/podcasts/PodcastList.vue';
-import { state } from '../../store/paramStore.js';
+import { state } from '../../store/paramStore';
 
 import Vue from 'vue';
 export default Vue.extend({
@@ -55,5 +55,5 @@ export default Vue.extend({
       this.extractTitle(val);
     },
   },
-};
+});
 </script>

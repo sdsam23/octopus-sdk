@@ -113,15 +113,12 @@
 
 <script lang="ts">
 const octopusApi = require('@saooti/octopus-api');
-import { state } from '../../../store/paramStore.js';
+import { state } from '../../../store/paramStore';
 import { displayMethods } from '../../mixins/functions';
-import Vue from 'vue';
-export default Vue.extend({
+export default displayMethods.extend({
   name: 'ParticpantItem',
 
   props: ['participant'],
-
-  mixins: [displayMethods],
 
   created() {
     this.hasPodcast();
@@ -198,5 +195,5 @@ export default Vue.extend({
       this.$emit('participantNotVisible');
     },
   },
-};
+});
 </script>

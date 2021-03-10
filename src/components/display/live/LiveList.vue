@@ -120,7 +120,7 @@ import studioApi from '@/api/studio';
 import LiveItem from './LiveItem.vue';
 const octopusApi = require('@saooti/octopus-api');
 const moment = require('moment');
-import { state } from '../../../store/paramStore.js';
+import { state } from '../../../store/paramStore';
 
 import Vue from 'vue';
 export default Vue.extend({
@@ -350,5 +350,5 @@ export default Vue.extend({
       deep: true,
     },
   },
-};
+});
 </script>

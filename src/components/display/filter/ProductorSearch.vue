@@ -114,7 +114,7 @@
 <script lang="ts">
 // @ is an alias to /src
 import OrganisationChooser from '../organisation/OrganisationChooser.vue';
-import { state } from '../../../store/paramStore.js';
+import { state } from '../../../store/paramStore';
 const octopusApi = require('@saooti/octopus-api');
 
 import Vue from 'vue';
@@ -219,5 +219,5 @@ export default Vue.extend({
       }
     },
   },
-};
+});
 </script>

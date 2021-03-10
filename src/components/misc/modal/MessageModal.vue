@@ -68,5 +68,5 @@ export default Vue.extend({
       this.$emit('thirdEvent');
     },
   },
-};
+});
 </script>

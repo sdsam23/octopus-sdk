@@ -156,7 +156,7 @@
 </style>
 <script lang="ts">
 import OrganisationChooserLight from '../display/organisation/OrganisationChooserLight.vue';
-import { state } from '../../store/paramStore.js';
+import { state } from '../../store/paramStore';
 const octopusApi = require('@saooti/octopus-api');
 
 import Vue from 'vue';
@@ -234,5 +234,5 @@ export default Vue.extend({
       }
     },
   },
-};
+});
 </script>
