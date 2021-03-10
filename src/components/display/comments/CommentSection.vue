@@ -49,15 +49,13 @@ import CommentList from './CommentList.vue';
 import CommentInput from './CommentInput.vue';
 import { cookies } from '../../mixins/functions';
 
-export default {
+export default cookies.extend({
   name: 'CommentSection',
 
   props: {
     podcast: { default: undefined as any },
     fetchConference: { default: undefined as any },
   },
-
-  mixins: [cookies],
 
   components: {
     CommentList,
@@ -154,5 +152,5 @@ export default {
       }
     },
   },
-};
+});
 </script>

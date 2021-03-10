@@ -115,7 +115,8 @@
 const octopusApi = require('@saooti/octopus-api');
 import { state } from '../../../store/paramStore.js';
 import { displayMethods } from '../../mixins/functions';
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   name: 'ParticpantItem',
 
   props: ['participant'],

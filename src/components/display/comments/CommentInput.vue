@@ -94,18 +94,16 @@ import commentApi from '@/api/comments';
 import { cookies } from '../../mixins/functions';
 import { state } from '../../../store/paramStore.js';
 
-export default {
+export default cookies.extend({
   name: 'CommentInput',
 
   props: {
-    podcast: { default: undefined },
-    knownIdentity: { default: null },
-    focus: { default: false },
-    comId: { default: undefined },
-    fetchConference: { default: undefined },
+    podcast: { default: undefined as any },
+    knownIdentity: { default: null as any },
+    focus: { default: false as boolean },
+    comId: { default: undefined as any },
+    fetchConference: { default: undefined as any },
   },
-
-  mixins: [cookies],
 
   components: {
     AddCommentModal,
@@ -124,8 +122,8 @@ export default {
     };
   },
 
-   computed: {
-    isPresent() {
+  computed: {
+    isPresent():boolean {
       if (!this.podcast) return true;
       let podcastComment = 'INHERIT';
       if (this.podcast.annotations && this.podcast.annotations.COMMENTS) {
@@ -146,17 +144,17 @@ export default {
       }
       return true;
     },
-    placeholder():string {
+    placeholder():any {
       if (this.comId) return this.$t('Answer a comment');
       return this.$t('Write a comment');
     },
-    organisationId() {
+    organisationId():any {
       return state.generalParameters.organisationId;
     },
     authenticated():boolean {
       return state.generalParameters.authenticated;
     },
-    isCertified() {
+    isCertified():boolean {
       if (
         (state.generalParameters.isCommments &&
           this.organisationId === this.podcast.organisation.id) ||
@@ -169,7 +167,7 @@ export default {
       if (this.authenticated) return this.$store.state.profile.userId;
       return undefined;
     },
-    phase() {
+    phase():string {
       if (
         !this.podcast.conferenceId ||
         0 === this.podcast.conferenceId ||
@@ -289,5 +287,5 @@ export default {
         padding;
     },
   },
-};
+});
 </script>

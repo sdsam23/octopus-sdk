@@ -62,13 +62,13 @@
 // @ is an alias to /src
 import { state } from '../../store/paramStore.js';
 import PodcastList from '../display/podcasts/PodcastList.vue';
-
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   components: {
     PodcastList,
   },
 
- mounted() {
+  mounted() {
     if (this.$route.query.query) {
       this.rawQuery = this.$route.query.query;
     }
@@ -87,7 +87,7 @@ export default {
       if (this.rawQuery && this.rawQuery.length >= 3) return this.rawQuery;
       return '';
     },
-    hideBar() {
+    hideBar():any {
       return state.searchPage.hideBar;
     },
   },
@@ -105,12 +105,12 @@ export default {
   },
   watch: {
     '$route.query.query': {
-      handler(search) {
-        this.rawQuery = search;
-      },
+        handler(search:any) {
+          this.rawQuery = search;
+        },
       deep: true,
       immediate: true,
     },
   },
-};
+});
 </script>

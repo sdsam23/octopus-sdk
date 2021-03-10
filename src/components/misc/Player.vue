@@ -292,7 +292,8 @@ import Hls from 'hls.js';
 const moment = require('moment');
 //const axios = require("axios");
 
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   name: 'Player',
 
   components: {

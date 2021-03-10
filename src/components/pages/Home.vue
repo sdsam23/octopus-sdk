@@ -15,7 +15,8 @@
 import PodcastInlineList from '../display/podcasts/PodcastInlineList.vue';
 import { state } from '../../store/paramStore.js';
 
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   name: 'home',
 
   components: {

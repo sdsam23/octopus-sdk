@@ -78,7 +78,8 @@
 </style>
 
 <script lang="ts">
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   props: ['podcastId', 'emission'],
 
   components: {},

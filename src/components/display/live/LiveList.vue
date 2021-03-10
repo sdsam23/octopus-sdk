@@ -122,7 +122,8 @@ const octopusApi = require('@saooti/octopus-api');
 const moment = require('moment');
 import { state } from '../../../store/paramStore.js';
 
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   name: 'LiveList',
 
   props: {

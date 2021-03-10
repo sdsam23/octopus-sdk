@@ -83,7 +83,8 @@
 const octopusApi = require('@saooti/octopus-api');
 import { state } from '../../../store/paramStore.js';
 
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   name: 'CategoryList',
 
   mounted() {

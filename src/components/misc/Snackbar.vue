@@ -47,7 +47,8 @@ const getStyle = (baseSize: string, position: any) => {
     }),
   };
 };
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   name: 'Snackbar',
   props: {
     colors: {

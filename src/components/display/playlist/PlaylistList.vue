@@ -36,7 +36,8 @@ const octopusApi = require('@saooti/octopus-api');
 import PlaylistItem from './PlaylistItem.vue';
 import { state } from '../../../store/paramStore.js';
 
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   name: 'PlaylistList',
 
   props: ['first', 'size', 'query', 'organisationId'],

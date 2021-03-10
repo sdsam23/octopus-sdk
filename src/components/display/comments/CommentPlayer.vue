@@ -57,7 +57,8 @@
 
 <script lang="ts">
 import { selenium } from '../../mixins/functions';
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   name: 'CommentPlayer',
 
   props: ['comments', 'totalTime'],

@@ -35,7 +35,8 @@
 <script lang="ts">
 const octopusApi = require('@saooti/octopus-api');
 
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   components: {},
 
   created() {

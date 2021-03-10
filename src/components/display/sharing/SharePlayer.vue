@@ -209,7 +209,8 @@ import Swatches from 'vue-swatches';
 import 'vue-swatches/dist/vue-swatches.min.css';
 import profileApi from '@/api/profile';
 
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   props: [
     'podcast',
     'emission',
@@ -219,13 +220,17 @@ export default {
     'playlist',
     'isEducation',
   ],
-
   components: {
     ShareModalPlayer,
     Swatches,
     PlayerParameters,
   },
-
+  async created() {
+    await this.initColor();
+    if (this.isLiveReadyToRecord) {
+      this.iFrameModel = 'large';
+    }
+  },
   data() {
     return {
       iFrameModel: 'default',
@@ -239,13 +244,6 @@ export default {
       isVisible: false,
     };
   },
-
-  async created() {
-    await this.initColor();
-    if (this.isLiveReadyToRecord) {
-      this.iFrameModel = 'large';
-    }
-  },
   computed: {
     isEmission():boolean {
       return 'emission' === this.iFrameModel;
@@ -256,7 +254,7 @@ export default {
     isLargeSuggestion():boolean {
       return 'largeSuggestion' === this.iFrameModel;
     },
-    titleStillAvailable():string {
+    titleStillAvailable():any {
       if (this.isPodcastNotVisible) return this.$t('Podcast still available');
       return this.$t('Podcasts still available');
     },
@@ -269,7 +267,7 @@ export default {
         );
       return false;
     },
-    noAd() {
+    noAd():boolean {
       if (
         (this.podcast &&
           this.podcast.organisation.id !== this.organisationId &&
@@ -285,7 +283,7 @@ export default {
     authenticated():boolean {
       return state.generalParameters.authenticated;
     },
-    iFrameSrc() {
+    iFrameSrc():string {
       let url = [''];
       let iFrameNumber = '/' + this.iFrameNumber;
       if (
@@ -345,10 +343,10 @@ export default {
       }
       return url.join('');
     },
-    iFrameWidth() {
+    iFrameWidth():string {
       return '100%';
     },
-    iFrameHeight() {
+    iFrameHeight():string {
       switch (this.iFrameModel) {
         case 'large':
           if (this.podcast) return '180px';
@@ -393,7 +391,7 @@ export default {
           return '530px';
       }
     },
-    iFrame() {
+    iFrame():string {
       return `<iframe src="${this.iFrameSrc}" width="${this.iFrameWidth}" height="${this.iFrameHeight}" scrolling="no" frameborder="0"></iframe>`;
     },
     isPodcastNotVisible():boolean {

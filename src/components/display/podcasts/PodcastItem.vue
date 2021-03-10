@@ -147,7 +147,8 @@ import { state } from '../../../store/paramStore.js';
 const moment = require('moment');
 const humanizeDuration = require('humanize-duration');
 
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   name: 'PodcastItem',
 
   props: ['podcast'],

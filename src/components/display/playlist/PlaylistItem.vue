@@ -71,7 +71,8 @@
 import { state } from '../../../store/paramStore.js';
 import { displayMethods } from '../../mixins/functions';
 /* import octopusApi from "@saooti/octopus-api"; */
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   name: 'PlaylistItem',
 
   props: ['playlist'],

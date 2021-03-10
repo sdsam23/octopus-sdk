@@ -180,7 +180,8 @@ button.btn.btn-primary.share-btn.m-3 {
 import { state } from '../../../store/paramStore.js';
 const octopusApi = require('@saooti/octopus-api');
 import { displayMethods } from '../../mixins/functions';
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   name: 'EmissionItem',
 
   props: ['emission'],

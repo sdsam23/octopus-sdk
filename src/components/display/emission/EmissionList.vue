@@ -94,7 +94,8 @@ import EmissionItem from './EmissionItem.vue';
 import EmissionPlayerItem from './EmissionPlayerItem.vue';
 import { state } from '../../../store/paramStore.js';
 
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   name: 'EmissionList',
 
   props: [

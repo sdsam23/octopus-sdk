@@ -117,7 +117,8 @@ import OrganisationChooser from '../organisation/OrganisationChooser.vue';
 import { state } from '../../../store/paramStore.js';
 const octopusApi = require('@saooti/octopus-api');
 
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   components: {
     OrganisationChooser,
   },

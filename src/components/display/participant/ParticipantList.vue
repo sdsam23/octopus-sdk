@@ -61,7 +61,8 @@
 const octopusApi = require('@saooti/octopus-api');
 import ParticipantItem from './ParticipantItem.vue';
 
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   name: 'ParticipantList',
 
   props: ['first', 'size', 'query', 'organisationId', 'showCount'],

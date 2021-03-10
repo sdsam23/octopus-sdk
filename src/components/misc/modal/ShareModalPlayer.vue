@@ -86,7 +86,8 @@
 <script lang="ts">
 import Snackbar from '../Snackbar.vue';
 import { displayMethods } from '../../mixins/functions';
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   name: 'ShareModalPlayer',
 
   props: ['embedLink', 'embedlyLink', 'directLink'],

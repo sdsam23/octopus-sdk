@@ -169,20 +169,18 @@ import EditCommentBox from '@/components/display/edit/EditCommentBox.vue';
 import { state } from '../../../store/paramStore.js';
 import { displayMethods } from '../../mixins/functions';
 const moment = require('moment');
-export default {
+
+import Vue from 'vue';
+export default Vue.extend({
   name: 'CommentItem',
-
   props: ['comment', 'podcast', 'fetchConference', 'organisation', 'isFlat'],
-
   mixins: [displayMethods],
-
   components: {
     CommentList,
-    EditCommentBox,
     CommentInput,
     CommentParentInfo,
+    EditCommentBox,
   },
-
   data() {
     return {
       summary: true,
@@ -193,30 +191,28 @@ export default {
       temporaryName: '',
     };
   },
-
   computed: {
-    date() {
+    date():string {
       if (this.comment.date)
         return moment(this.comment.date).format('D MMMM YYYY HH[h]mm');
       return '';
     },
-    limitContent() {
+    limitContent():string {
       if (!this.comment.content) return '';
       if (this.comment.content.length <= 300) return this.comment.content;
       return this.comment.content.substring(0, 300) + '...';
     },
-    readMore() {
+    readMore():any {
       if (this.summary) return this.$t('Read more');
       return this.$t('Read less');
     },
-    contentDisplay() {
+    contentDisplay():string {
       if (this.summary) return this.limitContent;
       return this.comment.content;
     },
     organisationId() {
       return state.generalParameters.organisationId;
     },
-
     editRight() {
       if (
         (state.generalParameters.isCommments &&
@@ -229,14 +225,14 @@ export default {
       return false;
     },
     knownIdentity: {
-      get() {
+      get():any {
         return this.$store.state.comments.knownIdentity;
       },
-      set(value) {
+      set(value: any) {
         this.$store.commit('setCommentIdentity', value);
       },
     },
-    recordingInLive() {
+    recordingInLive():boolean {
       return (
         this.podcast &&
         this.podcast.conferenceId &&
@@ -245,7 +241,6 @@ export default {
       );
     },
   },
-
   methods: {
     answerComment() {
       this.collapseVisible = true;
@@ -254,11 +249,11 @@ export default {
     deleteComment() {
       this.$emit('deleteComment');
     },
-    updateComment(data) {
+    updateComment(data: any) {
       this.isEditing = false;
       this.$emit('updateComment', data);
     },
-    newComment(comment, fromEvent = false) {
+    newComment(comment: { status: string; }, fromEvent = false) {
       if (undefined === this.fetchConference || fromEvent) {
         let updatedComment = this.comment;
         updatedComment.relatedComments += 1;
@@ -268,7 +263,7 @@ export default {
         this.$emit('update:comment', updatedComment);
       }
       if (this.$refs.commentList) {
-        this.$refs.commentList.addNewComment(comment, true);
+        (this.$refs.commentList as any).addNewComment(comment, true);
       }
     },
     editComment() {
@@ -284,9 +279,9 @@ export default {
       let comment = this.comment;
       comment.content = this.temporaryContent;
       comment.name = this.temporaryName;
-      this.$refs.editBox.updateComment(comment);
+      (this.$refs.editBox as any).updateComment(comment);
     },
-    updateStatus(data) {
+    updateStatus(data: string) {
       let updatedComment = this.comment;
       if ('Valid' === data) {
         updatedComment.relatedValidComments += 1;
@@ -295,14 +290,14 @@ export default {
       }
       this.$emit('update:comment', updatedComment);
     },
-    receiveCommentEvent(event) {
+    receiveCommentEvent(event: { type: any; comment: { status: string; }; status: string; }) {
       switch (event.type) {
         case 'Create':
           this.newComment(event.comment, true);
           break;
         case 'Update':
           if (this.$refs.commentList) {
-            this.$refs.commentList.updateComment({ comment: event.comment });
+            (this.$refs.commentList as any).updateComment({ comment: event.comment });
           } else {
             let updatedComment = this.comment;
             if ('Invalid' === event.status) {
@@ -315,7 +310,7 @@ export default {
           break;
         case 'Delete':
           if (this.$refs.commentList) {
-            this.$refs.commentList.deleteComment(event.comment);
+            (this.$refs.commentList as any).deleteComment(event.comment);
           } else {
             let updatedComment = this.comment;
             updatedComment.relatedComments -= 1;
@@ -330,7 +325,6 @@ export default {
       }
     },
   },
-
   watch: {},
 };
 </script>

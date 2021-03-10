@@ -74,7 +74,8 @@
 import CategoryChooser from '../categories/CategoryChooser.vue';
 import PodcastList from './PodcastList.vue';
 
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   components: {
     CategoryChooser,
     PodcastList,

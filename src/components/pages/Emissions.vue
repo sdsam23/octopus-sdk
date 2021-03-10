@@ -50,7 +50,8 @@ import ProductorSearch from '../display/filter/ProductorSearch.vue';
 import AdvancedSearch from '../display/filter/AdvancedSearch.vue';
 import { state } from '../../store/paramStore.js';
 
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   components: {
     ProductorSearch,
     EmissionList,

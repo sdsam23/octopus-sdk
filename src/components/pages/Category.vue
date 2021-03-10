@@ -17,7 +17,8 @@
 import PodcastList from '../display/podcasts/PodcastList.vue';
 import { state } from '../../store/paramStore.js';
 
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   components: {
     PodcastList,
   },

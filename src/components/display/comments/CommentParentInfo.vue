@@ -31,7 +31,8 @@
 <script lang="ts">
 const octopusApi = require('@saooti/octopus-api');
 const moment = require('moment');
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   name: 'CommentParentInfo',
 
   props: ['comId'],

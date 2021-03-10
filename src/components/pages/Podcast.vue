@@ -279,7 +279,8 @@ const moment = require('moment');
 const humanizeDuration = require('humanize-duration');
 import { displayMethods } from '../mixins/functions';
 
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   components: {
     PodcastInlineList,
     PodcastImage,
@@ -295,24 +296,11 @@ export default {
   },
   props: ['podcastId', 'playingPodcast', 'updateStatus', 'isEducation'],
   
-  data() {
-    return {
-      loaded: false,
-      podcast: undefined as any,
-      error: false,
-      exclusive: false,
-      notExclusive: false,
-      fetchConference: undefined as any,
-    };
-  },
-
-  mixins: [displayMethods],
- 
   async mounted() {
     await this.getPodcastDetails(this.podcastId);
     if (!this.isLiveReadyToRecord) return;
     if (this.isOctopusAndAnimator) {
-      let data = await studioApi.getConference(
+      let data:any = await studioApi.getConference(
         this.$store,
         this.podcast.conferenceId
       );
@@ -322,7 +310,7 @@ export default {
         this.fetchConference = 'null';
       }
     } else {
-      let data = await studioApi.getRealConferenceStatus(
+      let data:any = await studioApi.getRealConferenceStatus(
         this.$store,
         this.podcast.conferenceId
       );
@@ -339,7 +327,16 @@ export default {
       this.$emit('initConferenceId', this.podcast.conferenceId);
     }
   },
-  
+  data() {
+    return {
+      loaded: false,
+      podcast: undefined as any,
+      error: false,
+      exclusive: false,
+      notExclusive: false,
+      fetchConference: undefined as any,
+    };
+  },
   computed: {
     isPodcastmaker() {
       return state.generalParameters.podcastmaker;
@@ -479,14 +476,14 @@ export default {
         'DEBRIEFING' === this.fetchConference.status
       );
     },
-    isOctopusAndAnimator() {
+    isOctopusAndAnimator():boolean {
       return (
         !this.isPodcastmaker &&
         this.editRight &&
         state.generalParameters.isRoleLive
       );
     },
-    titlePage():string {
+    titlePage():any {
       if (this.isLiveReadyToRecord) return this.$t('Live episode');
       return this.$t('Episode');
     },
@@ -564,7 +561,7 @@ export default {
       }
     },
     receiveCommentEvent(event: any) {
-      this.commentSection.receiveCommentEvent(event);
+      (this.$refs.commentSection as any).receiveCommentEvent(event);
     },
   },
   watch: {

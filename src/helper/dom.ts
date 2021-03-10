@@ -1,4 +1,3 @@
-
 export default {
   convertRemToPixels(rem: number) {
     return (

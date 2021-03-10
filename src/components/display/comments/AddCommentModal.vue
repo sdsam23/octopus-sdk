@@ -53,7 +53,8 @@ import { state } from '../../../store/paramStore.js';
 import api from '@/api/initialize';
 import Vue from 'vue';
 Vue.use(VueReCaptcha, { siteKey: '6LfyP_4ZAAAAAPODj8nov2LvosIwcX0GYeBSungh' });
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   name: 'AddCommentModal',
 
   props: [],
@@ -105,7 +106,7 @@ export default {
       const token = await this.$recaptcha('login');
       try {
         this.sendError = false;
-        const ok = await api.checkToken(token);
+        const ok:any = await api.checkToken(token);
         if (!ok) {
           this.sendError = true;
           return;
@@ -116,7 +117,7 @@ export default {
       }
       this.sendComment();
     },
-    closePopup(event) {
+    closePopup(event: { preventDefault: () => void; }) {
       event.preventDefault();
       this.$emit('close');
     },

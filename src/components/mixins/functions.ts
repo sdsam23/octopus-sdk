@@ -1,3 +1,5 @@
+
+import Vue from "vue";
 export const selenium = {
   methods: {
     seleniumFormat(string: string) {
@@ -5,15 +7,16 @@ export const selenium = {
     },
   },
 };
-export const cookies = {
+export const cookies = Vue.extend(
+{
   methods: {
-    setCookie(name: string, value: any) {
+    setCookie(name: any, value: any) {
       var date = new Date();
       date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
       var expires = '; expires=' + date.toUTCString();
       document.cookie = name + '=' + (value || '') + expires + '; path=/';
     },
-    getCookie(name: string) {
+    getCookie(name: any) {
       var nameEQ = name + '=';
       var ca = document.cookie.split(';');
       for (var i = 0; i < ca.length; i++) {
@@ -25,7 +28,7 @@ export const cookies = {
       return null;
     },
   },
-};
+});
 
 export const displayMethods = {
   methods: {

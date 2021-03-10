@@ -145,46 +145,15 @@ import PodcastItem from './PodcastItem.vue';
 
 const PHONE_WIDTH = 960;
 
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   name: 'PodcastInlineList',
 
-  props: [
-    'organisationId',
-    'emissionId',
-    'iabId',
-    'title',
-    'href',
-    'buttonText',
-    'requirePopularSort',
-    'isArrow',
-    'buttonPlus',
-    'rubriqueId',
-    'rubriquageId',
-  ],
+  props: ['organisationId','emissionId','iabId','title','href','buttonText','requirePopularSort','isArrow','buttonPlus','rubriqueId','rubriquageId',],
 
   components: {
-    PodcastItem,
+    PodcastItem
   },
-  
-  created() {
-    if (undefined !== this.requirePopularSort) {
-      this.popularSort = this.requirePopularSort;
-    }
-    if (undefined !== this.isArrow) {
-      this.isArrow = true;
-    }
-    window.addEventListener('resize', this.handleResize);
-  },
-
-  destroyed() {
-    window.removeEventListener('resize', this.handleResize);
-  },
-
-  mounted() {
-    this.handleResize();
-    this.fetchNext();
-  },
-
   data() {
     return {
       loading: true,
@@ -198,6 +167,25 @@ export default {
       direction: 1,
       alignLeft: false,
     };
+  },
+  
+  created() {
+    if (undefined !== this.requirePopularSort) {
+      this.popularSort = this.requirePopularSort;
+    }
+    if (undefined !== this.isArrow) {
+      this.$emit('update:isArrow', true);
+    }
+    window.addEventListener('resize', this.handleResize);
+  },
+
+  destroyed() {
+    window.removeEventListener('resize', this.handleResize);
+  },
+
+  mounted() {
+    this.handleResize();
+    this.fetchNext();
   },
   computed: {
     podcasts():any {
@@ -225,8 +213,9 @@ export default {
     nextAvailable():boolean {
       return this.index + this.size < this.totalCount;
     },
-    transitionName: ({ direction }:any) =>
-      direction > 0 ? 'out-left' : 'out-right',
+    transitionName():any {
+      return this.direction > 0 ? 'out-left' : 'out-right';
+    }
   },
   methods: {
     async fetchNext() {
@@ -280,7 +269,8 @@ export default {
         this.size = 10;
         return;
       }
-      const width = this.$el.offsetWidth;
+      let element:any = this.$el;
+      const width = element.offsetWidth;
       const sixteen = domHelper.convertRemToPixels(13.7);
       this.size = Math.floor(width / sixteen);
     },

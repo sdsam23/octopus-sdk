@@ -31,7 +31,8 @@ import { state } from '../../store/paramStore.js';
 import LiveList from '../display/live/LiveList.vue';
 import OrganisationChooser from '../display/organisation/OrganisationChooser.vue';
 
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   components: {
     LiveList,
     OrganisationChooser,

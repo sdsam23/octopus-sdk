@@ -66,7 +66,8 @@ import podcastApi from '@/api/podcasts';
 import PodcastItem from './PodcastItem.vue';
 import { state } from '../../../store/paramStore.js';
 
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   name: 'PodcastList',
 
   props: {

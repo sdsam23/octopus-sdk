@@ -255,7 +255,8 @@ import OrganisationChooserLight from '../display/organisation/OrganisationChoose
 import HomeDropdown from './HomeDropdown.vue';
 const octopusApi = require('@saooti/octopus-api');
 
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   name: 'TopBar',
 
   components: {

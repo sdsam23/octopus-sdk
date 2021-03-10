@@ -81,7 +81,8 @@ import { state } from '../../../store/paramStore.js';
 
 const PHONE_WIDTH = 960;
 
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   name: 'EmissionInlineList',
 
   props: [
@@ -133,7 +134,7 @@ export default {
     emissions():any {
       return this.allEmissions.slice(this.index, this.index + this.size);
     },
-    overflowScroll() {
+    overflowScroll():any {
       return state.emissionsPage.overflowScroll;
     },
     previousAvailable():boolean {
@@ -142,11 +143,12 @@ export default {
     nextAvailable():boolean {
       return this.index + this.size < this.totalCount;
     },
-    displayRubriquage() {
+    displayRubriquage():string {
       return state.emissionsPage.rubriquage;
     },
-    transitionName: ({ direction }:any) =>
-      direction > 0 ? 'out-left' : 'out-right',
+    transitionName():any {
+      return this.direction > 0 ? 'out-left' : 'out-right';
+    }
   },
   methods: {
     async fetchNext() {
@@ -207,7 +209,8 @@ export default {
         this.size = 20;
         return;
       }
-      const width = this.$el.offsetWidth;
+      let element:any = this.$el;
+      const width = element.offsetWidth;
       let sixteen = domHelper.convertRemToPixels(13.7);
       if (this.itemSize) {
         sixteen = domHelper.convertRemToPixels(this.itemSize + 0.7);

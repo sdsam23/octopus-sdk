@@ -275,7 +275,8 @@ import { state } from '../../../store/paramStore.js';
 const octopusApi = require('@saooti/octopus-api');
 const moment = require('moment');
 
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   components: {
     MonetizableFilter,
     RubriqueChooser,

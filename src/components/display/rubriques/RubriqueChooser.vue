@@ -65,7 +65,8 @@ const getDefaultRubrique = (defaultName: any) => {
   return '';
 };
 
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   components: {
     Multiselect,
   },

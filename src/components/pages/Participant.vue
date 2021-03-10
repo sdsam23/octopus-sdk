@@ -84,7 +84,8 @@ import PodcastList from '../display/podcasts/PodcastList.vue';
 import { state } from '../../store/paramStore.js';
 import { displayMethods } from '../mixins/functions';
 
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   components: {
     ShareButtons,
     PodcastFilterList,

@@ -20,7 +20,7 @@ import PlaylistsPage from '@/components/pages/Playlists.vue';
 
 Vue.use(VueRouter);
 
-const routes = [
+const routes:any = [
   /*--------------------------------------------------------------------------
   Liens publics
   --------------------------------------------------------------------------*/

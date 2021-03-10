@@ -32,7 +32,8 @@ import PlaylistList from '../display/playlist/PlaylistList.vue';
 import ProductorSearch from '../display/filter/ProductorSearch.vue';
 import { state } from '../../store/paramStore.js';
 
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   components: {
     ProductorSearch,
     PlaylistList,

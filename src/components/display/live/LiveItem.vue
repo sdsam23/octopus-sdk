@@ -189,7 +189,8 @@ const moment = require('moment');
 const humanizeDuration = require('humanize-duration');
 import { displayMethods } from '../../mixins/functions';
 
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   name: 'LiveItem',
 
   props: ['fetchConference', 'index'],

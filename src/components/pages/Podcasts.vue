@@ -69,7 +69,8 @@ import ProductorSearch from '../display/filter/ProductorSearch.vue';
 import AdvancedSearch from '../display/filter/AdvancedSearch.vue';
 import EmissionChooser from '../display/emission/EmissionChooser.vue';
 
-export default {
+import Vue from 'vue';
+export default Vue.extend({
   components: {
     PodcastList,
     ProductorSearch,
