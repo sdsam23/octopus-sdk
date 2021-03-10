@@ -185,6 +185,11 @@ export default displayMethods.extend({
 
   props: ['emission'],
 
+  data() {
+    return {
+      activeEmission: true as boolean,
+    };
+  },
 
   created() {
     this.hasPodcast();
@@ -193,29 +198,25 @@ export default displayMethods.extend({
     let emissionDesc = document.getElementById(
       'description-emission-' + this.emission.emissionId
     );
-    let emissionDescContainer:any = document.getElementById(
+    let emissionDescContainer = document.getElementById(
       'description-emission-container-' + this.emission.emissionId
     );
     if (
       null !== emissionDesc &&
-      emissionDesc.clientHeight > emissionDescContainer.clientHeight
+      emissionDesc.clientHeight > emissionDescContainer!.clientHeight
     ) {
-      emissionDescContainer.classList.add('after-emission-description');
+      emissionDescContainer!.classList.add('after-emission-description');
     }
   },
-  data() {
-    return {
-      activeEmission: true,
-    };
-  },
+  
   computed: {
-    isPodcastmaker() {
+    isPodcastmaker():boolean {
       return state.generalParameters.podcastmaker;
     },
     organisation():string {
       return '' + this.emission.publisher.organisation.name;
     },
-    lightItems() {
+    lightItems():boolean {
       return state.emissionsPage.lightItems;
     },
     description():string {
@@ -230,13 +231,13 @@ export default displayMethods.extend({
         return this.emission.name.substring(0, 50) + '...';
       return this.emission.name;
     },
-    organisationId() {
+    organisationId():string {
       return state.generalParameters.organisationId;
     },
     authenticated():boolean {
       return state.generalParameters.authenticated;
     },
-    editRight() {
+    editRight():boolean {
       if (
         (this.authenticated && this.organisationId === this.emission.orga.id) ||
         state.generalParameters.isAdmin

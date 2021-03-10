@@ -37,49 +37,52 @@ import PlaylistItem from './PlaylistItem.vue';
 import { state } from '../../../store/paramStore';
 
 import Vue from 'vue';
+import { Playlist } from '@/store/class/playlist';
 export default Vue.extend({
   name: 'PlaylistList',
 
-  props: ['first', 'size', 'query', 'organisationId'],
-
   components: {
     PlaylistItem,
+  },
+
+  props: ['first', 'size', 'query', 'organisationId'],
+
+  data() {
+    return {
+      loading: true as boolean,
+      loaded: true as boolean,
+      dfirst: this.first as number,
+      dsize: this.size as number,
+      totalCount: 0 as number,
+      displayCount: 0 as number,
+      playlists: [] as Array<Playlist>,
+      inFetching: false as boolean,
+    };
   },
 
   mounted() {
     this.fetchContent(true);
   },
 
-  data() {
-    return {
-      loading: true,
-      loaded: true,
-      dfirst: this.$props.first,
-      dsize: this.$props.size,
-      totalCount: 0,
-      displayCount: 0,
-      playlists: [] as any,
-      inFetching: false,
-    };
-  },
+  
   computed: {
     allFetched():boolean {
       return this.dfirst >= this.totalCount;
     },
-    buttonPlus() {
+    buttonPlus():boolean {
       return state.generalParameters.buttonPlus;
     },
-    changed():any {
+    changed():string {
       return `${this.first}|${this.size}|${this.organisationId}|${this.query}`;
     },
-    filterOrga():any {
+    filterOrga():string {
       return this.$store.state.filter.organisationId;
     },
-    sort() {
+    sort():string {
       if (!this.query) return 'NAME';
       return 'SCORE';
     },
-    organisation():any {
+    organisation():string|undefined {
       if (this.organisationId) return this.organisationId;
       if (this.filterOrga) return this.filterOrga;
       return undefined;
@@ -103,7 +106,7 @@ export default Vue.extend({
       const data = await octopusApi.fetchPlaylists(param);
       this.afterFetching(reset, data);
     },
-    afterFetching(reset: any, data:any) {
+    afterFetching(reset: boolean, data:any) {
       if (reset) {
         this.playlists.length = 0;
         this.dfirst = 0;
@@ -111,7 +114,7 @@ export default Vue.extend({
       this.loading = false;
       this.loaded = true;
       this.displayCount = data.count;
-      this.playlists = this.playlists.concat(data.result).filter((e: null) => {
+      this.playlists = this.playlists.concat(data.result).filter((e: Playlist | null) => {
         if (null === e) {
           this.displayCount--;
         }

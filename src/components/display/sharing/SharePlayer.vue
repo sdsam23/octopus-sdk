@@ -225,25 +225,27 @@ export default Vue.extend({
     Swatches,
     PlayerParameters,
   },
+
+  data() {
+    return {
+      iFrameModel: 'default' as string,
+      isShareModal: false as boolean,
+      color: '#40a372' as string,
+      theme: '#ffffff' as string,
+      proceedReading: true as boolean,
+      episodeNumbers: 'number' as string,
+      iFrameNumber: '3' as string,
+      startTime: 0 as number,
+      isVisible: false as boolean,
+    };
+  },
   async created() {
     await this.initColor();
     if (this.isLiveReadyToRecord) {
       this.iFrameModel = 'large';
     }
   },
-  data() {
-    return {
-      iFrameModel: 'default',
-      isShareModal: false,
-      color: '#40a372',
-      theme: '#ffffff',
-      proceedReading: true,
-      episodeNumbers: 'number',
-      iFrameNumber: '3',
-      startTime: 0,
-      isVisible: false,
-    };
-  },
+  
   computed: {
     isEmission():boolean {
       return 'emission' === this.iFrameModel;
@@ -254,9 +256,9 @@ export default Vue.extend({
     isLargeSuggestion():boolean {
       return 'largeSuggestion' === this.iFrameModel;
     },
-    titleStillAvailable():any {
-      if (this.isPodcastNotVisible) return this.$t('Podcast still available');
-      return this.$t('Podcasts still available');
+    titleStillAvailable():string {
+      if (this.isPodcastNotVisible) return this.$t('Podcast still available').toString();
+      return this.$t('Podcasts still available').toString();
     },
     isLiveReadyToRecord():boolean {
       if (this.podcast)
@@ -339,7 +341,7 @@ export default Vue.extend({
       }
       url.push('&time=' + this.startTime);
       if (this.isVisible) {
-        url.push('&key=' + window.btoa(this.dataTitle));
+        url.push('&key=' + window.btoa(this.dataTitle.toString()));
       }
       return url.join('');
     },
@@ -401,7 +403,7 @@ export default Vue.extend({
         ('default' === this.iFrameModel || 'large' === this.iFrameModel)
       );
     },
-    dataTitle():any {
+    dataTitle():number {
       if (this.podcast) return this.podcast.podcastId;
       if (this.emission) return this.emission.emissionId;
       return this.playlist.playlistId;

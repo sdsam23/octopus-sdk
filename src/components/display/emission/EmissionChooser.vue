@@ -85,46 +85,55 @@ const octopusApi = require('@saooti/octopus-api');
 const ELEMENTS_COUNT = 50;
 const DEFAULT_EMISSION_ID = 0;
 
-const getDefaultEmission = (defaultName: any) => {
+const getDefaultEmission = (defaultName: string) => {
+  if(''=== defaultName){
+    return undefined;
+  }
   return {
     name: defaultName,
-    id: DEFAULT_EMISSION_ID,
+    emissionId: DEFAULT_EMISSION_ID,
+    imageUrl:'',
+    description:'',
+    monetisable:'UNDEFINED',
+    orga :{ 
+      id:'',
+      imageUrl:'',
+      name:''
+    },
+    rubriqueIds:[],
   };
 };
 
 import Vue from 'vue';
+import { Emission } from '@/store/class/emission';
 export default Vue.extend({
   components: {
     Multiselect,
   },
 
   props: {
-    width: { default: '100%' },
-    defaultanswer: { default: false },
-    organisationId: { default: undefined },
-    emissionChosen: { default: undefined },
-    displayArrow: { default: true },
-    distributedBy: { default: undefined },
-    organisationDistributedBy: { default: undefined },
-    reset: { default: false },
+    width: { default: '100%' as string },
+    defaultanswer: { default: '' as string },
+    organisationId: { default: undefined as string|undefined },
+    emissionChosen: { default: undefined as Emission|undefined},
+    displayArrow: { default: true as boolean },
+    distributedBy: { default: undefined as string|undefined },
+    organisationDistributedBy: { default: undefined as string|undefined },
+    reset: { default: false as boolean },
   },
 
   data() {
-    let _return:any = {
-      emission: '',
-      emissions: [],
-      remainingElements: 0,
-      isLoading: false,
+    return{
+      emission: getDefaultEmission(this.defaultanswer) as Emission | undefined,
+      emissions: [] as Array<Emission>,
+      remainingElements: 0 as number,
+      isLoading: false as boolean,
     };
-    if (this.defaultanswer) {
-      _return['emission'] = getDefaultEmission(this.defaultanswer);
-    }
-    return _return;
   },
 
    methods: {
     onOpen() {
-      this.$refs.multiselectRef.$refs.search.setAttribute(
+      (this.$refs.multiselectRef as any).$refs.search.setAttribute(
         'autocomplete',
         'off'
       );
@@ -135,13 +144,13 @@ export default Vue.extend({
       if (this.emission) return;
       this.emission = this.defaultanswer
         ? getDefaultEmission(this.defaultanswer)
-        : '';
+        : undefined;
       this.$emit('selected', this.emission);
     },
-    onEmissionSelected(emission: any) {
+    onEmissionSelected(emission: Emission) {
       this.$emit('selected', emission);
     },
-    async onSearchEmission(query: undefined) {
+    async onSearchEmission(query?: string) {
       this.isLoading = true;
       let standardParam:any = {
         query: query,
@@ -164,7 +173,7 @@ export default Vue.extend({
       }
       const response = await octopusApi.fetchEmissions(standardParam);
       if (this.defaultanswer) {
-        this.emissions = [getDefaultEmission(this.defaultanswer)].concat(
+        this.emissions = [getDefaultEmission(this.defaultanswer)!].concat(
           response.result
         );
       } else {
@@ -174,13 +183,13 @@ export default Vue.extend({
       this.remainingElements = Math.max(0, response.count - ELEMENTS_COUNT);
     },
     clearAll() {
-      this.emission = '';
+      this.emission = undefined;
       this.emissions.length = 0;
     },
   },
   watch: {
-    emissionChosen(newVal) {
-      this.emission = getDefaultEmission(newVal);
+    emissionChosen() {
+      this.emission = this.emissionChosen;
     },
     reset() {
       this.emission = getDefaultEmission(this.defaultanswer);

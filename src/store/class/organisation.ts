@@ -1,7 +1,7 @@
 import { Person } from "./person";
 
 export interface Organisation{
-    imageUrl?: string,
+    imageUrl: string,
     admin?: Person,
     comments?: string,
     attributes?:any,

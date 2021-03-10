@@ -1,6 +1,8 @@
+import { Conference } from "@/store/class/conference";
+
 export default {
     listConferences(store?:any,bool?:boolean,filterOrgaUsed?:any,state?:string){
-        return undefined
+        return [] as Array<Conference>;
     },
     deleteConference(store?:any,fetchConference?:any){
         return;

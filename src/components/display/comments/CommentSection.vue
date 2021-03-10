@@ -48,30 +48,32 @@
 import CommentList from './CommentList.vue';
 import CommentInput from './CommentInput.vue';
 import { cookies } from '../../mixins/functions';
+import { Podcast } from '@/store/class/podcast';
+import { Conference } from '@/store/class/conference';
 
 export default cookies.extend({
   name: 'CommentSection',
-
-  props: {
-    podcast: { default: undefined as any },
-    fetchConference: { default: undefined as any },
-  },
 
   components: {
     CommentList,
     CommentInput,
   },
 
-  created() {
-    this.knownIdentity = this.getCookie('comment-octopus-name');
+  props: {
+    podcast: { default: undefined as Podcast|undefined },
+    fetchConference: { default: undefined as Conference|undefined|string },
   },
-
+  
   data() {
     return {
-      totalCount: 0,
-      loaded: false,
-      reload: false,
+      totalCount: 0 as number,
+      loaded: false as boolean,
+      reload: false as boolean,
     };
+  },
+
+  created() {
+    this.knownIdentity = this.getCookie('comment-octopus-name');
   },
 
   computed: {
@@ -97,16 +99,16 @@ export default cookies.extend({
       );
     },
     knownIdentity: {
-      get():any {
+      get():string|null {
         return this.$store.state.comments.knownIdentity;
       },
-      set(value: any) {
+      set(value: string|null) {
         this.$store.commit('setCommentIdentity', value);
       },
     },
     isLive():boolean {
       return (
-        this.fetchConference &&
+        undefined!==this.fetchConference &&
         'null' !== this.fetchConference &&
         'PUBLISHING' !== this.fetchConference.status &&
         'DEBRIEFING' !== this.fetchConference.status

@@ -136,21 +136,21 @@ export default Vue.extend({
 
   data() {
     return {
-      proceedReading: true,
-      episodeNumbers: 'number',
-      iFrameNumberPriv: '3',
-      minutes: 0,
-      secondes: 0,
-      startTime: true,
-      isVisibleTemp: this.isVisible,
+      proceedReading: true as boolean,
+      episodeNumbers: 'number' as string,
+      iFrameNumberPriv: '3' as string,
+      minutes: 0 as number,
+      secondes: 0 as number,
+      startTime: true as boolean,
+      isVisibleTemp: this.isVisible as boolean,
     };
   },
   computed: {
     iFrameNumber: {
-      get(): any {
+      get(): string {
         return this.iFrameNumberPriv;
       },
-      set(value:any) {
+      set(value:string) {
         let val = parseInt(value, 10);
         if (!isNaN(val) && val >= 1 && val <= 50) {
           this.iFrameNumberPriv = value;

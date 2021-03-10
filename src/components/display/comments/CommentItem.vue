@@ -211,7 +211,7 @@ export default displayMethods.extend({
     organisationId() {
       return state.generalParameters.organisationId;
     },
-    editRight() {
+    editRight():boolean {
       if (
         (state.generalParameters.isCommments &&
           ((this.podcast &&

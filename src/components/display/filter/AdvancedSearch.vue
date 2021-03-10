@@ -276,6 +276,8 @@ const octopusApi = require('@saooti/octopus-api');
 const moment = require('moment');
 
 import Vue from 'vue';
+import { Rubriquage } from '@/store/class/rubriquage';
+import { Rubrique } from '@/store/class/rubrique';
 export default Vue.extend({
   components: {
     MonetizableFilter,
@@ -293,6 +295,28 @@ export default Vue.extend({
     'includeHidden',
   ],
 
+  data() {
+    return {
+      isRubriquage: false as boolean,
+      rubriquageId: undefined as number|undefined,
+      rubriqueId: undefined as number|undefined,
+      rubriquageData: [] as Array<Rubriquage>,
+      isFrom: false as boolean,
+      isTo: false as boolean,
+      lang: {
+        ok: this.$t('Validate') as string,
+        cancel: this.$t('Cancel') as string,
+      },
+      fromDate: moment().subtract(10, 'days').toISOString() as string,
+      toDate: moment().toISOString() as string,
+      isNotVisible: false as boolean,
+      isNotValidate: false as boolean,
+      showFilters: false as boolean,
+      reset: false as boolean,
+      sort: '' as string,
+    };
+  },
+
   created() {
     this.fetchTopics();
     if (!this.isEmission) {
@@ -304,34 +328,12 @@ export default Vue.extend({
     this.sort = this.sortCriteria;
   },
 
-  data() {
-    return {
-      isRubriquage: false,
-      rubriquageId: undefined as any,
-      rubriqueId: undefined as any,
-      rubriquageData: [] as any,
-      isFrom: false,
-      isTo: false,
-      lang: {
-        ok: this.$t('Validate'),
-        cancel: this.$t('Cancel'),
-      },
-      fromDate: moment()
-        .subtract(10, 'days')
-        .toISOString(),
-      toDate: moment().toISOString(),
-      isNotVisible: false,
-      isNotValidate: false,
-      showFilters: false,
-      reset: false,
-      sort: '',
-    };
-  },
+  
   computed: {
-    isMonetizableFilter() {
+    isMonetizableFilter():boolean {
       return state.podcastsPage.MonetizableFilter;
     },
-    rubriquageDisplay() {
+    rubriquageDisplay():boolean {
       if (0 === this.rubriquageData.length) return false;
       let found = false;
       for (
@@ -346,19 +348,19 @@ export default Vue.extend({
       }
       return found;
     },
-    myOrganisationId() {
+    myOrganisationId():string {
       return state.generalParameters.organisationId;
     },
     authenticated():boolean {
       return state.generalParameters.authenticated;
     },
-    isProduction() {
+    isProduction():boolean {
       return state.generalParameters.isProduction;
     },
-    isContribution() {
+    isContribution():boolean {
       return state.generalParameters.isContribution;
     },
-    organisationRight() {
+    organisationRight():boolean {
       if (
         (this.authenticated && this.myOrganisationId === this.organisationId) ||
         state.generalParameters.isAdmin
@@ -366,24 +368,24 @@ export default Vue.extend({
         return true;
       return false;
     },
-    isPodcastmaker() {
+    isPodcastmaker():boolean {
       return state.generalParameters.podcastmaker;
     },
-    filterOrga():any {
+    filterOrga():string {
       return this.$store.state.filter.organisationId;
     },
-    organisation():any {
+    organisation():string|undefined {
       if (this.organisationId) return this.organisationId;
       if (this.filterOrga) return this.filterOrga;
       return undefined;
     },
-    textNotVisible():any {
-      if (this.isEmission) return this.$t('Consider podcasts no visible');
-      return this.$t('See podcasts no visible');
+    textNotVisible():string {
+      if (this.isEmission) return this.$t('Consider podcasts no visible').toString();
+      return this.$t('See podcasts no visible').toString();
     },
     isCheckboxNotValidate():boolean {
       return (
-        this.organisation &&
+        undefined!==this.organisation &&
         this.organisationRight &&
         this.isContribution &&
         !this.isPodcastmaker &&
@@ -391,9 +393,9 @@ export default Vue.extend({
         this.isNotVisible
       );
     },
-    textNotValidate():any {
-      if (this.isProduction) return this.$t('Display all podcasts to validate');
-      return this.$t('Display my podcasts to validate');
+    textNotValidate():string {
+      if (this.isProduction) return this.$t('Display all podcasts to validate').toString();
+      return this.$t('Display my podcasts to validate').toString();
     },
   },
   methods: {
@@ -430,13 +432,13 @@ export default Vue.extend({
         this.isTo = true;
       }
     },
-    getRubriques(rubriquageId: any) {
+    getRubriques(rubriquageId: number) {
       let topicIndex = this.rubriquageData.findIndex(
-        (        element: any) => element.rubriquageId === rubriquageId
+        ( element: Rubriquage) => element.rubriquageId === rubriquageId
       );
       return this.rubriquageData[topicIndex].rubriques;
     },
-    onRubriqueSelected(rubrique: any) {
+    onRubriqueSelected(rubrique: Rubrique) {
       if (rubrique.rubriqueId === this.rubriqueId) return;
       this.rubriqueId = rubrique.rubriqueId;
       if (0 === this.rubriqueId) {
@@ -452,7 +454,7 @@ export default Vue.extend({
         this.$emit('updateRubriquage', this.rubriquageId);
       }
     },
-    updateMonetization(value: any) {
+    updateMonetization(value: string) {
       this.$emit('updateMonetization', value);
     },
     async fetchTopics() {
@@ -481,39 +483,39 @@ export default Vue.extend({
       }
       this.fetchTopics();
     },
-    isFrom(newVal) {
-      if (newVal) {
+    isFrom() {
+      if (this.isFrom) {
         this.$emit('updateFromDate', this.fromDate);
       } else {
         this.$emit('updateFromDate', undefined);
       }
     },
-    isTo(newVal) {
-      if (newVal) {
+    isTo() {
+      if (this.isTo) {
         this.$emit('updateToDate', this.toDate);
       } else {
         this.$emit('updateToDate', undefined);
       }
     },
-    isRubriquage(newVal) {
-      if (newVal) {
+    isRubriquage() {
+      if (this.isRubriquage) {
         this.$emit('updateRubriquage', this.rubriquageId);
       } else {
         this.$emit('updateRubriquage', undefined);
         this.$emit('updateRubrique', undefined);
       }
     },
-    sort(newVal) {
-      this.$emit('updateSortCriteria', newVal);
+    sort() {
+      this.$emit('updateSortCriteria', this.sort);
     },
     resetRubriquage() {
       this.isRubriquage = false;
     },
-    isNotVisible(newVal) {
-      this.$emit('includeHidden', newVal);
+    isNotVisible() {
+      this.$emit('includeHidden', this.isNotVisible);
     },
-    isNotValidate(newVal) {
-      this.$emit('notValid', newVal);
+    isNotValidate() {
+      this.$emit('notValid', this.isNotValidate);
     },
     sortCriteria() {
       this.sort = this.sortCriteria;

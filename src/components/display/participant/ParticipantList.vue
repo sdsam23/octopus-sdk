@@ -62,6 +62,8 @@ const octopusApi = require('@saooti/octopus-api');
 import ParticipantItem from './ParticipantItem.vue';
 
 import Vue from 'vue';
+import { Participant } from '@/store/class/participant';
+import { Organisation } from '@/store/class/organisation';
 export default Vue.extend({
   name: 'ParticipantList',
 
@@ -71,30 +73,32 @@ export default Vue.extend({
     ParticipantItem,
   },
 
+  data() {
+    return {
+      loading: true as boolean,
+      loaded: true as boolean,
+      dfirst: this.first as number,
+      dsize: this.size as number,
+      totalCount: 0 as number,
+      displayCount: 0 as number,
+      participants: [] as Array<Participant>,
+      inFetching: false as boolean,
+    };
+  },
+
   created() {
     this.fetchContent(true);
   },
 
-   data() {
-    return {
-      loading: true,
-      loaded: true,
-      dfirst: this.$props.first,
-      dsize: this.$props.size,
-      totalCount: 0,
-      displayCount: 0,
-      participants: [] as any,
-      inFetching: false,
-    };
-  },
+   
   computed: {
     allFetched():boolean {
       return this.dfirst >= this.totalCount;
     },
-    filterOrga():any {
+    filterOrga():string {
       return this.$store.state.filter.organisationId;
     },
-    organisation():any {
+    organisation():string|undefined {
       if (this.organisationId) return this.organisationId;
       if (this.filterOrga) return this.filterOrga;
       return undefined;
@@ -118,7 +122,7 @@ export default Vue.extend({
       this.loading = false;
       this.loaded = true;
       this.displayCount = data.count;
-      this.participants = this.participants.concat(data.result).filter((p: null) => {
+      this.participants = this.participants.concat(data.result).filter((p: Participant | null) => {
         if (null === p) {
           this.displayCount--;
         }

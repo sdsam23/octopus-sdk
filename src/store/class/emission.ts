@@ -11,7 +11,7 @@ export interface Emission{
     monetisable: string,
     name: string,
     orga: Organisation,
-    rubriqueIds?: Array<number>,
+    rubriqueIds: Array<number>,
     score?: number,
     soundcastTag?: string
 }

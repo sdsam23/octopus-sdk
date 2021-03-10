@@ -30,38 +30,41 @@ import PodcastItem from '../podcasts/PodcastItem.vue';
 import { state } from '../../../store/paramStore';
 
 import Vue from 'vue';
+import { Podcast } from '@/store/class/podcast';
 export default Vue.extend({
   name: 'LiveHorizontalList',
 
-  props: {
-    first: { default: 0 },
-    size: { default: 12 },
-    emissionId: { default: undefined },
-  },
-
   components: {
     PodcastItem,
+  },
+
+  props: {
+    first: { default: 0 as number },
+    size: { default: 12 as number },
+    emissionId: { default: undefined as undefined|number},
+  },
+
+  data() {
+    return {
+      dfirst: this.first as number,
+      dsize: this.size as number,
+      totalCount: 0 as number,
+      lives: [] as Array<Podcast>,
+      notEmpty: false as boolean,
+      inFetching: false as boolean,
+    };
   },
 
   created() {
     this.fetchContent(true);
   },
 
- data() {
-    return {
-      dfirst: this.$props.first,
-      dsize: this.$props.size,
-      totalCount: 0,
-      lives: [] as any,
-      notEmpty: false,
-      inFetching: false,
-    };
-  },
+ 
   computed: {
     allFetched():boolean {
       return this.dfirst >= this.totalCount;
     },
-    buttonPlus() {
+    buttonPlus():boolean {
       return state.generalParameters.buttonPlus;
     },
   },
@@ -82,12 +85,12 @@ export default Vue.extend({
       const data = await octopusApi.fetchLives(param);
       this.afterFetching(reset, data);
     },
-    afterFetching(reset: any, data: { result: any; count: number; }) {
+    afterFetching(reset: boolean, data: any) {
       if (reset) {
         this.lives.length = 0;
         this.dfirst = 0;
       }
-      this.lives = this.lives.concat(data.result).filter((l: null) => {
+      this.lives = this.lives.concat(data.result).filter((l: Podcast | null) => {
         return null !== l;
       });
       this.dfirst += this.dsize;

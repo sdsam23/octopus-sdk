@@ -18,25 +18,23 @@
 <script lang="ts">
 import Vue from 'vue';
 export default Vue.extend({
-  components: {},
-
+  props: ['timeRemaining'],
+  data() {
+    return {
+      seconds: 0 as number,
+      countdownTimer: undefined as number|undefined,
+      days: 0 as number,
+      hours: 0 as number,
+      minutes: 0 as number,
+      remainingSeconds: 0 as number,
+    };
+  },
   mounted() {
     if (!this.timeRemaining || this.timeRemaining <= 0) return;
     this.seconds = this.timeRemaining;
     this.countdownTimer = setInterval(() => {
       this.timer();
     }, 1000);
-  },
-  props: ['timeRemaining'],
-  data() {
-    return {
-      seconds: undefined as any,
-      countdownTimer: undefined as any,
-      days: 0,
-      hours: 0,
-      minutes: 0,
-      remainingSeconds: 0,
-    };
   },
   computed: {},
   methods: {
@@ -55,7 +53,7 @@ export default Vue.extend({
         this.seconds--;
       }
     },
-    pad(n: string|number) {
+    pad(n: number) {
       return n < 10 ? '0' + n : n;
     },
   },

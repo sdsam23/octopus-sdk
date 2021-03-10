@@ -55,7 +55,7 @@
                 type="button"
                 :value="$t('Copy')"
                 class="btn btn-primary"
-                @click="onCopyCode(newsletterHtml, snackbarRef)"
+                @click="onCopyCode(newsletterHtml, afterCopy)"
                 :aria-label="$t('Copy')"
               />
             </div>

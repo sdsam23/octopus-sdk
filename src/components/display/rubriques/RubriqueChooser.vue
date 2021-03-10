@@ -59,10 +59,9 @@
 <script lang="ts">
 import { selenium } from '../../mixins/functions';
 import Multiselect from 'vue-multiselect';
-
-const getDefaultRubrique = (defaultName: any) => {
-  if (undefined !== defaultName) return { name: defaultName, rubriqueId: 0 };
-  return '';
+import { Rubrique } from '@/store/class/rubrique';
+const getDefaultRubrique = (defaultName: string) => {
+  return { name: defaultName, rubriqueId: 0 };
 };
 
 export default selenium.extend({
@@ -71,23 +70,23 @@ export default selenium.extend({
   },
 
   props: {
-    width: { default: '100%' },
-    defaultanswer: { default: undefined as any },
-    rubriqueSelected: { default: undefined as any },
-    multiple: { default: false },
-    rubriqueArray: { default: undefined as any },
-    rubriquageId: { default: undefined as any },
-    allRubriques: { default: [] },
-    reset: { default: false },
-    withoutRubrique: { default: false },
-    isDisabled: { default: false },
+    width: { default: '100%' as string },
+    defaultanswer: { default: '' as string },
+    rubriqueSelected: { default: undefined as number|undefined },
+    multiple: { default: false as boolean },
+    rubriqueArray: { default: undefined as Array<number>|undefined },
+    rubriquageId: { default: undefined as number|undefined },
+    allRubriques: { default: [] as Array<Rubrique>|undefined },
+    reset: { default: false as boolean },
+    withoutRubrique: { default: false as boolean },
+    isDisabled: { default: false as boolean },
   },
   data() {
     return {
-      rubriques: [] as any,
+      rubriques: [] as Array<Rubrique>,
       rubrique: getDefaultRubrique(this.defaultanswer) as any,
-      isLoading: false,
-      withoutItem: { name: this.$t('Without rubric'), rubriqueId: -1 },
+      isLoading: false as boolean,
+      withoutItem: { name: this.$t('Without rubric'), rubriqueId: -1 } as any,
     };
   },
   mounted() {
@@ -154,27 +153,27 @@ export default selenium.extend({
       } else {
         list = this.allRubriques;
       }
-      this.rubriques = list.filter((item:any) => {
+      this.rubriques = list.filter((item:Rubrique) => {
         return item.name.toUpperCase().includes(query.toUpperCase());
       });
       this.isLoading = false;
     },
-    onRubriqueSelected(rubrique:any) {
+    onRubriqueSelected(rubrique:Rubrique) {
       if (undefined !== this.rubriqueSelected) {
         this.$emit('update:rubrique', rubrique.rubriqueId);
       } else if (undefined === this.rubriqueArray) {
         this.$emit('selected', rubrique);
       }
     },
-    initRubriqueSelected(val: any) {
-      this.rubrique = this.allRubriques.find((el:any) => {
+    initRubriqueSelected(val: number) {
+      this.rubrique = this.allRubriques.find((el:Rubrique) => {
         return el.rubriqueId === val;
       });
     },
-    initRubriqueArray(val: any[]) {
+    initRubriqueArray(val: number[]) {
       this.rubrique.length = 0;
-      val.forEach((element: any) => {
-        let item = this.allRubriques.find((el:any) => {
+      val.forEach((element: number) => {
+        let item = this.allRubriques.find((el:Rubrique) => {
           return el.rubriqueId === element;
         });
         this.rubrique.push(item);
@@ -187,8 +186,8 @@ export default selenium.extend({
     },
     rubrique(newVal) {
       if (undefined === this.rubriqueArray) return;
-      let idsArray: any[] = [];
-      newVal.forEach((el: { rubriqueId: any; }) => {
+      let idsArray: number[] = [];
+      newVal.forEach((el: { rubriqueId: number; }) => {
         idsArray.push(el.rubriqueId);
       });
       this.$emit('selected', idsArray);

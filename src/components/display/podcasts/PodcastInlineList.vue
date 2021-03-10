@@ -146,6 +146,7 @@ import PodcastItem from './PodcastItem.vue';
 const PHONE_WIDTH = 960;
 
 import Vue from 'vue';
+import { Podcast } from '@/store/class/podcast';
 export default Vue.extend({
   name: 'PodcastInlineList',
 
@@ -156,16 +157,16 @@ export default Vue.extend({
   },
   data() {
     return {
-      loading: true,
-      loaded: true,
-      index: 0,
-      first: 0,
-      size: 5,
-      totalCount: 0,
-      popularSort: true,
-      allPodcasts: [] as any,
-      direction: 1,
-      alignLeft: false,
+      loading: true as boolean,
+      loaded: true as boolean,
+      index: 0 as number,
+      first: 0 as number,
+      size: 5 as number,
+      totalCount: 0 as number,
+      popularSort: true as boolean,
+      allPodcasts: [] as Array<Podcast>,
+      direction: 1 as number,
+      alignLeft: false as boolean,
     };
   },
   
@@ -188,13 +189,13 @@ export default Vue.extend({
     this.fetchNext();
   },
   computed: {
-    podcasts():any {
+    podcasts():Array<Podcast> {
       return this.allPodcasts.slice(this.index, this.index + this.size);
     },
-    filterOrga():any {
+    filterOrga():string {
       return this.$store.state.filter.organisationId;
     },
-    organisation():any {
+    organisation():string|undefined {
       if (this.organisationId) return this.organisationId;
       if (this.filterOrga) return this.filterOrga;
       return undefined;
@@ -213,7 +214,7 @@ export default Vue.extend({
     nextAvailable():boolean {
       return this.index + this.size < this.totalCount;
     },
-    transitionName():any {
+    transitionName():string {
       return this.direction > 0 ? 'out-left' : 'out-right';
     }
   },
@@ -237,7 +238,7 @@ export default Vue.extend({
         this.preloadImage(nexEl.imageUrl);
       }
       this.allPodcasts = this.allPodcasts.concat(
-        data.result.filter((pod:any) => null !== pod)
+        data.result.filter((pod:Podcast|null) => null !== pod)
       );
       if (this.allPodcasts.length <= 3) {
         this.alignLeft = true;
@@ -269,8 +270,7 @@ export default Vue.extend({
         this.size = 10;
         return;
       }
-      let element:any = this.$el;
-      const width = element.offsetWidth;
+      const width = (this.$el as HTMLElement).offsetWidth;
       const sixteen = domHelper.convertRemToPixels(13.7);
       this.size = Math.floor(width / sixteen);
     },

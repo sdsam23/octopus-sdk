@@ -8,7 +8,7 @@
         type="button"
         :value="$t('Copy')"
         class="btn btn-primary"
-        @click="onCopyCode(rss, snackbarRef, true, true)"
+        @click="onCopyCode(rss, afterCopy)"
         :aria-label="$t('Copy')"
       />
     </p>
@@ -165,6 +165,7 @@ const octopusApi = require('@saooti/octopus-api');
 import Snackbar from '../../misc/Snackbar.vue';
 import RssSection from '@/components/display/aggregator/RssSection.vue';
 import { displayMethods } from '../../mixins/functions';
+import { Emission } from '@/store/class/emission';
 
 export default displayMethods.extend({
   components: {
@@ -172,30 +173,26 @@ export default displayMethods.extend({
     RssSection,
   },
 
-  mounted() {
-    this.getEmissionDetails(this.emissionId);
-    this.getRSS();
-  },
-
   props: ['emissionId'],
 
   data() {
     return {
-      emission: undefined as any,
-      error: false,
-      baseRss: '',
-      rss: '',
+      emission: undefined as Emission|undefined,
+      error: false as boolean,
+      baseRss: '' as string,
+      rss: '' as string,
     };
   },
-  computed: {
-    snackbarRef():any {
-      return this.$refs.snackbar;
-    },
+
+  mounted() {
+    this.getEmissionDetails();
+    this.getRSS();
   },
+
   methods: {
-    async getEmissionDetails(emissionId: any) {
+    async getEmissionDetails() {
       try {
-        const data = await octopusApi.fetchEmission(emissionId);
+        const data = await octopusApi.fetchEmission(this.emissionId);
         this.emission = data;
       } catch {
         this.error = true;
@@ -207,7 +204,7 @@ export default displayMethods.extend({
       this.rss = this.baseRss;
     },
     afterCopy(){
-      this.snackbarRef.open(this.$t('Link in clipboard'));
+      (this.$refs.snackbar as any).open(this.$t('Link in clipboard'));
     }
   },
 });

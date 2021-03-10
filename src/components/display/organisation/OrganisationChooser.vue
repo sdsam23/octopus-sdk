@@ -32,7 +32,7 @@
       @search-change="onSearchOrganisation"
       @open="onOpen"
       @close="onClose"
-      @select="onEmissionSelected"
+      @select="onOrganisationSelected"
       :class="{ 'light-multiselect': stats }"
     >
       <template slot="clear" slot-scope="props">
@@ -104,12 +104,16 @@ import { selenium } from '../../mixins/functions';
 import Multiselect from 'vue-multiselect';
 const octopusApi = require('@saooti/octopus-api');
 import { state } from '../../../store/paramStore';
+import { Organisation } from '@/store/class/organisation';
 
 const ELEMENTS_COUNT = 50;
-const DEFAULT_ORGANISATION_ID = 0;
+const DEFAULT_ORGANISATION_ID = "";
 const DEFAULT_ORGANISATION_IMAGE = '/img/emptypodcast.png';
 
-const getDefaultOrganistion = (defaultName: any) => {
+const getDefaultOrganistion = (defaultName: string) => {
+  if(''===defaultName){
+    return undefined;
+  }
   return {
     name: defaultName,
     id: DEFAULT_ORGANISATION_ID,
@@ -120,6 +124,26 @@ const getDefaultOrganistion = (defaultName: any) => {
 export default selenium.extend({
   components: {
     Multiselect,
+  },
+  props: {
+    width: { default: '100%' as string },
+    defaultanswer: { default: '' as string},
+    stats: { default: false as boolean},
+    displayArrow: { default: true as boolean},
+    value: { default: null as null | Organisation },
+    light: { default: false as boolean},
+    reset: { default: false as boolean},
+    all: { default: false as boolean},
+  },
+  data() {
+    return {
+      organisations: [] as Array<Organisation>,
+      remainingElements: 0 as number,
+      isLoading: false as boolean,
+      init: false as boolean,
+      myImage: state.organisation.imageUrl as string,
+      organisation: getDefaultOrganistion(this.defaultanswer) as Organisation | undefined
+    };
   },
 
   async created() {
@@ -134,38 +158,15 @@ export default selenium.extend({
       this.fetchOrganisation();
     }
   },
-  props: {
-    width: { default: '100%' },
-    defaultanswer: { default: false },
-    stats: { default: false },
-    displayArrow: { default: true },
-    value: { default: null },
-    light: { default: false },
-    reset: { default: false },
-    all: { default: false },
-  },
-  data() {
-    let _return:any = {
-      organisation: '',
-      organisations: [] as any,
-      remainingElements: 0,
-      isLoading: false,
-      init: false,
-      myImage: state.organisation.imageUrl,
-    };
-    if (this.defaultanswer) {
-      _return['organisation'] = getDefaultOrganistion(this.defaultanswer);
-    }
-    return _return;
-  },
+  
   computed: {
-    organisationId() {
+    organisationId():string {
       return state.generalParameters.organisationId;
     },
     authenticated():boolean {
       return state.generalParameters.authenticated;
     },
-    myOrganisation():any {
+    myOrganisation():Organisation|undefined {
       if (!this.authenticated) return undefined;
       return {
         id: this.organisationId,
@@ -180,7 +181,7 @@ export default selenium.extend({
   },
   methods: {
     onOpen() {
-      this.$refs.multiselectRef.$refs.search.setAttribute(
+      (this.$refs.multiselectRef as any).$refs.search.setAttribute(
         'autocomplete',
         'off'
       );
@@ -191,13 +192,13 @@ export default selenium.extend({
       if (this.organisation) return;
       this.organisation = this.defaultanswer
         ? getDefaultOrganistion(this.defaultanswer)
-        : '';
+        : undefined;
       this.$emit('selected', this.organisation);
     },
-    onEmissionSelected(organisation: any) {
+    onOrganisationSelected(organisation: Organisation|undefined) {
       this.$emit('selected', organisation);
     },
-    async onSearchOrganisation(query: undefined) {
+    async onSearchOrganisation(query?: string) {
       this.isLoading = true;
       const response = await octopusApi.fetchOrganisations({
         query: query,
@@ -218,11 +219,11 @@ export default selenium.extend({
           orga = orga.concat(other.result);
         }
       }
-      let notNull = orga.filter((o: null) => {
+      let notNull = orga.filter((o: Organisation|null) => {
         return null !== o;
       });
       if (this.defaultanswer) {
-        this.organisations = [getDefaultOrganistion(this.defaultanswer)].concat(
+        this.organisations =[getDefaultOrganistion(this.defaultanswer)!].concat(
           notNull
         );
       } else {
@@ -230,13 +231,13 @@ export default selenium.extend({
       }
       if (this.myOrganisation) {
         if (undefined === query) {
-          this.organisations = this.organisations.filter((obj: { id: any; }) => {
+          this.organisations = this.organisations.filter((obj: Organisation) => {
             return obj.id !== this.organisationId;
           });
           this.organisations.splice(1, 0, this.myOrganisation);
         } else {
           let foundIndex = this.organisations.findIndex(
-            (            obj: { id: any; }) => obj.id === this.organisationId
+            (obj: Organisation) => obj.id === this.organisationId
           );
           if (foundIndex) {
             this.organisations[foundIndex] = this.myOrganisation;
@@ -255,7 +256,7 @@ export default selenium.extend({
       this.init = true;
     },
     clearAll() {
-      this.organisation = '';
+      this.organisation = undefined;
       this.organisations.length = 0;
     },
   },
@@ -268,7 +269,7 @@ export default selenium.extend({
     reset() {
       this.organisation = this.defaultanswer
         ? getDefaultOrganistion(this.defaultanswer)
-        : '';
+        : undefined;
     },
   },
 });

@@ -166,6 +166,7 @@
 
 <script lang="ts">
 const octopusApi = require('@saooti/octopus-api');
+import { Podcast } from '@/store/class/podcast';
 import { state } from '../../../store/paramStore';
 import { displayMethods } from '../../mixins/functions';
 export default displayMethods.extend({
@@ -173,38 +174,40 @@ export default displayMethods.extend({
 
   props: ['emission', 'nbPodcasts', 'rubriqueName'],
 
+  data() {
+    return {
+      activeEmission: true as boolean,
+      podcasts: [] as Array<Podcast>,
+      dummyParam: new Date().getTime().toString() as string,
+    };
+  },
+
   created() {
     this.loadPodcasts();
   },
-   mounted() {
+  mounted() {
     let emissionDesc = document.getElementById(
       'description-emission-' + this.emission.emissionId
     );
-    let emissionDescContainer:any = document.getElementById(
+    let emissionDescContainer = document.getElementById(
       'description-emission-container-' + this.emission.emissionId
     );
     if (
       null !== emissionDesc &&
-      emissionDesc.clientHeight > emissionDescContainer.clientHeight
+      emissionDesc.clientHeight > emissionDescContainer!.clientHeight
     ) {
-      emissionDescContainer.classList.add('after-emission-description');
+      emissionDescContainer!.classList.add('after-emission-description');
     }
   },
-  data() {
-    return {
-      activeEmission: true,
-      podcasts: [] as any,
-      dummyParam: new Date().getTime().toString(),
-    };
-  },
+  
   computed: {
-    buttonMore() {
+    buttonMore():boolean {
       return state.emissionsPage.buttonMore;
     },
     authenticated():boolean {
       return this.$store.state.authentication.isAuthenticated;
     },
-    organisationId() {
+    organisationId():string {
       return state.generalParameters.organisationId;
     },
     editRight():boolean {
@@ -232,14 +235,14 @@ export default displayMethods.extend({
         let podcastDesc = document.getElementById(
           'description-podcast-' + this.podcasts[index].podcastId
         );
-        let podcastDescContainer:any = document.getElementById(
+        let podcastDescContainer = document.getElementById(
           'description-podcast-container-' + this.podcasts[index].podcastId
         );
         if (
           null !== podcastDesc &&
-          podcastDesc.clientHeight > podcastDescContainer.clientHeight
+          podcastDesc.clientHeight > podcastDescContainer!.clientHeight
         ) {
-          podcastDescContainer.classList.add('after-emission-description');
+          podcastDescContainer!.classList.add('after-emission-description');
         }
       }
       });
@@ -248,7 +251,7 @@ export default displayMethods.extend({
       }
       this.$emit('emissionNotVisible');
     },
-    play(podcast: any) {
+    play(podcast: Podcast) {
       if (podcast === this.$store.state.player.podcast) {
         this.$store.commit('playerPause', false);
       } else {

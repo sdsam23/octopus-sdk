@@ -118,15 +118,24 @@ import { state } from '../../../store/paramStore';
 const octopusApi = require('@saooti/octopus-api');
 
 import Vue from 'vue';
+import { Organisation } from '@/store/class/organisation';
 export default Vue.extend({
   components: {
     OrganisationChooser,
   },
 
   props: {
-    organisationId: { default: undefined as any },
-    searchPattern: { default: '' },
-    type: { default: 'podcast' },
+    organisationId: { default: undefined as string|undefined },
+    searchPattern: { default: '' as string },
+    type: { default: 'podcast' as string },
+  },
+
+  data() {
+    return {
+      keepOrganisation: false as boolean,
+      showBubble: false as boolean,
+      imgUrl: '' as string,
+    };
   },
   async created() {
     if (!this.organisationId) return;
@@ -145,36 +154,30 @@ export default Vue.extend({
       (this.$refs.search as HTMLElement).focus();
     }
   },
-  data() {
-    return {
-      keepOrganisation: false,
-      showBubble: false,
-      imgUrl: undefined as any,
-    };
-  },
+ 
   computed: {
-    isPodcastmaker() {
+    isPodcastmaker():boolean {
       return state.generalParameters.podcastmaker;
     },
-    searchText():any {
-      if ('emission' === this.type) return this.$t('Look for emission name');
+    searchText():string {
+      if ('emission' === this.type) return this.$t('Look for emission name').toString();
       if ('participant' === this.type)
-        return this.$t('Look for participant name');
-      if ('playlist' === this.type) return this.$t('Look for playlist name');
-      return this.$t('Look for podcast name');
+        return this.$t('Look for participant name').toString();
+      if ('playlist' === this.type) return this.$t('Look for playlist name').toString();
+      return this.$t('Look for podcast name').toString();
     },
-    filterOrga():any {
+    filterOrga():string {
       return this.$store.state.filter.organisationId;
     },
   },
   methods: {
-    onOrganisationSelected(organisation: any) {
+    onOrganisationSelected(organisation: Organisation) {
       if (this.$route.query.productor) {
         this.$router.push({ query: { productor: undefined } });
       }
       this.imgUrl = organisation.imageUrl;
       this.$store.commit('filterOrga', {
-        orgaId: undefined as any,
+        orgaId: undefined,
         imgUrl: this.imgUrl,
       });
       this.keepOrganisation = false;
@@ -210,7 +213,7 @@ export default Vue.extend({
     },
   },
   watch: {
-    filterOrga():any {
+    filterOrga() {
       if (this.filterOrga) {
         this.keepOrganisation = true;
         this.$emit('updateOrganisationId', this.filterOrga);

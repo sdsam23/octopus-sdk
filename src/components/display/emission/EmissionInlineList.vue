@@ -82,8 +82,15 @@ import { state } from '../../../store/paramStore';
 const PHONE_WIDTH = 960;
 
 import Vue from 'vue';
+import { Emission } from '@/store/class/emission';
+import { Rubrique } from '@/store/class/rubrique';
 export default Vue.extend({
   name: 'EmissionInlineList',
+
+  components: {
+    EmissionPlayerItem,
+  },
+
 
   props: [
     'organisationId',
@@ -95,10 +102,22 @@ export default Vue.extend({
     'itemSize',
   ],
 
-  components: {
-    EmissionPlayerItem,
+  data() {
+    return {
+      loading: true as boolean,
+      loaded: true as boolean,
+      index: 0 as number,
+      first: 0 as number,
+      size: 5 as number,
+      totalCount: 0 as number,
+      popularSort: true as boolean,
+      allEmissions: [] as Array<Emission>,
+      direction: 1 as number,
+      alignLeft: false as boolean,
+      rubriques: undefined as Array<Rubrique>|undefined,
+    };
   },
-
+  
   created() {
     window.addEventListener('resize', this.handleResize);
   },
@@ -115,26 +134,12 @@ export default Vue.extend({
     }
   },
 
- data() {
-    return {
-      loading: true,
-      loaded: true,
-      index: 0,
-      first: 0,
-      size: 5,
-      totalCount: 0,
-      popularSort: true,
-      allEmissions: [] as any,
-      direction: 1,
-      alignLeft: false,
-      rubriques: undefined as any,
-    };
-  },
+
   computed: {
-    emissions():any {
+    emissions():Array<Emission> {
       return this.allEmissions.slice(this.index, this.index + this.size);
     },
-    overflowScroll():any {
+    overflowScroll():boolean {
       return state.emissionsPage.overflowScroll;
     },
     previousAvailable():boolean {
@@ -146,7 +151,7 @@ export default Vue.extend({
     displayRubriquage():string {
       return state.emissionsPage.rubriquage;
     },
-    transitionName():any {
+    transitionName():string {
       return this.direction > 0 ? 'out-left' : 'out-right';
     }
   },
@@ -209,8 +214,7 @@ export default Vue.extend({
         this.size = 20;
         return;
       }
-      let element:any = this.$el;
-      const width = element.offsetWidth;
+      const width = (this.$el as HTMLElement).offsetWidth;
       let sixteen = domHelper.convertRemToPixels(13.7);
       if (this.itemSize) {
         sixteen = domHelper.convertRemToPixels(this.itemSize + 0.7);
@@ -233,7 +237,7 @@ export default Vue.extend({
       const data = await octopusApi.fetchTopic(this.displayRubriquage);
       this.rubriques = data.rubriques;
     },
-    rubriquesId(emission:any) {
+    rubriquesId(emission:Emission) {
       if (
         !this.displayRubriquage ||
         !emission.rubriqueIds ||
@@ -243,11 +247,11 @@ export default Vue.extend({
       )
         return undefined;
       let rubrique = this.rubriques.find(
-        (        element: { rubriqueId: any; }) => element.rubriqueId === emission.rubriqueIds[0]
+        (element: Rubrique) => element.rubriqueId === emission.rubriqueIds[0]
       );
-      return rubrique.name;
+      return rubrique!.name;
     },
-    mainRubriquage(emission: { rubriqueIds: any[]; }) {
+    mainRubriquage(emission: Emission) {
       if (
         emission.rubriqueIds &&
         emission.rubriqueIds[0] === state.emissionsPage.mainRubrique

@@ -120,6 +120,12 @@ export default displayMethods.extend({
 
   props: ['participant'],
 
+  data() {
+    return {
+      activeParticipant: true as boolean,
+    };
+  },
+
   created() {
     this.hasPodcast();
   },
@@ -127,23 +133,19 @@ export default displayMethods.extend({
     let participantDesc = document.getElementById(
       'description-participant-' + this.participant.participantId
     );
-    let participantDescContainer:any = document.getElementById(
+    let participantDescContainer = document.getElementById(
       'description-participant-container-' + this.participant.participantId
     );
     if (
       null !== participantDesc &&
-      participantDesc.clientHeight > participantDescContainer.clientHeight
+      participantDesc.clientHeight > participantDescContainer!.clientHeight
     ) {
-      participantDescContainer.classList.add('after-participant-description');
+      participantDescContainer!.classList.add('after-participant-description');
     }
   },
-  data() {
-    return {
-      activeParticipant: true,
-    };
-  },
+  
   computed: {
-    isPodcastmaker() {
+    isPodcastmaker():boolean {
       return state.generalParameters.podcastmaker;
     },
     description():string {
@@ -163,13 +165,13 @@ export default displayMethods.extend({
         return fullName.substring(0, 50) + '...';
       return fullName;
     },
-    organisationId() {
+    organisationId():string {
       return state.generalParameters.organisationId;
     },
     authenticated():boolean {
       return state.generalParameters.authenticated;
     },
-    editRight() {
+    editRight():boolean {
       if (
         (this.authenticated &&
           this.organisationId === this.participant.orga.id) ||

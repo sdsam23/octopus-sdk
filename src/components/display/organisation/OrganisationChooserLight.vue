@@ -35,16 +35,9 @@
 <script lang="ts">
 const octopusApi = require('@saooti/octopus-api');
 
+import { Organisation } from '@/store/class/organisation';
 import Vue from 'vue';
 export default Vue.extend({
-  components: {},
-
-  created() {
-    if (this.value) {
-      this.fetchOrganisation();
-    }
-  },
-
   props: {
     width: { default: '100%' },
     value: { default: null },
@@ -53,12 +46,17 @@ export default Vue.extend({
   },
 
   data() {
-    let _return = {
-      actual: -1,
-      organisation: '',
-      init: false,
+    return  {
+      actual: -1 as number,
+      organisation: undefined as Organisation|undefined,
+      init: false as boolean,
     };
-    return _return;
+  },
+
+  created() {
+    if (this.value) {
+      this.fetchOrganisation();
+    }
   },
 
   methods: {

@@ -188,70 +188,73 @@ import RecordingItemButton from '@/components/display/studio/RecordingItemButton
 const moment = require('moment');
 const humanizeDuration = require('humanize-duration');
 import { displayMethods } from '../../mixins/functions';
+import { Podcast } from '@/store/class/podcast';
+import { Participant } from '@/store/class/participant';
 
 export default displayMethods.extend({
   name: 'LiveItem',
-
-  props: ['fetchConference', 'index'],
 
   components: {
     RecordingItemButton,
     PodcastImage,
   },
 
+  props: ['fetchConference', 'index'],
+
+  data() {
+    return {
+      live: undefined as Podcast|undefined,
+    };
+  },
+
   async created() {
     this.fetchPodcastData();
   },
-
-   data() {
-    return {
-      live: undefined as any,
-    };
-  },
+  
   computed: {
-    isEditBox() {
+    isEditBox():boolean {
       return state.podcastPage.EditBox;
     },
-    isPodcastmaker() {
+    isPodcastmaker():boolean {
       return state.generalParameters.podcastmaker;
     },
     hours():string {
-      return moment(this.live.pubDate).format('À HH[H]mm');
+      return moment(this.live!.pubDate).format('À HH[H]mm');
     },
     date():string {
-      return moment(this.live.pubDate).format('D/MM/YYYY');
+      return moment(this.live!.pubDate).format('D/MM/YYYY');
     },
     displayDate():string {
-      return moment(this.live.pubDate).format('X');
+      return moment(this.live!.pubDate).format('X');
     },
     description():string {
-      if (this.live.description) return this.live.description;
+      if (this.live!.description) return this.live!.description;
       return '';
     },
-    myOrganisationId() {
+    myOrganisationId():string {
       return state.generalParameters.organisationId;
     },
-    organisationRight() {
+    organisationRight():boolean {
       if (
         this.isRoleLive &&
-        this.myOrganisationId === this.live.organisation.id
+        this.myOrganisationId === this.live!.organisation.id
       )
         return true;
       return false;
     },
-    isRoleLive() {
+    isRoleLive():boolean {
       return state.generalParameters.isRoleLive;
     },
     duration():string {
-      if (this.live.duration <= 1) return '';
-      if (this.live.duration > 600000) {
-        return humanizeDuration(this.live.duration, {
+      if (this.live!.duration <= 1) return '';
+      if (this.live!.duration > 600000) {
+        return humanizeDuration(this.live!.duration, {
           language: 'fr',
           largest: 1,
           round: true,
         });
       }
-      return humanizeDuration(this.live.duration, {
+      return humanizeDuration(this.live!.duration, {
         language: 'fr',
         largest: 2,
         round: true,
@@ -259,10 +262,10 @@ export default displayMethods.extend({
     },
   },
   methods: {
-    updatePodcast(podcastUpdated: any) {
+    updatePodcast(podcastUpdated: Podcast) {
       this.live = podcastUpdated;
     },
-    getName(person: any) {
+    getName(person: Participant) {
       const first = person.firstName || '';
       const last = person.lastName || '';
       return (first + ' ' + last).trim();
@@ -284,16 +287,16 @@ export default displayMethods.extend({
     async handleDescription() {
       this.$nextTick(() => {
         let liveDesc = document.getElementById(
-          'description-live-' + this.live.podcastId
+          'description-live-' + this.live!.podcastId
         );
-        let liveDescContainer:any = document.getElementById(
-          'description-live-container-' + this.live.podcastId
+        let liveDescContainer = document.getElementById(
+          'description-live-container-' + this.live!.podcastId
         );
         if (
           null !== liveDesc &&
-          liveDesc.clientHeight > liveDescContainer.clientHeight
+          liveDesc.clientHeight > liveDescContainer!.clientHeight
         ) {
-          liveDescContainer.classList.add('after-live-description');
+          liveDescContainer!.classList.add('after-live-description');
         }
       });
     },

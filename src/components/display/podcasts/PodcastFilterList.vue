@@ -73,21 +73,12 @@
 // @ is an alias to /src
 import CategoryChooser from '../categories/CategoryChooser.vue';
 import PodcastList from './PodcastList.vue';
-
+import { Category } from '@/store/class/category';
 import Vue from 'vue';
 export default Vue.extend({
   components: {
     CategoryChooser,
     PodcastList,
-  },
-
-  created() {
-    if (this.$route.query.first) {
-      this.first = this.$route.query.first;
-    }
-    if (this.$route.query.size) {
-      this.size = this.$route.query.size;
-    }
   },
 
   props: [
@@ -102,12 +93,20 @@ export default Vue.extend({
 
    data() {
     return {
-      first: 0 as any,
-      size: 12 as any,
-      searchPattern: '',
-      iabId: undefined as any,
-      reloadList: false,
+      first: 0 as number,
+      size: 12 as number,
+      searchPattern: '' as string,
+      iabId: undefined as number | undefined,
+      reloadList: false as boolean,
     };
+  },
+  created() {
+    if (this.$route.query.first && 'string' === typeof this.$route.query.first) {
+      this.first = parseInt(this.$route.query.first);
+    }
+    if (this.$route.query.size && 'string' === typeof this.$route.query.size) {
+      this.size = parseInt(this.$route.query.size);
+    }
   },
   computed: {
     query():string {
@@ -116,7 +115,7 @@ export default Vue.extend({
     },
   },
   methods: {
-    onCategorySelected(category:any) {
+    onCategorySelected(category:Category|undefined) {
       if (category && category.id) {
         this.iabId = category.id;
       } else {

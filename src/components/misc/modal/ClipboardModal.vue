@@ -22,7 +22,7 @@
               type="button"
               :value="$t('Copy')"
               class="btn btn-primary"
-              @click="onCopyCode(rss, undefined, false)"
+              @click="onCopyCode(rss, afterCopy)"
               :aria-label="$t('Copy')"
             />
           </p>
@@ -71,6 +71,9 @@ export default displayMethods.extend({
     onValid() {
       this.$emit('validate');
     },
+    afterCopy(){
+      return;
+    }
   },
 });
 </script>

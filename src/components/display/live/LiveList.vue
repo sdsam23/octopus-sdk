@@ -121,18 +121,30 @@ import LiveItem from './LiveItem.vue';
 const octopusApi = require('@saooti/octopus-api');
 const moment = require('moment');
 import { state } from '../../../store/paramStore';
-
+import { Conference } from '@/store/class/conference';
 import Vue from 'vue';
 export default Vue.extend({
   name: 'LiveList',
-
-  props: {
-    conferenceWatched: { default: [] },
-    organisationId: { default: undefined },
-  },
-
   components: {
     LiveItem,
+  },
+
+  props: {
+    conferenceWatched: { default: [] as Array<Conference>},
+    organisationId: { default: undefined as string | undefined},
+  },
+
+  data() {
+    return {
+      loading: true as boolean,
+      loaded: true as boolean,
+      lives: [] as Array<Conference>,
+      livesNotStarted: [] as Array<Conference>,
+      livesToBe: [] as Array<Conference>,
+      livesTerminated: [] as Array<Conference>,
+      livesError: [] as Array<Conference>,
+      livesPublishing: [] as Array<Conference>,
+    };
   },
 
   async created() {
@@ -146,46 +158,35 @@ export default Vue.extend({
       this.loaded = true;
     }
   },
-  data() {
-    return {
-      loading: true,
-      loaded: true,
-      lives: [] as any,
-      livesNotStarted: [] as any,
-      livesToBe: [] as any,
-      livesTerminated: [] as any,
-      livesError: [] as any,
-      livesPublishing: [] as any,
-    };
-  },
+  
   computed: {
-    filterOrgaUsed():any {
+    filterOrgaUsed():string|undefined {
       if (this.filterOrga) return this.filterOrga;
       if (this.organisationId) return this.organisationId;
       return undefined;
     },
-    filterOrga():any {
+    filterOrga():string {
       return this.$store.state.filter.organisationId;
     },
-    displayNextLiveMessage():any {
+    displayNextLiveMessage():string {
       if (0 !== this.lives.length) return '';
       if (this.livesNotStarted.length > 0)
-        return this.$t('A live can start any moment');
+        return this.$t('A live can start any moment').toString();
       if (this.livesToBe.length > 0)
         return this.$t('Next live date', {
           date: moment(this.livesToBe[0].date).format('LLLL'),
-        });
+        }).toString();
       return '';
     },
-    myOrganisationId() {
+    myOrganisationId():string {
       return state.generalParameters.organisationId;
     },
-    organisationRight() {
+    organisationRight():boolean {
       if (this.isRoleLive && this.myOrganisationId === this.filterOrgaUsed)
         return true;
       return false;
     },
-    isRoleLive() {
+    isRoleLive():boolean {
       return state.generalParameters.isRoleLive;
     },
   },
@@ -206,16 +207,16 @@ export default Vue.extend({
       }
       this.loading = true;
       this.loaded = false;
-      let dataLives:any = await studioApi.listConferences(
+      let dataLives = await studioApi.listConferences(
         this.$store,
         true,
         this.filterOrgaUsed,
         'RECORDING'
       );
-      this.lives = dataLives.filter((p:any) => {
+      this.lives = dataLives.filter((p:Conference | null) => {
         return null !== p;
       });
-      let dataLivesToBe:any = await studioApi.listConferences(
+      let dataLivesToBe = await studioApi.listConferences(
         this.$store,
         true,
         this.filterOrgaUsed,
@@ -239,35 +240,35 @@ export default Vue.extend({
       this.livesToBe = dataLivesToBe
         .slice(indexPast)
         .concat(dataLivesPlanned)
-        .filter((p: null) => {
+        .filter((p: Conference | null) => {
           return null !== p;
         });
       if (this.organisationRight) {
-        let dataLivesTerminated:any = await studioApi.listConferences(
+        let dataLivesTerminated = await studioApi.listConferences(
           this.$store,
           true,
           this.filterOrgaUsed,
           'DEBRIEFING'
         );
-        this.livesTerminated = dataLivesTerminated.filter((p:any) => {
+        this.livesTerminated = dataLivesTerminated.filter((p: Conference | null) => {
           return null !== p;
         });
-        let dataLivesError:any = await studioApi.listConferences(
+        let dataLivesError = await studioApi.listConferences(
           this.$store,
           true,
           this.filterOrgaUsed,
           'ERROR'
         );
-        this.livesError = dataLivesError.filter((p:any) => {
+        this.livesError = dataLivesError.filter((p: Conference | null) => {
           return null !== p;
         });
-        let dataLivesPublishing:any = await studioApi.listConferences(
+        let dataLivesPublishing = await studioApi.listConferences(
           this.$store,
           true,
           this.filterOrgaUsed,
           'PUBLISHING'
         );
-        this.livesPublishing = dataLivesPublishing.filter((p:any) => {
+        this.livesPublishing = dataLivesPublishing.filter((p: Conference | null) => {
           return null !== p;
         });
       }
@@ -278,22 +279,22 @@ export default Vue.extend({
       this.loading = false;
       this.loaded = true;
     },
-    deleteLive(index: any) {
+    deleteLive(index: number) {
       this.lives.splice(index, 1);
     },
-    deleteLiveToBe(index: any) {
+    deleteLiveToBe(index: number) {
       this.livesToBe.splice(index, 1);
     },
-    deleteLiveTerminated(index: any) {
+    deleteLiveTerminated(index: number) {
       this.livesTerminated.splice(index, 1);
     },
-    deleteLiveError(index: any) {
+    deleteLiveError(index: number) {
       this.livesError.splice(index, 1);
     },
-    deleteLiveNotStarted(index: any) {
+    deleteLiveNotStarted(index: number) {
       this.livesNotStarted.splice(index, 1);
     },
-    deleteLivePublishing(index: any) {
+    deleteLivePublishing(index: number) {
       this.livesPublishing.splice(index, 1);
     },
     updateLiveLocal() {
@@ -302,13 +303,13 @@ export default Vue.extend({
         index < len;
         index++
       ) {
-        const element:any = this.conferenceWatched[index];
+        const element = this.conferenceWatched[index];
         let indexLivesToBe = this.livesToBe.findIndex(
-          (          el: { conferenceId: any; }) => el.conferenceId === element.conferenceId
+          (el: Conference) => el.conferenceId === element.conferenceId
         );
         if (-1 === indexLivesToBe) {
           let indexLives = this.lives.findIndex(
-            (            el: { conferenceId: any; }) => el.conferenceId === element.conferenceId
+            (el: Conference) => el.conferenceId === element.conferenceId
           );
           if (-1 === indexLives || 'DEBRIEFING' !== element.status) continue;
           let newConf = this.lives[indexLives];
@@ -339,7 +340,7 @@ export default Vue.extend({
         this.loaded = true;
       }
     },
-    filterOrga():any {
+    filterOrga() {
       this.initArrays();
       this.fetchContent();
     },

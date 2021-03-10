@@ -20,7 +20,7 @@
       :id="'description-podcast-container-' + podcast.podcastId"
       class="description-podcast-item html-wysiwyg-content"
       :class="[
-        hover && description ? 'visible' : 'invisible',
+        hover && ''!==description ? 'visible' : 'invisible',
         isDescriptionBig ? 'after-podcast-description' : '',
       ]"
     >
@@ -158,35 +158,37 @@ export default Vue.extend({
     PodcastImage,
   },
 
+  data() {
+    return {
+      hover: false as boolean,
+      arrowDirection: 'up' as string,
+      isDescriptionBig: false as boolean,
+    };
+  },
+
   mounted() {
     let podcastDesc = document.getElementById(
       'description-podcast-' + this.podcast.podcastId
     );
-    let podcastDescContainer:any = document.getElementById(
+    let podcastDescContainer = document.getElementById(
       'description-podcast-container-' + this.podcast.podcastId
     );
     if (
       null !== podcastDesc &&
-      podcastDesc.clientHeight > podcastDescContainer.clientHeight
+      podcastDesc.clientHeight > podcastDescContainer!.clientHeight
     ) {
       this.isDescriptionBig = true;
     }
   },
-  data() {
-    return {
-      hover: false,
-      arrowDirection: 'up',
-      isDescriptionBig: false,
-    };
-  },
+  
   computed: {
-    isPodcastmaker() {
+    isPodcastmaker():boolean {
       return state.generalParameters.podcastmaker;
     },
-    podcastShadow() {
+    podcastShadow():boolean {
       return state.podcastsPage.podcastShadow;
     },
-    podcastBorderBottom() {
+    podcastBorderBottom():boolean {
       return state.podcastsPage.podcastBorderBottom;
     },
     date():string {
@@ -195,7 +197,7 @@ export default Vue.extend({
     displayDate():string {
       return moment(this.podcast.pubDate).format('X');
     },
-    category() {
+    category():string {
       const catIds = this.podcast.emission.iabIds;
       return state.generalParameters.allCategories
         .filter((c:any) => {
@@ -206,8 +208,8 @@ export default Vue.extend({
         })
         .join(', ');
     },
-    description():any {
-      if (!this.podcast.description) return null;
+    description():string {
+      if (!this.podcast.description) return '';
       return this.podcast.description;
     },
     title():string {
@@ -215,13 +217,13 @@ export default Vue.extend({
         return this.podcast.title.substring(0, 50) + '...';
       return this.podcast.title;
     },
-    organisationId() {
+    organisationId():string {
       return state.generalParameters.organisationId;
     },
     authenticated():boolean {
       return state.generalParameters.authenticated;
     },
-    editRight() {
+    editRight():boolean {
       if (
         (this.authenticated &&
           this.organisationId === this.podcast.organisation.id) ||

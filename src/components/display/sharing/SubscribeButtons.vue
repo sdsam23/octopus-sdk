@@ -84,6 +84,35 @@ export default Vue.extend({
 
   components: {},
 
+   data() {
+    return {
+      applePodcast:
+        this.emission && this.emission.annotations
+          ? this.emission.annotations.applePodcast
+          : undefined as string | undefined,
+      deezer:
+        this.emission && this.emission.annotations
+          ? this.emission.annotations.deezer
+          : undefined as string | undefined,
+      spotify:
+        this.emission && this.emission.annotations
+          ? this.emission.annotations.spotify
+          : undefined as string | undefined,
+      tunein:
+        this.emission && this.emission.annotations
+          ? this.emission.annotations.tunein
+          : undefined as string | undefined,
+      tootak:
+        this.emission && this.emission.annotations
+          ? this.emission.annotations.tootak
+          : undefined as string | undefined,
+      radioline:
+        this.emission && this.emission.annotations
+          ? this.emission.annotations.radioline
+          : undefined as string | undefined,
+    };
+  },
+
   mounted() {
     this.applePodcast = this.externaliseLinks(this.applePodcast);
     this.deezer = this.externaliseLinks(this.deezer);
@@ -91,35 +120,6 @@ export default Vue.extend({
     this.tunein = this.externaliseLinks(this.tunein);
     this.tootak = this.externaliseLinks(this.tootak);
     this.radioline = this.externaliseLinks(this.radioline);
-  },
-
-  data() {
-    return {
-      applePodcast:
-        this.emission && this.emission.annotations
-          ? this.emission.annotations.applePodcast
-          : undefined,
-      deezer:
-        this.emission && this.emission.annotations
-          ? this.emission.annotations.deezer
-          : undefined,
-      spotify:
-        this.emission && this.emission.annotations
-          ? this.emission.annotations.spotify
-          : undefined,
-      tunein:
-        this.emission && this.emission.annotations
-          ? this.emission.annotations.tunein
-          : undefined,
-      tootak:
-        this.emission && this.emission.annotations
-          ? this.emission.annotations.tootak
-          : undefined,
-      radioline:
-        this.emission && this.emission.annotations
-          ? this.emission.annotations.radioline
-          : undefined,
-    };
   },
 
   computed: {},

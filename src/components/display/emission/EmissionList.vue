@@ -95,8 +95,15 @@ import EmissionPlayerItem from './EmissionPlayerItem.vue';
 import { state } from '../../../store/paramStore';
 
 import Vue from 'vue';
+import { Emission } from '@/store/class/emission';
+import { Rubrique } from '@/store/class/rubrique';
 export default Vue.extend({
   name: 'EmissionList',
+
+  components: {
+    EmissionItem,
+    EmissionPlayerItem,
+  },
 
   props: [
     'first',
@@ -114,10 +121,21 @@ export default Vue.extend({
     'includeHidden',
   ],
 
-  components: {
-    EmissionItem,
-    EmissionPlayerItem,
+  data() {
+    return {
+      loading: true as boolean,
+      loaded: false as boolean,
+      dfirst: this.first as number,
+      dsize: this.size as number,
+      totalCount: 0 as number,
+      displayCount: 0 as number,
+      emissions: [] as Array<Emission>,
+      rubriques: undefined as Array<Rubrique>|undefined,
+      inFetching: false as boolean,
+    };
   },
+
+  
 
   mounted() {
     this.fetchContent(true);
@@ -126,55 +144,42 @@ export default Vue.extend({
     }
   },
 
-  data() {
-    return {
-      loading: true,
-      loaded: true,
-      dfirst: this.$props.first,
-      dsize: this.$props.size,
-      totalCount: 0,
-      displayCount: 0,
-      emissions: [] as any,
-      rubriques: undefined as any,
-      inFetching: false,
-    };
-  },
   computed: {
     allFetched():boolean {
       return this.dfirst >= this.totalCount;
     },
-    buttonPlus() {
+    buttonPlus():boolean {
       return state.generalParameters.buttonPlus;
     },
-    smallItems() {
+    smallItems():boolean {
       return state.emissionsPage.smallItems;
     },
-    itemPlayer() {
+    itemPlayer():boolean {
       return state.emissionsPage.itemPlayer;
     },
-    displayRubriquage() {
+    displayRubriquage():boolean {
       return state.emissionsPage.rubriquage;
     },
-    changed():any {
+    changed():string {
       return `${this.first}|${this.size}|${this.organisationId}|${this.query}|${this.monetization}|${this.includeHidden}
       ${this.rubriqueId}|${this.rubriquageId}|${this.before}|${this.after}|${this.sort}|${this.noRubrique}`;
     },
-    sortText():any {
+    sortText():string {
       switch (this.sort) {
         case 'SCORE':
-          return this.$t('sort by score');
+          return this.$t('sort by score').toString();
         case 'LAST_PODCAST_DESC':
-          return this.$t('sort by date');
+          return this.$t('sort by date').toString();
         case 'NAME':
-          return this.$t('sort by alphabetical');
+          return this.$t('sort by alphabetical').toString();
         default:
-          return this.$t('sort by date');
+          return this.$t('sort by date').toString();
       }
     },
-    filterOrga():any {
+    filterOrga():string {
       return this.$store.state.filter.organisationId;
     },
-    organisation():any {
+    organisation():string|undefined {
       if (this.organisationId) return this.organisationId;
       if (this.filterOrga) return this.filterOrga;
       return undefined;
@@ -211,7 +216,7 @@ export default Vue.extend({
         this.afterFetching(reset, data);
       }
     },
-    afterFetching(reset: any, data: any) {
+    afterFetching(reset: boolean, data: any) {
       if (reset) {
         this.emissions.length = 0;
         this.dfirst = 0;
@@ -219,7 +224,7 @@ export default Vue.extend({
       this.loading = false;
       this.loaded = true;
       this.displayCount = data.count;
-      this.emissions = this.emissions.concat(data.result).filter((e:any) => {
+      this.emissions = this.emissions.concat(data.result).filter((e:Emission|null) => {
         if (null === e) {
           this.displayCount--;
         }
@@ -237,7 +242,7 @@ export default Vue.extend({
       const data = await octopusApi.fetchTopic(this.displayRubriquage);
       this.rubriques = data.rubriques;
     },
-    mainRubriquage(emission: { rubriqueIds: any[]; }) {
+    mainRubriquage(emission: Emission) {
       if (
         emission.rubriqueIds &&
         emission.rubriqueIds[0] === state.emissionsPage.mainRubrique
@@ -245,7 +250,7 @@ export default Vue.extend({
         return 'partenaireRubrique';
       return '';
     },
-    rubriquesId(emission: { rubriqueIds: string|any[]; }) {
+    rubriquesId(emission: Emission) {
       if (
         !this.displayRubriquage ||
         !emission.rubriqueIds ||
@@ -255,9 +260,9 @@ export default Vue.extend({
       )
         return undefined;
       let rubrique = this.rubriques.find(
-        (        element: { rubriqueId: any; }) => element.rubriqueId === emission.rubriqueIds[0]
+        (element: Rubrique) => element.rubriqueId === emission.rubriqueIds[0]
       );
-      return rubrique.name;
+      return rubrique!.name;
     },
   },
   watch: {

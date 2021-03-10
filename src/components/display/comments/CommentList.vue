@@ -131,7 +131,7 @@ export default Vue.extend({
       if (this.podcast) return this.podcast.podcastId;
       return undefined;
     },
-    editRight() {
+    editRight():boolean {
       if (
         (state.generalParameters.isCommments &&
           ((this.podcast &&

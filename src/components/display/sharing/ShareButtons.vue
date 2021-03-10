@@ -90,7 +90,7 @@
         :href="rssUrl"
         :title="$t('Subscribe to this emission')"
         aria-label="RSS"
-        v-if="rssUrl"
+        v-if="''!==rssUrl"
       >
         <span class="saooti-rss-bounty" v-if="!bigRound"></span>
         <div class="saooti-rss-bounty" v-else></div>
@@ -102,7 +102,7 @@
           verticalDisplay ? '' : 'mr-2 ml-2',
         ]"
         aria-label="copy"
-        @click="onCopyCode(window.location.href, snackbarRef, true)"
+        @click="onCopyCode(window.location.href,afterCopy)"
       >
         <span class="saooti-link" v-if="!bigRound"></span>
         <div class="saooti-link" v-else></div>
@@ -184,22 +184,19 @@ export default displayMethods.extend({
     Snackbar,
   },
 
-  mounted() {},
-
   data() {
     return {
-      facebookURL: `https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`,
-      twitterURL: `https://twitter.com/intent/tweet?text=${window.location.href}`,
-      linkedinURL: `https://www.linkedin.com/sharing/share-offsite/?url=${window.location.href}`,
-      dataRSSSave: false,
-      newsletter: false,
+      facebookURL: `https://www.facebook.com/sharer/sharer.php?u=${window.location.href}` as string,
+      twitterURL: `https://twitter.com/intent/tweet?text=${window.location.href}` as string,
+      linkedinURL: `https://www.linkedin.com/sharing/share-offsite/?url=${window.location.href}` as string,
+      dataRSSSave: false as boolean,
+      newsletter: false as boolean,
     };
   },
 
+  mounted() {},
+
   computed: {
-    snackbarRef():any {
-      return this.$refs.snackbar;
-    },
     verticalDisplay():boolean {
       return (
         !this.authenticated &&
@@ -211,7 +208,7 @@ export default displayMethods.extend({
     authenticated():boolean {
       return state.generalParameters.authenticated;
     },
-    rssUrl():any {
+    rssUrl():string {
       if (this.emission)
         return (
           state.generalParameters.ApiUri +
@@ -230,7 +227,7 @@ export default displayMethods.extend({
           'rss/participant/' +
           this.participantId
         );
-      return null;
+      return '';
     },
   },
   methods: {
@@ -241,7 +238,7 @@ export default displayMethods.extend({
       this.dataRSSSave = false;
     },
     afterCopy(){
-      this.snackbarRef.open(this.$t('Link in clipboard'));
+      (this.$refs.snackbar as any).open(this.$t('Link in clipboard'));
     }
   },
 });

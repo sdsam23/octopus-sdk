@@ -67,63 +67,68 @@ import PodcastItem from './PodcastItem.vue';
 import { state } from '../../../store/paramStore';
 
 import Vue from 'vue';
+import { Podcast } from '@/store/class/podcast';
 export default Vue.extend({
   name: 'PodcastList',
 
-  props: {
-    first: { default: 0 },
-    size: { default: 5 },
-    organisationId: { default: undefined as any },
-    emissionId: { default: undefined as any },
-    iabId: { default: undefined as any },
-    participantId: { default: undefined as any },
-    query: { default: undefined as any },
-    monetization: { default: undefined as any },
-    popularSort: { default: false },
-    reload: { default: false },
-    rubriqueId: { default: undefined as any },
-    rubriquageId: { default: undefined as any },
-    before: { default: undefined as any },
-    after: { default: undefined as any },
-    includeHidden: { default: false },
-    showCount: { default: false },
-    noRubrique: { default: undefined as any },
-    sortCriteria: { default: undefined as any },
-    notValid: { default: undefined as any },
-  },
   components: {
     PodcastItem,
   },
+
+  props: {
+    first: { default: 0 as number},
+    size: { default: 12 as number },
+    organisationId: { default: undefined as string | undefined },
+    emissionId: { default: undefined as number | undefined },
+    iabId: { default: undefined as number | undefined },
+    participantId: { default: undefined as number | undefined },
+    query: { default: undefined as string | undefined },
+    monetization: { default: undefined as string | undefined },
+    popularSort: { default: false as boolean },
+    reload: { default: false as boolean },
+    rubriqueId: { default: undefined as number | undefined },
+    rubriquageId: { default: undefined as number | undefined },
+    before: { default: undefined as string | undefined },
+    after: { default: undefined as string | undefined },
+    includeHidden: { default: false as boolean},
+    showCount: { default: false as boolean },
+    noRubrique: { default: undefined as boolean | undefined },
+    sortCriteria: { default: undefined as string | undefined },
+    notValid: { default: undefined as boolean | undefined },
+  },
+
+  data() {
+    return {
+      loading: true as boolean,
+      loaded: false as boolean,
+      dfirst: this.first as number,
+      dsize: this.size as number,
+      totalCount: 0 as number,
+      podcasts: [] as Array<Podcast>,
+      inFetching: false as boolean,
+    };
+  },
+  
   created() {
     this.fetchContent(true);
   },
-  data() {
-    return {
-      loading: true,
-      loaded: true,
-      dfirst: this.$props.first,
-      dsize: this.$props.size,
-      totalCount: 0,
-      podcasts: [] as any,
-      inFetching: false,
-    };
-  },
+  
   computed: {
     allFetched():boolean {
       return this.dfirst >= this.totalCount;
     },
-    buttonPlus() {
+    buttonPlus():boolean {
       return state.generalParameters.buttonPlus;
     },
-    changed():any {
+    changed():string {
       return `${this.first}|${this.size}|${this.organisation}|${this.emissionId}|${this.sortCriteria}|${this.sort}
       ${this.iabId}|${this.participantId}|${this.query}|${this.monetization}|${this.popularSort}|
       ${this.rubriqueId}|${this.rubriquageId}|${this.before}|${this.after}|${this.includeHidden}|${this.noRubrique}|${this.notValid}`;
     },
-    filterOrga():any {
+    filterOrga():string {
       return this.$store.state.filter.organisationId;
     },
-    organisation():any {
+    organisation():string|undefined {
       if (this.organisationId) return this.organisationId;
       if (this.filterOrga) return this.filterOrga;
       return undefined;
@@ -132,19 +137,19 @@ export default Vue.extend({
       if (this.popularSort) return 'POPULARITY';
       return this.sortCriteria;
     },
-    sortText():any {
+    sortText():string {
       switch (this.sortCriteria) {
         case 'SCORE':
-          return this.$t('sort by score');
+          return this.$t('sort by score').toString();
         case 'DATE':
-          return this.$t('sort by date');
+          return this.$t('sort by date').toString();
         case 'NAME':
-          return this.$t('sort by alphabetical');
+          return this.$t('sort by alphabetical').toString();
         default:
-          return this.$t('sort by date');
+          return this.$t('sort by date').toString();
       }
     },
-    isProduction() {
+    isProduction():boolean {
       return state.generalParameters.isProduction;
     },
   },
@@ -188,7 +193,7 @@ export default Vue.extend({
         this.afterFetching(reset, data);
       }
     },
-    afterFetching(reset: any, data: any) {
+    afterFetching(reset: boolean, data: any) {
       if (reset) {
         this.podcasts.length = 0;
         this.dfirst = 0;
@@ -197,7 +202,7 @@ export default Vue.extend({
       }
       this.loading = false;
       this.loaded = true;
-      this.podcasts = this.podcasts.concat(data.result).filter((p: null) => {
+      this.podcasts = this.podcasts.concat(data.result).filter((p: Podcast|null) => {
         return null !== p;
       });
       this.$emit('fetch', this.podcasts);

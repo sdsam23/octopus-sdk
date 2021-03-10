@@ -27,7 +27,7 @@ export default Vue.extend({
 
   data() {
     return {
-      monetization: 'UNDEFINED',
+      monetization: 'UNDEFINED' as string,
     };
   },
 

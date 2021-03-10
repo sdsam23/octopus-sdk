@@ -75,32 +75,34 @@ export default displayMethods.extend({
 
   props: ['playlist'],
 
+  data() {
+    return {
+      dummyParam: new Date().getTime().toString() as string,
+    };
+  },
 
-   mounted() {
+
+  mounted() {
     let playlistDesc = document.getElementById(
       'description-playlist-' + this.playlist.playlistId
     );
-    let playlistDescContainer:any = document.getElementById(
+    let playlistDescContainer = document.getElementById(
       'description-playlist-container-' + this.playlist.playlistId
     );
     if (
       null !== playlistDesc &&
-      playlistDesc.clientHeight > playlistDescContainer.clientHeight
+      playlistDesc.clientHeight > playlistDescContainer!.clientHeight
     ) {
-      playlistDescContainer.classList.add('after-emission-description');
+      playlistDescContainer!.classList.add('after-emission-description');
     }
     if (this.editRight || this.activePlaylist) {
       return;
     }
     this.$emit('playlistNotVisible');
   },
-  data() {
-    return {
-      dummyParam: new Date().getTime().toString(),
-    };
-  },
+  
   computed: {
-    isPodcastmaker() {
+    isPodcastmaker():boolean {
       return state.generalParameters.podcastmaker;
     },
     organisation():string {
@@ -118,10 +120,10 @@ export default displayMethods.extend({
         return this.playlist.title.substring(0, 50) + '...';
       return this.playlist.title;
     },
-    organisationId() {
+    organisationId():string {
       return state.generalParameters.organisationId;
     },
-    editRight() {
+    editRight():boolean {
       if (
         (state.generalParameters.isPlaylist &&
           this.organisationId === this.playlist.organisation.id) ||

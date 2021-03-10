@@ -205,6 +205,7 @@
 <script lang="ts">
 import { mapState } from 'vuex';
 import Vue from 'vue';
+import { StoreState } from '@/store/typeAppStore';
 export default Vue.extend({
   name: 'PodcastImage',
 
@@ -216,9 +217,14 @@ export default Vue.extend({
     'fetchConference',
     'isAnimatorLive',
   ],
+   data() {
+    return {
+      isDescription: false as boolean,
+    };
+  },
   computed: {
     ...mapState({
-      playingPodcast(state:any) {
+      playingPodcast(state:StoreState) {
         return (
           (state.player.podcast &&
             state.player.podcast.podcastId === this.podcast.podcastId) ||
@@ -230,7 +236,7 @@ export default Vue.extend({
         );
       },
     }),
-    isMobile() {
+    isMobile():boolean {
       return window.matchMedia('(hover: none)').matches;
     },
     isRecordedInLive():boolean {
@@ -257,7 +263,7 @@ export default Vue.extend({
         this.podcast.availability.visibility
       );
     },
-    iconName() {
+    iconName():string {
       if (this.isLiveToBeRecorded) return 'saooti-clock';
       if ('READY' === this.podcast.processingStatus || this.fetchConference) {
         if (false == this.podcast.valid) return 'saooti-checkmark';
@@ -277,46 +283,46 @@ export default Vue.extend({
         return 'saooti-cancel-circle';
       return 'saooti-warning';
     },
-    textVisible():any {
+    textVisible():string {
       if (this.isLiveToBeRecorded)
-        return this.$t('Podcast linked to waiting live');
+        return this.$t('Podcast linked to waiting live').toString();
       if ('READY' === this.podcast.processingStatus || this.fetchConference) {
-        if (false == this.podcast.valid) return this.$t('Podcast to validate');
+        if (false == this.podcast.valid) return this.$t('Podcast to validate').toString();
         if (
           !this.podcast.availability.visibility &&
           this.podcast.availability.date
         )
-          return this.$t('Podcast publish in future');
-        return this.$t('Podcast no visible');
+          return this.$t('Podcast publish in future').toString();
+        return this.$t('Podcast no visible').toString();
       }
       if (
         'PLANNED' === this.podcast.processingStatus ||
         'PROCESSING' === this.podcast.processingStatus
       )
-        return this.$t('Podcast in process');
+        return this.$t('Podcast in process').toString();
       if ('CANCELED' === this.podcast.processingStatus)
-        return this.$t('Podcast in cancelled status');
-      return this.$t('Podcast in error');
+        return this.$t('Podcast in cancelled status').toString();
+      return this.$t('Podcast in error').toString();
     },
-    statusText():any {
+    statusText():string {
       if (!this.fetchConference) return '';
       switch (this.fetchConference.status) {
         case 'PLANNED':
-          return this.$t('live in few time');
+          return this.$t('live in few time').toString();
         case 'PENDING':
-          if (this.isAnimatorLive) return this.$t('Open studio');
-          return this.$t('live upcoming');
+          if (this.isAnimatorLive) return this.$t('Open studio').toString();
+          return this.$t('live upcoming').toString();
         case 'RECORDING':
-          return this.$t('In live');
+          return this.$t('In live').toString();
         case 'DEBRIEFING':
           if (!this.isAnimatorLive) return '';
           if ('READY_TO_RECORD' === this.podcast.processingStatus)
-            return this.$t('Not recording');
-          return this.$t('Debriefing');
+            return this.$t('Not recording').toString();
+          return this.$t('Debriefing').toString();
         case 'ERROR':
-          return this.$t('In error');
+          return this.$t('In error').toString();
         case 'PUBLISHING':
-          return this.$t('Publishing');
+          return this.$t('Publishing').toString();
         default:
           return '';
       }
@@ -330,11 +336,7 @@ export default Vue.extend({
       );
     },
   },
-  data() {
-    return {
-      isDescription: false,
-    };
-  },
+ 
   methods: {
     play() {
       if (this.isLiveToBeRecorded) {
@@ -363,8 +365,8 @@ export default Vue.extend({
     },
   },
   watch: {
-    arrowDirection(newValue) {
-      if ('up' === newValue) {
+    arrowDirection() {
+      if ('up' === this.arrowDirection) {
         this.isDescription = true;
         this.showDescription();
       } else {

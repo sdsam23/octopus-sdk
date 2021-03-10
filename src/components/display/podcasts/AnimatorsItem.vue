@@ -36,6 +36,7 @@
 </style>
 
 <script lang="ts">
+import { Participant } from '@/store/class/participant';
 import Vue from 'vue';
 export default Vue.extend({
   name: 'AnimatorsItem',
@@ -44,12 +45,12 @@ export default Vue.extend({
 
   data() {
     return {
-      visibleIndex: 0,
+      visibleIndex: 0 as number,
     };
   },
 
    methods: {
-    getAnimatorName(animator:any) {
+    getAnimatorName(animator:Participant) {
       const first = animator.firstName || '';
       const last = animator.lastName || '';
       return (first + ' ' + last).trim();
