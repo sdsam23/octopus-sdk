@@ -68,12 +68,15 @@
 <style lang="scss"></style>
 
 <script lang="ts">
+import { Playlist } from '@/store/class/playlist';
 import { state } from '../../../store/paramStore';
 import { displayMethods } from '../../mixins/functions';
 export default displayMethods.extend({
   name: 'PlaylistItem',
 
-  props: ['playlist'],
+  props: {
+    playlist: { default: undefined as Playlist|undefined},
+  },
 
   data() {
     return {

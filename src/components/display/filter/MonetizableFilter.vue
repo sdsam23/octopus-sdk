@@ -23,7 +23,10 @@
 <script lang="ts">
 import Vue from 'vue';
 export default Vue.extend({
-  props: ['isEmission', 'isEducation'],
+  props: {
+    isEmission: { default: false as boolean},
+    isEducation: { default: false as boolean},
+  },
 
   data() {
     return {

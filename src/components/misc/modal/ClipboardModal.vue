@@ -42,6 +42,7 @@
 
 <script lang="ts">
 import RssSection from '@/components/display/aggregator/RssSection.vue';
+import { Emission } from '@/store/class/emission';
 import { displayMethods } from '../../mixins/functions';
 export default displayMethods.extend({
   name: 'ClipboardModal',
@@ -50,7 +51,14 @@ export default displayMethods.extend({
     RssSection,
   },
 
-  props: ['title', 'active', 'closable', 'validatetext', 'link', 'emission'],
+  props: {
+    title: { default: undefined as string|undefined},
+    active: { default: false as boolean},
+    closable: { default: true as boolean},
+    validatetext: { default: undefined as string|undefined},
+    link: { default: undefined as string|undefined},
+    emission: { default: undefined as Emission|undefined},
+  },
 
   data() {
     return {

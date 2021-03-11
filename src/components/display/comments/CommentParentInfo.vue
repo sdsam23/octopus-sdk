@@ -36,7 +36,9 @@ import Vue from 'vue';
 export default Vue.extend({
   name: 'CommentParentInfo',
 
-  props: ['comId'],
+  props: {
+    comId: { default: undefined as number|undefined },
+  },
 
   data() {
     return {

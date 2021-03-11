@@ -78,10 +78,13 @@
 </style>
 
 <script lang="ts">
+import { Emission } from '@/store/class/emission';
 import Vue from 'vue';
 export default Vue.extend({
-  props: ['podcastId', 'emission'],
-
+  props: {
+    emission: { default: undefined as Emission|undefined},
+    podcastId: { default: undefined as number|undefined},
+  },
   components: {},
 
    data() {

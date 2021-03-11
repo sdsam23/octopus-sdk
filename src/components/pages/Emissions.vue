@@ -57,8 +57,12 @@ export default Vue.extend({
     EmissionList,
     AdvancedSearch,
   },
-
-  props: ['isEducation','firstRoute', 'sizeRoute', 'productor'],
+  props: {
+    firstRoute: { default: 0 as number},
+    sizeRoute: { default: 12 as number},
+    productor: { default: undefined as string|undefined},
+    isEducation: { default: false as boolean},
+  },
 
   data() {
     return {

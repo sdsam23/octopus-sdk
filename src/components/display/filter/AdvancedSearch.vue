@@ -284,16 +284,15 @@ export default Vue.extend({
     RubriqueChooser,
     Datetime,
   },
-
-  props: [
-    'organisationId',
-    'isEmission',
-    'resetRubriquage',
-    'isSearchBar',
-    'sortCriteria',
-    'isEducation',
-    'includeHidden',
-  ],
+  props: {
+    organisationId: { default: undefined as string|undefined},
+    isEmission: { default: false as boolean},
+    resetRubriquage: { default: false as boolean},
+    isSearchBar: { default: false as boolean},
+    isEducation: { default: false as boolean},
+    includeHidden: { default: false as boolean},
+    sortCriteria: { default: 'DATE' as string},
+  },
 
   data() {
     return {

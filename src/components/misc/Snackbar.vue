@@ -75,7 +75,7 @@ export default Vue.extend({
     };
   },
   computed: {
-    $_position() {
+    $_position(): any {
       const [p, textAlign] = this.position.toString().split('-');
       return {
         pos: ['top', 'bottom'].includes(p) ? p : 'top',
@@ -84,7 +84,7 @@ export default Vue.extend({
           : 'center',
       };
     },
-    style():any {
+    style(): any {
       return getStyle(this.baseSize, this.$_position);
     },
   },
@@ -104,7 +104,7 @@ export default Vue.extend({
       this.open({ color, msg }, false);
       return true;
     },
-    open(message: { color?: any; msg?: any; }, isOpen = true): boolean {
+    open(message: any, isOpen = true): boolean {
       let msg;
       let color;
       if (!isOpen) {

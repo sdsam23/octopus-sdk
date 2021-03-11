@@ -67,7 +67,9 @@ export default Vue.extend({
   components: {
     PodcastList,
   },
-  props:['queryRoute'],
+  props: {
+    queryRoute: { default: '' as string },
+  },
   
   data() {
     return {

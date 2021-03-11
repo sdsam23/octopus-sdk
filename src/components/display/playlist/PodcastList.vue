@@ -67,10 +67,13 @@ import { state } from '../../../store/paramStore';
 
 import Vue from 'vue';
 import { Podcast } from '@/store/class/podcast';
+import { Playlist } from '@/store/class/playlist';
 export default Vue.extend({
   name: 'PodcastList',
 
-  props: ['playlist'],
+  props: {
+    playlist: { default: undefined as Playlist|undefined},
+  },
 
   components: {
     PodcastItem,

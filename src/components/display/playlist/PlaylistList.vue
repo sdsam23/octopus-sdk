@@ -44,8 +44,12 @@ export default Vue.extend({
   components: {
     PlaylistItem,
   },
-
-  props: ['first', 'size', 'query', 'organisationId'],
+  props: {
+    first: { default: 0 as number },
+    size: { default: 12 as number },
+    query: { default: undefined as string|undefined },
+    organisationId: { default: undefined as string|undefined },
+  },
 
   data() {
     return {
@@ -130,10 +134,8 @@ export default Vue.extend({
     },
   },
   watch: {
-    changed: {
-      handler(): void {
-        this.fetchContent(true);
-      },
+    changed(): void {
+      this.fetchContent(true);
     },
   },
 });

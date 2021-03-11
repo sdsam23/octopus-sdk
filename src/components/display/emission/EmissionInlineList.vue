@@ -90,17 +90,15 @@ export default Vue.extend({
   components: {
     EmissionPlayerItem,
   },
-
-
-  props: [
-    'organisationId',
-    'href',
-    'buttonText',
-    'rubriqueId',
-    'rubriquageId',
-    'nbPodcasts',
-    'itemSize',
-  ],
+  props: {
+    organisationId: { default: undefined as string|undefined },
+    href: { default: undefined as string|undefined },
+    buttonText: { default: undefined as string|undefined },
+    rubriqueId: { default: undefined as number|undefined },
+    rubriquageId: { default: undefined as number|undefined },
+    nbPodcasts: { default: undefined as number|undefined },
+    itemSize: { default: undefined as number|undefined },
+  },
 
   data() {
     return {

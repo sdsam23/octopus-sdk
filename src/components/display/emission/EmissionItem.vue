@@ -177,13 +177,16 @@ button.btn.btn-primary.share-btn.m-3 {
 </style>
 
 <script lang="ts">
+import { Emission } from '@/store/class/emission';
 import { state } from '../../../store/paramStore';
 const octopusApi = require('@saooti/octopus-api');
 import { displayMethods } from '../../mixins/functions';
 export default displayMethods.extend({
   name: 'EmissionItem',
 
-  props: ['emission'],
+  props: {
+    emission: { default: undefined as Emission|undefined },
+  },
 
   data() {
     return {

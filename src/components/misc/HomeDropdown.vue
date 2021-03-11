@@ -141,8 +141,9 @@ import { state } from '../../store/paramStore';
 import Vue from 'vue';
 export default Vue.extend({
   name: 'HomeDropdown',
-
-  props: ['isEducation'],
+  props: {
+    isEducation: { default: false as boolean},
+  },
 
   data() {
     return {};

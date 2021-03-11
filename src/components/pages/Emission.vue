@@ -108,7 +108,10 @@ export default displayMethods.extend({
     SubscribeButtons,
     LiveHorizontalList,
   },
-  props: ['emissionId', 'isEducation'],
+  props: {
+    emissionId: { default: undefined as number|undefined},
+    isEducation: { default: false as boolean},
+  },
 
   data() {
     return {

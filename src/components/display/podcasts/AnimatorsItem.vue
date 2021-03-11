@@ -41,7 +41,9 @@ import Vue from 'vue';
 export default Vue.extend({
   name: 'AnimatorsItem',
 
-  props: ['animators'],
+  props: {
+    animators: { default: undefined as Array<Participant>|undefined},
+  },
 
   data() {
     return {

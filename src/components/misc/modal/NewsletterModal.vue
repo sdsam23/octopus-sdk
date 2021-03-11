@@ -107,10 +107,12 @@ import Swatches from 'vue-swatches';
 const humanizeDuration = require('humanize-duration');
 import { displayMethods } from '../../mixins/functions';
 import { Participant } from '@/store/class/participant';
+import { Podcast } from '@/store/class/podcast';
 export default displayMethods.extend({
   name: 'NewsletterModal',
-
-  props: ['podcast'],
+  props: {
+    podcast: { default: undefined as Podcast|undefined},
+  },
 
   components: {
     Snackbar,

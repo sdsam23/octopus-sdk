@@ -80,16 +80,14 @@ export default Vue.extend({
     CategoryChooser,
     PodcastList,
   },
-
-  props: [
-    'participantId',
-    'name',
-    'emissionId',
-    'categoryFilter',
-    'productorId',
-    'reload',
-    'editRight',
-  ],
+  props: {
+    participantId: { default: undefined as number|undefined},
+    name: { default: undefined as string|undefined},
+    emissionId: { default: undefined as number|undefined},
+    categoryFilter: { default: false as boolean},
+    reload: { default: false as boolean},
+    editRight: { default: false as boolean},
+  },
 
    data() {
     return {

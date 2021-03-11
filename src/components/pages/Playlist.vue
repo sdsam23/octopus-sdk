@@ -61,7 +61,10 @@ export default displayMethods.extend({
     PodcastList,
     SharePlayer,
   },
-  props: ['playlistId', 'isEducation'],
+  props: {
+    playlistId: { default: undefined as number|undefined},
+    isEducation: { default: false as boolean},
+  },
 
   data() {
     return {

@@ -148,10 +148,12 @@ const moment = require('moment');
 const humanizeDuration = require('humanize-duration');
 
 import Vue from 'vue';
+import { Podcast } from '@/store/class/podcast';
 export default Vue.extend({
   name: 'PodcastItem',
-
-  props: ['podcast'],
+  props: {
+    podcast: { default: undefined as Podcast|undefined},
+  },
 
   components: {
     AnimatorsItem,

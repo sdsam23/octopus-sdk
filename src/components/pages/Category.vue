@@ -22,8 +22,11 @@ export default Vue.extend({
   components: {
     PodcastList,
   },
-
-  props: ['firstRoute', 'sizeRoute', 'iabId'],
+  props: {
+    firstRoute: { default: 0 as number},
+    sizeRoute: { default: 12 as number},
+    iabId: { default: undefined as number|undefined},
+  },
 
   data() {
     return {

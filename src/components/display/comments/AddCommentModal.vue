@@ -56,7 +56,7 @@ Vue.use(VueReCaptcha, { siteKey: '6LfyP_4ZAAAAAPODj8nov2LvosIwcX0GYeBSungh' });
 export default Vue.extend({
   name: 'AddCommentModal',
 
-  props: [],
+  props: {},
 
    data() {
     return {

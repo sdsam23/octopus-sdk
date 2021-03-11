@@ -38,16 +38,15 @@
 import Vue from 'vue';
 export default Vue.extend({
   name: 'MessageModal',
-
-  props: [
-    'title',
-    'active',
-    'closable',
-    'message',
-    'validatetext',
-    'canceltext',
-    'thirdText',
-  ],
+  props: {
+    title: { default: undefined as string|undefined},
+    active: { default: false as boolean},
+    closable: { default: true as boolean},
+    message: { default: undefined as string|undefined},
+    validatetext: { default: undefined as string|undefined},
+    canceltext: { default: undefined as string|undefined},
+    thirdText: { default: undefined as string|undefined},
+  },
 
   mounted() {
     this.$bvModal.show('message-modal');

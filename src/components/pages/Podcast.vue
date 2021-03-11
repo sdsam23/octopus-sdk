@@ -294,7 +294,12 @@ export default displayMethods.extend({
     CommentSection,
     ErrorMessage,
   },
-  props: ['podcastId', 'playingPodcast', 'updateStatus', 'isEducation'],
+  props: {
+    updateStatus: { default: undefined as string|undefined},
+    playingPodcast: { default: undefined as Podcast|undefined},
+    podcastId: { default: undefined as number|undefined},
+    isEducation: { default: false as boolean},
+  },
 
   data() {
     return {

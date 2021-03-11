@@ -105,21 +105,21 @@ export default Vue.extend({
     EmissionPlayerItem,
   },
 
-  props: [
-    'first',
-    'size',
-    'query',
-    'organisationId',
-    'monetization',
-    'rubriqueId',
-    'rubriquageId',
-    'before',
-    'after',
-    'sort',
-    'showCount',
-    'noRubrique',
-    'includeHidden',
-  ],
+  props: {
+    first: { default: 0 as number },
+    size: { default: 12 as number },
+    query: { default: undefined as string|undefined },
+    organisationId: { default: undefined as string|undefined },
+    monetization: { default: 'UNDEFINED' as string },
+    rubriqueId: { default: undefined as number|undefined },
+    rubriquageId:{ default: undefined as number|undefined },
+    before: { default: undefined as string|undefined },
+    after: { default: undefined as string|undefined },
+    sort: { default: 'DATE' as string },
+    showCount: { default: false as boolean },
+    noRubrique: { default: undefined as boolean|undefined },
+    includeHidden: { default: false as boolean },
+  },
 
   data() {
     return {
@@ -266,10 +266,8 @@ export default Vue.extend({
     },
   },
   watch: {
-    changed: {
-      handler(): void {
-        this.fetchContent(true);
-      },
+    changed(): void {
+      this.fetchContent(true);
     },
   },
 });

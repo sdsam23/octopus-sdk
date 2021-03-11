@@ -17,8 +17,11 @@ export default Vue.extend({
   components: {
     PodcastList,
   },
-
-  props: ['firstRoute', 'sizeRoute', 'rubriqueId'],
+  props: {
+    firstRoute: { default: 0 as number},
+    sizeRoute: { default: 12 as number},
+    rubriqueId: { default: undefined as number|undefined},
+  },
 
   data() {
     return {

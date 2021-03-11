@@ -23,7 +23,8 @@
 import Vue from 'vue';
 export default Vue.extend({
   name: 'ErrorMessage',
-
-  props: ['message'],
+  props: {
+    message: { default: undefined as string|undefined},
+  },
 });
 </script>

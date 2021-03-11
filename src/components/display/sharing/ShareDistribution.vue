@@ -172,9 +172,10 @@ export default displayMethods.extend({
     Snackbar,
     RssSection,
   },
-
-  props: ['emissionId'],
-
+  props: {
+    emissionId: { default: undefined as number|undefined},
+  },
+  
   data() {
     return {
       emission: undefined as Emission|undefined,

@@ -219,15 +219,11 @@ export default Vue.extend({
     },
   },
   watch: {
-    changed: {
-      handler(): void {
-        this.fetchContent(true);
-      },
+    changed(): void {
+      this.fetchContent(true);
     },
-    reload: {
-      handler(): void {
-        this.fetchContent(true);
-      },
+    reload(): void {
+      this.fetchContent(true);
     },
   },
 });

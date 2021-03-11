@@ -18,7 +18,9 @@
 <script lang="ts">
 import Vue from 'vue';
 export default Vue.extend({
-  props: ['timeRemaining'],
+  props: {
+    timeRemaining: { default: undefined as number|undefined},
+  },
   data() {
     return {
       seconds: 0 as number,

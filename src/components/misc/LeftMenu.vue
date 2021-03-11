@@ -168,7 +168,10 @@ export default Vue.extend({
     OrganisationChooserLight,
   },
 
-  props: ['displayMenu', 'isEducation'],
+  props: {
+    displayMenu: { default: false as boolean},
+    isEducation: { default: false as boolean},
+  },
 
   data() {
     return {

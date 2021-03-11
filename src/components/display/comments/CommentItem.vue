@@ -169,6 +169,8 @@ import EditCommentBox from '@/components/display/edit/EditCommentBox.vue';
 import { state } from '../../../store/paramStore';
 import { displayMethods } from '../../mixins/functions';
 import { CommentPodcast } from '@/store/class/comment';
+import { Podcast } from '@/store/class/podcast';
+import { Conference } from '@/store/class/conference';
 const moment = require('moment');
 
 export default displayMethods.extend({
@@ -179,7 +181,13 @@ export default displayMethods.extend({
     CommentParentInfo,
     EditCommentBox,
   },
-  props: ['comment', 'podcast', 'fetchConference', 'organisation', 'isFlat'],
+  props: {
+    comment: { default: undefined as CommentPodcast|undefined },
+    podcast: { default: undefined as Podcast|undefined },
+    fetchConference: { default: undefined as Conference|undefined },
+    organisation: { default: undefined as string|undefined },
+    isFlat: { default: false as boolean },
+  },
   
   data() {
     return {
@@ -234,8 +242,8 @@ export default displayMethods.extend({
     },
     recordingInLive():boolean {
       return (
-        this.podcast &&
-        this.podcast.conferenceId &&
+        undefined!==this.podcast &&
+        undefined!==this.podcast.conferenceId &&
         0 !== this.podcast.conferenceId &&
         'READY' === this.podcast.processingStatus
       );
@@ -256,9 +264,9 @@ export default displayMethods.extend({
     newComment(comment: CommentPodcast, fromEvent:boolean = false): void {
       if (undefined === this.fetchConference || fromEvent) {
         let updatedComment = this.comment;
-        updatedComment.relatedComments += 1;
+        updatedComment.relatedComments! += 1;
         if ('Valid' === comment.status) {
-          updatedComment.relatedValidComments += 1;
+          updatedComment.relatedValidComments! += 1;
         }
         this.$emit('update:comment', updatedComment);
       }
@@ -284,9 +292,9 @@ export default displayMethods.extend({
     updateStatus(data: string): void {
       let updatedComment = this.comment;
       if ('Valid' === data) {
-        updatedComment.relatedValidComments += 1;
+        updatedComment.relatedValidComments! += 1;
       } else {
-        updatedComment.relatedValidComments -= 1;
+        updatedComment.relatedValidComments! -= 1;
       }
       this.$emit('update:comment', updatedComment);
     },
@@ -301,9 +309,9 @@ export default displayMethods.extend({
           } else {
             let updatedComment = this.comment;
             if ('Invalid' === event.status) {
-              updatedComment.relatedValidComments -= 1;
+              updatedComment.relatedValidComments! -= 1;
             } else if ('Valid' === event.status) {
-              updatedComment.relatedValidComments += 1;
+              updatedComment.relatedValidComments! += 1;
             }
             this.$emit('update:comment', updatedComment);
           }
@@ -313,9 +321,9 @@ export default displayMethods.extend({
             (this.$refs.commentList as any).deleteComment(event.comment);
           } else {
             let updatedComment = this.comment;
-            updatedComment.relatedComments -= 1;
+            updatedComment.relatedComments! -= 1;
             if ('Valid' === event.comment.status) {
-              updatedComment.relatedValidComments -= 1;
+              updatedComment.relatedValidComments! -= 1;
             }
             this.$emit('update:comment', updatedComment);
           }

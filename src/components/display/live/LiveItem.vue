@@ -198,8 +198,10 @@ export default displayMethods.extend({
     RecordingItemButton,
     PodcastImage,
   },
-
-  props: ['fetchConference', 'index'],
+  props: {
+    fetchConference: { default: undefined as Podcast|undefined},
+    index: { default: undefined as number|undefined},
+  },
 
   data() {
     return {

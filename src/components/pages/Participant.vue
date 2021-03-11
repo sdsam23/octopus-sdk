@@ -92,7 +92,9 @@ export default displayMethods.extend({
     EditBox,
     PodcastList,
   },
-  props: ['participantId'],
+  props: {
+    participantId: { default: undefined as number|undefined},
+  },
   data() {
     return {
       loaded: false as boolean,

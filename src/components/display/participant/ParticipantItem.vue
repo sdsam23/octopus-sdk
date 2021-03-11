@@ -113,12 +113,14 @@
 
 <script lang="ts">
 const octopusApi = require('@saooti/octopus-api');
+import { Participant } from '@/store/class/participant';
 import { state } from '../../../store/paramStore';
 import { displayMethods } from '../../mixins/functions';
 export default displayMethods.extend({
   name: 'ParticpantItem',
-
-  props: ['participant'],
+  props: {
+    participant: { default: undefined as Participant|undefined},
+  },
 
   data() {
     return {

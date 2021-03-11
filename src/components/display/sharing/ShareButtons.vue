@@ -162,21 +162,23 @@
 </style>
 
 <script lang="ts">
+import { Emission } from '@/store/class/emission';
+import { Podcast } from '@/store/class/podcast';
 import { state } from '../../../store/paramStore';
 import ClipboardModal from '../../misc/modal/ClipboardModal.vue';
 import NewsletterModal from '../../misc/modal/NewsletterModal.vue';
 import Snackbar from '../../misc/Snackbar.vue';
 import { displayMethods } from '../../mixins/functions';
 export default displayMethods.extend({
-  props: [
-    'podcast',
-    'emission',
-    'participantId',
-    'organisationId',
-    'bigRound',
-    'audioUrl',
-    'notExclusive',
-  ],
+  props: {
+    podcast: { default: undefined as Podcast|undefined},
+    emission: { default: undefined as Emission|undefined},
+    participantId: { default: undefined as number|undefined},
+    organisationId: { default: undefined as string|undefined},
+    bigRound: { default: false as boolean},
+    audioUrl: { default: undefined as string|undefined},
+    notExclusive: { default: true as boolean},
+  },
 
   components: {
     ClipboardModal,

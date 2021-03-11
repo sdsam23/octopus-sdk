@@ -62,8 +62,10 @@ export default selenium.extend({
   name: 'CommentPlayer',
 
   components: {},
-
-  props: ['comments', 'totalTime'],
+  props: {
+    comments: { default: undefined as Array<CommentPodcast>|undefined },
+    totalTime: { default: 0 as number},
+  },
 
   data() {
     return {

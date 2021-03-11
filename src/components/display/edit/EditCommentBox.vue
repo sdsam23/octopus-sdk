@@ -49,9 +49,12 @@
 </style>
 
 <script lang="ts">
+import { CommentPodcast } from '@/store/class/comment';
 import Vue from 'vue';
 export default Vue.extend({
-  props: ['comment'],
+  props: {
+    comment: { default: undefined as CommentPodcast|undefined },
+  },
 
   methods: {
     editComment() {

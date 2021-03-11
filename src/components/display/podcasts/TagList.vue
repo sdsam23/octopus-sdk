@@ -40,8 +40,9 @@ import Vue from 'vue';
 export default Vue.extend({
   name: 'TagList',
   components: {},
-
-  props: ['tagList'],
+  props: {
+    tagList: { default: [] as Array<string>},
+  },
 
   methods: {},
 });

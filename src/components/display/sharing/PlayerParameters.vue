@@ -130,9 +130,16 @@
 }
 </style>
 <script lang="ts">
+import { Playlist } from '@/store/class/playlist';
+import { Podcast } from '@/store/class/podcast';
 import Vue from 'vue';
 export default Vue.extend({
-  props: ['podcast', 'playlist', 'iFrameModel', 'isVisible'],
+  props: {
+    podcast: { default: undefined as Podcast|undefined},
+    playlist: { default: undefined as Playlist|undefined},
+    iFrameModel: { default: undefined as string|undefined},
+    isVisible: { default: false as boolean},
+  },
 
   data() {
     return {

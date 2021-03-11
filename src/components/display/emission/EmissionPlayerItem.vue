@@ -166,13 +166,17 @@
 
 <script lang="ts">
 const octopusApi = require('@saooti/octopus-api');
+import { Emission } from '@/store/class/emission';
 import { Podcast } from '@/store/class/podcast';
 import { state } from '../../../store/paramStore';
 import { displayMethods } from '../../mixins/functions';
 export default displayMethods.extend({
   name: 'EmissionPlayerItem',
-
-  props: ['emission', 'nbPodcasts', 'rubriqueName'],
+  props: {
+    emission: { default: undefined as Emission|undefined },
+    nbPodcasts: { default: undefined as number|undefined },
+    rubriqueName: { default: undefined as string|undefined },
+  },
 
   data() {
     return {

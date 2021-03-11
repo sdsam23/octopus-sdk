@@ -149,8 +149,19 @@ import Vue from 'vue';
 import { Podcast } from '@/store/class/podcast';
 export default Vue.extend({
   name: 'PodcastInlineList',
-
-  props: ['organisationId','emissionId','iabId','title','href','buttonText','requirePopularSort','isArrow','buttonPlus','rubriqueId','rubriquageId',],
+  props: {
+    organisationId: { default: undefined as string|undefined},
+    emissionId: { default: undefined as number|undefined},
+    iabId: { default: undefined as number|undefined},
+    title: { default: '' as string},
+    href: { default: undefined as string|undefined},
+    buttonText: { default: false as boolean},
+    isArrow: { default: false as boolean},
+    requirePopularSort: { default:false as boolean},
+    buttonPlus: { default:false as boolean},
+    rubriqueId: { default: undefined as number|undefined},
+    rubriquageId: { default: undefined as number|undefined},
+  },
 
   components: {
     PodcastItem
@@ -300,41 +311,29 @@ export default Vue.extend({
     },
   },
   watch: {
-    emissionId: {
-      handler(): void {
-        this.reset();
-        this.fetchNext();
-      },
+    emissionId(): void {
+      this.reset();
+      this.fetchNext();
     },
-    organisationId: {
-      handler(): void {
-        this.reset();
-        this.fetchNext();
-      },
+    organisationId(): void {
+      this.reset();
+      this.fetchNext();
     },
-    filterOrga: {
-      handler(): void {
-        this.reset();
-        this.fetchNext();
-      },
+    filterOrga(): void {
+      this.reset();
+      this.fetchNext();
     },
-    iabId: {
-      handler(): void {
-        this.reset();
-        this.fetchNext();
-      },
+    iabId(): void {
+      this.reset();
+      this.fetchNext();
     },
-    rubriqueId: {
-      handler(): void {
-        this.reset();
-        this.fetchNext();
-      },
+    rubriqueId(): void {
+      this.reset();
+      this.fetchNext();
     },
-    rubriquageId: {
-      handler(): void {
-        this.reset();
-        this.fetchNext();
-      },
+    rubriquageId(): void {
+      this.reset();
+      this.fetchNext();
     },
   },
 });

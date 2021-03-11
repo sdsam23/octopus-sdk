@@ -88,8 +88,11 @@ import Snackbar from '../Snackbar.vue';
 import { displayMethods } from '../../mixins/functions';
 export default displayMethods.extend({
   name: 'ShareModalPlayer',
-
-  props: ['embedLink', 'embedlyLink', 'directLink'],
+  props: {
+    embedLink: { default: undefined as string|undefined},
+    embedlyLink: { default: undefined as string|undefined},
+    directLink: { default: undefined as string|undefined},
+  },
 
   components: {
     Snackbar,

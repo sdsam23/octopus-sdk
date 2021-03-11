@@ -206,17 +206,19 @@
 import { mapState } from 'vuex';
 import Vue from 'vue';
 import {StoreState} from '@/store/typeAppStore';
+import { Podcast } from '@/store/class/podcast';
+import { Conference } from '@/store/class/conference';
 export default Vue.extend({
   name: 'PodcastImage',
+  props: {
+    podcast: { default: undefined as Podcast|undefined},
+    hidePlay: { default: false as boolean},
+    displayDescription: { default: false as boolean},
+    arrowDirection: { default: 'up' as string},
+    isAnimatorLive: { default: false as boolean},
+    fetchConference: { default: undefined as Conference|undefined},
+  },
 
-  props: [
-    'podcast',
-    'hidePlay',
-    'displayDescription',
-    'arrowDirection',
-    'fetchConference',
-    'isAnimatorLive',
-  ],
    data() {
     return {
       isDescription: false as boolean,
@@ -255,12 +257,12 @@ export default Vue.extend({
     },
     classicPodcastPlay():boolean {
       return (
-        this.podcast &&
+        undefined!==this.podcast &&
         false !== this.podcast.valid &&
           ('READY_TO_RECORD' === this.podcast.processingStatus ||
             'READY' === this.podcast.processingStatus) &&
         !this.isLiveToBeRecorded &&
-        this.podcast.availability.visibility
+        undefined!==this.podcast.availability.visibility
       );
     },
     iconName():string {
@@ -330,7 +332,7 @@ export default Vue.extend({
     recordingLive():boolean {
       return (
         this.fetchConference &&
-        'null' !== this.fetchConference &&
+         -1 !== this.fetchConference.conferenceId &&
         ('RECORDING' === this.fetchConference.status ||
           'PENDING' === this.fetchConference.status)
       );

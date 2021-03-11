@@ -30,7 +30,11 @@ export default Vue.extend({
     ProductorSearch,
     ParticipantList,
   },
-  props: ['firstRoute', 'sizeRoute', 'productor'],
+  props: {
+    firstRoute: { default: 0 as number},
+    sizeRoute: { default: 12 as number},
+    productor: { default: undefined as string|undefined},
+  },
 
   data() {
     return {

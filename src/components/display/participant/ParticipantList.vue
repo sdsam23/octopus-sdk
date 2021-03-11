@@ -66,8 +66,13 @@ import { Participant } from '@/store/class/participant';
 import { Organisation } from '@/store/class/organisation';
 export default Vue.extend({
   name: 'ParticipantList',
-
-  props: ['first', 'size', 'query', 'organisationId', 'showCount'],
+  props: {
+    first: { default: 0 as number },
+    size: { default: 12 as number },
+    query: { default: undefined as string|undefined },
+    organisationId: { default: undefined as string|undefined },
+    showCount: { default: false as boolean },
+  },
 
   components: {
     ParticipantItem,
@@ -138,15 +143,11 @@ export default Vue.extend({
     },
   },
   watch: {
-    query: {
-      handler(): void {
-        this.fetchContent(true);
-      },
+    query(): void {
+      this.fetchContent(true);
     },
-    organisation: {
-      handler(): void {
-        this.fetchContent(true);
-      },
+    organisation(): void {
+      this.fetchContent(true);
     },
   },
 });

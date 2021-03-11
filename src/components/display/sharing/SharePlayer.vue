@@ -210,16 +210,19 @@ import 'vue-swatches/dist/vue-swatches.min.css';
 import profileApi from '@/api/profile';
 
 import Vue from 'vue';
+import { Podcast } from '@/store/class/podcast';
+import { Emission } from '@/store/class/emission';
+import { Playlist } from '@/store/class/playlist';
 export default Vue.extend({
-  props: [
-    'podcast',
-    'emission',
-    'organisationId',
-    'exclusive',
-    'notExclusive',
-    'playlist',
-    'isEducation',
-  ],
+  props: {
+    podcast: { default: undefined as Podcast|undefined},
+    emission: { default: undefined as Emission|undefined},
+    playlist: { default: undefined as Playlist|undefined},
+    organisationId: { default: undefined as string|undefined},
+    isEducation: { default: false as boolean},
+    exclusive: { default: true as boolean},
+    notExclusive: { default: true as boolean},
+  },
   components: {
     ShareModalPlayer,
     Swatches,
