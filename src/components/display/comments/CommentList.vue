@@ -85,49 +85,52 @@ const octopusApi = require('@saooti/octopus-api');
 const moment = require('moment');
 
 import Vue from 'vue';
+import { Podcast } from '@/store/class/podcast';
+import { Conference } from '@/store/class/conference';
+import { CommentPodcast } from '@/store/class/comment';
 export default Vue.extend({
   name: 'CommentList',
-
-  props: {
-    first: { default: 0 },
-    size: { default: 50 },
-    podcast: { default: undefined as any },
-    comId: { default: undefined },
-    reload: { default: false },
-    fetchConference: { default: undefined },
-    organisation: { default: undefined },
-    status: { default: undefined },
-    isFlat: { default: false },
-  },
 
   components: {
     CommentItem: () => import('./CommentItem.vue') as any,
   },
 
-  created() {
-    this.fetchContent(true);
+  props: {
+    first: { default: 0 as number },
+    size: { default: 50 as number},
+    podcast: { default: undefined as Podcast|undefined },
+    comId: { default: undefined as number|undefined },
+    reload: { default: false as boolean},
+    fetchConference: { default: undefined as Conference|undefined},
+    organisation: { default: undefined as  string|undefined},
+    status: { default: undefined as string | undefined},
+    isFlat: { default: false as boolean},
   },
 
   data() {
     return {
-      loading: true,
-      loaded: true,
-      error: false,
-      dfirst: this.$props.first,
-      dsize: this.$props.size,
-      totalCount: 0,
-      comments: [] as any,
-      inFetching: false,
+      loading: true as boolean,
+      loaded: false as boolean,
+      error: false as boolean,
+      dfirst: this.first as number,
+      dsize: this.size as number,
+      totalCount: 0 as number,
+      comments: [] as Array<CommentPodcast>,
+      inFetching: false as boolean,
     };
   },
+  created() {
+    this.fetchContent(true);
+  },
+
   computed: {
     allFetched():boolean {
       return this.dfirst >= this.totalCount;
     },
-    organisationId() {
+    organisationId():string {
       return state.generalParameters.organisationId;
     },
-    podcastId():any {
+    podcastId():number|undefined {
       if (this.podcast) return this.podcast.podcastId;
       return undefined;
     },
@@ -174,7 +177,7 @@ export default Vue.extend({
         this.loading = false;
         this.loaded = true;
         this.totalCount = data.totalElements;
-        this.comments = this.comments.concat(data.content).filter((c:any) => {
+        this.comments = this.comments.concat(data.content).filter((c:CommentPodcast) => {
           return null !== c;
         });
         this.dfirst += this.dsize;
@@ -184,7 +187,7 @@ export default Vue.extend({
       }
       this.inFetching = false;
     },
-    resetData(reset: any) {
+    resetData(reset: boolean) {
       if (!reset) return;
       this.comments.length = 0;
       this.dfirst = 0;
@@ -195,7 +198,7 @@ export default Vue.extend({
       event.preventDefault();
       this.fetchContent(false);
     },
-    deleteComment(comment: { commentIdReferer: string; comId: any; }) {
+    deleteComment(comment:CommentPodcast) {
       if (
         !this.isFlat &&
         comment.commentIdReferer &&
@@ -206,7 +209,7 @@ export default Vue.extend({
         return;
       }
       let index = this.comments.findIndex(
-        (element:any) => element.comId === comment.comId
+        (element:CommentPodcast) => element.comId === comment.comId
       );
       if (-1 === index) return;
       this.totalCount -= 1;
@@ -226,7 +229,7 @@ export default Vue.extend({
         return;
       }
       let index = this.comments.findIndex(
-        (element:any) => element.comId === data.comment.comId
+        (element:CommentPodcast) => element.comId === data.comment.comId
       );
       if (-1 !== index) {
         if (
@@ -267,7 +270,7 @@ export default Vue.extend({
         this.$emit('updateStatus', data.status);
       }
     },
-    addNewComment(comment: { status: string; commentIdReferer: string; comId: any; }, myself = false) {
+    addNewComment(comment: CommentPodcast, myself = false) {
       if (!myself && !this.editRight && 'Valid' !== comment.status) {
         return;
       }
@@ -281,7 +284,7 @@ export default Vue.extend({
         return;
       }
       let index = this.comments.findIndex(
-        (element:any) => element.comId === comment.comId
+        (element:CommentPodcast) => element.comId === comment.comId
       );
       if (-1 === index) {
         this.totalCount += 1;

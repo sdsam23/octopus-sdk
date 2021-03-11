@@ -279,6 +279,7 @@ const moment = require('moment');
 const humanizeDuration = require('humanize-duration');
 import { displayMethods } from '../mixins/functions';
 import { Podcast } from '@/store/class/podcast';
+import { Conference } from '@/store/class/conference';
 export default displayMethods.extend({
   components: {
     PodcastInlineList,
@@ -302,7 +303,7 @@ export default displayMethods.extend({
       error: false as boolean,
       exclusive: false as boolean,
       notExclusive: false as boolean,
-      fetchConference: undefined as any,
+      fetchConference: undefined as Conference|undefined,
     };
   },
   
@@ -314,17 +315,19 @@ export default displayMethods.extend({
       if ('' !== data.data) {
         this.fetchConference = data.data;
       } else {
-        this.fetchConference = 'null';
+        this.fetchConference = {conferenceId:-1, title:''};
       }
-    } else {
+    } else if(undefined!==this.podcast!.conferenceId){
       let data:any = await studioApi.getRealConferenceStatus(this.$store,this.podcast!.conferenceId);
       this.fetchConference = {
         status: data.data,
         conferenceId: this.podcast!.conferenceId,
+        title:'',
       };
     }
     if (
-      'null' !== this.fetchConference &&
+      this.fetchConference && 
+      -1 !== this.fetchConference.conferenceId &&
       'PUBLISHING' !== this.fetchConference.status &&
       'DEBRIEFING' !== this.fetchConference.status
     ) {
@@ -455,7 +458,7 @@ export default displayMethods.extend({
     isCounter():boolean {
       return (
         this.isLiveReadyToRecord &&
-        this.fetchConference &&
+        undefined!==this.fetchConference &&
         ('PLANNED' === this.fetchConference.status ||
           'PENDING' === this.fetchConference.status)
       );
@@ -463,7 +466,7 @@ export default displayMethods.extend({
     isNotRecorded():boolean {
       return (
         this.isLiveReadyToRecord &&
-        this.fetchConference &&
+        undefined!==this.fetchConference &&
         'DEBRIEFING' === this.fetchConference.status
       );
     },

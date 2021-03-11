@@ -58,9 +58,17 @@ export default Vue.extend({
 
   props: [],
 
+   data() {
+    return {
+      name: '' as string,
+      sending: false as boolean,
+      needVerify: true as boolean,
+      sendError: false as boolean,
+    };
+  },
+
   mounted() {
-    let captcha:any = document.getElementsByClassName('grecaptcha-badge')[0];
-    captcha.style.display ='block';
+    (document.getElementsByClassName('grecaptcha-badge')[0] as HTMLElement).style.display ='block';
     if (this.authenticated) {
       this.name = (
         (this.$store.state.profile.firstname || '') +
@@ -73,24 +81,14 @@ export default Vue.extend({
   },
 
   destroyed() {
-    let captcha:any = document.getElementsByClassName('grecaptcha-badge')[0];
-    captcha.style.display ='none';
-  },
-
-  data() {
-    return {
-      name: '',
-      sending: false,
-      needVerify: true,
-      sendError: false,
-    };
+    (document.getElementsByClassName('grecaptcha-badge')[0] as HTMLElement).style.display ='none';
   },
 
   computed: {
-    authenticated() {
+    authenticated():boolean {
       return state.generalParameters.authenticated;
     },
-    isCaptchaTest() {
+    isCaptchaTest():boolean {
       return state.generalParameters.isCaptchaTest;
     },
   },
@@ -105,7 +103,7 @@ export default Vue.extend({
       const token = await this.$recaptcha('login');
       try {
         this.sendError = false;
-        const ok:any = await api.checkToken(token);
+        const ok = await api.checkToken(token);
         if (!ok) {
           this.sendError = true;
           return;

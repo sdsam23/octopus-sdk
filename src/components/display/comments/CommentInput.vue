@@ -93,32 +93,33 @@ const octopusApi = require('@saooti/octopus-api');
 import commentApi from '@/api/comments';
 import { cookies } from '../../mixins/functions';
 import { state } from '../../../store/paramStore';
+import { Podcast } from '@/store/class/podcast';
+import { Conference } from '@/store/class/conference';
 
 export default cookies.extend({
   name: 'CommentInput',
-
-  props: {
-    podcast: { default: undefined as any },
-    knownIdentity: { default: null as any },
-    focus: { default: false as boolean },
-    comId: { default: undefined as any },
-    fetchConference: { default: undefined as any },
-  },
-
   components: {
     AddCommentModal,
     MessageModal,
   },
 
+  props: {
+    podcast: { default: undefined as Podcast|undefined },
+    knownIdentity: { default: null as string|null },
+    focus: { default: false as boolean },
+    comId: { default: undefined as number|undefined },
+    fetchConference: { default: undefined as Conference|undefined },
+  },
+
   data() {
     return {
-      newComment: '',
-      textareaFocus: false,
-      checkIdentityModal: false,
-      postError: false,
-      isOneLine: true,
-      editName: false,
-      temporaryName: '',
+      newComment: '' as string,
+      textareaFocus: false as boolean,
+      checkIdentityModal: false as boolean,
+      postError: false as boolean,
+      isOneLine: true as Boolean,
+      editName: false as boolean,
+      temporaryName: '' as string,
     };
   },
 
@@ -144,11 +145,11 @@ export default cookies.extend({
       }
       return true;
     },
-    placeholder():any {
-      if (this.comId) return this.$t('Answer a comment');
-      return this.$t('Write a comment');
+    placeholder():string {
+      if (this.comId) return this.$t('Answer a comment').toString();
+      return this.$t('Write a comment').toString();
     },
-    organisationId():any {
+    organisationId():string {
       return state.generalParameters.organisationId;
     },
     authenticated():boolean {
@@ -163,7 +164,7 @@ export default cookies.extend({
         return true;
       return false;
     },
-    userId():any {
+    userId():string|undefined {
       if (this.authenticated) return this.$store.state.profile.userId;
       return undefined;
     },

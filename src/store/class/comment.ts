@@ -11,7 +11,7 @@ export interface CommentPodcast {
     status?:string,
     certified?:boolean,
     phase?:string,
-    date?:string,
+    date:string,
     relatedComments?:number,
     relatedValidComments?:number,
 }

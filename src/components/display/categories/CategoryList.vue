@@ -84,8 +84,15 @@ const octopusApi = require('@saooti/octopus-api');
 import { state } from '../../../store/paramStore';
 
 import Vue from 'vue';
+import { Category } from '@/store/class/category';
 export default Vue.extend({
   name: 'CategoryList',
+
+  data() {
+    return {
+      hidenCategories: [] as Array<Category>,
+    };
+  },
 
   mounted() {
     window.addEventListener('resize', this.resizeWindow);
@@ -95,27 +102,22 @@ export default Vue.extend({
     }
   },
 
-   data() {
-    return {
-      hidenCategories: [] as any,
-    };
-  },
   computed: {
-    isPodcastmaker() {
+    isPodcastmaker():boolean {
       return state.generalParameters.podcastmaker;
     },
-    categories() {
+    categories():Array<Category> {
       if (this.filterOrga) {
-        return this.$store.state.categoriesOrga.filter((c:any) => {
+        return this.$store.state.categoriesOrga.filter((c:Category) => {
           return c.podcastOrganisationCount;
         });
       }
-      return state.generalParameters.allCategories.filter((c:any) => {
+      return state.generalParameters.allCategories.filter((c:Category) => {
         if (this.isPodcastmaker) return c.podcastOrganisationCount;
         return c.podcastCount;
       });
     },
-    filterOrga():any {
+    filterOrga():string {
       return this.$store.state.filter.organisationId;
     },
   },
@@ -124,11 +126,11 @@ export default Vue.extend({
       let categoryList = document.getElementById('category-list-container');
       categoryList!.style.justifyContent = 'flex-start';
       this.hidenCategories.length = 0;
-      this.categories.forEach((element:any) => {
+      this.categories.forEach((element:Category) => {
         let el = document.getElementById('category' + element.id);
         if (!el) return;
-        const parent:any = el.parentNode;
-        if (el.offsetLeft + el.clientWidth <= parent.clientWidth - 20) {
+        const parent = el.parentElement;
+        if (el.offsetLeft + el.clientWidth <= parent!.clientWidth - 20) {
           el.classList.remove('hid');
           return;
         }
@@ -157,9 +159,9 @@ export default Vue.extend({
         this.resizeWindow();
       });
     },
-    filterOrga(newVal) {
-      if (newVal) {
-        this.fetchCategories(newVal);
+    filterOrga() {
+      if (this.filterOrga) {
+        this.fetchCategories(this.filterOrga);
       }
     },
   },

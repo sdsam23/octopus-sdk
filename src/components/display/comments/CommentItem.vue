@@ -168,25 +168,27 @@ import CommentParentInfo from './CommentParentInfo.vue';
 import EditCommentBox from '@/components/display/edit/EditCommentBox.vue';
 import { state } from '../../../store/paramStore';
 import { displayMethods } from '../../mixins/functions';
+import { CommentPodcast } from '@/store/class/comment';
 const moment = require('moment');
 
 export default displayMethods.extend({
   name: 'CommentItem',
-  props: ['comment', 'podcast', 'fetchConference', 'organisation', 'isFlat'],
   components: {
     CommentList,
     CommentInput,
     CommentParentInfo,
     EditCommentBox,
   },
+  props: ['comment', 'podcast', 'fetchConference', 'organisation', 'isFlat'],
+  
   data() {
     return {
-      summary: true,
-      collapseVisible: false,
-      focus: false,
-      isEditing: false,
-      temporaryContent: '',
-      temporaryName: '',
+      summary: true as boolean,
+      collapseVisible: false as boolean,
+      focus: false as boolean,
+      isEditing: false as boolean,
+      temporaryContent: '' as string,
+      temporaryName: '' as string,
     };
   },
   computed: {
@@ -200,15 +202,15 @@ export default displayMethods.extend({
       if (this.comment.content.length <= 300) return this.comment.content;
       return this.comment.content.substring(0, 300) + '...';
     },
-    readMore():any {
-      if (this.summary) return this.$t('Read more');
-      return this.$t('Read less');
+    readMore():string {
+      if (this.summary) return this.$t('Read more').toString();
+      return this.$t('Read less').toString();
     },
     contentDisplay():string {
       if (this.summary) return this.limitContent;
       return this.comment.content;
     },
-    organisationId() {
+    organisationId():string {
       return state.generalParameters.organisationId;
     },
     editRight():boolean {
@@ -223,10 +225,10 @@ export default displayMethods.extend({
       return false;
     },
     knownIdentity: {
-      get():any {
+      get():string|null {
         return this.$store.state.comments.knownIdentity;
       },
-      set(value: any) {
+      set(value: string|null) {
         this.$store.commit('setCommentIdentity', value);
       },
     },
@@ -247,11 +249,11 @@ export default displayMethods.extend({
     deleteComment() {
       this.$emit('deleteComment');
     },
-    updateComment(data: any) {
+    updateComment(data: {type: string; comment: CommentPodcast; status?: string; }) {
       this.isEditing = false;
       this.$emit('updateComment', data);
     },
-    newComment(comment: { status: string; }, fromEvent = false) {
+    newComment(comment: CommentPodcast, fromEvent:boolean = false) {
       if (undefined === this.fetchConference || fromEvent) {
         let updatedComment = this.comment;
         updatedComment.relatedComments += 1;
@@ -288,7 +290,7 @@ export default displayMethods.extend({
       }
       this.$emit('update:comment', updatedComment);
     },
-    receiveCommentEvent(event: { type: any; comment: { status: string; }; status: string; }) {
+    receiveCommentEvent(event: {type: string; comment: CommentPodcast; status?: string; }) {
       switch (event.type) {
         case 'Create':
           this.newComment(event.comment, true);
@@ -323,6 +325,5 @@ export default displayMethods.extend({
       }
     },
   },
-  watch: {},
 });
 </script>

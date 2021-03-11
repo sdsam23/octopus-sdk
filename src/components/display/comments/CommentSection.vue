@@ -61,7 +61,7 @@ export default cookies.extend({
 
   props: {
     podcast: { default: undefined as Podcast|undefined },
-    fetchConference: { default: undefined as Conference|undefined|string },
+    fetchConference: { default: undefined as Conference|undefined },
   },
   
   data() {
@@ -109,7 +109,7 @@ export default cookies.extend({
     isLive():boolean {
       return (
         undefined!==this.fetchConference &&
-        'null' !== this.fetchConference &&
+        -1 !== this.fetchConference.conferenceId &&
         'PUBLISHING' !== this.fetchConference.status &&
         'DEBRIEFING' !== this.fetchConference.status
       );
@@ -127,10 +127,10 @@ export default cookies.extend({
     reloadComments() {
       this.reload = !this.reload;
     },
-    newComment(comment: any) {
+    newComment(comment: Comment) {
       (this.$refs.commentList as any).addNewComment(comment, true);
     },
-    receiveCommentEvent(event: { type: any; comment: { status: any; }; oldStatus: any; }) {
+    receiveCommentEvent(event: any) {
       let statusUpdated = undefined;
       switch (event.type) {
         case 'Create':

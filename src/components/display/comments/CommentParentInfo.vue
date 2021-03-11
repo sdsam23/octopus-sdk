@@ -31,47 +31,46 @@
 <script lang="ts">
 const octopusApi = require('@saooti/octopus-api');
 const moment = require('moment');
+import { CommentPodcast } from '@/store/class/comment';
 import Vue from 'vue';
 export default Vue.extend({
   name: 'CommentParentInfo',
 
   props: ['comId'],
 
-  components: {},
+  data() {
+    return {
+      loading: true as boolean,
+      summary: true as boolean,
+      comment: undefined as CommentPodcast|undefined,
+    };
+  },
 
   async created() {
     this.comment = await octopusApi.fetchComment(this.comId);
     this.loading = false;
   },
 
-  data() {
-    return {
-      loading: true,
-      summary: true,
-      comment: undefined as any,
-    };
-  },
+  
   computed: {
     date():string {
-      if (this.comment.date)
-        return moment(this.comment.date).format('D MMMM YYYY HH[h]mm');
+      if (this.comment!.date)
+        return moment(this.comment!.date).format('D MMMM YYYY HH[h]mm');
       return '';
     },
     limitContent():string {
-      if (!this.comment.content) return '';
-      if (this.comment.content.length <= 300) return this.comment.content;
-      return this.comment.content.substring(0, 300) + '...';
+      if (!this.comment!.content) return '';
+      if (this.comment!.content.length <= 300) return this.comment!.content;
+      return this.comment!.content.substring(0, 300) + '...';
     },
-    readMore():any {
-      if (this.summary) return this.$t('Read more');
-      return this.$t('Read less');
+    readMore():string {
+      if (this.summary) return this.$t('Read more').toString();
+      return this.$t('Read less').toString();
     },
     contentDisplay():string {
       if (this.summary) return this.limitContent;
-      return this.comment.content;
+      return this.comment!.content;
     },
   },
-  methods: {},
-  watch: {},
 });
 </script>

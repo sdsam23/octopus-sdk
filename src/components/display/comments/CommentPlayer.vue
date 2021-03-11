@@ -56,21 +56,20 @@
 </style>
 
 <script lang="ts">
+import { CommentPodcast } from '@/store/class/comment';
 import { selenium } from '../../mixins/functions';
 export default selenium.extend({
   name: 'CommentPlayer',
 
-  props: ['comments', 'totalTime'],
-
   components: {},
+
+  props: ['comments', 'totalTime'],
 
   data() {
     return {
-      commentDisplay: [] as any,
-      displayContent: undefined as any,
+      displayContent: undefined as CommentPodcast|undefined,
     };
   },
-  computed: {},
   methods: {
     percentPosition(time: number) {
       let realDuration = this.totalTime;
