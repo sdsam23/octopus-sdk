@@ -264,20 +264,20 @@ export default displayMethods.extend({
     },
   },
   methods: {
-    closePopup(event: { preventDefault: () => void; }) {
+    closePopup(event: { preventDefault: () => void; }): void {
       event.preventDefault();
       this.$emit('close');
     },
-    getName(person:Participant) {
+    getName(person:Participant): string {
       const first = person.firstName || '';
       const last = person.lastName || '';
       return (first + ' ' + last).trim();
     },
-    selectAll(element: Event) {
+    selectAll(element: Event): void {
       (element.target! as HTMLInputElement).focus();
       (element.target! as HTMLInputElement).select();
     },
-    afterCopy(){
+    afterCopy(): void{
       (this.$refs.snackbar as any).open(this.$t('Data in clipboard'));
     }
   },

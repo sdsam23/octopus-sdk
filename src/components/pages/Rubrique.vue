@@ -33,13 +33,13 @@ export default Vue.extend({
   
   computed: {},
   methods: {
-    async extractTitle() {
+    async extractTitle(): Promise<void> {
       const data = await octopusApi.fetchRubric(this.rubriqueId);
       this.title = data.name;
     },
   },
   watch: {
-    rubriqueId() {
+    rubriqueId(): void {
       this.extractTitle();
     },
   },

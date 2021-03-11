@@ -76,10 +76,10 @@ export default Vue.extend({
     },
   },
   methods: {
-    initConferenceIds(listIds: any) {
+    initConferenceIds(listIds: any): void {
       this.$emit('initConferenceIds', listIds);
     },
-    onOrganisationSelected(organisation: Organisation|undefined) {
+    onOrganisationSelected(organisation: Organisation|undefined): void {
       if (organisation && organisation.id) {
         this.$emit('update:organisationId', organisation.id);
       } else {

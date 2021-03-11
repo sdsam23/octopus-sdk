@@ -156,7 +156,7 @@ export default displayMethods.extend({
     },
   },
   methods: {
-    async getParticipantDetails() {
+    async getParticipantDetails(): Promise<void> {
       this.loaded = false;
       try {
         const data = await octopusApi.fetchParticipant(this.participantId);
@@ -168,13 +168,13 @@ export default displayMethods.extend({
         this.loaded = true;
       }
     },
-    updateParticipant(participant:Participant) {
+    updateParticipant(participant:Participant): void {
       this.participant = participant;
       this.$emit('participantTitle', this.name);
     },
   },
   watch: {
-    participant() {
+    participant(): void {
       this.reload = !this.reload;
     },
   },

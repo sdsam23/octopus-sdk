@@ -191,7 +191,7 @@ export default Vue.extend({
     },
   },
   methods: {
-    initArrays() {
+    initArrays(): void {
       this.lives.length = 0;
       this.livesNotStarted.length = 0;
       this.livesToBe.length = 0;
@@ -199,7 +199,7 @@ export default Vue.extend({
       this.livesError.length = 0;
       this.livesPublishing.length = 0;
     },
-    async fetchContent() {
+    async fetchContent(): Promise<void> {
       if (!this.filterOrgaUsed) {
         this.loading = false;
         this.loaded = true;
@@ -279,25 +279,25 @@ export default Vue.extend({
       this.loading = false;
       this.loaded = true;
     },
-    deleteLive(index: number) {
+    deleteLive(index: number): void {
       this.lives.splice(index, 1);
     },
-    deleteLiveToBe(index: number) {
+    deleteLiveToBe(index: number): void {
       this.livesToBe.splice(index, 1);
     },
-    deleteLiveTerminated(index: number) {
+    deleteLiveTerminated(index: number): void {
       this.livesTerminated.splice(index, 1);
     },
-    deleteLiveError(index: number) {
+    deleteLiveError(index: number): void {
       this.livesError.splice(index, 1);
     },
-    deleteLiveNotStarted(index: number) {
+    deleteLiveNotStarted(index: number): void {
       this.livesNotStarted.splice(index, 1);
     },
-    deleteLivePublishing(index: number) {
+    deleteLivePublishing(index: number): void {
       this.livesPublishing.splice(index, 1);
     },
-    updateLiveLocal() {
+    updateLiveLocal(): void {
       for (
         let index = 0, len = this.conferenceWatched.length;
         index < len;
@@ -328,7 +328,7 @@ export default Vue.extend({
     },
   },
   watch: {
-    async organisationId() {
+    async organisationId(): Promise<void> {
       this.initArrays();
       const isLive = await octopusApi.liveEnabledOrganisation(
         this.organisationId
@@ -340,12 +340,12 @@ export default Vue.extend({
         this.loaded = true;
       }
     },
-    filterOrga() {
+    filterOrga(): void {
       this.initArrays();
       this.fetchContent();
     },
     conferenceWatched: {
-      handler() {
+      handler(): void {
         this.updateLiveLocal();
       },
       deep: true,

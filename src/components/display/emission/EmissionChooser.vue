@@ -132,7 +132,7 @@ export default Vue.extend({
   },
 
    methods: {
-    onOpen() {
+    onOpen(): void {
       (this.$refs.multiselectRef as any).$refs.search.setAttribute(
         'autocomplete',
         'off'
@@ -140,17 +140,17 @@ export default Vue.extend({
       this.clearAll();
       this.onSearchEmission();
     },
-    onClose() {
+    onClose(): void {
       if (this.emission) return;
       this.emission = this.defaultanswer
         ? getDefaultEmission(this.defaultanswer)
         : undefined;
       this.$emit('selected', this.emission);
     },
-    onEmissionSelected(emission: Emission) {
+    onEmissionSelected(emission: Emission): void {
       this.$emit('selected', emission);
     },
-    async onSearchEmission(query?: string) {
+    async onSearchEmission(query?: string): Promise<void> {
       this.isLoading = true;
       let standardParam:any = {
         query: query,
@@ -182,16 +182,16 @@ export default Vue.extend({
       this.isLoading = false;
       this.remainingElements = Math.max(0, response.count - ELEMENTS_COUNT);
     },
-    clearAll() {
+    clearAll(): void {
       this.emission = undefined;
       this.emissions.length = 0;
     },
   },
   watch: {
-    emissionChosen() {
+    emissionChosen(): void {
       this.emission = this.emissionChosen;
     },
-    reset() {
+    reset(): void {
       this.emission = getDefaultEmission(this.defaultanswer);
     },
   },

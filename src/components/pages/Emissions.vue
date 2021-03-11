@@ -103,19 +103,19 @@ export default Vue.extend({
     },
   },
   methods: {
-    updateHidden(value: boolean) {
+    updateHidden(value: boolean): void {
       this.includeHidden = value;
     },
-    updateSortEmission(value: string) {
+    updateSortEmission(value: string): void {
       this.sortEmission = value;
     },
-    updateToDate(value: string) {
+    updateToDate(value: string): void {
       this.toDate = value;
     },
-    updateFromDate(value: string) {
+    updateFromDate(value: string): void {
       this.fromDate = value;
     },
-    updateRubriquage(value: number) {
+    updateRubriquage(value: number): void {
       if (-1 !== value) {
         this.rubriquageId = value;
       } else {
@@ -124,7 +124,7 @@ export default Vue.extend({
       this.noRubrique = undefined;
       this.rubriqueId = undefined;
     },
-    updateRubrique(value: number) {
+    updateRubrique(value: number): void {
       if (-1 === value) {
         this.noRubrique = true;
         this.rubriqueId = undefined;
@@ -136,14 +136,14 @@ export default Vue.extend({
         this.noRubrique = undefined;
       }
     },
-    updateOrganisationId(value: string | undefined) {
+    updateOrganisationId(value: string | undefined): void {
       this.resetRubriquage = !this.resetRubriquage;
       this.rubriquageId = undefined;
       this.rubriqueId = undefined;
       this.noRubrique = undefined;
       this.organisationId = value;
     },
-    updateSearchPattern(value: string) {
+    updateSearchPattern(value: string): void {
       if ('' !== value) {
         this.sortEmission = 'SCORE';
       } else {
@@ -151,7 +151,7 @@ export default Vue.extend({
       }
       this.searchPattern = value;
     },
-    updateMonetization(value: string) {
+    updateMonetization(value: string): void {
       this.monetization = value;
     },
   },

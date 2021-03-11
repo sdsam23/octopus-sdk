@@ -126,7 +126,7 @@ export default Vue.extend({
     },
   },
   methods: {
-    async fetchContent() {
+    async fetchContent(): Promise<void> {
       this.podcasts.length = 0;
       this.loading = true;
       this.loaded = false;
@@ -149,13 +149,13 @@ export default Vue.extend({
       this.loading = false;
       this.loaded = true;
     },
-    displayMore(event: { preventDefault: () => void; }) {
+    displayMore(event: { preventDefault: () => void; }): void {
       event.preventDefault();
       this.size += 12;
     },
   },
   watch: {
-    searchPattern() {
+    searchPattern(): void {
       if ('' !== this.searchPattern) {
         this.podcastsQuery = this.podcasts.filter((el:Podcast) => {
           return el.title

@@ -56,10 +56,10 @@ export default Vue.extend({
   },
   
   methods: {
-    updateOrganisationId(value: string) {
+    updateOrganisationId(value: string): void {
       this.organisationId = value;
     },
-    updateSearchPattern(value: string) {
+    updateSearchPattern(value: string): void {
       this.searchPattern = value;
     },
   },

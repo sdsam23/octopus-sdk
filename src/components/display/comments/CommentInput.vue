@@ -185,32 +185,32 @@ export default cookies.extend({
     },
   },
   methods: {
-    changeIdentity() {
+    changeIdentity(): void {
       this.temporaryName = this.knownIdentity;
       this.editName = true;
     },
-    validEdit() {
+    validEdit(): void {
       this.setCookie('comment-octopus-name', this.temporaryName);
       this.$emit('update:knownIdentity', this.temporaryName);
       this.editName = false;
     },
-    inputExceeded(text: string, font: string) {
+    inputExceeded(text: string, font: string): number {
       let element = document.createElement('canvas');
       let context = element.getContext('2d');
       context!.font = font;
       return context!.measureText(text).width;
     },
-    requestToSend() {
+    requestToSend(): void {
       if (this.knownIdentity) {
         this.postComment();
       } else {
         this.checkIdentityModal = true;
       }
     },
-    cancelAction() {
+    cancelAction(): void {
       this.$emit('cancelAction');
     },
-    async postComment(name?: string) {
+    async postComment(name?: string): Promise<void> {
       if (name) {
         this.setCookie('comment-octopus-name', name);
         this.$emit('update:knownIdentity', name);
@@ -270,13 +270,13 @@ export default cookies.extend({
     },
   },
   watch: {
-    textareaFocus() {
+    textareaFocus(): void {
       this.newComment = this.newComment.trim();
     },
-    focus() {
+    focus(): void {
       (this.$refs.textarea as HTMLElement).focus();
     },
-    newComment() {
+    newComment(): void {
       let padding =
         1.5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
       this.isOneLine =

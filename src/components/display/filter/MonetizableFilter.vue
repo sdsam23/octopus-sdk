@@ -32,7 +32,7 @@ export default Vue.extend({
   },
 
   methods: {
-    onChange() {
+    onChange(): void {
       this.$emit('updateMonetization', this.monetization);
     },
   },

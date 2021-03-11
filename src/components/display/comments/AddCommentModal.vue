@@ -94,7 +94,7 @@ export default Vue.extend({
   },
 
   methods: {
-    async recaptcha() {
+    async recaptcha(): Promise<void> {
       if (!this.needVerify || this.isCaptchaTest) {
         this.sendComment();
         return;
@@ -114,11 +114,11 @@ export default Vue.extend({
       }
       this.sendComment();
     },
-    closePopup(event: { preventDefault: () => void; }) {
+    closePopup(event: { preventDefault: () => void; }): void {
       event.preventDefault();
       this.$emit('close');
     },
-    sendComment() {
+    sendComment(): void {
       this.sending = true;
       this.$emit('validate', this.name);
     },

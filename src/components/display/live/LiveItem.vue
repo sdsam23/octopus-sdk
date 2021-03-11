@@ -262,15 +262,15 @@ export default displayMethods.extend({
     },
   },
   methods: {
-    updatePodcast(podcastUpdated: Podcast) {
+    updatePodcast(podcastUpdated: Podcast): void {
       this.live = podcastUpdated;
     },
-    getName(person: Participant) {
+    getName(person: Participant): string {
       const first = person.firstName || '';
       const last = person.lastName || '';
       return (first + ' ' + last).trim();
     },
-    async fetchPodcastData() {
+    async fetchPodcastData(): Promise<void> {
       if (!this.fetchConference || !this.fetchConference.podcastId) return;
       try {
         this.live = await octopusApi.fetchPodcast(
@@ -284,7 +284,7 @@ export default displayMethods.extend({
         );
       }
     },
-    async handleDescription() {
+    async handleDescription(): Promise<void> {
       this.$nextTick(() => {
         let liveDesc = document.getElementById(
           'description-live-' + this.live!.podcastId
@@ -300,12 +300,12 @@ export default displayMethods.extend({
         }
       });
     },
-    deleteItem() {
+    deleteItem(): void {
       this.$emit('deleteItem', this.index);
     },
   },
   watch: {
-    live() {
+    live(): void {
       this.handleDescription();
     },
   },

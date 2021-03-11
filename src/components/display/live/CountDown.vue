@@ -38,7 +38,7 @@ export default Vue.extend({
   },
   computed: {},
   methods: {
-    timer() {
+    timer(): void {
       this.days = Math.floor(this.seconds / 24 / 60 / 60);
       var hoursLeft = Math.floor(this.seconds - this.days * 86400);
       this.hours = Math.floor(hoursLeft / 3600);
@@ -53,8 +53,8 @@ export default Vue.extend({
         this.seconds--;
       }
     },
-    pad(n: number) {
-      return n < 10 ? '0' + n : n;
+    pad(n: number): string {
+      return n < 10 ? '0' + n : n.toString();
     },
   },
 });

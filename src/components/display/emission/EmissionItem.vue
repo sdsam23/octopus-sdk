@@ -247,7 +247,7 @@ export default displayMethods.extend({
     },
   },
   methods: {
-    async hasPodcast() {
+    async hasPodcast(): Promise<void> {
       const data = await octopusApi.fetchPodcasts({
         emissionId: this.emission.emissionId,
         first: 0,

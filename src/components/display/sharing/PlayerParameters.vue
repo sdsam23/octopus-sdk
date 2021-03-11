@@ -168,7 +168,7 @@ export default Vue.extend({
     },
   },
   methods: {
-    onDurationChange() {
+    onDurationChange(): void {
       if (this.startTime) {
         let minutes = parseInt((this.$refs.minutesRef as any).value, 10);
         let secondes = parseInt((this.$refs.secondesRef as any).value, 10);
@@ -179,19 +179,19 @@ export default Vue.extend({
     },
   },
   watch: {
-    episodeNumbers() {
+    episodeNumbers(): void {
       this.$emit('episodeNumbers', this.episodeNumbers);
     },
-    proceedReading() {
+    proceedReading(): void {
       this.$emit('proceedReading', this.proceedReading);
     },
-    isVisibleTemp() {
+    isVisibleTemp(): void {
       this.$emit('isVisible', this.isVisibleTemp);
     },
-    isVisible() {
+    isVisible(): void {
       this.isVisibleTemp = this.isVisible;
     },
-    iFrameNumberPriv() {
+    iFrameNumberPriv(): void {
       this.$emit('iFrameNumber', this.iFrameNumberPriv);
     },
   },

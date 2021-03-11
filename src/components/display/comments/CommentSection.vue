@@ -116,7 +116,7 @@ export default cookies.extend({
     },
   },
   methods: {
-    updateFetch(value: { count: number; }) {
+    updateFetch(value: { count: number; }): void {
       this.loaded = true;
       this.$store.commit('setCommentLoaded', {
         ...value,
@@ -124,13 +124,13 @@ export default cookies.extend({
       });
       this.totalCount = value.count;
     },
-    reloadComments() {
+    reloadComments(): void {
       this.reload = !this.reload;
     },
-    newComment(comment: Comment) {
+    newComment(comment: Comment): void {
       (this.$refs.commentList as any).addNewComment(comment, true);
     },
-    receiveCommentEvent(event: any) {
+    receiveCommentEvent(event: any): void {
       let statusUpdated = undefined;
       switch (event.type) {
         case 'Create':

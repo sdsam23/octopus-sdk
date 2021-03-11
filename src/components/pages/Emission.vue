@@ -192,15 +192,8 @@ export default displayMethods.extend({
       return count;
     },
   },
-  watch: {
-    emissionId() {
-      this.loaded = false;
-      this.error = false;
-      this.getEmissionDetails();
-    },
-  },
   methods: {
-    async getEmissionDetails() {
+    async getEmissionDetails(): Promise<void> {
       try {
         const data = await octopusApi.fetchEmission(this.emissionId);
         this.emission = data;
@@ -231,6 +224,13 @@ export default displayMethods.extend({
       if(found){
         this.isReady = false;
       } */
+    },
+  },
+  watch: {
+    emissionId(): void {
+      this.loaded = false;
+      this.error = false;
+      this.getEmissionDetails();
     },
   },
 });

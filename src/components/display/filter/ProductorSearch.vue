@@ -171,7 +171,7 @@ export default Vue.extend({
     },
   },
   methods: {
-    onOrganisationSelected(organisation: Organisation) {
+    onOrganisationSelected(organisation: Organisation): void {
       if (this.$route.query.productor) {
         this.$router.push({ query: { productor: undefined } });
       }
@@ -191,7 +191,7 @@ export default Vue.extend({
         this.$emit('updateOrganisationId', undefined);
       }
     },
-    async onKeepOrganisation() {
+    async onKeepOrganisation(): Promise<void> {
       if (!this.keepOrganisation) {
         if (this.$route.query.productor !== this.organisationId) {
           this.$router.push({ query: { productor: this.organisationId } });
@@ -213,7 +213,7 @@ export default Vue.extend({
     },
   },
   watch: {
-    filterOrga() {
+    filterOrga(): void {
       if (this.filterOrga) {
         this.keepOrganisation = true;
         this.$emit('updateOrganisationId', this.filterOrga);

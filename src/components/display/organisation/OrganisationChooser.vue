@@ -180,7 +180,7 @@ export default selenium.extend({
     },
   },
   methods: {
-    onOpen() {
+    onOpen(): void {
       (this.$refs.multiselectRef as any).$refs.search.setAttribute(
         'autocomplete',
         'off'
@@ -188,17 +188,17 @@ export default selenium.extend({
       this.clearAll();
       this.onSearchOrganisation();
     },
-    onClose() {
+    onClose(): void {
       if (this.organisation) return;
       this.organisation = this.defaultanswer
         ? getDefaultOrganistion(this.defaultanswer)
         : undefined;
       this.$emit('selected', this.organisation);
     },
-    onOrganisationSelected(organisation: Organisation|undefined) {
+    onOrganisationSelected(organisation: Organisation|undefined): void {
       this.$emit('selected', organisation);
     },
-    async onSearchOrganisation(query?: string) {
+    async onSearchOrganisation(query?: string): Promise<void> {
       this.isLoading = true;
       const response = await octopusApi.fetchOrganisations({
         query: query,
@@ -247,7 +247,7 @@ export default selenium.extend({
       this.isLoading = false;
       this.remainingElements = Math.max(0, response.count - orga.length);
     },
-    async fetchOrganisation() {
+    async fetchOrganisation(): Promise<void> {
       if (0 === this.organisations.length) {
         this.onSearchOrganisation();
       }
@@ -255,18 +255,18 @@ export default selenium.extend({
       this.organisation = data;
       this.init = true;
     },
-    clearAll() {
+    clearAll(): void {
       this.organisation = undefined;
       this.organisations.length = 0;
     },
   },
   watch: {
-    value(newVal) {
-      if (!this.init || newVal) {
+    value(): void {
+      if (!this.init || this.value) {
         this.fetchOrganisation();
       }
     },
-    reset() {
+    reset(): void {
       this.organisation = this.defaultanswer
         ? getDefaultOrganistion(this.defaultanswer)
         : undefined;

@@ -219,7 +219,7 @@ export default Vue.extend({
     }
   },
   methods: {
-    async fetchNext() {
+    async fetchNext(): Promise<void> {
       const data = await octopusApi.fetchPodcasts({
         first: this.first,
         size: this.size + 1,
@@ -247,13 +247,13 @@ export default Vue.extend({
       }
       this.first += this.size;
     },
-    displayPrevious() {
+    displayPrevious(): void {
       this.direction = -1;
       if (this.previousAvailable) {
         this.index -= 1;
       }
     },
-    displayNext() {
+    displayNext(): void {
       this.direction = 1;
       if (!this.nextAvailable) return;
       if (
@@ -264,7 +264,7 @@ export default Vue.extend({
       }
       this.index += 1;
     },
-    handleResize() {
+    handleResize(): void {
       if (!this.$el) return;
       if (window.innerWidth <= PHONE_WIDTH) {
         this.size = 10;
@@ -274,19 +274,19 @@ export default Vue.extend({
       const sixteen = domHelper.convertRemToPixels(13.7);
       this.size = Math.floor(width / sixteen);
     },
-    sortPopular() {
+    sortPopular(): void {
       if (this.popularSort) return;
       this.popularSort = true;
       this.reset();
       this.fetchNext();
     },
-    sortChrono() {
+    sortChrono(): void {
       if (!this.popularSort) return;
       this.popularSort = false;
       this.reset();
       this.fetchNext();
     },
-    reset() {
+    reset(): void {
       this.loading = true;
       this.loaded = true;
       this.index = 0;
@@ -294,44 +294,44 @@ export default Vue.extend({
       this.totalCount = 0;
       this.allPodcasts.length = 0;
     },
-    preloadImage(url:string) {
+    preloadImage(url:string): void {
       let img = new Image();
       img.src = url;
     },
   },
   watch: {
     emissionId: {
-      handler() {
+      handler(): void {
         this.reset();
         this.fetchNext();
       },
     },
     organisationId: {
-      handler() {
+      handler(): void {
         this.reset();
         this.fetchNext();
       },
     },
     filterOrga: {
-      handler() {
+      handler(): void {
         this.reset();
         this.fetchNext();
       },
     },
     iabId: {
-      handler() {
+      handler(): void {
         this.reset();
         this.fetchNext();
       },
     },
     rubriqueId: {
-      handler() {
+      handler(): void {
         this.reset();
         this.fetchNext();
       },
     },
     rubriquageId: {
-      handler() {
+      handler(): void {
         this.reset();
         this.fetchNext();
       },

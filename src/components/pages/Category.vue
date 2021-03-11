@@ -44,14 +44,15 @@ export default Vue.extend({
     },
   },
   methods: {
-    extractTitle() {
+    extractTitle(): void {
       const matchCategories = this.categories.filter((c: any) => c.id === this.iabId);
-      if (1 !== matchCategories.length) return '';
+      if (1 !== matchCategories.length) return;
       this.title = matchCategories[0]['name'];
+
     },
   },
   watch: {
-    iabId() {
+    iabId(): void {
       this.extractTitle();
     },
   },

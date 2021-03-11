@@ -442,7 +442,7 @@ export default Vue.extend({
     },
   },
   methods: {
-    watchPlayerStatus() {
+    watchPlayerStatus(): void {
       this.$store.watch(
         (state:StoreState) => state.player.status,
         (newValue:string) => {
@@ -462,21 +462,21 @@ export default Vue.extend({
         }
       );
     },
-    getDownloadId() {
+    getDownloadId(): any {
       return this.downloadId;
     },
-    setDownloadId(newValue?: any) {
+    setDownloadId(newValue?: any): void {
       this.endListeningProgress();
       this.downloadId = newValue;
     },
-    onError() {
+    onError(): void {
       if (this.podcast && !this.listenError) {
         this.listenError = true;
       } else if (this.podcast || this.media) {
         this.playerError = true;
       }
     },
-    switchPausePlay() {
+    switchPausePlay(): void {
       const audioPlayer:any = document.querySelector('#audio-player');
       if (audioPlayer.paused) {
         this.onPlay();
@@ -484,10 +484,10 @@ export default Vue.extend({
         this.onPause();
       }
     },
-    stopPlayer() {
+    stopPlayer(): void {
       this.$store.commit('playerPlayPodcast');
     },
-    seekTo(event: { currentTarget: { getBoundingClientRect: () => any; clientWidth: any; }; clientX: number; }) {
+    seekTo(event: { currentTarget: { getBoundingClientRect: () => any; clientWidth: any; }; clientX: number; }): void {
       const audioPlayer:any = document.querySelector('#audio-player');
       const rect = event.currentTarget.getBoundingClientRect();
       const barWidth = event.currentTarget.clientWidth;
@@ -500,7 +500,7 @@ export default Vue.extend({
       }
       audioPlayer.currentTime = seekTime;
     },
-    onTimeUpdate(event: { currentTarget: { currentTime: number; duration: any; }; }) {
+    onTimeUpdate(event: { currentTarget: { currentTime: number; duration: any; }; }): void {
       if (this.podcast || this.live) {
         if (!this.getDownloadId()) {
           this.loadDownloadId();
@@ -545,13 +545,13 @@ export default Vue.extend({
         this.$store.commit('playerElapsed', playerCurrentTime / streamDuration);
       }
     },
-    onPlay() {
+    onPlay(): void {
       this.$store.commit('playerPause', false);
     },
-    onPause() {
+    onPause(): void {
       this.$store.commit('playerPause', true);
     },
-    onFinished() {
+    onFinished(): void {
       this.setDownloadId(null);
       if (this.live) {
         let audio:any = document.getElementById('audio-player');
@@ -559,13 +559,13 @@ export default Vue.extend({
       }
       this.forceHide = true;
     },
-    onHidden() {
+    onHidden(): void {
       if (this.forceHide) {
         this.$store.commit('playerPlayPodcast');
         this.forceHide = false;
       }
     },
-    loadDownloadId() {
+    loadDownloadId(): void {
       if (!this.podcast) return;
       const matching_cookies = document.cookie
         .split(';')
@@ -580,7 +580,7 @@ export default Vue.extend({
         this.setDownloadId(matching_cookies[0][1]);
       }
     },
-    async endListeningProgress() {
+    async endListeningProgress(): Promise<void> {
       if (!this.getDownloadId()) return;
       await octopusApi.updatePlayerTime(
         this.getDownloadId(),
@@ -591,7 +591,7 @@ export default Vue.extend({
       this.lastSend = 0;
       this.listenTime = 0;
     },
-    async initHls(hlsStreamUrl: string) {
+    async initHls(hlsStreamUrl: string): Promise<void> {
       return new Promise<void>((resolve, reject) => {
         if (!Hls.isSupported()) {
           reject('Hls is not supported ! ');
@@ -626,7 +626,7 @@ export default Vue.extend({
         hls.loadSource(hlsStreamUrl);
       });
     },
-    async playLive() {
+    async playLive(): Promise<void> {
       if (!this.live) return;
       let hlsStreamUrl =
         state.podcastPage.hlsUri +
@@ -642,7 +642,7 @@ export default Vue.extend({
         }, 1000);
       }
     },
-    editRight(organisation: any) {
+    editRight(organisation: any): boolean {
       if (
         (state.generalParameters.isCommments &&
           this.organisationId === organisation) ||
@@ -651,7 +651,7 @@ export default Vue.extend({
         return true;
       return false;
     },
-    async initComments(refresh = false) {
+    async initComments(refresh:boolean = false): Promise<void> {
       let podcastId, organisation;
       if (this.podcast) {
         podcastId = this.podcast.podcastId;
@@ -708,22 +708,22 @@ export default Vue.extend({
     },
   },
   watch: {
-    async live() {
+    async live(): Promise<void> {
       this.hlsReady = false;
       this.setDownloadId(null);
       this.listenError = false;
       await this.playLive();
       this.initComments();
     },
-    playerHeight(newVal) {
-      this.$emit('hide', 0 === newVal ? true : false);
+    playerHeight(): void {
+      this.$emit('hide', 0 === this.playerHeight ? true : false);
     },
-    podcast() {
+    podcast(): void {
       this.setDownloadId(null);
       this.listenError = false;
       this.initComments();
     },
-    async listenTime(newVal) {
+    async listenTime(newVal): Promise<void> {
       if (!this.podcast && !this.live) {
         //Nothing can be done there is no listen time
         return;
@@ -742,7 +742,7 @@ export default Vue.extend({
         Math.round(newVal)
       );
     },
-    commentsLoaded() {
+    commentsLoaded(): void {
       this.initComments(true);
     },
   },

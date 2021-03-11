@@ -115,19 +115,19 @@ export default Vue.extend({
     },
   },
   methods: {
-    onCategorySelected(category:Category|undefined) {
+    onCategorySelected(category:Category|undefined): void {
       if (category && category.id) {
         this.iabId = category.id;
       } else {
         this.iabId = undefined;
       }
     },
-    fetch(podcasts:any) {
+    fetch(podcasts:any): void {
       this.$emit('fetch', podcasts);
     },
   },
   watch: {
-    reload() {
+    reload(): void {
       this.reloadList = !this.reloadList;
     },
   },

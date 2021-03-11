@@ -186,7 +186,7 @@ export default Vue.extend({
     },
   },
   methods: {
-    async fetchContent(reset: boolean) {
+    async fetchContent(reset: boolean): Promise<void> {
       this.inFetching = true;
       if (reset) {
         this.emissions.length = 0;
@@ -216,7 +216,7 @@ export default Vue.extend({
         this.afterFetching(reset, data);
       }
     },
-    afterFetching(reset: boolean, data: any) {
+    afterFetching(reset: boolean, data: any): void {
       if (reset) {
         this.emissions.length = 0;
         this.dfirst = 0;
@@ -234,15 +234,15 @@ export default Vue.extend({
       this.totalCount = data.count;
       this.inFetching = false;
     },
-    displayMore(event: { preventDefault: () => void; }) {
+    displayMore(event: { preventDefault: () => void; }): void {
       event.preventDefault();
       this.fetchContent(false);
     },
-    async fetchRubriques() {
+    async fetchRubriques(): Promise<void> {
       const data = await octopusApi.fetchTopic(this.displayRubriquage);
       this.rubriques = data.rubriques;
     },
-    mainRubriquage(emission: Emission) {
+    mainRubriquage(emission: Emission): string {
       if (
         emission.rubriqueIds &&
         emission.rubriqueIds[0] === state.emissionsPage.mainRubrique
@@ -250,7 +250,7 @@ export default Vue.extend({
         return 'partenaireRubrique';
       return '';
     },
-    rubriquesId(emission: Emission) {
+    rubriquesId(emission: Emission): string|undefined {
       if (
         !this.displayRubriquage ||
         !emission.rubriqueIds ||
@@ -267,7 +267,7 @@ export default Vue.extend({
   },
   watch: {
     changed: {
-      handler() {
+      handler(): void {
         this.fetchContent(true);
       },
     },

@@ -89,22 +89,22 @@ export default Vue.extend({
     },
   },
   methods: {
-    info(msg: any) {
+    info(msg: any): boolean {
       const color = this.colors.info;
       this.open({ color, msg }, false);
       return true;
     },
-    error(msg: any) {
+    error(msg: any): boolean {
       const color = this.colors.error;
       this.open({ color, msg }, false);
       return false;
     },
-    warn(msg: any) {
+    warn(msg: any): boolean {
       const color = this.colors.warn;
       this.open({ color, msg }, false);
       return true;
     },
-    open(message: { color?: any; msg?: any; }, isOpen = true) {
+    open(message: { color?: any; msg?: any; }, isOpen = true): boolean {
       let msg;
       let color;
       if (!isOpen) {
@@ -124,7 +124,7 @@ export default Vue.extend({
 
       return true;
     },
-    pop(i = 0) {
+    pop(i = 0): void {
       if (this.msgs[i]) clearTimeout(this.msgs[i].timer);
       this.msgs.splice(i, 1);
     },

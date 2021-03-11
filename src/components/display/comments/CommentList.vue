@@ -147,7 +147,7 @@ export default Vue.extend({
     },
   },
   methods: {
-    async fetchContent(reset: boolean) {
+    async fetchContent(reset: boolean): Promise<void> {
       this.inFetching = true;
       this.resetData(reset);
       let data;
@@ -187,18 +187,18 @@ export default Vue.extend({
       }
       this.inFetching = false;
     },
-    resetData(reset: boolean) {
+    resetData(reset: boolean): void {
       if (!reset) return;
       this.comments.length = 0;
       this.dfirst = 0;
       this.loading = true;
       this.loaded = false;
     },
-    displayMore(event: { preventDefault: () => void; }) {
+    displayMore(event: { preventDefault: () => void; }): void {
       event.preventDefault();
       this.fetchContent(false);
     },
-    deleteComment(comment:CommentPodcast) {
+    deleteComment(comment:CommentPodcast): void {
       if (
         !this.isFlat &&
         comment.commentIdReferer &&
@@ -218,7 +218,7 @@ export default Vue.extend({
       }
       this.comments.splice(index, 1);
     },
-    updateComment(data: any) {
+    updateComment(data: any): void {
       if (
         !this.isFlat &&
         data.comment.commentIdReferer &&
@@ -270,7 +270,7 @@ export default Vue.extend({
         this.$emit('updateStatus', data.status);
       }
     },
-    addNewComment(comment: CommentPodcast, myself = false) {
+    addNewComment(comment: CommentPodcast, myself = false): void {
       if (!myself && !this.editRight && 'Valid' !== comment.status) {
         return;
       }
@@ -296,13 +296,13 @@ export default Vue.extend({
     },
   },
   watch: {
-    reload() {
+    reload(): void {
       this.fetchContent(true);
     },
-    status() {
+    status(): void {
       this.fetchContent(true);
     },
-    comments() {
+    comments(): void {
       this.$emit('fetch', { count: this.totalCount, comments: this.comments });
     },
   },

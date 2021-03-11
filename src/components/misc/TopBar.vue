@@ -319,7 +319,7 @@ export default Vue.extend({
     },
   },
   methods: {
-    handleScroll() {
+    handleScroll(): void {
       if (
         window.scrollY - this.oldScrollY > 0 &&
         window.scrollY > 1 &&
@@ -343,14 +343,14 @@ export default Vue.extend({
         this.$emit('update:displayMenu', false);
       }
     },
-    onDisplayMenu(param: boolean) {
+    onDisplayMenu(param: boolean): void {
       if (true === param) {
         this.$emit('update:displayMenu', false);
       } else {
         this.$emit('update:displayMenu', !this.displayMenu);
       }
     },
-    async onOrganisationSelected(organisation: Organisation | undefined) {
+    async onOrganisationSelected(organisation: Organisation | undefined): Promise<void> {
       if (organisation && organisation.id) {
         if (this.$route.query.productor !== organisation.id) {
           this.$router.push({ query: { productor: organisation.id } });
@@ -373,9 +373,9 @@ export default Vue.extend({
     },
   },
   watch: {
-    filterOrga(newVal) {
-      if (newVal) {
-        this.organisationId = newVal;
+    filterOrga(): void {
+      if (this.filterOrga) {
+        this.organisationId = this.filterOrga;
       } else {
         this.reset = !this.reset;
       }

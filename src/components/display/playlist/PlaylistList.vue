@@ -89,7 +89,7 @@ export default Vue.extend({
     },
   },
   methods: {
-    async fetchContent(reset: boolean) {
+    async fetchContent(reset: boolean): Promise<void> {
       this.inFetching = true;
       if (reset) {
         this.dfirst = 0;
@@ -106,7 +106,7 @@ export default Vue.extend({
       const data = await octopusApi.fetchPlaylists(param);
       this.afterFetching(reset, data);
     },
-    afterFetching(reset: boolean, data:any) {
+    afterFetching(reset: boolean, data:any): void {
       if (reset) {
         this.playlists.length = 0;
         this.dfirst = 0;
@@ -124,14 +124,14 @@ export default Vue.extend({
       this.totalCount = data.count;
       this.inFetching = false;
     },
-    displayMore(event: { preventDefault: () => void; }) {
+    displayMore(event: { preventDefault: () => void; }): void {
       event.preventDefault();
       this.fetchContent(false);
     },
   },
   watch: {
     changed: {
-      handler() {
+      handler(): void {
         this.fetchContent(true);
       },
     },

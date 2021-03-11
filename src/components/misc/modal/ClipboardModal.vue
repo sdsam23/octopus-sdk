@@ -63,15 +63,15 @@ export default displayMethods.extend({
   },
 
   methods: {
-    closePopup(event: { preventDefault: () => void; }) {
+    closePopup(event: { preventDefault: () => void; }): void {
       event.preventDefault();
       this.$emit('close');
     },
 
-    onValid() {
+    onValid(): void {
       this.$emit('validate');
     },
-    afterCopy(){
+    afterCopy(): void{
       return;
     }
   },

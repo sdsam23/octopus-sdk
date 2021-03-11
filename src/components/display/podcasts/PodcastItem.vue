@@ -268,11 +268,11 @@ export default Vue.extend({
     },
   },
   methods: {
-    showDescription() {
+    showDescription(): void {
       this.arrowDirection = 'down';
       this.hover = true;
     },
-    hideDescription() {
+    hideDescription(): void {
       this.arrowDirection = 'up';
       this.hover = false;
     },

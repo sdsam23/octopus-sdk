@@ -99,11 +99,11 @@ export default displayMethods.extend({
     this.$bvModal.show('share-modal');
   },
   methods: {
-    closePopup(event: { preventDefault: () => void; }) {
+    closePopup(event: { preventDefault: () => void; }): void {
       event.preventDefault();
       this.$emit('close');
     },
-    afterCopy(){
+    afterCopy(): void{
       (this.$refs.snackbar as any).open(this.$t('Data in clipboard'));
     }
   },

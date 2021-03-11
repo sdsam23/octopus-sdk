@@ -399,7 +399,7 @@ export default Vue.extend({
     },
   },
   methods: {
-    updateFromDate() {
+    updateFromDate(): void {
       if (
         moment(this.fromDate)
           .startOf('minute')
@@ -416,7 +416,7 @@ export default Vue.extend({
         this.isFrom = true;
       }
     },
-    updateToDate() {
+    updateToDate(): void {
       if (
         moment(this.toDate)
           .startOf('minute')
@@ -432,13 +432,13 @@ export default Vue.extend({
         this.isTo = true;
       }
     },
-    getRubriques(rubriquageId: number) {
+    getRubriques(rubriquageId: number): Array<Rubrique> {
       let topicIndex = this.rubriquageData.findIndex(
         ( element: Rubriquage) => element.rubriquageId === rubriquageId
       );
       return this.rubriquageData[topicIndex].rubriques;
     },
-    onRubriqueSelected(rubrique: Rubrique) {
+    onRubriqueSelected(rubrique: Rubrique): void {
       if (rubrique.rubriqueId === this.rubriqueId) return;
       this.rubriqueId = rubrique.rubriqueId;
       if (0 === this.rubriqueId) {
@@ -447,17 +447,17 @@ export default Vue.extend({
         this.$emit('updateRubrique', rubrique.rubriqueId);
       }
     },
-    onRubriquageSelected() {
+    onRubriquageSelected(): void {
       this.reset = !this.reset;
       this.rubriqueId = 0;
       if (this.isRubriquage) {
         this.$emit('updateRubriquage', this.rubriquageId);
       }
     },
-    updateMonetization(value: string) {
+    updateMonetization(value: string): void {
       this.$emit('updateMonetization', value);
     },
-    async fetchTopics() {
+    async fetchTopics(): Promise<void> {
       if (!this.organisation) return;
       const data = await octopusApi.fetchTopics(this.organisation);
       this.rubriquageData = data;
@@ -475,7 +475,7 @@ export default Vue.extend({
     },
   },
   watch: {
-    organisation() {
+    organisation(): void {
       if (this.organisation && this.organisationRight && !this.isEmission) {
         this.isNotVisible = true;
       } else {
@@ -483,21 +483,21 @@ export default Vue.extend({
       }
       this.fetchTopics();
     },
-    isFrom() {
+    isFrom(): void {
       if (this.isFrom) {
         this.$emit('updateFromDate', this.fromDate);
       } else {
         this.$emit('updateFromDate', undefined);
       }
     },
-    isTo() {
+    isTo(): void {
       if (this.isTo) {
         this.$emit('updateToDate', this.toDate);
       } else {
         this.$emit('updateToDate', undefined);
       }
     },
-    isRubriquage() {
+    isRubriquage(): void {
       if (this.isRubriquage) {
         this.$emit('updateRubriquage', this.rubriquageId);
       } else {
@@ -505,19 +505,19 @@ export default Vue.extend({
         this.$emit('updateRubrique', undefined);
       }
     },
-    sort() {
+    sort(): void {
       this.$emit('updateSortCriteria', this.sort);
     },
-    resetRubriquage() {
+    resetRubriquage(): void {
       this.isRubriquage = false;
     },
-    isNotVisible() {
+    isNotVisible(): void{
       this.$emit('includeHidden', this.isNotVisible);
     },
-    isNotValidate() {
+    isNotValidate(): void {
       this.$emit('notValid', this.isNotValidate);
     },
-    sortCriteria() {
+    sortCriteria(): void {
       this.sort = this.sortCriteria;
     },
   },

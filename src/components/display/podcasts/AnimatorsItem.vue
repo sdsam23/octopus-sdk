@@ -50,7 +50,7 @@ export default Vue.extend({
   },
 
    methods: {
-    getAnimatorName(animator:Participant) {
+    getAnimatorName(animator:Participant): string {
       const first = animator.firstName || '';
       const last = animator.lastName || '';
       return (first + ' ' + last).trim();

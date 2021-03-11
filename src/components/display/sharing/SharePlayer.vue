@@ -410,7 +410,7 @@ export default Vue.extend({
     },
   },
   methods: {
-    async initColor() {
+    async initColor(): Promise<void> {
       if (!this.authenticated) return;
       let orgaId = undefined;
       if (this.podcast) {
@@ -435,19 +435,19 @@ export default Vue.extend({
         this.theme = '#ffffff';
       }
     },
-    updateEpisodeNumber(value: string) {
+    updateEpisodeNumber(value: string): void {
       this.episodeNumbers = value;
     },
-    updateProceedReading(value: boolean) {
+    updateProceedReading(value: boolean): void {
       this.proceedReading = value;
     },
-    updateIframeNumber(value: string) {
+    updateIframeNumber(value: string): void {
       this.iFrameNumber = value;
     },
-    updateStartTime(value: number) {
+    updateStartTime(value: number): void {
       this.startTime = value;
     },
-    updateIsVisible(value: boolean) {
+    updateIsVisible(value: boolean): void {
       this.isVisible = value;
     },
   },

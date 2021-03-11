@@ -156,7 +156,7 @@ export default Vue.extend({
     }
   },
   methods: {
-    async fetchNext() {
+    async fetchNext(): Promise<void> {
       const data = await octopusApi.fetchEmissions({
         first: this.first,
         size: this.size + 1,
@@ -187,13 +187,13 @@ export default Vue.extend({
       }
       this.first += this.size;
     },
-    displayPrevious() {
+    displayPrevious(): void {
       this.direction = -1;
       if (this.previousAvailable) {
         this.index -= 1;
       }
     },
-    displayNext() {
+    displayNext(): void {
       this.direction = 1;
       if (!this.nextAvailable) return;
       if (
@@ -204,7 +204,7 @@ export default Vue.extend({
       }
       this.index += 1;
     },
-    handleResize() {
+    handleResize(): void {
       if (!this.$el) return;
       if (window.innerWidth <= PHONE_WIDTH) {
         this.size = 10;
@@ -221,7 +221,7 @@ export default Vue.extend({
       }
       this.size = Math.floor(width / sixteen);
     },
-    reset() {
+    reset(): void {
       this.loading = true;
       this.loaded = true;
       this.index = 0;
@@ -229,15 +229,15 @@ export default Vue.extend({
       this.totalCount = 0;
       this.allEmissions.length = 0;
     },
-    preloadImage(url: string) {
+    preloadImage(url: string): void {
       let img = new Image();
       img.src = url;
     },
-    async fetchRubriques() {
+    async fetchRubriques(): Promise<void> {
       const data = await octopusApi.fetchTopic(this.displayRubriquage);
       this.rubriques = data.rubriques;
     },
-    rubriquesId(emission:Emission) {
+    rubriquesId(emission:Emission): string|undefined {
       if (
         !this.displayRubriquage ||
         !emission.rubriqueIds ||
@@ -251,7 +251,7 @@ export default Vue.extend({
       );
       return rubrique!.name;
     },
-    mainRubriquage(emission: Emission) {
+    mainRubriquage(emission: Emission): string {
       if (
         emission.rubriqueIds &&
         emission.rubriqueIds[0] === state.emissionsPage.mainRubrique

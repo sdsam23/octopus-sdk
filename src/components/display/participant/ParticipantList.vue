@@ -105,7 +105,7 @@ export default Vue.extend({
     },
   },
   methods: {
-    async fetchContent(reset: boolean) {
+    async fetchContent(reset: boolean): Promise<void> {
       this.inFetching = true;
       if (reset) {
         this.participants.length = 0;
@@ -132,19 +132,19 @@ export default Vue.extend({
       this.totalCount = data.count;
       this.inFetching = false;
     },
-    displayMore(event: { preventDefault: () => void; }) {
+    displayMore(event: { preventDefault: () => void; }): void {
       event.preventDefault();
       this.fetchContent(false);
     },
   },
   watch: {
     query: {
-      handler() {
+      handler(): void {
         this.fetchContent(true);
       },
     },
     organisation: {
-      handler() {
+      handler(): void {
         this.fetchContent(true);
       },
     },

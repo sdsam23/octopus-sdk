@@ -495,10 +495,10 @@ export default displayMethods.extend({
     },
   },
   methods: {
-    updatePodcast(podcastUpdated: Podcast) {
+    updatePodcast(podcastUpdated: Podcast): void {
       this.podcast = podcastUpdated;
     },
-    async getPodcastDetails(podcastId: number) {
+    async getPodcastDetails(podcastId: number): Promise<void> {
       try {
         let data = await octopusApi.fetchPodcast(podcastId);
         this.podcast = data;
@@ -539,35 +539,35 @@ export default displayMethods.extend({
         this.loaded = true;
       }
     },
-    getName(person: any) {
+    getName(person: any): string {
       const first = person.firstName || '';
       const last = person.lastName || '';
       return (first + ' ' + last).trim();
     },
-    playPodcast(podcast: Podcast) {
+    playPodcast(podcast: Podcast): void {
       this.$emit('playPodcast', podcast);
     },
-    removeDeleted() {
+    removeDeleted(): void {
       if (window.history.length > 1) {
         this.$router.go(-1);
       } else {
         this.$router.push('/');
       }
     },
-    receiveCommentEvent(event: any) {
+    receiveCommentEvent(event: any): void {
       (this.$refs.commentSection as any).receiveCommentEvent(event);
     },
   },
   watch: {
-    updateStatus() {
+    updateStatus(): void {
       if (this.fetchConference && null !== this.fetchConference) {
         this.fetchConference.status = this.updateStatus;
       }
     },
-    podcastId(val) {
+    podcastId(): void {
       this.loaded = false;
       this.error = false;
-      this.getPodcastDetails(val);
+      this.getPodcastDetails(this.podcastId);
     },
   },
 });

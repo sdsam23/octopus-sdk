@@ -122,7 +122,7 @@ export default Vue.extend({
     },
   },
   methods: {
-    resizeWindow() {
+    resizeWindow(): void {
       let categoryList = document.getElementById('category-list-container');
       categoryList!.style.justifyContent = 'flex-start';
       this.hidenCategories.length = 0;
@@ -143,23 +143,23 @@ export default Vue.extend({
         categoryList!.style.justifyContent = 'center';
       }
     },
-    async fetchCategories(organisationId:string) {
+    async fetchCategories(organisationId:string): Promise<void> {
       const data = await octopusApi.fetchCategoriesOrga(organisationId, {
         lang: 'fr',
       });
       this.$store.commit('categoriesOrgaSet', data);
     },
   },
-  beforeDestroy() {
+  beforeDestroy(): void {
     window.removeEventListener('resize', this.resizeWindow);
   },
   watch: {
-    categories() {
+    categories(): void {
       this.$nextTick(() => {
         this.resizeWindow();
       });
     },
-    filterOrga() {
+    filterOrga(): void {
       if (this.filterOrga) {
         this.fetchCategories(this.filterOrga);
       }

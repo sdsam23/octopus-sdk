@@ -154,7 +154,7 @@ export default Vue.extend({
     },
   },
   methods: {
-    async fetchContent(reset: boolean) {
+    async fetchContent(reset: boolean): Promise<void> {
       this.inFetching = true;
       if (reset) {
         this.podcasts.length = 0;
@@ -193,7 +193,7 @@ export default Vue.extend({
         this.afterFetching(reset, data);
       }
     },
-    afterFetching(reset: boolean, data: any) {
+    afterFetching(reset: boolean, data: any): void {
       if (reset) {
         this.podcasts.length = 0;
         this.dfirst = 0;
@@ -213,19 +213,19 @@ export default Vue.extend({
       }
       this.inFetching = false;
     },
-    displayMore(event: { preventDefault: () => void; }) {
+    displayMore(event: { preventDefault: () => void; }): void {
       event.preventDefault();
       this.fetchContent(false);
     },
   },
   watch: {
     changed: {
-      handler() {
+      handler(): void {
         this.fetchContent(true);
       },
     },
     reload: {
-      handler() {
+      handler(): void {
         this.fetchContent(true);
       },
     },

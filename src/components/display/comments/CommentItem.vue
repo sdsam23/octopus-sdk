@@ -242,18 +242,18 @@ export default displayMethods.extend({
     },
   },
   methods: {
-    answerComment() {
+    answerComment(): void {
       this.collapseVisible = true;
       this.focus = !this.focus;
     },
-    deleteComment() {
+    deleteComment(): void {
       this.$emit('deleteComment');
     },
-    updateComment(data: {type: string; comment: CommentPodcast; status?: string; }) {
+    updateComment(data: {type: string; comment: CommentPodcast; status?: string; }): void {
       this.isEditing = false;
       this.$emit('updateComment', data);
     },
-    newComment(comment: CommentPodcast, fromEvent:boolean = false) {
+    newComment(comment: CommentPodcast, fromEvent:boolean = false): void {
       if (undefined === this.fetchConference || fromEvent) {
         let updatedComment = this.comment;
         updatedComment.relatedComments += 1;
@@ -266,7 +266,7 @@ export default displayMethods.extend({
         (this.$refs.commentList as any).addNewComment(comment, true);
       }
     },
-    editComment() {
+    editComment(): void {
       if (this.comment.name && null !== this.comment.name) {
         this.temporaryName = this.comment.name;
       }
@@ -275,13 +275,13 @@ export default displayMethods.extend({
       }
       this.isEditing = true;
     },
-    validEdit() {
+    validEdit(): void {
       let comment = this.comment;
       comment.content = this.temporaryContent;
       comment.name = this.temporaryName;
       (this.$refs.editBox as any).updateComment(comment);
     },
-    updateStatus(data: string) {
+    updateStatus(data: string): void {
       let updatedComment = this.comment;
       if ('Valid' === data) {
         updatedComment.relatedValidComments += 1;
@@ -290,7 +290,7 @@ export default displayMethods.extend({
       }
       this.$emit('update:comment', updatedComment);
     },
-    receiveCommentEvent(event: {type: string; comment: CommentPodcast; status?: string; }) {
+    receiveCommentEvent(event: {type: string; comment: CommentPodcast; status?: string; }): void {
       switch (event.type) {
         case 'Create':
           this.newComment(event.comment, true);

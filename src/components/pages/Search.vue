@@ -95,12 +95,12 @@ export default Vue.extend({
     },
   },
   methods: {
-    onListEmpty() {
+    onListEmpty(): void {
       if (this.hideBar) {
         this.noResult = true;
       }
     },
-    onSearchBegin() {
+    onSearchBegin(): void {
       if (this.hideBar) {
         this.noResult = false;
       }
@@ -108,7 +108,7 @@ export default Vue.extend({
   },
   watch: {
     query: {
-        handler(search:any) {
+        handler(search:any): void {
           this.rawQuery = search;
         },
       deep: true,

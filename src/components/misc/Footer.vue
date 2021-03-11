@@ -156,7 +156,7 @@ export default Vue.extend({
   },
 
   methods: {
-    showBlackBorder(hide: boolean) {
+    showBlackBorder(hide: boolean): void {
       if (hide) {
         document.getElementById('footer')!.classList.remove('border-round');
       } else if (!this.isBarTop) {

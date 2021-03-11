@@ -104,7 +104,7 @@ export default selenium.extend({
     },
   },
   methods: {
-    clearAll() {
+    clearAll(): void {
       (this.$refs.multiselect as any).$refs.search.setAttribute(
         'autocomplete',
         'off'
@@ -127,7 +127,7 @@ export default selenium.extend({
         );
       }
     },
-    onClose() {
+    onClose(): void {
       if (this.rubrique || undefined !== this.rubriqueArray) return;
       if (undefined !== this.defaultanswer) {
         this.rubrique = getDefaultRubrique(this.defaultanswer);
@@ -136,7 +136,7 @@ export default selenium.extend({
       }
       this.onRubriqueSelected(this.rubrique);
     },
-    onSearchRubrique(query: string) {
+    onSearchRubrique(query: string): void {
       this.isLoading = true;
       let list;
       if (undefined !== this.defaultanswer) {
@@ -158,19 +158,19 @@ export default selenium.extend({
       });
       this.isLoading = false;
     },
-    onRubriqueSelected(rubrique:Rubrique) {
+    onRubriqueSelected(rubrique:Rubrique): void {
       if (undefined !== this.rubriqueSelected) {
         this.$emit('update:rubrique', rubrique.rubriqueId);
       } else if (undefined === this.rubriqueArray) {
         this.$emit('selected', rubrique);
       }
     },
-    initRubriqueSelected(val: number) {
+    initRubriqueSelected(val: number): void {
       this.rubrique = this.allRubriques.find((el:Rubrique) => {
         return el.rubriqueId === val;
       });
     },
-    initRubriqueArray(val: number[]) {
+    initRubriqueArray(val: number[]): void {
       this.rubrique.length = 0;
       val.forEach((element: number) => {
         let item = this.allRubriques.find((el:Rubrique) => {
@@ -181,18 +181,18 @@ export default selenium.extend({
     },
   },
   watch: {
-    rubriqueSelected(newVal) {
-      this.initRubriqueSelected(newVal);
+    rubriqueSelected(): void {
+      this.initRubriqueSelected(this.rubriqueSelected);
     },
-    rubrique(newVal) {
+    rubrique(): void {
       if (undefined === this.rubriqueArray) return;
       let idsArray: number[] = [];
-      newVal.forEach((el: { rubriqueId: number; }) => {
+      this.rubrique.forEach((el: { rubriqueId: number; }) => {
         idsArray.push(el.rubriqueId);
       });
       this.$emit('selected', idsArray);
     },
-    reset() {
+    reset(): void {
       this.rubrique = getDefaultRubrique(this.defaultanswer);
     },
   },

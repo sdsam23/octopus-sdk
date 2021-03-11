@@ -160,6 +160,7 @@ import { state } from '../../store/paramStore';
 const octopusApi = require('@saooti/octopus-api');
 
 import Vue from 'vue';
+import { Category } from '@/store/class/category';
 export default Vue.extend({
   name: 'LeftMenu',
 
@@ -208,29 +209,29 @@ export default Vue.extend({
     },
   },
   computed: {
-    isLiveTab() {
+    isLiveTab():boolean {
       return state.generalParameters.isLiveTab;
     },
-    categories() {
+    categories(): Array<Category> {
       return state.generalParameters.allCategories.filter((c: { podcastOrganisationCount: any; podcastCount: any; }) => {
         if (this.isPodcastmaker) return c.podcastOrganisationCount;
         return c.podcastCount;
       });
     },
-    isPodcastmaker() {
+    isPodcastmaker():boolean {
       return state.generalParameters.podcastmaker;
     },
-    filterOrga():any {
+    filterOrga():string {
       return this.$store.state.filter.organisationId;
     },
-    filterOrgaLive():any {
+    filterOrgaLive():string {
       return this.$store.state.filter.live;
     },
   },
   watch: {
-    filterOrga(newVal) {
-      if (newVal) {
-        this.organisationId = newVal;
+    filterOrga(): void {
+      if (this.filterOrga) {
+        this.organisationId = this.filterOrga;
       } else {
         this.reset = !this.reset;
       }

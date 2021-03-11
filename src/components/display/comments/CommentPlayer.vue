@@ -71,7 +71,7 @@ export default selenium.extend({
     };
   },
   methods: {
-    percentPosition(time: number) {
+    percentPosition(time: number): number {
       let realDuration = this.totalTime;
       if (
         this.$store.state.player.podcast &&

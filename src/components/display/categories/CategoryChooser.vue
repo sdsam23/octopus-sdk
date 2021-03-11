@@ -117,7 +117,7 @@ export default Vue.extend({
     }
   },
   methods: {
-    clearAll() {
+    clearAll(): void {
       (this.$refs.multiselect as any).$refs.search.setAttribute(
         'autocomplete',
         'off'
@@ -144,13 +144,13 @@ export default Vue.extend({
         this.categories = this.totalCategories;
       }
     },
-    onClose() {
+    onClose(): void {
       if (!this.category && undefined === this.categoryArray) {
         this.category = getDefaultCategory(this.defaultanswer);
         this.onCategorySelected(this.category!);
       }
     },
-    onSearchCategory(query: string) {
+    onSearchCategory(query: string): void {
       this.isLoading = true;
       let list: Array<Category> = [getDefaultCategory(this.defaultanswer)!].concat(
         this.totalCategories
@@ -163,19 +163,19 @@ export default Vue.extend({
       });
       this.isLoading = false;
     },
-    onCategorySelected(category: Category) {
+    onCategorySelected(category: Category): void {
       if (undefined !== this.categorySelected) {
         this.$emit('update:categorySelected', category.id);
       } else if (undefined === this.categoryArray) {
         this.$emit('selected', category);
       }
     },
-    initCategorySelected(val: number) {
+    initCategorySelected(val: number): void {
       this.category = state.generalParameters.allCategories.find((el: Category) => {
         return el.id === val;
       });
     },
-    initCategoryArray(val: Array<number>) {
+    initCategoryArray(val: Array<number>): void {
       this.categoryForArray!.length = 0;
       val.forEach((element: number) => {
         let item = state.generalParameters.allCategories.find((el: Category) => {
@@ -186,10 +186,10 @@ export default Vue.extend({
     },
   },
   watch: {
-    categorySelected() {
+    categorySelected(): void {
       this.initCategorySelected(this.categorySelected);
     },
-    model() {
+    model(): void {
       if(undefined===this.categoryArray){
         return;
       }

@@ -120,7 +120,7 @@ export default displayMethods.extend({
     },
   },
   methods: {
-    async getPlaylistDetails() {
+    async getPlaylistDetails(): Promise<void> {
       try {
         const data = await octopusApi.fetchPlaylist(this.playlistId);
         this.playlist = data;

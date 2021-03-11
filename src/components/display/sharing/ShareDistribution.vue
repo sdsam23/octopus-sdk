@@ -190,7 +190,7 @@ export default displayMethods.extend({
   },
 
   methods: {
-    async getEmissionDetails() {
+    async getEmissionDetails(): Promise<void> {
       try {
         const data = await octopusApi.fetchEmission(this.emissionId);
         this.emission = data;
@@ -198,12 +198,12 @@ export default displayMethods.extend({
         this.error = true;
       }
     },
-    getRSS() {
+    getRSS(): void {
       if (!this.$props.emissionId || this.$props.emissionId <= 0) return;
       this.baseRss = octopusApi.fetchRSS(this.emissionId);
       this.rss = this.baseRss;
     },
-    afterCopy(){
+    afterCopy(): void{
       (this.$refs.snackbar as any).open(this.$t('Link in clipboard'));
     }
   },

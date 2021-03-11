@@ -165,14 +165,14 @@ export default Vue.extend({
 
 
   methods: {
-    displayMenuPhone(hidden: boolean) {
+    displayMenuPhone(hidden: boolean): void {
       if (hidden) {
         (this.$refs.menu as HTMLElement).className='menu hid';
       } else {
         (this.$refs.menu as HTMLElement).className='menu';
       }
     },
-    goToUrl(url: string) {
+    goToUrl(url: string): void {
       if (this.authenticated) {
         this.$router.push(url);
       }

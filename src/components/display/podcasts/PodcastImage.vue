@@ -338,7 +338,7 @@ export default Vue.extend({
   },
  
   methods: {
-    play() {
+    play(): void {
       if (this.isLiveToBeRecorded) {
         return;
       }
@@ -355,7 +355,7 @@ export default Vue.extend({
         organisation: this.podcast.organisation.id,
       });
     },
-    showDescription() {
+    showDescription(): void {
       if (this.isDescription) {
         this.$emit('hideDescription');
       } else {
@@ -365,7 +365,7 @@ export default Vue.extend({
     },
   },
   watch: {
-    arrowDirection() {
+    arrowDirection(): void {
       if ('up' === this.arrowDirection) {
         this.isDescription = true;
         this.showDescription();

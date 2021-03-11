@@ -231,13 +231,13 @@ export default displayMethods.extend({
     },
   },
   methods: {
-    openPopup() {
+    openPopup(): void {
       this.dataRSSSave = !this.dataRSSSave;
     },
-    closeModal() {
+    closeModal(): void {
       this.dataRSSSave = false;
     },
-    afterCopy(){
+    afterCopy(): void{
       (this.$refs.snackbar as any).open(this.$t('Link in clipboard'));
     }
   },
