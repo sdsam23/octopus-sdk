@@ -200,28 +200,28 @@ export default displayMethods.extend({
     };
   },
   computed: {
-    date():string {
+    date(): string {
       if (this.comment.date)
         return moment(this.comment.date).format('D MMMM YYYY HH[h]mm');
       return '';
     },
-    limitContent():string {
+    limitContent(): string {
       if (!this.comment.content) return '';
       if (this.comment.content.length <= 300) return this.comment.content;
       return this.comment.content.substring(0, 300) + '...';
     },
-    readMore():string {
+    readMore(): string {
       if (this.summary) return this.$t('Read more').toString();
       return this.$t('Read less').toString();
     },
-    contentDisplay():string {
+    contentDisplay(): string {
       if (this.summary) return this.limitContent;
       return this.comment.content;
     },
-    organisationId():string {
+    organisationId(): string {
       return state.generalParameters.organisationId;
     },
-    editRight():boolean {
+    editRight(): boolean {
       if (
         (state.generalParameters.isCommments &&
           ((this.podcast &&
@@ -233,14 +233,14 @@ export default displayMethods.extend({
       return false;
     },
     knownIdentity: {
-      get():string|null {
+      get(): string|null {
         return this.$store.state.comments.knownIdentity;
       },
       set(value: string|null) {
         this.$store.commit('setCommentIdentity', value);
       },
     },
-    recordingInLive():boolean {
+    recordingInLive(): boolean {
       return (
         undefined!==this.podcast &&
         undefined!==this.podcast.conferenceId &&
@@ -257,13 +257,13 @@ export default displayMethods.extend({
     deleteComment(): void {
       this.$emit('deleteComment');
     },
-    updateComment(data: {type: string; comment: CommentPodcast; status?: string; }): void {
+    updateComment(data: {type: string; comment: CommentPodcast; status?: string }): void {
       this.isEditing = false;
       this.$emit('updateComment', data);
     },
-    newComment(comment: CommentPodcast, fromEvent:boolean = false): void {
+    newComment(comment: CommentPodcast, fromEvent = false): void {
       if (undefined === this.fetchConference || fromEvent) {
-        let updatedComment = this.comment;
+        const updatedComment = this.comment;
         updatedComment.relatedComments! += 1;
         if ('Valid' === comment.status) {
           updatedComment.relatedValidComments! += 1;
@@ -284,13 +284,13 @@ export default displayMethods.extend({
       this.isEditing = true;
     },
     validEdit(): void {
-      let comment = this.comment;
+      const comment = this.comment;
       comment.content = this.temporaryContent;
       comment.name = this.temporaryName;
       (this.$refs.editBox as any).updateComment(comment);
     },
     updateStatus(data: string): void {
-      let updatedComment = this.comment;
+      const updatedComment = this.comment;
       if ('Valid' === data) {
         updatedComment.relatedValidComments! += 1;
       } else {
@@ -298,7 +298,7 @@ export default displayMethods.extend({
       }
       this.$emit('update:comment', updatedComment);
     },
-    receiveCommentEvent(event: {type: string; comment: CommentPodcast; status?: string; }): void {
+    receiveCommentEvent(event: {type: string; comment: CommentPodcast; status?: string }): void {
       switch (event.type) {
         case 'Create':
           this.newComment(event.comment, true);
@@ -307,7 +307,7 @@ export default displayMethods.extend({
           if (this.$refs.commentList) {
             (this.$refs.commentList as any).updateComment({ comment: event.comment });
           } else {
-            let updatedComment = this.comment;
+            const updatedComment = this.comment;
             if ('Invalid' === event.status) {
               updatedComment.relatedValidComments! -= 1;
             } else if ('Valid' === event.status) {
@@ -320,7 +320,7 @@ export default displayMethods.extend({
           if (this.$refs.commentList) {
             (this.$refs.commentList as any).deleteComment(event.comment);
           } else {
-            let updatedComment = this.comment;
+            const updatedComment = this.comment;
             updatedComment.relatedComments! -= 1;
             if ('Valid' === event.comment.status) {
               updatedComment.relatedValidComments! -= 1;

@@ -64,14 +64,14 @@ export default Vue.extend({
   },
   
   computed: {
-    liveRight():boolean {
+    liveRight(): boolean {
       if (this.isRoleLive && this.live) return true;
       return false;
     },
-    isRoleLive():boolean {
+    isRoleLive(): boolean {
       return state.generalParameters.isRoleLive;
     },
-    filterOrga():string {
+    filterOrga(): string {
       return this.$store.state.filter.organisationId;
     },
   },

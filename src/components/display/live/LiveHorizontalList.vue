@@ -61,10 +61,10 @@ export default Vue.extend({
 
  
   computed: {
-    allFetched():boolean {
+    allFetched(): boolean {
       return this.dfirst >= this.totalCount;
     },
-    buttonPlus():boolean {
+    buttonPlus(): boolean {
       return state.generalParameters.buttonPlus;
     },
   },
@@ -76,7 +76,7 @@ export default Vue.extend({
         this.dfirst = 0;
         this.notEmpty = false;
       }
-      let param = {
+      const param = {
         first: this.dfirst,
         size: this.dsize,
         emissionId: this.emissionId,
@@ -100,7 +100,7 @@ export default Vue.extend({
       }
       this.inFetching = false;
     },
-    displayMore(event: { preventDefault: () => void; }): void {
+    displayMore(event: { preventDefault: () => void }): void {
       event.preventDefault();
       this.fetchContent(false);
     },

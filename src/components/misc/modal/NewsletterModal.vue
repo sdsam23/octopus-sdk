@@ -133,7 +133,7 @@ export default displayMethods.extend({
   },
  
   computed: {
-    emissionName():string {
+    emissionName(): string {
       if (this.displayEmissionName)
         return (
           `<tr><td colspan="2" style="font-size: 16px;line-height:24px;font-weight: bold;">` +
@@ -142,10 +142,10 @@ export default displayMethods.extend({
         );
       return '';
     },
-    participantsName():string {
+    participantsName(): string {
       if (!this.displayParticipantsNames || !this.podcast.animators) return '';
-      let text = [''];
-      this.podcast.animators.forEach((element:any) => {
+      const text = [''];
+      this.podcast.animators.forEach((element: any) => {
         text.push(
           `<table width='100%' style="width:100%;background: #f3f3f3;font-family: Arial, sans-serif;font-size: 12px;line-height: 20px;border-bottom-left-radius: 1.5em;border-bottom-right-radius: 1.5em;">
 					<tr>
@@ -176,8 +176,8 @@ export default displayMethods.extend({
       });
       return text.join('');
     },
-    newsletterHtml():string {
-      let html = [
+    newsletterHtml(): string {
+      const html = [
         `<table width='100%' style="width:100%;background:#f3f3f3;font-family: Arial, sans-serif;font-size: 12px;line-height: 20px;border-top-left-radius: 1.5em;border-top-right-radius: 1.5em;">
 		<tr>
 				<td valign="top" rowspan="4" style="vertical-align: top; padding: 10px;">
@@ -244,12 +244,12 @@ export default displayMethods.extend({
       );
       return html.join('');
     },
-    date():string {
+    date(): string {
       if (1970 !== moment(this.podcast.pubDate).year())
         return moment(this.podcast.pubDate).format('D MMMM YYYY [à] HH[h]mm');
       return '';
     },
-    duration():string {
+    duration(): string {
       if (this.podcast.duration <= 1) return '';
       if (this.podcast.duration > 600000) {
         return humanizeDuration(this.podcast.duration, {
@@ -266,11 +266,11 @@ export default displayMethods.extend({
     },
   },
   methods: {
-    closePopup(event: { preventDefault: () => void; }): void {
+    closePopup(event: { preventDefault: () => void }): void {
       event.preventDefault();
       this.$emit('close');
     },
-    getName(person:Participant): string {
+    getName(person: Participant): string {
       const first = person.firstName || '';
       const last = person.lastName || '';
       return (first + ' ' + last).trim();

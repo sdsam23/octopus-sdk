@@ -1,3 +1,5 @@
+import { Organisation } from "./organisation";
+
 export interface Person{
     attributes?: any;
     email: string;
@@ -7,4 +9,5 @@ export interface Person{
     last: string;
     notSeenOnKeycloak: number;
     userId: string;
+    organisation?: Organisation;
 }

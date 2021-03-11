@@ -212,22 +212,22 @@ export default Vue.extend({
     },
   },
   computed: {
-    isLiveTab():boolean {
+    isLiveTab(): boolean {
       return state.generalParameters.isLiveTab;
     },
     categories(): Array<Category> {
-      return state.generalParameters.allCategories.filter((c: { podcastOrganisationCount: any; podcastCount: any; }) => {
+      return state.generalParameters.allCategories.filter((c: Category) => {
         if (this.isPodcastmaker) return c.podcastOrganisationCount;
         return c.podcastCount;
       });
     },
-    isPodcastmaker():boolean {
+    isPodcastmaker(): boolean {
       return state.generalParameters.podcastmaker;
     },
-    filterOrga():string {
+    filterOrga(): string {
       return this.$store.state.filter.organisationId;
     },
-    filterOrgaLive():string {
+    filterOrgaLive(): string {
       return this.$store.state.filter.live;
     },
   },

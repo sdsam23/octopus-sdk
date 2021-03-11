@@ -87,6 +87,7 @@ export default Vue.extend({
     categoryFilter: { default: false as boolean},
     reload: { default: false as boolean},
     editRight: { default: false as boolean},
+    productorId: { default: undefined as string|undefined},
   },
 
    data() {
@@ -107,20 +108,20 @@ export default Vue.extend({
     }
   },
   computed: {
-    query():string {
+    query(): string {
       if (this.searchPattern.length >= 3) return this.searchPattern;
       return '';
     },
   },
   methods: {
-    onCategorySelected(category:Category|undefined): void {
+    onCategorySelected(category: Category|undefined): void {
       if (category && category.id) {
         this.iabId = category.id;
       } else {
         this.iabId = undefined;
       }
     },
-    fetch(podcasts:any): void {
+    fetch(podcasts: any): void {
       this.$emit('fetch', podcasts);
     },
   },

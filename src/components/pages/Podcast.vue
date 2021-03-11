@@ -316,14 +316,14 @@ export default displayMethods.extend({
     await this.getPodcastDetails(this.podcastId);
     if (!this.isLiveReadyToRecord) return;
     if (this.isOctopusAndAnimator) {
-      let data : any = await studioApi.getConference(this.$store,this.podcast!.conferenceId);
+      const data: any = await studioApi.getConference(this.$store,this.podcast!.conferenceId);
       if ('' !== data.data) {
         this.fetchConference = data.data;
       } else {
         this.fetchConference = {conferenceId:-1, title:''};
       }
     } else if(undefined!==this.podcast!.conferenceId){
-      let data:any = await studioApi.getRealConferenceStatus(this.$store,this.podcast!.conferenceId);
+      const data: any = await studioApi.getRealConferenceStatus(this.$store,this.podcast!.conferenceId);
       this.fetchConference = {
         status: data.data,
         conferenceId: this.podcast!.conferenceId,
@@ -341,37 +341,37 @@ export default displayMethods.extend({
   },
   
   computed: {
-    isPodcastmaker():boolean {
+    isPodcastmaker(): boolean {
       return state.generalParameters.podcastmaker;
     },
-    isEditBox():boolean {
+    isEditBox(): boolean {
       return state.podcastPage.EditBox;
     },
-    isShareButtons():boolean {
+    isShareButtons(): boolean {
       return state.podcastPage.ShareButtons;
     },
-    isSharePlayer():boolean {
+    isSharePlayer(): boolean {
       return state.podcastPage.SharePlayer;
     },
-    allCategories():any {
+    allCategories(): any {
       return state.generalParameters.allCategories;
     },
-    organisationId():string {
+    organisationId(): string {
       return state.generalParameters.organisationId;
     },
-    authenticated():boolean {
+    authenticated(): boolean {
       return state.generalParameters.authenticated;
     },
-    isOuestFrance():boolean {
+    isOuestFrance(): boolean {
       return state.podcastPage.ouestFranceStyle;
     },
-    isTagList():boolean {
+    isTagList(): boolean {
       return state.podcastPage.tagList;
     },
-    isDownloadButton():boolean {
+    isDownloadButton(): boolean {
       return state.podcastPage.downloadButton;
     },
-    emissionMainCategory():number {
+    emissionMainCategory(): number {
       if (
         this.podcast!.emission.annotations &&
         this.podcast!.emission.annotations.mainIabId
@@ -385,27 +385,27 @@ export default displayMethods.extend({
       }
       return 0;
     },
-    categories():any {
+    categories(): any {
       if ('undefined' === typeof this.podcast) return '';
       return this.allCategories
-        .filter((item:any) => {
+        .filter((item: any) => {
           return (
             this.podcast!.emission.iabIds &&
             -1 !== this.podcast!.emission.iabIds.indexOf(item.id)
           );
         })
-        .sort((a:any, b:any) => {
+        .sort((a: any, b: any) => {
           if (a.id === this.emissionMainCategory) return -1;
           if (b.id === this.emissionMainCategory) return 1;
           return 0;
         });
     },
-    date():string {
+    date(): string {
       if (1970 !== moment(this.podcast!.pubDate).year())
         return moment(this.podcast!.pubDate).format('D MMMM YYYY [à] HH[h]mm');
       return '';
     },
-    duration():string {
+    duration(): string {
       if (this.podcast!.duration <= 1) return '';
       if (this.podcast!.duration > 600000) {
         return humanizeDuration(this.podcast!.duration, {
@@ -420,7 +420,7 @@ export default displayMethods.extend({
         round: true,
       });
     },
-    editRight():boolean {
+    editRight(): boolean {
       if (
         (this.authenticated &&
           this.organisationId === this.podcast!.organisation.id) ||
@@ -429,7 +429,7 @@ export default displayMethods.extend({
         return true;
       return false;
     },
-    isReady():boolean {
+    isReady(): boolean {
       /* if(this.podcast && this.podcast.processingStatus !== "PLANNED" && this.podcast.processingStatus !== "PROCESSING"){
         return true;
       }else{
@@ -437,7 +437,7 @@ export default displayMethods.extend({
       } */
       return true;
     },
-    countLink():number {
+    countLink(): number {
       let count = 0;
       if (this.podcast!.emission && this.podcast!.emission.annotations) {
         if (undefined !== this.podcast!.emission.annotations.applePodcast)
@@ -450,17 +450,17 @@ export default displayMethods.extend({
       }
       return count;
     },
-    isLiveReadyToRecord():boolean {
+    isLiveReadyToRecord(): boolean {
       return (undefined!==this.podcast!.conferenceId && 0 !== this.podcast!.conferenceId && 'READY_TO_RECORD' === this.podcast!.processingStatus);
     },
-    isLiveReady():boolean {
+    isLiveReady(): boolean {
       return (
         undefined!==this.podcast!.conferenceId &&
         0 !== this.podcast!.conferenceId &&
         'READY' === this.podcast!.processingStatus
       );
     },
-    isCounter():boolean {
+    isCounter(): boolean {
       return (
         this.isLiveReadyToRecord &&
         undefined!==this.fetchConference &&
@@ -468,28 +468,28 @@ export default displayMethods.extend({
           'PENDING' === this.fetchConference.status)
       );
     },
-    isNotRecorded():boolean {
+    isNotRecorded(): boolean {
       return (
         this.isLiveReadyToRecord &&
         undefined!==this.fetchConference &&
         'DEBRIEFING' === this.fetchConference.status
       );
     },
-    isOctopusAndAnimator():boolean {
+    isOctopusAndAnimator(): boolean {
       return (
         !this.isPodcastmaker &&
         this.editRight &&
         state.generalParameters.isRoleLive
       );
     },
-    titlePage():string {
+    titlePage(): string {
       if (this.isLiveReadyToRecord) return this.$t('Live episode').toString();
       return this.$t('Episode').toString();
     },
-    timeRemaining():string {
+    timeRemaining(): string {
       return moment(this.podcast!.pubDate).diff(moment(), 'seconds');
     },
-    podcastNotValid():boolean {
+    podcastNotValid(): boolean {
       if (
         this.podcast &&
         this.podcast.availability &&
@@ -505,7 +505,7 @@ export default displayMethods.extend({
     },
     async getPodcastDetails(podcastId: number): Promise<void> {
       try {
-        let data = await octopusApi.fetchPodcast(podcastId);
+        const data = await octopusApi.fetchPodcast(podcastId);
         this.podcast = data;
         this.$emit('podcastTitle', this.podcast!.title);
         if (

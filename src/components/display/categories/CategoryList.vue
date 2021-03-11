@@ -103,31 +103,31 @@ export default Vue.extend({
   },
 
   computed: {
-    isPodcastmaker():boolean {
+    isPodcastmaker(): boolean {
       return state.generalParameters.podcastmaker;
     },
-    categories():Array<Category> {
+    categories(): Array<Category> {
       if (this.filterOrga) {
-        return this.$store.state.categoriesOrga.filter((c:Category) => {
+        return this.$store.state.categoriesOrga.filter((c: Category) => {
           return c.podcastOrganisationCount;
         });
       }
-      return state.generalParameters.allCategories.filter((c:Category) => {
+      return state.generalParameters.allCategories.filter((c: Category) => {
         if (this.isPodcastmaker) return c.podcastOrganisationCount;
         return c.podcastCount;
       });
     },
-    filterOrga():string {
+    filterOrga(): string {
       return this.$store.state.filter.organisationId;
     },
   },
   methods: {
     resizeWindow(): void {
-      let categoryList = document.getElementById('category-list-container');
+      const categoryList = document.getElementById('category-list-container');
       categoryList!.style.justifyContent = 'flex-start';
       this.hidenCategories.length = 0;
-      this.categories.forEach((element:Category) => {
-        let el = document.getElementById('category' + element.id);
+      this.categories.forEach((element: Category) => {
+        const el = document.getElementById('category' + element.id);
         if (!el) return;
         const parent = el.parentElement;
         if (el.offsetLeft + el.clientWidth <= parent!.clientWidth - 20) {
@@ -143,7 +143,7 @@ export default Vue.extend({
         categoryList!.style.justifyContent = 'center';
       }
     },
-    async fetchCategories(organisationId:string): Promise<void> {
+    async fetchCategories(organisationId: string): Promise<void> {
       const data = await octopusApi.fetchCategoriesOrga(organisationId, {
         lang: 'fr',
       });

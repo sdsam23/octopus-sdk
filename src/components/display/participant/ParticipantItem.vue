@@ -132,10 +132,10 @@ export default displayMethods.extend({
     this.hasPodcast();
   },
   mounted() {
-    let participantDesc = document.getElementById(
+    const participantDesc = document.getElementById(
       'description-participant-' + this.participant.participantId
     );
-    let participantDescContainer = document.getElementById(
+    const participantDescContainer = document.getElementById(
       'description-participant-container-' + this.participant.participantId
     );
     if (
@@ -147,17 +147,16 @@ export default displayMethods.extend({
   },
   
   computed: {
-    isPodcastmaker():boolean {
+    isPodcastmaker(): boolean {
       return state.generalParameters.podcastmaker;
     },
-    description():string {
-      let description;
-      description = this.participant.description || '';
+    description(): string {
+      const description = this.participant.description || '';
       if (state.generalParameters.isIE11)
         return description.substring(0, 50) + '...';
       return description;
     },
-    name():string {
+    name(): string {
       const fullName = (
         (this.participant.firstName || '') +
         ' ' +
@@ -167,13 +166,13 @@ export default displayMethods.extend({
         return fullName.substring(0, 50) + '...';
       return fullName;
     },
-    organisationId():string {
+    organisationId(): string {
       return state.generalParameters.organisationId;
     },
-    authenticated():boolean {
+    authenticated(): boolean {
       return state.generalParameters.authenticated;
     },
-    editRight():boolean {
+    editRight(): boolean {
       if (
         (this.authenticated &&
           this.organisationId === this.participant.orga.id) ||

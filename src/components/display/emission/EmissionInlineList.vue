@@ -134,22 +134,22 @@ export default Vue.extend({
 
 
   computed: {
-    emissions():Array<Emission> {
+    emissions(): Array<Emission> {
       return this.allEmissions.slice(this.index, this.index + this.size);
     },
-    overflowScroll():boolean {
+    overflowScroll(): boolean {
       return state.emissionsPage.overflowScroll;
     },
-    previousAvailable():boolean {
+    previousAvailable(): boolean {
       return this.index > 0;
     },
-    nextAvailable():boolean {
+    nextAvailable(): boolean {
       return this.index + this.size < this.totalCount;
     },
-    displayRubriquage():string {
+    displayRubriquage(): string {
       return state.emissionsPage.rubriquage;
     },
-    transitionName():string {
+    transitionName(): string {
       return this.direction > 0 ? 'out-left' : 'out-right';
     }
   },
@@ -176,7 +176,7 @@ export default Vue.extend({
         });
       } */
       if (this.allEmissions.length + data.result.length < this.totalCount) {
-        let nexEl = data.result.pop();
+        const nexEl = data.result.pop();
         this.preloadImage(nexEl.imageUrl);
       }
       this.allEmissions = this.allEmissions.concat(data.result);
@@ -228,14 +228,14 @@ export default Vue.extend({
       this.allEmissions.length = 0;
     },
     preloadImage(url: string): void {
-      let img = new Image();
+      const img = new Image();
       img.src = url;
     },
     async fetchRubriques(): Promise<void> {
       const data = await octopusApi.fetchTopic(this.displayRubriquage);
       this.rubriques = data.rubriques;
     },
-    rubriquesId(emission:Emission): string|undefined {
+    rubriquesId(emission: Emission): string|undefined {
       if (
         !this.displayRubriquage ||
         !emission.rubriqueIds ||
@@ -244,7 +244,7 @@ export default Vue.extend({
         !this.rubriques.length
       )
         return undefined;
-      let rubrique = this.rubriques.find(
+      const rubrique = this.rubriques.find(
         (element: Rubrique) => element.rubriqueId === emission.rubriqueIds[0]
       );
       return rubrique!.name;

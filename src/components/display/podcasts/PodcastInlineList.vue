@@ -200,18 +200,18 @@ export default Vue.extend({
     this.fetchNext();
   },
   computed: {
-    podcasts():Array<Podcast> {
+    podcasts(): Array<Podcast> {
       return this.allPodcasts.slice(this.index, this.index + this.size);
     },
-    filterOrga():string {
+    filterOrga(): string {
       return this.$store.state.filter.organisationId;
     },
-    organisation():string|undefined {
+    organisation(): string|undefined {
       if (this.organisationId) return this.organisationId;
       if (this.filterOrga) return this.filterOrga;
       return undefined;
     },
-    refTo():any {
+    refTo(): any {
       if (this.href) return this.href;
       return {
         name: 'category',
@@ -219,13 +219,13 @@ export default Vue.extend({
         query: { productor: this.$store.state.filter.organisationId },
       };
     },
-    previousAvailable():boolean {
+    previousAvailable(): boolean {
       return this.index > 0;
     },
-    nextAvailable():boolean {
+    nextAvailable(): boolean {
       return this.index + this.size < this.totalCount;
     },
-    transitionName():string {
+    transitionName(): string {
       return this.direction > 0 ? 'out-left' : 'out-right';
     }
   },
@@ -245,11 +245,11 @@ export default Vue.extend({
       this.loaded = true;
       this.totalCount = data.count;
       if (this.allPodcasts.length + data.result.length < this.totalCount) {
-        let nexEl = data.result.pop();
+        const nexEl = data.result.pop();
         this.preloadImage(nexEl.imageUrl);
       }
       this.allPodcasts = this.allPodcasts.concat(
-        data.result.filter((pod:Podcast|null) => null !== pod)
+        data.result.filter((pod: Podcast|null) => null !== pod)
       );
       if (this.allPodcasts.length <= 3) {
         this.alignLeft = true;
@@ -305,8 +305,8 @@ export default Vue.extend({
       this.totalCount = 0;
       this.allPodcasts.length = 0;
     },
-    preloadImage(url:string): void {
-      let img = new Image();
+    preloadImage(url: string): void {
+      const img = new Image();
       img.src = url;
     },
   },

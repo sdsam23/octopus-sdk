@@ -85,10 +85,10 @@ export default Vue.extend({
   },
 
   computed: {
-    authenticated():boolean {
+    authenticated(): boolean {
       return state.generalParameters.authenticated;
     },
-    isCaptchaTest():boolean {
+    isCaptchaTest(): boolean {
       return state.generalParameters.isCaptchaTest;
     },
   },
@@ -114,7 +114,7 @@ export default Vue.extend({
       }
       this.sendComment();
     },
-    closePopup(event: { preventDefault: () => void; }): void {
+    closePopup(event: { preventDefault: () => void }): void {
       event.preventDefault();
       this.$emit('close');
     },

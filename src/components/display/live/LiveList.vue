@@ -160,15 +160,15 @@ export default Vue.extend({
   },
   
   computed: {
-    filterOrgaUsed():string|undefined {
+    filterOrgaUsed(): string|undefined {
       if (this.filterOrga) return this.filterOrga;
       if (this.organisationId) return this.organisationId;
       return undefined;
     },
-    filterOrga():string {
+    filterOrga(): string {
       return this.$store.state.filter.organisationId;
     },
-    displayNextLiveMessage():string {
+    displayNextLiveMessage(): string {
       if (0 !== this.lives.length) return '';
       if (this.livesNotStarted.length > 0)
         return this.$t('A live can start any moment').toString();
@@ -178,15 +178,15 @@ export default Vue.extend({
         }).toString();
       return '';
     },
-    myOrganisationId():string {
+    myOrganisationId(): string {
       return state.generalParameters.organisationId;
     },
-    organisationRight():boolean {
+    organisationRight(): boolean {
       if (this.isRoleLive && this.myOrganisationId === this.filterOrgaUsed)
         return true;
       return false;
     },
-    isRoleLive():boolean {
+    isRoleLive(): boolean {
       return state.generalParameters.isRoleLive;
     },
   },
@@ -207,16 +207,16 @@ export default Vue.extend({
       }
       this.loading = true;
       this.loaded = false;
-      let dataLives = await studioApi.listConferences(
+      const dataLives = await studioApi.listConferences(
         this.$store,
         true,
         this.filterOrgaUsed,
         'RECORDING'
       );
-      this.lives = dataLives.filter((p:Conference | null) => {
+      this.lives = dataLives.filter((p: Conference | null) => {
         return null !== p;
       });
-      let dataLivesToBe = await studioApi.listConferences(
+      const dataLivesToBe = await studioApi.listConferences(
         this.$store,
         true,
         this.filterOrgaUsed,
@@ -231,7 +231,7 @@ export default Vue.extend({
           break;
         }
       }
-      let dataLivesPlanned = await studioApi.listConferences(
+      const dataLivesPlanned = await studioApi.listConferences(
         this.$store,
         true,
         this.filterOrgaUsed,
@@ -244,7 +244,7 @@ export default Vue.extend({
           return null !== p;
         });
       if (this.organisationRight) {
-        let dataLivesTerminated = await studioApi.listConferences(
+        const dataLivesTerminated = await studioApi.listConferences(
           this.$store,
           true,
           this.filterOrgaUsed,
@@ -253,7 +253,7 @@ export default Vue.extend({
         this.livesTerminated = dataLivesTerminated.filter((p: Conference | null) => {
           return null !== p;
         });
-        let dataLivesError = await studioApi.listConferences(
+        const dataLivesError = await studioApi.listConferences(
           this.$store,
           true,
           this.filterOrgaUsed,
@@ -262,7 +262,7 @@ export default Vue.extend({
         this.livesError = dataLivesError.filter((p: Conference | null) => {
           return null !== p;
         });
-        let dataLivesPublishing = await studioApi.listConferences(
+        const dataLivesPublishing = await studioApi.listConferences(
           this.$store,
           true,
           this.filterOrgaUsed,
@@ -272,7 +272,7 @@ export default Vue.extend({
           return null !== p;
         });
       }
-      let listIds = this.lives
+      const listIds = this.lives
         .concat(this.livesToBe)
         .concat(this.livesNotStarted);
       this.$emit('initConferenceIds', listIds);
@@ -304,22 +304,22 @@ export default Vue.extend({
         index++
       ) {
         const element = this.conferenceWatched[index];
-        let indexLivesToBe = this.livesToBe.findIndex(
+        const indexLivesToBe = this.livesToBe.findIndex(
           (el: Conference) => el.conferenceId === element.conferenceId
         );
         if (-1 === indexLivesToBe) {
-          let indexLives = this.lives.findIndex(
+          const indexLives = this.lives.findIndex(
             (el: Conference) => el.conferenceId === element.conferenceId
           );
           if (-1 === indexLives || 'DEBRIEFING' !== element.status) continue;
-          let newConf = this.lives[indexLives];
+          const newConf = this.lives[indexLives];
           newConf.status = element.status;
           this.lives.splice(indexLives, 1);
           this.livesTerminated.push(newConf);
           break;
         }
         if ('RECORDING' !== element.status) continue;
-        let newConf = this.livesToBe[indexLivesToBe];
+        const newConf = this.livesToBe[indexLivesToBe];
         newConf.status = element.status;
         this.livesToBe.splice(indexLivesToBe, 1);
         this.lives.push(newConf);

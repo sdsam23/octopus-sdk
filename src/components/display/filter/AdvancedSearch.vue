@@ -329,10 +329,10 @@ export default Vue.extend({
 
   
   computed: {
-    isMonetizableFilter():boolean {
+    isMonetizableFilter(): boolean {
       return state.podcastsPage.MonetizableFilter;
     },
-    rubriquageDisplay():boolean {
+    rubriquageDisplay(): boolean {
       if (0 === this.rubriquageData.length) return false;
       let found = false;
       for (
@@ -347,19 +347,19 @@ export default Vue.extend({
       }
       return found;
     },
-    myOrganisationId():string {
+    myOrganisationId(): string {
       return state.generalParameters.organisationId;
     },
-    authenticated():boolean {
+    authenticated(): boolean {
       return state.generalParameters.authenticated;
     },
-    isProduction():boolean {
+    isProduction(): boolean {
       return state.generalParameters.isProduction;
     },
-    isContribution():boolean {
+    isContribution(): boolean {
       return state.generalParameters.isContribution;
     },
-    organisationRight():boolean {
+    organisationRight(): boolean {
       if (
         (this.authenticated && this.myOrganisationId === this.organisationId) ||
         state.generalParameters.isAdmin
@@ -367,22 +367,22 @@ export default Vue.extend({
         return true;
       return false;
     },
-    isPodcastmaker():boolean {
+    isPodcastmaker(): boolean {
       return state.generalParameters.podcastmaker;
     },
-    filterOrga():string {
+    filterOrga(): string {
       return this.$store.state.filter.organisationId;
     },
-    organisation():string|undefined {
+    organisation(): string|undefined {
       if (this.organisationId) return this.organisationId;
       if (this.filterOrga) return this.filterOrga;
       return undefined;
     },
-    textNotVisible():string {
+    textNotVisible(): string {
       if (this.isEmission) return this.$t('Consider podcasts no visible').toString();
       return this.$t('See podcasts no visible').toString();
     },
-    isCheckboxNotValidate():boolean {
+    isCheckboxNotValidate(): boolean {
       return (
         undefined!==this.organisation &&
         this.organisationRight &&
@@ -392,7 +392,7 @@ export default Vue.extend({
         this.isNotVisible
       );
     },
-    textNotValidate():string {
+    textNotValidate(): string {
       if (this.isProduction) return this.$t('Display all podcasts to validate').toString();
       return this.$t('Display my podcasts to validate').toString();
     },
@@ -432,7 +432,7 @@ export default Vue.extend({
       }
     },
     getRubriques(rubriquageId: number): Array<Rubrique> {
-      let topicIndex = this.rubriquageData.findIndex(
+      const topicIndex = this.rubriquageData.findIndex(
         ( element: Rubriquage) => element.rubriquageId === rubriquageId
       );
       return this.rubriquageData[topicIndex].rubriques;

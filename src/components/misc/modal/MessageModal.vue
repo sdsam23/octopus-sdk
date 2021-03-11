@@ -53,7 +53,7 @@ export default Vue.extend({
   },
 
   methods: {
-    closePopup(event: { preventDefault: () => void; }): void {
+    closePopup(event: { preventDefault: () => void }): void {
       event.preventDefault();
       this.$emit('close');
     },

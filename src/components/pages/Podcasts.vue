@@ -123,13 +123,13 @@ export default Vue.extend({
   },
   
   computed: {
-    authenticated():boolean {
+    authenticated(): boolean {
       return state.generalParameters.authenticated;
     },
-    myOrganisationId():string {
+    myOrganisationId(): string {
       return state.generalParameters.organisationId;
     },
-    organisationRight():boolean {
+    organisationRight(): boolean {
       if (
         (this.authenticated && this.myOrganisationId === this.organisationId) ||
         state.generalParameters.isAdmin
@@ -137,21 +137,21 @@ export default Vue.extend({
         return true;
       return false;
     },
-    filterOrga():string|undefined {
+    filterOrga(): string|undefined {
       return this.$store.state.filter.organisationId;
     },
-    organisation():string|undefined {
+    organisation(): string|undefined {
       if (this.organisationId) return this.organisationId;
       if (this.filterOrga) return this.filterOrga;
       return undefined;
     },
-    isProductorSearch():boolean {
+    isProductorSearch(): boolean {
       return state.podcastsPage.ProductorSearch;
     },
-    titlePage():string|undefined {
+    titlePage(): string|undefined {
       return state.podcastsPage.titlePage;
     },
-    isEmissionChooser():boolean {
+    isEmissionChooser(): boolean {
       return state.podcastsPage.emissionChooser;
     },
   },

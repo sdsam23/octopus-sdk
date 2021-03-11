@@ -68,13 +68,13 @@ export default Vue.extend({
   },
   
   computed: {
-    isProductorSearch():boolean {
+    isProductorSearch(): boolean {
       return state.podcastsPage.ProductorSearch;
     },
-    isPodcastmaker():boolean {
+    isPodcastmaker(): boolean {
       return state.generalParameters.podcastmaker;
     },
-    editRight():boolean {
+    editRight(): boolean {
       if (state.generalParameters.isPlaylist) return true;
       return false;
     },

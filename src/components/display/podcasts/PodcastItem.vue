@@ -149,6 +149,7 @@ const humanizeDuration = require('humanize-duration');
 
 import Vue from 'vue';
 import { Podcast } from '@/store/class/podcast';
+import { Category } from '@/store/class/category';
 export default Vue.extend({
   name: 'PodcastItem',
   props: {
@@ -169,10 +170,10 @@ export default Vue.extend({
   },
 
   mounted() {
-    let podcastDesc = document.getElementById(
+    const podcastDesc = document.getElementById(
       'description-podcast-' + this.podcast.podcastId
     );
-    let podcastDescContainer = document.getElementById(
+    const podcastDescContainer = document.getElementById(
       'description-podcast-container-' + this.podcast.podcastId
     );
     if (
@@ -184,48 +185,48 @@ export default Vue.extend({
   },
   
   computed: {
-    isPodcastmaker():boolean {
+    isPodcastmaker(): boolean {
       return state.generalParameters.podcastmaker;
     },
-    podcastShadow():boolean {
+    podcastShadow(): boolean {
       return state.podcastsPage.podcastShadow;
     },
-    podcastBorderBottom():boolean {
+    podcastBorderBottom(): boolean {
       return state.podcastsPage.podcastBorderBottom;
     },
-    date():string {
+    date(): string {
       return moment(this.podcast.pubDate).format('D/MM/YYYY [à] HH[h]mm');
     },
-    displayDate():string {
+    displayDate(): string {
       return moment(this.podcast.pubDate).format('X');
     },
-    category():string {
+    category(): string {
       const catIds = this.podcast.emission.iabIds;
       return state.generalParameters.allCategories
-        .filter((c:any) => {
-          return catIds.includes(c.id);
+        .filter((c: Category) => {
+          return catIds!.includes(c.id);
         })
-        .map((c:any) => {
+        .map((c: any) => {
           return c.name;
         })
         .join(', ');
     },
-    description():string {
+    description(): string {
       if (!this.podcast.description) return '';
       return this.podcast.description;
     },
-    title():string {
+    title(): string {
       if (state.generalParameters.isIE11)
         return this.podcast.title.substring(0, 50) + '...';
       return this.podcast.title;
     },
-    organisationId():string {
+    organisationId(): string {
       return state.generalParameters.organisationId;
     },
-    authenticated():boolean {
+    authenticated(): boolean {
       return state.generalParameters.authenticated;
     },
-    editRight():boolean {
+    editRight(): boolean {
       if (
         (this.authenticated &&
           this.organisationId === this.podcast.organisation.id) ||
@@ -234,7 +235,7 @@ export default Vue.extend({
         return true;
       return false;
     },
-    duration():string {
+    duration(): string {
       if (this.podcast.duration <= 1) return '';
       if (this.podcast.duration > 600000) {
         return humanizeDuration(this.podcast.duration, {

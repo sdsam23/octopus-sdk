@@ -226,7 +226,7 @@ export default Vue.extend({
   },
   computed: {
     ...mapState({
-      playingPodcast(state:StoreState) {
+      playingPodcast(state: StoreState) {
         return (
           (state.player.podcast &&
             state.player.podcast.podcastId === this.podcast.podcastId) ||
@@ -238,24 +238,24 @@ export default Vue.extend({
         );
       },
     }),
-    isMobile():boolean {
+    isMobile(): boolean {
       return window.matchMedia('(hover: none)').matches;
     },
-    isRecordedInLive():boolean {
+    isRecordedInLive(): boolean {
       return (
         undefined === this.fetchConference &&
         undefined !== this.podcast.conferenceId &&
         'READY_TO_RECORD' !== this.podcast.processingStatus
       );
     },
-    isLiveToBeRecorded():boolean {
+    isLiveToBeRecorded(): boolean {
       return (
         undefined === this.fetchConference &&
         undefined !== this.podcast.conferenceId &&
         'READY_TO_RECORD' === this.podcast.processingStatus
       );
     },
-    classicPodcastPlay():boolean {
+    classicPodcastPlay(): boolean {
       return (
         undefined!==this.podcast &&
         false !== this.podcast.valid &&
@@ -265,7 +265,7 @@ export default Vue.extend({
         undefined!==this.podcast.availability.visibility
       );
     },
-    iconName():string {
+    iconName(): string {
       if (this.isLiveToBeRecorded) return 'saooti-clock';
       if ('READY' === this.podcast.processingStatus || this.fetchConference) {
         if (false == this.podcast.valid) return 'saooti-checkmark';
@@ -285,7 +285,7 @@ export default Vue.extend({
         return 'saooti-cancel-circle';
       return 'saooti-warning';
     },
-    textVisible():string {
+    textVisible(): string {
       if (this.isLiveToBeRecorded)
         return this.$t('Podcast linked to waiting live').toString();
       if ('READY' === this.podcast.processingStatus || this.fetchConference) {
@@ -306,7 +306,7 @@ export default Vue.extend({
         return this.$t('Podcast in cancelled status').toString();
       return this.$t('Podcast in error').toString();
     },
-    statusText():string {
+    statusText(): string {
       if (!this.fetchConference) return '';
       switch (this.fetchConference.status) {
         case 'PLANNED':
@@ -329,7 +329,7 @@ export default Vue.extend({
           return '';
       }
     },
-    recordingLive():boolean {
+    recordingLive(): boolean {
       return (
         this.fetchConference &&
          -1 !== this.fetchConference.conferenceId &&

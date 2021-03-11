@@ -190,10 +190,10 @@ export default displayMethods.extend({
     this.loadPodcasts();
   },
   mounted() {
-    let emissionDesc = document.getElementById(
+    const emissionDesc = document.getElementById(
       'description-emission-' + this.emission.emissionId
     );
-    let emissionDescContainer = document.getElementById(
+    const emissionDescContainer = document.getElementById(
       'description-emission-container-' + this.emission.emissionId
     );
     if (
@@ -205,16 +205,16 @@ export default displayMethods.extend({
   },
   
   computed: {
-    buttonMore():boolean {
+    buttonMore(): boolean {
       return state.emissionsPage.buttonMore;
     },
-    authenticated():boolean {
+    authenticated(): boolean {
       return this.$store.state.authentication.isAuthenticated;
     },
-    organisationId():string {
+    organisationId(): string {
       return state.generalParameters.organisationId;
     },
-    editRight():boolean {
+    editRight(): boolean {
       if (
         (this.authenticated && this.organisationId === this.emission.orga.id) ||
         state.generalParameters.isAdmin
@@ -225,7 +225,7 @@ export default displayMethods.extend({
   },
   methods: {
     async loadPodcasts(): Promise<void> {
-      let nb = this.nbPodcasts ? this.nbPodcasts : 2;
+      const nb = this.nbPodcasts ? this.nbPodcasts : 2;
       const data = await octopusApi.fetchPodcasts({
         emissionId: this.emission.emissionId,
         size: nb,
@@ -236,10 +236,10 @@ export default displayMethods.extend({
       this.podcasts = data.result;
       this.$nextTick(() => {
       for (let index = 0, len = this.podcasts.length; index < len; index++) {
-        let podcastDesc = document.getElementById(
+        const podcastDesc = document.getElementById(
           'description-podcast-' + this.podcasts[index].podcastId
         );
-        let podcastDescContainer = document.getElementById(
+        const podcastDescContainer = document.getElementById(
           'description-podcast-container-' + this.podcasts[index].podcastId
         );
         if (

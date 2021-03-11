@@ -128,7 +128,7 @@ export default Vue.extend({
   computed: {},
 
   methods: {
-    externaliseLinks(link?:string): string|undefined {
+    externaliseLinks(link?: string): string|undefined {
       if (!link) return link;
       link = link.trim();
       if (!link.startsWith('http') && !link.startsWith('//'))

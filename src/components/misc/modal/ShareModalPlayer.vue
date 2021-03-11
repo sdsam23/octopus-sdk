@@ -102,7 +102,7 @@ export default displayMethods.extend({
     this.$bvModal.show('share-modal');
   },
   methods: {
-    closePopup(event: { preventDefault: () => void; }): void {
+    closePopup(event: { preventDefault: () => void }): void {
       event.preventDefault();
       this.$emit('close');
     },

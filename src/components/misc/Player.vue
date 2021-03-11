@@ -312,7 +312,7 @@ export default Vue.extend({
       playerError: false as boolean,
       listenError: false as boolean,
       percentLiveProgress: 0 as number,
-      durationLivePosition: 0 as Number,
+      durationLivePosition: 0 as number,
       displayAlertBar: false as boolean,
       hlsReady: false as boolean,
       comments: [] as Array<CommentPodcast>,
@@ -332,47 +332,47 @@ export default Vue.extend({
   },
   
   computed: {
-    isPlaying():boolean {
+    isPlaying(): boolean {
       return 'PLAYING' === this.status;
     },
-    isPaused():boolean {
+    isPaused(): boolean {
       return 'PAUSED' === this.status;
     },
-    isLoading():boolean {
+    isLoading(): boolean {
       return 'LOADING' === this.status;
     },
-    isImage():string {
+    isImage(): string {
       return state.player.image;
     },
-    isEmissionName():string {
+    isEmissionName(): string {
       return state.player.emissionName;
     },
-    isClock():boolean {
+    isClock(): boolean {
       return state.player.clock;
     },
-    isBarTop():boolean {
+    isBarTop(): boolean {
       return state.player.barTop;
     },
     ...mapState({
-      display: (state:StoreState) => 'STOPPED' !== state.player.status,
-      playerHeight(state:StoreState) {
+      display: (state: StoreState) => 'STOPPED' !== state.player.status,
+      playerHeight(state: StoreState) {
         if ('STOPPED' === state.player.status || this.forceHide) return 0;
         if (window.innerWidth > 450 && !this.showTimeline) return '5rem';
         if (window.innerWidth > 450 && this.showTimeline) return '6rem';
         return '3.5rem';
       },
-      status: (state:StoreState) => state.player.status,
-      podcast: (state:StoreState) => state.player.podcast,
-      media: (state:StoreState) => state.player.media,
-      live: (state:StoreState) => state.player.live,
-      volume: (state:StoreState) => state.player.volume,
-      isStop: (state:StoreState) => state.player.stop,
-      commentsLoaded: (state:StoreState) => state.comments.loadedComments,
-      podcastImage: (state:StoreState) => {
+      status: (state: StoreState) => state.player.status,
+      podcast: (state: StoreState) => state.player.podcast,
+      media: (state: StoreState) => state.player.media,
+      live: (state: StoreState) => state.player.live,
+      volume: (state: StoreState) => state.player.volume,
+      isStop: (state: StoreState) => state.player.stop,
+      commentsLoaded: (state: StoreState) => state.comments.loadedComments,
+      podcastImage: (state: StoreState) => {
         if (state.player.podcast) return state.player.podcast.imageUrl;
         return '';
       },
-      playedTime: (state:StoreState) => {
+      playedTime: (state: StoreState) => {
         if (state.player.elapsed! > 0 && state.player.total! > 0) {
           return DurationHelper.formatDuration(
             Math.round(state.player.elapsed! * state.player.total!)
@@ -380,23 +380,23 @@ export default Vue.extend({
         }
         return '--:--';
       },
-      percentProgress: (state:StoreState) => {
+      percentProgress: (state: StoreState) => {
         return state.player.elapsed! * 100;
       },
-      totalTime: (state:StoreState) => {
+      totalTime: (state: StoreState) => {
         if (state.player.elapsed! > 0 && state.player.total! > 0)
           return DurationHelper.formatDuration(Math.round(state.player.total!));
         return '--:--';
       },
-      totalSecondes: (state:StoreState) => state.player.total,
+      totalSecondes: (state: StoreState) => state.player.total,
     }),
-    audioUrl():string {
+    audioUrl(): string {
       if (this.media) return this.media.audioUrl;
       if (!this.podcast) return '';
       if (!this.podcast.availability.visibility)
         return this.podcast.audioStorageUrl;
       if (this.listenError) return this.podcast.audioStorageUrl;
-      let parameters = [];
+      const parameters = [];
       parameters.push('origin=octopus');
       parameters.push('cookieName=player_' + this.podcast.podcastId);
       if (
@@ -409,7 +409,7 @@ export default Vue.extend({
       }
       return this.podcast.audioUrl + '?' + parameters.join('&');
     },
-    podcastShareUrl():any {
+    podcastShareUrl(): any {
       if (this.podcast) {
         return {
           name: 'podcast',
@@ -419,7 +419,7 @@ export default Vue.extend({
       }
       return '';
     },
-    podcastTitle():string {
+    podcastTitle(): string {
       if (this.podcast) {
         if (this.isEmissionName)
           return this.emissionName + ' - ' + this.podcast.title;
@@ -433,20 +433,20 @@ export default Vue.extend({
       }
       return '';
     },
-    emissionName():string {
+    emissionName(): string {
       if (this.podcast) return this.podcast.emission.name;
       return '';
     },
-    organisationId():string {
+    organisationId(): string {
       return state.generalParameters.organisationId;
     },
   },
   methods: {
     watchPlayerStatus(): void {
       this.$store.watch(
-        (state:StoreState) => state.player.status,
-        (newValue:string) => {
-          const audioPlayer:any = document.querySelector('#audio-player');
+        (state: StoreState) => state.player.status,
+        (newValue: string) => {
+          const audioPlayer: any = document.querySelector('#audio-player');
           if (!audioPlayer) return;
           if (this.live && !this.hlsReady) {
             audioPlayer.pause();
@@ -477,7 +477,7 @@ export default Vue.extend({
       }
     },
     switchPausePlay(): void {
-      const audioPlayer:any = document.querySelector('#audio-player');
+      const audioPlayer: any = document.querySelector('#audio-player');
       if (audioPlayer.paused) {
         this.onPlay();
       } else {
@@ -487,8 +487,8 @@ export default Vue.extend({
     stopPlayer(): void {
       this.$store.commit('playerPlayPodcast');
     },
-    seekTo(event: { currentTarget: { getBoundingClientRect: () => any; clientWidth: any; }; clientX: number; }): void {
-      const audioPlayer:any = document.querySelector('#audio-player');
+    seekTo(event: { currentTarget: { getBoundingClientRect: () => any; clientWidth: any }; clientX: number }): void {
+      const audioPlayer: any = document.querySelector('#audio-player');
       const rect = event.currentTarget.getBoundingClientRect();
       const barWidth = event.currentTarget.clientWidth;
       const x = event.clientX - rect.left; //x position within the element.
@@ -500,7 +500,7 @@ export default Vue.extend({
       }
       audioPlayer.currentTime = seekTime;
     },
-    onTimeUpdate(event: { currentTarget: { currentTime: number; duration: any; }; }): void {
+    onTimeUpdate(event: { currentTarget: { currentTime: number; duration: any } }): void {
       if (this.podcast || this.live) {
         if (!this.getDownloadId()) {
           this.loadDownloadId();
@@ -554,7 +554,7 @@ export default Vue.extend({
     onFinished(): void {
       this.setDownloadId(null);
       if (this.live) {
-        let audio:any = document.getElementById('audio-player');
+        const audio: any = document.getElementById('audio-player');
         audio.src = '';
       }
       this.forceHide = true;
@@ -596,7 +596,7 @@ export default Vue.extend({
         if (!Hls.isSupported()) {
           reject('Hls is not supported ! ');
         }
-        var hls = new Hls();
+        const hls = new Hls();
         hls.on(Hls.Events.MANIFEST_PARSED, async () => {
           let downloadId = null;
           try {
@@ -614,7 +614,7 @@ export default Vue.extend({
             console.log('ERROR downloadId');
           }
           this.hlsReady = true;
-          let audio:any = document.getElementById('audio-player');
+          const audio: any = document.getElementById('audio-player');
           hls.attachMedia(audio);
           await audio.play();
           this.onPlay();
@@ -628,7 +628,7 @@ export default Vue.extend({
     },
     async playLive(): Promise<void> {
       if (!this.live) return;
-      let hlsStreamUrl =
+      const hlsStreamUrl =
         state.podcastPage.hlsUri +
         'stream/dev.' +
         this.live.conferenceId +
@@ -651,7 +651,7 @@ export default Vue.extend({
         return true;
       return false;
     },
-    async initComments(refresh:boolean = false): Promise<void> {
+    async initComments(refresh = false): Promise<void> {
       let podcastId, organisation;
       if (this.podcast) {
         podcastId = this.podcast.podcastId;
@@ -669,7 +669,7 @@ export default Vue.extend({
       }
       let first = 0;
       let count = 0;
-      let size = 50;
+      const size = 50;
       if (
         podcastId &&
         this.$store.state.comments.actualPodcastId === podcastId
@@ -690,7 +690,7 @@ export default Vue.extend({
       )
         return;
       while (0 === first || this.comments.length < count) {
-        let param:any = {
+        const param: any = {
           first: first,
           size: size,
           podcastId: podcastId,

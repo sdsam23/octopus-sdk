@@ -196,10 +196,8 @@ export default displayMethods.extend({
     };
   },
 
-  mounted() {},
-
   computed: {
-    verticalDisplay():boolean {
+    verticalDisplay(): boolean {
       return (
         !this.authenticated &&
         !this.participantId &&
@@ -207,10 +205,10 @@ export default displayMethods.extend({
         !this.notExclusive
       );
     },
-    authenticated():boolean {
+    authenticated(): boolean {
       return state.generalParameters.authenticated;
     },
-    rssUrl():string {
+    rssUrl(): string {
       if (this.emission)
         return (
           state.generalParameters.ApiUri +

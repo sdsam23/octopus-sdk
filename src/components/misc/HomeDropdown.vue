@@ -150,16 +150,16 @@ export default Vue.extend({
   },
 
   computed: {
-    isPodcastmaker():boolean {
+    isPodcastmaker(): boolean {
       return state.generalParameters.podcastmaker;
     },
-    authenticated():boolean {
+    authenticated(): boolean {
       return this.$store.state.authentication.isAuthenticated;
     },
-    isOrganisation():boolean {
+    isOrganisation(): boolean {
       return state.generalParameters.isOrganisation;
     },
-    isContribution():boolean {
+    isContribution(): boolean {
       return state.generalParameters.isContribution;
     },
   },

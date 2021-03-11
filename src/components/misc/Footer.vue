@@ -144,13 +144,13 @@ export default Vue.extend({
   },
 
   computed: {
-    isPodcastmaker():boolean {
+    isPodcastmaker(): boolean {
       return state.generalParameters.podcastmaker;
     },
-    isBarTop():boolean {
+    isBarTop(): boolean {
       return state.player.barTop;
     },
-    isContactLink():string {
+    isContactLink(): string {
       return state.footer.contactLink;
     },
   },

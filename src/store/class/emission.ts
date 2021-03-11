@@ -1,4 +1,5 @@
 import { Organisation } from "./organisation";
+import { Person } from "./person";
 
 
 export interface Emission{
@@ -14,5 +15,6 @@ export interface Emission{
     rubriqueIds: Array<number>;
     score?: number;
     soundcastTag?: string;
+    publisher?: Person;
 }
   

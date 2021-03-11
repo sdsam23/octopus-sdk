@@ -214,29 +214,29 @@ export default displayMethods.extend({
   },
   
   computed: {
-    isEditBox():boolean {
+    isEditBox(): boolean {
       return state.podcastPage.EditBox;
     },
-    isPodcastmaker():boolean {
+    isPodcastmaker(): boolean {
       return state.generalParameters.podcastmaker;
     },
-    hours():string {
+    hours(): string {
       return moment(this.live!.pubDate).format('À HH[H]mm');
     },
-    date():string {
+    date(): string {
       return moment(this.live!.pubDate).format('D/MM/YYYY');
     },
-    displayDate():string {
+    displayDate(): string {
       return moment(this.live!.pubDate).format('X');
     },
-    description():string {
+    description(): string {
       if (this.live!.description) return this.live!.description;
       return '';
     },
-    myOrganisationId():string {
+    myOrganisationId(): string {
       return state.generalParameters.organisationId;
     },
-    organisationRight():boolean {
+    organisationRight(): boolean {
       if (
         this.isRoleLive &&
         this.myOrganisationId === this.live!.organisation.id
@@ -244,10 +244,10 @@ export default displayMethods.extend({
         return true;
       return false;
     },
-    isRoleLive():boolean {
+    isRoleLive(): boolean {
       return state.generalParameters.isRoleLive;
     },
-    duration():string {
+    duration(): string {
       if (this.live!.duration <= 1) return '';
       if (this.live!.duration > 600000) {
         return humanizeDuration(this.live!.duration, {
@@ -288,10 +288,10 @@ export default displayMethods.extend({
     },
     async handleDescription(): Promise<void> {
       this.$nextTick(() => {
-        let liveDesc = document.getElementById(
+        const liveDesc = document.getElementById(
           'description-live-' + this.live!.podcastId
         );
-        let liveDescContainer = document.getElementById(
+        const liveDescContainer = document.getElementById(
           'description-live-container-' + this.live!.podcastId
         );
         if (

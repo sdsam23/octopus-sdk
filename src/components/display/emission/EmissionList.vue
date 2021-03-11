@@ -145,26 +145,26 @@ export default Vue.extend({
   },
 
   computed: {
-    allFetched():boolean {
+    allFetched(): boolean {
       return this.dfirst >= this.totalCount;
     },
-    buttonPlus():boolean {
+    buttonPlus(): boolean {
       return state.generalParameters.buttonPlus;
     },
-    smallItems():boolean {
+    smallItems(): boolean {
       return state.emissionsPage.smallItems;
     },
-    itemPlayer():boolean {
+    itemPlayer(): boolean {
       return state.emissionsPage.itemPlayer;
     },
-    displayRubriquage():boolean {
+    displayRubriquage(): boolean {
       return state.emissionsPage.rubriquage;
     },
-    changed():string {
+    changed(): string {
       return `${this.first}|${this.size}|${this.organisationId}|${this.query}|${this.monetization}|${this.includeHidden}
       ${this.rubriqueId}|${this.rubriquageId}|${this.before}|${this.after}|${this.sort}|${this.noRubrique}`;
     },
-    sortText():string {
+    sortText(): string {
       switch (this.sort) {
         case 'SCORE':
           return this.$t('sort by score').toString();
@@ -176,10 +176,10 @@ export default Vue.extend({
           return this.$t('sort by date').toString();
       }
     },
-    filterOrga():string {
+    filterOrga(): string {
       return this.$store.state.filter.organisationId;
     },
-    organisation():string|undefined {
+    organisation(): string|undefined {
       if (this.organisationId) return this.organisationId;
       if (this.filterOrga) return this.filterOrga;
       return undefined;
@@ -194,7 +194,7 @@ export default Vue.extend({
         this.loading = true;
         this.loaded = false;
       }
-      let param:any = {
+      const param: any = {
         first: this.dfirst,
         size: this.dsize,
         query: this.query,
@@ -224,7 +224,7 @@ export default Vue.extend({
       this.loading = false;
       this.loaded = true;
       this.displayCount = data.count;
-      this.emissions = this.emissions.concat(data.result).filter((e:Emission|null) => {
+      this.emissions = this.emissions.concat(data.result).filter((e: Emission|null) => {
         if (null === e) {
           this.displayCount--;
         }
@@ -234,7 +234,7 @@ export default Vue.extend({
       this.totalCount = data.count;
       this.inFetching = false;
     },
-    displayMore(event: { preventDefault: () => void; }): void {
+    displayMore(event: { preventDefault: () => void }): void {
       event.preventDefault();
       this.fetchContent(false);
     },
@@ -259,7 +259,7 @@ export default Vue.extend({
         !this.rubriques.length
       )
         return undefined;
-      let rubrique = this.rubriques.find(
+      const rubrique = this.rubriques.find(
         (element: Rubrique) => element.rubriqueId === emission.rubriqueIds[0]
       );
       return rubrique!.name;

@@ -117,14 +117,14 @@ export default cookies.extend({
       textareaFocus: false as boolean,
       checkIdentityModal: false as boolean,
       postError: false as boolean,
-      isOneLine: true as Boolean,
+      isOneLine: true as boolean,
       editName: false as boolean,
       temporaryName: '' as string,
     };
   },
 
   computed: {
-    isPresent():boolean {
+    isPresent(): boolean {
       if (!this.podcast) return true;
       let podcastComment = 'INHERIT';
       if (this.podcast.annotations && this.podcast.annotations.COMMENTS) {
@@ -145,17 +145,17 @@ export default cookies.extend({
       }
       return true;
     },
-    placeholder():string {
+    placeholder(): string {
       if (this.comId) return this.$t('Answer a comment').toString();
       return this.$t('Write a comment').toString();
     },
-    organisationId():string {
+    organisationId(): string {
       return state.generalParameters.organisationId;
     },
-    authenticated():boolean {
+    authenticated(): boolean {
       return state.generalParameters.authenticated;
     },
-    isCertified():boolean {
+    isCertified(): boolean {
       if (
         (state.generalParameters.isCommments &&
           this.organisationId === this.podcast.organisation.id) ||
@@ -164,11 +164,11 @@ export default cookies.extend({
         return true;
       return false;
     },
-    userId():string|undefined {
+    userId(): string|undefined {
       if (this.authenticated) return this.$store.state.profile.userId;
       return undefined;
     },
-    phase():string {
+    phase(): string {
       if (
         !this.podcast.conferenceId ||
         0 === this.podcast.conferenceId ||
@@ -195,8 +195,8 @@ export default cookies.extend({
       this.editName = false;
     },
     inputExceeded(text: string, font: string): number {
-      let element = document.createElement('canvas');
-      let context = element.getContext('2d');
+      const element = document.createElement('canvas');
+      const context = element.getContext('2d');
       context!.font = font;
       return context!.measureText(text).width;
     },
@@ -241,7 +241,7 @@ export default cookies.extend({
       if (null === sendName && name) {
         sendName = name;
       }
-      let comment:any = {
+      const comment: any = {
         content: this.newComment,
         name: sendName,
         podcastId: this.podcast.podcastId,
@@ -277,7 +277,7 @@ export default cookies.extend({
       (this.$refs.textarea as HTMLElement).focus();
     },
     newComment(): void {
-      let padding =
+      const padding =
         1.5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
       this.isOneLine =
         (this.$refs.textarea as any).$el.clientWidth -

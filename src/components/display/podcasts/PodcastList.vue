@@ -114,30 +114,30 @@ export default Vue.extend({
   },
   
   computed: {
-    allFetched():boolean {
+    allFetched(): boolean {
       return this.dfirst >= this.totalCount;
     },
-    buttonPlus():boolean {
+    buttonPlus(): boolean {
       return state.generalParameters.buttonPlus;
     },
-    changed():string {
+    changed(): string {
       return `${this.first}|${this.size}|${this.organisation}|${this.emissionId}|${this.sortCriteria}|${this.sort}
       ${this.iabId}|${this.participantId}|${this.query}|${this.monetization}|${this.popularSort}|
       ${this.rubriqueId}|${this.rubriquageId}|${this.before}|${this.after}|${this.includeHidden}|${this.noRubrique}|${this.notValid}`;
     },
-    filterOrga():string {
+    filterOrga(): string {
       return this.$store.state.filter.organisationId;
     },
-    organisation():string|undefined {
+    organisation(): string|undefined {
       if (this.organisationId) return this.organisationId;
       if (this.filterOrga) return this.filterOrga;
       return undefined;
     },
-    sort():string {
+    sort(): string {
       if (this.popularSort) return 'POPULARITY';
       return this.sortCriteria;
     },
-    sortText():string {
+    sortText(): string {
       switch (this.sortCriteria) {
         case 'SCORE':
           return this.$t('sort by score').toString();
@@ -149,7 +149,7 @@ export default Vue.extend({
           return this.$t('sort by date').toString();
       }
     },
-    isProduction():boolean {
+    isProduction(): boolean {
       return state.generalParameters.isProduction;
     },
   },
@@ -162,7 +162,7 @@ export default Vue.extend({
         this.loading = true;
         this.loaded = false;
       }
-      let param:any = {
+      const param: any = {
         first: this.dfirst,
         size: this.dsize,
         organisationId: this.organisation,
@@ -213,7 +213,7 @@ export default Vue.extend({
       }
       this.inFetching = false;
     },
-    displayMore(event: { preventDefault: () => void; }): void {
+    displayMore(event: { preventDefault: () => void }): void {
       event.preventDefault();
       this.fetchContent(false);
     },

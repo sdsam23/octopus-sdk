@@ -101,24 +101,24 @@ export default Vue.extend({
 
   
   computed: {
-    notEmptyPlaylist():boolean {
+    notEmptyPlaylist(): boolean {
       return 0 !== Object.keys(this.playlist.podcasts).length;
     },
-    podcastsDisplay():Array<Podcast> {
+    podcastsDisplay(): Array<Podcast> {
       if (this.size < this.podcastsQuery.length)
         return this.podcastsQuery.slice(0, this.size);
       return this.podcastsQuery.slice(0, this.podcasts.length);
     },
-    buttonPlus():boolean {
+    buttonPlus(): boolean {
       return state.generalParameters.buttonPlus;
     },
-    organisationId():string {
+    organisationId(): string {
       return state.generalParameters.organisationId;
     },
-    authenticated():boolean {
+    authenticated(): boolean {
       return state.generalParameters.authenticated;
     },
-    editRight():boolean {
+    editRight(): boolean {
       if (
         (this.authenticated &&
           this.organisationId === this.playlist.organisation.id) ||
@@ -133,7 +133,7 @@ export default Vue.extend({
       this.podcasts.length = 0;
       this.loading = true;
       this.loaded = false;
-      let content = await octopusApi.fetchPlaylistContent(
+      const content = await octopusApi.fetchPlaylistContent(
         this.playlist.playlistId
       );
       for (let index = 0, len = content.length; index < len; index++) {
@@ -141,7 +141,7 @@ export default Vue.extend({
       }
       this.podcasts = content;
       if (!this.editRight) {
-        this.podcasts = this.podcasts.filter((p:Podcast|null) => {
+        this.podcasts = this.podcasts.filter((p: Podcast|null) => {
           return (
             null !== p &&
             (!p.availability || true === p.availability.visibility)
@@ -152,7 +152,7 @@ export default Vue.extend({
       this.loading = false;
       this.loaded = true;
     },
-    displayMore(event: { preventDefault: () => void; }): void {
+    displayMore(event: { preventDefault: () => void }): void {
       event.preventDefault();
       this.size += 12;
     },
@@ -160,7 +160,7 @@ export default Vue.extend({
   watch: {
     searchPattern(): void {
       if ('' !== this.searchPattern) {
-        this.podcastsQuery = this.podcasts.filter((el:Podcast) => {
+        this.podcastsQuery = this.podcasts.filter((el: Podcast) => {
           return el.title
             .toLowerCase()
             .includes(this.searchPattern.toLowerCase());

@@ -198,10 +198,10 @@ export default displayMethods.extend({
     this.hasPodcast();
   },
   mounted() {
-    let emissionDesc = document.getElementById(
+    const emissionDesc = document.getElementById(
       'description-emission-' + this.emission.emissionId
     );
-    let emissionDescContainer = document.getElementById(
+    const emissionDescContainer = document.getElementById(
       'description-emission-container-' + this.emission.emissionId
     );
     if (
@@ -213,34 +213,33 @@ export default displayMethods.extend({
   },
   
   computed: {
-    isPodcastmaker():boolean {
+    isPodcastmaker(): boolean {
       return state.generalParameters.podcastmaker;
     },
-    organisation():string {
-      return '' + this.emission.publisher.organisation.name;
+    organisation(): string {
+      return '' + this.emission.publisher!.organisation!.name;
     },
-    lightItems():boolean {
+    lightItems(): boolean {
       return state.emissionsPage.lightItems;
     },
-    description():string {
-      let description;
-      description = this.emission.description || '';
+    description(): string {
+      const description = this.emission.description || '';
       if (state.generalParameters.isIE11)
         return description.substring(0, 50) + '...';
       return description;
     },
-    name():string {
+    name(): string {
       if (state.generalParameters.isIE11)
         return this.emission.name.substring(0, 50) + '...';
       return this.emission.name;
     },
-    organisationId():string {
+    organisationId(): string {
       return state.generalParameters.organisationId;
     },
-    authenticated():boolean {
+    authenticated(): boolean {
       return state.generalParameters.authenticated;
     },
-    editRight():boolean {
+    editRight(): boolean {
       if (
         (this.authenticated && this.organisationId === this.emission.orga.id) ||
         state.generalParameters.isAdmin

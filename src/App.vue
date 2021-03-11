@@ -33,11 +33,11 @@ export default Vue.extend({
     };
   },
   async created() {
-    let captcha = (document.getElementsByClassName('grecaptcha-badge')[0] as HTMLElement);
+    const captcha = (document.getElementsByClassName('grecaptcha-badge')[0] as HTMLElement);
     if (captcha) {
       captcha.style.display = 'none';
     }
-    let orgaId : string = '';
+    let orgaId = '';
     if (this.$route.query.productor && 'string'===typeof this.$route.query.productor) {
       orgaId = this.$route.query.productor;
     } else {

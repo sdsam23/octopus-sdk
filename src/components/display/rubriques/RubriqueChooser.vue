@@ -98,7 +98,7 @@ export default selenium.extend({
     }
   },
   computed: {
-    id():string {
+    id(): string {
       if (this.rubriquageId) return 'rubriqueChooser' + this.rubriquageId;
       return 'rubriqueChooser';
     },
@@ -153,12 +153,12 @@ export default selenium.extend({
       } else {
         list = this.allRubriques;
       }
-      this.rubriques = list.filter((item:Rubrique) => {
+      this.rubriques = list.filter((item: Rubrique) => {
         return item.name.toUpperCase().includes(query.toUpperCase());
       });
       this.isLoading = false;
     },
-    onRubriqueSelected(rubrique:Rubrique): void {
+    onRubriqueSelected(rubrique: Rubrique): void {
       if (undefined !== this.rubriqueSelected) {
         this.$emit('update:rubrique', rubrique.rubriqueId);
       } else if (undefined === this.rubriqueArray) {
@@ -166,14 +166,14 @@ export default selenium.extend({
       }
     },
     initRubriqueSelected(val: number): void {
-      this.rubrique = this.allRubriques.find((el:Rubrique) => {
+      this.rubrique = this.allRubriques.find((el: Rubrique) => {
         return el.rubriqueId === val;
       });
     },
     initRubriqueArray(val: number[]): void {
       this.rubrique.length = 0;
       val.forEach((element: number) => {
-        let item = this.allRubriques.find((el:Rubrique) => {
+        const item = this.allRubriques.find((el: Rubrique) => {
           return el.rubriqueId === element;
         });
         this.rubrique.push(item);
@@ -186,8 +186,8 @@ export default selenium.extend({
     },
     rubrique(): void {
       if (undefined === this.rubriqueArray) return;
-      let idsArray: number[] = [];
-      this.rubrique.forEach((el: { rubriqueId: number; }) => {
+      const idsArray: number[] = [];
+      this.rubrique.forEach((el: { rubriqueId: number }) => {
         idsArray.push(el.rubriqueId);
       });
       this.$emit('selected', idsArray);

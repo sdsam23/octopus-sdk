@@ -92,11 +92,11 @@ export default Vue.extend({
 
   computed: {
     allCategories(): Array<Category> {
-      return state.generalParameters.allCategories.sort((a:Category, b:Category) =>
+      return state.generalParameters.allCategories.sort((a: Category, b: Category) =>
         a.name > b.name ? 1 : -1
       );
     },
-    id():string {
+    id(): string {
       if (this.multiple) return 'categoryChooser' + this.multiple;
       return 'categoryChooser';
     },
@@ -158,7 +158,7 @@ export default Vue.extend({
       if ('' === this.defaultanswer) {
         list = this.totalCategories;
       }
-      this.categories = list.filter((item:Category) => {
+      this.categories = list.filter((item: Category) => {
         return item.name.toUpperCase().includes(query.toUpperCase());
       });
       this.isLoading = false;
@@ -178,7 +178,7 @@ export default Vue.extend({
     initCategoryArray(val: Array<number>): void {
       this.categoryForArray!.length = 0;
       val.forEach((element: number) => {
-        let item = state.generalParameters.allCategories.find((el: Category) => {
+        const item = state.generalParameters.allCategories.find((el: Category) => {
           return el.id === element;
         });
         this.categoryForArray!.push(item);
@@ -193,7 +193,7 @@ export default Vue.extend({
       if(undefined===this.categoryArray){
         return;
       }
-      let idsArray: Array<number> = [];
+      const idsArray: Array<number> = [];
       this.categoryForArray!.forEach((el: Category) => {
         idsArray.push(el.id);
       });

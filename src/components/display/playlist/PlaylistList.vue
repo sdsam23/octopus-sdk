@@ -70,23 +70,23 @@ export default Vue.extend({
 
   
   computed: {
-    allFetched():boolean {
+    allFetched(): boolean {
       return this.dfirst >= this.totalCount;
     },
-    buttonPlus():boolean {
+    buttonPlus(): boolean {
       return state.generalParameters.buttonPlus;
     },
-    changed():string {
+    changed(): string {
       return `${this.first}|${this.size}|${this.organisationId}|${this.query}`;
     },
-    filterOrga():string {
+    filterOrga(): string {
       return this.$store.state.filter.organisationId;
     },
-    sort():string {
+    sort(): string {
       if (!this.query) return 'NAME';
       return 'SCORE';
     },
-    organisation():string|undefined {
+    organisation(): string|undefined {
       if (this.organisationId) return this.organisationId;
       if (this.filterOrga) return this.filterOrga;
       return undefined;
@@ -100,7 +100,7 @@ export default Vue.extend({
         this.loading = true;
         this.loaded = false;
       }
-      let param = {
+      const param = {
         first: this.dfirst,
         size: this.dsize,
         query: this.query,
@@ -110,7 +110,7 @@ export default Vue.extend({
       const data = await octopusApi.fetchPlaylists(param);
       this.afterFetching(reset, data);
     },
-    afterFetching(reset: boolean, data:any): void {
+    afterFetching(reset: boolean, data: any): void {
       if (reset) {
         this.playlists.length = 0;
         this.dfirst = 0;
@@ -128,7 +128,7 @@ export default Vue.extend({
       this.totalCount = data.count;
       this.inFetching = false;
     },
-    displayMore(event: { preventDefault: () => void; }): void {
+    displayMore(event: { preventDefault: () => void }): void {
       event.preventDefault();
       this.fetchContent(false);
     },

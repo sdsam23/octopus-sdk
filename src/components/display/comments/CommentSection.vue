@@ -77,7 +77,7 @@ export default cookies.extend({
   },
 
   computed: {
-    isComments():boolean {
+    isComments(): boolean {
       if (!this.podcast) return true;
       let podcastComment = 'INHERIT';
       if (this.podcast.annotations && this.podcast.annotations.COMMENTS) {
@@ -99,14 +99,14 @@ export default cookies.extend({
       );
     },
     knownIdentity: {
-      get():string|null {
+      get(): string|null {
         return this.$store.state.comments.knownIdentity;
       },
       set(value: string|null) {
         this.$store.commit('setCommentIdentity', value);
       },
     },
-    isLive():boolean {
+    isLive(): boolean {
       return (
         undefined!==this.fetchConference &&
         -1 !== this.fetchConference.conferenceId &&
@@ -116,7 +116,7 @@ export default cookies.extend({
     },
   },
   methods: {
-    updateFetch(value: { count: number; }): void {
+    updateFetch(value: { count: number }): void {
       this.loaded = true;
       this.$store.commit('setCommentLoaded', {
         ...value,

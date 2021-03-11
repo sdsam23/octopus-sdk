@@ -152,7 +152,7 @@ export default Vue.extend({
     },
     async onSearchEmission(query?: string): Promise<void> {
       this.isLoading = true;
-      let standardParam:any = {
+      let standardParam: any = {
         query: query,
         first: 0,
         size: ELEMENTS_COUNT,

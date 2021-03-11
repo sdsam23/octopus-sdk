@@ -88,11 +88,11 @@ export default Vue.extend({
   },
   
   computed: {
-    query():string {
+    query(): string {
       if (this.rawQuery && this.rawQuery.length >= 3) return this.rawQuery;
       return '';
     },
-    hideBar():boolean {
+    hideBar(): boolean {
       return state.searchPage.hideBar;
     },
   },
@@ -110,7 +110,7 @@ export default Vue.extend({
   },
   watch: {
     query: {
-        handler(search:any): void {
+        handler(search: any): void {
           this.rawQuery = search;
         },
       deep: true,

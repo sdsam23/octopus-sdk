@@ -39,10 +39,10 @@ export default Vue.extend({
   },
 
   computed: {
-    categories():any {
+    categories(): any {
       return state.generalParameters.allCategories;
     },
-    filterOrga():string {
+    filterOrga(): string {
       return this.$store.state.filter.organisationId;
     },
   },

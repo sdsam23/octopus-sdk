@@ -86,10 +86,10 @@ export default displayMethods.extend({
 
 
   mounted() {
-    let playlistDesc = document.getElementById(
+    const playlistDesc = document.getElementById(
       'description-playlist-' + this.playlist.playlistId
     );
-    let playlistDescContainer = document.getElementById(
+    const playlistDescContainer = document.getElementById(
       'description-playlist-container-' + this.playlist.playlistId
     );
     if (
@@ -105,28 +105,27 @@ export default displayMethods.extend({
   },
   
   computed: {
-    isPodcastmaker():boolean {
+    isPodcastmaker(): boolean {
       return state.generalParameters.podcastmaker;
     },
-    organisation():string {
-      return '' + this.playlist.publisher.organisation.name;
+    organisation(): string {
+      return '' + this.playlist.publisher!.organisation!.name;
     },
-    description():string {
-      let description;
-      description = this.playlist.description || '';
+    description(): string {
+      const description = this.playlist.description || '';
       if (state.generalParameters.isIE11)
         return description.substring(0, 50) + '...';
       return description;
     },
-    name():string {
+    name(): string {
       if (state.generalParameters.isIE11)
         return this.playlist.title.substring(0, 50) + '...';
       return this.playlist.title;
     },
-    organisationId():string {
+    organisationId(): string {
       return state.generalParameters.organisationId;
     },
-    editRight():boolean {
+    editRight(): boolean {
       if (
         (state.generalParameters.isPlaylist &&
           this.organisationId === this.playlist.organisation.id) ||
@@ -135,7 +134,7 @@ export default displayMethods.extend({
         return true;
       return false;
     },
-    activePlaylist():boolean {
+    activePlaylist(): boolean {
       return 0 !== Object.keys(this.playlist.podcasts).length;
     },
   },

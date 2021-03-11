@@ -296,23 +296,23 @@ export default Vue.extend({
 
  
   computed: {
-    logoUrl():string {
+    logoUrl(): string {
       if (this.isEducation) return '/img/logo_education.png';
       return '/img/logo_octopus_final.svg';
     },
-    isPodcastmaker():boolean {
+    isPodcastmaker(): boolean {
       return state.generalParameters.podcastmaker;
     },
-    isLiveTab():boolean {
+    isLiveTab(): boolean {
       return state.generalParameters.isLiveTab;
     },
-    filterOrga():string {
+    filterOrga(): string {
       return this.$store.state.filter.organisationId;
     },
-    filterOrgaLive():string {
+    filterOrgaLive(): string {
       return this.$store.state.filter.live;
     },
-    imgUrl():string {
+    imgUrl(): string {
       if (
         this.$store.state.filter.imgUrl &&
         !this.$store.state.filter.imgUrl.includes('emptypodcast')

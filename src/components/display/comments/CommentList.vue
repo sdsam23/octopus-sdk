@@ -124,17 +124,17 @@ export default Vue.extend({
   },
 
   computed: {
-    allFetched():boolean {
+    allFetched(): boolean {
       return this.dfirst >= this.totalCount;
     },
-    organisationId():string {
+    organisationId(): string {
       return state.generalParameters.organisationId;
     },
-    podcastId():number|undefined {
+    podcastId(): number|undefined {
       if (this.podcast) return this.podcast.podcastId;
       return undefined;
     },
-    editRight():boolean {
+    editRight(): boolean {
       if (
         (state.generalParameters.isCommments &&
           ((this.podcast &&
@@ -155,7 +155,7 @@ export default Vue.extend({
         if (this.comId) {
           data = await octopusApi.fetchCommentAnswers(this.comId);
         } else {
-          let param :any = {
+          const param: any = {
             first: this.dfirst,
             size: this.dsize,
             podcastId: this.podcastId,
@@ -177,7 +177,7 @@ export default Vue.extend({
         this.loading = false;
         this.loaded = true;
         this.totalCount = data.totalElements;
-        this.comments = this.comments.concat(data.content).filter((c:CommentPodcast) => {
+        this.comments = this.comments.concat(data.content).filter((c: CommentPodcast) => {
           return null !== c;
         });
         this.dfirst += this.dsize;
@@ -194,22 +194,22 @@ export default Vue.extend({
       this.loading = true;
       this.loaded = false;
     },
-    displayMore(event: { preventDefault: () => void; }): void {
+    displayMore(event: { preventDefault: () => void }): void {
       event.preventDefault();
       this.fetchContent(false);
     },
-    deleteComment(comment:CommentPodcast): void {
+    deleteComment(comment: CommentPodcast): void {
       if (
         !this.isFlat &&
         comment.commentIdReferer &&
         this.comId !== comment.commentIdReferer
       ) {
-        let comItem :any = document.getElementsByClassName('comItem' + comment.commentIdReferer);
+        const comItem: any = document.getElementsByClassName('comItem' + comment.commentIdReferer);
         comItem[0].receiveCommentEvent({ type: 'Delete', comment: comment });
         return;
       }
-      let index = this.comments.findIndex(
-        (element:CommentPodcast) => element.comId === comment.comId
+      const index = this.comments.findIndex(
+        (element: CommentPodcast) => element.comId === comment.comId
       );
       if (-1 === index) return;
       this.totalCount -= 1;
@@ -224,12 +224,12 @@ export default Vue.extend({
         data.comment.commentIdReferer &&
         this.comId !== data.comment.commentIdReferer
       ) {
-        let comItem :any = document.getElementsByClassName('comItem' + data.comment.commentIdReferer);
+        const comItem: any = document.getElementsByClassName('comItem' + data.comment.commentIdReferer);
         comItem[0].receiveCommentEvent({ ...data, type: 'Update' });
         return;
       }
-      let index = this.comments.findIndex(
-        (element:CommentPodcast) => element.comId === data.comment.comId
+      const index = this.comments.findIndex(
+        (element: CommentPodcast) => element.comId === data.comment.comId
       );
       if (-1 !== index) {
         if (
@@ -279,12 +279,12 @@ export default Vue.extend({
         comment.commentIdReferer &&
         this.comId !== comment.commentIdReferer
       ) {
-        let comItem :any = document.getElementsByClassName('comItem' + comment.commentIdReferer);
+        const comItem: any = document.getElementsByClassName('comItem' + comment.commentIdReferer);
         comItem[0].receiveCommentEvent({ type: 'Create', comment: comment });
         return;
       }
-      let index = this.comments.findIndex(
-        (element:CommentPodcast) => element.comId === comment.comId
+      const index = this.comments.findIndex(
+        (element: CommentPodcast) => element.comId === comment.comId
       );
       if (-1 === index) {
         this.totalCount += 1;

@@ -80,32 +80,32 @@ export default displayMethods.extend({
   },
   
   computed: {
-    organisationId():string {
+    organisationId(): string {
       return state.generalParameters.organisationId;
     },
-    authenticated():boolean {
+    authenticated(): boolean {
       return state.generalParameters.authenticated;
     },
-    isEditBox():boolean {
+    isEditBox(): boolean {
       return state.podcastPage.EditBox;
     },
-    isShareButtons():boolean {
+    isShareButtons(): boolean {
       return state.podcastPage.ShareButtons;
     },
-    isSharePlayer():boolean {
+    isSharePlayer(): boolean {
       return state.podcastPage.SharePlayer;
     },
-    name():string {
+    name(): string {
       return this.playlist ? this.playlist.title : '';
     },
-    imageUrl():string {
-      let dummy = new Date().getTime().toString();
+    imageUrl(): string {
+      const dummy = new Date().getTime().toString();
       return this.playlist ? this.playlist.imageUrl + '?dummy=' + dummy : '';
     },
-    description():string {
+    description(): string {
       return this.playlist ? this.playlist.description : '';
     },
-    editRight():boolean {
+    editRight(): boolean {
       if (
         (state.generalParameters.isPlaylist &&
           this.organisationId === this.playlist!.organisation.id) ||

@@ -96,13 +96,13 @@ export default Vue.extend({
   },
   
   computed: {
-    isProductorSearch():boolean {
+    isProductorSearch(): boolean {
       return state.podcastsPage.ProductorSearch;
     },
-    isMonetizableFilter():boolean {
+    isMonetizableFilter(): boolean {
       return state.podcastsPage.MonetizableFilter;
     },
-    titlePage():string|undefined {
+    titlePage(): string|undefined {
       return state.emissionsPage.titlePage;
     },
   },

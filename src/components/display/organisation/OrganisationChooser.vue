@@ -160,13 +160,13 @@ export default selenium.extend({
   },
   
   computed: {
-    organisationId():string {
+    organisationId(): string {
       return state.generalParameters.organisationId;
     },
-    authenticated():boolean {
+    authenticated(): boolean {
       return state.generalParameters.authenticated;
     },
-    myOrganisation():Organisation|undefined {
+    myOrganisation(): Organisation|undefined {
       if (!this.authenticated) return undefined;
       return {
         id: this.organisationId,
@@ -219,7 +219,7 @@ export default selenium.extend({
           orga = orga.concat(other.result);
         }
       }
-      let notNull = orga.filter((o: Organisation|null) => {
+      const notNull = orga.filter((o: Organisation|null) => {
         return null !== o;
       });
       if (this.defaultanswer) {
@@ -236,7 +236,7 @@ export default selenium.extend({
           });
           this.organisations.splice(1, 0, this.myOrganisation);
         } else {
-          let foundIndex = this.organisations.findIndex(
+          const foundIndex = this.organisations.findIndex(
             (obj: Organisation) => obj.id === this.organisationId
           );
           if (foundIndex) {

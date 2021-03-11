@@ -250,29 +250,29 @@ export default Vue.extend({
   },
   
   computed: {
-    isEmission():boolean {
+    isEmission(): boolean {
       return 'emission' === this.iFrameModel;
     },
-    isLargeEmission():boolean {
+    isLargeEmission(): boolean {
       return 'largeEmission' === this.iFrameModel;
     },
-    isLargeSuggestion():boolean {
+    isLargeSuggestion(): boolean {
       return 'largeSuggestion' === this.iFrameModel;
     },
-    titleStillAvailable():string {
+    titleStillAvailable(): string {
       if (this.isPodcastNotVisible) return this.$t('Podcast still available').toString();
       return this.$t('Podcasts still available').toString();
     },
-    isLiveReadyToRecord():boolean {
+    isLiveReadyToRecord(): boolean {
       if (this.podcast)
         return (
-          this.podcast.conferenceId &&
+          undefined !== this.podcast.conferenceId &&
           0 !== this.podcast.conferenceId &&
           this.podcast.processingStatus === 'READY_TO_RECORD'
         );
       return false;
     },
-    noAd():boolean {
+    noAd(): boolean {
       if (
         (this.podcast &&
           this.podcast.organisation.id !== this.organisationId &&
@@ -285,11 +285,11 @@ export default Vue.extend({
       }
       return false;
     },
-    authenticated():boolean {
+    authenticated(): boolean {
       return state.generalParameters.authenticated;
     },
-    iFrameSrc():string {
-      let url = [''];
+    iFrameSrc(): string {
+      const url = [''];
       let iFrameNumber = '/' + this.iFrameNumber;
       if (
         (!this.podcast || this.isEmission || this.isLargeEmission) &&
@@ -348,10 +348,10 @@ export default Vue.extend({
       }
       return url.join('');
     },
-    iFrameWidth():string {
+    iFrameWidth(): string {
       return '100%';
     },
-    iFrameHeight():string {
+    iFrameHeight(): string {
       switch (this.iFrameModel) {
         case 'large':
           if (this.podcast) return '180px';
@@ -396,17 +396,17 @@ export default Vue.extend({
           return '530px';
       }
     },
-    iFrame():string {
+    iFrame(): string {
       return `<iframe src="${this.iFrameSrc}" width="${this.iFrameWidth}" height="${this.iFrameHeight}" scrolling="no" frameborder="0"></iframe>`;
     },
-    isPodcastNotVisible():boolean {
+    isPodcastNotVisible(): boolean {
       return (
         this.podcast &&
         !this.podcast.availability.visibility &&
         ('default' === this.iFrameModel || 'large' === this.iFrameModel)
       );
     },
-    dataTitle():number {
+    dataTitle(): number {
       if (this.podcast) return this.podcast.podcastId;
       if (this.emission) return this.emission.emissionId;
       return this.playlist.playlistId;
@@ -423,7 +423,7 @@ export default Vue.extend({
       } else {
         orgaId = this.emission.orga.id;
       }
-      const data:any = await profileApi.fetchOrganisationAttibutes(
+      const data: any = await profileApi.fetchOrganisationAttibutes(
         this.$store,
         orgaId
       );

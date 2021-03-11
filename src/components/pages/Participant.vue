@@ -107,37 +107,37 @@ export default displayMethods.extend({
     this.getParticipantDetails();
   },
   computed: {
-    organisationId():string {
+    organisationId(): string {
       return state.generalParameters.organisationId;
     },
-    authenticated():boolean {
+    authenticated(): boolean {
       return state.generalParameters.authenticated;
     },
-    isEditBox():boolean {
+    isEditBox(): boolean {
       return state.podcastPage.EditBox;
     },
-    isShareButtons():boolean {
+    isShareButtons(): boolean {
       return state.podcastPage.ShareButtons;
     },
-    lightStyle():boolean {
+    lightStyle(): boolean {
       return state.intervenantPage.lightStyle;
     },
-    isRssButton():boolean {
+    isRssButton(): boolean {
       return state.intervenantPage.rssButton;
     },
-    rssUrl():string {
+    rssUrl(): string {
       return (
         state.generalParameters.ApiUri + 'rss/participant/' + this.participantId
       );
     },
-    description():string {
+    description(): string {
       let description;
       description = this.participant!.description || '';
       if (state.generalParameters.isIE11)
         return description.substring(0, 50) + '...';
       return description;
     },
-    name():string {
+    name(): string {
       const fullName = (
         (this.participant!.firstName || '') +
         ' ' +
@@ -147,7 +147,7 @@ export default displayMethods.extend({
         return fullName.substring(0, 50) + '...';
       return fullName;
     },
-    editRight():boolean {
+    editRight(): boolean {
       if (
         (this.authenticated &&
           this.organisationId === this.participant!.orga.id) ||
@@ -170,7 +170,7 @@ export default displayMethods.extend({
         this.loaded = true;
       }
     },
-    updateParticipant(participant:Participant): void {
+    updateParticipant(participant: Participant): void {
       this.participant = participant;
       this.$emit('participantTitle', this.name);
     },

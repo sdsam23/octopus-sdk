@@ -157,28 +157,28 @@ export default Vue.extend({
       get(): string {
         return this.iFrameNumberPriv;
       },
-      set(value:string) {
-        let val = parseInt(value, 10);
+      set(value: string) {
+        const val = parseInt(value, 10);
         if (!isNaN(val) && val >= 1 && val <= 50) {
           this.iFrameNumberPriv = value;
         }
       },
     },
-    isEmission():boolean {
+    isEmission(): boolean {
       return 'emission' === this.iFrameModel;
     },
-    isLargeEmission():boolean {
+    isLargeEmission(): boolean {
       return 'largeEmission' === this.iFrameModel;
     },
-    isLargeSuggestion():boolean {
+    isLargeSuggestion(): boolean {
       return 'largeSuggestion' === this.iFrameModel;
     },
   },
   methods: {
     onDurationChange(): void {
       if (this.startTime) {
-        let minutes = parseInt((this.$refs.minutesRef as any).value, 10);
-        let secondes = parseInt((this.$refs.secondesRef as any).value, 10);
+        const minutes = parseInt((this.$refs.minutesRef as any).value, 10);
+        const secondes = parseInt((this.$refs.secondesRef as any).value, 10);
         this.$emit('startTime', minutes * 60 + secondes);
       } else {
         this.$emit('startTime', 0);

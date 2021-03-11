@@ -22,13 +22,12 @@ export default Vue.extend({
   components: {
     PodcastInlineList,
   },
-  mounted() {},
   computed: {
-    isPodcastmaker():boolean {
+    isPodcastmaker(): boolean {
       return state.generalParameters.podcastmaker;
     },
-    categories():any {
-      return state.generalParameters.allCategories.filter((c:any) => {
+    categories(): any {
+      return state.generalParameters.allCategories.filter((c: any) => {
         if (this.isPodcastmaker) return c.podcastOrganisationCount;
         return c.podcastCount;
       });

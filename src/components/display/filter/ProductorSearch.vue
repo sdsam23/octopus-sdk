@@ -156,17 +156,17 @@ export default Vue.extend({
   },
  
   computed: {
-    isPodcastmaker():boolean {
+    isPodcastmaker(): boolean {
       return state.generalParameters.podcastmaker;
     },
-    searchText():string {
+    searchText(): string {
       if ('emission' === this.type) return this.$t('Look for emission name').toString();
       if ('participant' === this.type)
         return this.$t('Look for participant name').toString();
       if ('playlist' === this.type) return this.$t('Look for playlist name').toString();
       return this.$t('Look for podcast name').toString();
     },
-    filterOrga():string {
+    filterOrga(): string {
       return this.$store.state.filter.organisationId;
     },
   },

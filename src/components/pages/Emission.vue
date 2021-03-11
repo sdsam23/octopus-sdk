@@ -133,48 +133,48 @@ export default displayMethods.extend({
   },
   
   computed: {
-    organisationId():string {
+    organisationId(): string {
       return state.generalParameters.organisationId;
     },
-    authenticated():boolean {
+    authenticated(): boolean {
       return state.generalParameters.authenticated;
     },
-    isEditBox():boolean {
+    isEditBox(): boolean {
       return state.podcastPage.EditBox;
     },
-    isShareButtons():boolean {
+    isShareButtons(): boolean {
       return state.podcastPage.ShareButtons;
     },
-    isSharePlayer():boolean {
+    isSharePlayer(): boolean {
       return state.podcastPage.SharePlayer;
     },
-    isShareDistribution():boolean {
+    isShareDistribution(): boolean {
       return state.podcastPage.ShareDistribution;
     },
-    isOuestFrance():boolean {
+    isOuestFrance(): boolean {
       return state.emissionPage.ouestFranceStyle;
     },
-    isRssButton():boolean {
+    isRssButton(): boolean {
       return state.emissionPage.rssButton;
     },
-    isPodcastmaker():boolean {
+    isPodcastmaker(): boolean {
       return state.generalParameters.podcastmaker;
     },
-    rssUrl():string {
+    rssUrl(): string {
       return state.generalParameters.ApiUri + 'rss/emission/' + this.emissionId;
     },
-    name():string {
+    name(): string {
       return this.emission ? this.emission.name : '';
     },
-    imageUrl():string {
+    imageUrl(): string {
       return this.emission
         ? this.emission.imageUrl + '?dummy=' + this.dummyParam
         : '';
     },
-    description():string {
+    description(): string {
       return this.emission ? this.emission.description : '';
     },
-    editRight():boolean {
+    editRight(): boolean {
       if (
         (this.authenticated && this.organisationId === this.emission!.orga.id) ||
         state.generalParameters.isAdmin
@@ -182,7 +182,7 @@ export default displayMethods.extend({
         return true;
       return false;
     },
-    countLink():number {
+    countLink(): number {
       let count = 0;
       if (this.emission && this.emission.annotations) {
         if (undefined !== this.emission.annotations.applePodcast) count++;
