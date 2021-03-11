@@ -20,7 +20,7 @@ import PlaylistsPage from '@/components/pages/Playlists.vue';
 
 Vue.use(VueRouter);
 
-const routes:any = [
+const routes: any = [
   /*--------------------------------------------------------------------------
   Liens publics
   --------------------------------------------------------------------------*/
@@ -33,7 +33,7 @@ const routes:any = [
       path: '/main/pub/home:productor?',
       name: 'home',
       component: Home,
-      props: (route:any) => ({
+      props: (route: any) => ({
         productor: route.params.productor,
       }),
     },
@@ -41,16 +41,16 @@ const routes:any = [
       path: '/main/pub/search/:query?/:productor?',
       name: 'search',
       component: SearchPage,
-      props: (route:any) => ({
+      props: (route: any) => ({
         productor: route.params.productor,
-        query: route.params.query,
+        queryRoute: route.params.query,
       }),
     },
     {
       path: '/main/pub/podcasts/:productor?',
       name: 'podcasts',
       component: PodcastsPage,
-      props: (route:any) => ({
+      props: (route: any) => ({
         productor: route.params.productor,
       }),
     },
@@ -58,7 +58,7 @@ const routes:any = [
       path: '/main/pub/emissions/:productor?',
       name: 'emissions',
       component: EmissionsPage,
-      props: (route:any) => ({
+      props: (route: any) => ({
         productor: route.params.productor,
       }),
     },
@@ -66,7 +66,7 @@ const routes:any = [
       path: '/main/pub/participants/:productor?',
       name: 'participants',
       component: ParticpantsPage,
-      props: (route:any) => ({
+      props: (route: any) => ({
         productor: route.params.productor,
       }),
     },
@@ -74,7 +74,7 @@ const routes:any = [
       path: '/main/pub/emission/:emissionId/:productor?',
       name: 'emission',
       component: EmissionPage,
-      props: (route:any) => ({
+      props: (route: any) => ({
         firstRoute: parseInt(route.query.first, 10) || 0,
         sizeRoute: parseInt(route.query.size, 10) || 12,
         emissionId: parseInt(route.params.emissionId, 10),
@@ -85,7 +85,7 @@ const routes:any = [
       path: '/main/pub/podcast/:podcastId/:productor?',
       name: 'podcast',
       component: PodcastPage,
-      props: (route:any) => ({
+      props: (route: any) => ({
         podcastId: parseInt(route.params.podcastId, 10),
         productor: route.params.productor,
       }),
@@ -94,7 +94,7 @@ const routes:any = [
       path: '/main/pub/participant/:participantId/:productor?',
       name: 'participant',
       component: ParticipantPage,
-      props: (route:any) => ({
+      props: (route: any) => ({
         firstRoute: parseInt(route.query.first, 10) || 0,
         sizeRoute: parseInt(route.query.size, 10) || 12,
         participantId: parseInt(route.params.participantId, 10),
@@ -105,7 +105,7 @@ const routes:any = [
       path: '/main/pub/category/:iabId/:productor?',
       name: 'category',
       component: CategoryPage,
-      props: (route:any) => ({
+      props: (route: any) => ({
         firstRoute: parseInt(route.query.first, 10) || 0,
         sizeRoute: parseInt(route.query.size, 10) || 12,
         iabId: parseInt(route.params.iabId, 10),
@@ -116,7 +116,7 @@ const routes:any = [
       path: '/main/pub/rubrique/:rubriqueId/:productor?',
       name: 'rubrique',
       component: RubriquePage,
-      props: (route:any) => ({
+      props: (route: any) => ({
         firstRoute: parseInt(route.query.first, 10) || 0,
         sizeRoute: parseInt(route.query.size, 10) || 12,
         rubriqueId: parseInt(route.params.rubriqueId, 10),
@@ -127,7 +127,7 @@ const routes:any = [
       path: '/main/pub/lives/:productor?',
       name: 'lives',
       component: LivesPage,
-      props: (route:any) => ({
+      props: (route: any) => ({
         productor: route.params.productor,
       }),
     },
@@ -151,7 +151,7 @@ const routes:any = [
       path: '/main/pub/playlists/:productor?',
       name: 'playlists',
       component: PlaylistsPage,
-      props: (route:any) => ({
+      props: (route: any) => ({
         productor: route.params.productor,
       }),
     },
@@ -159,7 +159,7 @@ const routes:any = [
       path: '/main/pub/playlist/:playlistId/:productor?',
       name: 'playlist',
       component: PlaylistPage,
-      props: (route:any) => ({
+      props: (route: any) => ({
         playlistId: parseInt(route.params.playlistId, 10),
         productor: route.params.productor,
       }),
@@ -170,7 +170,7 @@ export default new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: routes,
-  scrollBehavior() {
+  scrollBehavior(): {x: number; y: number} {
     return { x: 0, y: 0 };
   },
 });

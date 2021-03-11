@@ -1,3 +1,4 @@
+import { CommentPodcast } from "./class/comment"
 import { Emission } from "./class/emission"
 import { Media } from "./class/media"
 import { Organisation } from "./class/organisation"
@@ -7,26 +8,27 @@ import { Podcast } from "./class/podcast"
 export function emptyPodcastData(): Podcast{
     return {
         podcastId:0,
-        audioUrl: undefined as any,
-        audioStorageUrl: undefined as any,
-        imageUrl: undefined as any,
-        animators: [] as any,
-        guests: [] as any,
+        audioUrl: '' ,
+        audioStorageUrl: '' ,
+        imageUrl: '' ,
+        animators: [] ,
+        guests: [] ,
         emission: emptyEmissionData(),
-        title: undefined as any,
-        description: undefined as any,
-        tags: [] as any,
+        title: '' ,
+        description: undefined ,
+        tags: [] ,
         availability: {
           visibility: true,
-          date: undefined as any,
+          date: undefined ,
         },
         monetisable: 'UNDEFINED',
         comments: 'inherit',
         organisation: {
-          id: '' as any,
-          name: ''
+          id: '' ,
+          name: '',
+          imageUrl: '',
         },
-        pubDate: undefined as any,
+        pubDate: undefined ,
         conferenceId: 0,
         duration: 0,
         annotations: {},
@@ -35,133 +37,134 @@ export function emptyPodcastData(): Podcast{
 
   export function emptyEmissionData(): Emission{
     return {
-        emissionId: undefined as any,
-        name: undefined as any,
-        description: undefined as any,
-        imageUrl: undefined as any,
-        iabIds: undefined as any,
+        emissionId: 0 ,
+        name: '' ,
+        description: '' ,
+        imageUrl: '' ,
+        iabIds: undefined ,
         orga: {
-          id: '' as any,
-          name: ''
+          id: '',
+          name: '',
+          imageUrl: ''
         },
-        rubriqueIds: [] as any,
+        rubriqueIds: [] ,
         monetisable: 'UNDEFINED',
     }
   }
 
   export interface General {
-    metaTitle: string,
-    education: Boolean,
-    logoUrl: string,
+    metaTitle: string;
+    education: boolean;
+    logoUrl: string;
   }
 
   export interface Authentication{
-    isAuthenticated: Boolean,
-    name: string,
-    organisationId: string | undefined,
-    organisationName: string | undefined,
-    role: Array<string>,
+    isAuthenticated: boolean;
+    name: string;
+    organisationId: string | undefined;
+    organisationName: string | undefined;
+    role: Array<string>;
   }
 
   export interface Filter{
-    organisationId: string | undefined,
-    imgUrl: string | undefined,
-    typeMedia: string | undefined,
-    sortOrder: string | undefined,
-    sortField: string | undefined,
-    live: any,
+    organisationId: string | undefined;
+    imgUrl: string | undefined;
+    typeMedia: string | undefined;
+    sortOrder: string | undefined;
+    sortField: string | undefined;
+    live: any;
   }
 
   export interface StoreState{
-    general: General,
+    general: General;
     ui: {
-        displayLeftMenu: boolean,
-    },
+        displayLeftMenu: boolean;
+    };
     storage: {
-      uri: string | undefined,
-    },
+      uri: string | undefined;
+    };
     miniplayer: {
-      uri: string | undefined,
-    },
-    player: Player,
+      uri: string | undefined;
+    };
+    player: Player;
   
     navigator: {
-        isIE11: Boolean | undefined,
-        isES6: Boolean,
-    },
+        isIE11: boolean | undefined;
+        isES6: boolean;
+    };
   
     api: {
-        uri: string | undefined,
-    },
+        uri: string | undefined;
+    };
   
     RssApi: {
-        uri: string | undefined,
-    },
+        uri: string | undefined;
+    };
     MediaApi: {
-        uri: string | undefined,
-    },
+        uri: string | undefined;
+    };
     CommentApi: {
-        uri: string | undefined,
-    },
+        uri: string | undefined;
+    };
     studioApi: {
-        uri: string | undefined,
-    },
+        uri: string | undefined;
+    };
     processor: {
-        uri: string | undefined,
-    },
+        uri: string | undefined;
+    };
     rtmp: {
-        uri: string | undefined,
-    },
+        uri: string | undefined;
+    };
     frontend: {
-        uri: string | undefined,
-    },
-    keycloakApi:{
-        uri:string | undefined,
-    },
+        uri: string | undefined;
+    };
+    keycloakApi: {
+        uri: string | undefined;
+    };
 
     hlsApi: {
-        uri: string | undefined,
-    },
+        uri: string | undefined;
+    };
   
-    authentication: Authentication,
+    authentication: Authentication;
   
     oAuthParam: {
-        accessToken: string | undefined,
-        refreshToken: string | undefined,
-        accessTokenUri: string | undefined,
-        clientId: string | undefined,
-        expiration:any,
-    },
-    media: Media,
+        accessToken: string | undefined;
+        refreshToken: string | undefined;
+        accessTokenUri: string | undefined;
+        clientId: string | undefined;
+        expiration: any;
+    };
+    media: Media;
   
     profile: {
-        firstname: any,
-        lastname: any,
-        email: any,
-        userId: any,
-        imageUrl: any,
-        description: any,
-        attributes:any,
-    },
+        firstname: any;
+        lastname: any;
+        email: any;
+        userId: any;
+        imageUrl: any;
+        description: any;
+        attributes: any;
+    };
   
-    organisation: Organisation,
-    categories: any,
-    categoriesOrga: any,
+    organisation: Organisation;
+    categories: any;
+    categoriesOrga: any;
   
-    filter: Filter,
+    filter: Filter;
   
       liveUpdate: {
-        isBeforeLive: Boolean,
-      },
+        isBeforeLive: boolean;
+      };
   
-      uploadPodcastData: Podcast,
+      uploadPodcastData: Podcast;
   
       comments: {
-        knownIdentity: any,
-        actualPodcastId: number | undefined,
-        loadedComments: any,
-        totalCount: any,
-      },
+        knownIdentity: string|null;
+        actualPodcastId: number;
+        loadedComments: Array<CommentPodcast>;
+        totalCount: number;
+      };
   }
 
   export function AppStoreData(): StoreState{
@@ -176,73 +179,73 @@ export function emptyPodcastData(): Podcast{
             displayLeftMenu: false,
           },
           storage: {
-            uri: undefined as any,
+            uri: undefined ,
           },
           miniplayer: {
-            uri: undefined as any,
+            uri: undefined ,
           },
           player: {
             status: 'STOPPED', //STOPPED, LOADING, PLAYING, PAUSED
-            podcast: undefined as any,
+            podcast: undefined ,
             volume: 1, //From 0 to 1
             elapsed: 0, //From 0 to 1
             total: 0,
-            media: undefined as any,
-            live: undefined as any,
-            stop: undefined as any,
+            media: undefined ,
+            live: undefined ,
+            stop: undefined ,
           },
       
           navigator: {
-            isIE11: undefined as any,
+            isIE11: undefined ,
             isES6: true,
           },
       
           api: {
-            uri: undefined as any,
+            uri: undefined ,
           },
       
           RssApi: {
-            uri: undefined as any,
+            uri: undefined ,
           },
           MediaApi: {
-            uri: undefined as any,
+            uri: undefined ,
           },
           CommentApi: {
-            uri: undefined as any,
+            uri: undefined ,
           },
           studioApi: {
-            uri: undefined as any,
+            uri: undefined ,
           },
           processor: {
-            uri: undefined as any,
+            uri: undefined ,
           },
           rtmp: {
-            uri: undefined as any,
+            uri: undefined ,
           },
           frontend: {
-            uri: undefined as any,
+            uri: undefined ,
           },
           keycloakApi:{
             uri:undefined,
           },
       
           hlsApi: {
-            uri: undefined as any,
+            uri: undefined ,
           },
       
           authentication: {
             isAuthenticated: false,
             name: "",
-            organisationId: undefined as any,
-            organisationName: undefined as any,
+            organisationId: undefined ,
+            organisationName: undefined ,
             role: [""],
           },
       
           oAuthParam: {
-            accessToken: undefined as any,
-            refreshToken: undefined as any,
-            accessTokenUri: undefined as any,
-            clientId: undefined as any,
+            accessToken: undefined ,
+            refreshToken: undefined ,
+            accessTokenUri: undefined ,
+            clientId: undefined ,
             expiration:undefined
           },
           media: {
@@ -252,38 +255,38 @@ export function emptyPodcastData(): Podcast{
           },
       
           profile: {
-            firstname: undefined as any,
-            lastname: undefined as any,
-            email: undefined as any,
-            userId: undefined as any,
-            imageUrl: undefined as any,
-            description: undefined as any,
+            firstname: undefined ,
+            lastname: undefined ,
+            email: undefined ,
+            userId: undefined ,
+            imageUrl: undefined ,
+            description: undefined ,
             attributes:undefined,
           },
       
           organisation: {
             id:'',
-            name: undefined as any,
-            imageUrl: undefined as any,
-            description: undefined as any,
-            monetisable: undefined as any,
-            location: undefined as any,
-            comments: undefined as any,
+            name: '' ,
+            imageUrl: '' ,
+            description: undefined ,
+            monetisable: undefined ,
+            location: undefined ,
+            comments: undefined ,
             attributes: {
-              RSS_CONTACT: undefined as any,
+              RSS_CONTACT: undefined ,
             },
           },
       
-          categories: [] as any,
+          categories: [] ,
       
-          categoriesOrga: [] as any,
+          categoriesOrga: [] ,
       
           filter: {
-            organisationId: undefined as any,
-            imgUrl: undefined as any,
-            typeMedia: undefined as any,
-            sortOrder: undefined as any,
-            sortField: undefined as any,
+            organisationId: undefined ,
+            imgUrl: undefined ,
+            typeMedia: undefined ,
+            sortOrder: undefined ,
+            sortField: undefined ,
             live: false,
           },
       
@@ -295,9 +298,9 @@ export function emptyPodcastData(): Podcast{
       
           comments: {
             knownIdentity: null,
-            actualPodcastId: undefined as any,
-            loadedComments: [] as any,
-            totalCount:undefined as any,
+            actualPodcastId: 0 ,
+            loadedComments: [] ,
+            totalCount:0 ,
           },
     }
   }

@@ -1,6 +1,8 @@
+import { Category } from "./class/category";
+
 const octopusApi = require('@saooti/octopus-api');
 
-var state = {
+const state = {
   generalParameters: {} as any,
   filter: {
     organisationId: undefined as any,
@@ -18,10 +20,10 @@ var state = {
   oAuthParam: {} as any,
 };
 
-var initialize = function initialize(initObject: any) {
+const initialize = function initialize(initObject: any) {
   return new Promise<void>((resolve, reject) => {
     if (initObject.generalParameters) {
-      let param = initObject.generalParameters;
+      const param = initObject.generalParameters;
       state.generalParameters.organisationId =
         'undefined' !== typeof param.organisationId
           ? param.organisationId
@@ -64,7 +66,7 @@ var initialize = function initialize(initObject: any) {
         'undefined' !== typeof param.isCaptchaTest ? param.isCaptchaTest : true;
     }
     if (initObject.podcastPage) {
-      let param = initObject.podcastPage;
+      const param = initObject.podcastPage;
       state.podcastPage.EditBox =
         'undefined' !== typeof param.EditBox ? param.EditBox : false;
       state.podcastPage.SharePlayer =
@@ -95,7 +97,7 @@ var initialize = function initialize(initObject: any) {
           : 'https://hls.staging.saooti.org/';
     }
     if (initObject.podcastsPage) {
-      let param = initObject.podcastsPage;
+      const param = initObject.podcastsPage;
       state.podcastsPage.ProductorSearch =
         'undefined' !== typeof param.ProductorSearch
           ? param.ProductorSearch
@@ -118,7 +120,7 @@ var initialize = function initialize(initObject: any) {
           : false;
     }
     if (initObject.emissionsPage) {
-      let param = initObject.emissionsPage;
+      const param = initObject.emissionsPage;
       state.emissionsPage.smallItems =
         'undefined' !== typeof param.smallItems ? param.smallItems : false;
       state.emissionsPage.lightItems =
@@ -141,7 +143,7 @@ var initialize = function initialize(initObject: any) {
           : false;
     }
     if (initObject.emissionPage) {
-      let param = initObject.emissionPage;
+      const param = initObject.emissionPage;
       state.emissionPage.ouestFranceStyle =
         'undefined' !== typeof param.ouestFranceStyle
           ? param.ouestFranceStyle
@@ -150,19 +152,19 @@ var initialize = function initialize(initObject: any) {
         'undefined' !== typeof param.rssButton ? param.rssButton : false;
     }
     if (initObject.intervenantPage) {
-      let param = initObject.intervenantPage;
+      const param = initObject.intervenantPage;
       state.intervenantPage.lightStyle =
         'undefined' !== typeof param.lightStyle ? param.lightStyle : false;
       state.intervenantPage.rssButton =
         'undefined' !== typeof param.rssButton ? param.rssButton : false;
     }
     if (initObject.searchPage) {
-      let param = initObject.searchPage;
+      const param = initObject.searchPage;
       state.searchPage.hideBar =
         'undefined' !== typeof param.hideBar ? param.hideBar : false;
     }
     if (initObject.player) {
-      let param = initObject.player;
+      const param = initObject.player;
       state.player.image =
         'undefined' !== typeof param.image ? param.image : true;
       state.player.emissionName =
@@ -173,7 +175,7 @@ var initialize = function initialize(initObject: any) {
         'undefined' !== typeof param.barTop ? param.barTop : false;
     }
     if (initObject.organisation) {
-      let param = initObject.organisation;
+      const param = initObject.organisation;
       state.organisation.imageUrl =
         'undefined' !== typeof param.imageUrl
           ? param.imageUrl
@@ -184,14 +186,14 @@ var initialize = function initialize(initObject: any) {
         'undefined' !== typeof param.userName ? param.userName : '';
     }
     if (initObject.footer) {
-      let param = initObject.footer;
+      const param = initObject.footer;
       state.footer.contactLink =
         'undefined' !== typeof param.contactLink
           ? param.contactLink
           : undefined;
     }
     if (initObject.octopusApi) {
-      let param = initObject.octopusApi;
+      const param = initObject.octopusApi;
       state.octopusApi.url =
         'undefined' !== typeof param.url
           ? param.url
@@ -208,11 +210,11 @@ var initialize = function initialize(initObject: any) {
             ? param.organisationId
             : undefined;
       }
-      let error = octopusApi.initialize(state.octopusApi);
+      const error = octopusApi.initialize(state.octopusApi);
       if (error) {
         reject();
       } else if (0 === state.generalParameters.allCategories.length) {
-        octopusApi.fetchCategories({ lang: 'fr' }).then((data: any) => {
+        octopusApi.fetchCategories({ lang: 'fr' }).then((data: Array<Category>) => {
           state.generalParameters.allCategories = data;
           resolve();
         });

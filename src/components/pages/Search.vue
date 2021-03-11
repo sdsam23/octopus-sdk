@@ -67,7 +67,7 @@ export default Vue.extend({
   components: {
     PodcastList,
   },
-  props:['query'],
+  props:['queryRoute'],
   
   data() {
     return {
@@ -77,8 +77,8 @@ export default Vue.extend({
   },
 
   mounted() {
-    if (this.query) {
-      this.rawQuery = this.query;
+    if (this.queryRoute) {
+      this.rawQuery = this.queryRoute;
     }
     if (this.$refs.search) {
       (this.$refs.search as HTMLElement).focus();

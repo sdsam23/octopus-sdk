@@ -1,11 +1,11 @@
 export default {
   formatDuration(totalSeconds: number) {
-    var hours = Math.floor(totalSeconds / 3600);
-    var minutes = Math.floor((totalSeconds - hours * 3600) / 60);
-    var seconds = totalSeconds - hours * 3600 - minutes * 60;
-    var hoursString = "";
-    var minutesString = "";
-    var secondsString = "";
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds - hours * 3600) / 60);
+    const seconds = totalSeconds - hours * 3600 - minutes * 60;
+    let hoursString = "";
+    let minutesString = "";
+    let secondsString = "";
 
     if (hours > 0) {
       if (hours < 10) {

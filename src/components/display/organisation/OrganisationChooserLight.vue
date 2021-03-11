@@ -2,7 +2,7 @@
   <div
     class="default-multiselect-width"
     :style="{ width: width }"
-    v-if="(!value || init) && '' !== organisation"
+    v-if="(!value || init) && organisation"
   >
     <select
       :id="'organisation_chooser_light' + page"
@@ -60,14 +60,14 @@ export default Vue.extend({
   },
 
   methods: {
-    onOrganisationSelected() {
+    onOrganisationSelected(): void{
       if (-1 === this.actual) {
         this.$emit('selected', undefined);
       } else {
         this.$emit('selected', this.organisation);
       }
     },
-    async fetchOrganisation() {
+    async fetchOrganisation(): Promise<void> {
       const data = await octopusApi.fetchOrganisation(this.value);
       this.organisation = data;
       this.actual = data.id;
@@ -76,12 +76,12 @@ export default Vue.extend({
   },
 
   watch: {
-    value(newVal) {
-      if (!this.init || newVal) {
+    value(): void {
+      if (!this.init || this.value) {
         this.fetchOrganisation();
       }
     },
-    reset() {
+    reset(): void {
       this.actual = -1;
     },
   },

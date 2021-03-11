@@ -54,6 +54,7 @@
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
+    "parser": "vue-eslint-parser",
     "root": true,
     "env": {
       "node": true
@@ -61,11 +62,15 @@
     "extends": [
       "plugin:vue/essential",
       "eslint:recommended",
-      "@vue/typescript"
+      "@vue/typescript",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended"
     ],
     "rules": {
       "no-console": "off",
-      "no-debugger": "off"
+      "no-debugger": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-var-requires": "off"
     },
     "parserOptions": {
       "parser": "@typescript-eslint/parser"

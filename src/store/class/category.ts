@@ -1,8 +1,8 @@
 export interface Category{
-    id: number,
-    name: string,
-    podcastCount?: number,
-    podcastOrganisationCount?: number,
-    rtbId?: string,
-    soundcastTag?: string
+    id: number;
+    name: string;
+    podcastCount?: number;
+    podcastOrganisationCount?: number;
+    rtbId?: string;
+    soundcastTag?: string;
 }

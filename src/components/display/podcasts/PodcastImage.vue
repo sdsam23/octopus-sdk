@@ -205,7 +205,7 @@
 <script lang="ts">
 import { mapState } from 'vuex';
 import Vue from 'vue';
-import { StoreState } from '@/store/typeAppStore';
+import {StoreState} from '@/store/typeAppStore';
 export default Vue.extend({
   name: 'PodcastImage',
 

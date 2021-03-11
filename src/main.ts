@@ -6,7 +6,7 @@ import I18nResources from './locale/messages';
 import router from '@/router/router';
 import moment from 'moment';
 import store from '@/store/AppStore';
-let paramStore = require('./store/paramStore');
+const paramStore = require('./store/paramStore');
 
 moment.locale('fr');
 Vue.use(BootstrapVue);
@@ -15,7 +15,7 @@ Vue.config.productionTip = false;
 
 //Gestion de l'i18n
 Vue.use(VueI18n);
-let messages:any = I18nResources;
+let messages: any = I18nResources;
 if (store.state.general.education) {
   messages = {
     fr: { ...I18nResources.fr, ...I18nResources.educationfr },
