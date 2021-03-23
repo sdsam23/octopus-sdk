@@ -76,7 +76,7 @@ export default selenium.extend({
     multiple: { default: false as boolean },
     rubriqueArray: { default: undefined as Array<number>|undefined },
     rubriquageId: { default: undefined as number|undefined },
-    allRubriques: { default: [] as Array<Rubrique>|undefined },
+    allRubriques: { default: () => ([])  as Array<Rubrique>|undefined },
     reset: { default: false as boolean },
     withoutRubrique: { default: false as boolean },
     isDisabled: { default: false as boolean },

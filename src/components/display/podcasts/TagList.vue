@@ -41,7 +41,7 @@ export default Vue.extend({
   name: 'TagList',
   components: {},
   props: {
-    tagList: { default: [] as Array<string>},
+    tagList: { default: () => ([])  as Array<string>},
   },
 
   methods: {},

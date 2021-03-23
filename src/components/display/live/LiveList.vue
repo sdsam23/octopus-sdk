@@ -130,7 +130,7 @@ export default Vue.extend({
   },
 
   props: {
-    conferenceWatched: { default: [] as Array<Conference>},
+    conferenceWatched: { default: () => ([])  as Array<Conference>},
     organisationId: { default: undefined as string | undefined},
   },
 

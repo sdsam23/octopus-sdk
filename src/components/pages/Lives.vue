@@ -39,7 +39,7 @@ export default Vue.extend({
     OrganisationChooser,
   },
   props: {
-    conferenceWatched: { default: [] },
+    conferenceWatched: { default: () => ([])  },
     organisationId: { default: undefined as any },
     productor:{default:undefined as string|undefined}
   },
