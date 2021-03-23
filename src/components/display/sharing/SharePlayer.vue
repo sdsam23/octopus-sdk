@@ -424,7 +424,7 @@ export default Vue.extend({
         orgaId = this.emission.orga.id;
       }
       const data: any = await profileApi.fetchOrganisationAttibutes(
-        this.$store,
+        this.$store.state,
         orgaId
       );
       if (data.hasOwnProperty('COLOR')) {

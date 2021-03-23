@@ -4,6 +4,22 @@ import { Media } from "./class/media"
 import { Organisation } from "./class/organisation"
 import { Player } from "./class/player"
 import { Podcast } from "./class/podcast"
+export function emptyEmissionData(): Emission{
+  return {
+      emissionId: 0 ,
+      name: '' ,
+      description: '' ,
+      imageUrl: '' ,
+      iabIds: undefined ,
+      orga: {
+        id: '',
+        name: '',
+        imageUrl: ''
+      },
+      rubriqueIds: [] ,
+      monetisable: 'UNDEFINED',
+  }
+}
 
 export function emptyPodcastData(): Podcast{
     return {
@@ -35,23 +51,7 @@ export function emptyPodcastData(): Podcast{
     }
   }
 
-  export function emptyEmissionData(): Emission{
-    return {
-        emissionId: 0 ,
-        name: '' ,
-        description: '' ,
-        imageUrl: '' ,
-        iabIds: undefined ,
-        orga: {
-          id: '',
-          name: '',
-          imageUrl: ''
-        },
-        rubriqueIds: [] ,
-        monetisable: 'UNDEFINED',
-    }
-  }
-
+  
   export interface General {
     metaTitle: string;
     education: boolean;

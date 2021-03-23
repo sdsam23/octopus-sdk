@@ -208,7 +208,7 @@ export default Vue.extend({
       this.loading = true;
       this.loaded = false;
       const dataLives = await studioApi.listConferences(
-        this.$store,
+        this.$store.state,
         true,
         this.filterOrgaUsed,
         'RECORDING'
@@ -217,7 +217,7 @@ export default Vue.extend({
         return null !== p;
       });
       const dataLivesToBe = await studioApi.listConferences(
-        this.$store,
+        this.$store.state,
         true,
         this.filterOrgaUsed,
         'PENDING'
@@ -232,7 +232,7 @@ export default Vue.extend({
         }
       }
       const dataLivesPlanned = await studioApi.listConferences(
-        this.$store,
+        this.$store.state,
         true,
         this.filterOrgaUsed,
         'PLANNED'
@@ -245,7 +245,7 @@ export default Vue.extend({
         });
       if (this.organisationRight) {
         const dataLivesTerminated = await studioApi.listConferences(
-          this.$store,
+          this.$store.state,
           true,
           this.filterOrgaUsed,
           'DEBRIEFING'
@@ -254,7 +254,7 @@ export default Vue.extend({
           return null !== p;
         });
         const dataLivesError = await studioApi.listConferences(
-          this.$store,
+          this.$store.state,
           true,
           this.filterOrgaUsed,
           'ERROR'
@@ -263,7 +263,7 @@ export default Vue.extend({
           return null !== p;
         });
         const dataLivesPublishing = await studioApi.listConferences(
-          this.$store,
+          this.$store.state,
           true,
           this.filterOrgaUsed,
           'PUBLISHING'

@@ -24,7 +24,7 @@ export default Vue.extend({
   data() {
     return {
       seconds: 0 as number,
-      countdownTimer: undefined as number|undefined,
+      countdownTimer: undefined as any,
       days: 0 as number,
       hours: 0 as number,
       minutes: 0 as number,

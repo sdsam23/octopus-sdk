@@ -388,7 +388,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.24.8 - 0.24.14 Début distribution
  * 0.24.15 - 0.24.16 Description subset Html Podcastmaker
  * 0.24.17 Bonnes pratiques et prettify
- * 0.24.20 Passage en typescript
+ * 0.24.21 Passage en typescript
 
 
 

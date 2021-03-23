@@ -316,14 +316,14 @@ export default displayMethods.extend({
     await this.getPodcastDetails(this.podcastId);
     if (!this.isLiveReadyToRecord) return;
     if (this.isOctopusAndAnimator) {
-      const data: any = await studioApi.getConference(this.$store,this.podcast!.conferenceId);
+      const data: any = await studioApi.getConference(this.$store.state,this.podcast!.conferenceId!.toString());
       if ('' !== data.data) {
         this.fetchConference = data.data;
       } else {
         this.fetchConference = {conferenceId:-1, title:''};
       }
     } else if(undefined!==this.podcast!.conferenceId){
-      const data: any = await studioApi.getRealConferenceStatus(this.$store,this.podcast!.conferenceId);
+      const data: any = await studioApi.getRealConferenceStatus(this.$store.state,this.podcast!.conferenceId!.toString());
       this.fetchConference = {
         status: data.data,
         conferenceId: this.podcast!.conferenceId,

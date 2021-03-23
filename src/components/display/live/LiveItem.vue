@@ -281,8 +281,8 @@ export default displayMethods.extend({
       } catch {
         this.$emit('deleteItem', this.index);
         studioApi.deleteConference(
-          this.$store,
-          this.fetchConference.conferenceId
+          this.$store.state,
+          this.fetchConference.conferenceId!.toString()
         );
       }
     },

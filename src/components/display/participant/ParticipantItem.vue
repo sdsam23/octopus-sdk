@@ -175,7 +175,7 @@ export default displayMethods.extend({
     editRight(): boolean {
       if (
         (this.authenticated &&
-          this.organisationId === this.participant.orga.id) ||
+          this.organisationId === this.participant!.orga!.id!) ||
         state.generalParameters.isAdmin
       )
         return true;

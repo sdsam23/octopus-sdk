@@ -209,7 +209,7 @@ export default Vue.extend({
       };
       if (this.includeHidden) {
         param.includeHidden = this.includeHidden;
-        const data = await emissionApi.fetchEmissionsAdmin(this.$store, param);
+        const data = await emissionApi.fetchEmissionsAdmin(this.$store.state, param);
         this.afterFetching(reset, data);
       } else {
         const data = await octopusApi.fetchEmissions(param);

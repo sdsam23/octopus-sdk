@@ -256,7 +256,7 @@ export default cookies.extend({
         let data;
         if (this.isCertified) {
           comment.status = 'Valid';
-          data = await commentApi.postComment(this.$store, comment);
+          data = await commentApi.postComment(this.$store.state, comment);
         } else {
           data = await octopusApi.postComment(comment);
         }

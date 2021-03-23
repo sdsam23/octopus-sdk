@@ -186,7 +186,7 @@ export default Vue.extend({
       }
       if (this.includeHidden) {
         param.includeHidden = this.includeHidden;
-        const data = await podcastApi.fetchPodcastsAdmin(this.$store, param);
+        const data = await podcastApi.fetchPodcastsAdmin(this.$store.state, param);
         this.afterFetching(reset, data);
       } else {
         const data = await octopusApi.fetchPodcasts(param);

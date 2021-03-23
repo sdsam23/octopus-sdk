@@ -131,8 +131,7 @@ export default displayMethods.extend({
       );
     },
     description(): string {
-      let description;
-      description = this.participant!.description || '';
+      const description = this.participant!.description || '';
       if (state.generalParameters.isIE11)
         return description.substring(0, 50) + '...';
       return description;
@@ -150,7 +149,7 @@ export default displayMethods.extend({
     editRight(): boolean {
       if (
         (this.authenticated &&
-          this.organisationId === this.participant!.orga.id) ||
+          this.organisationId === this.participant!.orga!.id!) ||
         state.generalParameters.isAdmin
       )
         return true;

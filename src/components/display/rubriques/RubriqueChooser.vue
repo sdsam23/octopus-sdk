@@ -122,7 +122,7 @@ export default selenium.extend({
           this.withoutItem,
         ].concat(this.allRubriques);
       } else {
-        this.rubriques = [getDefaultRubrique(this.defaultanswer)].concat(
+        this.rubriques = [(getDefaultRubrique(this.defaultanswer) as Rubrique)].concat(
           this.allRubriques
         );
       }
@@ -142,11 +142,11 @@ export default selenium.extend({
       if (undefined !== this.defaultanswer) {
         if (this.withoutRubrique) {
           list = [
-            getDefaultRubrique(this.defaultanswer),
+            (getDefaultRubrique(this.defaultanswer) as Rubrique),
             this.withoutItem,
           ].concat(this.allRubriques);
         } else {
-          list = [getDefaultRubrique(this.defaultanswer)].concat(
+          list = [(getDefaultRubrique(this.defaultanswer) as Rubrique)].concat(
             this.allRubriques
           );
         }
