@@ -2,7 +2,7 @@
   <div class="default-multiselect-width" :style="{ width: width }">
     <label :for="id" class="d-inline" aria-label="select rubrique"></label>
     <Multiselect
-      v-model="rubrique"
+      v-model="model"
       :id="id"
       :disabled="isDisabled"
       class="rubriqueChooser"
@@ -34,9 +34,8 @@
           </span>
         </div>
       </template>
-      <template slot="option" slot-scope="props">
+      <template slot="option" slot-scope="props" v-if="undefined!==props.option">
         <div
-          v-if="props.option"
           class="multiselect-octopus-proposition"
           :class="props.option.rubriqueId <= 0 ? 'primary-dark' : ''"
           :data-selenium="'rubric-chooser-' + seleniumFormat(props.option.name)"
@@ -72,7 +71,6 @@ export default selenium.extend({
   components: {
     Multiselect,
   },
-
   props: {
     width: { default: '100%' as string },
     defaultanswer: { default: '' as string },
@@ -85,10 +83,12 @@ export default selenium.extend({
     withoutRubrique: { default: false as boolean },
     isDisabled: { default: false as boolean },
   },
+
   data() {
     return {
       rubriques: [] as Array<Rubrique>,
-      rubrique: getDefaultRubrique(this.defaultanswer) as any,
+      rubrique: getDefaultRubrique(this.defaultanswer) as Rubrique|undefined,
+      rubriqueForArray: [] as Array<Rubrique>,
       isLoading: false as boolean,
       withoutItem: { name: this.$t('Without rubric'), rubriqueId: -1 } as any,
     };
@@ -106,6 +106,22 @@ export default selenium.extend({
       if (this.rubriquageId) return 'rubriqueChooser' + this.rubriquageId;
       return 'rubriqueChooser';
     },
+    model: {
+      get():Rubrique| Array<Rubrique>|undefined{
+        if(false===this.multiple){
+          return this.rubrique;
+        }
+        return this.rubriqueForArray;
+      },
+      set(value: any): void{
+        if(false===this.multiple){
+          this.rubrique = value;
+          return
+        }
+        this.rubriqueForArray = value;
+      }
+
+    }
   },
   methods: {
     clearAll(): void {
@@ -115,8 +131,9 @@ export default selenium.extend({
       );
       if (undefined === this.rubriqueArray) {
         this.rubrique = undefined;
+        /* this.rubriqueForArray.length = 0; */
       }
-      if (undefined === this.defaultanswer) {
+      if ('' === this.defaultanswer) {
         this.rubriques = this.allRubriques;
         return;
       }
@@ -133,14 +150,14 @@ export default selenium.extend({
     },
     onClose(): void {
       if (this.rubrique || undefined !== this.rubriqueArray) return;
-      if (undefined !== this.defaultanswer) {
+      if ('' !== this.defaultanswer) {
         this.rubrique = getDefaultRubrique(this.defaultanswer);
       } else {
         this.rubrique = undefined;
       }
       this.onRubriqueSelected(this.rubrique);
     },
-    onSearchRubrique(query: string): void {
+    onSearchRubrique(query?: string): void {
       this.isLoading = true;
       let list;
       if (undefined !== this.defaultanswer) {
@@ -150,7 +167,7 @@ export default selenium.extend({
             this.withoutItem,
           ].concat(this.allRubriques);
         } else {
-          list = [(getDefaultRubrique(this.defaultanswer) as Rubrique)].concat(
+          list = [(getDefaultRubrique(this.defaultanswer)! as Rubrique)].concat(
             this.allRubriques
           );
         }
@@ -158,47 +175,53 @@ export default selenium.extend({
         list = this.allRubriques;
       }
       this.rubriques = list.filter((item: Rubrique) => {
-        return item.name.toUpperCase().includes(query.toUpperCase());
+        return item.name!.toUpperCase().includes(query!.toUpperCase());
       });
       this.isLoading = false;
     },
-    onRubriqueSelected(rubrique: Rubrique): void {
+    onRubriqueSelected(rubrique: Rubrique|undefined): void {
       if (undefined !== this.rubriqueSelected) {
         this.$emit('update:rubrique', rubrique!.rubriqueId);
-      } else if (undefined === this.rubriqueArray) {
+      } else if (false === this.multiple) {
         this.$emit('selected', rubrique);
       }
     },
     initRubriqueSelected(val: number): void {
       this.rubrique = this.allRubriques.find((el: Rubrique) => {
-        return el!.rubriqueId === val;
+        return el.rubriqueId === val;
       });
     },
     initRubriqueArray(val: number[]): void {
-      this.rubrique.length = 0;
+      this.rubriqueForArray = [];
       val.forEach((element: number) => {
         const item = this.allRubriques.find((el: Rubrique) => {
-          return el!.rubriqueId === element;
+          return el.rubriqueId === element;
         });
-        this.rubrique.push(item);
+        if(undefined!==item){
+          this.rubriqueForArray!.push(item);
+        }
       });
     },
   },
   watch: {
-    rubriqueSelected(): void {
-      this.initRubriqueSelected(this.rubriqueSelected);
-    },
-    rubrique(): void {
-      if (undefined === this.rubriqueArray) return;
-      const idsArray: number[] = [];
-      this.rubrique.forEach((el: Rubrique) => {
-        idsArray.push(el!.rubriqueId);
+    model(): void {
+      if(false===this.multiple){
+        return;
+      }
+      /* console.log(this.model); */
+      let selected: Array<Rubrique> = JSON.parse(JSON.stringify(this.model));
+      const idsArray: Array<number> = [];
+      selected.forEach((el: Rubrique) => {
+        idsArray.push(el.rubriqueId!);
       });
       this.$emit('selected', idsArray);
     },
+    rubriqueSelected(): void {
+      this.initRubriqueSelected(this.rubriqueSelected);
+    },
     reset(): void {
       this.rubrique = getDefaultRubrique(this.defaultanswer);
-    },
+    }
   },
 });
 </script>

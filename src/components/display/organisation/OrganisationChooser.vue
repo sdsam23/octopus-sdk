@@ -38,7 +38,7 @@
       <template slot="clear" slot-scope="props">
         <div
           class="multiselect__clear"
-          v-if="organisation.length"
+          v-if="organisation"
           @mousedown.prevent.stop="clearAll(props.search)"
         ></div>
       </template>
