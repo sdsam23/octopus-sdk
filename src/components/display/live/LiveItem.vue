@@ -153,6 +153,9 @@
 .recording-bg {
   background: #f34a4a;
 }
+.error-bg {
+  background: #ff0000;
+}
 .debriefing-bg {
   background: #6ec66e;
 }
@@ -176,6 +179,9 @@
 }
 .publishing-shadow {
   box-shadow: 0px 12px 48px 6px rgba(125, 125, 125, 0.2);
+}
+.error-shadow {
+  box-shadow: 0px 12px 48px 6px rgba(255, 0, 0, 0.2);
 }
 </style>
 
