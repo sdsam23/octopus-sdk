@@ -6,7 +6,6 @@
         ? 'noList emission-light-max-size'
         : 'emission-item-container shadow-element'
     "
-    v-if="activeEmission || editRight"
   >
     <router-link
       :to="{
@@ -195,6 +194,7 @@ export default displayMethods.extend({
   },
 
   created() {
+    if(!this.editRight)return;
     this.hasPodcast();
   },
   mounted() {
@@ -258,10 +258,10 @@ export default displayMethods.extend({
       if (0 === data.count) {
         this.activeEmission = false;
       }
-      if (this.editRight || this.activeEmission) {
+      /* if (this.editRight || this.activeEmission) {
         return;
       }
-      this.$emit('emissionNotVisible');
+      this.$emit('emissionNotVisible'); */
     },
   },
 });

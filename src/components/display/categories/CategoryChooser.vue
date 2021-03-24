@@ -86,6 +86,7 @@ export default Vue.extend({
       isLoading: false as boolean,
       totalCategories: [] as Array<Category>,
       init: true as boolean,
+      initArray: false as boolean,
     };
   },
 
@@ -100,11 +101,21 @@ export default Vue.extend({
       if (this.multiple) return 'categoryChooser' + this.multiple;
       return 'categoryChooser';
     },
-    model(): Category| Array<Category>|undefined{
-      if(undefined===this.categoryArray){
-        return this.category;
+    model: {
+      get():Category| Array<Category>|undefined{
+        if(false===this.initArray){
+          return this.category;
+        }
+        return this.categoryForArray;
+      },
+      set(value: any): void{
+        if(false===this.initArray){
+          this.category = value;
+          return
+        }
+        this.categoryForArray = value;
       }
-      return this.categoryForArray;
+
     }
   },
  
@@ -114,11 +125,12 @@ export default Vue.extend({
     }
     if (undefined !== this.categoryArray) {
       this.initCategoryArray(this.categoryArray);
+      this.initArray=true;
     }
   },
   methods: {
     clearAll(): void {
-      (this.$refs.multiselect as any).$refs.search.setAttribute(
+      (this.$refs.multiselectRef as any).$refs.search.setAttribute(
         'autocomplete',
         'off'
       );

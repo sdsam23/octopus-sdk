@@ -1,7 +1,7 @@
 <template>
   <li
     class="participant-item-container"
-    v-if="participant && (activeParticipant || editRight)"
+    v-if="participant"
   >
     <router-link
       :to="{
@@ -129,6 +129,7 @@ export default displayMethods.extend({
   },
 
   created() {
+    if(!this.editRight)return;
     this.hasPodcast();
   },
   mounted() {
@@ -192,10 +193,10 @@ export default displayMethods.extend({
       if (0 === data.count) {
         this.activeParticipant = false;
       }
-      if (this.participant && (this.editRight || this.activeParticipant)) {
+      /* if (this.participant && (this.editRight || this.activeParticipant)) {
         return;
       }
-      this.$emit('participantNotVisible');
+      this.$emit('participantNotVisible'); */
     },
   },
 });

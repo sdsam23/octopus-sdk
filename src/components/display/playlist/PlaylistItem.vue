@@ -98,10 +98,10 @@ export default displayMethods.extend({
     ) {
       playlistDescContainer!.classList.add('after-emission-description');
     }
-    if (this.editRight || this.activePlaylist) {
+    /* if (this.editRight || this.activePlaylist) {
       return;
     }
-    this.$emit('playlistNotVisible');
+    this.$emit('playlistNotVisible'); */
   },
   
   computed: {

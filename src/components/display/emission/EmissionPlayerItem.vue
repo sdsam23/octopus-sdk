@@ -1,7 +1,6 @@
 <template>
   <li
     class="emission-player-container shadow-element"
-    v-if="activeEmission || editRight"
   >
     <router-link
       :to="{
@@ -187,6 +186,7 @@ export default displayMethods.extend({
   },
 
   created() {
+    if(!this.editRight)return;
     this.loadPodcasts();
   },
   mounted() {
@@ -250,10 +250,10 @@ export default displayMethods.extend({
         }
       }
       });
-      if (this.editRight || this.activeEmission) {
+      /* if (this.editRight || this.activeEmission) {
         return;
       }
-      this.$emit('emissionNotVisible');
+      this.$emit('emissionNotVisible'); */
     },
     play(podcast: Podcast): void {
       if (podcast === this.$store.state.player.podcast) {

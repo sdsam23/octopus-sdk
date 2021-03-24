@@ -36,6 +36,7 @@
       </template>
       <template slot="option" slot-scope="props">
         <div
+          v-if="props.option"
           class="multiselect-octopus-proposition"
           :class="props.option.rubriqueId <= 0 ? 'primary-dark' : ''"
           :data-selenium="'rubric-chooser-' + seleniumFormat(props.option.name)"
@@ -61,6 +62,9 @@ import { selenium } from '../../mixins/functions';
 import Multiselect from 'vue-multiselect';
 import { Rubrique } from '@/store/class/rubrique';
 const getDefaultRubrique = (defaultName: string) => {
+  if ('' === defaultName){
+    return undefined;
+  }
   return { name: defaultName, rubriqueId: 0 };
 };
 
@@ -105,12 +109,12 @@ export default selenium.extend({
   },
   methods: {
     clearAll(): void {
-      (this.$refs.multiselect as any).$refs.search.setAttribute(
+      (this.$refs.multiselectRef as any).$refs.search.setAttribute(
         'autocomplete',
         'off'
       );
       if (undefined === this.rubriqueArray) {
-        this.rubrique = '';
+        this.rubrique = undefined;
       }
       if (undefined === this.defaultanswer) {
         this.rubriques = this.allRubriques;
@@ -132,7 +136,7 @@ export default selenium.extend({
       if (undefined !== this.defaultanswer) {
         this.rubrique = getDefaultRubrique(this.defaultanswer);
       } else {
-        this.rubrique = '';
+        this.rubrique = undefined;
       }
       this.onRubriqueSelected(this.rubrique);
     },
@@ -160,21 +164,21 @@ export default selenium.extend({
     },
     onRubriqueSelected(rubrique: Rubrique): void {
       if (undefined !== this.rubriqueSelected) {
-        this.$emit('update:rubrique', rubrique.rubriqueId);
+        this.$emit('update:rubrique', rubrique!.rubriqueId);
       } else if (undefined === this.rubriqueArray) {
         this.$emit('selected', rubrique);
       }
     },
     initRubriqueSelected(val: number): void {
       this.rubrique = this.allRubriques.find((el: Rubrique) => {
-        return el.rubriqueId === val;
+        return el!.rubriqueId === val;
       });
     },
     initRubriqueArray(val: number[]): void {
       this.rubrique.length = 0;
       val.forEach((element: number) => {
         const item = this.allRubriques.find((el: Rubrique) => {
-          return el.rubriqueId === element;
+          return el!.rubriqueId === element;
         });
         this.rubrique.push(item);
       });
@@ -187,8 +191,8 @@ export default selenium.extend({
     rubrique(): void {
       if (undefined === this.rubriqueArray) return;
       const idsArray: number[] = [];
-      this.rubrique.forEach((el: { rubriqueId: number }) => {
-        idsArray.push(el.rubriqueId);
+      this.rubrique.forEach((el: Rubrique) => {
+        idsArray.push(el!.rubriqueId);
       });
       this.$emit('selected', idsArray);
     },
