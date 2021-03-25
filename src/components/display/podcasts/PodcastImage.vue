@@ -261,8 +261,8 @@ export default Vue.extend({
         false !== this.podcast.valid &&
           ('READY_TO_RECORD' === this.podcast.processingStatus ||
             'READY' === this.podcast.processingStatus) &&
-        !this.isLiveToBeRecorded &&
-        undefined!==this.podcast.availability.visibility
+        !this.isLiveToBeRecorded && undefined!==this.podcast.availability.visibility 
+        && this.podcast.availability.visibility
       );
     },
     iconName(): string {
