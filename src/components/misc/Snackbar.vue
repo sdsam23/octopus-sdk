@@ -70,7 +70,7 @@ export default Vue.extend({
   data() {
     return {
       msgs: [] as any,
-      holdTime: 3000,
+      holdTime: 5000,
       baseSize: '5rem',
     };
   },

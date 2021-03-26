@@ -42,32 +42,32 @@
 <style lang="scss">
 @import '../../../sass/_variables.scss';
 .my-transition-list-comments {
+  position: relative;
   .comment-list-enter-active,
   .comment-list-leave-active {
     transition: 1200ms cubic-bezier(0.59, 0.12, 0.34, 0.95);
     transition-property: opacity, transform;
     background-color: $primaryColorReallyTransparent;
-    width: 100%;
   }
 
   .comment-list-enter {
     opacity: 0;
     transform: translateX(50px) scaleY(0.5);
     background-color: $primaryColorReallyTransparent;
-    width: 100%;
   }
 
   .comment-list-enter-to {
     opacity: 1;
     transform: translateX(0) scaleY(1);
     background-color: $primaryColorReallyTransparent;
-    width: 100%;
   }
 
   .comment-list-leave-active {
     position: absolute;
     background-color: $primaryColorReallyTransparent;
-    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
   }
 
   .comment-list-leave-to {
