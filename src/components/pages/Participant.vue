@@ -1,7 +1,8 @@
 <template>
   <div>
-    <div class="page-box" v-if="loaded && !error">
-      <h1 v-if="!lightStyle">{{ $t('Animator') }}</h1>
+    <div class="page-box intervenant-page" v-if="loaded && !error">
+      <h1 v-if="undefined === titlePage || !lightStyle">{{ $t('Animator') }}</h1>
+      <h1 v-else>{{ titlePage }}</h1>
       <div
         class="d-flex w-100 flex-column align-items-center justify-content-center"
       >
@@ -124,6 +125,9 @@ export default displayMethods.extend({
     },
     isRssButton(): boolean {
       return state.intervenantPage.rssButton;
+    },
+    titlePage(): string|undefined {
+      return state.intervenantPage.titlePage;
     },
     rssUrl(): string {
       return (

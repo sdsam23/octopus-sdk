@@ -12,6 +12,7 @@ const state = {
   emissionsPage: {} as any,
   emissionPage: {} as any,
   intervenantPage: {} as any,
+  intervenantsPage: {} as any,
   searchPage: {} as any,
   player: {} as any,
   footer: {} as any,
@@ -157,6 +158,13 @@ const initialize = function initialize(initObject: any) {
         'undefined' !== typeof param.lightStyle ? param.lightStyle : false;
       state.intervenantPage.rssButton =
         'undefined' !== typeof param.rssButton ? param.rssButton : false;
+      state.intervenantPage.titlePage =
+        'undefined' !== typeof param.titlePage ? param.titlePage : undefined;
+    }
+    if (initObject.intervenantsPage) {
+      const param = initObject.intervenantsPage;
+      state.intervenantsPage.titlePage =
+        'undefined' !== typeof param.titlePage ? param.titlePage : undefined;
     }
     if (initObject.searchPage) {
       const param = initObject.searchPage;

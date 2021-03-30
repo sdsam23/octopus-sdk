@@ -1,6 +1,7 @@
 <template>
   <div class="page-box">
-    <h1>{{ $t('All participants') }}</h1>
+    <h1 v-if="undefined === titlePage">{{ $t('All participants') }}</h1>
+    <h1 v-else>{{ titlePage }}</h1>
     <ProductorSearch
       :organisationId="organisationId"
       :searchPattern="searchPattern"
@@ -22,8 +23,7 @@
 // @ is an alias to /src
 import ParticipantList from '../display/participant/ParticipantList.vue';
 import ProductorSearch from '../display/filter/ProductorSearch.vue';
-/* import {state} from "../../store/paramStore.js"; */
-
+import { state } from '../../store/paramStore';
 import Vue from 'vue';
 export default Vue.extend({
   components: {
@@ -57,6 +57,12 @@ export default Vue.extend({
     } else if (this.$store.state.filter.organisationId) {
       this.organisationId = this.$store.state.filter.organisationId;
     }
+  },
+
+  computed: {
+    titlePage(): string|undefined {
+      return state.intervenantsPage.titlePage;
+    },
   },
   
   methods: {

@@ -3,7 +3,7 @@
     <div class="routes-container h5">
       <router-link
         @click.native="onMenuClick"
-        class="text-dark font-weight-bold mb-3 show-phone"
+        class="text-dark font-weight-bold mb-3 show-phone home-route"
         :to="{
           name: 'home',
           query: { productor: $store.state.filter.organisationId },
@@ -13,7 +13,7 @@
       <router-link
         @click.native="onMenuClick"
         v-if="isLiveTab && !isPodcastmaker && filterOrga && filterOrgaLive"
-        class="text-dark font-weight-bold mb-3"
+        class="text-dark font-weight-bold mb-3 live-route"
         :to="{
           name: 'lives',
           query: { productor: $store.state.filter.organisationId },
@@ -22,7 +22,7 @@
       >
       <router-link
         @click.native="onMenuClick"
-        class="text-dark font-weight-bold mb-3"
+        class="text-dark font-weight-bold mb-3 podcasts-route"
         :to="{
           name: 'podcasts',
           query: { productor: $store.state.filter.organisationId },
@@ -31,7 +31,7 @@
       >
       <router-link
         @click.native="onMenuClick"
-        class="text-dark font-weight-bold mb-3"
+        class="text-dark font-weight-bold mb-3 emissions-route"
         :to="{
           name: 'emissions',
           query: { productor: $store.state.filter.organisationId },
@@ -41,7 +41,7 @@
       <router-link
         @click.native="onMenuClick"
         v-if="!isPodcastmaker && (!filterOrga || isEducation)"
-        class="text-dark font-weight-bold mb-3"
+        class="text-dark font-weight-bold mb-3 productors-route"
         :to="{
           name: 'productors',
           query: { productor: $store.state.filter.organisationId },
@@ -50,7 +50,7 @@
       >
       <router-link
         @click.native="onMenuClick"
-        class="text-dark font-weight-bold mb-3"
+        class="text-dark font-weight-bold mb-3 participants-route"
         :to="{
           name: 'participants',
           query: { productor: $store.state.filter.organisationId },
@@ -62,7 +62,7 @@
           name: 'playlists',
           query: { productor: $store.state.filter.organisationId },
         }"
-        class="linkHover pb-3 text-dark font-weight-bold"
+        class="linkHover pb-3 text-dark font-weight-bold playlists-route"
         >{{ $t('Playlists') }}</router-link
       >
       <OrganisationChooserLight
@@ -79,7 +79,7 @@
       <hr class="divided-line show-phone" />
       <router-link
         @click.native="onMenuClick"
-        class="text-dark font-weight-bold mb-3 show-phone"
+        class="text-dark font-weight-bold mb-3 show-phone category-route"
         v-for="category in categories"
         v-bind:key="category.id"
         :to="{
