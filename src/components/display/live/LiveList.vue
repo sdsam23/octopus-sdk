@@ -200,6 +200,7 @@ export default Vue.extend({
       this.livesPublishing.length = 0;
     },
     async fetchContent(): Promise<void> {
+      this.initArrays();
       if (!this.filterOrgaUsed) {
         this.loading = false;
         this.loaded = true;
@@ -329,20 +330,23 @@ export default Vue.extend({
   },
   watch: {
     async organisationId(): Promise<void> {
-      this.initArrays();
       const isLive = await octopusApi.liveEnabledOrganisation(
         this.organisationId
       );
       if (isLive) {
-        this.fetchContent();
+        if(!this.loading){
+          this.fetchContent();
+        }
       } else {
+        this.initArrays();
         this.loading = false;
         this.loaded = true;
       }
     },
     filterOrga(): void {
-      this.initArrays();
-      this.fetchContent();
+      if(!this.loading){
+        this.fetchContent();
+      }
     },
     conferenceWatched: {
       handler(): void {

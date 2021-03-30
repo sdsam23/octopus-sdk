@@ -92,6 +92,8 @@ export default Vue.extend({
     }
     if (this.productor) {
       this.organisationId = this.productor;
+    } else if (this.$store.state.filter.organisationId) {
+      this.organisationId = this.$store.state.filter.organisationId;
     }
   },
   

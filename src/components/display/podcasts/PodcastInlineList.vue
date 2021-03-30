@@ -157,7 +157,7 @@ export default Vue.extend({
     href: { default: undefined as string|undefined},
     buttonText: { default: false as boolean},
     isArrow: { default: false as boolean},
-    requirePopularSort: { default:false as boolean},
+    requirePopularSort: { default:undefined as boolean|undefined},
     buttonPlus: { default:false as boolean},
     rubriqueId: { default: undefined as number|undefined},
     rubriquageId: { default: undefined as number|undefined},
