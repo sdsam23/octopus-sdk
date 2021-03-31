@@ -186,7 +186,7 @@ export default displayMethods.extend({
   },
 
   created() {
-    if(!this.editRight)return;
+    /* if(!this.editRight)return; */
     this.loadPodcasts();
   },
   mounted() {
