@@ -220,7 +220,7 @@ export default Vue.extend({
     playlist: { default: undefined as Playlist|undefined},
     organisationId: { default: undefined as string|undefined},
     isEducation: { default: false as boolean},
-    exclusive: { default: true as boolean},
+    exclusive: { default: false as boolean},
     notExclusive: { default: true as boolean},
   },
   components: {
