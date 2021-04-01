@@ -116,7 +116,6 @@
 </style>
 
 <script lang="ts">
-import studioApi from '@/api/studio';
 import LiveItem from './LiveItem.vue';
 const octopusApi = require('@saooti/octopus-api');
 const moment = require('moment');
@@ -208,19 +207,17 @@ export default Vue.extend({
       }
       this.loading = true;
       this.loaded = false;
-      const dataLives = await studioApi.listConferences(
-        this.$store.state,
-        true,
+      const dataLives = await octopusApi.listConferences(
         this.filterOrgaUsed,
+        true,
         'RECORDING'
       );
       this.lives = dataLives.filter((p: Conference | null) => {
         return null !== p;
       });
-      const dataLivesToBe = await studioApi.listConferences(
-        this.$store.state,
-        true,
+      const dataLivesToBe = await octopusApi.listConferences(
         this.filterOrgaUsed,
+        true,
         'PENDING'
       );
       let indexPast = 0;
@@ -232,10 +229,9 @@ export default Vue.extend({
           break;
         }
       }
-      const dataLivesPlanned = await studioApi.listConferences(
-        this.$store.state,
-        true,
+      const dataLivesPlanned = await octopusApi.listConferences(
         this.filterOrgaUsed,
+        true,
         'PLANNED'
       );
       this.livesToBe = dataLivesToBe
@@ -245,28 +241,25 @@ export default Vue.extend({
           return null !== p;
         });
       if (this.organisationRight) {
-        const dataLivesTerminated = await studioApi.listConferences(
-          this.$store.state,
-          true,
+        const dataLivesTerminated = await octopusApi.listConferences(
           this.filterOrgaUsed,
+          true,
           'DEBRIEFING'
         );
         this.livesTerminated = dataLivesTerminated.filter((p: Conference | null) => {
           return null !== p;
         });
-        const dataLivesError = await studioApi.listConferences(
-          this.$store.state,
-          true,
+        const dataLivesError = await octopusApi.listConferences(
           this.filterOrgaUsed,
+          true,
           'ERROR'
         );
         this.livesError = dataLivesError.filter((p: Conference | null) => {
           return null !== p;
         });
-        const dataLivesPublishing = await studioApi.listConferences(
-          this.$store.state,
-          true,
+        const dataLivesPublishing = await octopusApi.listConferences(
           this.filterOrgaUsed,
+          true,
           'PUBLISHING'
         );
         this.livesPublishing = dataLivesPublishing.filter((p: Conference | null) => {

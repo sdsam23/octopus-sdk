@@ -323,7 +323,7 @@ export default displayMethods.extend({
         this.fetchConference = {conferenceId:-1, title:''};
       }
     } else if(undefined!==this.podcast!.conferenceId){
-      const data: any = await studioApi.getRealConferenceStatus(this.$store.state,this.podcast!.conferenceId!.toString());
+      const data: any = await octopusApi.getRealConferenceStatus(this.podcast!.conferenceId!.toString());
       this.fetchConference = {
         status: data.data,
         conferenceId: this.podcast!.conferenceId,

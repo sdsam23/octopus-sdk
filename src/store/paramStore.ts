@@ -212,6 +212,10 @@ const initialize = function initialize(initObject: any) {
         'undefined' !== typeof param.commentsUrl
           ? param.commentsUrl
           : 'http://comments.staging.saooti.org/';
+      state.octopusApi.studioUrl =
+        'undefined' !== typeof param.studioUrl
+          ? param.studioUrl
+          : 'http://studio.staging.saooti.org/';
       if (state.generalParameters.podcastmaker) {
         state.octopusApi.organisationId =
           'undefined' !== typeof param.organisationId
