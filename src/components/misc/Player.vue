@@ -133,7 +133,7 @@
         </div>
         <div
           class="timeline-button"
-          v-if="0 !== comments.length"
+          v-if="0 !== comments.length && !isPodcastmaker"
           @click="showTimeline = !showTimeline"
         >
           <div
@@ -332,6 +332,9 @@ export default Vue.extend({
   },
   
   computed: {
+    isPodcastmaker(): boolean {
+      return state.generalParameters.podcastmaker;
+    },
     isPlaying(): boolean {
       return 'PLAYING' === this.status;
     },

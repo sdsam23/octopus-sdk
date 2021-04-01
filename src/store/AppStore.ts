@@ -19,10 +19,10 @@ export default new Vuex.Store({
           live: undefined,
           elapsed: 0,
         };
-        if (podcast.isStop) {
-          state.player.stop = true;
-        }
         return;
+      }
+      if (podcast.isStop) {
+        state.player.stop = true;
       }
       if (
         (state.player.podcast &&

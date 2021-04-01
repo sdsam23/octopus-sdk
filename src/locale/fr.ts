@@ -198,6 +198,7 @@ export default {
   'Loading lives...': 'Chargement des lives...',
   'No live currently': "Il n'y a aucun live actuellement",
   'live upcoming': 'live imminent',
+  "live in few time":"live à venir",
   Debriefing: 'Debriefing',
   Publishing: 'Publication',
   'select productor': 'Choisir un producteur',
