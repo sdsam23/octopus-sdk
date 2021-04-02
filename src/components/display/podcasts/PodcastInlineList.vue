@@ -5,7 +5,7 @@
   >
     <h2>{{ title }}</h2>
     <div class="d-flex justify-content-between">
-      <div class="d-flex" v-if="undefined === requirePopularSort">
+      <div class="d-flex">
         <button
           class="btn btn-underline"
           @click="sortPopular()"
@@ -21,7 +21,6 @@
           {{ $t('Last added') }}
         </button>
       </div>
-      <div v-else></div>
       <div class="hide-phone" v-if="!isArrow">
         <button
           class="btn btn-arrow"

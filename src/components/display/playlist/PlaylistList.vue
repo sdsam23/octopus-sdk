@@ -12,7 +12,6 @@
         v-bind:playlist="p"
         v-for="p in playlists"
         v-bind:key="p.playlistId"
-        @playlistNotVisible="displayCount--"
       />
     </ul>
     <button

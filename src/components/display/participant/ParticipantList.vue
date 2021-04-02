@@ -17,7 +17,6 @@
         v-bind:participant="p"
         v-for="p in participants"
         v-bind:key="p.participantId"
-        @participantNotVisible="displayCount--"
       />
     </ul>
     <button

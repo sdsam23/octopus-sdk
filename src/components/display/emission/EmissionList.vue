@@ -19,7 +19,6 @@
         v-bind:emission="e"
         v-for="e in emissions"
         v-bind:key="e.emissionId"
-        @emissionNotVisible="displayCount--"
       />
     </ul>
     <ul
