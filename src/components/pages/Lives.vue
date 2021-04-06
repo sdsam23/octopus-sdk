@@ -2,18 +2,20 @@
   <div class="page-box">
     <div class="d-flex flex-column align-items-center mb-3">
       <h1>{{ $t('In live') }}</h1>
-      <router-link to="/main/priv/edit/live" v-if="liveRight && filterOrga">
-        <button class="btn btn-primary">{{ $t('Launch a new live') }}</button>
-      </router-link>
-      <template v-else>
-        <div class="align-self-start font-weight-bold mb-2">
-          {{ $t('Please chose a productor') }}
-        </div>
-        <OrganisationChooser
-          :defaultanswer="$t('Please chose a productor')"
-          :all="true"
-          @selected="onOrganisationSelected"
-        />
+      <template v-if="!isPodcastmaker">
+        <router-link to="/main/priv/edit/live" v-if="liveRight && filterOrga">
+          <button class="btn btn-primary">{{ $t('Launch a new live') }}</button>
+        </router-link>
+        <template v-else>
+          <div class="align-self-start font-weight-bold mb-2">
+            {{ $t('Please chose a productor') }}
+          </div>
+          <OrganisationChooser
+            :defaultanswer="$t('Please chose a productor')"
+            :all="true"
+            @selected="onOrganisationSelected"
+          />
+        </template>
       </template>
     </div>
     <LiveList
@@ -73,6 +75,9 @@ export default Vue.extend({
     },
     filterOrga(): string {
       return this.$store.state.filter.organisationId;
+    },
+    isPodcastmaker(): boolean {
+      return state.generalParameters.podcastmaker;
     },
   },
   methods: {
