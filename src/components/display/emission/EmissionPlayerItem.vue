@@ -19,7 +19,7 @@
           'background-image':
             'url(\'' + emission.imageUrl + '?dummy=' + dummyParam + '\')',
         }"
-      ></div>
+      ><div v-if="titleInImage" class="titleInImage">{{ emission.name }}</div></div>
       <div class="d-flex flex-column p-2">
         <div class="font-weight-bold text-uppercase text-ellipsis">
           {{ emission.name }}
@@ -207,6 +207,9 @@ export default displayMethods.extend({
   computed: {
     buttonMore(): boolean {
       return state.emissionsPage.buttonMore;
+    },
+    titleInImage(): boolean {
+      return state.emissionsPage.titleInImage;
     },
     authenticated(): boolean {
       return this.$store.state.authentication.isAuthenticated;

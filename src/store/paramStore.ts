@@ -142,6 +142,10 @@ const initialize = function initialize(initObject: any) {
         'undefined' !== typeof param.overflowScroll
           ? param.overflowScroll
           : false;
+      state.emissionsPage.titleInImage=
+      'undefined' !== typeof param.titleInImage
+        ? param.titleInImage
+        : false;
     }
     if (initObject.emissionPage) {
       const param = initObject.emissionPage;
