@@ -11,6 +11,7 @@ import Participants from "./src/components/pages/Participants.vue";
 import Search from "./src/components/pages/Search.vue";
 import Home from "./src/components/pages/Home.vue";
 import Category from "./src/components/pages/Category.vue";
+import Rubrique from "./src/components/pages/Rubrique.vue";
 //Misc
 import Footer from "./src/components/misc/Footer.vue";
 import LeftMenu from "./src/components/misc/LeftMenu.vue";
@@ -90,6 +91,7 @@ const components = {
     ErrorMessage,
     displayMethods,
     cookiesAndMethods,
+    Rubrique
 }
 
 export default components;
@@ -131,5 +133,6 @@ export {
     HomeDropdown,
     ErrorMessage,
     displayMethods,
-    cookiesAndMethods
+    cookiesAndMethods,
+    Rubrique
 };

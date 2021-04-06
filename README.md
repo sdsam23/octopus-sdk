@@ -392,7 +392,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.24.23 - 0.24.30 Corrections 24
  * 0.24.31 Live pour podcastmaker
  * 0.24.32 - 0.24.35 Corrections 24
-
+ * 0.24.36 Expose Rubrique page
 
 
 
