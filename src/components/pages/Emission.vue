@@ -191,6 +191,9 @@ export default displayMethods.extend({
         if (undefined !== this.emission.annotations.tunein) count++;
         if (undefined !== this.emission.annotations.tootak) count++;
         if (undefined !== this.emission.annotations.radioline) count++;
+        if (undefined !== this.emission.annotations.podcastAddict) count++;
+        if (undefined !== this.emission.annotations.playerFm) count++;
+        if (undefined !== this.emission.annotations.stitcher) count++;
       }
       return count;
     },

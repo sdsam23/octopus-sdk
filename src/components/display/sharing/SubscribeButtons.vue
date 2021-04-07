@@ -58,6 +58,52 @@
       >
         <span class="saooti-radioline"></span>
       </a>
+      <a
+        target="_blank"
+        class="btn mr-3 mb-2 share-btn"
+        :href="podcastAddict"
+        v-if="podcastAddict"
+        aria-label="podcastAddict"
+      >
+        <span class="saooti-podcast-addict"></span>
+      </a>
+      <a
+        target="_blank"
+        class="btn mr-3 mb-2 share-btn"
+        :href="playerFm"
+        v-if="playerFm"
+        aria-label="playerFm"
+      >
+        <span class="saooti-playerfm"></span>
+      </a>
+      <a
+        target="_blank"
+        class="btn mr-3 mb-2 share-btn"
+        :href="stitcher"
+        v-if="stitcher"
+        aria-label="stitcher"
+      >
+        <span class="saooti-stitcher-logo">
+          <div class="path1"></div>
+          <div class="path2"></div>
+          <div class="path3"></div>
+          <div class="path4"></div>
+          <div class="path5"></div>
+          <div class="path6"></div>
+          <div class="path7"></div>
+          <div class="path8"></div>
+          <div class="path9"></div>
+          <div class="path10"></div>
+          <div class="path11"></div>
+          <div class="path12"></div>
+          <div class="path13"></div>
+          <div class="path14"></div>
+          <div class="path15"></div>
+          <div class="path16"></div>
+          <div class="path17"></div>
+          <div class="path18"></div> </span
+        >
+      </a>
     </div>
   </div>
 </template>
@@ -74,6 +120,13 @@
 }
 .flex-no-grow {
   flex-grow: 0 !important;
+}
+.share-btn{
+  .saooti-stitcher-logo {
+    font-size: 1.7rem !important;
+    top: -0.5rem;
+    left: 0.8rem;
+  }
 }
 </style>
 
@@ -113,6 +166,18 @@ export default Vue.extend({
         this.emission && this.emission.annotations
           ? this.emission.annotations.radioline
           : undefined as string | undefined,
+      podcastAddict:
+        this.emission && this.emission.annotations
+          ? this.emission.annotations.podcastAddict
+          : undefined as string | undefined,
+      playerFm:
+        this.emission && this.emission.annotations
+          ? this.emission.annotations.playerFm
+          : undefined as string | undefined,
+      stitcher:
+        this.emission && this.emission.annotations
+          ? this.emission.annotations.stitcher
+          : undefined as string | undefined,
     };
   },
 
@@ -123,6 +188,9 @@ export default Vue.extend({
     this.tunein = this.externaliseLinks(this.tunein);
     this.tootak = this.externaliseLinks(this.tootak);
     this.radioline = this.externaliseLinks(this.radioline);
+    this.podcastAddict = this.externaliseLinks(this.podcastAddict);
+    this.playerFm = this.externaliseLinks(this.playerFm);
+    this.stitcher = this.externaliseLinks(this.stitcher);
   },
 
   computed: {},

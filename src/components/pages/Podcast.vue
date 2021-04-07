@@ -447,6 +447,9 @@ export default displayMethods.extend({
         if (undefined !== this.podcast!.emission.annotations.tunein) count++;
         if (undefined !== this.podcast!.emission.annotations.tootak) count++;
         if (undefined !== this.podcast!.emission.annotations.radioline) count++;
+        if (undefined !== this.podcast!.emission.annotations.podcastAddict) count++;
+        if (undefined !== this.podcast!.emission.annotations.playerFm) count++;
+        if (undefined !== this.podcast!.emission.annotations.stitcher) count++;
       }
       return count;
     },
