@@ -394,6 +394,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.24.32 - 0.24.35 Corrections 24
  * 0.24.36 Expose Rubrique page
  * 0.24.37 Plateformes Audio grand public
+ * 0.24.38 Podcastmaker Space
 
 
 

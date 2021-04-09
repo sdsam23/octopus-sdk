@@ -4,6 +4,10 @@
     :style="{ 'background-image': 'url(\'' + podcast.imageUrl + '\')' }"
     v-if="podcast"
   >
+    <template v-if="isPodcastmaker">
+      <div v-if="mainRubrique" class="mainRubrique"></div>
+      <div v-else class="notMainRubrique"></div>
+    </template>
     <div
       class="live-image-status"
       :class="
@@ -205,6 +209,7 @@
 <script lang="ts">
 import { mapState } from 'vuex';
 import Vue from 'vue';
+import { state } from '../../../store/paramStore';
 import {StoreState} from '@/store/typeAppStore';
 import { Podcast } from '@/store/class/podcast';
 import { Conference } from '@/store/class/conference';
@@ -238,6 +243,16 @@ export default Vue.extend({
         );
       },
     }),
+    mainRubrique(): boolean{
+      if(this.podcast && this.podcast.rubriqueIds && this.podcast.rubriqueIds.includes(state.podcastPage.mainRubrique)){
+        return true;
+      }else{
+        return false;
+      }
+    },
+    isPodcastmaker(): boolean {
+      return state.generalParameters.podcastmaker;
+    },
     isMobile(): boolean {
       return window.matchMedia('(hover: none)').matches;
     },

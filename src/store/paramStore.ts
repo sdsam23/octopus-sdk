@@ -96,6 +96,10 @@ const initialize = function initialize(initObject: any) {
         'undefined' !== typeof param.hlsUri
           ? param.hlsUri
           : 'https://hls.staging.saooti.org/';
+      state.podcastPage.mainRubrique =
+        'undefined' !== typeof param.mainRubrique
+          ? param.mainRubrique
+          : 0;
     }
     if (initObject.podcastsPage) {
       const param = initObject.podcastsPage;
