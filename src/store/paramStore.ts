@@ -53,8 +53,6 @@ const initialize = function initialize(initObject: any) {
         'undefined' !== typeof param.ApiUri
           ? param.ApiUri
           : 'https://api.staging.saooti.org/';
-      state.generalParameters.isIE11 =
-        'undefined' !== typeof param.isIE11 ? param.isIE11 : false;
       state.generalParameters.podcastmaker =
         'undefined' !== typeof param.podcastmaker ? param.podcastmaker : false;
       state.generalParameters.buttonPlus =

@@ -92,15 +92,15 @@
                 $t('From the :')
               }}</label>
             </div>
-            <Datetime
-              type="datetime"
-              moment-locale="fr"
-              v-model="fromDate"
-              class="theme-saooti pl-3 pr-3"
-              @input="updateFromDate"
-              input-format="D/MM/YYYY [à] HH[h]mm"
-              :i18n="lang"
-            />
+            <DatePicker class="pl-3 pr-3" v-model="fromDate" mode="dateTime" color="green" @input="updateFromDate()" is24hr>
+              <template v-slot="{ inputValue, inputEvents }">
+                <input
+                  class="px-2 py-1 border rounded focus:outline-none focus:border-blue-300"
+                  :value="inputValue"
+                  v-on="inputEvents"
+                />
+              </template>
+            </DatePicker>
           </div>
           <div class="d-flex align-items-center">
             <div class="checkbox-saooti flex-shrink">
@@ -114,15 +114,15 @@
                 $t('To the :')
               }}</label>
             </div>
-            <Datetime
-              type="datetime"
-              moment-locale="fr"
-              v-model="toDate"
-              class="theme-saooti pl-3"
-              @input="updateToDate"
-              input-format="D/MM/YYYY [à] HH[h]mm"
-              :i18n="lang"
-            />
+            <DatePicker class="pl-3" v-model="toDate" mode="dateTime" color="green" @input="updateToDate()" is24hr>
+              <template v-slot="{ inputValue, inputEvents }">
+                <input
+                  class="px-2 py-1 border rounded focus:outline-none focus:border-blue-300"
+                  :value="inputValue"
+                  v-on="inputEvents"
+                />
+              </template>
+            </DatePicker>
           </div>
         </div>
         <div
@@ -267,7 +267,8 @@
 </style>
 <script lang="ts">
 // @ is an alias to /src
-import { Datetime } from 'vue-datetime';
+// @ts-ignore
+import DatePicker from 'v-calendar/lib/components/date-picker.umd.min.js';
 import { state } from '../../../store/paramStore';
 const octopusApi = require('@saooti/octopus-api');
 const moment = require('moment');
@@ -279,7 +280,7 @@ export default Vue.extend({
   components: {
     MonetizableFilter: () => import('./MonetizableFilter.vue'),
     RubriqueChooser: () => import('../rubriques/RubriqueChooser.vue'),
-    Datetime,
+    DatePicker
   },
   props: {
     organisationId: { default: undefined as string|undefined},
@@ -407,7 +408,7 @@ export default Vue.extend({
       )
         return;
       if (this.isFrom) {
-        this.$emit('updateFromDate', this.fromDate);
+        this.$emit('updateFromDate', moment(this.fromDate).toISOString(true));
       } else {
         this.isFrom = true;
       }
@@ -423,7 +424,7 @@ export default Vue.extend({
       )
         return;
       if (this.isTo) {
-        this.$emit('updateToDate', this.toDate);
+        this.$emit('updateToDate', moment(this.toDate).toISOString(true));
       } else {
         this.isTo = true;
       }
@@ -481,14 +482,14 @@ export default Vue.extend({
     },
     isFrom(): void {
       if (this.isFrom) {
-        this.$emit('updateFromDate', this.fromDate);
+        this.$emit('updateFromDate', moment(this.fromDate).toISOString(true));
       } else {
         this.$emit('updateFromDate', undefined);
       }
     },
     isTo(): void {
       if (this.isTo) {
-        this.$emit('updateToDate', this.toDate);
+        this.$emit('updateToDate', moment(this.toDate).toISOString(true));
       } else {
         this.$emit('updateToDate', undefined);
       }

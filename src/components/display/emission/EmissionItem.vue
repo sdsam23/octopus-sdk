@@ -223,14 +223,9 @@ export default displayMethods.extend({
       return state.emissionsPage.lightItems;
     },
     description(): string {
-      const description = this.emission.description || '';
-      if (state.generalParameters.isIE11)
-        return description.substring(0, 50) + '...';
-      return description;
+      return this.emission.description || '';
     },
     name(): string {
-      if (state.generalParameters.isIE11)
-        return this.emission.name.substring(0, 50) + '...';
       return this.emission.name;
     },
     organisationId(): string {

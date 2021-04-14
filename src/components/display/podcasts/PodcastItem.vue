@@ -216,8 +216,6 @@ export default Vue.extend({
       return this.podcast.description;
     },
     title(): string {
-      if (state.generalParameters.isIE11)
-        return this.podcast.title.substring(0, 50) + '...';
       return this.podcast.title;
     },
     organisationId(): string {

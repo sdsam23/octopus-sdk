@@ -102,7 +102,7 @@ export default Vue.extend({
       return 'categoryChooser';
     },
     model: {
-      get():Category| Array<Category>|undefined{
+      get(): Category| Array<Category>|undefined{
         if(false===this.initArray){
           return this.category;
         }

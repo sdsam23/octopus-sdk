@@ -89,7 +89,6 @@ export function emptyPodcastData(): Podcast{
     player: Player;
   
     navigator: {
-        isIE11: boolean | undefined;
         isES6: boolean;
     };
   
@@ -196,7 +195,6 @@ export function emptyPodcastData(): Podcast{
           },
       
           navigator: {
-            isIE11: undefined ,
             isES6: true,
           },
       

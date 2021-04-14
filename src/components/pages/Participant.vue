@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-box intervenant-page" v-if="loaded && !error">
-      <h1 v-if="undefined === titlePage || !lightStyle">{{ $t('Animator') }}</h1>
+      <h1 v-if="undefined === titlePage ||!lightStyle">{{ $t('Animator') }}</h1>
       <h1 v-else>{{ titlePage }}</h1>
       <div
         class="d-flex w-100 flex-column align-items-center justify-content-center"
@@ -131,20 +131,14 @@ export default displayMethods.extend({
       );
     },
     description(): string {
-      const description = this.participant!.description || '';
-      if (state.generalParameters.isIE11)
-        return description.substring(0, 50) + '...';
-      return description;
+      return this.participant!.description || '';
     },
     name(): string {
-      const fullName = (
+      return (
         (this.participant!.firstName || '') +
         ' ' +
         (this.participant!.lastName || '')
       ).trim();
-      if (state.generalParameters.isIE11)
-        return fullName.substring(0, 50) + '...';
-      return fullName;
     },
     editRight(): boolean {
       if (

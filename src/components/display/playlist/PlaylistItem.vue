@@ -112,14 +112,9 @@ export default displayMethods.extend({
       return '' + this.playlist.publisher!.organisation!.name;
     },
     description(): string {
-      const description = this.playlist.description || '';
-      if (state.generalParameters.isIE11)
-        return description.substring(0, 50) + '...';
-      return description;
+      return this.playlist.description || '';
     },
     name(): string {
-      if (state.generalParameters.isIE11)
-        return this.playlist.title.substring(0, 50) + '...';
       return this.playlist.title;
     },
     organisationId(): string {

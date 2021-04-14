@@ -62,7 +62,6 @@ import ParticipantItem from './ParticipantItem.vue';
 
 import Vue from 'vue';
 import { Participant } from '@/store/class/participant';
-import { Organisation } from '@/store/class/organisation';
 export default Vue.extend({
   name: 'ParticipantList',
   props: {

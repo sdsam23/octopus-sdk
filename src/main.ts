@@ -1,16 +1,34 @@
 import Vue from 'vue';
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
+import { 
+  ModalPlugin, 
+  FormRadioPlugin, 
+  CardPlugin, 
+  ButtonPlugin, 
+  DropdownPlugin, 
+  PopoverPlugin,
+  TabsPlugin,
+  FormGroupPlugin,
+  FormTextareaPlugin,
+  CollapsePlugin } from 'bootstrap-vue';
 import App from './App.vue';
 import VueI18n from 'vue-i18n';
 import I18nResources from './locale/messages';
 import router from '@/router/router';
-import moment from 'moment';
+const moment = require('moment');
 import store from '@/store/AppStore';
 const paramStore = require('./store/paramStore');
 
 moment.locale('fr');
-Vue.use(BootstrapVue);
-Vue.use(IconsPlugin);
+Vue.use(ModalPlugin); 
+Vue.use(FormRadioPlugin); 
+Vue.use(CardPlugin); 
+Vue.use(ButtonPlugin); 
+Vue.use(FormTextareaPlugin); 
+Vue.use(DropdownPlugin); 
+Vue.use(PopoverPlugin); 
+Vue.use(TabsPlugin); 
+Vue.use(FormGroupPlugin);
+Vue.use(CollapsePlugin);
 Vue.config.productionTip = false;
 
 //Gestion de l'i18n

@@ -152,20 +152,14 @@ export default displayMethods.extend({
       return state.generalParameters.podcastmaker;
     },
     description(): string {
-      const description = this.participant.description || '';
-      if (state.generalParameters.isIE11)
-        return description.substring(0, 50) + '...';
-      return description;
+      return this.participant.description || '';
     },
     name(): string {
-      const fullName = (
+      return (
         (this.participant.firstName || '') +
         ' ' +
         (this.participant.lastName || '')
       ).trim();
-      if (state.generalParameters.isIE11)
-        return fullName.substring(0, 50) + '...';
-      return fullName;
     },
     organisationId(): string {
       return state.generalParameters.organisationId;

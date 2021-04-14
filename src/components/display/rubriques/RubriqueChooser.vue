@@ -107,7 +107,7 @@ export default selenium.extend({
       return 'rubriqueChooser';
     },
     model: {
-      get():Rubrique| Array<Rubrique>|undefined{
+      get(): Rubrique| Array<Rubrique>|undefined{
         if(false===this.multiple){
           return this.rubrique;
         }
@@ -209,7 +209,7 @@ export default selenium.extend({
         return;
       }
       /* console.log(this.model); */
-      let selected: Array<Rubrique> = JSON.parse(JSON.stringify(this.model));
+      const selected: Array<Rubrique> = JSON.parse(JSON.stringify(this.model));
       const idsArray: Array<number> = [];
       selected.forEach((el: Rubrique) => {
         idsArray.push(el.rubriqueId!);

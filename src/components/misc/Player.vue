@@ -287,7 +287,8 @@ import { mapState } from 'vuex';
 import { state } from '../../store/paramStore';
 import DurationHelper from '../../helper/duration';
 const octopusApi = require('@saooti/octopus-api');
-import Hls from 'hls.js';
+// @ts-ignore
+import Hls from 'hls.js/dist/hls.light.min.js';
 const moment = require('moment');
 //const axios = require("axios");
 import { CommentPodcast } from '@/store/class/comment';

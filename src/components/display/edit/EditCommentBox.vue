@@ -60,9 +60,15 @@ export default Vue.extend({
     editComment() {
       this.$emit('editComment');
     },
-    validComment() {},
-    invalidComment() {},
-    deleteComment() {},
+    validComment() {
+      console.log('valid');
+    },
+    invalidComment() {
+      console.log('invalid');
+    },
+    deleteComment() {
+      console.log('delete');
+    },
   },
 });
 </script>
