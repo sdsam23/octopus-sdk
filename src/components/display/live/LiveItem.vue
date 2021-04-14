@@ -190,7 +190,6 @@ import { state } from '../../../store/paramStore';
 const octopusApi = require('@saooti/octopus-api');
 import PodcastImage from '../podcasts/PodcastImage.vue';
 import studioApi from '@/api/studio';
-import RecordingItemButton from '@/components/display/studio/RecordingItemButton.vue';
 const moment = require('moment');
 const humanizeDuration = require('humanize-duration');
 import { displayMethods } from '../../mixins/functions';
@@ -201,7 +200,7 @@ export default displayMethods.extend({
   name: 'LiveItem',
 
   components: {
-    RecordingItemButton,
+    RecordingItemButton: () => import('@/components/display/studio/RecordingItemButton.vue'),
     PodcastImage,
   },
   props: {

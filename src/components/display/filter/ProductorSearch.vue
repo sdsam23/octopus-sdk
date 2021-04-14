@@ -113,7 +113,6 @@
 </style>
 <script lang="ts">
 // @ is an alias to /src
-import OrganisationChooser from '../organisation/OrganisationChooser.vue';
 import { state } from '../../../store/paramStore';
 const octopusApi = require('@saooti/octopus-api');
 
@@ -121,7 +120,7 @@ import Vue from 'vue';
 import { Organisation } from '@/store/class/organisation';
 export default Vue.extend({
   components: {
-    OrganisationChooser,
+    OrganisationChooser: () => import('../organisation/OrganisationChooser.vue'),
   },
 
   props: {

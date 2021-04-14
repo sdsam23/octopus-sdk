@@ -201,8 +201,6 @@
 </style>
 
 <script lang="ts">
-import ShareModalPlayer from '../../misc/modal/ShareModalPlayer.vue';
-import PlayerParameters from './PlayerParameters.vue';
 import { state } from '../../../store/paramStore';
 //@ts-ignore
 import Swatches from 'vue-swatches';
@@ -224,9 +222,9 @@ export default Vue.extend({
     notExclusive: { default: true as boolean},
   },
   components: {
-    ShareModalPlayer,
+    ShareModalPlayer: () => import('../../misc/modal/ShareModalPlayer.vue'),
     Swatches,
-    PlayerParameters,
+    PlayerParameters: () => import('./PlayerParameters.vue'),
   },
 
   data() {

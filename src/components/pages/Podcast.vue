@@ -261,20 +261,11 @@
 </style>
 <script lang="ts">
 // @ is an alias to /src
-import RecordingItemButton from '@/components/display/studio/RecordingItemButton.vue';
-import EditBox from '@/components/display/edit/EditBox.vue';
-import SharePlayer from '../display/sharing/SharePlayer.vue';
-import ShareButtons from '../display/sharing/ShareButtons.vue';
 import PodcastInlineList from '../display/podcasts/PodcastInlineList.vue';
 import PodcastImage from '../display/podcasts/PodcastImage.vue';
-import CommentSection from '../display/comments/CommentSection.vue';
-import TagList from '../display/podcasts/TagList.vue';
-import SubscribeButtons from '../display/sharing/SubscribeButtons.vue';
-import Countdown from '../display/live/CountDown.vue';
 const octopusApi = require('@saooti/octopus-api');
 import studioApi from '@/api/studio';
 import { state } from '../../store/paramStore';
-import ErrorMessage from '../misc/ErrorMessage.vue';
 const moment = require('moment');
 const humanizeDuration = require('humanize-duration');
 import { displayMethods } from '../mixins/functions';
@@ -284,15 +275,15 @@ export default displayMethods.extend({
   components: {
     PodcastInlineList,
     PodcastImage,
-    ShareButtons,
-    SharePlayer,
-    EditBox,
-    TagList,
-    SubscribeButtons,
-    RecordingItemButton,
-    Countdown,
-    CommentSection,
-    ErrorMessage,
+    ShareButtons: () => import('../display/sharing/ShareButtons.vue'),
+    SharePlayer: () => import('../display/sharing/SharePlayer.vue'),
+    EditBox: () => import('@/components/display/edit/EditBox.vue'),
+    TagList: () => import('../display/podcasts/TagList.vue'),
+    SubscribeButtons: () => import('../display/sharing/SubscribeButtons.vue'),
+    RecordingItemButton: () => import('@/components/display/studio/RecordingItemButton.vue'),
+    Countdown: () => import('../display/live/CountDown.vue'),
+    CommentSection: () => import('../display/comments/CommentSection.vue'),
+    ErrorMessage: () => import('../misc/ErrorMessage.vue'),
   },
   props: {
     updateStatus: { default: undefined as string|undefined},

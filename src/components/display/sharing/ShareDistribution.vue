@@ -157,14 +157,13 @@
 <script lang="ts">
 const octopusApi = require('@saooti/octopus-api');
 import Snackbar from '../../misc/Snackbar.vue';
-import RssSection from '@/components/display/aggregator/RssSection.vue';
 import { displayMethods } from '../../mixins/functions';
 import { Emission } from '@/store/class/emission';
 
 export default displayMethods.extend({
   components: {
     Snackbar,
-    RssSection,
+    RssSection: () => import('@/components/display/aggregator/RssSection.vue'),
   },
   props: {
     emissionId: { default: undefined as number|undefined},

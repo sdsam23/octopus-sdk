@@ -77,21 +77,17 @@
 
 <script lang="ts">
 // @ is an alias to /src
-import EditBox from '@/components/display/edit/EditBox.vue';
-import ShareButtons from '../display/sharing/ShareButtons.vue';
 const octopusApi = require('@saooti/octopus-api');
-import PodcastFilterList from '../display/podcasts/PodcastFilterList.vue';
-import PodcastList from '../display/podcasts/PodcastList.vue';
 import { state } from '../../store/paramStore';
 import { displayMethods } from '../mixins/functions';
 import { Participant } from '@/store/class/participant';
 
 export default displayMethods.extend({
   components: {
-    ShareButtons,
-    PodcastFilterList,
-    EditBox,
-    PodcastList,
+    ShareButtons: () => import('../display/sharing/ShareButtons.vue'),
+    PodcastFilterList: () => import('../display/podcasts/PodcastFilterList.vue'),
+    EditBox: () => import('@/components/display/edit/EditBox.vue'),
+    PodcastList: () => import('../display/podcasts/PodcastList.vue'),
   },
   props: {
     participantId: { default: undefined as number|undefined},

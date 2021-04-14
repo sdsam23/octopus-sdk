@@ -155,7 +155,6 @@
 }
 </style>
 <script lang="ts">
-import OrganisationChooserLight from '../display/organisation/OrganisationChooserLight.vue';
 import { state } from '../../store/paramStore';
 const octopusApi = require('@saooti/octopus-api');
 
@@ -165,7 +164,7 @@ export default Vue.extend({
   name: 'LeftMenu',
 
   components: {
-    OrganisationChooserLight,
+    OrganisationChooserLight: () => import('../display/organisation/OrganisationChooserLight.vue'),
   },
 
   props: {

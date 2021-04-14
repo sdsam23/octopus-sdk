@@ -87,8 +87,6 @@
 </style>
 
 <script lang="ts">
-import AddCommentModal from './AddCommentModal.vue';
-import MessageModal from '../../misc/modal/MessageModal.vue';
 const octopusApi = require('@saooti/octopus-api');
 import commentApi from '@/api/comments';
 import { cookies } from '../../mixins/functions';
@@ -99,8 +97,8 @@ import { Conference } from '@/store/class/conference';
 export default cookies.extend({
   name: 'CommentInput',
   components: {
-    AddCommentModal,
-    MessageModal,
+    AddCommentModal: () => import('./AddCommentModal.vue'),
+    MessageModal: () => import('../../misc/modal/MessageModal.vue'),
   },
 
   props: {

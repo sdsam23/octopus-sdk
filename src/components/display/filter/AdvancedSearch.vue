@@ -267,9 +267,6 @@
 </style>
 <script lang="ts">
 // @ is an alias to /src
-
-import MonetizableFilter from './MonetizableFilter.vue';
-import RubriqueChooser from '../rubriques/RubriqueChooser.vue';
 import { Datetime } from 'vue-datetime';
 import { state } from '../../../store/paramStore';
 const octopusApi = require('@saooti/octopus-api');
@@ -280,8 +277,8 @@ import { Rubriquage } from '@/store/class/rubriquage';
 import { Rubrique } from '@/store/class/rubrique';
 export default Vue.extend({
   components: {
-    MonetizableFilter,
-    RubriqueChooser,
+    MonetizableFilter: () => import('./MonetizableFilter.vue'),
+    RubriqueChooser: () => import('../rubriques/RubriqueChooser.vue'),
     Datetime,
   },
   props: {

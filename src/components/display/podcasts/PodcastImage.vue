@@ -4,7 +4,7 @@
     :style="{ 'background-image': 'url(\'' + podcast.imageUrl + '\')' }"
     v-if="podcast"
   >
-    <template v-if="isPodcastmaker">
+    <template v-if="isPodcastmaker && mainRubrique">
       <div v-if="mainRubrique" class="mainRubrique"></div>
       <div v-else class="notMainRubrique"></div>
     </template>

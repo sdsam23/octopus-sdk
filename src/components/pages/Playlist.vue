@@ -46,9 +46,6 @@
 <style lang="scss"></style>
 <script lang="ts">
 // @ is an alias to /src
-import EditBox from '@/components/display/edit/EditBox.vue';
-import ShareButtons from '../display/sharing/ShareButtons.vue';
-import SharePlayer from '../display/sharing/SharePlayer.vue';
 import PodcastList from '../display/playlist/PodcastList.vue';
 const octopusApi = require('@saooti/octopus-api');
 import { state } from '../../store/paramStore';
@@ -56,10 +53,10 @@ import { displayMethods } from '../mixins/functions';
 import { Playlist } from '@/store/class/playlist';
 export default displayMethods.extend({
   components: {
-    ShareButtons,
-    EditBox,
+    ShareButtons: () => import('../display/sharing/ShareButtons.vue'),
+    EditBox: () => import('@/components/display/edit/EditBox.vue'),
     PodcastList,
-    SharePlayer,
+    SharePlayer: () => import('../display/sharing/SharePlayer.vue'),
   },
   props: {
     playlistId: { default: undefined as number|undefined},

@@ -46,14 +46,13 @@
 <script lang="ts">
 // @ is an alias to /src
 import EmissionList from '../display/emission/EmissionList.vue';
-import ProductorSearch from '../display/filter/ProductorSearch.vue';
 import AdvancedSearch from '../display/filter/AdvancedSearch.vue';
 import { state } from '../../store/paramStore';
 
 import Vue from 'vue';
 export default Vue.extend({
   components: {
-    ProductorSearch,
+    ProductorSearch: () => import('../display/filter/ProductorSearch.vue'),
     EmissionList,
     AdvancedSearch,
   },

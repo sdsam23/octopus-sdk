@@ -4,19 +4,20 @@ import VueRouter from 'vue-router';
 /*--------------------------------------------------------------------------
 Composants publics
 --------------------------------------------------------------------------*/
-import Home from '@/components/pages/Home.vue';
-import PodcastsPage from '@/components/pages/Podcasts.vue';
-import EmissionPage from '@/components/pages/Emission.vue';
-import EmissionsPage from '@/components/pages/Emissions.vue';
-import ParticpantsPage from '@/components/pages/Participants.vue';
-import PodcastPage from '@/components/pages/Podcast.vue';
-import ParticipantPage from '@/components/pages/Participant.vue';
-import SearchPage from '@/components/pages/Search.vue';
-import CategoryPage from '@/components/pages/Category.vue';
-import RubriquePage from '@/components/pages/Rubrique.vue';
-import LivesPage from '@/components/pages/Lives.vue';
-import PlaylistPage from '@/components/pages/Playlist.vue';
-import PlaylistsPage from '@/components/pages/Playlists.vue';
+
+const Home = () => import('@/components/pages/Home.vue');
+const PodcastsPage = () => import('@/components/pages/Podcasts.vue');
+const EmissionPage = () => import('@/components/pages/Emission.vue');
+const EmissionsPage = () => import('@/components/pages/Emissions.vue');
+const ParticpantsPage = () => import('@/components/pages/Participants.vue');
+const PodcastPage = () => import('@/components/pages/Podcast.vue');
+const ParticipantPage = () => import('@/components/pages/Participant.vue');
+const SearchPage = () => import('@/components/pages/Search.vue');
+const CategoryPage = () => import('@/components/pages/Category.vue');
+const RubriquePage = () => import('@/components/pages/Rubrique.vue');
+const LivesPage = () => import('@/components/pages/Lives.vue');
+const PlaylistPage = () => import('@/components/pages/Playlist.vue');
+const PlaylistsPage = () => import('@/components/pages/Playlists.vue');
 
 Vue.use(VueRouter);
 

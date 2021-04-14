@@ -84,14 +84,6 @@
 <style lang="scss"></style>
 <script lang="ts">
 // @ is an alias to /src
-import EditBox from '@/components/display/edit/EditBox.vue';
-import SharePlayer from '../display/sharing/SharePlayer.vue';
-import ShareButtons from '../display/sharing/ShareButtons.vue';
-import SubscribeButtons from '../display/sharing/SubscribeButtons.vue';
-import ShareDistribution from '../display/sharing/ShareDistribution.vue';
-import PodcastFilterList from '../display/podcasts/PodcastFilterList.vue';
-import PodcastList from '../display/podcasts/PodcastList.vue';
-import LiveHorizontalList from '../display/live/LiveHorizontalList.vue';
 const octopusApi = require('@saooti/octopus-api');
 import { state } from '../../store/paramStore';
 import { displayMethods } from '../mixins/functions';
@@ -99,14 +91,14 @@ import { Emission } from '@/store/class/emission';
 
 export default displayMethods.extend({
   components: {
-    PodcastFilterList,
-    SharePlayer,
-    ShareButtons,
-    ShareDistribution,
-    EditBox,
-    PodcastList,
-    SubscribeButtons,
-    LiveHorizontalList,
+    PodcastFilterList: () => import('../display/podcasts/PodcastFilterList.vue'),
+    SharePlayer: () => import('../display/sharing/SharePlayer.vue'),
+    ShareButtons: () => import('../display/sharing/ShareButtons.vue'),
+    ShareDistribution: () => import('../display/sharing/ShareDistribution.vue'),
+    EditBox: () => import('@/components/display/edit/EditBox.vue'),
+    PodcastList: () => import('../display/podcasts/PodcastList.vue'),
+    SubscribeButtons: () => import('../display/sharing/SubscribeButtons.vue'),
+    LiveHorizontalList: () => import('../display/live/LiveHorizontalList.vue'),
   },
   props: {
     emissionId: { default: undefined as number|undefined},

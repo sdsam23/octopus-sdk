@@ -67,7 +67,6 @@ import PodcastList from '../display/podcasts/PodcastList.vue';
 import { state } from '../../store/paramStore';
 import ProductorSearch from '../display/filter/ProductorSearch.vue';
 import AdvancedSearch from '../display/filter/AdvancedSearch.vue';
-import EmissionChooser from '../display/emission/EmissionChooser.vue';
 
 import Vue from 'vue';
 import { Emission } from '@/store/class/emission';
@@ -75,7 +74,7 @@ export default Vue.extend({
   components: {
     PodcastList,
     ProductorSearch,
-    EmissionChooser,
+    EmissionChooser: () => import('../display/emission/EmissionChooser.vue'),
     AdvancedSearch,
   },
   props: {

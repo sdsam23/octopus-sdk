@@ -30,15 +30,13 @@
 <script lang="ts">
 // @ is an alias to /src
 import { state } from '../../store/paramStore';
-import LiveList from '../display/live/LiveList.vue';
-import OrganisationChooser from '../display/organisation/OrganisationChooser.vue';
 
 import Vue from 'vue';
 import { Organisation } from '@/store/class/organisation';
 export default Vue.extend({
   components: {
-    LiveList,
-    OrganisationChooser,
+    LiveList: () => import('../display/live/LiveList.vue'),
+    OrganisationChooser: () => import('../display/organisation/OrganisationChooser.vue'),
   },
   props: {
     conferenceWatched: { default: () => ([])  },

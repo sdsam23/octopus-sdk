@@ -162,10 +162,6 @@
 </style>
 
 <script lang="ts">
-import CommentInput from './CommentInput.vue';
-import CommentList from './CommentList.vue';
-import CommentParentInfo from './CommentParentInfo.vue';
-import EditCommentBox from '@/components/display/edit/EditCommentBox.vue';
 import { state } from '../../../store/paramStore';
 import { displayMethods } from '../../mixins/functions';
 import { CommentPodcast } from '@/store/class/comment';
@@ -176,10 +172,10 @@ const moment = require('moment');
 export default displayMethods.extend({
   name: 'CommentItem',
   components: {
-    CommentList,
-    CommentInput,
-    CommentParentInfo,
-    EditCommentBox,
+    CommentList: () => import('./CommentList.vue'),
+    CommentInput: () => import('./CommentInput.vue'),
+    CommentParentInfo: () => import('./CommentParentInfo.vue'),
+    EditCommentBox: () => import('@/components/display/edit/EditCommentBox.vue'),
   },
   props: {
     comment: { default: undefined as CommentPodcast|undefined },

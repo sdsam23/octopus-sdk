@@ -41,14 +41,13 @@
 <style lang="scss" scoped></style>
 
 <script lang="ts">
-import RssSection from '@/components/display/aggregator/RssSection.vue';
 import { Emission } from '@/store/class/emission';
 import { displayMethods } from '../../mixins/functions';
 export default displayMethods.extend({
   name: 'ClipboardModal',
 
   components: {
-    RssSection,
+    RssSection: () => import('@/components/display/aggregator/RssSection.vue'),
   },
 
   props: {

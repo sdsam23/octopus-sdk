@@ -71,13 +71,12 @@
 
 <script lang="ts">
 // @ is an alias to /src
-import CategoryChooser from '../categories/CategoryChooser.vue';
 import PodcastList from './PodcastList.vue';
 import { Category } from '@/store/class/category';
 import Vue from 'vue';
 export default Vue.extend({
   components: {
-    CategoryChooser,
+    CategoryChooser: () => import('../categories/CategoryChooser.vue'),
     PodcastList,
   },
   props: {

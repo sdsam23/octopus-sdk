@@ -251,7 +251,6 @@
 
 <script lang="ts">
 import { state } from '../../store/paramStore';
-import OrganisationChooserLight from '../display/organisation/OrganisationChooserLight.vue';
 import HomeDropdown from './HomeDropdown.vue';
 const octopusApi = require('@saooti/octopus-api');
 
@@ -261,7 +260,7 @@ export default Vue.extend({
   name: 'TopBar',
 
   components: {
-    OrganisationChooserLight,
+    OrganisationChooserLight: () => import('../display/organisation/OrganisationChooserLight.vue'),
     HomeDropdown,
   },
 

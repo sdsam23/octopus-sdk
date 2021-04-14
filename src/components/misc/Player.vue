@@ -286,7 +286,6 @@
 import { mapState } from 'vuex';
 import { state } from '../../store/paramStore';
 import DurationHelper from '../../helper/duration';
-import CommentPlayer from '../display/comments/CommentPlayer.vue';
 const octopusApi = require('@saooti/octopus-api');
 import Hls from 'hls.js';
 const moment = require('moment');
@@ -298,7 +297,7 @@ export default Vue.extend({
   name: 'Player',
 
   components: {
-    CommentPlayer,
+    CommentPlayer: () => import('../display/comments/CommentPlayer.vue'),
   },
 
   data() {

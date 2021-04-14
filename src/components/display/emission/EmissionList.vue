@@ -89,8 +89,6 @@
 <script lang="ts">
 const octopusApi = require('@saooti/octopus-api');
 import emissionApi from '@/api/emissions';
-import EmissionItem from './EmissionItem.vue';
-import EmissionPlayerItem from './EmissionPlayerItem.vue';
 import { state } from '../../../store/paramStore';
 
 import Vue from 'vue';
@@ -100,8 +98,8 @@ export default Vue.extend({
   name: 'EmissionList',
 
   components: {
-    EmissionItem,
-    EmissionPlayerItem,
+    EmissionItem: () => import('./EmissionItem.vue'),
+    EmissionPlayerItem: () => import('./EmissionPlayerItem.vue'),
   },
 
   props: {

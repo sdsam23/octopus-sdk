@@ -165,8 +165,6 @@
 import { Emission } from '@/store/class/emission';
 import { Podcast } from '@/store/class/podcast';
 import { state } from '../../../store/paramStore';
-import ClipboardModal from '../../misc/modal/ClipboardModal.vue';
-import NewsletterModal from '../../misc/modal/NewsletterModal.vue';
 import Snackbar from '../../misc/Snackbar.vue';
 import { displayMethods } from '../../mixins/functions';
 export default displayMethods.extend({
@@ -181,8 +179,8 @@ export default displayMethods.extend({
   },
 
   components: {
-    ClipboardModal,
-    NewsletterModal,
+    ClipboardModal: () => import('../../misc/modal/ClipboardModal.vue'),
+    NewsletterModal: () => import('../../misc/modal/NewsletterModal.vue'),
     Snackbar,
   },
 

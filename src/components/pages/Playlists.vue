@@ -29,13 +29,12 @@
 <script lang="ts">
 // @ is an alias to /src
 import PlaylistList from '../display/playlist/PlaylistList.vue';
-import ProductorSearch from '../display/filter/ProductorSearch.vue';
 import { state } from '../../store/paramStore';
 
 import Vue from 'vue';
 export default Vue.extend({
   components: {
-    ProductorSearch,
+    ProductorSearch: () => import('../display/filter/ProductorSearch.vue'),
     PlaylistList,
   },
   props: {
