@@ -253,11 +253,6 @@
     }
   }
 }
-.share-container {
-  @media (max-width: 960px) {
-    flex-grow: 1;
-  }
-}
 </style>
 <script lang="ts">
 // @ is an alias to /src

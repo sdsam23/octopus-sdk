@@ -73,11 +73,7 @@
   </div>
 </template>
 
-<style lang="scss">
-.default-multiselect-width {
-  width: 100%;
-}
-</style>
+<style lang="scss"></style>
 <script lang="ts">
 import Multiselect from 'vue-multiselect';
 const octopusApi = require('@saooti/octopus-api');

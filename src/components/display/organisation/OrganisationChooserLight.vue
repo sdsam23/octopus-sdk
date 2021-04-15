@@ -21,16 +21,7 @@
   </div>
 </template>
 
-<style lang="scss">
-.default-multiselect-width .basic-select {
-  width: auto;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  text-indent: 1px;
-  text-overflow: '';
-  font-size: 1rem;
-}
-</style>
+<style lang="scss"></style>
 
 <script lang="ts">
 const octopusApi = require('@saooti/octopus-api');

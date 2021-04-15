@@ -12,11 +12,6 @@
 .bg-error-message {
   background-color: #ffd84a9c;
 }
-.icon-caution {
-  margin-right: 5px;
-  margin-bottom: 2px;
-  height: 25px;
-}
 </style>
 
 <script lang="ts">

@@ -156,9 +156,6 @@
     }
   }
 }
-.share-button-title {
-  height: 2rem;
-}
 </style>
 
 <script lang="ts">

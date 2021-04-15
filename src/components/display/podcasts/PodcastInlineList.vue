@@ -69,73 +69,7 @@
   </div>
 </template>
 
-<style lang="scss">
-.list-episode {
-  padding: 2rem 0rem 1rem !important;
-  @media (max-width: 450px) {
-    padding: 0.5rem 0rem 1rem !important;
-  }
-  h2 {
-    margin-bottom: 1rem;
-  }
-}
-
-.podcast-list-inline {
-  align-self: stretch;
-  flex-grow: 1;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  display: grid;
-  grid-auto-flow: column;
-  grid-gap: 1rem;
-  grid-row: 1;
-}
-.out-left-enter-active,
-.out-left-leave-active,
-.out-right-enter-active,
-.out-right-leave-active {
-  transition: all 0.3s ease;
-}
-
-.out-left-leave-to,
-.out-right-enter {
-  transform: translateX(-110%);
-  opacity: 0;
-}
-
-.out-left-enter,
-.out-right-leave-to {
-  transform: translateX(110%);
-  opacity: 0;
-}
-
-.out-left-leave-to,
-.out-right-leave-to {
-  position: absolute;
-}
-.out-right-leave-to {
-  right: 5rem;
-  z-index: -1;
-}
-/** PHONES*/
-@media (max-width: 960px) {
-  .podcast-list-inline {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-    scroll-behavior: smooth;
-    padding-bottom: 1rem;
-    width: 100%;
-    .item-phone-margin {
-      margin: 0 0.5rem !important;
-    }
-  }
-}
-</style>
+<style lang="scss"></style>
 
 <script lang="ts">
 const octopusApi = require('@saooti/octopus-api');

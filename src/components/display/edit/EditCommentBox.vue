@@ -33,20 +33,7 @@
   </div>
 </template>
 
-<style lang="scss">
-@import '../../../sass/_variables.scss';
-.comment-item-container {
-  .btn-circle {
-    width: 32px;
-    height: 32px;
-    background: $octopus-secondary-color;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
-</style>
+<style lang="scss"></style>
 
 <script lang="ts">
 import { CommentPodcast } from '@/store/class/comment';

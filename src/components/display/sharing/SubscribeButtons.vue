@@ -108,27 +108,7 @@
   </div>
 </template>
 
-<style lang="scss">
-.saooti-tunin {
-  color: #36b4a7;
-}
-.saooti-radioline {
-  color: #2273b9;
-}
-.saooti-tootak {
-  color: #ff4d53;
-}
-.flex-no-grow {
-  flex-grow: 0 !important;
-}
-.share-btn{
-  .saooti-stitcher-logo {
-    font-size: 1.7rem !important;
-    top: -0.5rem;
-    left: 0.8rem;
-  }
-}
-</style>
+<style lang="scss"></style>
 
 <script lang="ts">
 import { Emission } from '@/store/class/emission';

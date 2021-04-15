@@ -160,17 +160,6 @@
 
 <style lang="scss">
 @import '../../../sass/_variables.scss';
-.custom-radio .custom-control-label {
-  cursor: pointer;
-}
-.input-share-player {
-  border: 1px solid #ddd;
-  border-radius: 50px;
-  &#number-input {
-    margin: 0 1rem;
-    width: 60px;
-  }
-}
 .sticker {
   align-self: center;
   background: rgba($octopus-primary-color, 0.3);
@@ -188,15 +177,6 @@
 }
 .maxIframe {
   max-width: 300px;
-}
-.vue-swatches__container {
-  padding: 0 !important;
-  background-color: transparent !important;
-}
-.vue-swatches__swatch--selected {
-  border: 2px #40a372 solid !important;
-  box-shadow: unset !important;
-  -webkit-box-shadow: unset !important;
 }
 </style>
 

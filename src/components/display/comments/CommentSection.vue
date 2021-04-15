@@ -34,7 +34,6 @@
 </template>
 
 <style lang="scss">
-@import '../../../sass/_variables.scss';
 .btn-reload {
   width: 40px;
   height: 40px;

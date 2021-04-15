@@ -52,39 +52,7 @@
   </div>
 </template>
 
-<style lang="scss">
-.loading-title {
-  margin: 0.4rem 0 0;
-}
-.emission-list {
-  align-self: stretch;
-  flex-grow: 1;
-  margin: 0;
-  padding: 0;
-  /*For ie11 */
-  display: flex;
-  flex-wrap: wrap;
-  /* end */
-
-  display: grid; /* 1 */
-  grid-gap: 1rem; /* 3 */
-  justify-content: space-between; /* 4 */
-}
-.twoEmissions {
-  grid-template-columns: repeat(auto-fill, 49%); /* 2 */
-}
-
-.threeEmissions {
-  grid-template-columns: repeat(auto-fill, 32%); /* 2 */
-}
-
-/** PHONES*/
-@media (max-width: 1200px) {
-  .emission-list {
-    grid-template-columns: auto;
-  }
-}
-</style>
+<style lang="scss"></style>
 
 <script lang="ts">
 const octopusApi = require('@saooti/octopus-api');

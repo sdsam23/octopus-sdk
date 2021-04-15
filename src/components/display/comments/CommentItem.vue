@@ -145,21 +145,7 @@
   </div>
 </template>
 
-<style lang="scss">
-.comment-item-container {
-  .icon-certified {
-    height: 15px;
-    margin-right: 0.5rem;
-  }
-  .btn-answer {
-    padding: 0.1rem 0.75rem;
-  }
-  .collapsed > .when-opened,
-  :not(.collapsed) > .when-closed {
-    display: none !important;
-  }
-}
-</style>
+<style lang="scss"></style>
 
 <script lang="ts">
 import { state } from '../../../store/paramStore';

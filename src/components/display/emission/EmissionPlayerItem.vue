@@ -101,14 +101,7 @@
 </template>
 
 <style lang="scss">
-.no-border-round {
-  border-radius: 0;
-}
-.text-ellipsis {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+
 .emission-player-container {
   list-style: none;
   background: #fff;
@@ -146,17 +139,6 @@
       flex-wrap: nowrap;
     }
   }
-}
-.two-line-clamp {
-  display: block;
-  max-width: 100%;
-  height: 29px;
-  font-size: 14px;
-  line-height: 1;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 .emission-item-border-color {
   border-color: #ddd;

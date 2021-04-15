@@ -148,10 +148,6 @@
     font-size: 0.3rem;
     padding: 2rem 0 1.5rem 1rem;
   }
-  .default-multiselect-width .basic-select {
-    background: #eee !important;
-    width: 98%;
-  }
 }
 </style>
 <script lang="ts">

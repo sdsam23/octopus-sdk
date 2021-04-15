@@ -181,14 +181,7 @@
   </div>
 </template>
 <style lang="scss">
-/* input {
-    border: 0.1rem solid #dee2e6;
-    border-radius: 0.3rem;
-    padding: 0.5rem;
-} */
-.saooti-arrow_down-margin {
-  margin: 3px 0 0;
-}
+
 .padding-left-custom-radio {
   padding-left: 1.5rem;
   @media (max-width: 720px) {
@@ -199,9 +192,7 @@
 .large-font-size {
   font-size: 1.3rem;
 }
-.arrow-transform {
-  transform: rotate(180deg);
-}
+
 .advanced-search-container {
   background: #fff;
   border-radius: 0.8rem;

@@ -1,6 +1,24 @@
 /* Added styles */
 @import '../sass/_variables.scss';
 
+.saooti-arrow_down-margin {
+    margin: 3px 0 0;
+}
+.default-multiselect-width {
+    width: 100%;
+}
+.default-multiselect-width .basic-select {
+    width: auto;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+    font-size: 1rem;
+    @media (max-width: 450px) {
+        background: #eee !important;
+        width: 98%;
+    }
+}
 .multiselect-hide-arrow {
 	.multiselect__tags {
 		background: none;

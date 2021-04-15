@@ -34,31 +34,7 @@
   </div>
 </template>
 
-<style lang="scss">
-.podcast-list {
-  align-self: stretch;
-  flex-grow: 1;
-  margin: 1em 0 0;
-  padding: 0;
-  /*For ie11 */
-  display: flex;
-  flex-wrap: wrap;
-  /* end */
-  display: grid; /* 1 */
-  grid-template-columns: repeat(auto-fill, 13rem); /* 2 */
-  grid-gap: 1rem; /* 3 */
-  justify-content: space-between; /* 4 */
-}
-/** PHONES*/
-@media (max-width: 960px) {
-  .podcast-list {
-    align-self: auto;
-    justify-items: center;
-    display: flex;
-    justify-content: space-around;
-  }
-}
-</style>
+<style lang="scss"></style>
 
 <script lang="ts">
 const octopusApi = require('@saooti/octopus-api');
