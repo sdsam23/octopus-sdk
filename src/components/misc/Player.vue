@@ -287,8 +287,8 @@ import { mapState } from 'vuex';
 import { state } from '../../store/paramStore';
 import DurationHelper from '../../helper/duration';
 const octopusApi = require('@saooti/octopus-api');
-// @ts-ignore
-import Hls from 'hls.js/dist/hls.light.min.js';
+let Hls: any= null;
+
 const moment = require('moment');
 //const axios = require("axios");
 import { CommentPodcast } from '@/store/class/comment';
@@ -595,7 +595,12 @@ export default Vue.extend({
       this.listenTime = 0;
     },
     async initHls(hlsStreamUrl: string): Promise<void> {
-      return new Promise<void>((resolve, reject) => {
+      return new Promise<void>(async(resolve, reject) => {
+        if(null === Hls){
+          await import('hls.js').then((hlsLibrary) => {
+            Hls = hlsLibrary;
+          })
+        }
         if (!Hls.isSupported()) {
           reject('Hls is not supported ! ');
         }
