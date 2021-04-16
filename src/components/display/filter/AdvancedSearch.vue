@@ -258,8 +258,6 @@
 </style>
 <script lang="ts">
 // @ is an alias to /src
-// @ts-ignore
-import DatePicker from 'v-calendar/lib/components/date-picker.umd.min.js';
 import { state } from '../../../store/paramStore';
 const octopusApi = require('@saooti/octopus-api');
 const moment = require('moment');
@@ -271,7 +269,8 @@ export default Vue.extend({
   components: {
     MonetizableFilter: () => import('./MonetizableFilter.vue'),
     RubriqueChooser: () => import('../rubriques/RubriqueChooser.vue'),
-    DatePicker
+    // @ts-ignore
+    DatePicker: () => import('v-calendar/lib/components/date-picker.umd.min.js'),
   },
   props: {
     organisationId: { default: undefined as string|undefined},

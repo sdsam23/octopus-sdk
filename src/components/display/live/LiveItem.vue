@@ -114,14 +114,6 @@
 .font-size-smaller {
   font-size: smaller;
 }
-.live-image-status {
-  text-align: center;
-  width: 100%;
-  font-size: 0.6rem;
-  padding: 0.2rem 0;
-  color: white;
-  text-transform: uppercase;
-}
 .live-description-container {
   overflow: hidden;
   margin-top: 0.5em;

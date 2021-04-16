@@ -597,8 +597,9 @@ export default Vue.extend({
     async initHls(hlsStreamUrl: string): Promise<void> {
       return new Promise<void>(async(resolve, reject) => {
         if(null === Hls){
-          await import('hls.js').then((hlsLibrary) => {
-            Hls = hlsLibrary;
+          //@ts-ignore
+          await import('hls.js/dist/hls.light.min.js').then((hlsLibrary) => {
+            Hls = hlsLibrary.default;
           })
         }
         if (!Hls.isSupported()) {
