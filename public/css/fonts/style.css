@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'saooti-ui';
-  src:url('/css/fonts/saooti-ui.eot?9lgnyg');
-  src:url('/css/fonts/saooti-ui.eot?9lgnyg#iefix') format('embedded-opentype'),
-      url('/css/fonts/saooti-ui.ttf?9lgnyg') format('truetype'),
-      url('/css/fonts/saooti-ui.woff?9lgnyg') format('woff'),
-      url('/css/fonts/saooti-ui.svg?9lgnyg#saooti-ui') format('svg');
+  src:url('/css/fonts/saooti-ui.eot?6wolc6');
+  src:url('/css/fonts/saooti-ui.eot?6wolc6#iefix') format('embedded-opentype'),
+    url('/css/fonts/saooti-ui.ttf?6wolc6') format('truetype'),
+    url('/css/fonts/saooti-ui.woff?6wolc6') format('woff'),
+    url('/css/fonts/saooti-ui.svg?6wolc6#saooti-ui') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -35,6 +35,20 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.saooti-amazon .path1:before {
+  content: "\ead8";
+  color: rgb(255, 153, 0);
+}
+.saooti-amazon .path2:before {
+  content: "\ead9";
+  margin-left: -1em;
+  color: rgb(255, 153, 0);
+}
+.saooti-amazon .path3:before {
+  content: "\eada";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
 .saooti-podcast-republic:before {
   content: "\ea91";
   color: rgb(92, 133, 221);
