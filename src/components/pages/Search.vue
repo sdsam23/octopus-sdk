@@ -108,6 +108,9 @@ export default Vue.extend({
       deep: true,
       immediate: true,
     },
+    queryRoute(): void{
+      this.rawQuery = this.queryRoute;
+    }
   },
 });
 </script>
