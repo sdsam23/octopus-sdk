@@ -65,6 +65,9 @@
           <router-link class="linkHover" to="/main/pub/libraries">{{
             $t('Used libraries')
           }}</router-link>
+          <a class="linkHover c-hand" @click="changeLanguage">{{
+            $t('Change locale')
+          }}</a>
         </div>
       </div>
       <hr class="divided-line show-phone" />
@@ -163,6 +166,13 @@ export default Vue.extend({
         document.getElementById('footer')!.className += ' border-round';
       }
     },
+    changeLanguage(): void{
+      if('fr'===this.$i18n.locale){
+        this.$i18n.locale= "en";
+      }else{
+        this.$i18n.locale= "fr";
+      }
+    }
   },
 });
 </script>

@@ -282,5 +282,6 @@ export default {
     'Display my podcasts to validate': 'Display my podcasts to validate',
     'Podcast not validated': "Podcast not validated",
     'Podcast to validate': 'Podcast to validate',
+    'Change locale': 'En français',
   };
   

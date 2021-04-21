@@ -282,4 +282,5 @@ export default {
   'Display my podcasts to validate': 'Afficher mes épisodes à valider',
   'Podcast not validated': "L'épisode n'est pas validé",
   'Podcast to validate': 'Épisode à valider',
+  'Change locale': 'In english',
 };

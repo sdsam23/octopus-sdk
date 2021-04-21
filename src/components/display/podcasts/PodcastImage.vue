@@ -20,7 +20,7 @@
       {{ statusText }}
     </div>
     <div class="live-image-status recording-bg" v-if="isRecordedInLive">
-      {{ 'Enregistré en live' }}
+      {{ $t('Recorded in live') }}
     </div>
     <div
       class="podcast-image-play-button"

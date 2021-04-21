@@ -33,15 +33,21 @@ Vue.config.productionTip = false;
 
 //Gestion de l'i18n
 Vue.use(VueI18n);
+//@ts-ignore
+const navigatorLang = navigator.language || navigator.userLanguage;
+let language = 'fr';
+if(navigatorLang.includes('en')){
+  language = 'en'
+}
 let messages: any = I18nResources;
 if (store.state.general.education) {
   messages = {
     fr: { ...I18nResources.fr, ...I18nResources.educationfr },
-    en: I18nResources.en,
+    en: { ...I18nResources.en, ...I18nResources.educationen },
   };
 }
 const i18n = new VueI18n({
-  locale: 'fr',
+  locale: language,
   messages: messages,
 });
 
