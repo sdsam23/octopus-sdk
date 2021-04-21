@@ -231,11 +231,6 @@ const initialize = function initialize(initObject: any) {
       const error = octopusApi.initialize(state.octopusApi);
       if (error) {
         reject();
-      } else if (0 === state.generalParameters.allCategories.length) {
-        octopusApi.fetchCategories({ lang: 'fr' }).then((data: Array<Category>) => {
-          state.generalParameters.allCategories = data;
-          resolve();
-        });
       } else {
         resolve();
       }

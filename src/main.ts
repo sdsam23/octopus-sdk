@@ -37,7 +37,7 @@ Vue.use(VueI18n);
 const navigatorLang = navigator.language || navigator.userLanguage;
 let language = 'fr';
 if(navigatorLang.includes('en')){
-  language = 'en'
+  language = 'en';
 }
 let messages: any = I18nResources;
 if (store.state.general.education) {

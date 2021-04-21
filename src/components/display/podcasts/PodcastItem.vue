@@ -195,14 +195,17 @@ export default Vue.extend({
       return state.podcastsPage.podcastBorderBottom;
     },
     date(): string {
-      return moment(this.podcast.pubDate).format('D/MM/YYYY [à] HH[h]mm');
+      if('fr' === this.$i18n.locale){
+        return moment(this.podcast!.pubDate).format('D MMMM YYYY [à] HH[h]mm');
+      }
+      return moment(this.podcast!.pubDate).format('D MMMM YYYY [at] HH[h]mm');
     },
     displayDate(): string {
       return moment(this.podcast.pubDate).format('X');
     },
     category(): string {
       const catIds = this.podcast.emission.iabIds;
-      return state.generalParameters.allCategories
+      return this.$store.state.categories
         .filter((c: Category) => {
           return catIds!.includes(c.id);
         })
@@ -237,7 +240,7 @@ export default Vue.extend({
       if (this.podcast.duration <= 1) return '';
       if (this.podcast.duration > 600000) {
         return humanizeDuration(this.podcast.duration, {
-          language: 'shortFr',
+          language: 'short'+this.$i18n.locale.charAt(0).toUpperCase() + this.$i18n.locale.slice(1),
           largest: 1,
           round: true,
           languages: {
@@ -251,15 +254,25 @@ export default Vue.extend({
               s: () => 'sec',
               ms: () => 'ms',
             },
+            shortEn: {
+              y: () => 'years',
+              mo: () => 'months',
+              w: () => 'weeks',
+              d: () => 'days',
+              h: () => 'h',
+              m: () => 'min',
+              s: () => 'sec',
+              ms: () => 'ms',
+            },
           },
         });
       }
       return humanizeDuration(this.podcast.duration, {
-        language: 'shortFr',
+        language: 'short',
         largest: 2,
         round: true,
         languages: {
-          shortFr: {
+          short: {
             m: () => 'min',
             s: () => 'sec',
             ms: () => 'ms',

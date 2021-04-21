@@ -19,6 +19,7 @@ const octopusApi = require('@saooti/octopus-api');
 import { state } from './store/paramStore';
 
 import Vue from 'vue';
+import { Category } from './store/class/category';
 export default Vue.extend({
   name: 'app',
   components: {
@@ -33,6 +34,13 @@ export default Vue.extend({
     };
   },
   async created() {
+    if (0 === state.generalParameters.allCategories.length) {
+      octopusApi.fetchCategories({ lang: this.$i18n.locale }).then((data: Array<Category>) => {
+        this.$store.commit('categoriesSet', data);
+      });
+    }else{
+      this.$store.commit('categoriesSet', state.generalParameters.allCategories);
+    }
     const captcha = (document.getElementsByClassName('grecaptcha-badge')[0] as HTMLElement);
     if (captcha) {
       captcha.style.display = 'none';

@@ -211,7 +211,7 @@ export default Vue.extend({
       return state.generalParameters.isLiveTab;
     },
     categories(): Array<Category> {
-      return state.generalParameters.allCategories.filter((c: Category) => {
+      return this.$store.state.categories.filter((c: Category) => {
         if (this.isPodcastmaker) return c.podcastOrganisationCount;
         return c.podcastCount;
       });

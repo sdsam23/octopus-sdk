@@ -106,13 +106,16 @@ export default Vue.extend({
     isPodcastmaker(): boolean {
       return state.generalParameters.podcastmaker;
     },
+    categoriesWatch(): Array<Category>{
+      return this.$store.state.categories;
+    },
     categories(): Array<Category> {
       if (this.filterOrga) {
         return this.$store.state.categoriesOrga.filter((c: Category) => {
           return c.podcastOrganisationCount;
         });
       }
-      return state.generalParameters.allCategories.filter((c: Category) => {
+      return this.$store.state.categories.filter((c: Category) => {
         if (this.isPodcastmaker) return c.podcastOrganisationCount;
         return c.podcastCount;
       });
@@ -145,7 +148,7 @@ export default Vue.extend({
     },
     async fetchCategories(organisationId: string): Promise<void> {
       const data = await octopusApi.fetchCategoriesOrga(organisationId, {
-        lang: 'fr',
+        lang: this.$i18n.locale,
       });
       this.$store.commit('categoriesOrgaSet', data);
     },
@@ -164,6 +167,11 @@ export default Vue.extend({
         this.fetchCategories(this.filterOrga);
       }
     },
+    categoriesWatch(): void{
+      if (this.filterOrga) {
+        this.fetchCategories(this.filterOrga);
+      }
+    }
   },
 });
 </script>

@@ -15,7 +15,6 @@
 <script lang="ts">
 // @ is an alias to /src
 import PodcastList from '../display/podcasts/PodcastList.vue';
-import { state } from '../../store/paramStore';
 
 import Vue from 'vue';
 export default Vue.extend({
@@ -40,7 +39,7 @@ export default Vue.extend({
 
   computed: {
     categories(): any {
-      return state.generalParameters.allCategories;
+      return this.$store.state.categories;
     },
     filterOrga(): string {
       return this.$store.state.filter.organisationId;

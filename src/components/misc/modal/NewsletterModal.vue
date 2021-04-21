@@ -245,21 +245,25 @@ export default displayMethods.extend({
       return html.join('');
     },
     date(): string {
-      if (1970 !== moment(this.podcast.pubDate).year())
-        return moment(this.podcast.pubDate).format('D MMMM YYYY [à] HH[h]mm');
+      if (1970 !== moment(this.podcast!.pubDate).year()){
+        if('fr' === this.$i18n.locale){
+          return moment(this.podcast!.pubDate).format('D MMMM YYYY [à] HH[h]mm');
+        }
+        return moment(this.podcast!.pubDate).format('D MMMM YYYY [at] HH[h]mm');
+      }
       return '';
     },
     duration(): string {
       if (this.podcast.duration <= 1) return '';
       if (this.podcast.duration > 600000) {
         return humanizeDuration(this.podcast.duration, {
-          language: 'fr',
+          language: this.$i18n.locale,
           largest: 1,
           round: true,
         });
       }
       return humanizeDuration(this.podcast.duration, {
-        language: 'fr',
+        language: this.$i18n.locale,
         largest: 2,
         round: true,
       });

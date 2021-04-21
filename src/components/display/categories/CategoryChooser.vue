@@ -54,7 +54,6 @@
 <style lang="scss"></style>
 <script lang="ts">
 import Multiselect from 'vue-multiselect';
-import { state } from '../../../store/paramStore';
 
 const getDefaultCategory = (defaultName: string) => {
   if ('' === defaultName){
@@ -93,7 +92,7 @@ export default Vue.extend({
 
   computed: {
     allCategories(): Array<Category> {
-      return state.generalParameters.allCategories.sort((a: Category, b: Category) =>
+      return [...this.$store.state.categories].sort((a: Category, b: Category) =>
         a.name > b.name ? 1 : -1
       );
     },
@@ -183,14 +182,14 @@ export default Vue.extend({
       }
     },
     initCategorySelected(val: number): void {
-      this.category = state.generalParameters.allCategories.find((el: Category) => {
+      this.category = this.$store.state.categories.find((el: Category) => {
         return el.id === val;
       });
     },
     initCategoryArray(val: Array<number>): void {
       this.categoryForArray!.length = 0;
       val.forEach((element: number) => {
-        const item = state.generalParameters.allCategories.find((el: Category) => {
+        const item = this.$store.state.categories.find((el: Category) => {
           return el.id === element;
         });
         this.categoryForArray!.push(item);

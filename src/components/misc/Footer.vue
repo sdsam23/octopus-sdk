@@ -138,8 +138,10 @@
 <script lang="ts">
 import Player from './Player.vue';
 import { state } from '../../store/paramStore';
-
+const octopusApi = require('@saooti/octopus-api');
 import Vue from 'vue';
+const moment = require('moment');
+import { Category } from '@/store/class/category';
 export default Vue.extend({
   name: 'Footer',
   components: {
@@ -172,6 +174,10 @@ export default Vue.extend({
       }else{
         this.$i18n.locale= "fr";
       }
+      moment.locale(this.$i18n.locale);
+      octopusApi.fetchCategories({ lang: this.$i18n.locale }).then((data: Array<Category>) => {
+        this.$store.commit('categoriesSet', data);
+      });
     }
   },
 });

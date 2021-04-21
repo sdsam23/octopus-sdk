@@ -27,7 +27,7 @@ export default Vue.extend({
       return state.generalParameters.podcastmaker;
     },
     categories(): any {
-      return state.generalParameters.allCategories.filter((c: any) => {
+      return this.$store.state.categories.filter((c: any) => {
         if (this.isPodcastmaker) return c.podcastOrganisationCount;
         return c.podcastCount;
       });

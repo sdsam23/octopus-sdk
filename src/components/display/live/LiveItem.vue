@@ -210,13 +210,13 @@ export default displayMethods.extend({
       if (this.live!.duration <= 1) return '';
       if (this.live!.duration > 600000) {
         return humanizeDuration(this.live!.duration, {
-          language: 'fr',
+          language: this.$i18n.locale,
           largest: 1,
           round: true,
         });
       }
       return humanizeDuration(this.live!.duration, {
-        language: 'fr',
+        language: this.$i18n.locale,
         largest: 2,
         round: true,
       });
