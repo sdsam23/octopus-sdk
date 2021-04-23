@@ -1,5 +1,3 @@
-import { Category } from "./class/category";
-
 const octopusApi = require('@saooti/octopus-api');
 
 const state = {
