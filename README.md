@@ -397,6 +397,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.24.38 Podcastmaker Space
  * 0.24.39 Correction displayTime
  * 0.24.40 Podcastmaker Space
+ * 0.24.41 Style multiselect spinner
 
  * 0.25.0 Optimize by lazy loading
  * 0.25.4-0.25.6 Traduction
