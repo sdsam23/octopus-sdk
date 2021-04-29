@@ -27,6 +27,12 @@
         <span class="saooti-apple" />Apple Podcast / iTunes
       </router-link>
       <router-link
+        v-bind:to="'/main/priv/distribution/amazon/' + emissionId"
+        class="text-dark"
+      >
+        <span class="saooti-amazon" /> Amazon Music | Podcasters
+      </router-link>
+      <router-link
         v-bind:to="'/main/priv/distribution/tuneIn/' + emissionId"
         class="text-dark"
       >
