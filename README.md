@@ -401,6 +401,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
  * 0.25.0 Optimize by lazy loading
  * 0.25.4-0.25.7 Traduction
+ * 0.25.8 Podcastmaker Space
 
 
 
