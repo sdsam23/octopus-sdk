@@ -68,7 +68,10 @@ export default Vue.extend({
   },
 
   mounted() {
-    (document.getElementsByClassName('grecaptcha-badge')[0] as HTMLElement).style.display ='block';
+    let captcha: any = document.getElementsByClassName('grecaptcha-badge')[0];
+    if (captcha) {
+      captcha.style.display = 'block';
+    }
     if (this.authenticated) {
       this.name = (
         (this.$store.state.profile.firstname || '') +
@@ -81,7 +84,10 @@ export default Vue.extend({
   },
 
   destroyed() {
-    (document.getElementsByClassName('grecaptcha-badge')[0] as HTMLElement).style.display ='none';
+    let captcha: any = document.getElementsByClassName('grecaptcha-badge')[0];
+    if (captcha) {
+      captcha.style.display = 'none';
+    }
   },
 
   computed: {

@@ -403,6 +403,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.25.4-0.25.7 Traduction
  * 0.25.8 Podcastmaker Space
  * 0.25.9 Amazon distribution
+ * 0.25.10 Api commentaires
 
 
 
