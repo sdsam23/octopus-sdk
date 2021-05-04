@@ -33,7 +33,7 @@ export const cookies = Vue.extend(
 export const displayMethods =Vue.extend({
   methods: {
     urlify(text: string) {
-      const urlRegex = /(https?:\/\/[^\s]+)/g;
+      const urlRegex = /(https?:\/\/[^\s<]+)/g;
       if (!text) return '';
       return text.replace(urlRegex, (url: string) => {
         return '<a href="' + url + '" target="_blank">' + url + '</a>';

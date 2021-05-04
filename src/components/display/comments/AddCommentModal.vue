@@ -68,7 +68,7 @@ export default Vue.extend({
   },
 
   mounted() {
-    let captcha: any = document.getElementsByClassName('grecaptcha-badge')[0];
+    const captcha: any = document.getElementsByClassName('grecaptcha-badge')[0];
     if (captcha) {
       captcha.style.display = 'block';
     }
@@ -84,7 +84,7 @@ export default Vue.extend({
   },
 
   destroyed() {
-    let captcha: any = document.getElementsByClassName('grecaptcha-badge')[0];
+    const captcha: any = document.getElementsByClassName('grecaptcha-badge')[0];
     if (captcha) {
       captcha.style.display = 'none';
     }
