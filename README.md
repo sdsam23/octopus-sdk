@@ -406,6 +406,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.25.10 Api commentaires
  * 0.25.11 Regex link
  * 0.25.12 Lighthouse accessibility
+ * 0.25.13 Organisation chooser load image just if needed
 
 
 
