@@ -40,12 +40,14 @@
           <b-dropdown-divider v-if="!isEducation"></b-dropdown-divider>
           <b-dropdown-item
             href="https://help.octopus.saooti.com/Aide/"
+            rel="noopener"
             target="_blank"
             v-if="!isEducation"
             >{{ $t('Help') }}</b-dropdown-item
           >
           <b-dropdown-item
             href="https://help.octopus.saooti.com/"
+            rel="noopener"
             target="_blank"
             v-if="!isEducation"
             >{{ $t('TutoMag') }}</b-dropdown-item

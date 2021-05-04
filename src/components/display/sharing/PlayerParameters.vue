@@ -1,10 +1,12 @@
 <template>
   <b-card no-body class="player-parameters mt-3" v-if="!playlist">
-    <b-card-header header-tag="header" role="tab">
-      <b-button block v-b-toggle.playerParameters variant="info">{{
-        $t('player parameters')
-      }}</b-button>
-    </b-card-header>
+    <div role="tablist">
+      <b-card-header header-tag="header" role="tab">
+        <b-button block v-b-toggle.playerParameters variant="info">{{
+          $t('player parameters')
+        }}</b-button>
+      </b-card-header>
+    </div>
     <b-collapse id="playerParameters" role="tabpanel">
       <b-card-body>
         <b-card-text>

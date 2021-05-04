@@ -37,6 +37,7 @@
         class="btn btn-bigRound"
         :title="$t('Downloading')"
         :href="audioUrl"
+        rel="noopener"
         target="_blank"
         download
         v-if="audioUrl"
@@ -45,6 +46,7 @@
         <div class="saooti-download-bounty"></div>
       </a>
       <a
+        rel="noopener"
         target="_blank"
         :href="facebookURL"
         :class="[
@@ -57,6 +59,7 @@
         <div class="saooti-facebook-bounty" v-else></div>
       </a>
       <a
+        rel="noopener"
         target="_blank"
         :class="[
           bigRound ? 'btn btn-bigRound' : 'btn btn-twitter share-btn mb-2',
@@ -69,6 +72,7 @@
         <div class="saooti-twitter-bounty" v-else></div>
       </a>
       <a
+        rel="noopener"
         target="_blank"
         :class="[
           bigRound ? 'btn btn-bigRound' : 'btn btn-linkedin share-btn mb-2',
@@ -81,6 +85,7 @@
         <div class="saooti-linkedin1" v-else></div>
       </a>
       <a
+        rel="noopener"
         target="_blank"
         :class="[
           bigRound ? 'btn btn-bigRound' : 'btn btn-rss share-btn mb-2',
@@ -96,6 +101,7 @@
         <div class="saooti-rss-bounty" v-else></div>
       </a>
       <a
+        rel="noopener"
         target="_blank"
         :class="[
           bigRound ? 'btn btn-bigRound' : 'btn btn-rss share-btn mb-2',
@@ -108,6 +114,7 @@
         <div class="saooti-link" v-else></div>
       </a>
       <a
+        rel="noopener"
         target="_blank"
         v-if="podcast"
         :class="[

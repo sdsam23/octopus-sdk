@@ -23,6 +23,7 @@
             :title="$t('Subscribe to this participant')"
             :aria-label="$t('Subscribe to this participant')"
             :href="rssUrl"
+            rel="noopener"
             target="_blank"
           >
             <div class="saooti-rss-bounty"></div>

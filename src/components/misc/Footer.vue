@@ -74,6 +74,7 @@
       <div class="flex-grow">
         <a
           href="https://www.acpm.fr/L-ACPM/Certifications-et-Labels/Les-Podcasts"
+          rel="noopener"
           target="_blank"
           :aria-label="$t('Octopus is ACPM Podcast accredited')"
         >
@@ -94,6 +95,7 @@
             class="linkHover"
             id="footer-contact"
             :href="isContactLink"
+            rel="noopener"
             target="_blank"
             >{{ $t('Contact') }}</a
           >

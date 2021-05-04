@@ -36,7 +36,7 @@ export const displayMethods =Vue.extend({
       const urlRegex = /(https?:\/\/[^\s<]+)/g;
       if (!text) return '';
       return text.replace(urlRegex, (url: string) => {
-        return '<a href="' + url + '" target="_blank">' + url + '</a>';
+        return '<a href="' + url + '" target="_blank" rel="noopener">' + url + '</a>';
       });
     },
     async onCopyCode(link: string, callback: () => void) {

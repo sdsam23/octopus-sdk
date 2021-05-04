@@ -5,6 +5,7 @@
     </div>
     <div class="d-flex">
       <a
+        rel="noopener"
         target="_blank"
         class="btn mr-3 mb-2 share-btn"
         :href="applePodcast"
@@ -14,6 +15,7 @@
         <span class="saooti-apple"></span>
       </a>
       <a
+        rel="noopener"
         target="_blank"
         class="btn mr-3 mb-2 share-btn"
         :href="deezer"
@@ -23,6 +25,7 @@
         <span class="saooti-deezer"></span>
       </a>
       <a
+        rel="noopener"
         target="_blank"
         class="btn mr-3 mb-2 share-btn"
         :href="spotify"
@@ -32,6 +35,7 @@
         <span class="saooti-spotify"></span>
       </a>
       <a
+        rel="noopener"
         target="_blank"
         class="btn mr-3 mb-2 share-btn"
         :href="tunein"
@@ -41,6 +45,7 @@
         <span class="saooti-tunin"></span>
       </a>
       <a
+        rel="noopener"
         target="_blank"
         class="btn mr-3 mb-2 btn-tootak share-btn"
         :href="tootak"
@@ -50,6 +55,7 @@
         <span class="saooti-tootak"></span>
       </a>
       <a
+        rel="noopener"
         target="_blank"
         class="btn mr-3 mb-2 btn-radioline share-btn"
         :href="radioline"
@@ -59,6 +65,7 @@
         <span class="saooti-radioline"></span>
       </a>
       <a
+        rel="noopener"
         target="_blank"
         class="btn mr-3 mb-2 share-btn"
         :href="podcastAddict"
@@ -68,6 +75,7 @@
         <span class="saooti-podcast-addict"></span>
       </a>
       <a
+        rel="noopener"
         target="_blank"
         class="btn mr-3 mb-2 share-btn"
         :href="playerFm"
@@ -77,6 +85,7 @@
         <span class="saooti-playerfm"></span>
       </a>
       <a
+        rel="noopener"
         target="_blank"
         class="btn mr-3 mb-2 share-btn"
         :href="stitcher"

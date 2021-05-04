@@ -283,4 +283,5 @@ export default {
   'Podcast not validated': "Podcast not validated",
   'Podcast to validate': 'Podcast to validate',
   'Change locale': 'En français',
+  'Refresh': 'Refresh',
 };

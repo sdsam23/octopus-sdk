@@ -283,4 +283,5 @@ export default {
   'Podcast not validated': "L'épisode n'est pas validé",
   'Podcast to validate': 'Épisode à valider',
   'Change locale': 'In english',
+  'Refresh': 'Rafraichir',
 };

@@ -11,6 +11,7 @@
         }}</template>
       </h2>
       <button
+        :aria-label="$t('Refresh')"
         class="saooti-refresh-stud btn btn-reload primary-color"
         @click="reloadComments"
         v-if="!isLive"
