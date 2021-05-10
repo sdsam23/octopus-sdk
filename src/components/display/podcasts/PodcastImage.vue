@@ -359,6 +359,14 @@ export default Vue.extend({
       if (this.isLiveToBeRecorded) {
         return;
       }
+      if(this.playingPodcast){
+        if("PLAYING"===this.$store.state.player.status){
+          this.$store.commit('playerPause', true);
+        }else{
+          this.$store.commit('playerPause', false);
+        }
+        return;
+      }
       if (!this.recordingLive) {
         this.$store.commit('playerPlayPodcast', this.podcast);
         return;
