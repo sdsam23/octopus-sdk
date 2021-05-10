@@ -18,24 +18,8 @@
     margin-bottom: 2px;
     height: 25px;
 }
-.saooti-tunin {
-    color: #36b4a7;
-}
-.saooti-radioline {
-    color: #2273b9;
-}
-.saooti-tootak {
-    color: #ff4d53;
-}
 .flex-no-grow {
     flex-grow: 0 !important;
-}
-.share-btn{
-    .saooti-stitcher-logo {
-        font-size: 1.7rem !important;
-        top: -0.5rem;
-        left: 0.8rem;
-    }
 }
 .custom-radio .custom-control-label {
     cursor: pointer;
@@ -331,3 +315,25 @@
     color: white;
     text-transform: uppercase;
   }
+
+.saooti-stitcher-logo,
+.saooti-google-podcasts,
+.saooti-amazon {
+  position: relative;
+  div {
+    position: absolute;
+    right: 0;
+  }
+}
+.saooti-stitcher-logo,.saooti-amazon {
+  font-size: 1.7rem !important;
+  div {
+    top: -7px;
+  }
+}
+.share-btn{
+  .saooti-stitcher-logo, .saooti-amazon {
+      top: -0.5rem;
+      left: 0.8rem;
+  }
+}

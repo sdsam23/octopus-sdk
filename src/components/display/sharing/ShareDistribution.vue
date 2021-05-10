@@ -15,34 +15,44 @@
     <RssSection :emission="emission" v-if="emission" />
     <div class="sharing-distribution-container">
       <router-link
-        v-bind:to="'/main/priv/distribution/deezer/' + emissionId"
+        v-bind:to="'/main/priv/distribution/amazon/' + emissionId"
         class="text-dark"
       >
-        <span class="saooti-deezer" />Deezer
+        <span class="saooti-amazon">
+          <div class="path1"></div>
+          <div class="path2"></div>
+          <div class="path3"></div>
+        </span> Amazon Music | Podcasters
       </router-link>
-      <router-link
+       <router-link
         v-bind:to="'/main/priv/distribution/apple/' + emissionId"
         class="text-dark"
       >
         <span class="saooti-apple" />Apple Podcast / iTunes
       </router-link>
       <router-link
-        v-bind:to="'/main/priv/distribution/amazon/' + emissionId"
+        v-bind:to="'/main/priv/distribution/deezer/' + emissionId"
         class="text-dark"
       >
-        <span class="saooti-amazon" /> Amazon Music | Podcasters
+        <span class="saooti-deezer" />Deezer
+      </router-link>
+       <router-link
+        v-bind:to="'/main/priv/distribution/PlayerFM/' + emissionId"
+        class="text-dark"
+      >
+        <span class="saooti-playerfm" />PlayerFM
+      </router-link>
+       <router-link
+        v-bind:to="'/main/priv/distribution/PocketCasts/' + emissionId"
+        class="text-dark"
+      >
+        <span class="saooti-pocket-casts"></span>Pocket Casts
       </router-link>
       <router-link
-        v-bind:to="'/main/priv/distribution/tuneIn/' + emissionId"
+        v-bind:to="'/main/priv/distribution/PodcastAddict/' + emissionId"
         class="text-dark"
       >
-        <span class="saooti-tunin" />TuneIn
-      </router-link>
-      <router-link
-        v-bind:to="'/main/priv/distribution/tootak/' + emissionId"
-        class="text-dark"
-      >
-        <span class="saooti-tootak" />Tootak
+        <span class="saooti-podcast-addict" />Podcast Addict
       </router-link>
       <router-link
         v-bind:to="'/main/priv/distribution/radioline/' + emissionId"
@@ -57,18 +67,6 @@
         <span class="saooti-spotify" />Spotify
       </router-link>
 
-      <router-link
-        v-bind:to="'/main/priv/distribution/PocketCasts/' + emissionId"
-        class="text-dark"
-      >
-        <span class="saooti-pocket-casts"></span>Pocket Casts
-      </router-link>
-      <router-link
-        v-bind:to="'/main/priv/distribution/PodcastAddict/' + emissionId"
-        class="text-dark"
-      >
-        <span class="saooti-podcast-addict" />Podcast Addict
-      </router-link>
       <router-link
         v-bind:to="'/main/priv/distribution/Stitcher/' + emissionId"
         class="text-dark"
@@ -94,11 +92,19 @@
           <div class="path18"></div> </span
         >Stitcher
       </router-link>
+      
       <router-link
-        v-bind:to="'/main/priv/distribution/PlayerFM/' + emissionId"
+        v-bind:to="'/main/priv/distribution/tootak/' + emissionId"
         class="text-dark"
       >
-        <span class="saooti-playerfm" />PlayerFM
+        <span class="saooti-tootak" />Tootak
+      </router-link>
+
+      <router-link
+        v-bind:to="'/main/priv/distribution/tuneIn/' + emissionId"
+        class="text-dark"
+      >
+        <span class="saooti-tunin" />TuneIn
       </router-link>
     </div>
     <Snackbar ref="snackbar" position="bottom-left"></Snackbar>
@@ -115,29 +121,17 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  .saooti-stitcher-logo {
-    font-size: 1.7rem;
-    position: relative;
-    width: 25px;
+  .saooti-stitcher-logo, .saooti-amazon {
+    width: 35px;
     height: 20px;
     div {
-      position: absolute;
-      top: -7px;
       right: 0;
     }
-  }
-  .saooti-tunin {
-    color: #36b4a7;
-  }
-  .saooti-radioline {
-    color: #2273b9;
-  }
-  .saooti-tootak {
-    color: #ff4d53;
   }
   a {
     display: flex;
     align-items: center;
+    margin: 5px;
   }
   span {
     font-size: 1.3em;

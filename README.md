@@ -408,6 +408,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.25.12 Lighthouse accessibility
  * 0.25.13 Organisation chooser load image just if needed
  * 0.25.14 Commentaires
+ * 0.25.15 Aggregateurs
 
 
 

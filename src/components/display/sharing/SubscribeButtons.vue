@@ -3,7 +3,21 @@
     <div class="d-flex align-items-center mb-3">
       <h3 class="mb-0 share-button-title">{{ $t('Subscribe emission') }}</h3>
     </div>
-    <div class="d-flex">
+    <div class="d-flex flex-wrap">
+      <a
+        rel="noopener"
+        target="_blank"
+        class="btn mr-3 mb-2 share-btn"
+        :href="amazon"
+        v-if="amazon"
+        aria-label="stitcher"
+      >
+        <span class="saooti-amazon">
+          <div class="path1"></div>
+          <div class="path2"></div>
+          <div class="path3"></div>
+        </span>
+      </a>
       <a
         rel="noopener"
         target="_blank"
@@ -28,31 +42,21 @@
         rel="noopener"
         target="_blank"
         class="btn mr-3 mb-2 share-btn"
-        :href="spotify"
-        v-if="spotify"
-        aria-label="Spotify"
+        :href="playerFm"
+        v-if="playerFm"
+        aria-label="playerFm"
       >
-        <span class="saooti-spotify"></span>
+        <span class="saooti-playerfm"></span>
       </a>
       <a
         rel="noopener"
         target="_blank"
         class="btn mr-3 mb-2 share-btn"
-        :href="tunein"
-        v-if="tunein"
-        aria-label="Tunin"
+        :href="podcastAddict"
+        v-if="podcastAddict"
+        aria-label="podcastAddict"
       >
-        <span class="saooti-tunin"></span>
-      </a>
-      <a
-        rel="noopener"
-        target="_blank"
-        class="btn mr-3 mb-2 btn-tootak share-btn"
-        :href="tootak"
-        v-if="tootak"
-        aria-label="Tootak"
-      >
-        <span class="saooti-tootak"></span>
+        <span class="saooti-podcast-addict"></span>
       </a>
       <a
         rel="noopener"
@@ -68,21 +72,11 @@
         rel="noopener"
         target="_blank"
         class="btn mr-3 mb-2 share-btn"
-        :href="podcastAddict"
-        v-if="podcastAddict"
-        aria-label="podcastAddict"
+        :href="spotify"
+        v-if="spotify"
+        aria-label="Spotify"
       >
-        <span class="saooti-podcast-addict"></span>
-      </a>
-      <a
-        rel="noopener"
-        target="_blank"
-        class="btn mr-3 mb-2 share-btn"
-        :href="playerFm"
-        v-if="playerFm"
-        aria-label="playerFm"
-      >
-        <span class="saooti-playerfm"></span>
+        <span class="saooti-spotify"></span>
       </a>
       <a
         rel="noopener"
@@ -112,6 +106,26 @@
           <div class="path17"></div>
           <div class="path18"></div> </span
         >
+      </a>
+      <a
+        rel="noopener"
+        target="_blank"
+        class="btn mr-3 mb-2 btn-tootak share-btn"
+        :href="tootak"
+        v-if="tootak"
+        aria-label="Tootak"
+      >
+        <span class="saooti-tootak"></span>
+      </a>
+      <a
+        rel="noopener"
+        target="_blank"
+        class="btn mr-3 mb-2 share-btn"
+        :href="tunein"
+        v-if="tunein"
+        aria-label="Tunin"
+      >
+        <span class="saooti-tunin"></span>
       </a>
     </div>
   </div>
@@ -167,6 +181,10 @@ export default Vue.extend({
         this.emission && this.emission.annotations
           ? this.emission.annotations.stitcher
           : undefined as string | undefined,
+      amazon:
+        this.emission && this.emission.annotations
+          ? this.emission.annotations.amazon
+          : undefined as string | undefined,
     };
   },
 
@@ -180,6 +198,7 @@ export default Vue.extend({
     this.podcastAddict = this.externaliseLinks(this.podcastAddict);
     this.playerFm = this.externaliseLinks(this.playerFm);
     this.stitcher = this.externaliseLinks(this.stitcher);
+    this.amazon = this.externaliseLinks(this.amazon);
   },
 
   computed: {},
