@@ -39,6 +39,7 @@
         v-on:input="
           event => this.$emit('updateSearchPattern', event.target.value)
         "
+        :readonly="notInitFocus"
       />
     </div>
   </div>
@@ -134,6 +135,7 @@ export default Vue.extend({
       keepOrganisation: false as boolean,
       showBubble: false as boolean,
       imgUrl: '' as string,
+      notInitFocus: true as boolean
     };
   },
   async created() {
@@ -151,6 +153,7 @@ export default Vue.extend({
   mounted() {
     if (this.$refs.search) {
       (this.$refs.search as HTMLElement).focus();
+      this.notInitFocus = false;
     }
   },
  

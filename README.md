@@ -411,6 +411,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.25.15 Aggregateurs
  * 0.25.16 English trad
  * 0.25.17 Demande IVECO
+ * 0.25.18 Responsive
 
 
 

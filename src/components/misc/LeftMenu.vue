@@ -58,6 +58,7 @@
         >{{ $t('Speakers') }}</router-link
       >
       <router-link
+      @click.native="onMenuClick"
         :to="{
           name: 'playlists',
           query: { productor: $store.state.filter.organisationId },
