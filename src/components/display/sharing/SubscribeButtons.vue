@@ -10,7 +10,7 @@
         class="btn mr-3 mb-2 share-btn"
         :href="amazon"
         v-if="amazon"
-        aria-label="stitcher"
+        aria-label="amazon"
       >
         <span class="saooti-amazon">
           <div class="path1"></div>
