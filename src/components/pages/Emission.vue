@@ -177,6 +177,7 @@ export default displayMethods.extend({
     countLink(): number {
       let count = 0;
       if (this.emission && this.emission.annotations) {
+        if (undefined !== this.emission.annotations.amazon) count++;
         if (undefined !== this.emission.annotations.applePodcast) count++;
         if (undefined !== this.emission.annotations.deezer) count++;
         if (undefined !== this.emission.annotations.spotify) count++;
