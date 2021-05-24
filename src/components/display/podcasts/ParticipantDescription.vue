@@ -2,7 +2,7 @@
    <div class="comma" v-if="participants.length">
       {{ title }}
       <span
-        class="saooti-help ml-1"
+        class="saooti-help m-0"
         :id="idPopover"
         :aria-label="$t('Help')"
       ></span>
@@ -10,7 +10,6 @@
       <b-popover
         :target="idPopover"
         triggers="hover"
-        placement="right"
         custom-class="participant-help"
       >
         <div class="text-center font-weight-bold">{{title}}</div>
