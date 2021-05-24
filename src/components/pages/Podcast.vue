@@ -88,23 +88,7 @@
                   v-html="urlify(this.podcast.description)"
                 ></div>
                 <div class="mt-3 mb-3">
-                  <div class="comma" v-if="podcast.animators">
-                    {{ $t('Animated by : ') }}
-                    <router-link
-                      :aria-label="$t('Participant')"
-                      class="link-info"
-                      v-for="animator in podcast.animators"
-                      v-bind:key="animator.participantId"
-                      :to="{
-                        name: 'participant',
-                        params: { participantId: animator.participantId },
-                        query: {
-                          productor: $store.state.filter.organisationId,
-                        },
-                      }"
-                      >{{ getName(animator) }}</router-link
-                    >
-                  </div>
+                  <ParticipantDescription :participants="podcast.animators"/>
                   <div v-if="!isOuestFrance">
                     {{ $t('Emission') + ' : ' }}
                     <router-link
@@ -133,22 +117,7 @@
                       >{{ this.podcast.organisation.name }}</router-link
                     >
                   </div>
-                  <div class="comma" v-if="podcast.guests">
-                    {{ $t('Guests') + ' : ' }}
-                    <router-link
-                      class="link-info"
-                      v-for="guest in podcast.guests"
-                      v-bind:key="guest.participantId"
-                      :to="{
-                        name: 'participant',
-                        params: { participantId: guest.participantId },
-                        query: {
-                          productor: $store.state.filter.organisationId,
-                        },
-                      }"
-                      >{{ getName(guest) }}</router-link
-                    >
-                  </div>
+                  <ParticipantDescription :participants="podcast.guests" :isGuest="true"/>
                   <div v-if="editRight && !isPodcastmaker">
                     <div
                       class="mr-5"
@@ -258,6 +227,7 @@
 // @ is an alias to /src
 import PodcastInlineList from '../display/podcasts/PodcastInlineList.vue';
 import PodcastImage from '../display/podcasts/PodcastImage.vue';
+import ParticipantDescription from '../display/podcasts/ParticipantDescription.vue';
 const octopusApi = require('@saooti/octopus-api');
 import studioApi from '@/api/studio';
 import { state } from '../../store/paramStore';
@@ -270,6 +240,7 @@ export default displayMethods.extend({
   components: {
     PodcastInlineList,
     PodcastImage,
+    ParticipantDescription,
     ShareButtons: () => import('../display/sharing/ShareButtons.vue'),
     SharePlayer: () => import('../display/sharing/SharePlayer.vue'),
     EditBox: () => import('@/components/display/edit/EditBox.vue'),
@@ -436,7 +407,6 @@ export default displayMethods.extend({
         if (undefined !== this.podcast!.emission.annotations.deezer) count++;
         if (undefined !== this.podcast!.emission.annotations.spotify) count++;
         if (undefined !== this.podcast!.emission.annotations.tunein) count++;
-        if (undefined !== this.podcast!.emission.annotations.tootak) count++;
         if (undefined !== this.podcast!.emission.annotations.radioline) count++;
         if (undefined !== this.podcast!.emission.annotations.podcastAddict) count++;
         if (undefined !== this.podcast!.emission.annotations.playerFm) count++;

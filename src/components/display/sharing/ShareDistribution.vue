@@ -92,13 +92,6 @@
           <div class="path18"></div> </span
         >Stitcher
       </router-link>
-      
-      <router-link
-        v-bind:to="'/main/priv/distribution/tootak/' + emissionId"
-        class="text-dark"
-      >
-        <span class="saooti-tootak" />Tootak
-      </router-link>
 
       <router-link
         v-bind:to="'/main/priv/distribution/tuneIn/' + emissionId"

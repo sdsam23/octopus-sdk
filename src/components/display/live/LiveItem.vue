@@ -66,7 +66,7 @@
         ></div>
       </div>
       <div class="comma" v-if="live.animators">
-        {{ $t('Animated by : ') }}
+        {{ $t('Animated by') }}
         <router-link
           :aria-label="$t('Participant')"
           class="link-info"

@@ -53,6 +53,7 @@
           bigRound ? 'btn btn-bigRound' : 'btn btn-facebook share-btn mb-2',
           verticalDisplay ? '' : 'mr-2 ml-2',
         ]"
+        title="Facebook"
         aria-label="Facebook"
       >
         <span class="saooti-facebook-bounty" v-if="!bigRound"></span>
@@ -66,6 +67,7 @@
           verticalDisplay ? '' : 'mr-2 ml-2',
         ]"
         :href="twitterURL"
+        title="Twitter"
         aria-label="Twitter"
       >
         <span class="saooti-twitter-bounty" v-if="!bigRound"></span>
@@ -79,6 +81,7 @@
           verticalDisplay ? '' : 'mr-2 ml-2',
         ]"
         :href="linkedinURL"
+        title="Linkedin"
         aria-label="Linkedin"
       >
         <span class="saooti-linkedin1" v-if="!bigRound"></span>
@@ -123,9 +126,32 @@
         ]"
         :aria-label="$t('Share newsletter')"
         @click="newsletter = true"
+        :title="$t('Share newsletter')"
       >
         <span class="saooti-mail-bounty" v-if="!bigRound"></span>
         <div class="saooti-mail-bounty" v-else></div>
+      </a>
+      <a
+        rel="noopener"
+        target="_blank"
+        :href="whatsappURL"
+        :class="[
+          bigRound ? 'btn btn-bigRound' : 'btn btn-whatsapp share-btn mb-2',
+          verticalDisplay ? '' : 'mr-2 ml-2',
+        ]"
+        aria-label="Whatsapp"
+        title="Whatsapp"
+      >
+        <span class="saooti-Whatsapp" v-if="!bigRound">
+          <div class="path1"></div>
+          <div class="path2"></div>
+          <div class="path3"></div>
+        </span>
+        <div class="saooti-Whatsapp" v-else>
+          <div class="path1"></div>
+          <div class="path2"></div>
+          <div class="path3"></div>
+        </div>
       </a>
     </div>
     <ClipboardModal
@@ -148,6 +174,10 @@
 
 <style lang="scss">
 .share-button-page {
+  .saooti-Whatsapp{
+    width: 25px;
+    height: 25px;
+  }
   @media (max-width: 960px) {
     .flex-column {
       flex-direction: row !important;
@@ -193,6 +223,7 @@ export default displayMethods.extend({
       facebookURL: `https://www.facebook.com/sharer/sharer.php?u=${window.location.href}` as string,
       twitterURL: `https://twitter.com/intent/tweet?text=${window.location.href}` as string,
       linkedinURL: `https://www.linkedin.com/sharing/share-offsite/?url=${window.location.href}` as string,
+      whatsappURL: `whatsapp://send?text=${window.location.href}` as string,
       dataRSSSave: false as boolean,
       newsletter: false as boolean,
     };

@@ -110,16 +110,6 @@
       <a
         rel="noopener"
         target="_blank"
-        class="btn mr-3 mb-2 btn-tootak share-btn"
-        :href="tootak"
-        v-if="tootak"
-        aria-label="Tootak"
-      >
-        <span class="saooti-tootak"></span>
-      </a>
-      <a
-        rel="noopener"
-        target="_blank"
         class="btn mr-3 mb-2 share-btn"
         :href="tunein"
         v-if="tunein"
@@ -161,10 +151,6 @@ export default Vue.extend({
         this.emission && this.emission.annotations
           ? this.emission.annotations.tunein
           : undefined as string | undefined,
-      tootak:
-        this.emission && this.emission.annotations
-          ? this.emission.annotations.tootak
-          : undefined as string | undefined,
       radioline:
         this.emission && this.emission.annotations
           ? this.emission.annotations.radioline
@@ -193,7 +179,6 @@ export default Vue.extend({
     this.deezer = this.externaliseLinks(this.deezer);
     this.spotify = this.externaliseLinks(this.spotify);
     this.tunein = this.externaliseLinks(this.tunein);
-    this.tootak = this.externaliseLinks(this.tootak);
     this.radioline = this.externaliseLinks(this.radioline);
     this.podcastAddict = this.externaliseLinks(this.podcastAddict);
     this.playerFm = this.externaliseLinks(this.playerFm);

@@ -244,6 +244,13 @@
     background: #00a0dc !important;
   }
 }
+.btn-whatsapp {
+  background: #25d36645 !important;
+  color: #25D366 !important;
+  &:hover {
+    background: #25d36563 !important;
+  }
+}
 
 // Future-proof disabling of clicks on `<a>` elements
 a.btn.disabled,

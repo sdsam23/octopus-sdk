@@ -3,7 +3,7 @@ export default {
   'Edit my organisation': 'Mon organisation',
   Logout: 'Déconnexion',
   Login: 'Connexion',
-  'Animated by : ': 'Animé par : ',
+  'Animated by': 'Animé par',
   Home: 'Accueil',
   Podcasts: 'Épisodes',
   Emissions: 'Émissions',

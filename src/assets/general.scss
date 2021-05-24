@@ -230,10 +230,14 @@ a.linkHover:hover{
 
 
 .comma {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   > a {
     text-transform: capitalize;
     &:after {
       content: ", ";
+      margin-right: 0.2rem;
     }
     &:last-child {
       &:after {
