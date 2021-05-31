@@ -78,6 +78,22 @@
               >
             </div>
           </div>
+          <div
+            class="d-flex flex-column flex-grow"
+            v-else
+          >
+            <div class="checkbox-saooti">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="proceedCheck"
+                v-model="displayArticle"
+              />
+              <label class="custom-control-label" for="proceedCheck">{{
+                $t('Display associated article')
+              }}</label>
+            </div>
+          </div>
           <!-- <div class="d-flex align-items-center flex-wrap" v-if="podcast && iFrameModel !== 'emission'">
               <div class="checkbox-saooti">  
                 <input type="checkbox" class="custom-control-input" id="startTime" v-model="startTime">  
@@ -152,6 +168,7 @@ export default Vue.extend({
       secondes: 0 as number,
       startTime: true as boolean,
       isVisibleTemp: this.isVisible as boolean,
+      displayArticle: true as boolean,
     };
   },
   computed: {
@@ -203,6 +220,9 @@ export default Vue.extend({
     iFrameNumberPriv(): void {
       this.$emit('iFrameNumber', this.iFrameNumberPriv);
     },
+    displayArticle(): void{
+      this.$emit('displayArticle', this.displayArticle);
+    }
   },
 });
 </script>

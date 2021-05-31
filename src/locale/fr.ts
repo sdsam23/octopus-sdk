@@ -284,4 +284,6 @@ export default {
   'Podcast to validate': 'Épisode à valider',
   'Change locale': 'In english',
   'Refresh': 'Rafraichir',
+  'See associated article':"Lire l'article",
+  "Display associated article":"Afficher l'article associé",
 };

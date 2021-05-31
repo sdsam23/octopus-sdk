@@ -284,4 +284,6 @@ export default {
   'Podcast to validate': 'Podcast to validate',
   'Change locale': 'En français',
   'Refresh': 'Refresh',
+  'See associated article':"Read the article",
+  "Display associated article":"Display associated article",
 };

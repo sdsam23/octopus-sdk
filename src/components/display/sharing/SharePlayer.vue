@@ -129,11 +129,12 @@
           </div>
         </div>
         <PlayerParameters
-          v-if="!podcast || isEmission || isLargeEmission || isLargeSuggestion"
+          v-if="isPlayerParameter"
           :podcast="podcast"
           :playlist="playlist"
           :iFrameModel="iFrameModel"
           :isVisible="isVisible"
+          @displayArticle="updateDisplayArticle"
           @episodeNumbers="updateEpisodeNumber"
           @proceedReading="updateProceedReading"
           @isVisible="updateIsVisible"
@@ -218,6 +219,7 @@ export default Vue.extend({
       iFrameNumber: '3' as string,
       startTime: 0 as number,
       isVisible: false as boolean,
+      displayArticle: true as boolean,
     };
   },
   async created() {
@@ -320,6 +322,9 @@ export default Vue.extend({
       if (!this.proceedReading) {
         url.push('&proceed=false');
       }
+      if(!this.displayArticle){
+        url.push('&article=false');
+      }
       url.push('&time=' + this.startTime);
       if (this.isVisible) {
         url.push('&key=' + window.btoa(this.dataTitle.toString()));
@@ -389,6 +394,9 @@ export default Vue.extend({
       if (this.emission) return this.emission.emissionId;
       return this.playlist.playlistId;
     },
+    isPlayerParameter(): boolean{
+      return !this.podcast || (this.podcast.article && 0 !== this.podcast.article.length) || this.isEmission || this.isLargeEmission || this.isLargeSuggestion;
+    }
   },
   methods: {
     async initColor(): Promise<void> {
@@ -431,6 +439,9 @@ export default Vue.extend({
     updateIsVisible(value: boolean): void {
       this.isVisible = value;
     },
+    updateDisplayArticle(value: boolean): void{
+      this.displayArticle = value;
+    }
   },
 });
 </script>

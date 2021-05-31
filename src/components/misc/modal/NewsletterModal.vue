@@ -142,6 +142,25 @@ export default displayMethods.extend({
         );
       return '';
     },
+    articleHtml(): string{
+      if(this.podcast.article && 0 !== this.podcast.article!.length){
+        return (`<a href="` +
+          this.podcast.article +
+          `" aria-label="` +
+          this.$t('See associated article') +
+          `">
+          <img width="44" height="44" style="display: inline-block;vertical-align: middle; margin-right:3px" src="` +
+          window.location.origin +
+          `/img/article.png">
+        </a>
+        <a style="color: #000;text-decoration: none;" href="` +
+          this.podcast.article +
+          `">` +
+          this.$t('See associated article') +
+          `</a>`);
+      }
+      return '';
+    },
     participantsName(): string {
       if (!this.displayParticipantsNames || !this.podcast.animators) return '';
       const text = [''];
@@ -221,7 +240,7 @@ export default displayMethods.extend({
       html.push(
         `
 		<tr>
-      <td colspan="2" style="vertical-align: middle;padding: 15px 10px;display: flex; align-items:center;">
+      <td colspan="2" style="vertical-align: middle;padding: 15px 10px;display: flex; align-items:center; flex-wrap:wrap">
         <a href="` +
           window.location.href +
           `" aria-label="` +
@@ -231,11 +250,11 @@ export default displayMethods.extend({
           window.location.origin +
           `/img/play-podcast.png">
         </a>
-        <a style="color: #000;text-decoration: none;" href="` +
+        <a style="color: #000;text-decoration: none; margin-right:8px" href="` +
           window.location.href +
           `">` +
           this.$t('Listen this episode') +
-          `</a>
+          `</a>` + this.articleHtml + `
       </td>
 		</tr>
 </table>
@@ -244,6 +263,7 @@ export default displayMethods.extend({
       );
       return html.join('');
     },
+    
     date(): string {
       if (1970 !== moment(this.podcast!.pubDate).year()){
         if('fr' === this.$i18n.locale){

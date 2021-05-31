@@ -12,6 +12,7 @@ export interface Podcast{
       date?: string;
       visibility?: boolean;
     };
+    article?: string;
     comments?: string;
     conferenceId?: number;
     createdAt?: string;

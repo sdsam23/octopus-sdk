@@ -114,9 +114,19 @@
                           productor: $store.state.filter.organisationId,
                         },
                       }"
-                      >{{ this.podcast.organisation.name }}</router-link
+                      >{{ podcast.organisation.name }}</router-link
                     >
                   </div>
+                  <a
+                    class="btn d-flex align-items-center my-2 width-fit-content"
+                    :href="podcast.article"
+                    rel="noopener"
+                    target="_blank"
+                    v-if="podcast.article"
+                  >
+                    <span class="saooti-newspaper mr-1"></span>
+                    <div>{{$t('See associated article')}}</div>
+                  </a>
                   <ParticipantDescription :participants="podcast.guests" :isGuest="true"/>
                   <div v-if="editRight && !isPodcastmaker">
                     <div
@@ -209,6 +219,9 @@
 <style lang="scss">
 .title-page-podcast {
   font-size: 0.9rem;
+}
+.width-fit-content{
+  width: fit-content;
 }
 
 .date-text-zone {
