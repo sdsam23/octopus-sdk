@@ -50,7 +50,7 @@ const initialize = function initialize(initObject: any) {
       state.generalParameters.ApiUri =
         'undefined' !== typeof param.ApiUri
           ? param.ApiUri
-          : 'https://api.staging.saooti.org/';
+          : 'https://api.dev2.saooti.org/';
       state.generalParameters.podcastmaker =
         'undefined' !== typeof param.podcastmaker ? param.podcastmaker : false;
       state.generalParameters.buttonPlus =
@@ -77,7 +77,7 @@ const initialize = function initialize(initObject: any) {
       state.podcastPage.MiniplayerUri =
         'undefined' !== typeof param.MiniplayerUri
           ? param.MiniplayerUri
-          : 'https://player.staging.saooti.org/';
+          : 'https://player.dev2.saooti.org/';
       state.podcastPage.ouestFranceStyle =
         'undefined' !== typeof param.ouestFranceStyle
           ? param.ouestFranceStyle
@@ -91,7 +91,7 @@ const initialize = function initialize(initObject: any) {
       state.podcastPage.hlsUri =
         'undefined' !== typeof param.hlsUri
           ? param.hlsUri
-          : 'https://hls.staging.saooti.org/';
+          : 'https://hls.dev2.saooti.org/';
       state.podcastPage.mainRubrique =
         'undefined' !== typeof param.mainRubrique
           ? param.mainRubrique
@@ -209,17 +209,17 @@ const initialize = function initialize(initObject: any) {
       state.octopusApi.url =
         'undefined' !== typeof param.url
           ? param.url
-          : 'http://api.staging.saooti.org/';
+          : 'http://api.dev2.saooti.org/';
       state.octopusApi.oAuthParam =
         'undefined' !== typeof param.oAuthParam ? param.oAuthParam : undefined;
       state.octopusApi.commentsUrl =
         'undefined' !== typeof param.commentsUrl
           ? param.commentsUrl
-          : 'http://comments.staging.saooti.org/';
+          : 'http://comments.dev2.saooti.org/';
       state.octopusApi.studioUrl =
         'undefined' !== typeof param.studioUrl
           ? param.studioUrl
-          : 'http://studio.staging.saooti.org/';
+          : 'http://studio.dev2.saooti.org/';
       if (state.generalParameters.podcastmaker) {
         state.octopusApi.organisationId =
           'undefined' !== typeof param.organisationId

@@ -79,3 +79,12 @@ export const cookiesAndMethods = displayMethods.extend(
       },
     },
   });
+
+export const seleniumAndMethods = displayMethods.extend(
+  {
+    methods: {
+      seleniumFormat(string: string) {
+        return string.toLowerCase().replace(/\s/g, '');
+      },
+    },
+  });

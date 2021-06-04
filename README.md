@@ -419,6 +419,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.26.2 Icone ACPM
  * 0.26.3 whatsapp icon only for mobile
  * 0.26.4 Podcast associated article
+ * 0.26.5 Ajout data selenium
 
 
 

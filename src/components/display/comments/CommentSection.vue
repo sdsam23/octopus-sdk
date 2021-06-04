@@ -4,7 +4,7 @@
     v-if="isComments"
   >
     <div class="d-flex align-items-center">
-      <h2 class="mb-0 mr-2">
+      <h2 class="mb-0 mr-2" data-selenium="episode-comment-counter">
         {{ $t("Podcast's comments") }}
         <template v-if="loaded && totalCount > 0">{{
           $t('()', { nb: totalCount })

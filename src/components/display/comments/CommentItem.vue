@@ -38,10 +38,15 @@
         class="icon-certified"
         src="/img/certified.png"
         v-if="comment.certified"
+        :data-selenium="'certified-icon-' + seleniumFormat(comment.name)"
         :title="$t('Certified account')"
       />
       <div class="mr-2">{{ date }}</div>
-      <span v-if="editRight" :class="'status-' + comment.status"></span>
+      <span 
+        v-if="editRight" 
+        :class="'status-' + comment.status"
+        :data-selenium="'status-comment-' + seleniumFormat(comment.name)"
+      ></span>
     </div>
     <template v-if="!isEditing">
       <div v-html="urlify(contentDisplay)"></div>
@@ -71,6 +76,7 @@
       <button
         @click="answerComment"
         class="btn btn-answer primary-color mr-2"
+        :data-selenium="'answer-button-comment-' + seleniumFormat(comment.name)"
         v-if="null === comment.commentIdReferer && 'Valid' === comment.status"
       >
         {{ $t('To answer') }}
@@ -149,13 +155,13 @@
 
 <script lang="ts">
 import { state } from '../../../store/paramStore';
-import { displayMethods } from '../../mixins/functions';
+import { seleniumAndMethods } from '../../mixins/functions';
 import { CommentPodcast } from '@/store/class/comment';
 import { Podcast } from '@/store/class/podcast';
 import { Conference } from '@/store/class/conference';
 const moment = require('moment');
 
-export default displayMethods.extend({
+export default seleniumAndMethods.extend({
   name: 'CommentItem',
   components: {
     CommentList: () => import('./CommentList.vue'),
