@@ -239,8 +239,8 @@ export default displayMethods.extend({
       }
       html.push(
         `
-		<tr>
-      <td colspan="2" style="vertical-align: middle;padding: 15px 10px;display: flex; align-items:center; flex-wrap:wrap">
+    </table>
+      <div style="font-family: Arial, sans-serif;font-size: 12px;line-height: 20px;background: #f3f3f3;vertical-align: middle;padding: 15px 10px;display: flex; align-items:center; flex-wrap:wrap">
         <a href="` +
           window.location.href +
           `" aria-label="` +
@@ -255,9 +255,7 @@ export default displayMethods.extend({
           `">` +
           this.$t('Listen this episode') +
           `</a>` + this.articleHtml + `
-      </td>
-		</tr>
-</table>
+      </div>
 		` +
           this.participantsName
       );
