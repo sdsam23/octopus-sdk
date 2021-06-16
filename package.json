@@ -14,7 +14,7 @@
   },
   "main": "./dist/octopus.common.js",
   "dependencies": {
-    "@saooti/octopus-api": "^0.25.2",
+    "@saooti/octopus-api": "^0.25.3",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.4.0",
