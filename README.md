@@ -424,6 +424,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
  * 0.26.4 Podcast associated article
  * 0.26.5 Ajout data selenium
  * 0.26.6 Newsletter modale
+ * 0.26.7 Newsletter Icone
 
 
 

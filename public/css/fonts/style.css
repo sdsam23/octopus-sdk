@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'saooti-ui';
-  src:url('/css/fonts/saooti-ui.eot?o6gxll');
-  src:url('/css/fonts/saooti-ui.eot?o6gxll#iefix') format('embedded-opentype'),
-      url('/css/fonts/saooti-ui.ttf?o6gxll') format('truetype'),
-      url('/css/fonts/saooti-ui.woff?o6gxll') format('woff'),
-      url('/css/fonts/saooti-ui.svg?o6gxll#saooti-ui') format('svg');
+  src:  url('/css/fonts/saooti-ui.eot?sdprm6');
+  src:  url('/css/fonts/saooti-ui.eot?sdprm6#iefix') format('embedded-opentype'),
+    url('/css/fonts/saooti-ui.ttf?sdprm6') format('truetype'),
+    url('/css/fonts/saooti-ui.woff?sdprm6') format('woff'),
+    url('/css/fonts/saooti-ui.svg?sdprm6#saooti-ui') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -37,6 +37,15 @@
 
 .saooti-language:before {
   content: "\eadb";
+}
+.saooti-newsletter:before {
+  content: "\eadf";
+}
+.saooti-exit2:before {
+  content: "\eae0";
+}
+.saooti-more:before {
+  content: "\eae1";
 }
 .saooti-Whatsapp .path1:before {
   content: "\eadc";

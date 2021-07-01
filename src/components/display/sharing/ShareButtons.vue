@@ -128,8 +128,8 @@
         @click="newsletter = true"
         :title="$t('Share newsletter')"
       >
-        <span class="saooti-mail-bounty" v-if="!bigRound"></span>
-        <div class="saooti-mail-bounty" v-else></div>
+        <span class="saooti-newsletter" v-if="!bigRound"></span>
+        <div class="saooti-newsletter" v-else></div>
       </a>
       <a
         rel="noopener"
