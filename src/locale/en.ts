@@ -286,4 +286,5 @@ export default {
   'Refresh': 'Refresh',
   'See associated article':"Read the article",
   "Display associated article":"Display associated article",
+  "Copy this page URL":"Copy this page URL",
 };

@@ -111,6 +111,7 @@
           verticalDisplay ? '' : 'mr-2 ml-2',
         ]"
         aria-label="copy"
+        :title="$t('Copy this page URL')"
         @click="onCopyCode(urlPage,afterCopy)"
       >
         <span class="saooti-link" v-if="!bigRound"></span>
